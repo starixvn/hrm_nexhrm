@@ -11,10 +11,5 @@
         public int IsOffDay { get; set; }
 
         public int IsNormalDay { get; set; }
-
-        public static string DisplayValue(float value)
-        {
-            return value.Equals(0) ? "-" : value.ToString("0.0");
-        }
     }
 }

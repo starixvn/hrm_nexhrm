@@ -130,6 +130,7 @@
     <Compile Include="RedmineAPI\WriteLogInputSpendTimeRedmineCriteria.cs" />
     <Compile Include="Report\GetEmployeeAttendanceLateInEarlyOutCriteria.cs" />
     <Compile Include="Report\GetWorkingHoursStatisticCriteria.cs" />
+    <Compile Include="Report\GetYearlyNexRequestCriteria.cs" />
     <Compile Include="Request\GetDateRangeEmployeeCalendarCriteria.cs" />
     <Compile Include="Employee\GetEmployeeToeicScoreCriteria.cs" />
     <Compile Include="Employee\GetDashBoardCompanySpaceCriteria.cs" />
@@ -252,7 +253,6 @@
     <Compile Include="Toeic\UpdateFullTOEICScoreCriteria.cs" />
     <Compile Include="Toeic\UpdateTOEICScoreCriteria.cs" />
     <Compile Include="Workload\GetEmployeeWorkloadCriteria.cs" />
-    <Compile Include="YearlyNexRequest\GetYearlyNexRequestCriteria.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

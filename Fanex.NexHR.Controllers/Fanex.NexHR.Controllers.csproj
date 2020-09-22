@@ -208,7 +208,6 @@
     <Compile Include="UIController.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="YearlyNexRequestController.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.NexHR.Core\Fanex.NexHR.Core.csproj">

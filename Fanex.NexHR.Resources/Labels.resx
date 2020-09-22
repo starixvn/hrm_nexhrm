@@ -1639,9 +1639,12 @@
     <value>NEX Type</value>
   </data>
   <data name="YearlyNexRequest" xml:space="preserve">
-    <value>YEARLY NEX REQUEST</value>
+    <value>Yearly NEX Request</value>
   </data>
   <data name="NormalDay" xml:space="preserve">
     <value>Normal day</value>
+  </data>
+  <data name="NexDetail" xml:space="preserve">
+    <value>Nex Detail</value>
   </data>
 </root>

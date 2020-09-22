@@ -609,5 +609,19 @@
             }
             return Json(result);
         }
+
+        public ActionResult OvertimeNexDetail(DateTime fromDate, DateTime toDate, int? employeeId)
+        {
+            var model = new MemberOvertimeViewModel
+            {
+                EmployeeId = employeeId,
+                FromDateOT = fromDate,
+                FromDate = fromDate,
+                ToDateOT = toDate,
+                ToDate = toDate
+            };
+
+            return View("OvertimeRequestDetail", model);
+        }
     }
 }

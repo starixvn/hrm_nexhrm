@@ -8,6 +8,7 @@
     using Criteria.Employee;
     using Criteria.Report;
     using Fanex.NexHR.Core.Model;
+    using Fanex.NexHR.ViewModels.YearlyNexRequest;
     using Models;
     using Models.Report;
     using Newtonsoft.Json;
@@ -20,18 +21,18 @@
 
     public class ReportController : BaseController
     {
-        private readonly IEmployeeService _employeeService;
-        private readonly IReportService _reportService;
-        private readonly ITeamService _teamService;
+        private readonly IEmployeeService employeeService;
+        private readonly IReportService reportService;
+        private readonly ITeamService teamService;
 
         public ReportController(
             IEmployeeService employeeService,
             IReportService reportService,
             ITeamService teamService)
         {
-            _employeeService = employeeService ?? new EmployeeService();
-            _reportService = reportService ?? new ReportService();
-            _teamService = teamService ?? new TeamService();
+            this.employeeService = employeeService ?? new EmployeeService();
+            this.reportService = reportService ?? new ReportService();
+            this.teamService = teamService ?? new TeamService();
         }
 
         public ReportController()
@@ -58,7 +59,7 @@
 
                 employeeAttendanceViewModel.CurrentPage = Constants.CurrentPage;
                 employeeAttendanceViewModel.ItemsPerPage = numberItems;
-                employeeAttendanceViewModel.Teams = _teamService.GetTeam();
+                employeeAttendanceViewModel.Teams = teamService.GetTeam();
             }
 
             return View(employeeAttendanceViewModel);
@@ -87,7 +88,7 @@
                     PageIndex = model.CurrentPage - 1
                 };
 
-                attendances = _reportService.GetEmployeeAttendanceReport(criteria);
+                attendances = reportService.GetEmployeeAttendanceReport(criteria);
                 if (criteria.TotalItem != null)
                 {
                     var pagerOption = new PagerOptionModel
@@ -140,7 +141,7 @@
                     GroupId = model.GroupId,
                     ExcludeUserDelete = model.ExcludeUserDelete
                 };
-                employeeAttendances = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
+                employeeAttendances = reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
             }
 
             return Json(employeeAttendances);
@@ -171,7 +172,7 @@
                     EmployeeId = model.EmpId
                 };
 
-                employeeAttendances = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
+                employeeAttendances = reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
             }
 
             return PartialView("_ListTimesheet", employeeAttendances);
@@ -243,7 +244,7 @@
                 EmployeeId = CurrentUser.Id
             };
 
-            IList<RequestsMonitoring> requestMonitorings = _reportService.GetRequestMonitoring(criteria);
+            IList<RequestsMonitoring> requestMonitorings = reportService.GetRequestMonitoring(criteria);
 
             ViewBag.FromDate = model.FromDate;
             ViewBag.ToDate = model.ToDate;
@@ -255,7 +256,7 @@
 
         public ActionResult TotalWorkingHour()
         {
-            IList<Team> teams = _teamService.GetTeam();
+            IList<Team> teams = teamService.GetTeam();
 
             var model = new TotalWorkingHoursViewModel
             {
@@ -297,7 +298,7 @@
                 GroupId = totalWorkingHoursViewModel.TeamId
             };
 
-            IList<TotalWorkingHours> totalWorkingHours = _reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
+            IList<TotalWorkingHours> totalWorkingHours = reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
 
             IList<TotalWorkingHours> totalWorkingHour = SortTotalWorking(model?.Sort, totalWorkingHours);
 
@@ -324,7 +325,7 @@
         [ValidateInput(false)]
         public ActionResult LateInEarlyOut(int empId = 0, string nickname = "")
         {
-            IList<Team> teams = _teamService.GetTeam();
+            IList<Team> teams = teamService.GetTeam();
 
             var model = empId != 0
                 ? new LateInEarlyOutViewModel
@@ -357,7 +358,7 @@
                     Year = model.Year
                 };
 
-                lateInEarlyOuts = _reportService.GetLateInEarlyOut(criteria);
+                lateInEarlyOuts = reportService.GetLateInEarlyOut(criteria);
 
                 ViewBag.Year = model.Year;
             }
@@ -372,7 +373,7 @@
             int? employeeId = null,
             int? teamId = null)
         {
-            IList<Team> teams = _teamService.GetTeam();
+            IList<Team> teams = teamService.GetTeam();
 
             var model = new LateInEarlyOutDetailViewModel
             {
@@ -387,7 +388,7 @@
             if (employeeId.HasValue)
             {
                 var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId.Value };
-                Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+                Employee employee = employeeService.GetEmployeeById(getEmployeeCriteria);
                 model.Employee = employee.DisplayName;
             }
 
@@ -409,7 +410,7 @@
                     ToDate = model.ToDate
                 };
 
-                lateInEarlyOuts = _reportService.GetLateInEarlyOutDetail(criteria);
+                lateInEarlyOuts = reportService.GetLateInEarlyOutDetail(criteria);
             }
 
             return Json(lateInEarlyOuts);
@@ -418,7 +419,7 @@
         [Authorize(Roles = "HR")]
         public ActionResult LateInEarlyOutDiscipline()
         {
-            IList<Team> teams = _teamService.GetTeam();
+            IList<Team> teams = teamService.GetTeam();
             var today = DateTime.Today;
 
             var model = new LateInEarlyOutSummaryViewModel
@@ -451,7 +452,7 @@
                     IsUserWarning = true
                 };
 
-                lateInEarlyOutDisciplines = _reportService.GetLateInEarlyOutDiscipline(criteria);
+                lateInEarlyOutDisciplines = reportService.GetLateInEarlyOutDiscipline(criteria);
             }
 
             return PartialView("_ListLateInEarlyOutDiscipline", lateInEarlyOutDisciplines);
@@ -497,7 +498,7 @@
                     PageIndex = model.CurrentPage - 1,
                     ItemsPerPage = model.ItemsPerPage
                 };
-                timeRecords = _reportService.GetTimeRecords(criteria);
+                timeRecords = reportService.GetTimeRecords(criteria);
 
                 if (criteria.TotalItem != null)
                 {
@@ -532,7 +533,7 @@
                 to = toDate.Value;
             }
 
-            IList<Team> teams = _teamService.GetTeam();
+            IList<Team> teams = teamService.GetTeam();
 
             var model = new TimeRecordViewModel
             {
@@ -563,7 +564,7 @@
                     ItemsPerPage = model.ItemsPerPage
                 };
 
-                timeRecords = _reportService.GetTimeRecords(criteria);
+                timeRecords = reportService.GetTimeRecords(criteria);
 
                 if (criteria.TotalItem != null)
                 {
@@ -595,7 +596,7 @@
                 GroupId = model.TeamId
             };
 
-            IList<WorkingHoursStatistic> totalWorkingHours = _reportService.GetWorkingHoursStatistic(getWorkingHoursCriteria);
+            IList<WorkingHoursStatistic> totalWorkingHours = reportService.GetWorkingHoursStatistic(getWorkingHoursCriteria);
 
             return Json(totalWorkingHours, JsonRequestBehavior.AllowGet);
         }
@@ -603,7 +604,7 @@
         [Authorize(Roles = "HR")]
         public ActionResult WorkingHoursStatistic()
         {
-            IList<Team> teams = _teamService.GetTeam();
+            IList<Team> teams = teamService.GetTeam();
 
             DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             var model = new WorkingHoursStatisticViewModel
@@ -640,9 +641,45 @@
             {
                 StartDate = critera.StartDateOfYear,
                 EndDate = critera.EndDateOfYear,
-                HeadCount = _reportService.GetTeamHeadCountInYear(critera)
+                HeadCount = reportService.GetTeamHeadCountInYear(critera)
             };
             return PartialView("_HeadCountTable", model);
+        }
+
+        [Authorize(Roles = "HR")]
+        public ActionResult YearlyNexRequest()
+        {
+            IList<Team> teams = teamService.GetTeam();
+            var model = new YearlyNexRequestViewModel
+            {
+                Teams = teams,
+                Year = DateTime.Now.Year
+            };
+
+            return View(model);
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public ActionResult GetYearlyNexRequest(int? empId, int? teamId, int year)
+        {
+            int? employeeId = null;
+            if (empId.HasValue && empId.Value > 0)
+            {
+                employeeId = empId;
+            }
+
+            var criteria = new GetYearlyNexRequestCriteria
+            {
+                EmployeeId = employeeId,
+                TeamId = teamId,
+                Year = year
+            };
+
+            ViewBag.Year = year;
+            IList<YearlyNexRequest> yearlyNexRequests = reportService.GetYearlyNexRequest(criteria);
+
+            return PartialView("_ListYearlyNexRequest", yearlyNexRequests);
         }
     }
 }

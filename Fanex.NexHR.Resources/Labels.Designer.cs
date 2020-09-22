@@ -3022,6 +3022,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nex Detail.
+        /// </summary>
+        public static string NexDetail {
+            get {
+                return ResourceManager.GetString("NexDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NEX Hours.
         /// </summary>
         public static string NexHour {
@@ -4615,7 +4624,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to YEARLY NEX REQUEST.
+        ///   Looks up a localized string similar to Yearly NEX Request.
         /// </summary>
         public static string YearlyNexRequest {
             get {

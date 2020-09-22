@@ -22,5 +22,7 @@
         IList<LateInEarlyOutDiscipline> GetLateInEarlyOutSummary(ICriteria criteria);
 
         IList<WorkingHoursStatistic> GetWorkingHoursStatistic(ICriteria criteria);
+
+        IList<YearlyNexRequest> GetYearlyNexRequest(ICriteria criteria);
     }
 }

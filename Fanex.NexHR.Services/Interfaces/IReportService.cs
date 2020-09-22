@@ -24,5 +24,7 @@
         IList<WorkingHoursStatistic> GetWorkingHoursStatistic(GetWorkingHoursStatisticCriteria criteria);
 
         IList<HeadCount> GetTeamHeadCountInYear(GetHeadCountByYearCriteria criteria);
+
+        IList<YearlyNexRequest> GetYearlyNexRequest(GetYearlyNexRequestCriteria criteria);
     }
 }

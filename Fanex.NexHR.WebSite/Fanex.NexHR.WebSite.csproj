@@ -820,6 +820,7 @@
     <Content Include="Scripts\Views\Report\report.timesheet.js" />
     <Content Include="Scripts\Views\Report\report.totalworkinghours.js" />
     <Content Include="Scripts\Views\Report\report.workinghoursstatistic.js" />
+    <Content Include="Scripts\Views\Report\report.yearlynexrequest.js" />
     <Content Include="Scripts\Views\Request\checkinout.request.js" />
     <Content Include="Scripts\Views\Request\leave.request.js" />
     <Content Include="Scripts\Views\Request\mgr.requests.js" />
@@ -829,7 +830,6 @@
     <Content Include="Scripts\Views\ScheduledMessage\scheduled-message.js" />
     <Content Include="Scripts\Views\SkypeAccount\skype-account.js" />
     <Content Include="Scripts\Views\TeamManagement\team.management.js" />
-    <Content Include="Scripts\Views\YearlyNexRequest\yearlynexrequest.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -970,8 +970,9 @@
     <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.5.1.min.map" />
     <Content Include="Views\Overtime\_ListHRViewOvertimeDetail.cshtml" />
-    <Content Include="Views\YearlyNexRequest\Index.cshtml" />
-    <Content Include="Views\YearlyNexRequest\_ListYearlyNexRequest.cshtml" />
+    <Content Include="Views\Report\_ListYearlyNexRequest.cshtml" />
+    <Content Include="Views\Report\YearlyNexRequest.cshtml" />
+    <Content Include="Views\Overtime\OvertimeRequestDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

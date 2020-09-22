@@ -664,7 +664,7 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/yearlynexrequestjs").Include(
              EmployeeSearchInCompanyScript,
-                "~/Scripts/Views/YearlyNexRequest/yearlynexrequest.js"));
+                "~/Scripts/Views/Report/report.yearlynexrequest.js"));
 
             bundles.Add(new StyleBundle("~/Content/yearlynexrequestcss")
                  .Include("~/Content/Views/yearlynexrequest.css", new CssRewriteUrlTransform()));

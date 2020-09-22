@@ -100,6 +100,7 @@
     <Compile Include="Overtime\OvertimeVerifyViewModel.cs" />
     <Compile Include="Overtime\OvertimeViewModel.cs" />
     <Compile Include="Report\WorkingHoursStatisticViewModel.cs" />
+    <Compile Include="Report\YearlyNexRequestViewModel.cs" />
     <Compile Include="Request\BaseRequestModel.cs" />
     <Compile Include="Common\PagerOptionModel.cs" />
     <Compile Include="Employee\MonthlyScheduleViewModel.cs" />
@@ -152,7 +153,6 @@
     <Compile Include="Toeic\ToeicViewModel.cs" />
     <Compile Include="TotalWorkingHours\TotalWorkingHoursViewModel.cs" />
     <Compile Include="WorkingScheduleModel.cs" />
-    <Compile Include="YearlyNexRequest\YearlyNexRequestViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.NexHR.Core\Fanex.NexHR.Core.csproj">

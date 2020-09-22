@@ -2,7 +2,7 @@
 
 function query(isFirstLoad) {
     $.ajax({
-        url: _global.root + 'YearlyNexRequest/GetYearlyNexRequest',
+        url: _global.root + 'Report/GetYearlyNexRequest',
         type: 'POST',
         dataType: 'html',
         data: {

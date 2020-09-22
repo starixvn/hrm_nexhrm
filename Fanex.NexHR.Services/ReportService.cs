@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Criteria.Report;
     using Interfaces;
     using Models;
@@ -10,7 +11,7 @@
 
     public class ReportService : BaseService, IReportService
     {
-        private readonly IReportRepository _reportRepository;
+        private readonly IReportRepository reportRepository;
 
         public ReportService()
             : this(null)
@@ -19,7 +20,7 @@
 
         public ReportService(IReportRepository reportRepository)
         {
-            _reportRepository = reportRepository ?? new ReportRepository();
+            this.reportRepository = reportRepository ?? new ReportRepository();
         }
 
         public IList<TimeRecord> GetTimeRecords(GetTimeRecordCriteria criteria)
@@ -27,7 +28,7 @@
             IList<TimeRecord> timeRecords = null;
             if (criteria != null && criteria.IsValid())
             {
-                timeRecords = _reportRepository.GetTimeRecords(criteria);
+                timeRecords = reportRepository.GetTimeRecords(criteria);
             }
 
             return timeRecords ?? new List<TimeRecord>();
@@ -38,7 +39,7 @@
             IList<LateInEarlyOutModel> lateInEarlyOuts = null;
             if (criteria != null && criteria.IsValid())
             {
-                lateInEarlyOuts = _reportRepository.GetLateInEarlyOut(criteria);
+                lateInEarlyOuts = reportRepository.GetLateInEarlyOut(criteria);
             }
 
             return lateInEarlyOuts ?? new List<LateInEarlyOutModel>();
@@ -49,7 +50,7 @@
             IList<LateInEarlyOutDetail> lateInEarlyOuts = null;
             if (criteria != null && criteria.IsValid())
             {
-                lateInEarlyOuts = _reportRepository.GetLateInEarlyOutDetail(criteria);
+                lateInEarlyOuts = reportRepository.GetLateInEarlyOutDetail(criteria);
             }
 
             return lateInEarlyOuts ?? new List<LateInEarlyOutDetail>();
@@ -60,7 +61,7 @@
             IList<RequestsMonitoring> requestsMonitorings = null;
             if (criteria != null && criteria.IsValid())
             {
-                requestsMonitorings = _reportRepository.GetRequestMonitoring(criteria);
+                requestsMonitorings = reportRepository.GetRequestMonitoring(criteria);
             }
 
             return requestsMonitorings ?? new List<RequestsMonitoring>();
@@ -71,7 +72,7 @@
             IList<TotalWorkingHours> totalWorkingHours = null;
             if (criteria != null && criteria.IsValid())
             {
-                totalWorkingHours = _reportRepository.GetTotalWorkingHours(criteria);
+                totalWorkingHours = reportRepository.GetTotalWorkingHours(criteria);
             }
 
             return totalWorkingHours ?? new List<TotalWorkingHours>();
@@ -82,7 +83,7 @@
             IList<EmployeeAttendanceModel> attendances = null;
             if (criteria != null && criteria.IsValid())
             {
-                attendances = _reportRepository.GetEmployeeAttendanceReport(criteria);
+                attendances = reportRepository.GetEmployeeAttendanceReport(criteria);
             }
 
             return attendances ?? new List<EmployeeAttendanceModel>();
@@ -93,7 +94,7 @@
             IList<LateInEarlyOutDiscipline> lateInEarlyOuts = null;
             if (criteria != null && criteria.IsValid())
             {
-                lateInEarlyOuts = _reportRepository.GetLateInEarlyOutSummary(criteria);
+                lateInEarlyOuts = reportRepository.GetLateInEarlyOutSummary(criteria);
             }
 
             return lateInEarlyOuts ?? new List<LateInEarlyOutDiscipline>();
@@ -104,7 +105,7 @@
             IList<WorkingHoursStatistic> totalWorkingHours = null;
             if (criteria != null && criteria.IsValid())
             {
-                totalWorkingHours = _reportRepository.GetWorkingHoursStatistic(criteria);
+                totalWorkingHours = reportRepository.GetWorkingHoursStatistic(criteria);
             }
 
             return totalWorkingHours ?? new List<WorkingHoursStatistic>();
@@ -114,6 +115,17 @@
         {
             IList<HeadCount> headCount = GetData<HeadCount>(criteria);
             return headCount;
+        }
+
+        public IList<YearlyNexRequest> GetYearlyNexRequest(GetYearlyNexRequestCriteria criteria)
+        {
+            List<YearlyNexRequest> listYearlyNexRequest = new List<YearlyNexRequest>();
+            if (criteria != null && criteria.IsValid())
+            {
+                listYearlyNexRequest = reportRepository.GetYearlyNexRequest(criteria).ToList();
+            }
+
+            return listYearlyNexRequest;
         }
     }
 }

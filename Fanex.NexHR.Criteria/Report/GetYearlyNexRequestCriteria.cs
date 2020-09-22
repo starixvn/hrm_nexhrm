@@ -1,11 +1,11 @@
-﻿namespace Fanex.NexHR.Criteria.YearlyNexRequest
+﻿namespace Fanex.NexHR.Criteria.Report
 {
     using Data;
     using Data.Repository;
 
     public class GetYearlyNexRequestCriteria : CriteriaBase
     {
-        private const int year = 2010;
+        private const int minYear = 2010;
 
         public int? EmployeeId { get; set; }
 
@@ -21,7 +21,7 @@
 
         public override bool IsValid()
         {
-            return Year >= year;
+            return Year >= minYear;
         }
     }
 }
