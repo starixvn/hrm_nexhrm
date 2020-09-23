@@ -78,11 +78,14 @@
                                         <td></td>}
                                 }
                             }
-
-                            var url = "/overtime";
+                            var url = "";
+                            var fisrtUrl = "/overtime/OvertimeNexDetail?employeeId=" + yearlyNexRequest.Employee.Id + "&fromDate=";
 
                             if (yearlyNexRequest.Jan > 0)
                             {
+                                url = fisrtUrl + new DateTime(ViewBag.Year, 1, 1).ToDateMonthYearFormatedDate()
+                                        + "&toDate=" + new DateTime(ViewBag.Year, 1, DateTime.DaysInMonth(ViewBag.Year, 1)).ToDateMonthYearFormatedDate();
+
                                 <td class="@nexType">
                                     <a href="@url">@yearlyNexRequest.Jan</a>
                                 </td>
@@ -94,8 +97,11 @@
 
                             if (yearlyNexRequest.Feb > 0)
                             {
+                                url = fisrtUrl + new DateTime(ViewBag.Year, 2, 1).ToDateMonthYearFormatedDate()
+                                        + "&toDate=" + new DateTime(ViewBag.Year, 2, DateTime.DaysInMonth(ViewBag.Year, 2)).ToDateMonthYearFormatedDate();
+
                                 <td class="@nexType">
-                                    <a href="">@yearlyNexRequest.Feb</a>
+                                    <a href="@url">@yearlyNexRequest.Feb</a>
                                 </td>
                             }
                             else
@@ -105,8 +111,11 @@
 
                             if (yearlyNexRequest.Mar > 0)
                             {
+                                url = fisrtUrl + new DateTime(ViewBag.Year, 3, 1).ToDateMonthYearFormatedDate()
+                                        + "&toDate=" + new DateTime(ViewBag.Year, 3, DateTime.DaysInMonth(ViewBag.Year, 3)).ToDateMonthYearFormatedDate();
+
                                 <td class="@nexType">
-                                    <a href="">@yearlyNexRequest.Mar</a>
+                                    <a href="@url">@yearlyNexRequest.Mar</a>
                                 </td>
                             }
                             else
@@ -116,8 +125,11 @@
 
                             if (yearlyNexRequest.Apr > 0)
                             {
+                                url = fisrtUrl + new DateTime(ViewBag.Year, 4, 1).ToDateMonthYearFormatedDate()
+                                        + "&toDate=" + new DateTime(ViewBag.Year, 4, DateTime.DaysInMonth(ViewBag.Year, 4)).ToDateMonthYearFormatedDate();
+
                                 <td class="@nexType">
-                                    <a href="">@yearlyNexRequest.Apr</a>
+                                    <a href="@url">@yearlyNexRequest.Apr</a>
                                 </td>
                             }
                             else
@@ -127,8 +139,11 @@
 
                             if (yearlyNexRequest.May > 0)
                             {
+                                url = fisrtUrl + new DateTime(ViewBag.Year, 5, 1).ToDateMonthYearFormatedDate()
+                                        + "&toDate=" + new DateTime(ViewBag.Year, 5, DateTime.DaysInMonth(ViewBag.Year, 5)).ToDateMonthYearFormatedDate();
+
                                 <td class="@nexType">
-                                    <a href="">@yearlyNexRequest.May</a>
+                                    <a href="@url">@yearlyNexRequest.May</a>
                                 </td>
                             }
                             else
@@ -137,8 +152,11 @@
                             }
                             if (yearlyNexRequest.Jun > 0)
                             {
+                                url = fisrtUrl + new DateTime(ViewBag.Year, 6, 1).ToDateMonthYearFormatedDate()
+                                        + "&toDate=" + new DateTime(ViewBag.Year, 6, DateTime.DaysInMonth(ViewBag.Year, 6)).ToDateMonthYearFormatedDate();
+
                                 <td class="@nexType">
-                                    <a href="">@yearlyNexRequest.Jun</a>
+                                    <a href="@url">@yearlyNexRequest.Jun</a>
                                 </td>
                             }
                             else
@@ -147,8 +165,11 @@
                             }
                             if (yearlyNexRequest.Jul > 0)
                             {
+                                url = fisrtUrl + new DateTime(ViewBag.Year, 7, 1).ToDateMonthYearFormatedDate()
+                                        + "&toDate=" + new DateTime(ViewBag.Year, 7, DateTime.DaysInMonth(ViewBag.Year, 7)).ToDateMonthYearFormatedDate();
+
                                 <td class="@nexType">
-                                    <a href="">@yearlyNexRequest.Jul</a>
+                                    <a href="@url">@yearlyNexRequest.Jul</a>
                                 </td>
                             }
                             else
@@ -157,8 +178,11 @@
                             }
                             if (yearlyNexRequest.Aug > 0)
                             {
+                                url = fisrtUrl + new DateTime(ViewBag.Year, 8, 1).ToDateMonthYearFormatedDate()
+                                        + "&toDate=" + new DateTime(ViewBag.Year, 8, DateTime.DaysInMonth(ViewBag.Year, 8)).ToDateMonthYearFormatedDate();
+
                                 <td class="@nexType">
-                                    <a href="">@yearlyNexRequest.Aug</a>
+                                    <a href="@url">@yearlyNexRequest.Aug</a>
                                 </td>
                             }
                             else
@@ -167,8 +191,11 @@
                             }
                             if (yearlyNexRequest.Sep > 0)
                             {
+                                url = fisrtUrl + new DateTime(ViewBag.Year, 9, 1).ToDateMonthYearFormatedDate()
+                                        + "&toDate=" + new DateTime(ViewBag.Year, 9, DateTime.DaysInMonth(ViewBag.Year, 9)).ToDateMonthYearFormatedDate();
+
                                 <td class="@nexType">
-                                    <a href="">@yearlyNexRequest.Sep</a>
+                                    <a href="@url">@yearlyNexRequest.Sep</a>
                                 </td>
                             }
                             else
@@ -177,8 +204,11 @@
                             }
                             if (yearlyNexRequest.Oct > 0)
                             {
+                                url = fisrtUrl + new DateTime(ViewBag.Year, 10, 1).ToDateMonthYearFormatedDate()
+                                        + "&toDate=" + new DateTime(ViewBag.Year, 10, DateTime.DaysInMonth(ViewBag.Year, 10)).ToDateMonthYearFormatedDate();
+
                                 <td class="@nexType">
-                                    <a href="">@yearlyNexRequest.Oct</a>
+                                    <a href="@url">@yearlyNexRequest.Oct</a>
                                 </td>
                             }
                             else
@@ -187,8 +217,11 @@
                             }
                             if (yearlyNexRequest.Nov > 0)
                             {
+                                url = fisrtUrl + new DateTime(ViewBag.Year, 11, 1).ToDateMonthYearFormatedDate()
+                                        + "&toDate=" + new DateTime(ViewBag.Year, 11, DateTime.DaysInMonth(ViewBag.Year, 11)).ToDateMonthYearFormatedDate();
+
                                 <td class="@nexType">
-                                    <a href="">@yearlyNexRequest.Nov</a>
+                                    <a href="@url">@yearlyNexRequest.Nov</a>
                                 </td>
                             }
                             else
@@ -197,8 +230,11 @@
                             }
                             if (yearlyNexRequest.Dec > 0)
                             {
+                                url = fisrtUrl + new DateTime(ViewBag.Year, 12, 1).ToDateMonthYearFormatedDate()
+                                         + "&toDate=" + new DateTime(ViewBag.Year, 12, DateTime.DaysInMonth(ViewBag.Year, 12)).ToDateMonthYearFormatedDate();
+
                                 <td class="@nexType">
-                                    <a href="">@yearlyNexRequest.Dec</a>
+                                    <a href="@url">@yearlyNexRequest.Dec</a>
                                 </td>
                             }
                             else

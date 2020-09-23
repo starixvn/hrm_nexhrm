@@ -616,9 +616,7 @@
             {
                 EmployeeId = employeeId,
                 FromDateOT = fromDate,
-                FromDate = fromDate,
                 ToDateOT = toDate,
-                ToDate = toDate
             };
 
             return View("OvertimeRequestDetail", model);

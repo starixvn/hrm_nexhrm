@@ -804,6 +804,7 @@
     <Content Include="Scripts\Views\Overtime\overtime.conversion.js" />
     <Content Include="Scripts\Views\Overtime\overtime.js" />
     <Content Include="Scripts\Views\Overtime\overtime.member.js" />
+    <Content Include="Scripts\Views\Overtime\overtimeDetail.js" />
     <Content Include="Scripts\Views\Overtime\overtimeRequest.js" />
     <Content Include="Scripts\Views\Overtime\overtimeSummary.js" />
     <Content Include="Scripts\Views\Postanal\create.js" />

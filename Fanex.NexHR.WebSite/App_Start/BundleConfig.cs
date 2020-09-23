@@ -187,6 +187,11 @@
                 "~/Scripts/Views/Overtime/overtimeRequest.js",
                 "~/Scripts/Views/Overtime/overtime.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/overtimedetailjs").Include(
+                EmployeeSearchInCompanyScript,
+                "~/Scripts/Views/Overtime/overtimeDetail.js",
+                "~/Scripts/Views/Overtime/overtimeRequest.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/overtimeconversionjs").Include(
                 EmployeeSearchInCompanyScript,
                 "~/Scripts/Views/Overtime/overtime.conversion.js"));

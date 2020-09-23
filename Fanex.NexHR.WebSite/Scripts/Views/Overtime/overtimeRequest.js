@@ -6,6 +6,7 @@ function loadOTRequestDetail() {
     $('#OTRequest .loading-process').fadeIn(300);
     $.post(_global.root + "overtime/OvertimeRequestDetail", $("#OTRequest #form").serialize(), function (response) {
         $("#dataOTRequest tbody").html(response);
+        floatThead('table#data');
         $('#OTRequest .loading-process').fadeOut(300);
     });
 }
