@@ -619,6 +619,12 @@
                 ToDateOT = toDate,
             };
 
+            if (employeeId.HasValue)
+            {
+                var criteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId.Value };
+                model.Employee = _employeeService.GetEmployeeById(criteria).DisplayName;
+            }
+
             return View("OvertimeRequestDetail", model);
         }
     }
