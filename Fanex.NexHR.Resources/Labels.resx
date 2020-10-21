@@ -1647,4 +1647,7 @@
   <data name="NexDetail" xml:space="preserve">
     <value>Nex Detail</value>
   </data>
+  <data name="Absent" xml:space="preserve">
+    <value>Absent</value>
+  </data>
 </root>
