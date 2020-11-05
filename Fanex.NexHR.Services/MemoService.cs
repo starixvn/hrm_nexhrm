@@ -16,6 +16,7 @@
     {
         private readonly IEmailService _emailService;
         private const string Email = "Email";
+        private readonly string CompanyMailSign = ConfigurationManager.AppSettings["CompanyMailSign"];
 
         public MemoService(IEmailService emailService = null)
         {
@@ -74,7 +75,7 @@
             //// send email(s)
             var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForMemoNotification));
 
-            var body = string.Format(bodyTemplate, subject, link + "memo/detail/" + memoId, DateTime.Now.Year.ToString(), ConfigurationManager.AppSettings["CompanyMailSign"]);
+            var body = string.Format(bodyTemplate, subject, link + "memo/detail/" + memoId, CompanyMailSign, ConfigurationManager.AppSettings["CompanyMailSign"]);
             _emailService.SendEmail(
                 ConfigurationManager.AppSettings[Email],
                 groupGo,
