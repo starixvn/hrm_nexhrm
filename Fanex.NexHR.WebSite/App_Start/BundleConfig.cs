@@ -265,7 +265,7 @@
 
             bundles.Add(new ScriptBundle("~/bundles/memoeditjs").Include(
                 "~/Scripts/Views/Memo/memo.js",
-                "~/Scripts/tiny_mce/tiny_mce_src.js",
+                "~/Scripts/tiny_mce/tinymce.min.js",
                 "~/Scripts/Views/Memo/memo.edit.js"));
 
             bundles.Add(new StyleBundle("~/Content/annualleavebalancecss")

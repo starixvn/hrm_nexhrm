@@ -176,7 +176,7 @@ function validateForm() {
 }
 
 $(document).ready(function () {
-    initEditor('Contents', 'basic');
+    initEditor('#Contents', 'basic');
     $("#error").hide();
 
     //initDatePicker();

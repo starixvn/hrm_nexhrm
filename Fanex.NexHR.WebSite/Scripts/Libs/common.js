@@ -433,38 +433,27 @@ function initEditor(element, type) {
     switch (type) {
         case 'basic':
             tinyMCE.init({
-                mode: 'exact',
-                elements: element,
-                theme: 'advanced',
-                theme_advanced_toolbar_location: 'top',
-                theme_advanced_toolbar_align: 'left',
-                theme_advanced_statusbar_location: 'bottom',
-                plugins: 'safari,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template',
-
-                theme_advanced_buttons1: 'bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,fontselect,fontsizeselect,|,forecolor,backcolor',
-                theme_advanced_buttons2: 'bullist,numlist,|,outdent,indent,|,link,unlink,image,|,table,|,hr,|,sub,sup,|,charmap,emotions,|,ltr,rtl',
-                theme_advanced_buttons3: '',
-                content_css: '/styles/tinymce.css',
-                force_br_newlines: true,
-                force_p_newlines: false
+                selector: element,
+                plugins: [
+                    'advlist autolink link image lists charmap print preview hr anchor pagebreak',
+                    'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+                    'table emoticons template paste help'
+                ],
+                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons | help',
+                menubar: ''
             });
             break;
         case 'full':
             tinyMCE.init({
-                mode: 'exact',
-                elements: element,
-                theme: 'advanced',
-                theme_advanced_toolbar_location: 'top',
-                theme_advanced_toolbar_align: 'left',
-                theme_advanced_statusbar_location: 'bottom',
-                plugins: 'safari,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template',
-
-                theme_advanced_buttons1: 'bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontselect,fontsizeselect,|,forecolor,backcolor',
-                theme_advanced_buttons2: 'pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,code,|,insertdate,inserttime,preview,spellchecker',
-                theme_advanced_buttons3: 'table,|,hr,removeformat,|,sub,sup,|,charmap,emotions,iespell,media,|,ltr,rtl,|,fullscreen',
-                content_css: '/styles/tinymce.css',
-                force_br_newlines: false,
-                force_p_newlines: true
+                selector: element,
+                plugins: [
+                    'advlist autolink link image lists charmap print preview hr anchor pagebreak',
+                    'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+                    'table emoticons template paste help'
+                ],
+                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | ' +
+                    'bullist numlist outdent indent | link image | print preview media fullpage | ' +
+                    'forecolor backcolor emoticons | help'
             });
             break;
     }
