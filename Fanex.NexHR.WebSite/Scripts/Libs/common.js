@@ -430,6 +430,7 @@ function formatDate(date, mask) {
 };
 
 function initEditor(element, type) {
+    tinyMCE.baseURL = RootUrlTinyMCE;
     switch (type) {
         case 'basic':
             tinyMCE.init({
