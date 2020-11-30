@@ -23,6 +23,7 @@
             this.syncDataService = syncDataService ?? new SyncDataService();
         }
 
+        [HttpPost]
         public async Task<IHttpActionResult> GetEmployee([FromBody]DateTime? lastModifiedDate)
         {
             var modifiedDate = lastModifiedDate ?? DefaultModifiedDate;
@@ -31,6 +32,7 @@
             return Json(employees);
         }
 
+        [HttpPost]
         public async Task<IHttpActionResult> GetDepartment([FromBody]DateTime? lastModifiedDate)
         {
             var modifiedDate = lastModifiedDate ?? DefaultModifiedDate;
@@ -39,6 +41,7 @@
             return Json(departments);
         }
 
+        [HttpPost]
         public async Task<IHttpActionResult> GetGroup([FromBody]DateTime? lastModifiedDate)
         {
             var modifiedDate = lastModifiedDate ?? DefaultModifiedDate;
@@ -47,6 +50,7 @@
             return Json(groups);
         }
 
+        [HttpPost]
         public async Task<IHttpActionResult> GetJobTitle()
         {
             var jobTitles = await syncDataService.GetJobTitleAsync();
