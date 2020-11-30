@@ -167,6 +167,10 @@
     <Compile Include="ScheduledMessage\ScheduledMessage.cs" />
     <Compile Include="SkypeAccount\ConversationUser.cs" />
     <Compile Include="SkypeAccount\EmployeeSkypeAccount.cs" />
+    <Compile Include="SyncData\SyncDepartmentModel.cs" />
+    <Compile Include="SyncData\SyncEmployeeModel.cs" />
+    <Compile Include="SyncData\SyncGroupModel.cs" />
+    <Compile Include="SyncData\SyncJobTitleModel.cs" />
     <Compile Include="SystemReminderModel.cs" />
     <Compile Include="Team.cs" />
     <Compile Include="Holiday\Holiday.cs" />

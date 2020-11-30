@@ -162,6 +162,7 @@
     <Compile Include="DepartmentService.cs" />
     <Compile Include="CalendarService.cs" />
     <Compile Include="ExtensionNoService.cs" />
+    <Compile Include="Interfaces\ISyncDataService.cs" />
     <Compile Include="MessageCategoryLogService.cs" />
     <Compile Include="HistoryWorkService.cs" />
     <Compile Include="Interfaces\IAnnualLeaveService.cs" />
@@ -217,6 +218,7 @@
     <Compile Include="RedmineService.cs" />
     <Compile Include="ReportService.cs" />
     <Compile Include="SessionService.cs" />
+    <Compile Include="SyncDataService.cs" />
     <Compile Include="TimeSheetService.cs" />
     <Compile Include="ScheduledMessageService.cs" />
     <Compile Include="TeamService.cs" />

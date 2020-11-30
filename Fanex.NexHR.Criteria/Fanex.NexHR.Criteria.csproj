@@ -239,6 +239,10 @@
     <Compile Include="Shift\GetShiftByDateCriteria.cs" />
     <Compile Include="SkypeAccount\GetEmployeeSkypeAccountCriteria.cs" />
     <Compile Include="SkypeAccount\UpdateSkypeAccountNickNameCriteria.cs" />
+    <Compile Include="SyncData\SyncDataGetGroupCriteria.cs" />
+    <Compile Include="SyncData\SyncDataGetDepartmentCriteria.cs" />
+    <Compile Include="SyncData\SyncDataGetEmployeeCriteria.cs" />
+    <Compile Include="SyncData\SyncDataGetJobTitleCriteria.cs" />
     <Compile Include="Team\GetAllTeamCriteria.cs" />
     <Compile Include="Report\GetTeamHeadCountByYearCriteria.cs" />
     <Compile Include="Team\InsertTeamCriteria.cs" />
