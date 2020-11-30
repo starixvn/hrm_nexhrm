@@ -46,5 +46,12 @@
 
             return Json(groups);
         }
+
+        public async Task<IHttpActionResult> GetJobTitle()
+        {
+            var jobTitles = await syncDataService.GetJobTitleAsync();
+
+            return Json(jobTitles);
+        }
     }
 }
