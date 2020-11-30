@@ -45,9 +45,13 @@
             return groups;
         }
 
-        public Task<IEnumerable<SyncJobTitleModel>> GetJobTitleAsync()
+        public async Task<IEnumerable<SyncJobTitleModel>> GetJobTitleAsync()
         {
-            throw new NotImplementedException();
+            var criteria = new SyncDataGetJobTitleCriteria();
+
+            var jobTitles = await GetDataAsync<SyncJobTitleModel>(criteria);
+
+            return jobTitles;
         }
     }
 }
