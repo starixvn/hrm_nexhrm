@@ -21,6 +21,7 @@ BEGIN
 		  ,e.Code
 		  ,e.NickName
 		  ,e.FullName
+		  ,e.JobTitleId
 		  ,e.GroupId
 		  ,e.[Enabled]
 		  ,e.isDeleted

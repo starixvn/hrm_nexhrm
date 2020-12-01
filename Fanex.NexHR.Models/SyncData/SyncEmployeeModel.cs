@@ -14,6 +14,8 @@
 
         public string FullName { get; set; }
 
+        public int JobTitleId { get; set; }
+
         public int? GroupId { get; set; }
 
         public bool Enabled { get; set; }
