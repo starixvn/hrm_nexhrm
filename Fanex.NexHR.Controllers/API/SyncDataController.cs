@@ -13,6 +13,7 @@
     {
         private readonly ISyncDataService syncDataService;
         private readonly DateTime DefaultModifiedDate = new DateTime(2010, 1, 1);
+        private const string ModifiedDateTimeFormat = "yyyy-MM-dd HH:mm:ss:fff";
 
         public SyncDataController() : this(null)
         {
@@ -23,25 +24,27 @@
             this.syncDataService = syncDataService ?? new SyncDataService();
         }
 
-        public async Task<IHttpActionResult> GetEmployee(DateTime? lastModifiedDate)
+        public async Task<IHttpActionResult> GetEmployee(string lastModifiedDate)
         {
-            var modifiedDate = lastModifiedDate ?? DefaultModifiedDate;
+            var modifiedDate = GetLastModifiedDate(lastModifiedDate);
             var employees = await syncDataService.GetEmployeeAsync(modifiedDate);
 
             return Json(employees);
         }
 
-        public async Task<IHttpActionResult> GetDepartment(DateTime? lastModifiedDate)
+        public async Task<IHttpActionResult> GetDepartment(string lastModifiedDate)
         {
-            var modifiedDate = lastModifiedDate ?? DefaultModifiedDate;
+            var modifiedDate = GetLastModifiedDate(lastModifiedDate);
+
             var departments = await syncDataService.GetDepartmentAsync(modifiedDate);
 
             return Json(departments);
         }
 
-        public async Task<IHttpActionResult> GetGroup(DateTime? lastModifiedDate)
+        public async Task<IHttpActionResult> GetGroup(string lastModifiedDate)
         {
-            var modifiedDate = lastModifiedDate ?? DefaultModifiedDate;
+            var modifiedDate = GetLastModifiedDate(lastModifiedDate);
+
             var groups = await syncDataService.GetGroupAsync(modifiedDate);
 
             return Json(groups);
@@ -52,6 +55,15 @@
             var jobTitles = await syncDataService.GetJobTitleAsync();
 
             return Json(jobTitles);
+        }
+
+        private DateTime GetLastModifiedDate(string dateTimeString)
+        {
+            DateTime outputDateTime = DateTime.ParseExact(dateTimeString.Replace("T", " "), ModifiedDateTimeFormat, null);
+
+            var modifiedDate = string.IsNullOrWhiteSpace(dateTimeString) ? DefaultModifiedDate : outputDateTime;
+
+            return modifiedDate;
         }
     }
 }
