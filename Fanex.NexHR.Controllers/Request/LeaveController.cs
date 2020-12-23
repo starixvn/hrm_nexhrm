@@ -155,11 +155,16 @@
             model.LeaveTypes = _leaveTypeService.GetAll();
             model.UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null);
             ViewBag.Year = model.FromDate.Year;
+            var fromTimeLeaveBusiness = string.Concat(model.FromHour,":", model.FromMinute);
+            var toTimeLeaveBusiness = string.Concat(model.ToHour, ":", model.ToMinute);
+            var fromDate= model.LeaveTypeId == 9 ? Utilities.AddTimeToDate(model.FromDate, fromTimeLeaveBusiness) : Utilities.AddTimeToDate(model.FromDate, model.FromTime);
+            var toDate = model.LeaveTypeId == 9 ? Utilities.AddTimeToDate(model.ToDate, toTimeLeaveBusiness) : Utilities.AddTimeToDate(model.ToDate, model.ToTime);
+
             if (model.HalfDayOff)
             {
                 model.TotalDays = (decimal)day;
-                model.FromDate = Utilities.AddTimeToDate(model.FromDate, model.FromTime);
-                model.ToDate = Utilities.AddTimeToDate(model.ToDate, model.ToTime);
+                model.FromDate = fromDate;
+                model.ToDate = toDate;
             }
 
             return model;
@@ -169,6 +174,12 @@
         {
             var criteria = new GetRequestByIdCriteria { Id = id };
             RequestEntity request = _requestService.GetRequestEntity(criteria);
+            const int BusinessTripLeaveType = 9;
+            var fromHourSub = request.FromDate.Hour;
+            var toHourSub = request.ToDate.Hour;
+            var fromMinutesSub = request.FromDate.Minute;
+            var toMinutesSub = request.ToDate.Minute;
+
             var model = new LeaveRequestViewModel
             {
                 Id = request.Id,
@@ -184,7 +195,11 @@
                 Remark = request.Remark,
                 HalfDayOff = request.TotalDays == (decimal)0.5,
                 LeaveTypes = _leaveTypeService.GetAll(),
-                UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id, requestId: id)
+                UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id, requestId: id),
+                FromHour = request.LeaveType.Id == BusinessTripLeaveType && request.TotalDays == (decimal)0.5 ? fromHourSub : 0,
+                ToHour = request.LeaveType.Id == BusinessTripLeaveType && request.TotalDays == (decimal)0.5 ? toHourSub : 0,
+                FromMinute = request.LeaveType.Id == BusinessTripLeaveType && request.TotalDays == (decimal)0.5 ? fromMinutesSub : 0,
+                ToMinute = request.LeaveType.Id == BusinessTripLeaveType && request.TotalDays == (decimal)0.5 ? toMinutesSub : 0,
             };
 
             return View(model);
@@ -197,11 +212,15 @@
             if (model != null && ModelState.IsValid)
             {
                 model.LeaveTypes = _leaveTypeService.GetAll();
+                var fromTimeLeaveBusiness = string.Concat(model.FromHour, ":", model.FromMinute);
+                var toTimeLeaveBusiness = string.Concat(model.ToHour, ":", model.ToMinute);
+                var fromDate = model.LeaveTypeId == 9 ? Utilities.AddTimeToDate(model.FromDate, fromTimeLeaveBusiness) : Utilities.AddTimeToDate(model.FromDate, model.FromTime);
+                var toDate = model.LeaveTypeId == 9 ? Utilities.AddTimeToDate(model.ToDate, toTimeLeaveBusiness) : Utilities.AddTimeToDate(model.ToDate, model.ToTime);
                 if (model.HalfDayOff)
                 {
                     model.TotalDays = (decimal)day;
-                    model.FromDate = Utilities.AddTimeToDate(model.FromDate, model.FromTime);
-                    model.ToDate = Utilities.AddTimeToDate(model.ToDate, model.ToTime);
+                    model.FromDate = fromDate;
+                    model.ToDate = toDate;
                 }
 
                 var criteria = new UpdateRequestCriteria

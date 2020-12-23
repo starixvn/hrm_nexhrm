@@ -700,6 +700,12 @@
     <Content Include="Scripts\Views\Report\report.workinghoursstatistic.js" />
     <Content Include="Scripts\Views\Report\report.yearlynexrequest.js" />
     <Content Include="Scripts\Views\Request\checkinout.request.js" />
+    <Content Include="Scripts\Views\Request\leave.request.es5.js">
+      <DependentUpon>leave.request.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Views\Request\leave.request.es5.min.js">
+      <DependentUpon>leave.request.es5.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\Views\Request\leave.request.js" />
     <Content Include="Scripts\Views\Request\mgr.requests.js" />
     <Content Include="Scripts\Views\Request\process.leave-checkinout.byemployee.js" />

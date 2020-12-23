@@ -13,6 +13,10 @@
     {
         private const int numberDay = 5;
 
+        private const byte MaxHour = 23;
+
+        private const byte MaxMinute = 59;
+
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MMM dd, yyyy}", ApplyFormatInEditMode = true)]
@@ -25,6 +29,22 @@
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:0.##}")]
         public decimal TotalDays { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:f2}", ApplyFormatInEditMode = true)]
+        [Range(0, MaxHour)]
+        public int FromHour { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:f2}", ApplyFormatInEditMode = true)]
+        [Range(0, MaxHour)]
+        public int ToHour { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:f2}", ApplyFormatInEditMode = true)]
+        [Range(0, MaxMinute)]
+        public int FromMinute { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:f2}", ApplyFormatInEditMode = true)]
+        [Range(0, MaxMinute)]
+        public int ToMinute { get; set; }
 
         public int LeaveTypeId { get; set; }
 

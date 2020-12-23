@@ -42,7 +42,7 @@
                                     <div class="left label--l">
                                         @Html.LabelFor(model => model.LeaveTypeId, Labels.LeaveType)
                                     </div>
-                                    <div class="left input--m">
+                                    <div class="left input--m leaveTypeId">
                                         @Html.DropDownListFor(model => model.LeaveTypeId, new SelectList(Model.LeaveTypes, "Id", "Name"))
                                         @Html.ValidationMessageFor(model => model.LeaveTypeId)
                                     </div>
@@ -73,18 +73,31 @@
                                     <div class="left label--l">
                                         @Html.LabelFor(model => model.FromDate, Labels.FromDate)
                                     </div>
-                                    <div class="datepicker-button select--s left">
-                                        @Html.DatePickerFor(model => model.FromDate,
-                                             Utilities.RequestAvailableFromDate,
-                                             Utilities.RequestAvailableToDate,
-                                            unavailDates: Model.UnavailDates)
-                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    <div class="left block-time">
+                                        <div class="datepicker-button select--s left">
+                                            @Html.DatePickerFor(model => model.FromDate,
+                                                 Utilities.RequestAvailableFromDate,
+                                                 Utilities.RequestAvailableToDate,
+                                                unavailDates: Model.UnavailDates)
+                                            <i class="mdi-action-event calendar-icon left"></i>
+                                        </div>
+                                        <div class="box-time hide">
+                                            <div class="col m-l--m">
+                                                @Html.TextBoxFor(x => x.FromHour, new { type = "number", min = "0", max = "23", step = "1", MaxLength = "2", id = "Hour", name = "Hour" })
+                                            </div>
+                                            <div class="col p-0">
+                                                <span class="colon">:</span>
+                                            </div>
+                                            <div class="col">
+                                                @Html.TextBoxFor(x => x.FromMinute, new { type = "number", min = "0", max = "59", step = "1", MaxLength = "2", id = "Minute", name = "Minute" })
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="left select-time">
                                         <span class="time hide">
-                                            @Html.DropDownListFor(model => model.FromTime, Utilities.TimeSteps(30))
+                                            @Html.DropDownList("FromTime", Utilities.TimeSteps(30))
                                         </span>
                                     </div>
                                 </div>
@@ -94,18 +107,31 @@
                                     <div class="left label--l">
                                         @Html.LabelFor(model => model.ToDate, Labels.ToDate)
                                     </div>
-                                    <div class="datepicker-button select--s left">
-                                        @Html.DatePickerFor(model => model.ToDate,
-                                            Utilities.RequestAvailableFromDate,
-                                            Utilities.RequestAvailableToDate,
-                                            unavailDates: Model.UnavailDates)
-                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    <div class="left block-time">
+                                        <div class="datepicker-button select--s left">
+                                            @Html.DatePickerFor(model => model.ToDate,
+                                                Utilities.RequestAvailableFromDate,
+                                                Utilities.RequestAvailableToDate,
+                                                unavailDates: Model.UnavailDates)
+                                            <i class="mdi-action-event calendar-icon left"></i>
+                                        </div>
+                                        <div class="box-time hide">
+                                            <div class="col m-l--m">
+                                                @Html.TextBoxFor(x => x.ToHour, new { type = "number", min = "0", max = "23", step = "1", MaxLength = "2", id = "Hour", name = "Hour" })
+                                            </div>
+                                            <div class="col p-0">
+                                                <span class="colon">:</span>
+                                            </div>
+                                            <div class="col">
+                                                @Html.TextBoxFor(x => x.ToMinute, new { type = "number", min = "0", max = "59", step = "1", MaxLength = "2", id = "Minute", name = "Minute" })
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="left select-time">
                                         <span class="time hide">
-                                            @Html.DropDownListFor(model => model.ToTime, Utilities.TimeSteps(30))
+                                            @Html.DropDownList("ToTime", Utilities.TimeSteps(30))
                                         </span>
                                     </div>
                                 </div>

@@ -28,10 +28,19 @@ function setValueforToTime() {
 function enableControlforHalfday() {
     if ($('#HalfDayOff').prop('checked')) {
         $('#ToDate').val($('#FromDate').val());
-        $('.time').removeClass('hide');
         $('#ToDate').prop('readonly', true).datepicker('disable').prop('disabled', false);
+        var leaveTypeId = parseInt($('#LeaveTypeId').val());
+        if (leaveTypeId == 9) {
+            $('.box-time').removeClass('hide');
+            $('.time').addClass('hide');
+        }
+        else {
+            $('.time').removeClass('hide');
+            $('.box-time').addClass('hide');
+        }
     } else {
         $('.time').addClass('hide');
+        $('.box-time').addClass('hide');
         $('#ToDate').prop('readonly', false).datepicker('enable');
     }
 }
@@ -59,6 +68,22 @@ function bindHalfDay() {
         else {
             $('#TotalDays').val(1);
         }
+    }
+}
+
+function changeDisplayTime() {
+    var leaveTypeId = parseInt($('#LeaveTypeId').val());
+    if (leaveTypeId == 9 && $('#HalfDayOff').prop('checked')) {
+        $('.box-time').removeClass('hide');
+        $('.time').addClass('hide');
+    }
+    else if (leaveTypeId !== 9 && $('#HalfDayOff').prop('checked')) {
+        $('.box-time').addClass('hide');
+        $('.time').removeClass('hide');
+    }
+    else {
+        $('.box-time').addClass('hide');
+        $('.time').addClass('hide');
     }
 }
 
@@ -167,6 +192,10 @@ function initCreateUpdatePage() {
 
     $('#HalfDayOff').on('change', function () {
         bindHalfDay();
+    });
+
+    $('.leaveTypeId').on('change', function () {
+        changeDisplayTime();
     });
 
     $('#FromTime').on('change', function () {
