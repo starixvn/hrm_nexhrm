@@ -71,7 +71,7 @@ function bindHalfDay() {
     }
 }
 
-function changeDisplayTime() {
+function changeHalfDayOffDisplayTime() {
     var leaveTypeId = parseInt($('#LeaveTypeId').val());
     if (leaveTypeId == 9 && $('#HalfDayOff').prop('checked')) {
         $('.box-time').removeClass('hide');
@@ -195,7 +195,7 @@ function initCreateUpdatePage() {
     });
 
     $('.leaveTypeId').on('change', function () {
-        changeDisplayTime();
+        changeHalfDayOffDisplayTime();
     });
 
     $('#FromTime').on('change', function () {

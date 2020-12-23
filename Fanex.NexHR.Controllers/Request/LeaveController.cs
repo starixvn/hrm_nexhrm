@@ -21,6 +21,8 @@
         private readonly ICommandService _commandService;
         private readonly INexbotService _nexbotService;
 
+        private const int BusinessTripLeaveType = 9;
+
         public LeaveController()
             : this(null, null, null, null)
         {
@@ -157,8 +159,8 @@
             ViewBag.Year = model.FromDate.Year;
             var fromTimeLeaveBusiness = string.Concat(model.FromHour,":", model.FromMinute);
             var toTimeLeaveBusiness = string.Concat(model.ToHour, ":", model.ToMinute);
-            var fromDate= model.LeaveTypeId == 9 ? Utilities.AddTimeToDate(model.FromDate, fromTimeLeaveBusiness) : Utilities.AddTimeToDate(model.FromDate, model.FromTime);
-            var toDate = model.LeaveTypeId == 9 ? Utilities.AddTimeToDate(model.ToDate, toTimeLeaveBusiness) : Utilities.AddTimeToDate(model.ToDate, model.ToTime);
+            var fromDate= model.LeaveTypeId == BusinessTripLeaveType ? Utilities.AddTimeToDate(model.FromDate, fromTimeLeaveBusiness) : Utilities.AddTimeToDate(model.FromDate, model.FromTime);
+            var toDate = model.LeaveTypeId == BusinessTripLeaveType ? Utilities.AddTimeToDate(model.ToDate, toTimeLeaveBusiness) : Utilities.AddTimeToDate(model.ToDate, model.ToTime);
 
             if (model.HalfDayOff)
             {
@@ -174,7 +176,6 @@
         {
             var criteria = new GetRequestByIdCriteria { Id = id };
             RequestEntity request = _requestService.GetRequestEntity(criteria);
-            const int BusinessTripLeaveType = 9;
             var fromHourSub = request.FromDate.Hour;
             var toHourSub = request.ToDate.Hour;
             var fromMinutesSub = request.FromDate.Minute;
@@ -214,8 +215,8 @@
                 model.LeaveTypes = _leaveTypeService.GetAll();
                 var fromTimeLeaveBusiness = string.Concat(model.FromHour, ":", model.FromMinute);
                 var toTimeLeaveBusiness = string.Concat(model.ToHour, ":", model.ToMinute);
-                var fromDate = model.LeaveTypeId == 9 ? Utilities.AddTimeToDate(model.FromDate, fromTimeLeaveBusiness) : Utilities.AddTimeToDate(model.FromDate, model.FromTime);
-                var toDate = model.LeaveTypeId == 9 ? Utilities.AddTimeToDate(model.ToDate, toTimeLeaveBusiness) : Utilities.AddTimeToDate(model.ToDate, model.ToTime);
+                var fromDate = model.LeaveTypeId == BusinessTripLeaveType ? Utilities.AddTimeToDate(model.FromDate, fromTimeLeaveBusiness) : Utilities.AddTimeToDate(model.FromDate, model.FromTime);
+                var toDate = model.LeaveTypeId == BusinessTripLeaveType ? Utilities.AddTimeToDate(model.ToDate, toTimeLeaveBusiness) : Utilities.AddTimeToDate(model.ToDate, model.ToTime);
                 if (model.HalfDayOff)
                 {
                     model.TotalDays = (decimal)day;
