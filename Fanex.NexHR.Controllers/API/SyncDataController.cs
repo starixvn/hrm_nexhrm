@@ -66,11 +66,14 @@
 
         private DateTime GetLastModifiedDate(string dateTimeString)
         {
+            if (string.IsNullOrWhiteSpace(dateTimeString))
+            {
+                return DefaultModifiedDate;
+            }
+
             DateTime outputDateTime = DateTime.ParseExact(dateTimeString.Replace("T", " "), ModifiedDateTimeFormat, null);
 
-            var modifiedDate = string.IsNullOrWhiteSpace(dateTimeString) ? DefaultModifiedDate : outputDateTime;
-
-            return modifiedDate;
+            return outputDateTime;
         }
     }
 }
