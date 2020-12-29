@@ -422,9 +422,13 @@
         <Setting Key="LateInEarlyOut_GetLateInEarlyOutOnMonth" SpName="LateInEarlyOut_GetLateInEarlyOutOnMonth" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Sync Data">
-        <Setting Key="SyncData_GetEmployeeByLastModifiedDate" SpName="SyncData_GetEmployeeByLastModifiedDate" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="SyncData_GetDepartmentByLastModifiedDate" SpName="SyncData_GetDepartmentByLastModifiedDate" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="SyncData_GetGroupByLastModifiedDate" SpName="SyncData_GetGroupByLastModifiedDate" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="SyncData_GetJobTitle" SpName="SyncData_GetJobTitle" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="SyncData_NexHRM_GetEmployeeByLastModifiedDate" SpName="SyncData_GetEmployeeByLastModifiedDate" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="SyncData_LumiHRM_GetEmployeeByLastModifiedDate" SpName="SyncData_GetEmployeeByLastModifiedDate" DbName="lumihr" Plain="0"></Setting>
+        <Setting Key="SyncData_NexHRM_GetDepartmentByLastModifiedDate" SpName="SyncData_GetDepartmentByLastModifiedDate" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="SyncData_LumiHRM_GetDepartmentByLastModifiedDate" SpName="SyncData_GetDepartmentByLastModifiedDate" DbName="lumihr" Plain="0"></Setting>
+        <Setting Key="SyncData_NexHRM_GetGroupByLastModifiedDate" SpName="SyncData_GetGroupByLastModifiedDate" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="SyncData_LumiHRM_GetGroupByLastModifiedDate" SpName="SyncData_GetGroupByLastModifiedDate" DbName="lumihr" Plain="0"></Setting>
+        <Setting Key="SyncData_NexHRM_GetJobTitle" SpName="SyncData_GetJobTitle" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="SyncData_LumiHRM_GetJobTitle" SpName="SyncData_GetJobTitle" DbName="lumihr" Plain="0"></Setting>
     </Function>
 </Functions>

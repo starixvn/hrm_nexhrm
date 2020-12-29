@@ -1,11 +1,11 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
-    using System;
-    using System.Threading.Tasks;
-    using System.Web.Http;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.Web.API;
+    using System;
+    using System.Threading.Tasks;
+    using System.Web.Http;
 
     [Authorize]
     [JwtAuthentication]
@@ -24,35 +24,36 @@
             this.syncDataService = syncDataService ?? new SyncDataService();
         }
 
-        public async Task<IHttpActionResult> GetEmployee(string lastModifiedDate)
+        public async Task<IHttpActionResult> GetEmployee(bool isNexHrm, string lastModifiedDate)
         {
             var modifiedDate = GetLastModifiedDate(lastModifiedDate);
-            var employees = await syncDataService.GetEmployeeAsync(modifiedDate);
+
+            var employees = await syncDataService.GetEmployeeAsync(isNexHrm, modifiedDate);
 
             return Json(employees);
         }
 
-        public async Task<IHttpActionResult> GetDepartment(string lastModifiedDate)
+        public async Task<IHttpActionResult> GetDepartment(bool isNexHrm, string lastModifiedDate)
         {
             var modifiedDate = GetLastModifiedDate(lastModifiedDate);
 
-            var departments = await syncDataService.GetDepartmentAsync(modifiedDate);
+            var departments = await syncDataService.GetDepartmentAsync(isNexHrm, modifiedDate);
 
             return Json(departments);
         }
 
-        public async Task<IHttpActionResult> GetGroup(string lastModifiedDate)
+        public async Task<IHttpActionResult> GetGroup(bool isNexHrm, string lastModifiedDate)
         {
             var modifiedDate = GetLastModifiedDate(lastModifiedDate);
 
-            var groups = await syncDataService.GetGroupAsync(modifiedDate);
+            var groups = await syncDataService.GetGroupAsync(isNexHrm, modifiedDate);
 
             return Json(groups);
         }
 
-        public async Task<IHttpActionResult> GetJobTitle()
+        public async Task<IHttpActionResult> GetJobTitle(bool isNexHrm)
         {
-            var jobTitles = await syncDataService.GetJobTitleAsync();
+            var jobTitles = await syncDataService.GetJobTitleAsync(isNexHrm);
 
             return Json(jobTitles);
         }
