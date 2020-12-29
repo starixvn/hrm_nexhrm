@@ -24,11 +24,11 @@
             this.syncDataService = syncDataService ?? new SyncDataService();
         }
 
-        public async Task<IHttpActionResult> GetEmployee(bool isNexHrm, string lastModifiedDate)
+        public async Task<IHttpActionResult> GetEmployee(bool isNexcel, string lastModifiedDate)
         {
             var modifiedDate = GetLastModifiedDate(lastModifiedDate);
 
-            var employees = await syncDataService.GetEmployeeAsync(isNexHrm, modifiedDate);
+            var employees = await syncDataService.GetEmployeeAsync(isNexcel, modifiedDate);
 
             return Json(employees);
         }
@@ -42,20 +42,26 @@
             return Json(departments);
         }
 
-        public async Task<IHttpActionResult> GetGroup(bool isNexHrm, string lastModifiedDate)
+        public async Task<IHttpActionResult> GetGroup(bool isNexcel, string lastModifiedDate)
         {
             var modifiedDate = GetLastModifiedDate(lastModifiedDate);
 
-            var groups = await syncDataService.GetGroupAsync(isNexHrm, modifiedDate);
+            var groups = await syncDataService.GetGroupAsync(isNexcel, modifiedDate);
 
             return Json(groups);
         }
 
-        public async Task<IHttpActionResult> GetJobTitle(bool isNexHrm)
+        public async Task<IHttpActionResult> GetJobTitle(bool isNexcel)
         {
-            var jobTitles = await syncDataService.GetJobTitleAsync(isNexHrm);
+            var jobTitles = await syncDataService.GetJobTitleAsync(isNexcel);
 
             return Json(jobTitles);
+        }
+
+        public async Task<IHttpActionResult> GetFlow(bool isNexcel)
+        {
+            var flowData = await syncDataService.GetFlowAsync(isNexcel);
+            return Json(flowData);
         }
 
         private DateTime GetLastModifiedDate(string dateTimeString)

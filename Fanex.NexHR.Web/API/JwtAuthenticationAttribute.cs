@@ -47,7 +47,7 @@
         private static bool ValidateToken(string token, out string username)
         {
             username = null;
-            var isValid = false;
+            bool isValid;
 
             var simplePrinciple = JwtManager.GetPrincipal(token);
             var identity = simplePrinciple?.Identity as ClaimsIdentity;

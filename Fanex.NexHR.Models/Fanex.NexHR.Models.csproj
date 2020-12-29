@@ -167,6 +167,9 @@
     <Compile Include="ScheduledMessage\ScheduledMessage.cs" />
     <Compile Include="SkypeAccount\ConversationUser.cs" />
     <Compile Include="SkypeAccount\EmployeeSkypeAccount.cs" />
+    <Compile Include="SyncData\Flow\EmployeeFlow.cs" />
+    <Compile Include="SyncData\Flow\EpaFlow.cs" />
+    <Compile Include="SyncData\Flow\GroupFlow.cs" />
     <Compile Include="SyncData\SyncDepartmentModel.cs" />
     <Compile Include="SyncData\SyncEmployeeModel.cs" />
     <Compile Include="SyncData\SyncGroupModel.cs" />
@@ -235,6 +238,7 @@
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.13.0.21683\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.13.0.21683\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -2,18 +2,22 @@
 {
     using Fanex.NexHR.Criteria.SyncData;
     using Fanex.NexHR.Models.SyncData;
+    using Fanex.NexHR.Models.SyncData.Flow;
     using Fanex.NexHR.Services.Interfaces;
+    using RestSharp;
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
+    using System.Text;
     using System.Threading.Tasks;
 
     public class SyncDataService : BaseService, ISyncDataService
     {
-        public async Task<IEnumerable<SyncEmployeeModel>> GetEmployeeAsync(bool isNexHrm, DateTime modifiedDate)
+        public async Task<IEnumerable<SyncEmployeeModel>> GetEmployeeAsync(bool isNexcel, DateTime modifiedDate)
         {
             var criteria = new SyncDataGetEmployeeCriteria
             {
-                IsNexHRM = isNexHrm,
+                IsNexHRM = isNexcel,
                 LastModifiedDate = modifiedDate
             };
 
@@ -22,11 +26,11 @@
             return employees;
         }
 
-        public async Task<IEnumerable<SyncDepartmentModel>> GetDepartmentAsync(bool isNexHrm, DateTime modifiedDate)
+        public async Task<IEnumerable<SyncDepartmentModel>> GetDepartmentAsync(bool isNexcel, DateTime modifiedDate)
         {
             var criteria = new SyncDataGetDepartmentCriteria
             {
-                IsNexHRM = isNexHrm,
+                IsNexHRM = isNexcel,
                 LastModifiedDate = modifiedDate
             };
 
@@ -35,11 +39,11 @@
             return departments;
         }
 
-        public async Task<IEnumerable<SyncGroupModel>> GetGroupAsync(bool isNexHrm, DateTime modifiedDate)
+        public async Task<IEnumerable<SyncGroupModel>> GetGroupAsync(bool isNexcel, DateTime modifiedDate)
         {
             var criteria = new SyncDataGetGroupCriteria
             {
-                IsNexHRM = isNexHrm,
+                IsNexHRM = isNexcel,
                 LastModifiedDate = modifiedDate
             };
 
@@ -48,13 +52,28 @@
             return groups;
         }
 
-        public async Task<IEnumerable<SyncJobTitleModel>> GetJobTitleAsync(bool isNexHrm)
+        public async Task<IEnumerable<SyncJobTitleModel>> GetJobTitleAsync(bool isNexcel)
         {
-            var criteria = new SyncDataGetJobTitleCriteria { IsNexHRM = isNexHrm };
+            var criteria = new SyncDataGetJobTitleCriteria { IsNexHRM = isNexcel };
 
             var jobTitles = await GetDataAsync<SyncJobTitleModel>(criteria);
 
             return jobTitles;
+        }
+
+        public async Task<EpaFlow> GetFlowAsync(bool isNexcel)
+        {
+            var restClient = new RestClient { Encoding = Encoding.UTF8 };
+
+            restClient.BaseUrl = isNexcel
+                ? new Uri(ConfigurationManager.AppSettings["NexGoalBaseUrl"])
+                : new Uri(ConfigurationManager.AppSettings["LumiGoalUrl"]);
+
+            var request = new RestRequest(ConfigurationManager.AppSettings["FlowUrl"], Method.GET);
+            request.AddHeader("content-type", "application/x-www-form-urlencoded");
+            var response = await restClient.ExecuteGetTaskAsync<EpaFlow>(request);
+
+            return response.Data;
         }
     }
 }
