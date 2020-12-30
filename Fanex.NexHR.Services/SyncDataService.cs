@@ -67,7 +67,7 @@
 
             restClient.BaseUrl = isNexcel
                 ? new Uri(ConfigurationManager.AppSettings["NexGoalBaseUrl"])
-                : new Uri(ConfigurationManager.AppSettings["LumiGoalUrl"]);
+                : new Uri(ConfigurationManager.AppSettings["LumiGoalBaseUrl"]);
 
             var request = new RestRequest(ConfigurationManager.AppSettings["FlowUrl"], Method.GET);
             request.AddHeader("content-type", "application/x-www-form-urlencoded");

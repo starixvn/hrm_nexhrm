@@ -33,11 +33,11 @@
             return Json(employees);
         }
 
-        public async Task<IHttpActionResult> GetDepartment(bool isNexHrm, string lastModifiedDate)
+        public async Task<IHttpActionResult> GetDepartment(bool isNexcel, string lastModifiedDate)
         {
             var modifiedDate = GetLastModifiedDate(lastModifiedDate);
 
-            var departments = await syncDataService.GetDepartmentAsync(isNexHrm, modifiedDate);
+            var departments = await syncDataService.GetDepartmentAsync(isNexcel, modifiedDate);
 
             return Json(departments);
         }
