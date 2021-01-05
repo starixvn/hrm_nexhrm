@@ -31,19 +31,20 @@ function attachFile(attachPath) {
     var attachFiles = $('#allAttachFile');
 
     if (attachPath) {
+        attachFiles.append('<div>&nbsp\</div>');
         var attachPathFiles = attachPath.split(";");
-
         for (var i = 0; i < attachPathFiles.length; i++) {
-            var attachLink = attachPathFiles[i],
-                attachLinkSplit = attachLink.split('/'),
-                attachFileName = attachLinkSplit[attachLinkSplit.length - 1],
-                pattern = '<div id="file_' + i + '"><a href="' + attachLink + '">' + attachFileName + '</a>&nbsp\
+            if (attachPathFiles[i]) {
+                var attachLink = attachPathFiles[i],
+                    attachLinkSplit = attachLink.split('/'),
+                    attachFileName = attachLinkSplit[attachLinkSplit.length - 1],
+                    pattern = '<div id="file_' + i + '"><a href="' + attachLink + '">' + attachFileName + '</a>&nbsp\
                                 <a href="javascript:deleteFile(\'' + attachLink + '\', ' + i + ');">\
-                                    <span class="icon delete"></span>\
+                                    <span class="mdi mdi-delete mdi-dark mdi-18px"></span>\
                                 </a>\
                             </div>';
-
-            attachFiles.append(pattern);
+                attachFiles.append(pattern);
+            }
         }
     }
 }
