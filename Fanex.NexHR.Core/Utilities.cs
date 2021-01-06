@@ -31,7 +31,7 @@ namespace Fanex.NexHR.Core
             get
             {
                 var date = DateTime.Now;
-                var availableFromDate = new DateTime(date.AddMonths(-3).Year, date.AddMonths(-3).Month, 1);
+                var availableFromDate = new DateTime(date.AddMonths(-12).Year, date.AddMonths(-12).Month, 1);
                 return availableFromDate;
             }
         }
