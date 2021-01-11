@@ -15,6 +15,9 @@
 
         public int EmpId { get; set; }
 
+        [Required]
+        public string Employee { get; set; }
+
         [Display(Name = "Expired Date")]
         public DateTime? InputDate { get; set; }
 

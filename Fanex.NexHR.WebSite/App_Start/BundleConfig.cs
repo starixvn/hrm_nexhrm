@@ -275,7 +275,8 @@
         private static void BuildBundleForToeic(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/toeicjs").Include(
-                "~/Scripts/Views/Employee/employee.toeic.js"));
+                "~/Scripts/Views/Employee/employee.toeic.js",
+                "~/Scripts/Libs/moment.js"));
         }
 
         private static void BuildBundleForLeaveRequest(BundleCollection bundles)

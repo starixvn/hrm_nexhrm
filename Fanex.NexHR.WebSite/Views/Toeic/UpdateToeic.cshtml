@@ -1,9 +1,10 @@
 ﻿@using Fanex.NexHR.ViewModels.Toeic
-@model ToeicViewModel
+@model Toeic
 @{ DateTime currentDate = DateTime.Today; }
 <form id="frmUpdateTOEIC" class="form form-update-toeic">
     <div id="divErrorCont" class="">
-        &nbsp;</div>
+        &nbsp;
+    </div>
     <div class="row form-input">
         <div class="left label--l">
             <label>@Labels.Employee</label>
@@ -33,26 +34,54 @@
     </div>
     <div class="row form-input">
         <div class="left label--l">
-            <label>@Labels.Listening</label>
+            <label>@Labels.NewOldListening</label>
         </div>
-        <div class="left input--s">
-            @Html.TextBoxFor(m => m.Listening, new { type = "number", step = "5", onchange = "calculateToeicScore()" })
+        <div class="left score-toeic">
+            <div class="left select--xs m-r--s">
+                @Html.TextBoxFor(model => model.Listening, new { type = "number", step = "5", onchange = "calculateToeicScore()" })
+                @Html.ValidationMessageFor(model => model.Listening)
+            </div>
+            <div class="col left colon">
+                /
+            </div>
+            <div class="left select--xs">
+                @Html.TextBoxFor(model => model.OldListening, new { type = "number", step = "5", onchange = "calculateOldToeicScore()" })
+                @Html.ValidationMessageFor(model => model.OldListening)
+            </div>
         </div>
     </div>
     <div class="row form-input">
         <div class="left label--l">
-            <label>@Labels.Reading</label>
+            <label>@Labels.NewOldReading</label>
         </div>
-        <div class="left input--s">
-            @Html.TextBoxFor(m => m.Reading, new { type = "number", step = "5", onchange = "calculateToeicScore()" })
+        <div class="left score-toeic">
+            <div class="left select--xs m-r--s">
+                @Html.TextBoxFor(m => m.Reading, new { type = "number", step = "5", onchange = "calculateToeicScore()" })
+                @Html.ValidationMessageFor(model => model.Reading)
+            </div>
+            <div class="col left colon">
+                /
+            </div>
+            <div class="left select--xs">
+                @Html.TextBoxFor(m => m.OldReading, new { type = "number", step = "5", onchange = "calculateOldToeicScore()" })
+                @Html.ValidationMessageFor(model => model.OldReading)
+            </div>
         </div>
     </div>
     <div class="row form-input">
         <div class="left label--l">
-            <label>@Labels.Total</label>
+            <label>@Labels.NewOldTotal</label>
         </div>
-        <div class="left input--s">
-            <input class="readonly-input" type="number" name="Total" readonly ="readonly" />
+        <div class="left score-toeic">
+            <div class="left select--xs m-r--s">
+                <input class="readonly-input" type="number" id="Total" name="Total" readonly="readonly" />
+            </div>
+            <div class="col left colon">
+                /
+            </div>
+            <div class="left select--xs">
+                <input class="readonly-input" type="number" id="OldTotal" name="OldTotal" readonly="readonly" />
+            </div>
         </div>
     </div>
     <div class="row form-input">

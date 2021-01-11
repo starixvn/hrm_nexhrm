@@ -45,6 +45,12 @@
         [Range(0, maxRangeRL)]
         public int? Reading { get; set; }
 
+        [Range(0, maxRangeRL)]
+        public int? OldListening { get; set; }
+
+        [Range(0, maxRangeRL)]
+        public int? OldReading { get; set; }
+
         [Display(Name = "S/W Exam Date")]
         public DateTime? SWExamDate
         {

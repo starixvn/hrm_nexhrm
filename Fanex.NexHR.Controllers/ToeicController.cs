@@ -103,9 +103,22 @@
             return toeicSorted;
         }
 
+        [HttpPost]
+        public ActionResult GetToeicScoreByEmpId(int empId)
+        {
+            var criteria = new GetToeicScoreByEmployeeIdCriteria
+            {
+                EmpId = empId
+            };
+
+            Toeic toeic = _toeicService.GetById(criteria);
+
+            return Json(toeic);
+        }
+
         [HttpGet]
         [Authorize(Roles = "HR")]
-        public ActionResult UpdateFullToeic(int? id, string name)
+        public ActionResult UpdateToeic(int? id)
         {
             Toeic toeic = null;
 
@@ -119,78 +132,12 @@
                 toeic = toeic ?? new Toeic { EmpId = id.Value };
             }
 
-            ViewBag.EmployeeName = name;
-
             return PartialView(toeic);
         }
 
         [HttpPost]
         [Authorize(Roles = "HR")]
-        public ActionResult UpdateFullToeic(Toeic model)
-        {
-            var currentUserId = CurrentUser.Id;
-            var result = new CommandResult
-            {
-                Code = 1,
-                Message = Messages.InvalidInputData
-            };
-            if (ModelState.IsValid)
-            {
-                ValidateTOEIC(model);
-
-                if (model != null && ModelState.IsValid)
-                {
-                    var oldScore = GetToeicScore(model.EmpId);
-                    var newScore = model;
-
-                    model.CreatedBy = currentUserId;
-                    model.ModifiedBy = currentUserId;
-
-                    model.CreatedDate = DateTime.Now;
-                    model.ModifiedDate = DateTime.Now;
-
-                    var toeicCriteria = new UpdateFullToeicScoreCriteria
-                    {
-                        CreatedBy = currentUserId,
-                        CreatedDate = DateTime.Now,
-                        EmpId = model.EmpId,
-                        InputDate = model.InputDate,
-                        Listening = model.Listening,
-                        LRExamDate = model.LRExamDate,
-                        ModifiedBy = currentUserId,
-                        ModifiedDate = DateTime.Now,
-                        OldListening = model.OldListening,
-                        OldReading = model.OldReading,
-                        OldSpeaking = model.OldSpeaking,
-                        OldWriting = model.OldWriting,
-                        Reading = model.Reading,
-                        Speaking = model.Speaking,
-                        SWExamDate = model.SWExamDate,
-                        Writing = model.Writing,
-                        MinimumScore = model.MinimumScore
-                    };
-                    result = _commandService.Update(toeicCriteria);
-
-                    if (result.IsSuccessful && model.SendMail)
-                    {
-                        SendUpdatedScoreEmailToRelatedPeople(model.EmpId, newScore, oldScore);
-                    }
-                }
-            }
-
-            return Json(result);
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "HR")]
-        public ActionResult UpdateToeic()
-        {
-            return PartialView(new ToeicViewModel());
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "HR")]
-        public ActionResult UpdateToeic(ToeicViewModel model)
+        public ActionResult UpdateToeic(Toeic model)
         {
             var result = new CommandResult
             {
@@ -219,27 +166,36 @@
                 if (ModelState.IsValid)
                 {
                     var oldScore = GetToeicScore(model.EmpId);
-                    var toeicScoreCriteria = new UpdateToeicScoreCriteria
+                    var toeicScoreCriteria = new UpdateFullToeicScoreCriteria
                     {
-                        EmpId = model.EmpId,
-                        InputDate = model.InputDate,
-                        LRExamDate = model.LRExamDate,
-                        Listening = model.Listening,
-                        Reading = model.Reading,
-                        SWExamDate = model.SWExamDate,
-                        Speaking = model.Speaking,
-                        Writing = model.Writing,
-                        MinimumScore = model.MinimumScore,
                         CreatedBy = CurrentUser.Id,
                         CreatedDate = DateTime.Now,
+                        EmpId = model.EmpId,
+                        InputDate = model.InputDate,
+                        Listening = model.Listening,
+                        LRExamDate = model.LRExamDate,
                         ModifiedBy = CurrentUser.Id,
-                        ModifiedDate = DateTime.Now
+                        ModifiedDate = DateTime.Now,
+                        OldListening = model.OldListening,
+                        OldReading = model.OldReading,
+                        OldSpeaking = model.OldSpeaking,
+                        OldWriting = model.OldWriting,
+                        Reading = model.Reading,
+                        Speaking = model.Speaking,
+                        SWExamDate = model.SWExamDate,
+                        Writing = model.Writing,
+                        MinimumScore = model.MinimumScore
                     };
                     result = _commandService.Update(toeicScoreCriteria);
 
                     if (result.IsSuccessful && model.SendMail)
                     {
                         SendUpdatedScoreEmailToRelatedPeople(model.EmpId, toeic, oldScore);
+                    }
+
+                    if(!result.IsSuccessful)
+                    {
+                        ModelState.AddModelError(string.Empty, result.Message);
                     }
                 }
             }
