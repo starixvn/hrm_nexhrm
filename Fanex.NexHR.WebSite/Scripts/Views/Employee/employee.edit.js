@@ -223,21 +223,26 @@ function initDialog(divContent) {
                 click: function () {
                     $.ajax({
                         type: 'POST',
-                        url: _global.root + 'toeic/updatefulltoeic',
+                        url: _global.root + 'toeic/updatetoeic',
                         dataType: 'json',
-                        data: $('#frmUpdFullTOEIC').serialize(),
+                        data: $('#frmUpdateTOEIC').serialize(),
                         success: function (data) {
                             var errorCont = $('#divErrorCont');
                             errorCont.removeClass();
                             errorCont.html('');
 
-                            if (data.IsSuccessful) {
+                            if (data.code === 0) {
                                 errorCont.addClass('success validation-summary-success');
                                 errorCont.append('Update TOEIC score for Employee successfully');
                                 setTimeout(function () { $('#dialog-toeic').dialog("close"); query(); }, 3000);
                             }
                             else {
-                                var errors = '<ul><li>' + data.Message + '</li></ul>';
+                                var errors = '<ul>';
+                                $(data.error).each(function (i, value) {
+                                    errors += '<li>' + value.ErrorMessage + '</li>';
+                                });
+                                errors += '</ul>';
+
                                 errorCont.addClass('validation-summary-errors');
                                 errorCont.append(errors);
                             }
@@ -247,7 +252,7 @@ function initDialog(divContent) {
                         }
                     });
                 }
-            }            
+            }
         ],
         show: {
             effect: "blind",
@@ -261,7 +266,7 @@ function initDialog(divContent) {
 }
 
 function initNumberTextbox() {
-    var numbericTextbox = $('#frmUpdFullTOEIC input[type=number]');
+    var numbericTextbox = $('#frmUpdateTOEIC input[type=number]');
 
     numbericTextbox.attr('maxlength', '3');
     numbericTextbox.keydown(function (event) {
@@ -331,17 +336,17 @@ function initEventForUpdateToeic() {
         if (id > 0) {
             $.ajax({
                 type: 'GET',
-                url: _global.root + 'toeic/updatefulltoeic?id=' + id + '&name=' + $('#NickName').val(),
+                url: _global.root + 'toeic/updatetoeic?id=' + id,
                 dataType: 'html',
                 success: function (data) {
                     if (data) {
                         var divContent = $('#dialog-toeic');
                         divContent.html('');
                         divContent.append(data);
-
                         initNumberTextbox();
                         initDatePicker();
                         initDialog(divContent);
+                        $('#Employee').prop('readonly', true);
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -350,6 +355,29 @@ function initEventForUpdateToeic() {
             });
         }
     });
+}
+
+function calculateToeicScore() {
+    var listening = $('form').find('input[name=Listening]').val();
+    if (!listening) listening = 0;
+
+    var reading = $('form').find('input[name=Reading]').val();
+    if (!reading) reading = 0;
+
+    var total = parseInt(listening) + parseInt(reading);
+
+    $('form').find('input[name=Total]').val(total);
+}
+
+function calculateOldToeicScore() {
+    var oldListening = $('#frmUpdateTOEIC').find('input[name=OldListening]').val();
+    if (!oldListening) oldListening = 0;
+
+    var oldReading = $('#frmUpdateTOEIC').find('input[name=OldReading]').val();
+    if (!oldReading) oldReading = 0;
+
+    var oldTotal = parseInt(oldListening) + parseInt(oldReading);
+    $('#frmUpdateTOEIC').find('input[name=OldTotal]').val(oldTotal);
 }
 
 function initEventForDelete() {

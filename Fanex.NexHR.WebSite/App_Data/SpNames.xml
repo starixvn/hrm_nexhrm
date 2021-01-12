@@ -187,7 +187,6 @@
             <Mapping DataField="JobTitleId" ObjectProperty="Id" />
         </Setting>
         <Setting Key="TOEIC_Update" SpName="TOEIC_Update" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="TOEIC_NewUpdate" SpName="TOEIC_NewUpdate" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="TOEIC_GetUpdatingScoreRelatedPeople" SpName="TOEIC_GetUpdatingScoreRelatedPeople" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Department">

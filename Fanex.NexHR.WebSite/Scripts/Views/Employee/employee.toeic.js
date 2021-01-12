@@ -23,9 +23,9 @@ function initNumberTextbox() {
     numbericTextbox.keydown(function (event) {
         // Allow: backspace, delete, tab, escape, and enter
         if (event.keyCode === 46 || event.keyCode === 8 || event.keyCode === 9 || event.keyCode === 27 || event.keyCode === 13 ||
-        // Allow: Ctrl+A
+            // Allow: Ctrl+A
             (event.keyCode === 65 && event.ctrlKey === true) ||
-        // Allow: home, end, left, right
+            // Allow: home, end, left, right
             (event.keyCode >= 35 && event.keyCode <= 39)) {
             // let it happen, don't do anything
             return;
@@ -69,10 +69,11 @@ function editTOEIC(id) {
     if (id > 0) {
         $.ajax({
             type: 'GET',
-            url: _global.root + 'toeic/updatetoeic?id=' + id + '&name=' + name,
+            url: _global.root + 'toeic/updatetoeic?id=' + id,
             dataType: 'html',
             success: function (data) {
                 $('#dialog-toeic').html(data);
+                $('#Employee').prop('readonly', true);
                 initAddToeicDialog();
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -82,6 +83,27 @@ function editTOEIC(id) {
     }
 }
 
+function getToeicScoreByEmpId(empId) {
+    $.post(_global.root + 'Toeic/GetToeicScoreByEmpId', { empId: empId },
+        function (response) {
+            if (response != null) {
+                if (response.InputDate != null) {
+                    $('#InputDate').val(moment(response.InputDate).format("DD MMM, YYYY"));
+                }
+                if (response.LRExamDate != null) {
+                    $('#LRExamDate').val(moment(response.LRExamDate).format("DD MMM, YYYY"));
+                }
+                $('#Listening').val(response.Listening);
+                $('#OldListening').val(response.OldListening);
+                $('#Reading').val(response.Reading);
+                $('#OldReading').val(response.OldReading);
+                $('#Total').val(response.Total);
+                $('#OldTotal').val(response.OldTotal);
+                $('#MinimumScore').val(response.MinimumScore);
+            }
+        });
+}
+
 function initAddToeicDialog() {
     initDatePicker();
     initAutocomplete('#Employee', '#EmpId');
@@ -89,24 +111,7 @@ function initAddToeicDialog() {
 
     $('#Employee').on('change', function () {
         var empId = parseInt($('#EmpId').val());
-        $.post(_global.root + 'Toeic/GetToeicScoreByEmpId', { empId: empId },
-            function (response) {
-                if (response != null) {
-                    if (response.InputDate != null) {
-                        $('#InputDate').val(moment(response.InputDate).format("DD MMM, YYYY"));
-                    }
-                    if (response.LRExamDate != null) {
-                        $('#LRExamDate').val(moment(response.LRExamDate).format("DD MMM, YYYY"));
-                    }
-                    $('#Listening').val(response.Listening);
-                    $('#OldListening').val(response.OldListening);
-                    $('#Reading').val(response.Reading);
-                    $('#OldReading').val(response.OldReading);
-                    $('#Total').val(response.Total);
-                    $('#OldTotal').val(response.OldTotal);
-                    $('#MinimumScore').val(response.MinimumScore);
-                }
-            });
+        getToeicScoreByEmpId(empId);
     });
 
     $('#dialog-toeic').dialog({
@@ -246,8 +251,8 @@ function eventSorting() {
             direction = 'desc';
         }
 
-            sorts.shift();
-            sorts.push({ Property: property, Direction: direction });
+        sorts.shift();
+        sorts.push({ Property: property, Direction: direction });
 
         query(false);
     });
