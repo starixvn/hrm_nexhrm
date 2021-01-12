@@ -166,7 +166,7 @@
                 if (ModelState.IsValid)
                 {
                     var oldScore = GetToeicScore(model.EmpId);
-                    var toeicScoreCriteria = new UpdateFullToeicScoreCriteria
+                    var toeicScoreCriteria = new UpdateToeicScoreCriteria
                     {
                         CreatedBy = CurrentUser.Id,
                         CreatedDate = DateTime.Now,

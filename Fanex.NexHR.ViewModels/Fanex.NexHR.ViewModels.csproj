@@ -150,7 +150,6 @@
     <Compile Include="MySpaceViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Toeic\ToeicManagementViewModel.cs" />
-    <Compile Include="Toeic\ToeicViewModel.cs" />
     <Compile Include="TotalWorkingHours\TotalWorkingHoursViewModel.cs" />
     <Compile Include="WorkingScheduleModel.cs" />
   </ItemGroup>

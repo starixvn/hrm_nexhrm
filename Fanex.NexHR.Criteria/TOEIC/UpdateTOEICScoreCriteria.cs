@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="UpdateToeicScoreCriteria.cs" company=".">
+// <copyright file="UpdateFullToeicScoreCriteria.cs" company=".">
 // Copyright (c) .. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -25,13 +25,21 @@ namespace Fanex.NexHR.Criteria.Toeic
 
         public DateTime? LRExamDate { get; set; }
 
+        public int? OldListening { get; set; }
+
+        public int? OldReading { get; set; }
+
         public int? Speaking { get; set; }
 
         public int? Writing { get; set; }
 
-        public int? MinimumScore { get; set; }
-
         public DateTime? SWExamDate { get; set; }
+
+        public int? OldSpeaking { get; set; }
+
+        public int? OldWriting { get; set; }
+
+        public int? MinimumScore { get; set; }
 
         public DateTime? InputDate { get; set; }
 
@@ -50,7 +58,7 @@ namespace Fanex.NexHR.Criteria.Toeic
 
         public override string GetSettingKey()
         {
-            return "TOEIC_NewUpdate";
+            return "TOEIC_Update";
         }
     }
 }

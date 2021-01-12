@@ -74,13 +74,13 @@
         </div>
         <div class="left score-toeic">
             <div class="left select--xs m-r--s">
-                <input class="readonly-input" type="number" id="Total" name="Total" readonly="readonly" />
+                @Html.TextBoxFor(model => model.Total, new { @readonly = "readonly", @class = "readonly-input" })
             </div>
             <div class="col left colon">
                 /
             </div>
             <div class="left select--xs">
-                <input class="readonly-input" type="number" id="OldTotal" name="OldTotal" readonly="readonly" />
+                @Html.TextBoxFor(model => model.OldTotal, new { @readonly = "readonly", @class = "readonly-input" })
             </div>
         </div>
     </div>
