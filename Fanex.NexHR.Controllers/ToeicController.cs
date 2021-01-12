@@ -110,8 +110,7 @@
             {
                 EmpId = empId
             };
-
-            Toeic toeic = _toeicService.GetById(criteria);
+            var toeic = _toeicService.GetById(criteria) ?? new Toeic();
 
             return Json(toeic);
         }

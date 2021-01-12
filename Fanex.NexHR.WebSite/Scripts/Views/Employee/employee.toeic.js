@@ -69,7 +69,7 @@ function editTOEIC(id) {
     if (id > 0) {
         $.ajax({
             type: 'GET',
-            url: _global.root + 'toeic/updatetoeic?id=' + id,
+            url: _global.root + 'toeic/updatetoeic?id=' + id + '&name=' + $('#NickName').val(),
             dataType: 'html',
             success: function (data) {
                 $('#dialog-toeic').html(data);
@@ -87,12 +87,11 @@ function getToeicScoreByEmpId(empId) {
     $.post(_global.root + 'Toeic/GetToeicScoreByEmpId', { empId: empId },
         function (response) {
             if (response != null) {
-                if (response.InputDate != null) {
-                    $('#InputDate').val(moment(response.InputDate).format("DD MMM, YYYY"));
-                }
-                if (response.LRExamDate != null) {
-                    $('#LRExamDate').val(moment(response.LRExamDate).format("DD MMM, YYYY"));
-                }
+                var inputDate = response.InputDate != null ? moment(response.InputDate).format("DD MMM, YYYY") : null;
+                var lrExamDate = response.LRExamDate != null ? moment(response.LRExamDate).format("DD MMM, YYYY") : null;
+
+                $('#InputDate').val(inputDate);
+                $('#LRExamDate').val(lrExamDate);
                 $('#Listening').val(response.Listening);
                 $('#OldListening').val(response.OldListening);
                 $('#Reading').val(response.Reading);
