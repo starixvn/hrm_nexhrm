@@ -336,7 +336,7 @@ function initEventForUpdateToeic() {
         if (id > 0) {
             $.ajax({
                 type: 'GET',
-                url: _global.root + 'toeic/updatetoeic?id=' + id,
+                url: _global.root + 'toeic/updatetoeic?id=' + id + '&name=' + $('#NickName').val(),
                 dataType: 'html',
                 success: function (data) {
                     if (data) {

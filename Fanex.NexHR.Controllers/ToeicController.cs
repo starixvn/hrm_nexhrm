@@ -118,7 +118,7 @@
 
         [HttpGet]
         [Authorize(Roles = "HR")]
-        public ActionResult UpdateToeic(int? id)
+        public ActionResult UpdateToeic(int? id, string name)
         {
             Toeic toeic = null;
 
@@ -130,6 +130,7 @@
                 };
                 toeic = _toeicService.GetById(criteria);
                 toeic = toeic ?? new Toeic { EmpId = id.Value };
+                toeic.Employee = toeic.Employee ?? name;
             }
 
             return PartialView(toeic);
