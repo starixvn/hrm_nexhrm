@@ -210,9 +210,12 @@
         [HttpPost]
         public ActionResult Update(LeaveRequestViewModel model)
         {
-            if (model != null && ModelState.IsValid)
+            if (model != null)
             {
                 model.LeaveTypes = _leaveTypeService.GetAll();
+            }
+            if (model != null && ModelState.IsValid)
+            {
                 var fromTimeLeaveBusiness = string.Concat(model.FromHour, ":", model.FromMinute);
                 var toTimeLeaveBusiness = string.Concat(model.ToHour, ":", model.ToMinute);
                 var fromDate = model.LeaveTypeId == BusinessTripLeaveType ? Utilities.AddTimeToDate(model.FromDate, fromTimeLeaveBusiness) : Utilities.AddTimeToDate(model.FromDate, model.FromTime);
@@ -252,10 +255,7 @@
                     ModelState.AddModelError(string.Empty, result.Message);
                 }
             }
-            if(model != null)
-            {
-                model.LeaveTypes = _leaveTypeService.GetAll();
-            }
+            
             return View(model);
         }
 
