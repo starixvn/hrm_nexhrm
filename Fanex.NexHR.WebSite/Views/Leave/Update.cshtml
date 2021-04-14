@@ -21,7 +21,7 @@
                     <div class="form list-item-form">
                         @using (Html.BeginForm("update", "leave", FormMethod.Post, new { @class = "form-create-update" }))
                         {
-                            @Html.ValidationSummary(true)
+                            @Html.ValidationSummary()
                             if (ViewBag.Updated == true)
                             {
                                 <div class="row validation-summary-success">

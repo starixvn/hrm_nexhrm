@@ -252,7 +252,10 @@
                     ModelState.AddModelError(string.Empty, result.Message);
                 }
             }
-
+            if(model != null)
+            {
+                model.LeaveTypes = _leaveTypeService.GetAll();
+            }
             return View(model);
         }
 
