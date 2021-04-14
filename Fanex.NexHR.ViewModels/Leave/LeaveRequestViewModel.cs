@@ -123,6 +123,14 @@
                 result.Add(validation);
             }
 
+            if(LeaveTypeId == Constants.BusinessTripLeaveType && ((FromHour > ToHour) || (FromHour == ToHour && FromMinute >= ToMinute)))
+            {
+                var validation = new ValidationResult(
+                Messages.InvalidToDate,
+                new[] { "ToDate" });
+                result.Add(validation);
+            }
+
             return result;
         }
     }
