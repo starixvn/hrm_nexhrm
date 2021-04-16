@@ -210,34 +210,20 @@
         [HttpPost]
         public ActionResult Update(LeaveRequestViewModel model)
         {
-            if (model != null)
-            {
-                model.LeaveTypes = _leaveTypeService.GetAll();
-            }
             if (model != null && ModelState.IsValid)
             {
-                var fromTimeLeaveBusiness = string.Concat(model.FromHour, ":", model.FromMinute);
-                var toTimeLeaveBusiness = string.Concat(model.ToHour, ":", model.ToMinute);
-                var fromDate = model.LeaveTypeId == BusinessTripLeaveType ? Utilities.AddTimeToDate(model.FromDate, fromTimeLeaveBusiness) : Utilities.AddTimeToDate(model.FromDate, model.FromTime);
-                var toDate = model.LeaveTypeId == BusinessTripLeaveType ? Utilities.AddTimeToDate(model.ToDate, toTimeLeaveBusiness) : Utilities.AddTimeToDate(model.ToDate, model.ToTime);
-                if (model.HalfDayOff)
-                {
-                    model.TotalDays = (decimal)day;
-                    model.FromDate = fromDate;
-                    model.ToDate = toDate;
-                }
-
+                var viewModel = PrepareModelUpdate(model);
                 var criteria = new UpdateRequestCriteria
                 {
-                    Id = model.Id,
-                    IsPlanned = model.IsPlanned,
-                    Remark = model.Remark,
-                    ModifiedBy = model.EmployeeId,
-                    FromDate = model.FromDate,
+                    Id = viewModel.Id,
+                    IsPlanned = viewModel.IsPlanned,
+                    Remark = viewModel.Remark,
+                    ModifiedBy = viewModel.EmployeeId,
+                    FromDate = viewModel.FromDate,
                     ModifiedDate = DateTime.Now,
-                    ToDate = model.ToDate,
-                    LeaveTypeId = model.LeaveTypeId,
-                    TotalDays = model.TotalDays
+                    ToDate = viewModel.ToDate,
+                    LeaveTypeId = viewModel.LeaveTypeId,
+                    TotalDays = viewModel.TotalDays
                 };
 
                 CommandResult result = _commandService.Update(criteria);
@@ -246,17 +232,25 @@
                     ViewBag.Updated = true;
                     if (result.Code == 0)
                     {
-                        model.IsEdit = true;
-                        SendEmailAndSkype(model);
+                        viewModel.IsEdit = true;
+                        SendEmailAndSkype(viewModel);
                     }
                 }
                 else
                 {
                     ModelState.AddModelError(string.Empty, result.Message);
                 }
+                return View(viewModel);
+            }
+            else
+            {
+                if (model != null)
+                {
+                    model.LeaveTypes = _leaveTypeService.GetAll();
+                }
+                return View(model);
             }
             
-            return View(model);
         }
 
         [HttpPost]
@@ -272,6 +266,23 @@
             var leaveBalanceInMonth = _requestService.GetAnnualLeaveBalanceInMonth(criteria);
 
             return Json(leaveBalanceInMonth);
+        }
+
+        private LeaveRequestViewModel PrepareModelUpdate(LeaveRequestViewModel model)
+        {
+            model.LeaveTypes = _leaveTypeService.GetAll();
+            var fromTimeLeaveBusiness = string.Concat(model.FromHour, ":", model.FromMinute);
+            var toTimeLeaveBusiness = string.Concat(model.ToHour, ":", model.ToMinute);
+            var fromDate = model.LeaveTypeId == BusinessTripLeaveType ? Utilities.AddTimeToDate(model.FromDate, fromTimeLeaveBusiness) : Utilities.AddTimeToDate(model.FromDate, model.FromTime);
+            var toDate = model.LeaveTypeId == BusinessTripLeaveType ? Utilities.AddTimeToDate(model.ToDate, toTimeLeaveBusiness) : Utilities.AddTimeToDate(model.ToDate, model.ToTime);
+            if (model.HalfDayOff)
+            {
+                model.TotalDays = (decimal)day;
+                model.FromDate = fromDate;
+                model.ToDate = toDate;
+            }
+
+            return model;
         }
     }
 }

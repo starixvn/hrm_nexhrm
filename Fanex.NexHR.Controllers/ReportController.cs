@@ -42,7 +42,7 @@
 
         public ActionResult Attendance(EmployeeAttendanceViewModel model)
         {
-            const int numberItems = 200;
+            const int numberItems = 500;
             var employeeAttendanceViewModel = model;
             if (employeeAttendanceViewModel != null)
             {
