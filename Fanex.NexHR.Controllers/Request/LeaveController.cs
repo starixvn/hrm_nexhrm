@@ -93,7 +93,7 @@
                 return View((LeaveRequestViewModel)null);
             }
 
-            leaveRequestViewModel = PrepareModel(leaveRequestViewModel);
+            leaveRequestViewModel = PrepareModelCreate(leaveRequestViewModel);
 
             if (!ModelState.IsValid || leaveRequestViewModel.EmployeeId == 0)
             {
@@ -152,26 +152,6 @@
             });
         }
 
-        private LeaveRequestViewModel PrepareModel(LeaveRequestViewModel model)
-        {
-            model.LeaveTypes = _leaveTypeService.GetAll();
-            model.UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null);
-            ViewBag.Year = model.FromDate.Year;
-            var fromTimeLeaveBusiness = string.Concat(model.FromHour,":", model.FromMinute);
-            var toTimeLeaveBusiness = string.Concat(model.ToHour, ":", model.ToMinute);
-            var fromDate= model.LeaveTypeId == BusinessTripLeaveType ? Utilities.AddTimeToDate(model.FromDate, fromTimeLeaveBusiness) : Utilities.AddTimeToDate(model.FromDate, model.FromTime);
-            var toDate = model.LeaveTypeId == BusinessTripLeaveType ? Utilities.AddTimeToDate(model.ToDate, toTimeLeaveBusiness) : Utilities.AddTimeToDate(model.ToDate, model.ToTime);
-
-            if (model.HalfDayOff)
-            {
-                model.TotalDays = (decimal)day;
-                model.FromDate = fromDate;
-                model.ToDate = toDate;
-            }
-
-            return model;
-        }
-
         public ActionResult Update(int id)
         {
             var criteria = new GetRequestByIdCriteria { Id = id };
@@ -212,7 +192,7 @@
         {
             if (model != null && ModelState.IsValid)
             {
-                var viewModel = PrepareModelUpdate(model);
+                var viewModel = PrepareModel(model);
                 var criteria = new UpdateRequestCriteria
                 {
                     Id = viewModel.Id,
@@ -268,7 +248,15 @@
             return Json(leaveBalanceInMonth);
         }
 
-        private LeaveRequestViewModel PrepareModelUpdate(LeaveRequestViewModel model)
+        private LeaveRequestViewModel PrepareModelCreate(LeaveRequestViewModel model)
+        {
+            var viewModel = PrepareModel(model);
+            viewModel.UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null);
+            ViewBag.Year = model.FromDate.Year;
+            return viewModel;
+        }
+
+        private LeaveRequestViewModel PrepareModel(LeaveRequestViewModel model)
         {
             model.LeaveTypes = _leaveTypeService.GetAll();
             var fromTimeLeaveBusiness = string.Concat(model.FromHour, ":", model.FromMinute);
