@@ -23,9 +23,11 @@
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
+                IList<EmployeeAttendanceModel> attendances;
+
                 using (var multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    IList<EmployeeAttendanceModel> attendances = multi.Read<EmployeeAttendanceModel>().ToList();
+                    attendances = multi.Read<EmployeeAttendanceModel>().ToList();
 
                     IEnumerable<RequestEntity> requests = multi
                         .Read<RequestEntity, RequestTypeModel, Shift, Shift, Employee, LeaveType, RequestEntity>(
@@ -39,14 +41,6 @@
                                 return rq;
                             },
                             "RequestTypeId, FromShiftId, ToShiftId, RequesterId, LeaveTypeId");
-
-                    PropertyInfo totalitem = GetTotalItemPropertyInfo(criteria);
-
-                    if (totalitem != null)
-                    {
-                        var hashParam = db.GetOuputParams();
-                        totalitem.SetValue(criteria, (int)hashParam[totalItem], null);
-                    }
 
                     foreach (EmployeeAttendanceModel attendance in attendances)
                     {
@@ -62,8 +56,18 @@
                             : 1;
                     }
 
-                    return attendances;
+                    
                 }
+
+                PropertyInfo totalitem = GetTotalItemPropertyInfo(criteria);
+
+                if (totalitem != null)
+                {
+                    var hashParam = db.GetOuputParams();
+                    totalitem.SetValue(criteria, (int)hashParam[totalItem], null);
+                }
+
+                return attendances;
             }
         }
 

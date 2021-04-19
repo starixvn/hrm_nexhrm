@@ -3,97 +3,175 @@
 @{
     var pagerOption = ViewBag.PagerOption;
 }
+<table id="data" class="table bordered striped highlight centered table-custom">
+    <thead>
+        <tr>
+            <th>@Labels.SymbolCount</th>
+            <th class="col-sorter">
+                @Labels.Date
+                <div class="sorter" data-property="AttendanceDate"></div>
+            </th>
+            <th class="col-sorter">
+                @Labels.Code
+                <div class="sorter" data-property="Code"></div>
+            </th>
+            <th class="col-sorter">
+                @Labels.Nick
+                <div class="sorter" data-property="NickName"></div>
+            </th>
+            <th class="col-sorter">
+                @Labels.FullName
+                <div class="sorter" data-property="FullName"></div>
+            </th>
+            <th class="col-sorter">
+                @Labels.Team
+                <div class="sorter" data-property="Team"></div>
+            </th>
+            <th class="col-sorter">
+                @Labels.Shift
+                <div class="sorter" data-property="ShiftCode"></div>
+            </th>
+            <th class="col-sorter">
+                @Labels.CheckIn
+                <div class="sorter" data-property="InFixed"></div>
+            </th>
+            <th class="col-sorter">
+                @Labels.CheckOut
+                <div class="sorter" data-property="OutFixed"></div>
+            </th>
+            <th class="col-sorter">
+                @Labels.TotalHours
+                <div class="sorter" data-property="TotalWorkHours"></div>
+            </th>
+            <th class="col-sorter">
+                @Labels.LateIn
+                <div class="sorter" data-property="LateIn"></div>
+            </th>
+            <th class="col-sorter">
+                @Labels.EarlyOut
+                <div class="sorter" data-property="EarlyOut"></div>
+            </th>
+            <th>@Labels.Request</th>
+            <th class="col-sorter">
+                @Labels.Note
+                <div class="sorter" data-property="Notes"></div>
+        </tr>
+    </thead>
+    @if (Model.Any())
+    {
+        <tbody>
 
-@if (Model.Any())
-{
-        var index = (pagerOption.CurrentPage - 1) * pagerOption.ItemsPerPage;
-        foreach (EmployeeAttendanceModel employeeAttendance in Model)
-        {
-            index++;
-            var cssClass = string.Empty;
-            if (employeeAttendance.IsNotWork != 0)
-            {
-                cssClass = "offdate";
+            @{
+                var index = (pagerOption.CurrentPage - 1) * pagerOption.ItemsPerPage;
             }
-            else if (employeeAttendance.ShiftId != null)
+            @foreach (EmployeeAttendanceModel employeeAttendance in Model)
             {
-            }
-            else
-            {
-                cssClass = "noshift";
-            }
+                index++;
+                var cssClass = string.Empty;
+                if (employeeAttendance.IsNotWork != 0)
+                {
+                    cssClass = "offdate";
+                }
+                else if (employeeAttendance.ShiftId != null)
+                {
+                }
+                else
+                {
+                    cssClass = "noshift";
+                }
 
-            <tr class="@cssClass">
-                <td>@index</td>
-                <td>@employeeAttendance.AttendanceDate.ToDateMonthYearFormatedDate()</td>
-                <td>@employeeAttendance.Code</td>
-                <td>@employeeAttendance.NickName</td>
-                <td class="align-left">@employeeAttendance.FullName</td>
-                <td class="tooltip" title="@employeeAttendance.Team">
-                    @employeeAttendance.TeamCode
-                </td>
-                <td>@employeeAttendance.ShiftCode</td>
-                <td>
-                    @if (employeeAttendance.InFixed != null)
-                    {
-                        @employeeAttendance.InFixed.Value.ToString("HH:mm")
-                    }
-                </td>
-                <td>
-                    @if (employeeAttendance.OutFixed != null)
-                    {
-                        @employeeAttendance.OutFixed.Value.ToString("HH:mm")
-                    }
-                </td>
-                <td>
-                    @if (employeeAttendance.TotalWorkHours > 0)
-                    {
-                        @RazorHelper.TotalHoursToTime(employeeAttendance.TotalWorkHours)
-                    }
-                </td>
-                <td>
-                    @if (employeeAttendance.LateIn > 0)
-                    {
-                        @RazorHelper.DisplayMinute(employeeAttendance.LateIn)
-                    }
-                </td>
-                <td>
-                    @if (employeeAttendance.EarlyOut > 0)
-                    {
-                        @RazorHelper.DisplayMinute(employeeAttendance.EarlyOut)
-                    }
-                </td>
-                <td>
-                    @if (employeeAttendance.Requests != null)
-                    {
-                        foreach (RequestEntity request in employeeAttendance.Requests)
+                <tr class="@cssClass">
+                    <td>@index</td>
+                    <td>@employeeAttendance.AttendanceDate.ToDateMonthYearFormatedDate()</td>
+                    <td>@employeeAttendance.Code</td>
+                    <td>@employeeAttendance.NickName</td>
+                    <td class="align-left">@employeeAttendance.FullName</td>
+                    <td class="tooltip" title="@employeeAttendance.Team">
+                        @employeeAttendance.TeamCode
+                    </td>
+                    <td>@employeeAttendance.ShiftCode</td>
+                    <td>
+                        @if (employeeAttendance.InFixed != null)
                         {
-                            var dataToShift = "";
-                            if (request.ToShift != null)
-                            {
-                                dataToShift = request.ToShift.Name;
-                            }
-
-                            <a href='javascript:;' class="tooltip-request req"
-                               data-requesttype="@request.RequestType.Id"
-                               data-fromdate="@request.FromDate.ToFormatedDate()"
-                               data-todate="@request.ToDate.ToFormatedDate()"
-                               data-createddate="@request.CreatedDate.ToFormatedDate()"
-                               data-fromshift="@request.FromShift.Name"
-                               data-toshift="@dataToShift"
-                               data-totaldays="@request.TotalDays"
-                               data-totalmins="@request.TotalMins"
-                               data-remark='@request.Remark'>
-                                @request.RequestType.Name
-                            </a>
+                            @employeeAttendance.InFixed.Value.ToString("HH:mm")
                         }
-                    }
+                    </td>
+                    <td>
+                        @if (employeeAttendance.OutFixed != null)
+                        {
+                            @employeeAttendance.OutFixed.Value.ToString("HH:mm")
+                        }
+                    </td>
+                    <td>
+                        @if (employeeAttendance.TotalWorkHours > 0)
+                        {
+                            @RazorHelper.TotalHoursToTime(employeeAttendance.TotalWorkHours)
+                        }
+                    </td>
+                    <td>
+                        @if (employeeAttendance.LateIn > 0)
+                        {
+                            @RazorHelper.DisplayMinute(employeeAttendance.LateIn)
+                        }
+                    </td>
+                    <td>
+                        @if (employeeAttendance.EarlyOut > 0)
+                        {
+                            @RazorHelper.DisplayMinute(employeeAttendance.EarlyOut)
+                        }
+                    </td>
+                    <td>
+                        @if (employeeAttendance.Requests != null)
+                        {
+                            foreach (RequestEntity request in employeeAttendance.Requests)
+                            {
+                                var dataToShift = "";
+                                if (request.ToShift != null)
+                                {
+                                    dataToShift = request.ToShift.Name;
+                                }
+
+                                <a href='javascript:;' class="tooltip-request req"
+                                    data-requesttype="@request.RequestType.Id"
+                                    data-fromdate="@request.FromDate.ToFormatedDate()"
+                                    data-todate="@request.ToDate.ToFormatedDate()"
+                                    data-createddate="@request.CreatedDate.ToFormatedDate()"
+                                    data-fromshift="@request.FromShift.Name"
+                                    data-toshift="@dataToShift"
+                                    data-totaldays="@request.TotalDays"
+                                    data-totalmins="@request.TotalMins"
+                                    data-remark='@request.Remark'>
+                                    @request.RequestType.Name
+                                </a>
+                            }
+                        }
+                    </td>
+                    <td class="align-left">@employeeAttendance.Notes</td>
+                </tr>
+                }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="14" id="pagination" class="row form-input">
+                    <div id="detailtext" class="col m-t--m">
+                        @{
+                            var from = (pagerOption.CurrentPage - 1) * pagerOption.ItemsPerPage + 1;
+                            var to = from + (Model.Count - 1);
+                        }
+                        Showing <strong>@from</strong> to <strong>@to</strong> of <strong>@pagerOption.TotalItem</strong> entries
+                    </div>
+                    <div class="col right">
+                        @Html.Hidden("CurrentPage", (int)pagerOption.CurrentPage)
+                        @Html.Hidden("ItemsPerPage", (int)pagerOption.ItemsPerPage)
+                        @Html.Hidden("TotalItem", (int)pagerOption.TotalItem)
+                        <ul id="numberlist" class="pagination"></ul>
+                    </div>
                 </td>
-                <td class="align-left">@employeeAttendance.Notes</td>
             </tr>
-        }
-}
-else
-{
-    @RazorHelper.DisplayNoInformation(colspan: 14)
-}
+        </tfoot>
+    }
+    else
+    {
+        @RazorHelper.DisplayNoInformation(colspan: 14)
+    }
+</table>
