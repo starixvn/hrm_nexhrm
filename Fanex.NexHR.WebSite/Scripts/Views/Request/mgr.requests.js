@@ -15,6 +15,34 @@ function processRequest(command, eventElement) {
     );
 }
 
+function approveMultiRequest(requestIds) {
+    $.post(_global.root + 'request/approveMultiple',
+        { requestIds: requestIds },
+        function (response) {
+            if (response.IsSuccessful) {
+                query(false);
+            } else {
+                alert(response.Message);
+                return;
+            }
+        }
+    );
+}
+
+function rejectMultiRequest(requestIds) {
+    $.post(_global.root + 'request/rejectMultiple',
+        { requestIds: requestIds },
+        function (response) {
+            if (response.IsSuccessful) {
+                query(false);
+            } else {
+                alert(response.Message);
+                return;
+            }
+        }
+    );
+}
+
 function bindMenuPending() {
     $('table#data tbody td a.Pending').on('mouseup', function () {
         $.contextMenu({
@@ -69,7 +97,6 @@ function bindMenuApproved() {
 
 function query(isFirstLoad) {   // jshint ignore:line
     var action = $('.card-container-base .form').find('#ActionName').val();
-
     $.ajax({
         url: _global.root + 'request/' + action,
         type: 'GET',
@@ -82,7 +109,7 @@ function query(isFirstLoad) {   // jshint ignore:line
         },
         success: function (data) {
             $('#all-request').html(data);
-
+            
             if ($('table#data #pagination').length > 0) {
                 // menu
                 bindMenuPending();
@@ -123,7 +150,11 @@ function query(isFirstLoad) {   // jshint ignore:line
 
                 $('table#data').addClass('table-success'); // class to style mobile
 
-                //floatThead('table#data');
+                $('#checkuncheckall').on('click', function () {
+                    var isCheckAll = $('#checkuncheckall').prop('checked');
+                    
+                    $('.chk-request').prop('checked', isCheckAll);
+                });
             }
         },
         error: function (textStatus, errorThrown) {
@@ -133,6 +164,54 @@ function query(isFirstLoad) {   // jshint ignore:line
             if (!isFirstLoad) {
                 $('.loading-process').fadeOut(300);
             }
+        }
+    });
+}
+
+function initApproveMultiEvent() {
+    $('#btn-approve').on('click', function () {
+        var requestIds = [];
+        $('.chk-request').each(function (index, item) {
+            var checked = $(item).prop('checked');
+            if (checked) {
+                requestIds.push($(item).attr('data-id'));
+            }
+        });
+
+        if (requestIds.length > 0) {
+            confirm('Are you sure you want to approve checked request?', function () {
+
+                console.log(requestIds);
+                approveMultiRequest(requestIds);
+            });
+
+            
+        } else {
+            alert('Please choose at least one request to continue!');
+        }
+    });
+}
+
+function initRejectMultiEvent() {
+    $('#btn-reject').on('click', function () {
+        var requestIds = [];
+        $('.chk-request').each(function (index, item) {
+            var checked = $(item).prop('checked');
+            if (checked) {
+                requestIds.push($(item).attr('data-id'));
+            }
+        });
+
+        if (requestIds.length > 0) {
+            confirm('Are you sure you want to reject checked request?', function () {
+
+                console.log(requestIds);
+                approveMultiRequest(requestIds);
+            });
+
+
+        } else {
+            alert('Please choose at least one request to continue!');
         }
     });
 }
@@ -179,13 +258,15 @@ $(document).ready(function () {
     });
 
     $('#Date').val($('#DateOption').val()).change();
-
     $('#submit').on('click', function () {
         if (validateFromDateAndToDate()) {
             $('form.form-filter #CurrentPage').val(1);
             query(false);
         }
     });
+
+    initApproveMultiEvent();
+    initRejectMultiEvent();
 
     query(true);
 });

@@ -1,7 +1,7 @@
 ﻿@model RequestViewModel
 <div class="form form-stl-table">
     @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
-    @Html.Hidden("ActionName", (string)ViewBag.ActionName)
+    @Html.Hidden("ActionName", Model.PartialActionName)
     <form class="form-filter" action="">
         <div class="row form-input">
             <div class="col m-r--m">
@@ -86,7 +86,15 @@
             </div>
             @Html.HiddenFor(model => model.ItemsPerPage)
             @Html.HiddenFor(model => model.CurrentPage)
-            <input id="submit" class="btn-submit waves-effect waves-light m-l--s-" type="button" value="@Labels.Submit" />
+            @Html.HiddenFor(model => model.RequestViewType)
+        <div class="left">
+            <input id="submit" class="btn-submit waves-effect waves-light m-r--m" type="button" value="@Labels.Submit" />
+            @if (Model.RequestViewType == RequestViewType.LeaderView)
+            {
+                <a class="btn-request waves-effect waves-light m-r--m left" href="javascript:;" id="btn-approve">Approve</a>
+                <a class="btn-request waves-effect waves-light m-r--m left" href="javascript:;" id="btn-reject">Reject</a>
+            }
         </div>
+            </div>
     </form>
 </div>

@@ -6,6 +6,7 @@
     using System.Web.Mvc;
     using Common;
     using Core.Enums;
+    using Fanex.NexHR.Models.Request;
     using Models;
     using Resources;
 
@@ -29,12 +30,10 @@
         [Display(Name = "Leave Type")]
         public int LeaveTypeId { get; set; }
 
-        [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MMM dd, yyyy}", ApplyFormatInEditMode = true)]
         public DateTime FromDate { get; set; }
 
-        [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MMM dd, yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ToDate { get; set; }
@@ -48,6 +47,31 @@
         public int RequestType { get; set; }
 
         public bool IsFilterByEffectedDate { get; set; }
+
+        public RequestViewType RequestViewType { get; set; }
+
+        public string PartialActionName { 
+            get 
+            {
+                string partialAction;
+                if (RequestViewType == RequestViewType.LeaderView)
+                {
+                    partialAction = "GetAllRequestByAssistantLeader";
+                }
+                else if (RequestViewType == RequestViewType.HRView)
+                {
+                    partialAction = "GetAllRequestByHR";
+                }
+                else
+                {
+                    partialAction = "GetAllRequestByEmployee";
+                }
+
+                return partialAction;
+            } 
+        }
+
+        public IList<RequestEntity> Requests { get; set; }
 
         [Display(Name = "Team")]
         public IList<Team> Teams { get; set; }

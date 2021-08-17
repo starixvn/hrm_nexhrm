@@ -141,6 +141,7 @@
     <Compile Include="Enums\RequestMonitoringType.cs" />
     <Compile Include="Enums\RequestStatuse.cs" />
     <Compile Include="Enums\RequestType.cs" />
+    <Compile Include="Enums\RequestViewType.cs" />
     <Compile Include="Enums\RequestTypeFilterForRequest.cs" />
     <Compile Include="Enums\RequestTypeFilterForAttendance.cs" />
     <Compile Include="Enums\Role.cs" />

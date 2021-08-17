@@ -18,10 +18,10 @@
 
     public class RequestController : BaseController
     {
-        private readonly IRequestService _requestService;
-        private readonly ITeamService _teamService;
-        private readonly ILeaveTypeService _leaveTypeService;
-        private readonly ICommandService _commandService;
+        private readonly IRequestService requestService;
+        private readonly ITeamService teamService;
+        private readonly ILeaveTypeService leaveTypeService;
+        private readonly ICommandService commandService;
 
         public RequestController()
             : this(null, null, null, null)
@@ -34,200 +34,148 @@
             ILeaveTypeService leaveTypeService,
             ICommandService commandService)
         {
-            _requestService = requestService ?? new RequestService();
-            _teamService = teamService ?? new TeamService();
-            _leaveTypeService = leaveTypeService ?? new LeaveTypeService();
-            _commandService = commandService ?? new CommandService();
+            this.requestService = requestService ?? new RequestService();
+            this.teamService = teamService ?? new TeamService();
+            this.leaveTypeService = leaveTypeService ?? new LeaveTypeService();
+            this.commandService = commandService ?? new CommandService();
         }
         private const int months = 2;
-        private const int numberType = 5;
         private const int numberId = 2;
 
         [Authorize(Roles = "AssistantLeader,HR")]
         [HttpPost]
         public JsonResult ProcessRequest(string command, long id)
         {
-            CommandResult result = _requestService.Process(command, id, CurrentUser.Id);
+            CommandResult result = requestService.Process(command, id, CurrentUser.Id);
             return Json(result);
         }
 
-        public PartialViewResult CriteriaPanel(RequestViewModel request)
+        [Authorize(Roles = "AssistantLeader,HR")]
+        [HttpPost]
+        public JsonResult ApproveMultiple(int[] requestIds)
         {
-            return PartialView(request);
+            var commandResult = new CommandResult();
+            if (requestIds.Length > 0)
+            {
+                foreach(var requestId in requestIds)
+                {
+                    var result = requestService.Process(Command.Approve.ToString(), requestId, CurrentUser.Id);
+                    if (!result.IsSuccessful)
+                    {
+                        commandResult.Code = result.Code;
+                        commandResult.Message = result.Message;
+                    }
+                }    
+            }
+
+            return Json(commandResult);
+        }
+
+        [Authorize(Roles = "AssistantLeader,HR")]
+        [HttpPost]
+        public JsonResult RejectMultiple(int[] requestIds)
+        {
+            var commandResult = new CommandResult();
+            if (requestIds.Length > 0)
+            {
+                foreach (var requestId in requestIds)
+                {
+                    var result = requestService.Process(Command.Reject.ToString(), requestId, CurrentUser.Id);
+                    if (!result.IsSuccessful)
+                    {
+                        commandResult.Code = result.Code;
+                        commandResult.Message = result.Message;
+                    }
+                }
+            }
+
+            return Json(commandResult);
+        }
+
+        public PartialViewResult CriteriaPanel(RequestViewModel model)
+        {
+            return PartialView(model);
         }
 
         [Authorize(Roles = "AssistantLeader")]
-        public ActionResult Member(RequestViewModel request)
+        public ActionResult Member(RequestViewModel model)
         {
-            RequestViewModel modifiedRequest = null;
-            if (request != null)
+            if (model.TeamId == -1)
             {
-                modifiedRequest = request;
-
-                if (request.TeamId == -1)
+                model = new RequestViewModel
                 {
-                    modifiedRequest = new RequestViewModel
-                    {
-                        DateOption = 0,
-                        ToDate = DateTime.Now,
-                        FromDate = request.ToDate.AddMonths(-months),
-                        RequestType = numberType,
-                        TeamId = null,
-                        IsFilterByEffectedDate = false
-                    };
-                }
-
-                if (request.TeamId == -numberId)
-                {
-                    modifiedRequest.TeamId = null;
-                }
-
-                modifiedRequest.CurrentPage = Constants.CurrentPage;
-                modifiedRequest.ItemsPerPage = Constants.ItemsPerPage;
-
-                var criteria = new GetTeamByManagerIdCriteria
-                {
-                    ManagerId = CurrentUser.Id
+                    DateOption = 0,
+                    ToDate = DateTime.Now,
+                    FromDate = model.ToDate.AddMonths(-months),
+                    RequestType = (int)RequestTypeFilterForRequest.All,
+                    TeamId = null,
+                    IsFilterByEffectedDate = false,
+                    RequestViewType = RequestViewType.LeaderView
                 };
-                modifiedRequest.Teams = _teamService.GetTeamManagedByEmp(criteria);
-
-                modifiedRequest.LeaveTypes = _leaveTypeService.GetAll();
-                modifiedRequest.LeaveTypes.Insert(0, new LeaveType { Id = 0, Name = Labels.All });
-
-                ViewBag.ActionName = "GetAllRequestByAssistantLeader";
             }
 
-            return View(modifiedRequest);
+            if (model.TeamId == -numberId)
+            {
+                model.TeamId = null;
+            }
+
+            model.CurrentPage = Constants.CurrentPage;
+            model.ItemsPerPage = Constants.ItemsPerPage;
+            model.Teams = GetTeamByLeaders();
+            model.LeaveTypes = GetLeaveTypes();
+
+            return View(model);
         }
 
         [ValidateInput(false)]
         [Authorize(Roles = "AssistantLeader")]
-        public ActionResult GetAllRequestByAssistantLeader(RequestViewModel request)
+        public ActionResult GetAllRequestByAssistantLeader(RequestViewModel model)
         {
-            IList<RequestEntity> entityList = new List<RequestEntity>();
-            if (request != null)
-            {
-                entityList = GetRequest(request, (short)Role.AssistantLeader);
-
-                ViewBag.Status = request.StatusId;
-                ViewBag.IsAllowChangeStatus = true;
-                ViewBag.Leader = true;
-                ViewBag.Options = request;
-            }
-
-            return PartialView("AllRequest", entityList);
+            model.Requests = GetRequest(model, (short)Role.AssistantLeader);
+            return PartialView("AllRequest", model);
         }
 
-        public ActionResult EmployeeView(RequestViewModel request)
+        public ActionResult EmployeeView(RequestViewModel model)
         {
-            var modifiedRequest = request;
-            if (modifiedRequest != null)
-            {
-                // Default view all request type
-                if (modifiedRequest.TeamId == -1)
-                {
-                    modifiedRequest = new RequestViewModel
-                    {
-                        StatusId = 0,
-                        RequestType = numberType,
-                        TeamId = null,
-                        IsFilterByEffectedDate = true
-                    };
-                }
+            var newModel = GetRequestViewModel(model, RequestViewType.StaffView);
 
-                // Get request model from Request monitoring view.
-                if (modifiedRequest.TeamId == -numberId)
-                {
-                    modifiedRequest.StatusId = 0;
-                    modifiedRequest.TeamId = null;
-                }
-
-                modifiedRequest.CurrentPage = Constants.CurrentPage;
-                modifiedRequest.ItemsPerPage = Constants.ItemsPerPage;
-
-                modifiedRequest.Teams = _teamService.GetTeam();
-
-                modifiedRequest.LeaveTypes = _leaveTypeService.GetAll();
-                modifiedRequest.LeaveTypes.Insert(0, new LeaveType { Id = 0, Name = Labels.All });
-
-                ViewBag.ActionName = "GetAllRequestByEmployee";
-            }
-
-            return View("HRView", modifiedRequest);
+            return View("HRView", newModel);
         }
 
         [ValidateInput(false)]
-        public ActionResult GetAllRequestByEmployee(RequestViewModel request)
+        public ActionResult GetAllRequestByEmployee(RequestViewModel model)
         {
-            IList<RequestEntity> entityList = new List<RequestEntity>();
-            if (request != null)
+            if (model != null)
             {
-                entityList = GetRequest(request, (short)Role.HR);
-
-                ViewBag.Status = request.StatusId;
-                ViewBag.IsAllowChangeStatus = false;
-                ViewBag.Leader = false;
-                ViewBag.Options = request;
+                model.Requests = GetRequest(model, (short)Role.HR);
             }
 
-            return PartialView("AllRequest", entityList);
+            return PartialView("AllRequest", model);
         }
 
         [Authorize(Roles = "HR")]
-        public ActionResult HRView(RequestViewModel request)
+        public ActionResult HRView(RequestViewModel model)
         {
-            var modifiedRequest = request;
-            if (modifiedRequest != null)
-            {
-                // Default view all request type
-                if (modifiedRequest.TeamId == -1)
-                {
-                    modifiedRequest = new RequestViewModel
-                    {
-                        StatusId = 0,
-                        RequestType = numberType,
-                        TeamId = null,
-                        IsFilterByEffectedDate = false
-                    };
-                }
+            var newModel = GetRequestViewModel(model, RequestViewType.HRView);
 
-                // Get request model from Request monitoring view.
-                if (modifiedRequest.TeamId == -numberId)
-                {
-                    modifiedRequest.StatusId = 0;
-                    modifiedRequest.TeamId = null;
-                }
-
-                modifiedRequest.CurrentPage = Constants.CurrentPage;
-                modifiedRequest.ItemsPerPage = Constants.ItemsPerPage;
-
-                modifiedRequest.Teams = _teamService.GetTeam();
-
-                modifiedRequest.LeaveTypes = _leaveTypeService.GetAll();
-                modifiedRequest.LeaveTypes.Insert(0, new LeaveType { Id = 0, Name = Labels.All });
-
-                ViewBag.ActionName = "GetAllRequestByHR";
-            }
-
-            return View(modifiedRequest);
+            return View(newModel);
         }
 
         [ValidateInput(false)]
         [Authorize(Roles = "HR")]
-        public ActionResult GetAllRequestByHR(RequestViewModel request)
+        public ActionResult GetAllRequestByHR(RequestViewModel model)
         {
-            IList<RequestEntity> entityList = new List<RequestEntity>();
-            if (request != null)
+            if (model != null)
             {
-                entityList = GetRequest(request, (short)Role.HR);
+                model.Requests = GetRequest(model, (short)Role.HR);
 
-                ViewBag.Status = request.StatusId;
+                ViewBag.Status = model.StatusId;
                 ViewBag.IsAllowChangeStatus = true;
                 ViewBag.Leader = false;
-                ViewBag.Options = request;
+                ViewBag.Options = model;
             }
 
-            return PartialView("AllRequest", entityList);
+            return PartialView("AllRequest", model);
         }
 
         public ActionResult ViewHistory(long requestId, int requestType)
@@ -237,7 +185,7 @@
                 RequestId = requestId
             };
 
-            IList<RequestEntity> requests = _requestService.GetRequestHistory(criteria);
+            IList<RequestEntity> requests = requestService.GetRequestHistory(criteria);
 
             ViewBag.requestType = requestType;
 
@@ -251,7 +199,7 @@
             {
                 Id = id
             };
-            CommandResult result = _commandService.Delete(criteria);
+            CommandResult result = commandService.Delete(criteria);
 
             return Json(result);
         }
@@ -272,7 +220,7 @@
 
         public JsonResult GetUnavailDate(int employeeId)
         {
-            IList<DateTime> dates = _requestService.GetDisableRequestDate(employeeId, requestId: null);
+            IList<DateTime> dates = requestService.GetDisableRequestDate(employeeId, requestId: null);
             return Json(dates.Select(t => t.ToString("dd MMM yyyy")), JsonRequestBehavior.AllowGet);
         }
 
@@ -286,9 +234,59 @@
                 RequestId = requestId == 0 ? null : requestId
             };
 
-            DateRange totalDays = _requestService.GetDateRange(getDateRangeCriteria);
+            DateRange totalDays = requestService.GetDateRange(getDateRangeCriteria);
 
             return Json(totalDays.TotalDay, JsonRequestBehavior.AllowGet);
+        }
+
+        private RequestViewModel GetDefaultRequestViewModel(RequestViewType requestViewType)
+        {
+            var model = new RequestViewModel
+            {
+                StatusId = 0,
+                RequestType = (int)RequestTypeFilterForRequest.All,
+                TeamId = null,
+                RequestViewType = requestViewType
+            };
+
+            if (requestViewType == RequestViewType.LeaderView)
+            {
+                model.DateOption = 0;
+                model.ToDate = DateTime.Now;
+                model.FromDate = model.ToDate.AddMonths(-months);
+                model.IsFilterByEffectedDate = false;
+            }
+            else if (requestViewType == RequestViewType.HRView)
+            {
+                model.IsFilterByEffectedDate = false;
+            }
+            else
+            {
+                model.IsFilterByEffectedDate = true;
+            }
+
+            return model;
+        }
+
+        private RequestViewModel GetRequestViewModel(RequestViewModel model, RequestViewType requestViewType)
+        {
+            if (model.TeamId == -1)
+            {
+                model = GetDefaultRequestViewModel(requestViewType);
+            }
+
+            if (model.TeamId == -numberId)
+            {
+                model.TeamId = null;
+            }
+
+            model.CurrentPage = Constants.CurrentPage;
+            model.ItemsPerPage = Constants.ItemsPerPage;
+            model.Teams = requestViewType == RequestViewType.LeaderView
+                ? GetTeamByLeaders() : teamService.GetTeam();
+            model.LeaveTypes = GetLeaveTypes();
+
+            return model;
         }
 
         private IList<RequestEntity> GetRequest(RequestViewModel request, short role)
@@ -310,7 +308,7 @@
                 ItemsPerPage = request.ItemsPerPage
             };
 
-            IList<RequestEntity> entityList = _requestService.GetRequest(criteria);
+            IList<RequestEntity> entityList = requestService.GetRequest(criteria);
 
             if (criteria.TotalItem != null)
             {
@@ -337,6 +335,25 @@
             return requestType == (int)RequestTypeFilterForRequest.CheckInOut 
                 ? (Convert.ToString((int)RequestType.CheckIn) + "," + Convert.ToString((int)RequestType.CheckOut)) 
                 : string.Empty;
+        }
+
+        private IList<LeaveType> GetLeaveTypes()
+        {
+            var leaveTypes = leaveTypeService.GetAll();
+            leaveTypes.Insert(0, new LeaveType { Id = 0, Name = Labels.All });
+
+            return leaveTypes;
+        }
+
+        private IList<Team> GetTeamByLeaders()
+        {
+            var criteria = new GetTeamByManagerIdCriteria
+            {
+                ManagerId = CurrentUser.Id
+            };
+            var teams = teamService.GetTeamManagedByEmp(criteria);
+
+            return teams;
         }
     }
 }

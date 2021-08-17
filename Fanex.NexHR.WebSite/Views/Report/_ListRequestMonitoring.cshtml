@@ -30,7 +30,7 @@
             {
                 var requestLink = "/request/{0}?DateOption=0&TeamId=-2&IsFilterByEffectedDate=true&StatusId={1}&FromDate={2}&ToDate={3}&EmployeeId={4}&Employee={5}&RequestType={6}";
                 var leaveRequestLink = string.Format(requestLink, isLeader ? "member" : "hrview",
-                    (byte)RequestStatuse.Approve,
+                    0,
                     ((DateTime)ViewBag.FromDate).ToDateMonthYearFormatedDate(),
                     ((DateTime)ViewBag.ToDate).ToDateMonthYearFormatedDate(),
                     request.Requester.Id,
