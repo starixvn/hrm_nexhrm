@@ -1,17 +1,10 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Drawing;
-    using System.IO;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using System.Web;
-    using System.Web.Mvc;
     using Core;
     using Core.Enums;
     using Core.Model;
     using Criteria.Employee;
+    using Fanex.NexHR.Criteria.EmployeeTransfer;
     using Fanex.NexHR.Criteria.HistoryWork;
     using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Resources;
@@ -21,6 +14,14 @@
     using Services.Email;
     using Services.Interfaces;
     using Simplicode.Imaging;
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Web;
+    using System.Web.Mvc;
     using ViewModels;
     using ViewModels.Employee;
 
@@ -584,6 +585,63 @@
             };
 
             return Json(_employeeService.GetMembersByManager(getMemberByManager).Take(Records), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Transfer()
+        {
+            var model = new TransferEmployeeViewModel
+            {
+                LumiGroups = _employeeService.GetLuminetGroups(),
+                LumiShifts = _employeeService.GetLuminetShifts(),
+                LastWorkingDate = DateTime.Now,
+                AffectedDate = DateTime.Now
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Transfer(TransferEmployeeViewModel model)
+        {
+            if (model == null)
+            {
+                return View((TransferEmployeeViewModel)null);
+            }
+            model.LumiGroups = _employeeService.GetLuminetGroups();
+            model.LumiShifts = _employeeService.GetLuminetShifts();
+            var employee = _employeeService.GetEmployeeById(new GetEmployeeByIdCriteria { EmployeeId = model.EmployeeId });
+            if (model.EmployeeId == -1)
+            {
+                ModelState.AddModelError(string.Empty, Messages.NexEmployeeRequireError);
+                return View(model);
+            }
+            if (employee.ResignedDate != null)
+            {
+                ModelState.AddModelError(string.Empty, Messages.EmployeeTransferExitsts);
+                return View(model);
+            }
+            var criteria = new TransferEmployeeCriteria
+            {
+                EmployeeId = model.EmployeeId,
+                LastWorkingDate = model.LastWorkingDate,
+                AffectedDate = model.AffectedDate,
+                ToGroupId = model.GroupId,
+                ShiftId = model.ShiftId,
+                IsTransferAnnualLeaveBalance = model.IsTransferAnnualLeaveBalance ? 1 : 0,
+                IsTransferLateInEarlyOut = model.IsTransferLateInEarlyOut ? 1 : 0,
+                ModifiedBy = CurrentUser.Id
+
+            };
+            CommandResult result = _commandService.Insert(criteria);
+            if (result.Code == 0 || result.Code == -1)
+            {
+                ViewBag.Requested = true;
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, result.Message);
+            }
+            return View(model);
         }
 
         private UpdateEmployeeCriteria FillDataUpdateEmployeeCriteria(EditEmployeeViewModel model)

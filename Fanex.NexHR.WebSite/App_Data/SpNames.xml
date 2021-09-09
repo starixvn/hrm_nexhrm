@@ -430,4 +430,9 @@
         <Setting Key="SyncData_NexHRM_GetJobTitle" SpName="SyncData_GetJobTitle" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="SyncData_LumiHRM_GetJobTitle" SpName="SyncData_GetJobTitle" DbName="lumihr" Plain="0"></Setting>
     </Function>
+    <Function>
+        <Setting Key="EmployeeTransfer_GetLumiGroup" SpName="EmployeeTransfer_GetLumiGroup" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="EmployeeTransfer_GetLumiShift" SpName="EmployeeTransfer_GetLumiShift" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="Employee_Transfer" SpName="Employee_Transfer" DbName="nexhr" Plain="1"></Setting>
+    </Function>
 </Functions>

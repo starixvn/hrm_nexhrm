@@ -19,7 +19,7 @@ namespace Fanex.NexHR.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Messages {
@@ -376,6 +376,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This employee has already transfered.
+        /// </summary>
+        public static string EmployeeTransferExitsts {
+            get {
+                return ResourceManager.GetString("EmployeeTransferExitsts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _- {0} ({1}) violate {2} time(s)._ {3}.
         /// </summary>
         public static string EmployeeViolateTime {
@@ -588,6 +597,15 @@ namespace Fanex.NexHR.Resources {
         public static string NexBalanceDescription {
             get {
                 return ResourceManager.GetString("NexBalanceDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nex Employee must be required and not be only spaces.
+        /// </summary>
+        public static string NexEmployeeRequireError {
+            get {
+                return ResourceManager.GetString("NexEmployeeRequireError", resourceCulture);
             }
         }
         

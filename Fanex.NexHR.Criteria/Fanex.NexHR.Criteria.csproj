@@ -79,6 +79,9 @@
     <Compile Include="Department\InsertDepartmentCriteria.cs" />
     <Compile Include="Department\UpdateDepartmentCriteria.cs" />
     <Compile Include="AnnualLeave\AdjustAnnualLeavesCriteria.cs" />
+    <Compile Include="Employee\TransferEmployeeCriteria.cs" />
+    <Compile Include="Employee\GetLuminetGroupCriteria.cs" />
+    <Compile Include="Employee\GetLuminetShiftCriteria.cs" />
     <Compile Include="Employee\GetCurrentUserSettingCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByNickNameCriteria.cs" />
     <Compile Include="Employee\GetEmployeeByIdCriteria.cs" />

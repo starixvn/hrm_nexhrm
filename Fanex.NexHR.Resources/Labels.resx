@@ -1650,4 +1650,28 @@
   <data name="Absent" xml:space="preserve">
     <value>Absent</value>
   </data>
+  <data name="EmployeeTransfer" xml:space="preserve">
+    <value>Employee Transfer</value>
+  </data>
+  <data name="IsTransferAlBalance" xml:space="preserve">
+    <value>Is Transfer AL Balance</value>
+  </data>
+  <data name="IsTransferLateInEarlyOutBalance" xml:space="preserve">
+    <value>Is Transfer Late In/Early Out Balance</value>
+  </data>
+  <data name="LumiEffectDate" xml:space="preserve">
+    <value>Lumi Effected Date</value>
+  </data>
+  <data name="LumiShift" xml:space="preserve">
+    <value>Lumi Shift</value>
+  </data>
+  <data name="LumiTeam" xml:space="preserve">
+    <value>Lumi Team</value>
+  </data>
+  <data name="NexEmployee" xml:space="preserve">
+    <value>Nex Employee</value>
+  </data>
+  <data name="NexLastWorkingDate" xml:space="preserve">
+    <value>Nex Last Working Date</value>
+  </data>
 </root>

@@ -421,4 +421,10 @@ Thanks</value>
   <data name="ThankNotice" xml:space="preserve">
     <value>Please notice that. Thanks</value>
   </data>
+  <data name="NexEmployeeRequireError" xml:space="preserve">
+    <value>Nex Employee must be required and not be only spaces</value>
+  </data>
+  <data name="EmployeeTransferExitsts" xml:space="preserve">
+    <value>This employee has already transfered</value>
+  </data>
 </root>

@@ -111,6 +111,8 @@
     <Compile Include="CompanyEvent\CompanyEvent.cs" />
     <Compile Include="EmployeeSetting.cs" />
     <Compile Include="Bio\FingerprintAndCardSummary.cs" />
+    <Compile Include="LuminetGroup.cs" />
+    <Compile Include="LuminetShift.cs" />
     <Compile Include="HistoryWork.cs" />
     <Compile Include="LateInEarlyOut\LateInEarlyOutDiscipline.cs" />
     <Compile Include="LateInEarlyOut\LateInEarlyOutDisciplineDetail.cs" />

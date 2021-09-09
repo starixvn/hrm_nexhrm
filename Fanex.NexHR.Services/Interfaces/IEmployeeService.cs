@@ -41,5 +41,9 @@
         IList<Workload> GetWorkloadByTeam(GetEmployeeWorkloadCriteria criteria);
 
         Task<IEnumerable<MissingCheckInOutEmployee>> GetMissingCheckInOutEmployeeAsync();
+
+        IList<LuminetGroup> GetLuminetGroups();
+
+        IList<LuminetShift> GetLuminetShifts();
     }
 }

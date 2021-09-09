@@ -19,7 +19,7 @@ namespace Fanex.NexHR.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Labels {
@@ -1483,6 +1483,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Employee Transfer.
+        /// </summary>
+        public static string EmployeeTransfer {
+            get {
+                return ResourceManager.GetString("EmployeeTransfer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Employee&apos;s view.
         /// </summary>
         public static string EmployeeView {
@@ -2059,6 +2068,24 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is Transfer AL Balance.
+        /// </summary>
+        public static string IsTransferAlBalance {
+            get {
+                return ResourceManager.GetString("IsTransferAlBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is Transfer Late In/Early Out Balance.
+        /// </summary>
+        public static string IsTransferLateInEarlyOutBalance {
+            get {
+                return ResourceManager.GetString("IsTransferLateInEarlyOutBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Jan.
         /// </summary>
         public static string Jan {
@@ -2460,6 +2487,33 @@ namespace Fanex.NexHR.Resources {
         public static string LRTotal {
             get {
                 return ResourceManager.GetString("LRTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lumi Effected Date.
+        /// </summary>
+        public static string LumiEffectDate {
+            get {
+                return ResourceManager.GetString("LumiEffectDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lumi Shift.
+        /// </summary>
+        public static string LumiShift {
+            get {
+                return ResourceManager.GetString("LumiShift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lumi Team.
+        /// </summary>
+        public static string LumiTeam {
+            get {
+                return ResourceManager.GetString("LumiTeam", resourceCulture);
             }
         }
         
@@ -3040,11 +3094,29 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nex Employee.
+        /// </summary>
+        public static string NexEmployee {
+            get {
+                return ResourceManager.GetString("NexEmployee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NEX Hours.
         /// </summary>
         public static string NexHour {
             get {
                 return ResourceManager.GetString("NexHour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nex Last Working Date.
+        /// </summary>
+        public static string NexLastWorkingDate {
+            get {
+                return ResourceManager.GetString("NexLastWorkingDate", resourceCulture);
             }
         }
         

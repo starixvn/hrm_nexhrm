@@ -659,6 +659,7 @@
     <Content Include="Scripts\Views\Employee\employee.monthschedule.js" />
     <Content Include="Scripts\Views\Employee\employee.toeic.js" />
     <Content Include="Scripts\Views\Employee\employee.historywork.js" />
+    <Content Include="Scripts\Views\Employee\employee.transfer.js" />
     <Content Include="Scripts\Views\Employee\user.management.js" />
     <Content Include="Scripts\Views\Employee\_employee.search.in.company.js" />
     <Content Include="Scripts\Views\Employee\_employee.search.in.team.js" />
@@ -714,6 +715,7 @@
     <Content Include="Scripts\Views\ScheduledMessage\scheduled-message.js" />
     <Content Include="Scripts\Views\SkypeAccount\skype-account.js" />
     <Content Include="Scripts\Views\TeamManagement\team.management.js" />
+    <Content Include="Scripts\Views\EmployeeTransfer\transferemployee.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -859,6 +861,7 @@
     <Content Include="Scripts\tinymce\skins\ui\oxide\fonts\tinymce-mobile.woff" />
     <Content Include="Scripts\tinymce\skins\ui\oxide-dark\fonts\tinymce-mobile.woff" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
+    <Content Include="Views\Employee\Transfer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -1038,6 +1041,7 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

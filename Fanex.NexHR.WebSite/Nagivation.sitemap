@@ -40,6 +40,7 @@
       <siteMapNode title="Extension Numbers" controller="ExtensionNo" action="index" icon="cellphone" roles="Member" />
       <siteMapNode title="Company Memo" controller="memo" action="index" icon="file-document-box" roles="Member" />
       <siteMapNode title="Company Event" controller="companyevent" action="index" icon="file-document-box" roles="Member" />
+      <siteMapNode title="Employee Transfer" controller="employee" action="transfer" icon="file-document-box" roles="Member" />
     </siteMapNode>
 
     <siteMapNode title="BIO Space" roles="HR">

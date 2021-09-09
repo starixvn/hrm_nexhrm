@@ -12,6 +12,7 @@
     using ViewModels;
     using Models.Report;
     using System.Threading.Tasks;
+    using Fanex.NexHR.Criteria.EmployeeTransfer;
 
     public class EmployeeService : BaseService, IEmployeeService
     {
@@ -167,6 +168,16 @@
             var missingCheckInOuts = await GetDataAsync<MissingCheckInOutEmployee>(new GetMissingCheckInCheckOutCriteria()).ConfigureAwait(false);
 
             return missingCheckInOuts;
+        }
+
+        public IList<LuminetGroup> GetLuminetGroups()
+        {
+            return GetData<LuminetGroup>(new GetLuminetGroupCriteria());
+        }
+
+        public IList<LuminetShift> GetLuminetShifts()
+        {
+            return GetData<LuminetShift>(new GetLuminetShiftCriteria());
         }
     }
 }
