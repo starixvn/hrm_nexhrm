@@ -587,6 +587,7 @@
             return Json(_employeeService.GetMembersByManager(getMemberByManager).Take(Records), JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize(Roles = "HR")]
         public ActionResult Transfer()
         {
             var model = new TransferEmployeeViewModel
@@ -600,6 +601,7 @@
             return View(model);
         }
 
+        [Authorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Transfer(TransferEmployeeViewModel model)
         {
