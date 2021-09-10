@@ -612,7 +612,7 @@
             model.LumiGroups = _employeeService.GetLuminetGroups();
             model.LumiShifts = _employeeService.GetLuminetShifts();
             var employee = _employeeService.GetEmployeeById(new GetEmployeeByIdCriteria { EmployeeId = model.EmployeeId });
-            if (model.EmployeeId == -1)
+            if (model.EmployeeId <= 0)
             {
                 ModelState.AddModelError(string.Empty, Messages.NexEmployeeRequireError);
                 return View(model);

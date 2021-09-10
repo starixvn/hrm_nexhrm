@@ -25,7 +25,7 @@
       <siteMapNode title="Head Count Report" controller="report" action="headcount" icon="account" roles="HR" />
       <siteMapNode title="NEX Review" controller="overtime" action="hrview" icon="clipboard-text" roles="HR" />
       <siteMapNode title="Yearly NEX Request" controller="report" action="yearlynexrequest" icon="clipboard-text" roles="HR" />
-      <siteMapNode title="Employee Transfer" controller="employee" action="transfer" icon="file-document-box" roles="HR" />
+      <siteMapNode title="Employee Transfer" controller="employee" action="transfer" icon="transfer" roles="HR" />
     </siteMapNode>
     <siteMapNode title="Company Space" roles="Member">
       <siteMapNode title="Staff Info" controller="employee" action="index" icon="folder-account" roles="Member" />
