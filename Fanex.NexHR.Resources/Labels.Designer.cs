@@ -2086,6 +2086,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is Transfer Nex Balance.
+        /// </summary>
+        public static string IsTransferNexBalance {
+            get {
+                return ResourceManager.GetString("IsTransferNexBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Jan.
         /// </summary>
         public static string Jan {

@@ -628,7 +628,7 @@ function ajaxLoadingProcess() {
     });
 }
 
-function initAutocomplete(selectorName, selectorId, isSpecial) {
+function initAutocomplete(selectorName, selectorId, isSpecial, isDisable = null) {
     $(selectorName).autocomplete({
         source: function (request, response) {
             var term = request.term;
@@ -637,13 +637,13 @@ function initAutocomplete(selectorName, selectorId, isSpecial) {
             if (index > 0) {
                 term = term.substr(0, index);
             }
-
             $.ajax({
                 url: _global.root + 'employee/getemployees',
                 dataType: 'json',
                 data: {
                     query: term,
                     isSpecial: isSpecial ? true : false,
+                    isDisable,
                     $top: 10
                 },
                 success: function (data) {

@@ -1674,4 +1674,7 @@
   <data name="NexLastWorkingDate" xml:space="preserve">
     <value>Nex Last Working Date</value>
   </data>
+  <data name="IsTransferNexBalance" xml:space="preserve">
+    <value>Is Transfer Nex Balance</value>
+  </data>
 </root>

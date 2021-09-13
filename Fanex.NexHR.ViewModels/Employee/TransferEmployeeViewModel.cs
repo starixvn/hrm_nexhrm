@@ -25,7 +25,9 @@
         public bool IsTransferLateInEarlyOut { get; set; }
 
         public bool IsTransferAnnualLeaveBalance { get; set; }
-        
+
+        public bool IsTransferNexBalance { get; set; }
+
         public int ModifiedBy { get; set; }
 
         public IList<LuminetGroup> LumiGroups { get; set; }

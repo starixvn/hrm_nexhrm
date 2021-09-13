@@ -97,6 +97,16 @@
 							<div class="row form-input">
 								<div class="col m-b--m">
 									<div class="left label--xxl">
+										@Html.LabelFor(model => model.IsTransferNexBalance, Labels.IsTransferNexBalance)
+									</div>
+									<div class="left input--m isTransferLateInEarlyOut">
+										@Html.MaterializeCheckBoxFor(model => model.IsTransferNexBalance, new { @class = "filled-in" })
+									</div>
+								</div>
+							</div>
+							<div class="row form-input">
+								<div class="col m-b--m">
+									<div class="left label--xxl">
 										@Html.LabelFor(model => model.IsTransferLateInEarlyOut, Labels.IsTransferLateInEarlyOutBalance)
 									</div>
 									<div class="left input--m isTransferLateInEarlyOut">
@@ -114,6 +124,8 @@
 									</div>
 								</div>
 							</div>
+
+
 						}
 					</div>
 				</div>

@@ -617,7 +617,7 @@
                 ModelState.AddModelError(string.Empty, Messages.NexEmployeeRequireError);
                 return View(model);
             }
-            if (employee.ResignedDate != null)
+            if (!employee.Enabled)
             {
                 ModelState.AddModelError(string.Empty, Messages.EmployeeTransferExitsts);
                 return View(model);

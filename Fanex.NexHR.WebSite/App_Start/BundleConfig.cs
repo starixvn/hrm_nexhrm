@@ -680,9 +680,7 @@
 
         private static void BuildBundleEmployeeTransfer(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/employeetransferjs").Include(
-             EmployeeSearchInCompanyScript,
-                "~/Scripts/Views/employee/employee.transfer.js"));
+            bundles.Add(new ScriptBundle("~/bundles/employeetransferjs").Include("~/Scripts/Views/employee/employee.transfer.js"));
 
         }
     }
