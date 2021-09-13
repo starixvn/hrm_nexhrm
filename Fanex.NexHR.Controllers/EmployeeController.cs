@@ -631,8 +631,8 @@
                 ShiftId = model.ShiftId,
                 IsTransferAnnualLeaveBalance = model.IsTransferAnnualLeaveBalance ? 1 : 0,
                 IsTransferLateInEarlyOut = model.IsTransferLateInEarlyOut ? 1 : 0,
-                ModifiedBy = CurrentUser.Id
-
+                ModifiedBy = CurrentUser.Id,
+                IsTransferNexBalance = model.IsTransferLateInEarlyOut ? 1 : 0
             };
             CommandResult result = _commandService.Insert(criteria);
             if (result.Code == 0 || result.Code == -1)

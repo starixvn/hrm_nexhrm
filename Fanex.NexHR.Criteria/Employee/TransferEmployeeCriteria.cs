@@ -21,6 +21,8 @@
 
         public int ModifiedBy { get; set; }
 
+        public int IsTransferNexBalance { get; set; }
+
         public override bool IsValid()
         {
             return EmployeeId > 0;

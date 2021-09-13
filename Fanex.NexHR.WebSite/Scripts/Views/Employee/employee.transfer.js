@@ -14,7 +14,7 @@ function initSearch() {
 }
 
 $(document).ready(function () {
-    initSearch();
+    //initSearch();
     var successed = $('#successed').val();
     if (successed === 'true') {
         confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
