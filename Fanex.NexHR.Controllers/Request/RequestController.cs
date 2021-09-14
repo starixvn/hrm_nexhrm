@@ -312,6 +312,7 @@
 
             if (criteria.TotalItem != null)
             {
+                request.TotalItem = (int)criteria.TotalItem;
                 var pagerOption = new PagerOptionModel
                 {
                     CurrentPage = request.CurrentPage,
