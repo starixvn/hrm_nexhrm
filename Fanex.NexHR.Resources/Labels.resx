@@ -1677,4 +1677,7 @@
   <data name="IsTransferNexBalance" xml:space="preserve">
     <value>Is Transfer Nex Balance</value>
   </data>
+  <data name="Telegram" xml:space="preserve">
+    <value>Telegram</value>
+  </data>
 </root>

@@ -4219,6 +4219,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Telegram.
+        /// </summary>
+        public static string Telegram {
+            get {
+                return ResourceManager.GetString("Telegram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thu.
         /// </summary>
         public static string Thu {
