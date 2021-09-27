@@ -15,7 +15,6 @@
     </siteMapNode>
     <siteMapNode title="HR Space" roles="HR">
       <siteMapNode title="Employee Requests" controller="request" action="hrview" icon="account-box" roles="HR" />
-      <siteMapNode title="Employee Transfer" controller="employee" action="transfer" icon="transfer" roles="HR" />
       <siteMapNode title="Requests Monitoring" controller="report" action="HRRequestMonitoring" icon="eye" roles="HR" />
       <siteMapNode title="User Management" controller="employee" action="UserManagement" icon="settings-box" roles="HR" />
       <siteMapNode title="Team Management" controller="team" action="index" icon="account-multiple" roles="HR" />
