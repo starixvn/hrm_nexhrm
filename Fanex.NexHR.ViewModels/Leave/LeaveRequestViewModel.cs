@@ -122,8 +122,8 @@
                     new[] { "TotalDays" });
                 result.Add(validation);
             }
-            var isValidHourBussinessTrip = (FromHour > ToHour) || (FromHour == ToHour && FromMinute >= ToMinute && HalfDayOff);
-            if (LeaveTypeId == Constants.BusinessTripLeaveType && isValidHourBussinessTrip)
+            var isInValidTime = (FromHour > ToHour) || (FromHour == ToHour && FromMinute >= ToMinute);
+            if (LeaveTypeId == Constants.BusinessTripLeaveType && HalfDayOff && isInValidTime)
             {
                 var validation = new ValidationResult(
                 Messages.InvalidToDate,
