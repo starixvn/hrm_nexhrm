@@ -12,15 +12,17 @@
     public class ReportService : BaseService, IReportService
     {
         private readonly IReportRepository reportRepository;
+        private readonly BaseService baseService;
 
         public ReportService()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public ReportService(IReportRepository reportRepository)
+        public ReportService(IReportRepository reportRepository, BaseService baseService)
         {
             this.reportRepository = reportRepository ?? new ReportRepository();
+            this.baseService = baseService ?? new BaseService();
         }
 
         public IList<TimeRecord> GetTimeRecords(GetTimeRecordCriteria criteria)
@@ -32,6 +34,11 @@
             }
 
             return timeRecords ?? new List<TimeRecord>();
+        }
+
+        public bool GetIsPrivilegeCreateCheckInOut(GetPrivilegeCreateCheckInOutRecordCriteria criteria)
+        {
+            return baseService.GetDataEntity<bool>(criteria);
         }
 
         public IList<LateInEarlyOutModel> GetLateInEarlyOut(GetLateInEarlyOutReportCriteria criteria)

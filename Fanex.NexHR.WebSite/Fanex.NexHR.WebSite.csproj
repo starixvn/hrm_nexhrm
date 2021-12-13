@@ -318,6 +318,7 @@
     </Content>
     <Content Include="Content\Views\eventcalendar.scss" />
     <Content Include="Content\Views\conversation-management.scss" />
+    <Content Include="Content\Views\employee.workfromhome.css" />
     <None Include="Content\Views\mycalendar.scss" />
     <None Include="Content\Views\jobtitle.scss" />
     <None Include="Content\Views\geolocation.scss" />
@@ -652,6 +653,7 @@
     <Content Include="Scripts\Views\Dashboard\employee.dashboard.js" />
     <Content Include="Scripts\Views\Dashboard\googleAPI.js" />
     <Content Include="Scripts\Views\Dashboard\teamattendance.js" />
+    <Content Include="Scripts\Views\EmployeeWorkFromHome\employee.workfromhome.js" />
     <Content Include="Scripts\Views\Employee\employee.birthday.js" />
     <Content Include="Scripts\Views\Employee\employee.defaultschedule.js" />
     <Content Include="Scripts\Views\Employee\employee.edit.js" />
@@ -862,6 +864,10 @@
     <Content Include="Scripts\tinymce\skins\ui\oxide-dark\fonts\tinymce-mobile.woff" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
     <Content Include="Views\Employee\Transfer.cshtml" />
+    <Content Include="Views\EmployeeWorkFromHome\Index.cshtml" />
+    <Content Include="Views\EmployeeWorkFromHome\_EmployeeWorkFromHomeGrid.cshtml" />
+    <Content Include="Views\EmployeeWorkFromHome\Create.cshtml" />
+    <Content Include="Views\EmployeeWorkFromHome\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

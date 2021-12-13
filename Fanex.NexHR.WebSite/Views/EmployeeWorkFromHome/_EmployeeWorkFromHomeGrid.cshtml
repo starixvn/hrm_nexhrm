@@ -1,0 +1,61 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.Models
+@model IList<EmployeeWorkFromHome>
+
+<table id="data" class="table bordered striped highlight centered table-custom">
+    <thead>
+        <tr>
+            <th>@Labels.SymbolCount</th>
+            <th>@Labels.NickName</th>
+            <th>@Labels.FullName</th>
+            <th>@Labels.From</th>
+            <th>@Labels.To</th>
+            <th>@Labels.Remark</th>
+            <th>@Labels.CreatedBy</th>
+            <th>@Labels.CreatedDate</th>
+            <th>@Labels.Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int index = 1;}
+        @if (Model != null && Model.Count > 0)
+        {
+
+            foreach (EmployeeWorkFromHome employeeWorkFromHome in Model)
+            {
+        <tr>
+            <td>@(index++)</td>
+            <td>@employeeWorkFromHome.Nickname</td>
+            <td class="align-left">@employeeWorkFromHome.Fullname</td>
+            <td>@employeeWorkFromHome.FromDate.ToDateMonthYearFormatedDate()</td>
+            <td>@employeeWorkFromHome.ToDate.ToDateMonthYearFormatedDate()</td>
+            @if (!string.IsNullOrWhiteSpace(employeeWorkFromHome.Remark))
+            {
+                <td class="tooltip" title="@employeeWorkFromHome.Remark">
+                    <span class="mdi mdi-message-text" alt="remark"></span>
+                </td>
+            }
+            else
+            {
+                <td></td>
+            }
+            <td>@employeeWorkFromHome.Modifier</td>
+            <td>@employeeWorkFromHome.ModifiedDate.ToFormatedDate()</td>
+            <td class="action-column">
+                <a href="/EmployeeWorkFromHome/Edit?id=@employeeWorkFromHome.EmployeeWorkFromHomeId">
+                    <i class='mdi mdi-border-color mdi-edit mdi-dark'></i>
+                </a>
+                <a href="javascript:;" onclick="deleteRequest('@employeeWorkFromHome.EmployeeWorkFromHomeId');">
+                    <i class='mdi mdi-delete mdi-dark'></i>
+                </a>
+            </td>
+        </tr>
+            }
+        }
+        else
+        {
+            @RazorHelper.DisplayNoInformation(colspan: 9);
+        }
+    </tbody>
+</table>

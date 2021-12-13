@@ -43,12 +43,17 @@
                                         @RazorHelper.RequestTypeFilter("RequestType", Model.RequestType)
                                     </div>
                                 </div>*@
-                                <div class="col">
-                                    @*<a id="submit" class="btn-submit waves-effect waves-light" href="javascript:;">@Labels.Submit</a>*@
-                                    
-                                    <a class="btn-request waves-effect waves-light m-r--m" href="@Url.Action("myworkingschedule", "calendar")">@Labels.MyCalendar</a>
-                                    <a class="btn-request waves-effect waves-light m-r--m" href="@Url.Action("mytimerecord", "report")">@Labels.MyTimeRecord</a>
-                                </div>
+                            <div class="col">
+                                @*<a id="submit" class="btn-submit waves-effect waves-light" href="javascript:;">@Labels.Submit</a>*@
+
+                                <a class="btn-request waves-effect waves-light m-r--m" href="@Url.Action("myworkingschedule", "calendar")">@Labels.MyCalendar</a>
+                                <a class="btn-request waves-effect waves-light m-r--m" href="@Url.Action("mytimerecord", "report")">@Labels.MyTimeRecord</a>
+                                @if (Model.IsHavePrivilegeCreateCheckInOutRecord)
+                                {
+                                    <a href="javascript:;" class="btn btn-request waves-effect waves-light m-r--m" id="btnCreateCheckIn"><span class="fa fa-plus"></span> @Labels.CheckIn</a>
+                                    <a href="javascript:;" class="btn btn-request waves-effect waves-light m-r--m" id="btnCreateCheckOut"><span class="fa fa-plus"></span> @Labels.CheckOut</a>
+                                }
+                            </div>
                             </div>
                         </form>
                     </div>

@@ -1,0 +1,62 @@
+﻿@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.EmployeeWorkFromHome
+@model EmployeeWorkFromHomeFilterViewModel
+@{
+    ViewBag.Title = Labels.EmployeeWorkFromHome;
+}
+@section css {
+    @Styles.Render("~/Content/employeeworkfromhomecss")
+}
+@section js {
+    @Scripts.Render("~/bundles/employeeworkfromhomejs")
+}
+@section Breadcrumb {
+}
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form form-stl-table">
+                        @using (Html.BeginForm())
+                        {
+                        <div class="row form-input">
+                            <div class="col m-r--l">
+                                <div class="left label--m">
+                                    @Html.LabelFor(model => model.FromDate, Labels.FromDate)
+                                </div>
+                                <div class="left datepicker-button select--s">
+                                    @Html.DatePickerFor(model => model.FromDate)
+                                    <i class="mdi-action-event calendar-icon left"></i>
+                                </div>
+                            </div>
+                            <div class="col m-l--xl m-r--l">
+                                <div class="left label--m">
+                                    @Html.LabelFor(model => model.ToDate, Labels.ToDate)
+                                </div>
+                                <div class="left datepicker-button select--s">
+                                    @Html.DatePickerFor(model => model.ToDate)
+                                    <i class="mdi-action-event calendar-icon left"></i>
+                                </div>
+                            </div>
+                            <div class="col m-l--m">
+                                <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light m-r--b" />
+                                <a class="btn btn-request waves-effect waves-light" id="add-workfromhome" href="@Url.Action("Create")">
+                                    <span class="fa fa-plus"></span>
+                                    @Labels.AddEmployeeWorkFromHome
+                                </a>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                    <div class="p-x--s">
+                        <div id="list-workfromhome" class="over-auto table-resize table-medium"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

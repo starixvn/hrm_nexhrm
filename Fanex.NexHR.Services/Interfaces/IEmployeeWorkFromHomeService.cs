@@ -1,0 +1,18 @@
+﻿namespace Fanex.NexHR.Services.Interfaces
+{
+    using System;
+    using System.Collections.Generic;
+    using Fanex.NexHR.Criteria.EmployeeWorkFromHome;
+    using Fanex.NexHR.Models;
+
+    public interface IEmployeeWorkFromHomeService
+    {
+        IList<EmployeeWorkFromHome> GetAll(DateTime fromDate, DateTime toDate);
+        EmployeeWorkFromHome GetById(int id);
+        CommandResult Insert(InsertEmployeeWorkFromHomeCriteria criteria);
+
+        CommandResult Update(UpdateEmployeeWorkFromHomeCriteria criteria);
+
+        CommandResult Delete(int id);
+    }
+}

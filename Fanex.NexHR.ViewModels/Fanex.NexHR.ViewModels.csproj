@@ -88,6 +88,8 @@
     <Compile Include="Bio\EditBioDeviceViewModel.cs" />
     <Compile Include="Calendar\WorkingCalendarViewModel.cs" />
     <Compile Include="CustomValidationAttribute\MultipleOfAttribute.cs" />
+    <Compile Include="EmployeeWorkFromHome\EmployeeWorkFromHomeFilterViewModel.cs" />
+    <Compile Include="EmployeeWorkFromHome\EmployeeWorkFromHomeViewModel.cs" />
     <Compile Include="Employee\EmployeeListViewModel.cs" />
     <Compile Include="Employee\WorkingHistoryViewModel.cs" />
     <Compile Include="FingerprintAndCardViewModel.cs" />

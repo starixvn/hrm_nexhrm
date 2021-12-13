@@ -49,6 +49,8 @@
 
             BuildBundleForTeamManagement(bundles);
 
+            BuildBundleForEmployeeWorkFromHome(bundles);
+
             BuildBundleForToeic(bundles);
 
             BuildBundleForJobTitle(bundles);
@@ -403,6 +405,16 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/teammanagementjs").Include(
                 "~/Scripts/Views/TeamManagement/team.management.js"));
+        }
+
+        private static void BuildBundleForEmployeeWorkFromHome(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/employeeworkfromhomejs").Include(
+                EmployeeSearchInCompanyScript,
+                "~/Scripts/Views/EmployeeWorkFromHome/employee.workfromhome.js"));
+
+            bundles.Add(new StyleBundle("~/Content/employeeworkfromhomecss")
+                 .Include("~/Content/Views/employee.workfromhome.css", new CssRewriteUrlTransform()));
         }
 
         private static void BuildBundleForDefaultSchedule(BundleCollection bundles)

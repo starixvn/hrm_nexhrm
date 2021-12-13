@@ -161,7 +161,9 @@
     <Compile Include="CompanyEventService.cs" />
     <Compile Include="DepartmentService.cs" />
     <Compile Include="CalendarService.cs" />
+    <Compile Include="EmployeeWorkFromHomeService.cs" />
     <Compile Include="ExtensionNoService.cs" />
+    <Compile Include="Interfaces\IEmployeeWorkFromHomeService.cs" />
     <Compile Include="Interfaces\ISyncDataService.cs" />
     <Compile Include="MessageCategoryLogService.cs" />
     <Compile Include="HistoryWorkService.cs" />

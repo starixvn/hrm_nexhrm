@@ -181,6 +181,7 @@
     <Compile Include="CalendarController.cs" />
     <Compile Include="EmployeeController.cs" />
     <Compile Include="CompanyEventController.cs" />
+    <Compile Include="EmployeeWorkFromHomeController.cs" />
     <Compile Include="ErrorController.cs" />
     <Compile Include="ExportController.cs" />
     <Compile Include="ExtensionNoController.cs" />

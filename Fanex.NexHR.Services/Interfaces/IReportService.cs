@@ -9,6 +9,8 @@
     {
         IList<TimeRecord> GetTimeRecords(GetTimeRecordCriteria criteria);
 
+        bool GetIsPrivilegeCreateCheckInOut(GetPrivilegeCreateCheckInOutRecordCriteria criteria);
+
         IList<LateInEarlyOutModel> GetLateInEarlyOut(GetLateInEarlyOutReportCriteria criteria);
 
         IList<LateInEarlyOutDetail> GetLateInEarlyOutDetail(GetLateInEarlyOutDetailReportCriteria criteria);

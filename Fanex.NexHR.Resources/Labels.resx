@@ -1680,4 +1680,10 @@
   <data name="Telegram" xml:space="preserve">
     <value>Telegram</value>
   </data>
+  <data name="EmployeeWorkFromHome" xml:space="preserve">
+    <value>Employee Work From Home</value>
+  </data>
+  <data name="AddEmployeeWorkFromHome" xml:space="preserve">
+    <value>Add WFH</value>
+  </data>
 </root>

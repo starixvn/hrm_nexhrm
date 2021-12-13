@@ -152,10 +152,22 @@
             var model = new TimesheetViewModel
             {
                 Year = DateTime.Now.Year,
-                EmpId = CurrentUser.Id
+                EmpId = CurrentUser.Id,
+                IsHavePrivilegeCreateCheckInOutRecord = IsPrivilegeCreateCheckInOut()
             };
 
             return View(model);
+        }
+
+        private bool IsPrivilegeCreateCheckInOut()
+        {
+            var criteria = new GetPrivilegeCreateCheckInOutRecordCriteria
+            {
+                EmpId = CurrentUser.Id
+            };
+
+            var isPrivilegeCreateCheckInOut = reportService.GetIsPrivilegeCreateCheckInOut(criteria);
+            return isPrivilegeCreateCheckInOut;
         }
 
         [HttpPost]

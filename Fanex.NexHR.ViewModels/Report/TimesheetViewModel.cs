@@ -12,5 +12,6 @@
 
         [Display(Name = "Request Type")]
         public short RequestType { get; set; }
+        public bool IsHavePrivilegeCreateCheckInOutRecord { get; set; }
     }
 }
