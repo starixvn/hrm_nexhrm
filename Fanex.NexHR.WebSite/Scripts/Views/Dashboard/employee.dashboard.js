@@ -37,9 +37,6 @@ function initTodoList() {
                 });
             }
         },
-        error: function (textStatus, errorThrown) {
-            alert(textStatus + ': ' + errorThrown);
-        },
         complete: function () {
             $(".scrollTodo").mCustomScrollbar({
                 scrollButtons: { enable: false },

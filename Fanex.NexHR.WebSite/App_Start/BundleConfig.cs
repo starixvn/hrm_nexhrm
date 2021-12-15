@@ -412,9 +412,6 @@
             bundles.Add(new ScriptBundle("~/bundles/employeeworkfromhomejs").Include(
                 EmployeeSearchInCompanyScript,
                 "~/Scripts/Views/EmployeeWorkFromHome/employee.workfromhome.js"));
-
-            bundles.Add(new StyleBundle("~/Content/employeeworkfromhomecss")
-                 .Include("~/Content/Views/employee.workfromhome.css", new CssRewriteUrlTransform()));
         }
 
         private static void BuildBundleForDefaultSchedule(BundleCollection bundles)

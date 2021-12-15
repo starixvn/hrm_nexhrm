@@ -118,8 +118,9 @@ function checkInCheckOut() {
             dataType: 'json',
             success: function (response) {
                 if (response.IsSuccessful) {
-                    alert('Create Check In time successfully!');
-                    query(false);
+                    alert('Create Check In time successfully!', function () {
+                        query(false);
+                    });
                 } else {
                     alert(response.Message);
                 }
@@ -140,8 +141,9 @@ function checkInCheckOut() {
             dataType: 'json',
             success: function (response) {
                 if (response.IsSuccessful) {
-                    alert('Create Check Out time successfully!');
-                    query(false);
+                    alert('Create Check Out time successfully!', function () {
+                        query(false);
+                    });
                 } else {
                     alert(response.Message);
                 }

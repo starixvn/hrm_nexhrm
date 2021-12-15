@@ -318,7 +318,6 @@
     </Content>
     <Content Include="Content\Views\eventcalendar.scss" />
     <Content Include="Content\Views\conversation-management.scss" />
-    <Content Include="Content\Views\employee.workfromhome.css" />
     <None Include="Content\Views\mycalendar.scss" />
     <None Include="Content\Views\jobtitle.scss" />
     <None Include="Content\Views\geolocation.scss" />

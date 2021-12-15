@@ -1,36 +1,39 @@
 ﻿/// <reference path='jquery.min.js' />
 
-(function () {
-    var proxied = window.alert;
-
-    var isChrome = !!window.chrome;
+function alert(message, callback) {
+    var isChrome = !!window.chrome
 
     if (isChrome) {
-        window.alert = function () {
-            $('<div>' + '<p>' + arguments[0] + '</p>').dialog({
-                title: 'NexHRM',
-                modal: true,
-                resizable: false,
-                buttons: [
-                    {
-                        text: 'OK',
-                        class: 'btn-ok waves-effect waves-light',
-                        click: function () {
-                            $(this).dialog('close');
-                            return true;
+        var defaults = {
+            title: 'NexHRM',
+            modal: true,
+            resizable: false,
+            buttons: [
+                {
+                    text: 'OK',
+                    class: 'btn-ok waves-effect waves-light',
+                    click: function () {
+                        $(this).dialog('close');
+                        if (callback != null) {
+                            callback();
                         }
+                        return true;
                     }
-                ],
-                show: 'fade',
-                hide: 'fade',
-                minHeight: 50,
-                dialogClass: 'modal-shadow'
-            });
-        };
-    } else {
-        window.alert = function () { }
+                }
+            ],
+            show: 'fade',
+            hide: 'fade',
+            minHeight: 50,
+            dialogClass: 'modal-shadow'
+        }
+
+        $alert = $.getOrCreateDialog('alert');
+        // set message
+        $($alert).html(message);
+        // init dialog
+        $alert.dialog($.extend({}, defaults));
     }
-})();
+};
 
 $.extend({
     getOrCreateDialog: function (id) {
