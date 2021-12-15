@@ -24,33 +24,37 @@
 
             foreach (EmployeeWorkFromHome employeeWorkFromHome in Model)
             {
-        <tr>
-            <td>@(index++)</td>
-            <td>@employeeWorkFromHome.Nickname</td>
-            <td class="align-left">@employeeWorkFromHome.Fullname</td>
-            <td>@employeeWorkFromHome.FromDate.ToDateMonthYearFormatedDate()</td>
-            <td>@employeeWorkFromHome.ToDate.ToDateMonthYearFormatedDate()</td>
-            @if (!string.IsNullOrWhiteSpace(employeeWorkFromHome.Remark))
-            {
-                <td class="tooltip" title="@employeeWorkFromHome.Remark">
-                    <span class="mdi mdi-message-text" alt="remark"></span>
-                </td>
-            }
-            else
-            {
-                <td></td>
-            }
-            <td>@employeeWorkFromHome.Modifier</td>
-            <td>@employeeWorkFromHome.ModifiedDate.ToFormatedDate()</td>
-            <td class="action-column">
-                <a href="/EmployeeWorkFromHome/Edit?id=@employeeWorkFromHome.EmployeeWorkFromHomeId">
-                    <i class='mdi mdi-border-color mdi-edit mdi-dark' style="top: 4px"></i>
-                </a>
-                <a href="javascript:;" onclick="deleteRequest('@employeeWorkFromHome.EmployeeWorkFromHomeId');">
-                    <i class='mdi mdi-delete mdi-dark'></i>
-                </a>
-            </td>
-        </tr>
+                var currentDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
+                var toDate = DateTime.Parse(employeeWorkFromHome.ToDate.ToString("yyyy-MM-dd"));
+                var disableAction = toDate < currentDate;
+                var styleDisalbe = disableAction ? "pointer-events: none; cursor: default; opacity: .4;" : "";
+                <tr>
+                    <td>@(index++)</td>
+                    <td>@employeeWorkFromHome.Nickname</td>
+                    <td class="align-left">@employeeWorkFromHome.Fullname</td>
+                    <td>@employeeWorkFromHome.FromDate.ToDateMonthYearFormatedDate()</td>
+                    <td>@employeeWorkFromHome.ToDate.ToDateMonthYearFormatedDate()</td>
+                    @if (!string.IsNullOrWhiteSpace(employeeWorkFromHome.Remark))
+                    {
+                        <td class="tooltip" title="@employeeWorkFromHome.Remark">
+                            <span class="mdi mdi-message-text" alt="remark"></span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    <td>@employeeWorkFromHome.Modifier</td>
+                    <td>@employeeWorkFromHome.ModifiedDate.ToFormatedDate()</td>
+                    <td class="action-column">
+                        <a style="@styleDisalbe" href="/EmployeeWorkFromHome/Edit?id=@employeeWorkFromHome.EmployeeWorkFromHomeId">
+                            <i class='mdi mdi-border-color mdi-edit mdi-dark' style="top: 5px"></i>
+                        </a>
+                        <a style="@styleDisalbe" href="javascript:;" onclick="deleteRequest('@employeeWorkFromHome.EmployeeWorkFromHomeId');">
+                            <i class='mdi mdi-delete mdi-dark'></i>
+                        </a>
+                    </td>
+                </tr>
             }
         }
         else
