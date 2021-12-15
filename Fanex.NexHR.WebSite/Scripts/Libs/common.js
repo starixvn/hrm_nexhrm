@@ -3,7 +3,7 @@
 (function () {
     var proxied = window.alert;
 
-    var isChrome = !!window.chrome && !!window.chrome.webstore;
+    var isChrome = !!window.chrome;
 
     if (isChrome) {
         window.alert = function () {

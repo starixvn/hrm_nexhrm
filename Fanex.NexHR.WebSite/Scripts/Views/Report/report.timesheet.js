@@ -110,6 +110,52 @@ function query(isFirstLoad) {
     });
 }
 
+function checkInCheckOut() {
+    $('#btnCreateCheckIn').click(function () {
+        $.ajax({
+            url: _global.root + 'report/AddChekInTime',
+            type: 'POST',
+            dataType: 'json',
+            success: function (response) {
+                if (response.IsSuccessful) {
+                    alert('Create Check In time successfully!');
+                    query(false);
+                } else {
+                    alert(response.Message);
+                }
+            },
+            error: function () {
+                alert(_messages.errorTryAgain);
+            },
+            complete: function () {
+                $('.loading-process').fadeOut(300);
+            }
+        });
+    });
+
+    $('#btnCreateCheckOut').click(function () {
+        $.ajax({
+            url: _global.root + 'report/AddChekOutTime',
+            type: 'POST',
+            dataType: 'json',
+            success: function (response) {
+                if (response.IsSuccessful) {
+                    alert('Create Check Out time successfully!');
+                    query(false);
+                } else {
+                    alert(response.Message);
+                }
+            },
+            error: function () {
+                alert(_messages.errorTryAgain);
+            },
+            complete: function () {
+                $('.loading-process').fadeOut(300);
+            }
+        });
+    });
+}
+
 $(document).ready(function () {
     initMonthPicker();
 
@@ -118,4 +164,6 @@ $(document).ready(function () {
     $('#submit').click(function () {
         query(false);
     });
+
+    checkInCheckOut();
 });

@@ -35,17 +35,7 @@
                                     </div>
                                     <input id="submit" type="button" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />
                                 </div>
-                                @*<div class="col">
-                                    <div class="left label--l">
-                                        @Html.LabelFor(model => model.RequestType)
-                                    </div>
-                                    <div class="left select--s">
-                                        @RazorHelper.RequestTypeFilter("RequestType", Model.RequestType)
-                                    </div>
-                                </div>*@
                             <div class="col">
-                                @*<a id="submit" class="btn-submit waves-effect waves-light" href="javascript:;">@Labels.Submit</a>*@
-
                                 <a class="btn-request waves-effect waves-light m-r--m" href="@Url.Action("myworkingschedule", "calendar")">@Labels.MyCalendar</a>
                                 <a class="btn-request waves-effect waves-light m-r--m" href="@Url.Action("mytimerecord", "report")">@Labels.MyTimeRecord</a>
                                 @if (Model.IsHavePrivilegeCreateCheckInOutRecord)

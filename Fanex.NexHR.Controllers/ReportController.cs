@@ -24,19 +24,22 @@
         private readonly IEmployeeService employeeService;
         private readonly IReportService reportService;
         private readonly ITeamService teamService;
+        private readonly ICommandService commandService;
 
         public ReportController(
             IEmployeeService employeeService,
             IReportService reportService,
-            ITeamService teamService)
+            ITeamService teamService,
+            ICommandService commandService)
         {
             this.employeeService = employeeService ?? new EmployeeService();
             this.reportService = reportService ?? new ReportService();
             this.teamService = teamService ?? new TeamService();
+            this.commandService = commandService ?? new CommandService();
         }
 
         public ReportController()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
@@ -157,6 +160,54 @@
             };
 
             return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult AddChekInTime()
+        {
+            var criteria = new InsertCheckInOutRecordCriteria
+            {
+                EmpId = CurrentUser.Id,
+                RecordTime = DateTime.Now,
+                InOutType = 0,
+                IPAddress = GetClientIpAddress(),
+                Platform = Request.Headers["User-Agent"]
+            };
+            CommandResult result = commandService.Insert(criteria);
+            return Json(result);
+        }
+
+        [HttpPost]
+        public JsonResult AddChekOutTime()
+        {
+            var criteria = new InsertCheckInOutRecordCriteria
+            {
+                EmpId = CurrentUser.Id,
+                RecordTime = DateTime.Now,
+                InOutType = 1,
+                IPAddress = GetClientIpAddress(),
+                Platform = Request.Headers["User-Agent"]
+            };
+            CommandResult result = commandService.Insert(criteria);
+            return Json(result);
+        }
+
+        public string GetClientIpAddress()
+        {
+            var clientIp = Request.ServerVariables["X_FORWARDED_FOR"];
+
+            if (string.IsNullOrEmpty(clientIp))
+            {
+                clientIp = Request.UserHostAddress;
+            }
+            else
+            {
+                var forwardedIps = clientIp.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                clientIp = forwardedIps[forwardedIps.Length - 1];
+            }
+
+            return clientIp;
         }
 
         private bool IsPrivilegeCreateCheckInOut()

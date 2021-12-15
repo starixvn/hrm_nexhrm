@@ -207,6 +207,8 @@
             <Mapping DataField="GroupName" ObjectProperty="Name" />
         </Setting>
         <Setting Key="TimeRecord_UpdateType" SpName="TimeRecord_UpdateType" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="TimeRecord_GetPrivilegeCreateCheckInOut" SpName="TimeRecord_GetPrivilegeCreateCheckInOut" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="TimeRecord_InsertCheckInOutTime" SpName="TimeRecord_InsertCheckInOutTime" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Report">
         <Setting Key="Report_EmployeeDashBoard" SpName="Report_EmployeeDashBoard" DbName="nexhr" Plain="0">
@@ -436,7 +438,6 @@
         <Setting Key="Employee_Transfer" SpName="Employee_Transfer" DbName="nexhr" Plain="1"></Setting>
     </Function>
     <Function Name="Employee Work FromHome">
-        <Setting Key="TimeRecord_GetPrivilegeCreateCheckInOut" SpName="TimeRecord_GetPrivilegeCreateCheckInOut" DbName="nexhr" Plain="1"></Setting>
         <Setting Key="EmployeeWorkFromHome_Get" SpName="EmployeeWorkFromHome_Get" DbName="nexhr" Plain="1"></Setting>
         <Setting Key="EmployeeWorkFromHome_Insert" SpName="EmployeeWorkFromHome_Insert" DbName="nexhr" Plain="1"></Setting>
         <Setting Key="EmployeeWorkFromHome_GetById" SpName="EmployeeWorkFromHome_GetById" DbName="nexhr" Plain="1"></Setting>
