@@ -568,5 +568,7 @@
                 return picture;
             }
         }
+
+        public bool IsHavePrivilegeCreateCheckInOutRecord { get; set; }
     }
 }

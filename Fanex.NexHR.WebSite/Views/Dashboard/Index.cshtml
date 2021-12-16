@@ -3,6 +3,10 @@
 
 @{
     ViewBag.Title = "Dashboard";
+    var displayCheckInTime = @Model.CheckInTime == DateTime.MinValue ? "N/A" : @Model.DisplayCheckInTime;
+    var displayTotalWorkingHoursToday = @Model.TotalWorkingHoursToday == 0 ? "N/A" : @Model.DisplayTotalWorkingHoursToday;
+    //var isPrivilegedCheckInOnline = @Model.IsHavePrivilegeCreateCheckInOutRecord && @Model.CheckInTime == DateTime.MinValue;
+    var isPrivilegedCheckInOnline = true;
 }
 
 @section css
@@ -24,11 +28,22 @@
         <div class="col s12 m6 l3 card-container-base">
             <div class="card teal">
                 <div class="card-content white-text hidden">
-                    <div class="col s3">
+                    <div class="col s2 center">
                         <i class="mdi-action-alarm left medium"></i>
                     </div>
-                    <div class="col s9 center">
-                        <p class="txt-tittle">@Model.DisplayCheckInTime</p>
+                    @if (isPrivilegedCheckInOnline)
+                    {
+                        <div class="col s5 center">
+                            <a href="javascript:;"
+                               class="btn btn-request waves-effect waves-light txt-uppercase txt-12px"
+                               id="btnCreateCheckIn"
+                               style="margin-top: 15px;">
+                                <span class="fa fa-plus"></span> @Labels.CheckIn
+                            </a>
+                        </div>
+                    }
+                    <div class="col s5 center">
+                        <p class="txt-tittle">@displayCheckInTime</p>
                         <span class="txt-uppercase txt-12px">Check in time</span>
                     </div>
                 </div>
@@ -37,11 +52,22 @@
         <div class="col s12 m6 l3 card-container-base">
             <div class="card indigo darken-1">
                 <div class="card-content white-text hidden">
-                    <div class="col s3">
+                    <div class="col s2">
                         <i class="mdi-action-alarm-add left medium"></i>
                     </div>
-                    <div class="col s9 center">
-                        <p class="txt-tittle" id="displayWorkingHour">@Model.DisplayTotalWorkingHoursToday</p>
+                    @if (isPrivilegedCheckInOnline)
+                    {
+                        <div class="col center" style="width: 35%;">
+                            <a href="javascript:;"
+                               class="btn btn-request waves-effect waves-light txt-uppercase txt-12px"
+                               id="btnCreateCheckOut"
+                               style="margin-top: 15px;">
+                                <span class="fa fa-plus"></span> @Labels.CheckOut
+                            </a>
+                        </div>
+                    }
+                    <div class="col s6 center">
+                        <p class="txt-tittle" id="displayWorkingHour">@displayTotalWorkingHoursToday</p>
                         @Html.Hidden("workinghour", Model.TotalWorkingHoursToday)
                         <span class="txt-uppercase txt-12px">Working hours today</span>
                     </div>
@@ -122,11 +148,11 @@
                             {
                                 <div class="slide-content">
                                     <div class="col s3">
-                                        <img class="circle" alt="" src="~/Content/Images/Dashboard/@MySpaceViewModel.RandomPictureName"/>
+                                        <img class="circle" alt="" src="~/Content/Images/Dashboard/@MySpaceViewModel.RandomPictureName" />
                                     </div>
                                     <a class="white-text" href="@Url.Action("Detail", "CompanyEvent", new { id = item.Id })">
                                         <div class="col s9 center detail">
-                                            <span class="txt-uppercase">@item.Title</span><br/>
+                                            <span class="txt-uppercase">@item.Title</span><br />
                                             @if (item.FromDate == item.ToDate)
                                             {
                                                 <span>@item.FromDate.ToString("dd MMMM, yyyy")</span>

@@ -14,6 +14,7 @@
     using Criteria.RedmineAPI;
     using Criteria.Request;
     using Criteria.Workload;
+    using Fanex.NexHR.Criteria.Report;
     using Models;
     using Models.RedmineAPI;
     using Models.Report;
@@ -34,12 +35,14 @@
         private readonly ILateInEarlyOutService _lateinearlyoutService;
         private readonly ICommandService _commandService;
         private readonly IRedmineService _redmineService;
+        private readonly IReportService _reportService;
 
         public DashboardController()
-            : this(null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null, null)
         {
         }
 
+#pragma warning disable S107 // Methods should not have too many parameters
         public DashboardController(
             IEmployeeService employeeService,
             ITeamService teamService,
@@ -47,7 +50,9 @@
             INotificationService notificationService,
             ILateInEarlyOutService lateinearlyoutService,
             ICommandService commandService,
-        IRedmineService redmineService)
+            IRedmineService redmineService,
+            IReportService reportService)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             _employeeService = employeeService ?? new EmployeeService();
             _teamService = teamService ?? new TeamService();
@@ -56,6 +61,7 @@
             _lateinearlyoutService = lateinearlyoutService ?? new LateInEarlyOutService();
             _commandService = commandService ?? new CommandService();
             _redmineService = redmineService ?? new RedmineService();
+            _reportService = reportService ?? new ReportService();
         }
 
         public async Task<ActionResult> Index()
@@ -82,6 +88,7 @@
             model.EmployeeAttendanceModel = empAttendance;
             model.NotificationLateInEarlyOutToDay = GetLateInEarlyOutNotification();
             model.IsLoadTeamWorkload = IsLoadTeamWorkload();
+            model.IsHavePrivilegeCreateCheckInOutRecord = IsPrivilegeCreateCheckInOut();
 
             return View(model);
         }
@@ -271,6 +278,17 @@
         {
             var ignoreTeamWorkloads = AppSetting.IgnoreTeamWorkload.Split(',');
             return Array.IndexOf(ignoreTeamWorkloads, CurrentUser.Team.Code) < 0 && CurrentUserSetting.DisplayTeamWorkload;
+        }
+
+        private bool IsPrivilegeCreateCheckInOut()
+        {
+            var criteria = new GetPrivilegeCreateCheckInOutRecordCriteria
+            {
+                EmpId = CurrentUser.Id
+            };
+
+            var isPrivilegeCreateCheckInOut = _reportService.GetIsPrivilegeCreateCheckInOut(criteria);
+            return isPrivilegeCreateCheckInOut;
         }
     }
 }
