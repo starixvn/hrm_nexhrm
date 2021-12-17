@@ -700,6 +700,12 @@
     }
 }
 
+@media screen and (max-width: 1442px) {
+    .row .col.l3 {
+        width: 50% !important;
+    }
+}
+
 //---------------------Scroll Bar--------------------------------
 
 // update css mobile

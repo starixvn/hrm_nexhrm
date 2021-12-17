@@ -413,6 +413,12 @@
     padding: 7px 15px;
     font-size: 1.3rem; }
 
+@media screen and (max-width: 1442px) {
+    .row .col.l3 {
+        width: 50% !important;
+    }
+}
+
 @media only screen and (max-width: 601px) {
   .card-container-base.card-todo-infor {
     display: -webkit-box;
