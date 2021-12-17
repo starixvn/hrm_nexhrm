@@ -28,11 +28,11 @@
         <div class="col s12 m6 l3 card-container-base">
             <div class="card teal">
                 <div class="card-content white-text hidden">
-                    <div class="col s2 m2 center">
-                        <i class="mdi-action-alarm left medium"></i>
-                    </div>
                     @if (isPrivilegedCheckInOnline)
                     {
+                        <div class="col s2 m2">
+                            <i class="mdi-action-alarm left medium"></i>
+                        </div>
                         <div class="col s10 m6 center">
                             <a href="javascript:;"
                                class="btn btn-request waves-effect waves-light txt-uppercase txt-12px"
@@ -41,22 +41,32 @@
                                 <span class="fa fa-plus"></span> @Labels.CheckIn
                             </a>
                         </div>
+                        <div class="col s12 m4 center">
+                            <p class="txt-tittle">@displayCheckInTime</p>
+                            <span class="txt-uppercase txt-12px">Check in time</span>
+                        </div>
                     }
-                    <div class="col s12 m4 center">
-                        <p class="txt-tittle">@displayCheckInTime</p>
-                        <span class="txt-uppercase txt-12px">Check in time</span>
-                    </div>
+                    else
+                    {
+                        <div class="col s3">
+                            <i class="mdi-action-alarm left medium"></i>
+                        </div>
+                        <div class="col s9">
+                            <p class="txt-tittle">@displayCheckInTime</p>
+                            <span class="txt-uppercase txt-12px">Check in time</span>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
         <div class="col s12 m6 l3 card-container-base">
             <div class="card indigo darken-1">
                 <div class="card-content white-text hidden">
-                    <div class="col s2 m2">
-                        <i class="mdi-action-alarm-add left medium"></i>
-                    </div>
                     @if (isPrivilegedCheckOutOnline)
                     {
+                        <div class="col s2 m2">
+                            <i class="mdi-action-alarm-add left medium"></i>
+                        </div>
                         <div class="col s10 m6 center">
                             <a href="javascript:;"
                                class="btn btn-request waves-effect waves-light txt-uppercase txt-12px"
@@ -65,12 +75,23 @@
                                 <span class="fa fa-plus"></span> @Labels.CheckOut
                             </a>
                         </div>
+                        <div class="col s12 m4 center">
+                            <p class="txt-tittle" id="displayWorkingHour">@displayTotalWorkingHoursToday</p>
+                            @Html.Hidden("workinghour", Model.TotalWorkingHoursToday)
+                            <span class="txt-uppercase txt-12px">Working hours today</span>
+                        </div>
                     }
-                    <div class="col s12 m4 center">
-                        <p class="txt-tittle" id="displayWorkingHour">@displayTotalWorkingHoursToday</p>
-                        @Html.Hidden("workinghour", Model.TotalWorkingHoursToday)
-                        <span class="txt-uppercase txt-12px">Working hours today</span>
-                    </div>
+                    else
+                    {
+                        <div class="col s3">
+                            <i class="mdi-action-alarm-add left medium"></i>
+                        </div>
+                        <div class="col s9 center">
+                            <p class="txt-tittle" id="displayWorkingHour">@displayTotalWorkingHoursToday</p>
+                            @Html.Hidden("workinghour", Model.TotalWorkingHoursToday)
+                            <span class="txt-uppercase txt-12px">Working hours today</span>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
