@@ -597,7 +597,7 @@
                 AnnualLeaveBalance = 0,
                 PreMonthSickLeave = totalWorkingHours.PreMonthSickLeave,
                 PreMonthUnpaidLeave = totalWorkingHours.PreMonthUnpaidLeave,
-                PreBusinessLeave = totalWorkingHours.PreBusinessLeave
+                PreMonthBusinessLeave = totalWorkingHours.PreMonthBusinessLeave
             };
             rowIndex++;
 

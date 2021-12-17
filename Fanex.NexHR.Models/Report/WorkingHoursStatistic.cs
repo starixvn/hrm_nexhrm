@@ -20,7 +20,7 @@
 
         public float BusinessLeave { get; set; }
 
-        public float PreBusinessLeave { get; set; }
+        public float PreMonthBusinessLeave { get; set; }
 
         public float PreMonthSickLeave { get; set; }
 
