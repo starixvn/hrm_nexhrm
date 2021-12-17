@@ -28,12 +28,12 @@
         <div class="col s12 m6 l3 card-container-base">
             <div class="card teal">
                 <div class="card-content white-text hidden">
-                    <div class="col s2 center">
+                    <div class="col s2 m2 center">
                         <i class="mdi-action-alarm left medium"></i>
                     </div>
                     @if (isPrivilegedCheckInOnline)
                     {
-                        <div class="col s5 center">
+                        <div class="col s10 m6 center">
                             <a href="javascript:;"
                                class="btn btn-request waves-effect waves-light txt-uppercase txt-12px"
                                id="btnCreateCheckIn"
@@ -42,7 +42,7 @@
                             </a>
                         </div>
                     }
-                    <div class="col s5 center">
+                    <div class="col s12 m4 center">
                         <p class="txt-tittle">@displayCheckInTime</p>
                         <span class="txt-uppercase txt-12px">Check in time</span>
                     </div>
@@ -52,12 +52,12 @@
         <div class="col s12 m6 l3 card-container-base">
             <div class="card indigo darken-1">
                 <div class="card-content white-text hidden">
-                    <div class="col s2">
+                    <div class="col s2 m2">
                         <i class="mdi-action-alarm-add left medium"></i>
                     </div>
                     @if (isPrivilegedCheckOutOnline)
                     {
-                        <div class="col center" style="width: 35%;">
+                        <div class="col s10 m6 center">
                             <a href="javascript:;"
                                class="btn btn-request waves-effect waves-light txt-uppercase txt-12px"
                                id="btnCreateCheckOut"
@@ -66,7 +66,7 @@
                             </a>
                         </div>
                     }
-                    <div class="col s6 center">
+                    <div class="col s12 m4 center">
                         <p class="txt-tittle" id="displayWorkingHour">@displayTotalWorkingHoursToday</p>
                         @Html.Hidden("workinghour", Model.TotalWorkingHoursToday)
                         <span class="txt-uppercase txt-12px">Working hours today</span>
