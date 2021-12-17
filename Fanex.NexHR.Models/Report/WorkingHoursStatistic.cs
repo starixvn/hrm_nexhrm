@@ -18,6 +18,10 @@
 
         public float UnpaidLeave { get; set; }
 
+        public float BusinessLeave { get; set; }
+
+        public float PreBusinessLeave { get; set; }
+
         public float PreMonthSickLeave { get; set; }
 
         public float PreMonthUnpaidLeave { get; set; }

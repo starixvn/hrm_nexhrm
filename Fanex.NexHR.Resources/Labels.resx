@@ -1686,4 +1686,19 @@
   <data name="AddEmployeeWorkFromHome" xml:space="preserve">
     <value>Add WFH</value>
   </data>
+  <data name="ALBalance" xml:space="preserve">
+    <value>AL Balance</value>
+  </data>
+  <data name="BusinessLeave" xml:space="preserve">
+    <value>Business Leave</value>
+  </data>
+  <data name="InsuranceLeave" xml:space="preserve">
+    <value>Insurance Leave</value>
+  </data>
+  <data name="TotalWorkingDay" xml:space="preserve">
+    <value>Total Working Day</value>
+  </data>
+  <data name="UnpaidLeavePreviousMonth" xml:space="preserve">
+    <value>Unpaid Leave of Previous month</value>
+  </data>
 </root>

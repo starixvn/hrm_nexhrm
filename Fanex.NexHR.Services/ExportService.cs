@@ -592,10 +592,12 @@
                 SickLeave = totalWorkingHours.SickLeave,
                 InsuranceLeave = totalWorkingHours.InsuranceLeave,
                 UnpaidLeave = totalWorkingHours.UnpaidLeave,
+                BusinessLeave = totalWorkingHours.BusinessLeave,
                 WorkingDay = totalWorkingHours.TotalWorkingDay,
                 AnnualLeaveBalance = 0,
                 PreMonthSickLeave = totalWorkingHours.PreMonthSickLeave,
-                PreMonthUnpaidLeave = totalWorkingHours.PreMonthUnpaidLeave
+                PreMonthUnpaidLeave = totalWorkingHours.PreMonthUnpaidLeave,
+                PreBusinessLeave = totalWorkingHours.PreBusinessLeave
             };
             rowIndex++;
 

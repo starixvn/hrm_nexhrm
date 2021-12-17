@@ -250,6 +250,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AL Balance.
+        /// </summary>
+        public static string ALBalance {
+            get {
+                return ResourceManager.GetString("ALBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alert.
         /// </summary>
         public static string Alert {
@@ -543,6 +552,15 @@ namespace Fanex.NexHR.Resources {
         public static string BT {
             get {
                 return ResourceManager.GetString("BT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Business Leave.
+        /// </summary>
+        public static string BusinessLeave {
+            get {
+                return ResourceManager.GetString("BusinessLeave", resourceCulture);
             }
         }
         
@@ -2010,6 +2028,15 @@ namespace Fanex.NexHR.Resources {
         public static string Insert {
             get {
                 return ResourceManager.GetString("Insert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insurance Leave.
+        /// </summary>
+        public static string InsuranceLeave {
+            get {
+                return ResourceManager.GetString("InsuranceLeave", resourceCulture);
             }
         }
         
@@ -4390,6 +4417,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total Working Day.
+        /// </summary>
+        public static string TotalWorkingDay {
+            get {
+                return ResourceManager.GetString("TotalWorkingDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Total Working Hours.
         /// </summary>
         public static string TotalWorkingHours {
@@ -4458,6 +4494,15 @@ namespace Fanex.NexHR.Resources {
         public static string UnpaidLeave {
             get {
                 return ResourceManager.GetString("UnpaidLeave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unpaid Leave of Previous month.
+        /// </summary>
+        public static string UnpaidLeavePreviousMonth {
+            get {
+                return ResourceManager.GetString("UnpaidLeavePreviousMonth", resourceCulture);
             }
         }
         
