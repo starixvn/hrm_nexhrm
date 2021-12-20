@@ -20,33 +20,52 @@
                     <div class="form form-stl-table">
                         @using (Html.BeginForm())
                         {
-                        <div class="row form-input">
-                            <div class="col m-r--l">
-                                <div class="left label--m">
-                                    @Html.LabelFor(model => model.FromDate, Labels.FromDate)
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.Teams)
+                                    </div>
+                                    <div class="left select--m">
+                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
+                                    </div>
                                 </div>
-                                <div class="left datepicker-button select--s">
-                                    @Html.DatePickerFor(model => model.FromDate)
-                                    <i class="mdi-action-event calendar-icon left"></i>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.Employee)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
+                                        @Html.HiddenFor(model => model.EmployeeId)
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col m-l--xl m-r--l">
-                                <div class="left label--m">
-                                    @Html.LabelFor(model => model.ToDate, Labels.ToDate)
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.FromDate, Labels.FromDate)
+                                    </div>
+                                    <div class="left datepicker-button select--m">
+                                        @Html.DatePickerFor(model => model.FromDate)
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
                                 </div>
-                                <div class="left datepicker-button select--s">
-                                    @Html.DatePickerFor(model => model.ToDate)
-                                    <i class="mdi-action-event calendar-icon left"></i>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.ToDate, Labels.ToDate)
+                                    </div>
+                                    <div class="left datepicker-button select--m">
+                                        @Html.DatePickerFor(model => model.ToDate)
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col m-l--m">
+                                    <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light m-r--b" />
+                                    <a class="btn btn-request waves-effect waves-light" id="add-workfromhome" href="@Url.Action("Create")">
+                                        <span class="fa fa-plus"></span>
+                                        @Labels.AddEmployeeWorkFromHome
+                                    </a>
                                 </div>
                             </div>
-                            <div class="col m-l--m">
-                                <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light m-r--b" />
-                                <a class="btn btn-request waves-effect waves-light" id="add-workfromhome" href="@Url.Action("Create")">
-                                    <span class="fa fa-plus"></span>
-                                    @Labels.AddEmployeeWorkFromHome
-                                </a>
-                            </div>
-                        </div>
                         }
                     </div>
                     <div class="p-x--s">

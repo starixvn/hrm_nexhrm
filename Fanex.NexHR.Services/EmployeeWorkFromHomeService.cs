@@ -23,13 +23,8 @@
             this.baseService = baseService ?? new BaseService();
         }
 
-        public IList<EmployeeWorkFromHome> GetAll(DateTime fromDate, DateTime toDate)
+        public IList<EmployeeWorkFromHome> GetAll(GetEmployeeWorkFromHomeCriteria criteria)
         {
-            var criteria = new GetEmployeeWorkFromHomeCriteria
-            {
-                FromDate = fromDate,
-                ToDate = toDate
-            };
             return baseService.GetData<EmployeeWorkFromHome>(criteria).ToList();
         }
 

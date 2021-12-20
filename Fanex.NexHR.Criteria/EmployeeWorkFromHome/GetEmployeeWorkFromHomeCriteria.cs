@@ -9,6 +9,11 @@
 
         public DateTime ToDate { get; set; }
 
+        public int? GroupId { get; set; }
+
+        public int? EmpId { get; set; }
+
+
         public override string GetSettingKey()
         {
             return "EmployeeWorkFromHome_Get";

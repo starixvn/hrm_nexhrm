@@ -7,7 +7,7 @@
 
     public interface IEmployeeWorkFromHomeService
     {
-        IList<EmployeeWorkFromHome> GetAll(DateTime fromDate, DateTime toDate);
+        IList<EmployeeWorkFromHome> GetAll(GetEmployeeWorkFromHomeCriteria criteria);
         EmployeeWorkFromHome GetById(int id);
         CommandResult Insert(InsertEmployeeWorkFromHomeCriteria criteria);
 

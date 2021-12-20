@@ -2,6 +2,7 @@
 {
     using System;
     using System.Web.Mvc;
+    using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.EmployeeWorkFromHome;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
@@ -11,18 +12,21 @@
     {
         private readonly IEmployeeWorkFromHomeService employeeWorkFromHomeService;
         private readonly ICommandService commandService;
+        private readonly ITeamService teamService;
 
         public EmployeeWorkFromHomeController()
-            : this(null, null)
+            : this(null, null, null)
         {
         }
 
         public EmployeeWorkFromHomeController(
             ICommandService commandService,
-            IEmployeeWorkFromHomeService employeeWorkFromHomeService)
+            IEmployeeWorkFromHomeService employeeWorkFromHomeService,
+            ITeamService teamService)
         {
             this.commandService = commandService  ?? new CommandService();
             this.employeeWorkFromHomeService = employeeWorkFromHomeService ?? new EmployeeWorkFromHomeService();
+            this.teamService = teamService ?? new TeamService();
         }
 
         public ActionResult Index()
@@ -31,14 +35,21 @@
             {
                 FromDate = DateTime.Now,
                 ToDate = DateTime.Now,
+                Teams = teamService.GetTeam()
             };
-
             return View(model);
         }
 
-        public ActionResult GetEmployeeWorkFromHomeGrid(DateTime fromDate, DateTime toDate)
+        public ActionResult GetEmployeeWorkFromHomeGrid(DateTime fromDate, DateTime toDate, int? teamId = null, int? employeeId = null)
         {
-            var employees = employeeWorkFromHomeService.GetAll(fromDate, toDate);
+            var criteria = new GetEmployeeWorkFromHomeCriteria
+            {
+                FromDate = fromDate,
+                ToDate = toDate,
+                GroupId = teamId,
+                EmpId = employeeId
+            };
+            var employees = employeeWorkFromHomeService.GetAll(criteria);
             return PartialView("_EmployeeWorkFromHomeGrid", employees);
             
         }
