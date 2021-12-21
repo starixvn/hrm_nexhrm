@@ -1701,4 +1701,7 @@
   <data name="UnpaidLeavePreviousMonth" xml:space="preserve">
     <value>Unpaid Leave of Previous month</value>
   </data>
+  <data name="WFH" xml:space="preserve">
+    <value>WFH</value>
+  </data>
 </root>

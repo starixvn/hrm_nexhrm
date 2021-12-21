@@ -4696,6 +4696,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to WFH.
+        /// </summary>
+        public static string WFH {
+            get {
+                return ResourceManager.GetString("WFH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to WL.
         /// </summary>
         public static string WL {
