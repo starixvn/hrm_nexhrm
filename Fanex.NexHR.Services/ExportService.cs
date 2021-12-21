@@ -593,11 +593,13 @@
                 InsuranceLeave = totalWorkingHours.InsuranceLeave,
                 UnpaidLeave = totalWorkingHours.UnpaidLeave,
                 BusinessLeave = totalWorkingHours.BusinessLeave,
+                WorkFromHome = totalWorkingHours.WorkFromHome,
                 WorkingDay = totalWorkingHours.TotalWorkingDay,
                 AnnualLeaveBalance = 0,
                 PreMonthSickLeave = totalWorkingHours.PreMonthSickLeave,
                 PreMonthUnpaidLeave = totalWorkingHours.PreMonthUnpaidLeave,
-                PreMonthBusinessLeave = totalWorkingHours.PreMonthBusinessLeave
+                PreMonthBusinessLeave = totalWorkingHours.PreMonthBusinessLeave,
+                PreWorkFromHome = totalWorkingHours.PreWorkFromHome
             };
             rowIndex++;
 
