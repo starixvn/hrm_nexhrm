@@ -1698,8 +1698,8 @@
   <data name="TotalWorkingDay" xml:space="preserve">
     <value>Total Working Day</value>
   </data>
-  <data name="UnpaidLeavePreviousMonth" xml:space="preserve">
-    <value>Unpaid Leave of Previous month</value>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>Previous month</value>
   </data>
   <data name="WFH" xml:space="preserve">
     <value>WFH</value>

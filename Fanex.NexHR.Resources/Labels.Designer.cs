@@ -3625,6 +3625,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Previous month.
+        /// </summary>
+        public static string PreviousMonth {
+            get {
+                return ResourceManager.GetString("PreviousMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Processed By.
         /// </summary>
         public static string ProcessedBy {
@@ -4494,15 +4503,6 @@ namespace Fanex.NexHR.Resources {
         public static string UnpaidLeave {
             get {
                 return ResourceManager.GetString("UnpaidLeave", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unpaid Leave of Previous month.
-        /// </summary>
-        public static string UnpaidLeavePreviousMonth {
-            get {
-                return ResourceManager.GetString("UnpaidLeavePreviousMonth", resourceCulture);
             }
         }
         
