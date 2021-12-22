@@ -1704,4 +1704,10 @@
   <data name="WFH" xml:space="preserve">
     <value>WFH</value>
   </data>
+  <data name="CheckInOutOnline" xml:space="preserve">
+    <value>Check In/Out Online</value>
+  </data>
+  <data name="IPAddress" xml:space="preserve">
+    <value>IP Address</value>
+  </data>
 </root>

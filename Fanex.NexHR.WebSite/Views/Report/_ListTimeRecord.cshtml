@@ -25,6 +25,8 @@ else
             <th>@Labels.InOut</th>
             <th>@Labels.BioStation</th>
             <th>@Labels.EventName</th>
+            <th style="width: 5%;">@Labels.CheckInOutOnline</th>
+            <th>@Labels.IPAddress</th>
         </tr>
     </thead>
     <tbody>
@@ -34,56 +36,61 @@ else
             foreach (TimeRecord item in Model)
             {
                 index++;
-                <tr>
-                    <td>@index</td>
-                    <td>
-                        @item.Employee.Code
-                    </td>
-                    <td class="tooltip" title="@item.Employee.FullName">
-                        @item.Employee.NickName
-                    </td>
-                    <td class="tooltip" title="@item.Employee.Team.Name">
-                        @item.Employee.Team.Code
-                    </td>
-                    <td>
-                        @item.RecordTime.ToDetailFormatedDate()
-                    </td>
-                    <td>
-                        @if (Roles.IsUserInRole("HR"))
-                        {
-                            if (item.InOutType == 0)
-                            {
-                                <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="out-action">
-                                    @item.GetInOutName
-                                </a>
-                            }
-                            else if (item.InOutType == 1)
-                            {
-                                <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="in-action">
-                                    @item.GetInOutName
-                                </a>
-                            }
-                            else
-                            {
-                                <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="inout-action">
-                                    @item.GetInOutName
-                                </a>
-                            }
-                        }
-                        else
-                        {
+        <tr>
+            <td>@index</td>
+            <td>
+                @item.Employee.Code
+            </td>
+            <td class="tooltip" title="@item.Employee.FullName">
+                @item.Employee.NickName
+            </td>
+            <td class="tooltip" title="@item.Employee.Team.Name">
+                @item.Employee.Team.Code
+            </td>
+            <td>
+                @item.RecordTime.ToDetailFormatedDate()
+            </td>
+            <td>
+                @if (Roles.IsUserInRole("HR"))
+                {
+                    if (item.InOutType == 0)
+                    {
+                        <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="out-action">
                             @item.GetInOutName
-                        }
-                    </td>
-                    <td>@item.ReaderName</td>
-                    <td>@item.EventName</td>
-                </tr>
+                        </a>
+                    }
+                    else if (item.InOutType == 1)
+                    {
+                        <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="in-action">
+                            @item.GetInOutName
+                        </a>
+                    }
+                    else
+                    {
+                        <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="inout-action">
+                            @item.GetInOutName
+                        </a>
+                    }
+                }
+                else
+                {
+                    @item.GetInOutName
+                }
+            </td>
+            <td>@item.ReaderName</td>
+            <td>@item.EventName</td>
+            <td style="text-align: center;">
+                <input type="checkbox" id="isCheckInOutOnline" class="filled-in" disabled checked=@item.IsCheckInOutOnline />
+                <label hidden style="padding-left: 15px !important; height: 12px !important; cursor: not-allowed"></label>
+            </td>
+            <td>@item.IPAddress</td>
+        </tr>
 
             }
         }
         else
         {
-            @RazorHelper.DisplayNoInformation(colspan: 8)
+            @RazorHelper.DisplayNoInformation(colspan: 10)
         }
     </tbody>
     <tfoot>

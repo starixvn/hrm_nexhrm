@@ -691,6 +691,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check In/Out Online.
+        /// </summary>
+        public static string CheckInOutOnline {
+            get {
+                return ResourceManager.GetString("CheckInOutOnline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check In/Check Out Request.
         /// </summary>
         public static string CheckInOutRequest {
@@ -2064,6 +2073,15 @@ namespace Fanex.NexHR.Resources {
         public static string InvalidTotalDays {
             get {
                 return ResourceManager.GetString("InvalidTotalDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IP Address.
+        /// </summary>
+        public static string IPAddress {
+            get {
+                return ResourceManager.GetString("IPAddress", resourceCulture);
             }
         }
         

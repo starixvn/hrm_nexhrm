@@ -16,6 +16,8 @@
         public string ReaderName { get; set; }
 
         public string EventName { get; set; }
+        public bool IsCheckInOutOnline { get; set; }
+        public string IPAddress { get; set; }
 
         public string GetInOutName
         {
