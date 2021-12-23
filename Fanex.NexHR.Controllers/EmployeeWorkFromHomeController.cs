@@ -11,20 +11,17 @@
     public class EmployeeWorkFromHomeController : BaseController
     {
         private readonly IEmployeeWorkFromHomeService employeeWorkFromHomeService;
-        private readonly ICommandService commandService;
         private readonly ITeamService teamService;
 
         public EmployeeWorkFromHomeController()
-            : this(null, null, null)
+            : this(null, null)
         {
         }
 
         public EmployeeWorkFromHomeController(
-            ICommandService commandService,
             IEmployeeWorkFromHomeService employeeWorkFromHomeService,
             ITeamService teamService)
         {
-            this.commandService = commandService  ?? new CommandService();
             this.employeeWorkFromHomeService = employeeWorkFromHomeService ?? new EmployeeWorkFromHomeService();
             this.teamService = teamService ?? new TeamService();
         }
@@ -81,7 +78,7 @@
                     Remark = model.Remark
                 };
 
-                var result = commandService.Insert(criteria);
+                var result = employeeWorkFromHomeService.Insert(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
@@ -127,7 +124,7 @@
                     Remark = model.Remark
                 };
 
-                var result = commandService.Insert(criteria);
+                var result = employeeWorkFromHomeService.Update(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
@@ -145,7 +142,7 @@
         public ActionResult Delete(int id)
         {
             var criteria = new DeleteEmployeeWorkFromHomeCriteria { EmployeeWorkFromHomeId = id };
-            var result = commandService.Delete(criteria);
+            var result = employeeWorkFromHomeService.Delete(criteria);
 
             return Json(result);
         }

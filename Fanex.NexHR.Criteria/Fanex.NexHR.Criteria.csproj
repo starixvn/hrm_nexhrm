@@ -265,6 +265,9 @@
     <Compile Include="TimeSheet\InsertLogReachedWorkingTimeCriteria.cs" />
     <Compile Include="Toeic\GetTOEICScoreByEmployeeIdCriteria.cs" />
     <Compile Include="Toeic\UpdateTOEICScoreCriteria.cs" />
+    <Compile Include="WorkFromHomeRequest\GetWorkFromHomeRequestByIdCriteria.cs" />
+    <Compile Include="WorkFromHomeRequest\GetWorkFromHomeRequestCriteria.cs" />
+    <Compile Include="WorkFromHomeRequest\InsertWorkFromHomeRequestCriteria.cs" />
     <Compile Include="Workload\GetEmployeeWorkloadCriteria.cs" />
   </ItemGroup>
   <ItemGroup>

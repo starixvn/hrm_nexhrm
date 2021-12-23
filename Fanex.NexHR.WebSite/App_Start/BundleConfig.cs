@@ -19,6 +19,8 @@
 
             BuildBundleForLeaveRequest(bundles);
 
+            BuildBundleForWorkFromHomeRequest(bundles);
+
             BuildBundleForCheckInOutRequest(bundles);
 
             BuildBundleForMyTimeSheetReport(bundles);
@@ -289,6 +291,14 @@
                 "~/Scripts/Views/Request/leave.request.js",
                 "~/Scripts/Views/Request/process.leave-checkinout.byemployee.js",
                 "~/Scripts/Views/Request/search.request.js"));
+        }
+
+        private static void BuildBundleForWorkFromHomeRequest(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/workfromhomerequestjs").Include(
+                "~/Scripts/Views/Request/workfromhome.request.js",
+                "~/Scripts/Views/Request/process.workfromhomerequest.js"
+                ));
         }
 
         private static void BuildBundleForCheckInOutRequest(BundleCollection bundles)

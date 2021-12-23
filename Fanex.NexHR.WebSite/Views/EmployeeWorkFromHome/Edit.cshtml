@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit Employee Work From Home";
 }
 @section css{
-    @Styles.Render("~/Content/employeeworkfromhomecss", "~/Content/view-mobile")
+    @Styles.Render("~/Content/view-mobile")
 }
 @section js{
     @Scripts.Render("~/bundles/employeeworkfromhomejs")
@@ -39,7 +39,7 @@
                                     <div class="left label--l">
                                         <label for="Employee">@Labels.Employee</label>
                                     </div>
-                                    <div class="left input--employee">
+                                    <div class="left input--m">
                                         @Html.HiddenFor(model => model.EmpId, htmlAttributes: new { id = "EmployeeId" })
                                         @Html.Editor("Employee")
                                     </div>

@@ -13,6 +13,6 @@
 
         CommandResult Update(UpdateEmployeeWorkFromHomeCriteria criteria);
 
-        CommandResult Delete(int id);
+        CommandResult Delete(DeleteEmployeeWorkFromHomeCriteria criteria);
     }
 }

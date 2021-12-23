@@ -29,7 +29,7 @@ function query(isFirstLoad) {
     });
 }
 
-function handleSuccessfull() {
+function initCreateUpdatePage() {
     var successed = $('#successed').val();
     if (successed === 'true') {
         confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
@@ -54,10 +54,13 @@ function deleteRequest(id) {
 }
 
 $(document).ready(function () {
-    $('#submit').on('click', function () {
-        query(false);
-    });
+    if ($('.form-create-update').length > 0) {
+        initCreateUpdatePage();
+    } else {
+        query(true);
 
-    query(true);
-    handleSuccessfull();
+        $('#submit').on('click', function () {
+            query(false);
+        });
+    }
 });

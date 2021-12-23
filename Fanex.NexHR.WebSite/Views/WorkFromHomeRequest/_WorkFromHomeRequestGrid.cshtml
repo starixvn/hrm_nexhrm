@@ -1,0 +1,81 @@
+﻿@model IList<WorkFromHomeRequest>
+
+@{
+    string alertTable = ""; //use this class to style table when table has data or not
+}
+@if (Model.Any())
+{
+    alertTable = "table-success";
+}
+else
+{
+    alertTable = "table-fail";
+}
+
+
+<table id="data" class="table bordered striped highlight centered table-custom table-leave-request @alertTable">
+    <thead>
+        <tr>
+            <th>@Labels.SymbolCount</th>
+            <th>@Labels.Employee</th>
+            <th>@Labels.Team</th>
+            <th>@Labels.From</th>
+            <th>@Labels.To</th>
+            <th>@Labels.CreatedDate</th>
+            <th>@Labels.Remark</th>
+            <th>@Labels.Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int index = 1;}
+        @if (Model.Any())
+        {
+            foreach (WorkFromHomeRequest request in Model)
+            {
+                <tr id="row_@(request.Id)">
+                    <td>@(index++)</td>
+                    <td class="tooltip" title="@request.Fullname">
+                        @request.Nickname
+                    </td>
+                    <td class="tooltip" title="@request.Team">
+                        @request.Code
+                    </td>
+                    <td>@request.FromDate.ToDateMonthYearFormatedDate()</td>
+                    <td>@request.ToDate.ToDateMonthYearFormatedDate()</td>
+                    <td class="tooltip" title="@request.CreatedDate.ToShortFormatedDate()">
+                        @request.CreatedDate.ToDateMonthYearFormatedDate()
+                    </td>
+                    @if (!string.IsNullOrWhiteSpace(request.Remark))
+                    {
+                        <td class="tooltip" title="@request.Remark">
+                            <span class="mdi mdi-message-text" alt="remark"></span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                    @if (request.Status.ToString() == RequestStatuse.Pending.ToString())
+                    {
+                        <td>
+                            <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() c-pending">
+                                @request.Status.ToString()
+                            </a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="tooltip" title="@request.Status by @request.ProcessedBy (@request.ProcessedDate.ToShortFormatedDate())">
+                            @request.Status.ToString()
+                        </td>
+                    }
+                </tr>
+            }
+
+        }
+        else
+        {
+            @RazorHelper.DisplayNoInformation(colspan: 8)
+        }
+    </tbody>
+</table>

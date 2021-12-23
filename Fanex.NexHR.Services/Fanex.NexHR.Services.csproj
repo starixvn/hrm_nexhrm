@@ -165,6 +165,7 @@
     <Compile Include="ExtensionNoService.cs" />
     <Compile Include="Interfaces\IEmployeeWorkFromHomeService.cs" />
     <Compile Include="Interfaces\ISyncDataService.cs" />
+    <Compile Include="Interfaces\IWorkFromHomeRequest.cs" />
     <Compile Include="MessageCategoryLogService.cs" />
     <Compile Include="HistoryWorkService.cs" />
     <Compile Include="Interfaces\IAnnualLeaveService.cs" />
@@ -235,6 +236,7 @@
     <Compile Include="RequestService.cs" />
     <Compile Include="ShiftService.cs" />
     <Compile Include="ToeicService.cs" />
+    <Compile Include="WorkFromHomeRequestService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.NexHR.Core\Fanex.NexHR.Core.csproj">

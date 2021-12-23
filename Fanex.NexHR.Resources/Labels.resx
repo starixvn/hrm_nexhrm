@@ -1710,4 +1710,7 @@
   <data name="IPAddress" xml:space="preserve">
     <value>IP Address</value>
   </data>
+  <data name="WorkFromHomeRequest" xml:space="preserve">
+    <value>Work From Home Request</value>
+  </data>
 </root>

@@ -193,6 +193,7 @@
     <Compile Include="TotalWorkingHours.cs" />
     <Compile Include="UserChangedShift.cs" />
     <Compile Include="WeekWorking.cs" />
+    <Compile Include="WorkFromHomeRequest.cs" />
     <Compile Include="WorkingTimeRequest.cs" />
     <Compile Include="Workload\Workload.cs" />
     <Compile Include="YearlyNexRequest.cs" />

@@ -44,10 +44,8 @@
             return commandService.Update(criteria);
         }
 
-        public CommandResult Delete(int id)
+        public CommandResult Delete(DeleteEmployeeWorkFromHomeCriteria criteria)
         {
-            var criteria = new DeleteEmployeeWorkFromHomeCriteria { EmployeeWorkFromHomeId = id };
-
             return commandService.Delete(criteria);
         }
     }

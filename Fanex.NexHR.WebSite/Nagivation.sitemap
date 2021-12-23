@@ -4,6 +4,7 @@
     <siteMapNode title="Personal" roles="Member">
       <siteMapNode title="My Dashboard" controller="dashboard" action="index" icon="home" roles="Member" />
       <siteMapNode title="Leave Request" controller="leave" action="employeeview" icon="account-box" roles="Member" />
+      <siteMapNode title="Work From Home Request" controller="workfromhomerequest" action="index" icon="account-box" roles="Member" />
       <siteMapNode title="Check In/Check Out" controller="checkinout" action="employeeview" icon="clock" roles="Member" />
       <siteMapNode title="My Attendance" controller="report" action="timesheet" icon="table" roles="Member" />
       <siteMapNode title="NEX Request" controller="overtime" action="index" icon="calendar-clock" roles="Member" />

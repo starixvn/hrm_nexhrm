@@ -113,6 +113,7 @@
     <Compile Include="LateInEarlyOut\Types.cs" />
     <Compile Include="Postnatal\PostnatalViewModel.cs" />
     <Compile Include="Report\LateInEarlyOutSummaryViewModel.cs" />
+    <Compile Include="Request\WorkFromHomeRequestViewModel.cs" />
     <Compile Include="ScheduledMessage\ConversationViewModel.cs" />
     <Compile Include="ScheduledMessage\EditConversationViewModel.cs" />
     <Compile Include="ScheduledMessage\CreateConversationViewModel.cs" />

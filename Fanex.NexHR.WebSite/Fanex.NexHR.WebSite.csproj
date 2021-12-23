@@ -712,6 +712,7 @@
     <Content Include="Scripts\Views\Request\mgr.requests.js" />
     <Content Include="Scripts\Views\Request\process.leave-checkinout.byemployee.js" />
     <Content Include="Scripts\Views\Request\search.request.js" />
+    <Content Include="Scripts\Views\Request\workfromhome.request.js" />
     <Content Include="Scripts\Views\ScheduledMessage\conversation-management.js" />
     <Content Include="Scripts\Views\ScheduledMessage\scheduled-message.js" />
     <Content Include="Scripts\Views\SkypeAccount\skype-account.js" />
@@ -867,6 +868,11 @@
     <Content Include="Views\EmployeeWorkFromHome\_EmployeeWorkFromHomeGrid.cshtml" />
     <Content Include="Views\EmployeeWorkFromHome\Create.cshtml" />
     <Content Include="Views\EmployeeWorkFromHome\Edit.cshtml" />
+    <Content Include="Views\WorkFromHomeRequest\Index.cshtml" />
+    <Content Include="Views\WorkFromHomeRequest\_WorkFromHomeRequestGrid.cshtml" />
+    <Content Include="Scripts\Views\Request\process.workfromhomerequest.js" />
+    <Content Include="Views\WorkFromHomeRequest\Create.cshtml" />
+    <Content Include="Views\WorkFromHomeRequest\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
