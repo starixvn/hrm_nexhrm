@@ -1,6 +1,5 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.NexHR.Criteria.WorkFromHomeRequest;
@@ -39,16 +38,14 @@
             return commandService.Insert(criteria);
         }
 
-        //public CommandResult Update(UpdateEmployeeWorkFromHomeCriteria criteria)
-        //{
-        //    return commandService.Update(criteria);
-        //}
+        public CommandResult Update(EditWorkFromHomeRequestCriteria criteria)
+        {
+            return commandService.Update(criteria);
+        }
 
-        //public CommandResult Delete(int id)
-        //{
-        //    var criteria = new DeleteEmployeeWorkFromHomeCriteria { EmployeeWorkFromHomeId = id };
-
-        //    return commandService.Delete(criteria);
-        //}
+        public CommandResult Delete(DeleteWorkFromHomeRequestCriteria criteria)
+        {
+            return commandService.Delete(criteria);
+        }
     }
 }

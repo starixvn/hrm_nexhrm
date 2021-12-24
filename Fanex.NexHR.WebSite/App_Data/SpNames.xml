@@ -448,5 +448,7 @@
         <Setting Key="WorkFromHomeRequest_Get" SpName="WorkFromHomeRequest_Get" DbName="nexhr" Plain="1"></Setting>
         <Setting Key="WorkFromHomeRequest_Insert" SpName="WorkFromHomeRequest_Insert" DbName="nexhr" Plain="1"></Setting>
         <Setting Key="WorkFromHomeRequest_GetById" SpName="WorkFromHomeRequest_GetById" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="WorkFromHomeRequest_Update" SpName="WorkFromHomeRequest_Update" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="WorkFromHomeRequest_Delete" SpName="WorkFromHomeRequest_Delete" DbName="nexhr" Plain="1"></Setting>
     </Function>
 </Functions>

@@ -4,6 +4,7 @@
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.EmployeeWorkFromHome;
+    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels.EmployeeWorkFromHome;
@@ -32,21 +33,28 @@
             {
                 FromDate = DateTime.Now,
                 ToDate = DateTime.Now,
-                Teams = teamService.GetTeam()
+                Teams = teamService.GetTeam(),
+                StatusId = (byte)RequestStatuse.Pending
             };
             return View(model);
         }
 
-        public ActionResult GetEmployeeWorkFromHomeGrid(DateTime fromDate, DateTime toDate, int? teamId = null, int? employeeId = null)
+        public ActionResult GetEmployeeWorkFromHomeGrid(EmployeeWorkFromHomeFilterViewModel model)
         {
+            int? statusNullable = null;
             var criteria = new GetEmployeeWorkFromHomeCriteria
             {
-                FromDate = fromDate,
-                ToDate = toDate,
-                GroupId = teamId,
-                EmpId = employeeId
+                FromDate = model.FromDate,
+                ToDate = model.ToDate,
+                GroupId = model.TeamId,
+                EmpId = model.EmployeeId,
+                StatusId = model.StatusId == 0 ? statusNullable : model.StatusId
             };
             var employees = employeeWorkFromHomeService.GetAll(criteria);
+            foreach(var employee in employees)
+            {
+                employee.Status = GetStatusName(employee.StatusId);
+            }
             return PartialView("_EmployeeWorkFromHomeGrid", employees);
             
         }
@@ -145,6 +153,24 @@
             var result = employeeWorkFromHomeService.Delete(criteria);
 
             return Json(result);
+        }
+
+        private static string GetStatusName(byte Id)
+        {
+            const int secondCase = 2;
+            const int threeCase = 3;
+
+            switch (Id)
+            {
+                case 1:
+                    return Labels.Pending;
+                case secondCase:
+                    return Labels.Approved;
+                case threeCase:
+                    return Labels.Rejected;
+                default:
+                    return string.Empty;
+            }
         }
     }
 }

@@ -8,11 +8,13 @@
     public interface IWorkFromHomeRequest
     {
         IList<WorkFromHomeRequest> GetAll(GetWorkFromHomeRequestCriteria criteria);
+
         WorkFromHomeRequest GetById(int id);
+
         CommandResult Insert(InsertWorkFromHomeRequestCriteria criteria);
 
-        //CommandResult Update(UpdateEmployeeWorkFromHomeCriteria criteria);
+        CommandResult Update(EditWorkFromHomeRequestCriteria criteria);
 
-        //CommandResult Delete(int id);
+        CommandResult Delete(DeleteWorkFromHomeRequestCriteria criteria);
     }
 }

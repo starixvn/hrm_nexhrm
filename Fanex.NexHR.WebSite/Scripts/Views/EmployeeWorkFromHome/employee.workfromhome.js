@@ -16,6 +16,11 @@ function query(isFirstLoad) {
         },
         success: function (data) {
             $('#list-workfromhome').html(data);
+            if ($('table#data').length > 0) {
+                bindMenuPending();
+                bindMenuApproved();
+            }
+           
             floatThead('table#data');
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -48,6 +53,72 @@ function deleteRequest(id) {
             }
             else {
                 alert(response.Message);
+            }
+        });
+    });
+}
+
+function bindMenuPending() {
+    $('table#data tbody td a.Pending').on('mouseup', function () {
+        $.contextMenu({
+            selector: '.Pending',
+            trigger: 'left',
+            build: function ($trigger, e) {
+                return {
+                    callback: function (key) {
+                        switch (key) {
+                            case 'Approve':
+                                confirm('Are you sure you want to Approve?', function () {
+                                    processRequest(key, e.currentTarget);
+                                });
+                                break;
+                            case 'Reject':
+                                confirm('Are you sure you want to Reject?', function () {
+                                    processRequest(key, e.currentTarget);
+                                });
+                                break;
+                        }
+                    },
+                    items: {
+                        'Approve': { name: 'Approve', icon: 'approve' },
+                        'Reject': { name: 'Reject', icon: 'reject' }
+                    }
+                };
+            }
+        });
+    });
+}
+
+function processRequest(command, eventElement) {
+    $.post(_global.root + 'request/processrequest',
+        { command: command, id: $(eventElement).attr('requestId') },
+        function (response) {
+            if (response.IsSuccessful) {
+                query(false);
+            } else {
+                alert(response.Message);
+                return;
+            }
+        }
+    );
+}
+
+function bindMenuApproved() {
+    $('table#data tbody td a.Approved').on('mouseup', function () {
+        $.contextMenu({
+            selector: '.Approved',
+            trigger: 'left',
+            build: function ($trigger, e) {
+                return {
+                    callback: function (key) {
+                        confirm('Are you sure you want to Disapprove?', function () {
+                            processRequest(key, e.currentTarget);
+                        });
+                    },
+                    items: {
+                        'Disapprove': { name: 'Disapprove', icon: 'reject' }
+                    }
+                };
             }
         });
     });

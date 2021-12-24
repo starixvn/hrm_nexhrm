@@ -20,25 +20,33 @@
                     <div class="form form-stl-table">
                         @using (Html.BeginForm())
                         {
-                            <div class="row form-input">
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        @Html.LabelFor(model => model.Teams)
-                                    </div>
-                                    <div class="left select--m">
-                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
-                                    </div>
+                        <div class="row form-input">
+                            <div class="col m-r--l">
+                                <div class="left label--m">
+                                    @Html.LabelFor(model => model.Teams)
                                 </div>
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        @Html.LabelFor(model => model.Employee)
-                                    </div>
-                                    <div class="left input--m">
-                                        @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
-                                        @Html.HiddenFor(model => model.EmployeeId)
-                                    </div>
+                                <div class="left select--m">
+                                    @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
                                 </div>
                             </div>
+                            <div class="col m-r--l">
+                                <div class="left label--m">
+                                    @Html.LabelFor(model => model.Employee)
+                                </div>
+                                <div class="left input--m">
+                                    @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
+                                    @Html.HiddenFor(model => model.EmployeeId)
+                                </div>
+                            </div>
+                            <div class="col m-r--l">
+                                <div class="left label--m">
+                                    @Html.LabelFor(model => model.StatusId)
+                                </div>
+                                <div class="left select--datepicker">
+                                    @RazorHelper.StatusDropDownList(Model.StatusId, controlName: "statusId")
+                                </div>
+                            </div>
+                        </div>
                             <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--m">
@@ -58,7 +66,7 @@
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
                                 </div>
-                                <div class="col m-l--m">
+                                <div class="col m-l--l">
                                     <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light m-r--b" />
                                     <a class="btn btn-request waves-effect waves-light" id="add-workfromhome" href="@Url.Action("Create")">
                                         <span class="fa fa-plus"></span>

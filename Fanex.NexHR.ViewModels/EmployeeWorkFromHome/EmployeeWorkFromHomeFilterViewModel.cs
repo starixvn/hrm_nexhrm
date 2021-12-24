@@ -19,5 +19,7 @@
 
         [Display(Name = "Team")]
         public IList<Team> Teams { get; set; }
+
+        public byte StatusId { get; set; }
     }
 }

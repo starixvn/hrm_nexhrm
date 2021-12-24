@@ -16,12 +16,18 @@
 
         public DateTime ToDate { get; set; }
 
-        public int ModifiedBy { get; set; }
-
-        public string Modifier { get; set; }
-
-        public DateTime ModifiedDate { get; set; }
-
         public string Remark { get; set; }
+
+        public byte StatusId { get; set; }
+
+        public string Status { get; set; }
+
+        public string ProcessedBy { get; set; }
+
+        public DateTime ProcessedDate { get; set; }
+
+        public string CreatedBy { get; set; }
+
+        public DateTime CreatedDate { get; set; }
     }
 }

@@ -14,6 +14,7 @@
             <th>@Labels.Remark</th>
             <th>@Labels.CreatedBy</th>
             <th>@Labels.CreatedDate</th>
+            <th>@Labels.Status</th>
             <th>@Labels.Action</th>
         </tr>
     </thead>
@@ -28,38 +29,66 @@
                 var toDate = DateTime.Parse(employeeWorkFromHome.ToDate.ToString("yyyy-MM-dd"));
                 var disableAction = toDate < currentDate;
                 var styleDisalbe = disableAction ? "pointer-events: none; cursor: default; opacity: .4;" : "";
-                <tr>
-                    <td>@(index++)</td>
-                    <td>@employeeWorkFromHome.Nickname</td>
-                    <td class="align-left">@employeeWorkFromHome.Fullname</td>
-                    <td>@employeeWorkFromHome.FromDate.ToDateMonthYearFormatedDate()</td>
-                    <td>@employeeWorkFromHome.ToDate.ToDateMonthYearFormatedDate()</td>
-                    @if (!string.IsNullOrWhiteSpace(employeeWorkFromHome.Remark))
-                    {
-                        <td class="tooltip" title="@employeeWorkFromHome.Remark">
-                            <span class="mdi mdi-message-text" alt="remark"></span>
-                        </td>
-                    }
-                    else
-                    {
-                        <td></td>
-                    }
-                    <td>@employeeWorkFromHome.Modifier</td>
-                    <td>@employeeWorkFromHome.ModifiedDate.ToFormatedDate()</td>
-                    <td class="action-column">
-                        <a style="@styleDisalbe" href="/EmployeeWorkFromHome/Edit?id=@employeeWorkFromHome.EmployeeWorkFromHomeId">
-                            <i class='mdi mdi-border-color mdi-edit mdi-dark' style="top: 5px"></i>
-                        </a>
-                        <a style="@styleDisalbe" href="javascript:;" onclick="deleteRequest('@employeeWorkFromHome.EmployeeWorkFromHomeId');">
-                            <i class='mdi mdi-delete mdi-dark'></i>
-                        </a>
+            <tr>
+                <td>@(index++)</td>
+                <td>@employeeWorkFromHome.Nickname</td>
+                <td class="align-left">@employeeWorkFromHome.Fullname</td>
+                <td>@employeeWorkFromHome.FromDate.ToDateMonthYearFormatedDate()</td>
+                <td>@employeeWorkFromHome.ToDate.ToDateMonthYearFormatedDate()</td>
+                @if (!string.IsNullOrWhiteSpace(employeeWorkFromHome.Remark))
+                {
+                    <td class="tooltip" title="@employeeWorkFromHome.Remark">
+                        <span class="mdi mdi-message-text" alt="remark"></span>
                     </td>
-                </tr>
+                }
+                else
+                {
+                    <td></td>
+                }
+                <td>@employeeWorkFromHome.CreatedBy</td>
+                <td>@employeeWorkFromHome.CreatedDate.ToFormatedDate()</td>
+                @{ 
+                    switch (@employeeWorkFromHome.StatusId)
+                    {
+                        case 1: //Pending
+                        <td>
+                            <a employeeWorkFromHomeid="@employeeWorkFromHome.EmployeeWorkFromHomeId" href="javascript:;" class="@employeeWorkFromHome.Status c-pending">
+                                @employeeWorkFromHome.Status
+                            </a>
+                        </td>
+                        break;
+                        case 2: //Approve
+                        <td>
+                            <a employeeWorkFromHomeid="@employeeWorkFromHome.EmployeeWorkFromHomeId" href="javascript:;" class="@employeeWorkFromHome.Status.ToString() tooltip c-approve"
+                               title="@employeeWorkFromHome.Status by @employeeWorkFromHome.ProcessedBy (@employeeWorkFromHome.ProcessedDate.ToShortFormatedDate())">
+                                @employeeWorkFromHome.Status.ToString()
+                            </a>
+                        </td>
+                        break;
+                        case 3: //Reject
+                        <td>
+                            <a employeeWorkFromHomeid="@employeeWorkFromHome.EmployeeWorkFromHomeId" href="javascript:;" class="tooltip"
+                               title="@employeeWorkFromHome.Status by @employeeWorkFromHome.ProcessedBy (@employeeWorkFromHome.ProcessedDate.ToShortFormatedDate())">
+                                @employeeWorkFromHome.Status.ToString()
+                            </a>
+                        </td>
+                        break;
+                        }
+                    }
+                <td class="action-column">
+                    <a style="@styleDisalbe" href="/EmployeeWorkFromHome/Edit?id=@employeeWorkFromHome.EmployeeWorkFromHomeId">
+                        <i class='mdi mdi-border-color mdi-edit mdi-dark' style="top: 5px"></i>
+                    </a>
+                    <a style="@styleDisalbe" href="javascript:;" onclick="deleteRequest('@employeeWorkFromHome.EmployeeWorkFromHomeId');">
+                        <i class='mdi mdi-delete mdi-dark'></i>
+                    </a>
+                </td>
+            </tr>
             }
         }
         else
         {
-            @RazorHelper.DisplayNoInformation(colspan: 9);
+            @RazorHelper.DisplayNoInformation(colspan: 10);
         }
     </tbody>
 </table>

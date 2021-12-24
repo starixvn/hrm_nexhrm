@@ -99,6 +99,44 @@
             return View(model);
         }
 
+        [ValidateInput(false)]
+        [HttpPost]
+        public ActionResult Edit(WorkFromHomeRequestViewModel model)
+        {
+            if (model != null && ModelState.IsValid)
+            {
+                var criteria = new EditWorkFromHomeRequestCriteria
+                {
+                    WorkFromHomeRequestId = model.Id,
+                    EmpId = CurrentUser.Id,
+                    FromDate = model.FromDate,
+                    ToDate = model.ToDate,
+                    ModifiedBy = CurrentUser.Id,
+                    Remark = model.Remark
+                };
+
+                var result = workFromHomeRequest.Update(criteria);
+                if (result.IsSuccessful)
+                {
+                    ViewBag.Requested = true;
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
+                }
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            var criteria = new DeleteWorkFromHomeRequestCriteria { WorkFromHomeRequestId = id };
+            var result = workFromHomeRequest.Delete(criteria);
+
+            return Json(result);
+        }
+
         private static string GetStatusName(byte Id)
         {
             const int secondCase = 2;
