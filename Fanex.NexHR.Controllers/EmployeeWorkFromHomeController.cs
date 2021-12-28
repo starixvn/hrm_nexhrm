@@ -4,6 +4,7 @@
     using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.EmployeeWorkFromHome;
+    using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
@@ -152,6 +153,36 @@
             var criteria = new DeleteEmployeeWorkFromHomeCriteria { EmployeeWorkFromHomeId = id };
             var result = employeeWorkFromHomeService.Delete(criteria);
 
+            return Json(result);
+        }
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public JsonResult ProcessRequest(string command, int id)
+        {
+            var criteria = new EmployeeWorkFromHomeApproveAndRejectRequestCriteria
+            {
+                WorkFromHomeRequestId = id,
+                StatusId = (byte)(command == Labels.Approve ? 2 : 3),
+                ProcessedBy = CurrentUser.Id,
+                ProcessedDate = DateTime.Now
+            };
+            var result = employeeWorkFromHomeService.ProcessApproveAndReject(criteria);
+            return Json(result);
+        }
+
+
+        [Authorize(Roles = "HR")]
+        [HttpPost]
+        public JsonResult ProcessDisapproveRequest(int id)
+        {
+            var criteria = new EmployeeWorkFromHomeDisApproveRequestCriteria
+            {
+                WorkFromHomeRequestId = id,
+                ProcessedBy = CurrentUser.Id,
+                ProcessedDate = DateTime.Now
+            };
+            var result = employeeWorkFromHomeService.ProcessDisapprove(criteria);
             return Json(result);
         }
 

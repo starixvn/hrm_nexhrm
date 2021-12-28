@@ -1,6 +1,5 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.NexHR.Criteria.EmployeeWorkFromHome;
@@ -48,5 +47,18 @@
         {
             return commandService.Delete(criteria);
         }
+
+        public CommandResult ProcessApproveAndReject(EmployeeWorkFromHomeApproveAndRejectRequestCriteria criteria)
+        {
+            CommandResult result = commandService.Update(criteria);
+            return result;
+        }
+
+        public CommandResult ProcessDisapprove(EmployeeWorkFromHomeDisApproveRequestCriteria criteria)
+        {
+            CommandResult result = commandService.Update(criteria);
+            return result;
+        }
+
     }
 }

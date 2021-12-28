@@ -80,6 +80,8 @@
     <Compile Include="Department\UpdateDepartmentCriteria.cs" />
     <Compile Include="AnnualLeave\AdjustAnnualLeavesCriteria.cs" />
     <Compile Include="EmployeeWorkFromHome\DeleteEmployeeWorkFromHomeCriteria.cs" />
+    <Compile Include="EmployeeWorkFromHome\EmployeeWorkFromHomeApproveAndRejectRequestCriteria.cs" />
+    <Compile Include="EmployeeWorkFromHome\EmployeeWorkFromHomeDisApproveRequestCriteria.cs" />
     <Compile Include="EmployeeWorkFromHome\GetEmployeeWorkFromHomeByIdCriteria.cs" />
     <Compile Include="EmployeeWorkFromHome\GetEmployeeWorkFromHomeCriteria.cs" />
     <Compile Include="Report\GetPrivilegeCreateCheckInOutRecordCriteria.cs" />

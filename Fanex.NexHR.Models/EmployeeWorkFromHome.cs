@@ -18,6 +18,8 @@
 
         public string Remark { get; set; }
 
+        public int WorkFromHomeRequestId { get; set; }
+
         public byte StatusId { get; set; }
 
         public string Status { get; set; }

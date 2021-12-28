@@ -19,6 +19,13 @@ function query(isFirstLoad) {
             if ($('table#data').length > 0) {
                 bindMenuPending();
                 bindMenuApproved();
+                $('table#data').addClass('table-success'); // class to style mobile
+
+                $('#checkuncheckall').on('click', function () {
+                    var isCheckAll = $('#checkuncheckall').prop('checked');
+
+                    $('.chk-request').prop('checked', isCheckAll);
+                });
             }
            
             floatThead('table#data');
@@ -32,6 +39,64 @@ function query(isFirstLoad) {
             }
         }
     });
+}
+
+function initApproveMultiEvent() {
+    $('#btn-approve').on('click', function () {
+        var requestIds = [];
+        var command = "Approve";
+        $('.chk-request').each(function (index, item) {
+            var checked = $(item).prop('checked');
+            if (checked) {
+                requestIds.push($(item).attr('data-id'));
+            }
+        });
+
+        if (requestIds.length > 0) {
+            confirm('Are you sure you want to approve checked request?', function () {
+                approveMultiRequest(command, requestIds);
+            });
+        } else {
+            alert('Please choose at least one request to continue!');
+        }
+    });
+}
+
+function initRejectMultiEvent() {
+    $('#btn-reject').on('click', function () {
+        var requestIds = [];
+        var command = "Reject";
+        $('.chk-request').each(function (index, item) {
+            var checked = $(item).prop('checked');
+            if (checked) {
+                requestIds.push($(item).attr('data-id'));
+            }
+        });
+
+        if (requestIds.length > 0) {
+            confirm('Are you sure you want to reject checked request?', function () {
+                approveMultiRequest(command, requestIds);
+            });
+
+
+        } else {
+            alert('Please choose at least one request to continue!');
+        }
+    });
+}
+
+function approveMultiRequest(command, requestIds) {
+    $.post(_global.root + 'EmployeeWorkFromHome/ProcessRequestMultiple',
+        { command: command, requestIds: requestIds },
+        function (response) {
+            if (response.IsSuccessful) {
+                query(false);
+            } else {
+                alert(response.Message);
+                return;
+            }
+        }
+    );
 }
 
 function initCreateUpdatePage() {
@@ -90,8 +155,9 @@ function bindMenuPending() {
 }
 
 function processRequest(command, eventElement) {
-    $.post(_global.root + 'request/processrequest',
-        { command: command, id: $(eventElement).attr('requestId') },
+    var url = command === "Disapprove" ? 'EmployeeWorkFromHome/ProcessDisapproveRequest' : 'EmployeeWorkFromHome/ProcessRequest';
+    $.post(_global.root + url,
+        { command: command, id: $(eventElement).attr('workFromHomeRequestId') },
         function (response) {
             if (response.IsSuccessful) {
                 query(false);
@@ -102,6 +168,7 @@ function processRequest(command, eventElement) {
         }
     );
 }
+
 
 function bindMenuApproved() {
     $('table#data tbody td a.Approved').on('mouseup', function () {
@@ -134,4 +201,7 @@ $(document).ready(function () {
             query(false);
         });
     }
+
+    initApproveMultiEvent();
+    initRejectMultiEvent();
 });

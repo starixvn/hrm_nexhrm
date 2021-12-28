@@ -1,6 +1,5 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
-    using System;
     using System.Collections.Generic;
     using Fanex.NexHR.Criteria.EmployeeWorkFromHome;
     using Fanex.NexHR.Models;
@@ -14,5 +13,7 @@
         CommandResult Update(UpdateEmployeeWorkFromHomeCriteria criteria);
 
         CommandResult Delete(DeleteEmployeeWorkFromHomeCriteria criteria);
+        CommandResult ProcessApproveAndReject(EmployeeWorkFromHomeApproveAndRejectRequestCriteria criteria);
+        CommandResult ProcessDisapprove(EmployeeWorkFromHomeDisApproveRequestCriteria criteria);
     }
 }
