@@ -156,6 +156,34 @@
             return Json(result);
         }
 
+        [HttpPost]
+        [Authorize(Roles = "HR")]
+        public JsonResult ProcessRequestMultiple(string command, int[] requestIds)
+        {
+            var commandResult = new CommandResult();
+            if (requestIds.Length > 0)
+            {
+                foreach (var id in requestIds)
+                {
+                    var criteria = new EmployeeWorkFromHomeApproveAndRejectRequestCriteria
+                    {
+                        WorkFromHomeRequestId = id,
+                        StatusId = (byte)(command == Labels.Approve ? 2 : 3),
+                        ProcessedBy = CurrentUser.Id,
+                        ProcessedDate = DateTime.Now
+                    };
+                    var result = employeeWorkFromHomeService.ProcessApproveAndReject(criteria);
+                    if (!result.IsSuccessful)
+                    {
+                        commandResult.Code = result.Code;
+                        commandResult.Message = result.Message;
+                    }
+                }
+            }
+
+            return Json(commandResult);
+        }
+
         [Authorize(Roles = "HR")]
         [HttpPost]
         public JsonResult ProcessRequest(string command, int id)
