@@ -6,6 +6,7 @@
     public class DeleteEmployeeWorkFromHomeCriteria : CriteriaBase
     {
         public int EmployeeWorkFromHomeId { get; set; }
+        public int DeletedBy { get; set; }
 
         public override string GetSettingKey()
         {
@@ -14,7 +15,7 @@
 
         public override bool IsValid()
         {
-            return EmployeeWorkFromHomeId > 0;
+            return EmployeeWorkFromHomeId > 0 && DeletedBy > 0;
         }
     }
 }

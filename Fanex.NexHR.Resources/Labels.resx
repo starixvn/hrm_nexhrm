@@ -1713,4 +1713,7 @@
   <data name="WorkFromHomeRequest" xml:space="preserve">
     <value>Work From Home Request</value>
   </data>
+  <data name="HRRemark" xml:space="preserve">
+    <value>HR Remark</value>
+  </data>
 </root>

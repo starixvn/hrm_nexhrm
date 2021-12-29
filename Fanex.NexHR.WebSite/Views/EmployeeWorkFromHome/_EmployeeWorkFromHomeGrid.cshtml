@@ -2,7 +2,6 @@
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.Models
 @model IList<EmployeeWorkFromHome>
-
 <table id="data" class="table bordered striped highlight centered table-custom">
     <thead>
         <tr>
@@ -14,6 +13,7 @@
             <th>@Labels.From</th>
             <th>@Labels.To</th>
             <th>@Labels.Remark</th>
+            <th>@Labels.HRRemark</th>
             <th>@Labels.CreatedBy</th>
             <th>@Labels.CreatedDate</th>
             <th>@Labels.Status</th>
@@ -21,15 +21,13 @@
         </tr>
     </thead>
     <tbody>
-        @{int index = 1;}
         @if (Model != null && Model.Count > 0)
         {
 
             foreach (EmployeeWorkFromHome employeeWorkFromHome in Model)
             {
-                var currentDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
-                var toDate = DateTime.Parse(employeeWorkFromHome.ToDate.ToString("yyyy-MM-dd"));
-                var disableAction = toDate < currentDate;
+                var disableAction = false;
+                    //employeeWorkFromHome.CreatedById != ViewBag.EmployeeId;
                 var styleDisalbe = disableAction ? "pointer-events: none; cursor: default; opacity: .4;" : "";
 
                 var htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(
@@ -63,36 +61,46 @@
                     {
                         <td></td>
                     }
+                    @if (!string.IsNullOrWhiteSpace(employeeWorkFromHome.HRRemark))
+                    {
+                        <td class="tooltip" title="@employeeWorkFromHome.HRRemark">
+                            <span class="mdi mdi-message-text" alt="HRRemark"></span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
                     <td>@employeeWorkFromHome.CreatedBy</td>
                     <td>@employeeWorkFromHome.CreatedDate.ToFormatedDate()</td>
-                    @{ 
+                    @{
                         switch (@employeeWorkFromHome.StatusId)
                         {
                             case 1: //Pending
-                            <td>
-                                <a workFromHomeRequestId="@employeeWorkFromHome.WorkFromHomeRequestId" href="javascript:;" class="@employeeWorkFromHome.Status c-pending">
-                                    @employeeWorkFromHome.Status
-                                </a>
-                            </td>
-                            break;
+                                <td>
+                                    <a workFromHomeRequestId="@employeeWorkFromHome.WorkFromHomeRequestId" href="javascript:;" class="@employeeWorkFromHome.Status c-pending">
+                                        @employeeWorkFromHome.Status
+                                    </a>
+                                </td>
+                                break;
                             case 2: //Approve
-                            <td>
-                                <a workFromHomeRequestId="@employeeWorkFromHome.WorkFromHomeRequestId" href="javascript:;" class="@employeeWorkFromHome.Status.ToString() tooltip c-approve"
-                                   title="@employeeWorkFromHome.Status by @employeeWorkFromHome.ProcessedBy (@employeeWorkFromHome.ProcessedDate.ToShortFormatedDate())">
-                                    @employeeWorkFromHome.Status.ToString()
-                                </a>
-                            </td>
-                            break;
+                                <td>
+                                    <a workFromHomeRequestId="@employeeWorkFromHome.WorkFromHomeRequestId" href="javascript:;" class="@employeeWorkFromHome.Status.ToString() tooltip c-approve"
+                                       title="@employeeWorkFromHome.Status by @employeeWorkFromHome.ProcessedBy (@employeeWorkFromHome.ProcessedDate.ToShortFormatedDate())">
+                                        @employeeWorkFromHome.Status.ToString()
+                                    </a>
+                                </td>
+                                break;
                             case 3: //Reject
-                            <td>
-                                <a workFromHomeRequestId="@employeeWorkFromHome.WorkFromHomeRequestId" href="javascript:;" class="tooltip"
-                                   title="@employeeWorkFromHome.Status by @employeeWorkFromHome.ProcessedBy (@employeeWorkFromHome.ProcessedDate.ToShortFormatedDate())">
-                                    @employeeWorkFromHome.Status.ToString()
-                                </a>
-                            </td>
-                            break;
-                            }
+                                <td>
+                                    <a workFromHomeRequestId="@employeeWorkFromHome.WorkFromHomeRequestId" href="javascript:;" class="tooltip"
+                                       title="@employeeWorkFromHome.Status by @employeeWorkFromHome.ProcessedBy (@employeeWorkFromHome.ProcessedDate.ToShortFormatedDate())">
+                                        @employeeWorkFromHome.Status.ToString()
+                                    </a>
+                                </td>
+                                break;
                         }
+                    }
                     <td class="action-column">
                         <a style="@styleDisalbe" href="/EmployeeWorkFromHome/Edit?id=@employeeWorkFromHome.EmployeeWorkFromHomeId">
                             <i class='mdi mdi-border-color mdi-edit mdi-dark' style="top: 5px"></i>
@@ -106,7 +114,7 @@
         }
         else
         {
-            @RazorHelper.DisplayNoInformation(colspan: 10);
+            @RazorHelper.DisplayNoInformation(colspan: 11);
         }
     </tbody>
 </table>

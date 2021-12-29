@@ -17,6 +17,7 @@
         public DateTime ToDate { get; set; }
 
         public string Remark { get; set; }
+        public string HRRemark { get; set; }
 
         public int WorkFromHomeRequestId { get; set; }
 
@@ -27,6 +28,8 @@
         public string ProcessedBy { get; set; }
 
         public DateTime ProcessedDate { get; set; }
+
+        public int CreatedById { get; set; }
 
         public string CreatedBy { get; set; }
 

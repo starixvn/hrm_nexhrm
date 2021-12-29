@@ -1933,6 +1933,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HR Remark.
+        /// </summary>
+        public static string HRRemark {
+            get {
+                return ResourceManager.GetString("HRRemark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to HR Space.
         /// </summary>
         public static string HRSpace {

@@ -5,8 +5,8 @@
     ViewBag.Title = "Dashboard";
     var displayCheckInTime = @Model.CheckInTime == DateTime.MinValue ? "N/A" : @Model.DisplayCheckInTime;
     var displayTotalWorkingHoursToday = @Model.TotalWorkingHoursToday == 0 ? "N/A" : @Model.DisplayTotalWorkingHoursToday;
-    var isPrivilegedCheckInOnline = @Model.IsHavePrivilegeCreateCheckInOutRecord && @Model.CheckInTime == DateTime.MinValue;
-    var isPrivilegedCheckOutOnline = @Model.IsHavePrivilegeCreateCheckInOutRecord && @Model.CheckOutTime == DateTime.MinValue;
+    var isCheckInOnline = @Model.CheckInTime == DateTime.MinValue && @Model.IsHavePrivilegeCreateCheckInOutRecord;
+    var isCheckOutOnline = @Model.CheckOutTime == DateTime.MinValue && @Model.IsHavePrivilegeCreateCheckInOutRecord;
 }
 
 @section css
@@ -28,7 +28,7 @@
         <div class="col s12 m6 l3 card-container-base">
             <div class="card teal">
                 <div class="card-content white-text hidden">
-                    @if (isPrivilegedCheckInOnline)
+                    @if (isCheckInOnline)
                     {
                         <div class="col s2 m2">
                             <i class="mdi-action-alarm left medium"></i>
@@ -62,7 +62,7 @@
         <div class="col s12 m6 l3 card-container-base">
             <div class="card indigo darken-1">
                 <div class="card-content white-text hidden">
-                    @if (isPrivilegedCheckOutOnline)
+                    @if (isCheckOutOnline)
                     {
                         <div class="col s2 m2">
                             <i class="mdi-action-alarm-add left medium"></i>

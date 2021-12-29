@@ -56,6 +56,7 @@
             {
                 employee.Status = GetStatusName(employee.StatusId);
             }
+            ViewBag.EmployeeId = CurrentUser.Id;
             return PartialView("_EmployeeWorkFromHomeGrid", employees);
             
         }
@@ -150,9 +151,8 @@
         [Authorize(Roles = "HR")]
         public ActionResult Delete(int id)
         {
-            var criteria = new DeleteEmployeeWorkFromHomeCriteria { EmployeeWorkFromHomeId = id };
+            var criteria = new DeleteEmployeeWorkFromHomeCriteria { EmployeeWorkFromHomeId = id, DeletedBy = CurrentUser.Id };
             var result = employeeWorkFromHomeService.Delete(criteria);
-
             return Json(result);
         }
 
