@@ -51,5 +51,8 @@ namespace Fanex.NexHR.Core
 
         public const string NewLine = "\n\n";
         public const string BrTag = "<br />";
+
+        public const int valid = 2;
+        public const int invalid = 3;
     }
 }

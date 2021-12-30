@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Models
 {
     using System;
+    using Fanex.NexHR.Core;
     using Resources;
 
     public class TimeRecord
@@ -46,12 +47,10 @@
                 {
                     case 1:
                         return Labels.Pending;
-
-                    case 2:
+                    case Constants.valid:
                         return Labels.Valid;
-                    case 3:
+                    case Constants.invalid:
                         return Labels.Invalid;
-
                     default:
                         return "None";
                 }
