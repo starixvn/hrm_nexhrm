@@ -48,7 +48,7 @@
                         return Labels.Pending;
 
                     case 2:
-                        return Labels.Approved;
+                        return Labels.Valid;
                     case 3:
                         return Labels.Invalid;
 

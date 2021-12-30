@@ -1719,4 +1719,7 @@
   <data name="Invalid" xml:space="preserve">
     <value>Invalid</value>
   </data>
+  <data name="Valid" xml:space="preserve">
+    <value>Valid</value>
+  </data>
 </root>
