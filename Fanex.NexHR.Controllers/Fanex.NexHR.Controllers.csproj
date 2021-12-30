@@ -168,6 +168,7 @@
     <Compile Include="API\ReminderController.cs" />
     <Compile Include="API\RequestController.cs" />
     <Compile Include="API\SyncDataController.cs" />
+    <Compile Include="API\EmployeeOnlineController.cs" />
     <Compile Include="API\TimesheetController.cs" />
     <Compile Include="API\ScheduledMessageController.cs" />
     <Compile Include="API\TokenController.cs" />

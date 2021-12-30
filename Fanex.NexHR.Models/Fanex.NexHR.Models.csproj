@@ -107,6 +107,8 @@
     <Compile Include="CommandResult.cs" />
     <Compile Include="DashboardCompanySpace.cs" />
     <Compile Include="DashboardPersonalSpace.cs" />
+    <Compile Include="EmployeeOnline\EmployeeOnlineXML.cs" />
+    <Compile Include="EmployeeOnline\EmployeeOnline.cs" />
     <Compile Include="EmployeeOvertime.cs" />
     <Compile Include="CompanyEvent\CompanyEvent.cs" />
     <Compile Include="EmployeeSetting.cs" />

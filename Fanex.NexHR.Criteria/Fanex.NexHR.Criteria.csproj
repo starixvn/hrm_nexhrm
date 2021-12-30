@@ -79,6 +79,8 @@
     <Compile Include="Department\InsertDepartmentCriteria.cs" />
     <Compile Include="Department\UpdateDepartmentCriteria.cs" />
     <Compile Include="AnnualLeave\AdjustAnnualLeavesCriteria.cs" />
+    <Compile Include="EmployeeOnline\UpdateEmployeeOnlineCriteria.cs" />
+    <Compile Include="EmployeeOnline\GetEmployeeOnlineStatusCriteria.cs" />
     <Compile Include="EmployeeWorkFromHome\DeleteEmployeeWorkFromHomeCriteria.cs" />
     <Compile Include="EmployeeWorkFromHome\EmployeeWorkFromHomeApproveAndRejectRequestCriteria.cs" />
     <Compile Include="EmployeeWorkFromHome\EmployeeWorkFromHomeDisApproveRequestCriteria.cs" />
@@ -296,6 +298,7 @@
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.13.0.21683\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.13.0.21683\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -25,8 +25,10 @@
             <Mapping DataField="GroupId" ObjectProperty="Id" />
             <Mapping DataField="JobTitleId" ObjectProperty="Id" />
         </Setting>
-
-        <Setting Key="EmployeeSetting_Get" SpName="EmployeeSetting_Get" DbName="nexhr" Plain="0"></Setting>
+      <Setting Key="EmployeeOnline_GetAllStatus" SpName="EmployeeOnline_GetAllStatus" DbName="nexhr" Plain="0"></Setting>
+      <Setting Key="EmployeeOnline_UpdateStatus" SpName="EmployeeOnline_UpdateStatus" DbName="nexhr" Plain="0"></Setting>
+      
+      <Setting Key="EmployeeSetting_Get" SpName="EmployeeSetting_Get" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_GetBirthdayAndFirstWorkingday" SpName="Employee_GetBirthdayAndFirstWorkingday" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_Insert" SpName="Employee_Insert" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_Delete" SpName="Employee_Delete" DbName="nexhr" Plain="0"></Setting>

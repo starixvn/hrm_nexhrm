@@ -153,6 +153,7 @@
     <Compile Include="AutoJobService\BioTasksService.cs" />
     <Compile Include="AutoJobService\BotLateInEarlyOutViolateOnMonthWarningSerivce.cs" />
     <Compile Include="AutoJobService\BotMissingCheckInCheckOutReminderSerivce.cs" />
+    <Compile Include="AutoJobService\EmployeeOnlineService.cs" />
     <Compile Include="AutoJobService\FogotLogtimeReminderService.cs" />
     <Compile Include="BaseService.cs" />
     <Compile Include="AnnualLeaveService.cs" />
@@ -163,7 +164,9 @@
     <Compile Include="CalendarService.cs" />
     <Compile Include="EmployeeWorkFromHomeService.cs" />
     <Compile Include="ExtensionNoService.cs" />
+    <Compile Include="Interfaces\IEmployeeOnlineService.cs" />
     <Compile Include="Interfaces\IEmployeeWorkFromHomeService.cs" />
+    <Compile Include="Interfaces\IShellCommandService.cs" />
     <Compile Include="Interfaces\ISyncDataService.cs" />
     <Compile Include="Interfaces\IWorkFromHomeRequest.cs" />
     <Compile Include="MessageCategoryLogService.cs" />
@@ -221,6 +224,7 @@
     <Compile Include="RedmineService.cs" />
     <Compile Include="ReportService.cs" />
     <Compile Include="SessionService.cs" />
+    <Compile Include="ShellCommandService.cs" />
     <Compile Include="SyncDataService.cs" />
     <Compile Include="TimeSheetService.cs" />
     <Compile Include="ScheduledMessageService.cs" />
