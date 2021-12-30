@@ -4,6 +4,8 @@
 
     public enum RequestStatuse
     {
+        [StringValue("All")]
+        All = 0,
         [StringValue("Pending")]
         Pending = 1,
 

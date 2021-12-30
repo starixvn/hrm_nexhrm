@@ -35,7 +35,7 @@
                 FromDate = DateTime.Now,
                 ToDate = DateTime.Now,
                 Teams = teamService.GetTeam(),
-                StatusId = (byte)RequestStatuse.Pending
+                StatusId = (byte)RequestStatuse.All
             };
             return View(model);
         }

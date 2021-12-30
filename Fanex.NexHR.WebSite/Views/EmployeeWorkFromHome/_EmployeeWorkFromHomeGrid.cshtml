@@ -26,8 +26,7 @@
 
             foreach (EmployeeWorkFromHome employeeWorkFromHome in Model)
             {
-                var disableAction = false;
-                    //employeeWorkFromHome.CreatedById != ViewBag.EmployeeId;
+                var disableAction = employeeWorkFromHome.CreatedById != ViewBag.EmployeeId;
                 var styleDisalbe = disableAction ? "pointer-events: none; cursor: default; opacity: .4;" : "";
 
                 var htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(
@@ -102,7 +101,7 @@
                         }
                     }
                     <td class="action-column">
-                        <a style="@styleDisalbe" href="/EmployeeWorkFromHome/Edit?id=@employeeWorkFromHome.EmployeeWorkFromHomeId">
+                        <a href="/EmployeeWorkFromHome/Edit?id=@employeeWorkFromHome.EmployeeWorkFromHomeId">
                             <i class='mdi mdi-border-color mdi-edit mdi-dark' style="top: 5px"></i>
                         </a>
                         <a style="@styleDisalbe" href="javascript:;" onclick="deleteRequest('@employeeWorkFromHome.EmployeeWorkFromHomeId');">
