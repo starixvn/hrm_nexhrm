@@ -1,14 +1,10 @@
-.ui-dialog.add-adjustment {
-  overflow: visible;
-}
+﻿.ui-dialog.add-adjustment {
+  overflow: visible; }
 
 [type="checkbox"] + label {
-  font-size: 1.3rem;
-}
+  font-size: 1.3rem; }
 
 [type="checkbox"].filled-in:not(:checked) + label:after,
 [type="checkbox"].filled-in:checked + label:after,
 [type="checkbox"].filled-in:checked + label:before {
-  top: 4px;
-}
-/*# sourceMappingURL=employee.postnatal.css.map */
+  top: 4px; }

@@ -5,8 +5,8 @@
     ViewBag.Title = "Dashboard";
     var displayCheckInTime = @Model.CheckInTime == DateTime.MinValue ? "N/A" : @Model.DisplayCheckInTime;
     var displayTotalWorkingHoursToday = @Model.TotalWorkingHoursToday == 0 ? "N/A" : @Model.DisplayTotalWorkingHoursToday;
-    var isCheckInOnline = @Model.CheckInTime == DateTime.MinValue && @Model.IsHavePrivilegeCreateCheckInOutRecord;
-    var isCheckOutOnline = @Model.CheckOutTime == DateTime.MinValue && @Model.IsHavePrivilegeCreateCheckInOutRecord;
+    var isCheckInOnline = @Model.IsHavePrivilegeCreateCheckInOutRecord;
+    var isCheckOutOnline = @Model.IsHavePrivilegeCreateCheckInOutRecord;
 }
 
 @section css
@@ -30,20 +30,22 @@
                 <div class="card-content white-text hidden">
                     @if (isCheckInOnline)
                     {
-                        <div class="col s2 m2">
+                        <div class="col s3 m3 alarm-column">
                             <i class="mdi-action-alarm left medium"></i>
                         </div>
-                        <div class="col s10 m6 center">
-                            <a href="javascript:;"
-                               class="btn btn-request waves-effect waves-light txt-uppercase txt-12px"
-                               id="btnCreateCheckIn"
-                               style="margin-top: 15px;">
-                                <span class="fa fa-plus"></span> @Labels.CheckIn
-                            </a>
-                        </div>
-                        <div class="col s12 m4 center">
-                            <p class="txt-tittle">@displayCheckInTime</p>
-                            <span class="txt-uppercase txt-12px">Check in time</span>
+                        <div class="col s9 m9 center check-in-column">
+                            <div>
+                                <p class="txt-tittle check-time">@displayCheckInTime</p>
+                                <span class="txt-uppercase txt-12px">Check in time</span>
+                            </div>
+                            <div class="check-in-out">
+                                <a href="javascript:;"
+                                   class="btn btn-request waves-effect waves-light txt-uppercase txt-12px"
+                                   id="btnCreateCheckIn"
+                                >
+                                    <span class="fa fa-plus"></span> @Labels.CheckIn
+                                </a>
+                            </div>
                         </div>
                     }
                     else
@@ -64,21 +66,21 @@
                 <div class="card-content white-text hidden">
                     @if (isCheckOutOnline)
                     {
-                        <div class="col s2 m2">
+                        <div class="col s3 m3 alarm-column">
                             <i class="mdi-action-alarm-add left medium"></i>
                         </div>
-                        <div class="col s10 m6 center">
-                            <a href="javascript:;"
-                               class="btn btn-request waves-effect waves-light txt-uppercase txt-12px"
-                               id="btnCreateCheckOut"
-                               style="margin-top: 15px;">
-                                <span class="fa fa-plus"></span> @Labels.CheckOut
-                            </a>
-                        </div>
-                        <div class="col s12 m4 center">
-                            <p class="txt-tittle" id="displayWorkingHour">@displayTotalWorkingHoursToday</p>
+                        <div class="col s9 m9 center check-out-column">
+                            <p class="txt-tittle check-time" id="displayWorkingHour">@displayTotalWorkingHoursToday</p>
                             @Html.Hidden("workinghour", Model.TotalWorkingHoursToday)
                             <span class="txt-uppercase txt-12px">Working hours today</span>
+                            <div class="check-in-out">
+                                <a href="javascript:;"
+                                   class="btn btn-request waves-effect waves-light txt-uppercase txt-12px"
+                                   id="btnCreateCheckOut"
+                                >
+                                    <span class="fa fa-plus"></span> @Labels.CheckOut
+                                </a>
+                            </div>
                         </div>
                     }
                     else

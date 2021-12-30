@@ -269,6 +269,14 @@ main {
         font-size: 1.2rem;
     }
 
+    .check-time {
+        margin-top: -16px !important;
+    }
+
+    .check-in-out {
+        padding-top: 9px !important;
+    }
+
     .card-content {
         padding-bottom: 16px;
 
@@ -516,7 +524,7 @@ input.readonly-input {
 
     .row {
         .col {
-            padding-left: 0; 
+            padding-left: 0;
             padding-right: 0;
         }
 
@@ -563,14 +571,15 @@ input.readonly-input {
                             }
                         }
 
-                        .slick-dots{
+                        .slick-dots {
                             margin: 0;
                             top: 9px;
-                            li{ 
+
+                            li {
                                 width: 4px;
                                 height: 4px;
-                                button{
 
+                                button {
                                 }
                             }
                         }
@@ -585,6 +594,18 @@ input.readonly-input {
                 .card-content.white-text {
                     padding: 0.9rem .7rem 1rem;
                     height: 12rem;
+                }
+
+                .alarm-column {
+                    margin-top: -15px !important;
+
+                    i {
+                        padding-bottom: 3px !important;
+                    }
+                }
+
+                .check-in-out {
+                    padding-top: 5px !important;
                 }
 
                 .col.s3 {
