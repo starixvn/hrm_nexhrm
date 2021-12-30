@@ -18,6 +18,7 @@
         public string EventName { get; set; }
         public bool IsCheckInOutOnline { get; set; }
         public string IPAddress { get; set; }
+        public byte Status { get; set; }
 
         public string GetInOutName
         {
@@ -30,6 +31,26 @@
 
                     case 1:
                         return Labels.Out;
+
+                    default:
+                        return "None";
+                }
+            }
+        }
+
+        public string GetStatusName
+        {
+            get
+            {
+                switch (Status)
+                {
+                    case 1:
+                        return Labels.Pending;
+
+                    case 2:
+                        return Labels.Approved;
+                    case 3:
+                        return Labels.Invalid;
 
                     default:
                         return "None";
