@@ -32,6 +32,7 @@
                 }
                 @foreach (RequestEntity request in Model.Requests)
                 {
+                    var isApproveByManager = request.LeaveType.Id == 30 || request.TotalDays >= 5 && (request.LeaveType.Id == 2 || request.LeaveType.Id == 26);
                     var annualBalance = string.Empty;
                     if (request.LeaveType.Id == 2 || request.LeaveType.Id == 30)
                     {
@@ -48,7 +49,7 @@
                 <tr id="row@(request.Id)">
                     @if (Model.RequestViewType == RequestViewType.LeaderView)
                     {
-                        if (request.Status.Id == (int)RequestStatuse.Pending)
+                        if (request.Status.Id == (int)RequestStatuse.Pending && !isApproveByManager)
                         {
                             <td class="col-checkbox">
                                 @Html.MaterializeCheckBox("checkbox_" + request.Id, htmlAttributes)
