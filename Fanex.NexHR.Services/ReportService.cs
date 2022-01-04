@@ -41,6 +41,11 @@
             return baseService.GetDataEntity<bool>(criteria);
         }
 
+        public bool GetIsPrivilegeEditCheckInOut(GetPrivilegeEditCheckInOutRecordCriteria criteria)
+        {
+            return baseService.GetDataEntity<bool>(criteria);
+        }
+
         public IList<LateInEarlyOutModel> GetLateInEarlyOut(GetLateInEarlyOutReportCriteria criteria)
         {
             IList<LateInEarlyOutModel> lateInEarlyOuts = null;

@@ -71,5 +71,7 @@ namespace Fanex.NexHR.Models.Report
         public int IsNotWork { get; set; }
 
         public IList<RequestEntity> Requests { get; set; }
+
+        public bool IsPrivilegeEditCheckInOut { get; set; }
     }
 }

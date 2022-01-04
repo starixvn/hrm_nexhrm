@@ -20,6 +20,7 @@
         public bool IsCheckInOutOnline { get; set; }
         public string IPAddress { get; set; }
         public byte Status { get; set; }
+        public bool IsEditCheckInOutOnline { get; set; }
 
         public string GetInOutName
         {

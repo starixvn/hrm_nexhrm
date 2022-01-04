@@ -212,6 +212,15 @@
   visibility: visible;
   margin-top: 8px; }
 
+.column-checkinout {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .column-checkinout input {
+    margin: 0 !important; }
+  .column-checkinout span {
+    padding-right: 5px; }
+
 @media only screen and (max-width: 993px) {
   #list-timesheet {
     overflow: auto; }

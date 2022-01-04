@@ -28,6 +28,7 @@ else
             <th style="width: 5%;">@Labels.CheckInOutOnline</th>
             <th>@Labels.IPAddress</th>
             <th>@Labels.Status</th>
+            <th style="width: 5%;">@Labels.EditCheckInOutOnline</th>
         </tr>
     </thead>
     <tbody>
@@ -37,62 +38,65 @@ else
             foreach (TimeRecord item in Model)
             {
                 index++;
-        <tr>
-            <td>@index</td>
-            <td>
-                @item.Employee.Code
-            </td>
-            <td class="tooltip" title="@item.Employee.FullName">
-                @item.Employee.NickName
-            </td>
-            <td class="tooltip" title="@item.Employee.Team.Name">
-                @item.Employee.Team.Code
-            </td>
-            <td>
-                @item.RecordTime.ToDetailFormatedDate()
-            </td>
-            <td>
-                @if (Roles.IsUserInRole("HR"))
-                {
-                    if (item.InOutType == 0)
+            <tr>
+                <td>@index</td>
+                <td>
+                    @item.Employee.Code
+                </td>
+                <td class="tooltip" title="@item.Employee.FullName">
+                    @item.Employee.NickName
+                </td>
+                <td class="tooltip" title="@item.Employee.Team.Name">
+                    @item.Employee.Team.Code
+                </td>
+                <td>
+                    @item.RecordTime.ToDetailFormatedDate()
+                </td>
+                <td>
+                    @if (Roles.IsUserInRole("HR"))
                     {
-                        <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="out-action">
-                            @item.GetInOutName
-                        </a>
-                    }
-                    else if (item.InOutType == 1)
-                    {
-                        <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="in-action">
-                            @item.GetInOutName
-                        </a>
+                        if (item.InOutType == 0)
+                        {
+                            <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="out-action">
+                                @item.GetInOutName
+                            </a>
+                        }
+                        else if (item.InOutType == 1)
+                        {
+                            <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="in-action">
+                                @item.GetInOutName
+                            </a>
+                        }
+                        else
+                        {
+                            <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="inout-action">
+                                @item.GetInOutName
+                            </a>
+                        }
                     }
                     else
                     {
-                        <a data-id="@item.RecordTimeId" href="javascript:void(0);" class="inout-action">
-                            @item.GetInOutName
-                        </a>
+                        @item.GetInOutName
                     }
-                }
-                else
-                {
-                    @item.GetInOutName
-                }
-            </td>
-            <td>@item.ReaderName</td>
-            <td>@item.EventName</td>
-            <td style="text-align: center;">
-                <input type="checkbox" id="isCheckInOutOnline" class="filled-in" disabled checked=@item.IsCheckInOutOnline />
-                <label hidden style="padding-left: 15px !important; height: 12px !important; cursor: not-allowed"></label>
-            </td>
-            <td>@item.IPAddress</td>
-            <td>@item.GetStatusName</td>
-        </tr>
-
+                </td>
+                <td>@item.ReaderName</td>
+                <td>@item.EventName</td>
+                <td style="text-align: center;">
+                    <input type="checkbox" id="isCheckInOutOnline" class="filled-in" disabled checked=@item.IsCheckInOutOnline />
+                    <label hidden style="padding-left: 15px !important; height: 12px !important; cursor: not-allowed"></label>
+                </td>
+                <td>@item.IPAddress</td>
+                <td>@item.GetStatusName</td>
+                <td style="text-align: center;">
+                    <input type="checkbox" id="isEditCheckInOutOnline" class="filled-in" disabled checked=@item.IsEditCheckInOutOnline />
+                    <label hidden style="padding-left: 15px !important; height: 12px !important; cursor: not-allowed"></label>
+                </td>
+            </tr>
             }
         }
         else
         {
-            @RazorHelper.DisplayNoInformation(colspan: 11)
+            @RazorHelper.DisplayNoInformation(colspan: 12)
         }
     </tbody>
     <tfoot>

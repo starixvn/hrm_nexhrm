@@ -48,7 +48,23 @@
                     <td>@item.ShiftCode</td>
                     @if (item.InFixed != null)
                     {
-                        <td>@item.InFixed.Value.ToString("HH:mm")</td>
+                        <td>
+                            <span class="column-checkinout">
+                                <span id="spanCheckInTime_@item.Id">@item.InFixed.Value.ToString("HH:mm")</span>
+                                <input class="checkin" type="text" value="@item.InFixed.Value.ToString("HH:mm")" id="txtCheckInTime_@item.Id" style="display:none;" />
+                                <a href="javascript:;" onclick="editCheckIn('@item.Id')" id='btnEditCheckIn_@item.Id'>
+                                    <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
+                                </a>
+                                <a href="javascript:;" id="btnUpdateCheckIn_@item.Id" class="action-update"
+                                   onclick="editCheckInAction('@item.Id')" title="Apply" style="display:none;">
+                                    <i class="mdi-action-done mdi-dark mdi-18px"></i>
+                                </a>
+                                <a href="javascript:;" id="btnCancelUpdateCheckIn_@item.Id" class="action-cancel"
+                                   onclick="cancelEditCheckIn('@item.Id')" title="Cancel" style="display:none;">
+                                    <i class="mdi-action-highlight-remove mdi-dark mdi-18px"></i>
+                                </a>
+                            </span>
+                        </td>
                     }
                     else if (item.IsMissingCheckin.Equals(1))
                     {
@@ -62,7 +78,23 @@
                     }
                     @if (item.OutFixed != null)
                     {
-                        <td>@item.OutFixed.Value.ToString("HH:mm")</td>
+                        <td>
+                            <span class="column-checkinout">
+                                <span id="spanCheckOutTime_@item.Id">@item.OutFixed.Value.ToString("HH:mm")</span>
+                                <input class="checkout" type="text" value="@item.OutFixed.Value.ToString("HH:mm")" id="txtCheckOutTime_@item.Id" style="display:none;" />
+                                <a href="javascript:;" onclick="editCheckOut('@item.Id')" id='btnEditCheckOut_@item.Id'>
+                                    <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
+                                </a>
+                                <a href="javascript:;" id="btnUpdateCheckOut_@item.Id" class="action-update"
+                                   onclick="editCheckOutAction('@item.Id')" title="Apply" style="display:none;">
+                                    <i class="mdi-action-done mdi-dark mdi-18px"></i>
+                                </a>
+                                <a href="javascript:;" id="btnCancelUpdateCheckOut_@item.Id" class="action-cancel"
+                                   onclick="cancelEditCheckOut('@item.Id')" title="Cancel" style="display:none;">
+                                    <i class="mdi-action-highlight-remove mdi-dark mdi-18px"></i>
+                                </a>
+                            </span>
+                        </td>
                     }
                     else if (item.IsMissingCheckOut.Equals(1))
                     {

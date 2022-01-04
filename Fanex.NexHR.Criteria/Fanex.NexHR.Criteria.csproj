@@ -86,6 +86,7 @@
     <Compile Include="EmployeeWorkFromHome\EmployeeWorkFromHomeDisApproveRequestCriteria.cs" />
     <Compile Include="EmployeeWorkFromHome\GetEmployeeWorkFromHomeByIdCriteria.cs" />
     <Compile Include="EmployeeWorkFromHome\GetEmployeeWorkFromHomeCriteria.cs" />
+    <Compile Include="Report\EditInsertCheckInOutRecordCriteria.cs" />
     <Compile Include="Report\GetPrivilegeCreateCheckInOutRecordCriteria.cs" />
     <Compile Include="EmployeeWorkFromHome\InsertEmployeeWorkFromHomeCriteria.cs" />
     <Compile Include="EmployeeWorkFromHome\UpdateEmployeeWorkFromHomeCriteria.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="RedmineAPI\GetRedmineUserIdCriteria.cs" />
     <Compile Include="RedmineAPI\WriteLogInputSpendTimeRedmineCriteria.cs" />
     <Compile Include="Report\GetEmployeeAttendanceLateInEarlyOutCriteria.cs" />
+    <Compile Include="Report\GetPrivilegeEditCheckInOutRecordCriteria.cs" />
     <Compile Include="Report\GetWorkingHoursStatisticCriteria.cs" />
     <Compile Include="Report\GetYearlyNexRequestCriteria.cs" />
     <Compile Include="Report\InsertCheckInOutRecordCriteria.cs" />

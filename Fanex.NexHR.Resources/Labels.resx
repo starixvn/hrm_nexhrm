@@ -1722,4 +1722,7 @@
   <data name="Valid" xml:space="preserve">
     <value>Valid</value>
   </data>
+  <data name="EditCheckInOutOnline" xml:space="preserve">
+    <value>Edit Check In/Out Online</value>
+  </data>
 </root>

@@ -1,5 +1,5 @@
 ﻿/*global _messages, _global, floatThead*/
-/*exported index*/
+/*exported index editCheckIn, cancelEditCheckIn, editCheckInAction, editCheckOut, cancelEditCheckOut*/
 'use strict';
 
 var rowIndex = 1;
@@ -157,6 +157,103 @@ function checkInCheckOut() {
         });
     });
 }
+
+var canNotEdit = function (id) {
+    $('#txtCheckInTime_' + id).val($('#spanCheckInTime_' + id).text());
+};
+
+function editCheckIn(id) {
+    $('#spanCheckInTime_' + id).hide();
+    $('#txtCheckInTime_' + id).show();
+    $('#btnEditCheckIn_' + id).hide();
+    $('#btnUpdateCheckIn_' + id).show();
+    $('#btnCancelUpdateCheckIn_' + id).show();
+}
+
+function cancelEditCheckIn(id) {
+    $('#spanCheckInTime_' + id).show();
+    $('#txtCheckInTime_' + id).hide();
+    $('#btnEditCheckIn_' + id).show();
+    $('#btnUpdateCheckIn_' + id).hide();
+    $('#btnCancelUpdateCheckIn_' + id).hide();
+}
+
+function editCheckOut(id) {
+    $('#spanCheckOutTime_' + id).hide();
+    $('#txtCheckOutTime_' + id).show();
+    $('#btnEditCheckOut_' + id).hide();
+    $('#btnUpdateCheckOut_' + id).show();
+    $('#btnCancelUpdateCheckOut_' + id).show();
+}
+
+function cancelEditCheckOut(id) {
+    $('#spanCheckOutTime_' + id).show();
+    $('#txtCheckOutTime_' + id).hide();
+    $('#btnEditCheckOut_' + id).show();
+    $('#btnUpdateCheckOut_' + id).hide();
+    $('#btnCancelUpdateCheckOut_' + id).hide();
+}
+
+function editCheckInAction(id) {
+    var checkinTime = $('#txtCheckInTime_' + id).val();
+    var isValid = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(checkinTime);
+    if (!isValid) {
+        alert('Input time is not valid');
+        canNotEdit(id);
+        return false;
+    }
+
+    confirm('Are you sure you want to change?', function () {
+        var oldCheckinTime = $('#spanCheckInTime_' + id).val();
+        if (checkinTime !== oldCheckinTime) {
+            $.post(_global.root + 'Report/EditChekInOutTime', { time: checkinTime, inOutType: 0 }, function (response) {
+                if (response.IsSuccessful) {
+                    query(false);
+                } else {
+                    alert(response.Message);
+                    canNotEdit(id);
+                }
+            }).error(function () {
+                alert(_messages.errorTryAgain);
+                canNotEdit(id);
+            });
+        } else {
+            alert(_messages.errorTryAgain);
+            canNotEdit(id);
+        }
+    });
+}
+
+function editCheckOutAction(id) {
+    var checkoutTime = $('#txtCheckOutTime_' + id).val();
+    var isValid = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(checkoutTime);
+    if (!isValid) {
+        alert('Input time is not valid');
+        canNotEdit(id);
+        return false;
+    }
+
+    confirm('Are you sure you want to change?', function () {
+        var oldCheckOutTime = $('#spanCheckOutTime_' + id).val();
+        if (checkoutTime !== oldCheckOutTime) {
+            $.post(_global.root + 'Report/EditChekInOutTime', { time: checkoutTime, inOutType: 1 }, function (response) {
+                if (response.IsSuccessful) {
+                    query(false);
+                } else {
+                    alert(response.Message);
+                    canNotEdit(id);
+                }
+            }).error(function () {
+                alert(_messages.errorTryAgain);
+                canNotEdit(id);
+            });
+        } else {
+            alert(_messages.errorTryAgain);
+            canNotEdit(id);
+        }
+    });
+}
+
 
 $(document).ready(function () {
     initMonthPicker();

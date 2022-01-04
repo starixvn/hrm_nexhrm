@@ -210,7 +210,9 @@
         </Setting>
         <Setting Key="TimeRecord_UpdateType" SpName="TimeRecord_UpdateType" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="TimeRecord_GetPrivilegeCreateCheckInOut" SpName="TimeRecord_GetPrivilegeCreateCheckInOut" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="TimeRecord_GetPrivilegeEditCheckInOut" SpName="TimeRecord_GetPrivilegeEditCheckInOut" DbName="nexhr" Plain="1"></Setting>
         <Setting Key="TimeRecord_InsertCheckInOutTime" SpName="TimeRecord_InsertCheckInOutTime" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="TimeRecord_EditInsertCheckInOutTime" SpName="TimeRecord_EditInsertCheckInOutTime" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Report">
         <Setting Key="Report_EmployeeDashBoard" SpName="Report_EmployeeDashBoard" DbName="nexhr" Plain="0">

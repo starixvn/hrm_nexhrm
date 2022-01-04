@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
+    using System.Globalization;
     using System.Web.Mvc;
     using Core;
     using Core.Enums;
@@ -25,6 +27,8 @@
         private readonly IReportService reportService;
         private readonly ITeamService teamService;
         private readonly ICommandService commandService;
+
+        private static readonly bool isEditableSettingCheckInOut = bool.Parse(ConfigurationManager.AppSettings["IsEditableSettingCheckInOut"]);
 
         public ReportController(
             IEmployeeService employeeService,
@@ -192,6 +196,28 @@
             return Json(result);
         }
 
+
+        [HttpPost]
+        public JsonResult EditChekInOutTime(string time, short inOutType)
+        {
+            var dateTime = DateTime.Now.Date.ToString("dd/MM/yyyy");
+            var parseTime = TimeSpan.ParseExact(time, @"h\:mm", CultureInfo.InvariantCulture);
+            DateTime recordTime = DateTime.ParseExact(dateTime, "dd/MM/yyyy", CultureInfo.InvariantCulture) + parseTime;
+            var criteria = new EditInsertCheckInOutRecordCriteria
+            {
+                EmpId = CurrentUser.Id,
+                RecordTime = recordTime,
+                InOutType = inOutType,
+                IPAddress = GetClientIpAddress(),
+                Platform = Request.Headers["User-Agent"],
+                ModifiedBy = CurrentUser.Id,
+                ModifiedDate = DateTime.Now,
+                IsEditCheckInOutOnline = true
+            };
+            CommandResult result = commandService.Insert(criteria);
+            return Json(result);
+        }
+
         public string GetClientIpAddress()
         {
             var clientIp = Request.ServerVariables["X_FORWARDED_FOR"];
@@ -236,6 +262,16 @@
                 };
 
                 employeeAttendances = reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
+                foreach(var attendance in employeeAttendances)
+                {
+                    var getPrivilegeEditCheckInOutRecordCriteria = new GetPrivilegeEditCheckInOutRecordCriteria
+                    {
+                        EmpId = attendance.EmpId,
+                        WorkDate = (DateTime)attendance.AttendanceDate,
+                    };
+                    var isPrivilegeEdit = reportService.GetIsPrivilegeEditCheckInOut(getPrivilegeEditCheckInOutRecordCriteria);
+                    attendance.IsPrivilegeEditCheckInOut = isPrivilegeEdit && isEditableSettingCheckInOut;
+                }    
             }
 
             return PartialView("_ListTimesheet", employeeAttendances);
