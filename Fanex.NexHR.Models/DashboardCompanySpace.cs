@@ -10,6 +10,8 @@
 
         public bool IsCurrent { get; set; }
 
+        public bool IsWorkFromHome { get; set; }
+
         public short TypeId { get; set; }
 
         public float LeaveDay { get; set; }

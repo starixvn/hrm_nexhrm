@@ -70,6 +70,30 @@
             }
         }
 
+        public string CompanyWorkFromHome
+        {
+            get
+            {
+                var employees = new StringBuilder();
+                IList<DashBoardCompanySpace> workFromHomes = DashboardCompanySpace
+                    .Where(t => (t.IsWorkFromHome && t.IsCurrent))
+                    .OrderBy(t => t.Employee.NickName)
+                    .ToList();
+
+                foreach (DashBoardCompanySpace workFromHome in workFromHomes)
+                {
+                    employees.Append(workFromHome.Employee.NickName);
+                    if(workFromHome.TypeId == (int)DashBoardType.Leave && workFromHome.LeaveDay.Equals(numberEqual))
+                    {
+                        employees.Append(" (½)");
+                    }
+                    employees.Append(", ");
+                }
+
+                return employees.Length > numberLength ? employees.ToString().Substring(0, employees.Length - numberLength) : string.Empty;
+            }
+        }
+
         public string CompanyLeaveYesterday
         {
             get
