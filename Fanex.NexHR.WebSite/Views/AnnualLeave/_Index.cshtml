@@ -17,7 +17,14 @@
                 <th rowspan="2">#</th>
             }
             <th rowspan="2">@Labels.Nick</th>
-            <th colspan="2">@Labels.AnnualLeave</th>
+            @if (year == 2022)
+            {
+                <th rowspan="2">@year</th>
+            }
+            else
+            {
+                <th colspan="2">@Labels.AnnualLeave</th>
+            }
             <th colspan="12">
                 Take Annual Leave @year
             </th>
@@ -30,8 +37,11 @@
             }
         </tr>
         <tr>
-            <th>@(year - 1)</th>
-            <th>@year</th>
+            @if (year != 2022)
+            {
+                <th>@(year - 1)</th>
+                <th>@year</th>
+            }
             <th>@Labels.Jan</th>
             <th>@Labels.Feb</th>
             <th>@Labels.Mar</th>
@@ -80,7 +90,10 @@
                             <td>@(index++)</td>
                         }
                         <td class="tooltip" title="@leaveSummary.Employee.FullName">@leaveSummary.Employee.NickName</td>
-                        @RazorHelper.DisplayNumber(leaveSummary.AnnualLeaveLastYear)
+                        @if (year != 2022)
+                        {
+                            @RazorHelper.DisplayNumber(leaveSummary.AnnualLeaveLastYear)
+                        }
                         @RazorHelper.DisplayNumber(leaveSummary.AnnualLeaveCurrentYear)
                         @RazorHelper.DisplayNumber(leaveSummary.Jan)
                         @RazorHelper.DisplayNumber(leaveSummary.Feb)
@@ -111,6 +124,14 @@
     }
     else
     {
-        @RazorHelper.DisplayNoInformation(18)
+        if (year != 2022)
+        {
+            @RazorHelper.DisplayNoInformation(18)
+        }
+        else
+        {
+            @RazorHelper.DisplayNoInformation(17)
+
+        }
     }
 </table>
