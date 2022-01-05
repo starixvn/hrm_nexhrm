@@ -14,8 +14,8 @@
             <th>@Labels.LateIn</th>
             <th>@Labels.EarlyOut</th>
             <th>@Labels.Request</th>
-            <th>@Labels.Note</th>
             <th style="width: 5%;">@Labels.WorkFromHome</th>
+            <th>@Labels.Note</th>
         </tr>
     </thead>
     @if (Model != null && Model.Count > 0)
@@ -181,11 +181,11 @@
                         }
                     }
                 </td>
-                <td class="align-left">@item.Notes</td>
                 <td style="text-align: center;">
                     <input type="checkbox" id="isWorkFromHome" class="filled-in" disabled checked=@item.IsWorkFromHome />
                     <label hidden style="padding-left: 15px !important; height: 12px !important; cursor: not-allowed"></label>
                 </td>
+                <td class="align-left">@item.Notes</td>
             </tr>
             }
         </tbody>

@@ -133,11 +133,11 @@
                                                 <th>
                                                     @Labels.Request
                                                 </th>
-                                                <th>
-                                                    @Labels.Note
-                                                </th>
                                                 <th style="width: 5%;">
                                                     @Labels.WorkFromHome
+                                                </th>
+                                                <th>
+                                                    @Labels.Note
                                                 </th>
                                             </tr>
                                         </thead>
@@ -213,9 +213,6 @@
                     {{/for}}
                     {{/if}}
                 </td>
-                <td class="align-left">
-                    {{:Notes}}
-                </td>
                 <td style="text-align: center;">
                     {{if IsWorkFromHome}}
                     <input type="checkbox" id="isWorkFromHome" class="filled-in" disabled checked />
@@ -223,6 +220,9 @@
                     <input type="checkbox" id="isWorkFromHome" class="filled-in" disabled />
                     {{/if}}
                     <label hidden style="padding-left: 15px !important; height: 12px !important; cursor: not-allowed"></label>
+                </td>
+                <td class="align-left">
+                    {{:Notes}}
                 </td>
             </tr>
         </script>

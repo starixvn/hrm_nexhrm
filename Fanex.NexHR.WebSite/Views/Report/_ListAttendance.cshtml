@@ -52,11 +52,11 @@
                 <div class="sorter" data-property="EarlyOut"></div>
             </th>
             <th>@Labels.Request</th>
+            <th style="width: 5%;">@Labels.WorkFromHome</th>
             <th class="col-sorter">
                 @Labels.Note
                 <div class="sorter" data-property="Notes"></div>
             </th>
-            <th style="width: 5%;">@Labels.WorkFromHome</th>
         </tr>
     </thead>
     @if (Model.Any())
@@ -148,17 +148,17 @@
                             }
                         }
                     </td>
-                    <td class="align-left">@employeeAttendance.Notes</td>
                     <td style="text-align: center;">
                         <input type="checkbox" id="isWorkFromHome" class="filled-in" disabled checked=@employeeAttendance.IsWorkFromHome />
                         <label hidden style="padding-left: 15px !important; height: 12px !important; cursor: not-allowed"></label>
                     </td>
+                    <td class="align-left">@employeeAttendance.Notes</td>
                 </tr>
                 }
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="14" id="pagination" class="row form-input">
+                <td colspan="15" id="pagination" class="row form-input">
                     <div id="detailtext" class="col m-t--m">
                         @{
                             var from = (pagerOption.CurrentPage - 1) * pagerOption.ItemsPerPage + 1;

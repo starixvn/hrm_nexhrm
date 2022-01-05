@@ -47,7 +47,7 @@
         {
             const string fileName = "EmployeeAttendance";
             const string sheetName = "Employee Attendance";
-            const int sizeColumns = 13;  
+            const int sizeColumns = 14;  
             const int totalReportHeader = 3;
             const int rowFreezePane = 3;
 
@@ -195,6 +195,7 @@
                 TotalHours = TotalHoursToTime(employeeAttendance.TotalWorkHours),
                 LateIn = DisplayMinute(employeeAttendance.LateIn),
                 EarlyOut = DisplayMinute(employeeAttendance.EarlyOut),
+                WorkFromHome = employeeAttendance.IsWorkFromHome ? "Yes" : "No",
                 employeeAttendance.Notes
             };
             rowIndex++;
