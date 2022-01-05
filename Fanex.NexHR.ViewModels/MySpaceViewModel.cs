@@ -76,7 +76,7 @@
             {
                 var employees = new StringBuilder();
                 IList<DashBoardCompanySpace> workFromHomes = DashboardCompanySpace
-                    .Where(t => (t.IsWorkFromHome && t.IsCurrent))
+                    .Where(t => t.IsWorkFromHome)
                     .OrderBy(t => t.Employee.NickName)
                     .ToList();
 
