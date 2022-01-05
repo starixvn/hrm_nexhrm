@@ -143,7 +143,6 @@
     <Compile Include="RedmineAPI\GetRedmineUserIdCriteria.cs" />
     <Compile Include="RedmineAPI\WriteLogInputSpendTimeRedmineCriteria.cs" />
     <Compile Include="Report\GetEmployeeAttendanceLateInEarlyOutCriteria.cs" />
-    <Compile Include="Report\GetPrivilegeEditCheckInOutRecordCriteria.cs" />
     <Compile Include="Report\GetWorkingHoursStatisticCriteria.cs" />
     <Compile Include="Report\GetYearlyNexRequestCriteria.cs" />
     <Compile Include="Report\InsertCheckInOutRecordCriteria.cs" />

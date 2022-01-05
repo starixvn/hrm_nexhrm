@@ -11,8 +11,6 @@
 
         bool GetIsPrivilegeCreateCheckInOut(GetPrivilegeCreateCheckInOutRecordCriteria criteria);
 
-        bool GetIsPrivilegeEditCheckInOut(GetPrivilegeEditCheckInOutRecordCriteria criteria);
-
         IList<LateInEarlyOutModel> GetLateInEarlyOut(GetLateInEarlyOutReportCriteria criteria);
 
         IList<LateInEarlyOutDetail> GetLateInEarlyOutDetail(GetLateInEarlyOutDetailReportCriteria criteria);

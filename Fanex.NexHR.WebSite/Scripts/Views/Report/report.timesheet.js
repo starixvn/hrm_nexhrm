@@ -158,8 +158,22 @@ function checkInCheckOut() {
     });
 }
 
-var canNotEdit = function (id) {
-    $('#txtCheckInTime_' + id).val($('#spanCheckInTime_' + id).text());
+var canNotEditCheckIn = function (id) {
+    if ($('#spanCheckInTime_' + id).text() === '' || $('#spanCheckInTime_' + id).text() === null) {
+        $('#txtCheckInTime_' + id).val('00:00');
+    }
+    else {
+        $('#txtCheckInTime_' + id).val($('#spanCheckInTime_' + id).text());
+    }
+};
+
+var canNotEditCheckOut = function (id) {
+    if ($('#spanCheckOutTime_' + id).text() === '' || $('#spanCheckOutTime_' + id).text() === null) {
+        $('#txtCheckOutTime_' + id).val('00:00');
+    }
+    else {
+        $('#txtCheckOutTime_' + id).val($('#spanCheckOutTime_' + id).text());
+    }
 };
 
 function editCheckIn(id) {
@@ -199,7 +213,7 @@ function editCheckInAction(id) {
     var isValid = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(checkinTime);
     if (!isValid) {
         alert('Input time is not valid');
-        canNotEdit(id);
+        canNotEditCheckIn(id);
         return false;
     }
 
@@ -211,15 +225,15 @@ function editCheckInAction(id) {
                     query(false);
                 } else {
                     alert(response.Message);
-                    canNotEdit(id);
+                    canNotEditCheckIn(id);
                 }
             }).error(function () {
                 alert(_messages.errorTryAgain);
-                canNotEdit(id);
+                canNotEditCheckIn(id);
             });
         } else {
             alert(_messages.errorTryAgain);
-            canNotEdit(id);
+            canNotEditCheckIn(id);
         }
     });
 }
@@ -229,7 +243,7 @@ function editCheckOutAction(id) {
     var isValid = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(checkoutTime);
     if (!isValid) {
         alert('Input time is not valid');
-        canNotEdit(id);
+        canNotEditCheckOut(id);
         return false;
     }
 
@@ -241,15 +255,15 @@ function editCheckOutAction(id) {
                     query(false);
                 } else {
                     alert(response.Message);
-                    canNotEdit(id);
+                    canNotEditCheckOut(id);
                 }
             }).error(function () {
                 alert(_messages.errorTryAgain);
-                canNotEdit(id);
+                canNotEditCheckOut(id);
             });
         } else {
             alert(_messages.errorTryAgain);
-            canNotEdit(id);
+            canNotEditCheckOut(id);
         }
     });
 }

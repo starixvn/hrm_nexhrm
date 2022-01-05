@@ -4777,6 +4777,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Work From Home.
+        /// </summary>
+        public static string WorkFromHome {
+            get {
+                return ResourceManager.GetString("WorkFromHome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Work From Home Request.
         /// </summary>
         public static string WorkFromHomeRequest {

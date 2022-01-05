@@ -264,13 +264,9 @@
                 employeeAttendances = reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
                 foreach(var attendance in employeeAttendances)
                 {
-                    var getPrivilegeEditCheckInOutRecordCriteria = new GetPrivilegeEditCheckInOutRecordCriteria
-                    {
-                        EmpId = attendance.EmpId,
-                        WorkDate = (DateTime)attendance.AttendanceDate,
-                    };
-                    var isPrivilegeEdit = reportService.GetIsPrivilegeEditCheckInOut(getPrivilegeEditCheckInOutRecordCriteria);
-                    attendance.IsPrivilegeEditCheckInOut = isPrivilegeEdit && isEditableSettingCheckInOut;
+                    var parseAttendanceDate = (DateTime)attendance.AttendanceDate;
+                    var isOver30Days = DateTime.Now >= parseAttendanceDate.AddDays(30);
+                    attendance.IsWorkFromHome = attendance.IsWorkFromHome && isEditableSettingCheckInOut && !isOver30Days;
                 }    
             }
 

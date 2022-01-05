@@ -1725,4 +1725,7 @@
   <data name="EditCheckInOutOnline" xml:space="preserve">
     <value>Edit Check In/Out Online</value>
   </data>
+  <data name="WorkFromHome" xml:space="preserve">
+    <value>Work From Home</value>
+  </data>
 </root>

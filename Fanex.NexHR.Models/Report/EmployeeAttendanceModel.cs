@@ -60,6 +60,8 @@ namespace Fanex.NexHR.Models.Report
 
         public string Notes { get; set; }
 
+        public bool IsWorkFromHome { get; set; }
+
         public int IsLateIn { get; set; }
 
         public int IsEarlyOut { get; set; }
@@ -71,7 +73,5 @@ namespace Fanex.NexHR.Models.Report
         public int IsNotWork { get; set; }
 
         public IList<RequestEntity> Requests { get; set; }
-
-        public bool IsPrivilegeEditCheckInOut { get; set; }
     }
 }
