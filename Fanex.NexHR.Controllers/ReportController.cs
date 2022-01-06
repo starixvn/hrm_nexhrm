@@ -265,8 +265,8 @@
                 foreach(var attendance in employeeAttendances)
                 {
                     var parseAttendanceDate = (DateTime)attendance.AttendanceDate;
-                    var isOver30Days = DateTime.Now >= parseAttendanceDate.AddDays(30);
-                    attendance.IsWorkFromHome = attendance.IsWorkFromHome && isEditableSettingCheckInOut && !isOver30Days;
+                    var isOverOneWeek = DateTime.Now >= parseAttendanceDate.AddDays(7);
+                    attendance.IsWorkFromHome = attendance.IsWorkFromHome && isEditableSettingCheckInOut && !isOverOneWeek;
                 }    
             }
 
