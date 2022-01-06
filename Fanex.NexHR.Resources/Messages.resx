@@ -427,4 +427,7 @@ Thanks</value>
   <data name="EmployeeTransferExitsts" xml:space="preserve">
     <value>This employee has already transfered</value>
   </data>
+  <data name="DisApprovalNotificationLeaveSubject" xml:space="preserve">
+    <value>Leave request from {0} disapproved by {1}</value>
+  </data>
 </root>

@@ -157,13 +157,14 @@
             ICriteria processRequestCriteria = GetProcessRequestCriteria(command, id, processBy);
 
             CommandResult result = _commandService.Update(processRequestCriteria);
-
             if (result.IsSuccessful)
             {
                 string templateEmailToRequester = HttpContext.Current.Server
                     .MapPath(Constants.EmailTemplatePathForRequester);
                 string templateLeaveEmailToRelated = HttpContext.Current.Server
                     .MapPath(Constants.EmailTemplatePathForLeaveApproved);
+                string templateLeaveEmailToHR = HttpContext.Current.Server
+                    .MapPath(Constants.EmailTemplatePathForLeaveDisApproved);
                 string templateInOutEmailToRelated = HttpContext.Current.Server
                     .MapPath(Constants.EmailTemplatePathForCheckInOutApproved);
 
@@ -174,7 +175,8 @@
                         command,
                         templateEmailToRequester,
                         templateLeaveEmailToRelated,
-                        templateInOutEmailToRelated);
+                        templateInOutEmailToRelated,
+                        templateLeaveEmailToHR);
 
                     _nexbotService.SendMessageProcessRequest(GetRequestEntity(id), command);
                 });
@@ -495,7 +497,8 @@
             string command,
             string templateEmailToRequesterPath,
             string templateLeaveEmailToRelatedPath,
-            string templateInOutEmailToRelatedPath)
+            string templateInOutEmailToRelatedPath,
+            string templateLeaveEmailToHR)
         {
             var request = GetRequestEntity(id);
 
@@ -504,6 +507,11 @@
             if (command == Command.Approve.EnumToString())
             {
                 SendMailToRelatedPeople(request, templateLeaveEmailToRelatedPath, templateInOutEmailToRelatedPath);
+            }
+
+            if (command == Command.Disapprove.EnumToString())
+            {
+                SendMailForHR(request, templateLeaveEmailToHR);
             }
         }
 
@@ -581,6 +589,39 @@
                 CheckInOutRelatedMail(request, sendCc, templateInOutEmailToRelatedPath);
             }
 
+        }
+
+        private void SendMailForHR(RequestEntity request,
+            string templateLeaveEmailToHR)
+        {
+            IList<Employee> HRs = GetData<Employee>(new GetHRCriteria()).ToList();
+
+            var sendTo = string.Join(";", HRs.Select(t => t.Email));
+            var subject = string.Format(
+                Messages.DisApprovalNotificationLeaveSubject,
+                request.Requester.NickName,
+                request.ModifiedBy.NickName);
+            var body = Utilities.ReadTextFile(templateLeaveEmailToHR);
+            var forDate = GetDateStringForLeaveRequest(request.FromDate, request.ToDate, request.TotalDays);
+
+            body = string.Format(
+                body,
+                $"{request.Requester.NickName} ({request.Requester.FullName})",
+                Labels.Leave,
+                forDate,
+                request.LeaveType.Name,
+                request.Remark,
+                ConfigurationManager.AppSettings[CompanyMailSign]);
+
+            if (!string.IsNullOrEmpty(sendTo))
+            {
+                _emailService.SendEmail(
+                     ConfigurationManager.AppSettings[stringEmail],
+                     sendTo,
+                     string.Empty,
+                     subject,
+                     body);
+            }
         }
 
         private void CheckInOutRelatedMail(RequestEntity request, string sendCc, string templateInOutEmailToRelatedPath)

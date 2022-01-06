@@ -313,6 +313,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Leave request from {0} disapproved by {1}.
+        /// </summary>
+        public static string DisApprovalNotificationLeaveSubject {
+            get {
+                return ResourceManager.GetString("DisApprovalNotificationLeaveSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duplicate employee code.
         /// </summary>
         public static string DuplicateEmployeeCode {

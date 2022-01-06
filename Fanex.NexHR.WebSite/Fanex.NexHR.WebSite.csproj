@@ -227,6 +227,7 @@
     <Content Include="App_Data\Emails\Overtime.Request.cshtml" />
     <Content Include="App_Data\Emails\OvertimeApprovalNotification.cshtml" />
     <Content Include="App_Data\Emails\Overtime.Conversion.cshtml" />
+    <Content Include="App_Data\Emails\LeaveDisApprovalNotification.cshtml" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>

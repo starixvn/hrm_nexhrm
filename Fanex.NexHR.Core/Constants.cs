@@ -31,6 +31,7 @@ namespace Fanex.NexHR.Core
         public const string EmailTemplatePathForCheckInOut = "~/app_data/emails/CheckInOut.Request.cshtml";
         public const string EmailTemplatePathForMemoNotification = "~/app_data/emails/MemoNotification.cshtml";
         public const string EmailTemplatePathForLeaveApproved = "~/app_data/emails/LeaveApprovalNotification.cshtml";
+        public const string EmailTemplatePathForLeaveDisApproved = "~/app_data/emails/LeaveDisApprovalNotification.cshtml";
         public const string EmailTemplatePathForCheckInOutApproved = "~/app_data/emails/CheckInOutApprovalNotification.cshtml";
         public const string EmailTemplatePathForOvertimeRequest = "~/app_data/emails/Overtime.Request.cshtml";
         public const string EmailTemplatePathForOvertimeApprovalNotification = "~/app_data/emails/OvertimeApprovalNotification.cshtml";
