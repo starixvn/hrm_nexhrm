@@ -208,7 +208,7 @@ function cancelEditCheckOut(id) {
     $('#btnCancelUpdateCheckOut_' + id).hide();
 }
 
-function editCheckInAction(id) {
+function editCheckInAction(id, attendanceDate) {
     var checkinTime = $('#txtCheckInTime_' + id).val();
     var isValid = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(checkinTime);
     if (!isValid) {
@@ -220,7 +220,7 @@ function editCheckInAction(id) {
     confirm('Are you sure you want to change?', function () {
         var oldCheckinTime = $('#spanCheckInTime_' + id).val();
         if (checkinTime !== oldCheckinTime) {
-            $.post(_global.root + 'Report/EditChekInOutTime', { time: checkinTime, inOutType: 0 }, function (response) {
+            $.post(_global.root + 'Report/EditChekInOutTime', { attendanceDate, time: checkinTime, inOutType: 0 }, function (response) {
                 if (response.IsSuccessful) {
                     query(false);
                 } else {
@@ -238,7 +238,7 @@ function editCheckInAction(id) {
     });
 }
 
-function editCheckOutAction(id) {
+function editCheckOutAction(id, attendanceDate) {
     var checkoutTime = $('#txtCheckOutTime_' + id).val();
     var isValid = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(checkoutTime);
     if (!isValid) {
@@ -250,7 +250,7 @@ function editCheckOutAction(id) {
     confirm('Are you sure you want to change?', function () {
         var oldCheckOutTime = $('#spanCheckOutTime_' + id).val();
         if (checkoutTime !== oldCheckOutTime) {
-            $.post(_global.root + 'Report/EditChekInOutTime', { time: checkoutTime, inOutType: 1 }, function (response) {
+            $.post(_global.root + 'Report/EditChekInOutTime', { attendanceDate, time: checkoutTime, inOutType: 1 }, function (response) {
                 if (response.IsSuccessful) {
                     query(false);
                 } else {

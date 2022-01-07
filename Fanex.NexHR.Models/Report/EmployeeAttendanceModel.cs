@@ -18,7 +18,7 @@ namespace Fanex.NexHR.Models.Report
     /// </summary>
     public class EmployeeAttendanceModel
     {
-        public long Id { get; set; }
+        public long AttendanceId { get; set; }
 
         public string Code { get; set; }
 

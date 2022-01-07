@@ -53,23 +53,23 @@
                         <span class="column-checkinout">
                             @if (@item.InFixed != null)
                             {
-                                <span id="spanCheckInTime_@item.Id">@item.InFixed.Value.ToString("HH:mm")</span>
-                                <input class="checkin" type="text" value="@item.InFixed.Value.ToString("HH:mm")" id="txtCheckInTime_@item.Id" style="display:none;" />
+                                <span id="spanCheckInTime_@item.AttendanceId">@item.InFixed.Value.ToString("HH:mm")</span>
+                                <input class="checkin" type="text" value="@item.InFixed.Value.ToString("HH:mm")" id="txtCheckInTime_@item.AttendanceId" style="display:none;" />
                             }
                             else
                             {
                                 <span></span>
-                                <input class="checkin" type="text" value="00:00" id="txtCheckInTime_@item.Id" style="display:none;" />
+                                <input class="checkin" type="text" value="00:00" id="txtCheckInTime_@item.AttendanceId" style="display:none;" />
                             }
-                            <a href="javascript:;" onclick="editCheckIn('@item.Id')" id='btnEditCheckIn_@item.Id'>
+                            <a href="javascript:;" onclick="editCheckIn('@item.AttendanceId')" id='btnEditCheckIn_@item.AttendanceId'>
                                 <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
                             </a>
-                            <a href="javascript:;" id="btnUpdateCheckIn_@item.Id" class="action-update"
-                               onclick="editCheckInAction('@item.Id')" title="Apply" style="display:none;">
+                            <a href="javascript:;" id="btnUpdateCheckIn_@item.AttendanceId" class="action-update"
+                               onclick="editCheckInAction('@item.AttendanceId', '@item.AttendanceDate')" title="Apply" style="display:none;">
                                 <i class="mdi-action-done mdi-dark mdi-18px"></i>
                             </a>
-                            <a href="javascript:;" id="btnCancelUpdateCheckIn_@item.Id" class="action-cancel"
-                               onclick="cancelEditCheckIn('@item.Id')" title="Cancel" style="display:none;">
+                            <a href="javascript:;" id="btnCancelUpdateCheckIn_@item.AttendanceId" class="action-cancel"
+                               onclick="cancelEditCheckIn('@item.AttendanceId')" title="Cancel" style="display:none;">
                                 <i class="mdi-action-highlight-remove mdi-dark mdi-18px"></i>
                             </a>
                         </span>
@@ -95,23 +95,23 @@
                         <span class="column-checkinout">
                             @if (@item.OutFixed != null)
                             {
-                                <span id="spanCheckOutTime_@item.Id">@item.OutFixed.Value.ToString("HH:mm")</span>
-                                <input class="checkout" type="text" value="@item.OutFixed.Value.ToString("HH:mm")" id="txtCheckOutTime_@item.Id" style="display:none;" />
+                                <span id="spanCheckOutTime_@item.AttendanceId">@item.OutFixed.Value.ToString("HH:mm")</span>
+                                <input class="checkout" type="text" value="@item.OutFixed.Value.ToString("HH:mm")" id="txtCheckOutTime_@item.AttendanceId" style="display:none;" />
                             }
                             else
                             {
                                 <span></span>
-                                <input class="checkout" type="text" value="00:00" id="txtCheckOutTime_@item.Id" style="display:none;" />
+                                <input class="checkout" type="text" value="00:00" id="txtCheckOutTime_@item.AttendanceId" style="display:none;" />
                             }
-                            <a href="javascript:;" onclick="editCheckOut('@item.Id')" id='btnEditCheckOut_@item.Id'>
+                            <a href="javascript:;" onclick="editCheckOut('@item.AttendanceId')" id='btnEditCheckOut_@item.AttendanceId'>
                                 <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
                             </a>
-                            <a href="javascript:;" id="btnUpdateCheckOut_@item.Id" class="action-update"
-                               onclick="editCheckOutAction('@item.Id')" title="Apply" style="display:none;">
+                            <a href="javascript:;" id="btnUpdateCheckOut_@item.AttendanceId" class="action-update"
+                               onclick="editCheckOutAction('@item.AttendanceId','@item.AttendanceDate')" title="Apply" style="display:none;">
                                 <i class="mdi-action-done mdi-dark mdi-18px"></i>
                             </a>
-                            <a href="javascript:;" id="btnCancelUpdateCheckOut_@item.Id" class="action-cancel"
-                               onclick="cancelEditCheckOut('@item.Id')" title="Cancel" style="display:none;">
+                            <a href="javascript:;" id="btnCancelUpdateCheckOut_@item.AttendanceId" class="action-cancel"
+                               onclick="cancelEditCheckOut('@item.AttendanceId')" title="Cancel" style="display:none;">
                                 <i class="mdi-action-highlight-remove mdi-dark mdi-18px"></i>
                             </a>
                         </span>

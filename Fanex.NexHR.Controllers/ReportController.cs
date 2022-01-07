@@ -198,9 +198,9 @@
 
 
         [HttpPost]
-        public JsonResult EditChekInOutTime(string time, short inOutType)
+        public JsonResult EditChekInOutTime(DateTime attendanceDate, string time, short inOutType)
         {
-            var dateTime = DateTime.Now.Date.ToString("dd/MM/yyyy");
+            var dateTime = attendanceDate.ToString("dd/MM/yyyy");
             var parseTime = TimeSpan.ParseExact(time, @"h\:mm", CultureInfo.InvariantCulture);
             DateTime recordTime = DateTime.ParseExact(dateTime, "dd/MM/yyyy", CultureInfo.InvariantCulture) + parseTime;
             var criteria = new EditInsertCheckInOutRecordCriteria
