@@ -88,7 +88,7 @@
 
                 foreach (DashBoardCompanySpace workFromHome in workFromHomes)
                 {
-                    var wfhHalfDay = workFromHomes.Where(x => workFromHomesHalfDay.Any(y => y.Employee.Id == x.Employee.Id)).ToList();
+                    var wfhHalfDay = workFromHomesHalfDay.Where(x => workFromHome.Employee.Id == x.Employee.Id).ToList();
                     if(wfhHalfDay.Any())
                     {
                         employees.Append(workFromHome.Employee.NickName);
