@@ -27,13 +27,25 @@ function bindMenuIn() {
             trigger: 'left',
             build: function () {
                 return {
-                    callback: function () {
-                        confirm('Are you sure you change to in?', function () {
-                            processInOut(0, recordTimeIdToChange);
-                        });
+                    callback: function (key) {
+                        switch (key) {
+                            case 'in':
+                                confirm('Are you sure you change to in?', function () {
+                                    processInOut(0, recordTimeIdToChange);
+                                });
+
+                                break;
+                            case 'none':
+                                confirm('Are you sure you change to none?', function () {
+                                    processInOut(null, recordTimeIdToChange);
+                                });
+
+                                break;
+                        }
                     },
                     items: {
-                        'in': { name: 'In' }
+                        'in': { name: 'In' },
+                        'none': { name: 'None' }
                     }
                 };
             }
@@ -51,13 +63,25 @@ function bindMenuOut() {
             trigger: 'left',
             build: function () {
                 return {
-                    callback: function () {
-                        confirm('Are you sure you change to out?', function () {
-                            processInOut(1, recordTimeIdToChange);
-                        });
+                    callback: function (key) {
+                        switch (key) {
+                            case 'out':
+                                confirm('Are you sure you change to out?', function () {
+                                    processInOut(1, recordTimeIdToChange);
+                                });
+
+                                break;
+                            case 'none':
+                                confirm('Are you sure you change to none?', function () {
+                                    processInOut(null, recordTimeIdToChange);
+                                });
+
+                                break;
+                        }
                     },
                     items: {
-                        'out': { name: 'Out' }
+                        'out': { name: 'Out' },
+                        'none': { name: 'None' }
                     }
                 };
             }

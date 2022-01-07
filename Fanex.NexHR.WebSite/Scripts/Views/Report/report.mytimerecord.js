@@ -1,6 +1,7 @@
 ﻿'use strict';
 /*global _global, _messages, setDateTimeRange, floatThead, validateFromDateAndToDate*/
 /*exported */
+var recordTimeIdToChange = 0;
 
 function query(isFirstLoad) {
     $.ajax({
@@ -17,6 +18,9 @@ function query(isFirstLoad) {
             $('#time-record-detail').html(data);
 
             if ($('table#data #pagination').length > 0) {
+                bindMenuIn();
+                bindMenuOut();
+                bindMenuInOut();
                 initPagination();
                 floatThead('table#data');
             }
@@ -66,6 +70,126 @@ function initEventForFromDateAndToDate() {
         $('#Date').val('0');
         $('#Date').material_select(); // jshint ignore:line
         $('#DateOption').attr('value', '0');
+    });
+}
+
+function processInOut(inoutType, eventElement) {
+    $.post(_global.root + 'ajax/ProcessInOut',
+        { inoutType: inoutType, recordTimeId: recordTimeIdToChange },
+        function (response) {
+            if (response.IsSuccessful) {
+                query(false);   // jshint ignore:line
+            } else {
+                alert(response.Message);
+                return;
+            }
+        });
+}
+
+function bindMenuIn() {
+    $('table#data tbody td a.in-action').on('mouseup', function () {
+        //var $this = $(this);
+        recordTimeIdToChange = $(this).data("id");
+
+        $.contextMenu({
+            selector: '.in-action',
+            trigger: 'left',
+            build: function () {
+                return {
+                    callback: function (key) {
+                        switch (key) {
+                            case 'in':
+                                confirm('Are you sure you change to in?', function () {
+                                    processInOut(0, recordTimeIdToChange);
+                                });
+
+                                break;
+                            case 'none':
+                                confirm('Are you sure you change to none?', function () {
+                                    processInOut(null, recordTimeIdToChange);
+                                });
+
+                                break;
+                        }
+                    },
+                    items: {
+                        'in': { name: 'In' },
+                        'none': { name: 'None' }
+                    }
+                };
+            }
+        });
+    });
+}
+
+function bindMenuOut() {
+    $('table#data tbody td a.out-action').on('mouseup', function () {
+        //var $this = $(this);
+        recordTimeIdToChange = $(this).data("id");
+
+        $.contextMenu({
+            selector: '.out-action',
+            trigger: 'left',
+            build: function () {
+                return {
+                    callback: function (key) {
+                        switch (key) {
+                            case 'out':
+                                confirm('Are you sure you change to out?', function () {
+                                    processInOut(1, recordTimeIdToChange);
+                                });
+
+                                break;
+                            case 'none':
+                                confirm('Are you sure you change to none?', function () {
+                                    processInOut(null, recordTimeIdToChange);
+                                });
+
+                                break;
+                        }
+                    },
+                    items: {
+                        'out': { name: 'Out' },
+                        'none': { name: 'None' }
+                    }
+                };
+            }
+        });
+    });
+}
+
+function bindMenuInOut() {
+    $('table#data tbody td a.inout-action').on('mouseup', function () {
+        recordTimeIdToChange = $(this).data("id");
+
+        $.contextMenu({
+            selector: '.inout-action',
+            trigger: 'left',
+            build: function () {
+                return {
+                    callback: function (key) {
+                        switch (key) {
+                            case 'in':
+                                confirm('Are you sure you change to in?', function () {
+                                    processInOut(0, recordTimeIdToChange);
+                                });
+
+                                break;
+                            case 'out':
+                                confirm('Are you sure you change to out?', function () {
+                                    processInOut(1, recordTimeIdToChange);
+                                });
+
+                                break;
+                        }
+                    },
+                    items: {
+                        'in': { name: 'In' },
+                        'out': { name: 'Out' }
+                    }
+                };
+            }
+        });
     });
 }
 

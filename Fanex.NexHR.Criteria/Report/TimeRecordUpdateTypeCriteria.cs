@@ -19,7 +19,7 @@ namespace Fanex.NexHR.Criteria.Report
     {
         public int RecordTimeId { get; set; }
 
-        public byte InOutType { get; set; }
+        public byte? InOutType { get; set; }
 
         public int ModifiedBy { get; set; }
 

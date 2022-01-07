@@ -3,11 +3,15 @@
     ViewBag.Title = Labels.MyTimeRecord;
 }
 @section css{
-    @Styles.Render("~/Content/simplepaginationcss", "~/Content/myrecordcss")
+    @Styles.Render(
+        "~/Content/simplepaginationcss",
+        "~/Content/myrecordcss",
+        "~/Content/contextmenucss")
  
 }
 @section js{
     @Scripts.Render(
+        "~/bundles/contextmenujs",
         "~/bundles/simplepaginationjs",
         "~/bundles/mytimerecordjs")
 }
