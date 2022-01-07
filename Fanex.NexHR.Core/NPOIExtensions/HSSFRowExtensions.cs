@@ -17,16 +17,17 @@
         public static void WriteCells(this IRow row, int colIndex, object[] values)
         {
             int id = colIndex;
-            var dateFormat = row.Sheet.Workbook.CreateDataFormat().GetFormat("d MMM, yyyy");
-
             foreach (var value in values)
             {
-                row.GetCell(id).SetCellValue(value);
-
                 if (value is DateTime)
                 {
-                    row.GetCell(id).CellStyle.CloneStyleFrom(row.GetCell(id).CellStyle);
-                    row.GetCell(id).CellStyle.DataFormat = dateFormat;
+                    var convert = Convert.ToDateTime(value);
+                    var formatValue = convert.ToString("d MMM, yyyy");
+                    row.GetCell(id).SetCellValue(formatValue);
+                }
+                else
+                {
+                    row.GetCell(id).SetCellValue(value);
                 }
 
                 id++;
