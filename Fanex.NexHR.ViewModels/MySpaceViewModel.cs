@@ -75,7 +75,6 @@
             get
             {
                 var employees = new StringBuilder();
-
                 IList<DashBoardCompanySpace> workFromHomes = DashboardCompanySpace
                     .Where(t => t.IsWorkFromHome && t.IsCurrent && t.TypeId == (int)DashBoardType.None)
                     .OrderBy(t => t.Employee.NickName)
@@ -96,15 +95,16 @@
                     {
                         employees.Append(workFromHome.Employee.NickName);
                         employees.Append(", ");
-                    } 
-                    
-                    if (wfhHalfDay.Any())
-                    {
-                        employees.Append(workFromHome.Employee.NickName);
-                        employees.Append(" (½)");
-                        employees.Append(", ");
-                    }
-                    
+                    }          
+                }
+
+                var workFromHomesHalfDay = workFromHomes.Where(x => leaveDay.Any(y=> y.Employee.Id == x.Employee.Id && y.LeaveDay.Equals(numberEqual))).ToList();
+
+                foreach (DashBoardCompanySpace workFromHome in workFromHomesHalfDay)
+                {
+                    employees.Append(workFromHome.Employee.NickName);
+                    employees.Append(" (½)");
+                    employees.Append(", ");
                 }
 
                 return employees.Length > numberLength ? employees.ToString().Substring(0, employees.Length - numberLength) : string.Empty;
