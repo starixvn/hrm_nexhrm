@@ -1,105 +1,8 @@
 ﻿'use strict';
 /*global _global, google*/
+var countDupe = 0;
 
-var directionsDisplay,
-    countDupe = 0;
-
-function displayDirection(marker) {
-    var directionsService = new google.maps.DirectionsService(),
-        smsLatlng = new google.maps.LatLng(10.8553024280436, 106.63105838755791),
-        curLatLng = marker.getPosition();
-
-    if (curLatLng.lat() === 0 || curLatLng.lng() === 0) {
-        curLatLng = smsLatlng;
-    }
-
-    var request = {
-        origin: curLatLng,
-        destination: smsLatlng,
-        travelMode: google.maps.DirectionsTravelMode.DRIVING
-    };
-
-    directionsService.route(request, function (response, status) {
-        if (status === google.maps.DirectionsStatus.OK) {
-            directionsDisplay.setDirections(response);
-        }
-    });
-}
-
-function searchEmployeeDirection(lat, lng) {
-    var directionsService = new google.maps.DirectionsService(),
-        smsLatlng = new google.maps.LatLng(10.8553024280436, 106.63105838755791),
-        employeeLatLng = new google.maps.LatLng(lat, lng);
-
-    var request = {
-        origin: employeeLatLng,
-        destination: smsLatlng,
-        travelMode: google.maps.DirectionsTravelMode.DRIVING
-    };
-
-    directionsService.route(request, function (response, status) {
-        if (status === google.maps.DirectionsStatus.OK) {
-            directionsDisplay.setDirections(response);
-        }
-    });
-}
-
-function isDupeMarker(lat, lng, arrMarkers) {
-    var isDupe = false;
-
-    if (arrMarkers.length > 0) {
-        for (var i in arrMarkers) {
-            var curLatLng = arrMarkers[i].getPosition();
-            if (curLatLng.lat() === lat && curLatLng.lng() === lng) {
-                countDupe++;
-                isDupe = true;
-            }
-        }
-    }
-
-    return isDupe;
-}
-
-//check duplicate lat, long
-function MapMarker(NickName, lat, lng, arrMarkers) {
-    var increment = 0.000025,
-        isDupe = isDupeMarker(lat, lng, arrMarkers);
-
-    while (isDupe) {
-        if (countDupe > 1) {
-            increment += 0.000025;
-        }
-        //var parseLat = parseFloat(lat);
-        var parseLng = parseFloat(lng);
-        //lat = parseLat + increment;
-        lng = parseLng + increment;
-        isDupe = false;
-    }
-    this.lat = lat;
-    this.lng = lng;
-
-    return [lat, lng];
-}
-
-function getHighestZIndex(markers, highestZIndex) {
-    // if we haven't previously got the highest zIndex
-    // save it as no need to do it multiple times
-    if (highestZIndex === 0) {
-        if (markers.length > 0) {
-            for (var i = 0; i < markers.length; i++) {
-                var tempZIndex = markers[i].getZIndex();
-                // if this zIndex is the highest so far
-                if (tempZIndex > highestZIndex) {
-                    highestZIndex = tempZIndex;
-                }
-            }
-        }
-    }
-
-    return highestZIndex;
-}
-
-function searchEmployeeInCompany() {
+function autoCompleteEmployee() {
     $("#Employee").autocomplete({
         source: function (request, response) {
             var term = request.term;
@@ -150,53 +53,110 @@ function searchEmployeeInCompany() {
     });
 }
 
-function initialize() {
-    // Basic information to declare and display a google map.
-    var SMSTOWER = new google.maps.LatLng(10.8550869, 106.63152500000001);
-    var mapOptions = {
-        zoom: 1,
-        center: SMSTOWER,
-        mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
-    };
-    var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+//check duplicate lat, long
+function MapMarker(lat, lng, arrMarkers) {
+    var increment = 0.00005,
+        isDupe = false;
 
-    //SMS Tower
-    var marker = new google.maps.Marker({
-        position: SMSTOWER,
-        map: map,
-        title: 'SMS TOWER'
-    });
+    if (arrMarkers.length > 0) {
+        for (let i = 0; i < arrMarkers.length; i++) {
+            if (arrMarkers[i].lat.toString() === lat.toString() && arrMarkers[i].lng.toString() === lng.toString()) {
+                countDupe++;
+                isDupe = true;
+            }
+        }
+    }
 
-    var SMSTowerIcon = new google.maps.MarkerImage(
-        "/Content/Images/Office_building_icon.png",
-        null, /* size is determined at runtime */
-        null, /* origin is 0,0 */
-        new google.maps.Point(14, 30), /* anchor is bottom center of the scaled image */
-        new google.maps.Size(40, 40)
-        );
-    marker.setIcon(SMSTowerIcon);
+    var parseLat = 0;
+    var parseLng = 0;
 
-    var SMSInfoWindow = new google.maps.InfoWindow({
-        content: "<div class='infoDiv'>" + "<div class='titleHeader'>" + "<span class='displayName'>" +
-            "NEXCEL SOLUTIONS COMPANY" + "</span></div><div><span class='headerInfo'>Address: </span> " +
-            "SMS Tower, Lot 40, Quang Trung Software City, Tan Chanh Hiep Ward, District 12, HCMC" +
-            "<div><span class='headerInfo'>Tel: </span>" + "+848 3 7154 278" + "<div><span class='headerInfo'>Fax: </span>" +
-            "+848 3 7154 278" + "<div><span class='headerInfo'>Website: </span>" +
-            "<a href='http://www.nexcel.vn/'>" + "www.nexcel.vn" + "</a>" + "</div></div></div></div></div></div>"
-    });
+    if (!isNaN(parseFloat(lat)) && !isNaN(parseFloat(lng))) {
+        parseLat = parseFloat(lat);
+        parseLng = parseFloat(lng);
+    }
+    while (isDupe) {
+        if (countDupe > 1) {
+            increment += 0.00005;
+        }
+        parseLat = parseLat + increment;
+        parseLng = parseLng + increment;
+        isDupe = false;
+    }
+    return [parseLat, parseLng];
+}
 
-    google.maps.event.addListener(marker, 'click', function () {
-        SMSInfoWindow.open(map, marker);
-    });
+function addMarkerToGroup(group, coordinate, html, icon, zindex) {
+    var marker = new H.map.Marker(coordinate, icon);
+    marker.setData(html);
+    marker.setZIndex(zindex);
+    group.addObject(marker);
+}
+
+function searchEmployee(markers) {
+    var lat = 0,
+        lng = 0,
+        lable = $('#Employee').val(),
+        html = '';
+    for (let i = 1; i < markers.length; i++) {
+        var index = lable.indexOf('(');
+        if (index > 0) {
+            lable = lable.substring(0, index);
+        }
+        if (lable.toLowerCase().indexOf(markers[i].nick.toLowerCase()) !== -1) {
+            html = markers[i].html;
+            lat = markers[i].lat;
+            lng = markers[i].lng;
+        }
+    }
+    if (lat === 0 || lng === 0) {
+        alert("No information about this employee");
+        return false;
+    } else {
+        map.setCenter({ lat, lng });
+        map.setZoom(15);
+
+        var bubble = new H.ui.InfoBubble({ lat, lng }, {
+            content: html,
+        });
+        ui.getBubbles().forEach(bub => ui.removeBubble(bub));
+        ui.addBubble(bubble);
+    }
+}
+
+function addMarkersToMap(map) {
+    var markers = [];
+    var group = new H.map.Group();
+    map.addObject(group);
+
+    //add event tap to show information of marker
+    group.addEventListener('pointermove', function (evt) {
+        var bubble = new H.ui.InfoBubble(evt.target.getGeometry(), {
+            content: evt.target.getData()
+        });
+        ui.getBubbles().forEach(bub => ui.removeBubble(bub));
+        ui.addBubble(bubble);
+    }, false);
+
+    //create icon of nexcel
+    var nexcelMarkup = '<svg  width="34" height="34" xmlns="http://www.w3.org/2000/svg">' +
+        '<rect stroke="black" fill="white" x="1" y="1" width="32" height="32" />' +
+        '<text x="17" y="28" font-size="22pt" font-family="Arial" font-weight="bold" ' +
+        'text-anchor="middle" fill="orange" >N</text></svg>';
+    var nexcelIcon = new H.map.Icon(nexcelMarkup);
+
+    //add nexcel's marker to group
+    addMarkerToGroup(group, { lat: 10.8550869, lng: 106.63152500000001 },
+        "<div class='infoDiv'>" + "<div class='titleHeader'>" + "<span class='displayName'>" +
+        "NEXCEL SOLUTIONS COMPANY" + "</span></div><div><span class='headerInfo'>Address: </span> " +
+        "SMS Tower, Lot 40, Quang Trung Software City, Tan Chanh Hiep Ward, District 12, HCMC" +
+        "<div><span class='headerInfo'>Tel: </span>" + "+848 3 7154 278" + "<div><span class='headerInfo'>Fax: </span>" +
+        "+848 3 7154 278" + "<div><span class='headerInfo'>Website: </span>" +
+        "<a href='http://www.nexcel.vn/'>" + "www.nexcel.vn" + "</a>" + "</div></div></div></div></div></div>", { icon: nexcelIcon }, 2);
+    // add lat, lng to markers []
+    markers.push({ lat: 10.8550869, lng: 106.63152500000001 });
 
     //Nexcel Employee Data
-    var data = [],
-        markers = [],
-        ZIndex = 1,
-        highestZIndex = 0;
-
-    markers.push(marker);
-
+    var data = [];
     $.ajax({
         url: _global.root + 'employee/getemployees',
         data: {
@@ -209,125 +169,67 @@ function initialize() {
         }
     });
 
-    // Direction render options.
-    var rendOpts = { preserveViewport: true, suppressMarkers: true, polylineOptions: { strokeColor: 'red'} };
-    directionsDisplay = new google.maps.DirectionsRenderer();
-
     $.each(data, function (i, item) {
-        var infowindow,
-            checkDuplicateData = new MapMarker(item.NickName, item.GeoMapLatitude, item.GeoMapLongtitude, markers);
-        var marker = new google.maps.Marker({
-            'position': new google.maps.LatLng(checkDuplicateData[0], checkDuplicateData[1]),
-            'map': map,
-            'Name': item.NickName,
-            'title': item.NickName,
-            'draggable': false,
-            'zIndex': ZIndex
-        });
-        marker.set("myZIndex", marker.getZIndex());
+        var checkDuplicateData = new MapMarker(item.GeoMapLatitude, item.GeoMapLongtitude, markers);
 
-        //store maker to array
-        markers.push(marker);
-
+        var icon = new H.map.Icon('/employee/avatar/' + item.Code, { size: { w: 45, h: 60 } });
+        var html;
         //Check for role HR to display corresponding InfoWindow
         if ($("#roleHR").val() === "True") {
-            infowindow = new google.maps.InfoWindow({
-                content: "<div class='infoDiv'>" + "<div class='titleHeader'>" + "<span class='displayName'>" +
-            item.DisplayName + "</span></div><div><span class='headerInfo'>Team:</span> " +
-            item.Team.Name + "<div><span class='headerInfo'>Current Address: </span>" +
-            item.CurrentAddress + "<div><span class='headerInfo'>Distance To Company: </span>" +
-            item.DistanceToCompany + "</div></div></div></div></div>"
-            });
+            html = "<div class='infoDiv'>" + "<div class='titleHeader'>" + "<span class='displayName'>" +
+                item.DisplayName + "</span></div><div><span class='headerInfo'>Team:</span> " +
+                item.Team.Name + "<div><span class='headerInfo'>Current Address: </span>" +
+                item.CurrentAddress + "<div><span class='headerInfo'>Distance To Company: </span>" +
+                item.DistanceToCompany + "</div></div></div></div></div>";
         } else {
-            infowindow = new google.maps.InfoWindow({
-                content: "<div class='infoDiv'>" + "<div class='titleHeader'>" + "<span class='displayName'>" +
-            item.DisplayName + "</span></div><div><span class='headerInfo'>Team:</span> " +
-            item.Team.Name + "<div><span class='headerInfo'>Distance To Company: </span>" +
-            item.DistanceToCompany + "</div></div></div></div>"
-            });
+            html = "<div class='infoDiv'>" + "<div class='titleHeader'>" + "<span class='displayName'>" +
+                item.DisplayName + "</span></div><div><span class='headerInfo'>Team:</span> " +
+                item.Team.Name + "<div><span class='headerInfo'>Distance To Company: </span>" +
+                item.DistanceToCompany + "</div></div></div></div>";
         }
+        addMarkerToGroup(group, { lat: checkDuplicateData[0], lng: checkDuplicateData[1] }, html, { icon: icon }, 1);
+        // add lat, lng to markers []
+        markers.push({ lat: checkDuplicateData[0], lng: checkDuplicateData[1], html: html, nick: item.NickName });
 
-        //Check current user.
         if (item.NickName === $("#currentUser").val()) {
-            displayDirection(marker);
-            var myOption = { suppressMarkers: true, polylineOptions: { strokeColor: 'red'} };
-            directionsDisplay = new google.maps.DirectionsRenderer(myOption);
-            directionsDisplay.setMap(map);
-
-            var listener = google.maps.event.addListener(map, "idle", function () {
-                if (map.getZoom() > 16) {
-                    map.setZoom(16);
-                }
-
-                google.maps.event.removeListener(listener);
+            map.setCenter({ lat: checkDuplicateData[0], lng: checkDuplicateData[1] });
+            map.setZoom(13);
+            var bubble = new H.ui.InfoBubble({ lat: checkDuplicateData[0], lng: checkDuplicateData[1] }, {
+                content: html,
             });
-            infowindow.open(map, marker);
+            ui.addBubble(bubble);
         }
-
-        //Change default icon of marker to employee's avatar
-        var empIcon = new google.maps.MarkerImage(
-            '/employee/avatar/' + item.Code,
-            new google.maps.Size(71, 71),
-            new google.maps.Point(0, 0),
-            new google.maps.Point(25, 25),
-            new google.maps.Size(40, 40)
-        );
-        marker.setIcon(empIcon);
-
-        // Google map Events
-        google.maps.event.addListener(marker, 'mouseover', function () {
-            infowindow.open(map, marker);
-            getHighestZIndex(markers, highestZIndex);
-            this.setOptions({ zIndex: highestZIndex + (ZIndex - 1) });
-        });
-
-        google.maps.event.addListener(marker, 'mouseout', function () {
-            infowindow.close();
-            this.setOptions({ zIndex: this.get("myZIndex") });
-        });
-
-        google.maps.event.addListener(marker, 'click', function () {
-            directionsDisplay.setMap(null);
-            displayDirection(marker);
-            directionsDisplay = new google.maps.DirectionsRenderer(rendOpts);
-            directionsDisplay.setMap(map);
-        });
-        ZIndex++;
     });
 
-    searchEmployeeInCompany();
+    autoCompleteEmployee();
 
     $('#searchmap').on("click", function () {
-        var lat = $('#Latitude').val(),
-            lng = $('#Longitude').val();
-
-        if (lat === "" && lng === "") {
-            return false;
-        } else {
-            directionsDisplay.setMap(null);
-            searchEmployeeDirection(lat, lng);
-            directionsDisplay = new google.maps.DirectionsRenderer(rendOpts);
-            directionsDisplay.setMap(map);
-        }
+        searchEmployee(markers);
     });
-
     $('#Employee').keypress(function (event) {
         if (event.keyCode === 13) {
-            var lat = $('#Latitude').val(),
-                lng = $('#Longitude').val();
-
-            if (lat === "" && lng === "") {
-                return false;
-            } else {
-                directionsDisplay.setMap(null);
-                searchEmployeeDirection(lat, lng);
-                directionsDisplay = new google.maps.DirectionsRenderer(rendOpts);
-                directionsDisplay.setMap(map);
-            }
+            searchEmployee(markers);
         }
     });
 }
 
+//init map
+var platform = new H.service.Platform({
+    apikey: "J7GXuxkgZ23QX19IcXY9gZd677O9gb0WQLXcsAp__Mw"
+});
+var defaultLayers = platform.createDefaultLayers();
+var SMSTOWER = { lat: 10.8550869, lng: 106.63152500000001 };
+var map = new H.Map(document.getElementById('map_canvas'),
+    defaultLayers.vector.normal.map, {
+    center: SMSTOWER,
+    zoom: 14,
+    pixelRatio: window.devicePixelRatio || 1
+});
+window.addEventListener('resize', () => map.getViewPort().resize());
+var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+var ui = H.ui.UI.createDefault(map, defaultLayers);
+
+
 $(document).ready(function () {
-    initialize();
+    addMarkersToMap(map);
 });
