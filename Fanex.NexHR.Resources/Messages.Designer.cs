@@ -673,6 +673,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This type of request must be approved by the leader first. Show the person who approved your request by adding &quot;approved by&quot; in the remark(e.g: personal issue - approved by Quinn).
+        /// </summary>
+        public static string RemarkNotApprovedByManagementError {
+            get {
+                return ResourceManager.GetString("RemarkNotApprovedByManagementError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The remark must be required and not be only spaces.
         /// </summary>
         public static string RemarkRequireError {

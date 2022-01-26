@@ -106,6 +106,12 @@
                 return View(model);
             }
 
+            if ((model.IsUnpaidLeave || model.IsAnnualLeaveOver5Day) && !leaveRequestViewModel.Remark.ToLower().Contains("approve"))
+            {
+                ModelState.AddModelError(string.Empty, Messages.RemarkNotApprovedByManagementError);
+                return View(model);
+            }
+
             var criteria = new InsertRequestCriteria
             {
                 EmpId = leaveRequestViewModel.EmployeeId,
@@ -230,7 +236,7 @@
                 }
                 return View(model);
             }
-            
+
         }
 
         [HttpPost]
