@@ -3,10 +3,12 @@
 /*exported initMonthPick*/
 
 function initMonthPick() {
+    var m = $('#Month').val();
+    var y = $('#Year').val();
     $('#monthPickr').monPickr({
         showDateRange: false,
         sortDesc: true,
-        today: new Date(),
+        today: new Date(y, m - 1),
         minDate: '2010/1/1',
         maxDate: $('#maxDate').val(),
         afterChangeMonth: function () {
