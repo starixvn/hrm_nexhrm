@@ -70,46 +70,7 @@
             }
         }
 
-        public string CompanyWorkFromHome
-        {
-            get
-            {
-                var employees = new StringBuilder();
-                IList<DashBoardCompanySpace> workFromHomes = DashboardCompanySpace
-                    .Where(t => t.IsWorkFromHome && t.IsCurrent && t.TypeId == (int)DashBoardType.None)
-                    .OrderBy(t => t.Employee.NickName)
-                    .ToList();
-
-
-                IList<DashBoardCompanySpace> leaveDay = DashboardCompanySpace
-                    .Where(t => t.IsCurrent 
-                           && t.TypeId == (int)DashBoardType.Leave)
-                    .OrderBy(t => t.Employee.NickName)
-                    .ToList();
-
-                foreach (DashBoardCompanySpace workFromHome in workFromHomes)
-                {
-                    var wfh = leaveDay.Where(x => workFromHome.Employee.Id == x.Employee.Id).ToList();
-                    var wfhHalfDay = wfh.Where(x => x.LeaveDay.Equals(numberEqual));
-                    if(!wfh.Any() && !wfhHalfDay.Any())
-                    {
-                        employees.Append(workFromHome.Employee.NickName);
-                        employees.Append(", ");
-                    }          
-                }
-
-                var workFromHomesHalfDay = workFromHomes.Where(x => leaveDay.Any(y=> y.Employee.Id == x.Employee.Id && y.LeaveDay.Equals(numberEqual))).ToList();
-
-                foreach (DashBoardCompanySpace workFromHome in workFromHomesHalfDay)
-                {
-                    employees.Append(workFromHome.Employee.NickName);
-                    employees.Append(" (½)");
-                    employees.Append(", ");
-                }
-
-                return employees.Length > numberLength ? employees.ToString().Substring(0, employees.Length - numberLength) : string.Empty;
-            }
-        }
+        public string CompanyWorkFromHome { get; set; }
 
         public string CompanyLeaveYesterday
         {

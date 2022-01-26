@@ -13,6 +13,9 @@
     using Models.Report;
     using System.Threading.Tasks;
     using Fanex.NexHR.Criteria.EmployeeTransfer;
+    using System.Text;
+    using System.Linq;
+    using Fanex.NexHR.Core.Enums;
 
     public class EmployeeService : BaseService, IEmployeeService
     {
@@ -87,6 +90,10 @@
                 space = GetDataEntity<MySpaceViewModel>(criteria);
                 space.DashboardCompanySpace = GetDashBoardCompanySpace(criteria.EmpId);
                 space.DashboardEmployeeSpace = GetDashBoardPersonalSpace(criteria.EmpId);
+                if (space.DashboardCompanySpace.Any())
+                {
+                    space.CompanyWorkFromHome = getCompanyWorkFromHome(space.DashboardCompanySpace);
+                }
             }
 
             return space;
@@ -178,6 +185,46 @@
         public IList<LuminetShift> GetLuminetShifts()
         {
             return GetData<LuminetShift>(new GetLuminetShiftCriteria());
+        }
+
+        private static string getCompanyWorkFromHome(IList<DashBoardCompanySpace> dashBoard)
+        {
+            const float numberEqual = 0.5f;
+            const int numberLength = 2;
+            var employees = new StringBuilder();
+            IList<DashBoardCompanySpace> workFromHomes = dashBoard
+                .Where(t => t.IsWorkFromHome && t.IsCurrent && t.TypeId == (int)DashBoardType.None)
+                .OrderBy(t => t.Employee.NickName)
+                .ToList();
+
+
+            IList<DashBoardCompanySpace> leaveDay = dashBoard
+                .Where(t => t.IsCurrent && t.TypeId == (int)DashBoardType.Leave)
+                .OrderBy(t => t.Employee.NickName)
+                .ToList();
+
+            foreach (DashBoardCompanySpace workFromHome in workFromHomes)
+            {
+                var onlyWfh = leaveDay.Where(x => workFromHome.Employee.Id != x.Employee.Id).ToList();
+                var wfhHaflDay = leaveDay.Where(x => workFromHome.Employee.Id == x.Employee.Id && x.LeaveDay.Equals(numberEqual)).ToList();
+
+                if (!onlyWfh.Any() && !wfhHaflDay.Any())
+                {
+                    employees.Append(workFromHome.Employee.NickName);
+                    employees.Append(", ");
+                }
+            }
+            var leaveHalfDay = leaveDay.Where(x => x.LeaveDay.Equals(numberEqual));
+            var workFromHomesHalfDay = workFromHomes.Where(x => leaveHalfDay.Any(y => y.Employee.Id == x.Employee.Id)).ToList();
+
+            foreach (DashBoardCompanySpace workFromHome in workFromHomesHalfDay)
+            {
+                employees.Append(workFromHome.Employee.NickName);
+                employees.Append(" (½)");
+                employees.Append(", ");
+            }
+
+            return employees.Length > numberLength ? employees.ToString().Substring(0, employees.Length - numberLength) : string.Empty;
         }
     }
 }
