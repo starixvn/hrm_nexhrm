@@ -205,10 +205,8 @@
 
             foreach (DashBoardCompanySpace workFromHome in workFromHomes)
             {
-                var onlyWfh = leaveDay.Where(x => workFromHome.Employee.Id != x.Employee.Id).ToList();
-                var wfhHaflDay = leaveDay.Where(x => workFromHome.Employee.Id == x.Employee.Id && x.LeaveDay.Equals(numberEqual)).ToList();
-
-                if (!onlyWfh.Any() && !wfhHaflDay.Any())
+                var wfhAndLeaveRequest = leaveDay.Where(x => workFromHome.Employee.Id == x.Employee.Id).ToList();
+                if (!wfhAndLeaveRequest.Any())
                 {
                     employees.Append(workFromHome.Employee.NickName);
                     employees.Append(", ");
