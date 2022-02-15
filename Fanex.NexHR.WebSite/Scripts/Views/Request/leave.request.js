@@ -2,7 +2,7 @@
 'use strict';
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
+    "July", "August", "September", "October", "November", "December"
 ];
 
 function setValueforToTime() {
@@ -144,6 +144,9 @@ function initEventForFromDateAndToDate() {
                     function (response) {
                         if (response !== null) {
                             $('#TotalDays').val(response);
+                            if (Number(response) >= 5) {
+                                ALMoreThan5DaysOrUL();
+                            }
                         }
                     });
             }
@@ -151,19 +154,18 @@ function initEventForFromDateAndToDate() {
     });
 }
 
-function getAnnualLeaveBalanceInMonth(empId)
-{
+function getAnnualLeaveBalanceInMonth(empId) {
     var requestId = $('#Id').val();
     $.post(_global.root + 'Leave/GetAnnualLeaveBalanceInMonth',
-                    { empId: empId, effectedDate: $('#ToDate').val(), requestId: requestId },
-                    function (response) {
-                        if (response != null) {
-                            $('#lblAnnualLeaveCanBeUsed').text(response.AnnualLeaveCanBeUsed);
-                            $('#lblAnnualLeaveBalance').text(response.AnnualLeaveBalance);
-                            $('#lblMonth').text(monthNames[response.Month - 1]);
-                            $('#lblYear').text(response.Year);
-                        }
-                    });
+        { empId: empId, effectedDate: $('#ToDate').val(), requestId: requestId },
+        function (response) {
+            if (response != null) {
+                $('#lblAnnualLeaveCanBeUsed').text(response.AnnualLeaveCanBeUsed);
+                $('#lblAnnualLeaveBalance').text(response.AnnualLeaveBalance);
+                $('#lblMonth').text(monthNames[response.Month - 1]);
+                $('#lblYear').text(response.Year);
+            }
+        });
 }
 
 function initCreateUpdatePage() {
@@ -180,10 +182,10 @@ function initCreateUpdatePage() {
 
     if (successed === 'true') {
         confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
-                function () {
-                    document.location = _global.root + 'Leave/EmployeeView/' + $('#year').val();
-                }
-            );
+            function () {
+                document.location = _global.root + 'Leave/EmployeeView/' + $('#year').val();
+            }
+        );
     }
 
     $('#TotalDays').prop('readonly', true);
@@ -222,6 +224,25 @@ function initCreateUpdatePage() {
     });
 }
 
+function OnLeaveTypeChange() {
+    $('#LeaveTypeId').on('change', function () {
+        ALMoreThan5DaysOrUL();
+    });
+}
+
+function ALMoreThan5DaysOrUL() {
+    var leaveTypeId = $('#LeaveTypeId').find(':selected').val();
+    var totalDays = $('#TotalDays').val();
+    var notification = "This type of request must be approved by the leader first. Show the person who approved your request in the remark"; //(e.g: personal issue - approved by Quinn)
+    if (leaveTypeId === "26" || ((leaveTypeId === "2" || leaveTypeId === "30") && totalDays >= 5)) {
+        $("#divRemark").css("margin-top", "7rem");
+        $("#infoRemark").css({ "color": "red", "font-style": "italic" }).html(notification);
+    } else {
+        $("#divRemark").css("margin-top", "0rem");
+        $("#infoRemark").html('');
+    }
+}
+
 $(document).ready(function () {
     if ($('.form-create-update').length > 0) {
         initCreateUpdatePage();
@@ -232,4 +253,5 @@ $(document).ready(function () {
             query(false);
         });
     }
+    OnLeaveTypeChange();
 });

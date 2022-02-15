@@ -101,11 +101,6 @@
                 return View(leaveRequestViewModel);
             }
 
-            if (!IsValidRemark(model))
-            {
-                return View(model);
-            }
-
             var criteria = new InsertRequestCriteria
             {
                 EmpId = leaveRequestViewModel.EmployeeId,
@@ -271,26 +266,6 @@
             }
 
             return model;
-        }
-
-        private bool IsValidRemark(LeaveRequestViewModel model)
-        {
-            var isValid = true;
-            if (string.IsNullOrWhiteSpace(model.Remark))
-            {
-                ModelState.AddModelError(string.Empty, Messages.RemarkRequireError);
-                isValid = false;
-            }
-            else
-            {
-                if ((model.IsUnpaidLeave || model.IsAnnualLeaveOver5Day) && !model.Remark.ToLower(CultureInfo.InvariantCulture).Contains("approve"))
-                {
-                    ModelState.AddModelError(string.Empty, Messages.RemarkNotApprovedByManagementError);
-                    isValid = false;
-                }
-            }
-
-            return isValid;
         }
     }
 }
