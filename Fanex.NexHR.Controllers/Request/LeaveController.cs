@@ -13,6 +13,7 @@
     using Services.Interfaces;
     using ViewModels;
     using Resources;
+    using System.Globalization;
 
     public class LeaveController : BaseController
     {
@@ -72,8 +73,8 @@
             {
                 Employee = CurrentUser.DisplayName,
                 EmployeeId = CurrentUser.Id,
-                FromDate = fromDate.HasValue ? fromDate.Value : DateTime.Now.Date,
-                ToDate = toDate.HasValue ? toDate.Value : DateTime.Now.Date,
+                FromDate = fromDate ?? DateTime.Now.Date,
+                ToDate = toDate ?? DateTime.Now.Date,
                 TotalDays = 1,
                 LeaveTypes = _leaveTypeService.GetAll(),
                 UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null),
@@ -100,15 +101,8 @@
                 return View(leaveRequestViewModel);
             }
 
-            if (string.IsNullOrEmpty(leaveRequestViewModel.Remark) || string.IsNullOrWhiteSpace(leaveRequestViewModel.Remark))
+            if (!IsValidRemark(model))
             {
-                ModelState.AddModelError(string.Empty, Messages.RemarkRequireError);
-                return View(model);
-            }
-
-            if ((model.IsUnpaidLeave || model.IsAnnualLeaveOver5Day) && !leaveRequestViewModel.Remark.ToLower().Contains("approve"))
-            {
-                ModelState.AddModelError(string.Empty, Messages.RemarkNotApprovedByManagementError);
                 return View(model);
             }
 
@@ -277,6 +271,26 @@
             }
 
             return model;
+        }
+
+        private bool IsValidRemark(LeaveRequestViewModel model)
+        {
+            var isValid = true;
+            if (string.IsNullOrWhiteSpace(model.Remark))
+            {
+                ModelState.AddModelError(string.Empty, Messages.RemarkRequireError);
+                isValid = false;
+            }
+            else
+            {
+                if ((model.IsUnpaidLeave || model.IsAnnualLeaveOver5Day) && !model.Remark.ToLower(CultureInfo.InvariantCulture).Contains("approve"))
+                {
+                    ModelState.AddModelError(string.Empty, Messages.RemarkNotApprovedByManagementError);
+                    isValid = false;
+                }
+            }
+
+            return isValid;
         }
     }
 }
