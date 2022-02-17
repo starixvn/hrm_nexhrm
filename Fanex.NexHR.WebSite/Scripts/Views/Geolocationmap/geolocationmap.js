@@ -89,6 +89,21 @@ function addMarkerToGroup(group, coordinate, html, icon, zindex) {
     var marker = new H.map.Marker(coordinate, icon);
     marker.setData(html);
     marker.setZIndex(zindex);
+
+
+    var infoBubble = new H.ui.InfoBubble(coordinate, {
+        content: html
+    });
+
+    marker.addEventListener('pointermove', function () {
+        ui.addBubble(infoBubble);
+        infoBubble.open();
+    }, false);
+
+    marker.addEventListener('pointerleave', function () {
+        infoBubble.close();
+    }, false);
+
     group.addObject(marker);
 }
 
@@ -112,30 +127,71 @@ function searchEmployee(markers) {
         alert("No information about this employee");
         return false;
     } else {
-        map.setCenter({ lat, lng });
-        map.setZoom(15);
-
-        var bubble = new H.ui.InfoBubble({ lat, lng }, {
-            content: html,
-        });
-        ui.getBubbles().forEach(bub => ui.removeBubble(bub));
-        ui.addBubble(bubble);
+        showRouteToCompany(lat, lng);
+        //var bubble = new H.ui.InfoBubble({ lat, lng }, {
+        //    content: html,
+        //});
+        //ui.addBubble(bubble);
     }
+}
+
+function showRouteToCompany(lat, lng) {
+    var onResult = function (result) {
+        if (result.routes.length) {
+            result.routes[0].sections.forEach((section) => {
+
+                let linestring = H.geo.LineString.fromFlexiblePolyline(section.polyline);
+                var routeOutline = new H.map.Polyline(linestring, {
+                    style: {
+                        lineWidth: 8,
+                        strokeColor: 'blue',
+                        lineTailCap: 'arrow-tail',
+                        lineHeadCap: 'arrow-head'
+                    }
+                });
+                var routeArrows = new H.map.Polyline(linestring, {
+                    style: {
+                        lineWidth: 8,
+                        fillColor: 'white',
+                        strokeColor: 'rgba(255, 255, 255, 1)',
+                        lineDash: [0, 2],
+                        lineTailCap: 'arrow-tail',
+                        lineHeadCap: 'arrow-head'
+                    }
+                }
+                );
+                var routeLine = new H.map.Group();
+                routeLine.addObjects([routeOutline, routeArrows]);
+
+                var obj = map.getObjects();
+                obj.forEach((x, index) => {
+                    if (index > 0) {
+                        map.removeObject(x);
+                    }
+                });
+                map.addObjects([routeLine]);
+                map.getViewModel().setLookAtData({ bounds: routeLine.getBoundingBox() });
+            });
+        }
+    };
+    var routingParameters = {
+        'routingMode': 'fast',
+        'transportMode': 'car',
+        'origin': lat.toString() + ',' + lng.toString(),
+        'destination': '10.8550869,106.63152500000001',
+        'return': 'polyline'
+    };
+    var router = platform.getRoutingService(null, 8);
+    router.calculateRoute(routingParameters, onResult,
+        function (error) {
+            alert(error.message);
+        });
 }
 
 function addMarkersToMap(map) {
     var markers = [];
     var group = new H.map.Group();
     map.addObject(group);
-
-    //add event tap to show information of marker
-    group.addEventListener('pointermove', function (evt) {
-        var bubble = new H.ui.InfoBubble(evt.target.getGeometry(), {
-            content: evt.target.getData()
-        });
-        ui.getBubbles().forEach(bub => ui.removeBubble(bub));
-        ui.addBubble(bubble);
-    }, false);
 
     //create icon of nexcel
     var nexcelMarkup = '<svg  width="34" height="34" xmlns="http://www.w3.org/2000/svg">' +
@@ -228,7 +284,6 @@ var map = new H.Map(document.getElementById('map_canvas'),
 window.addEventListener('resize', () => map.getViewPort().resize());
 var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 var ui = H.ui.UI.createDefault(map, defaultLayers);
-
 
 $(document).ready(function () {
     addMarkersToMap(map);
