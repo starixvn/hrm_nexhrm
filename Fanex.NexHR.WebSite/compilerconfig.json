@@ -111,5 +111,9 @@
   {
     "outputFile": "Content/Views/yearlynexrequest.css",
     "inputFile": "Content/Views/yearlynexrequest.scss"
+  },
+  {
+    "outputFile": "Content/Views/leaverequest.css",
+    "inputFile": "Content/Views/leaverequest.scss"
   }
 ]

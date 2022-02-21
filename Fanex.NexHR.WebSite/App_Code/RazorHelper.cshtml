@@ -217,6 +217,18 @@
         </div>
     </div>
 }
+@helper WarningLeaveRequest()
+{
+    <div id="warningLeaveRequest">
+        <div class="warningLeaveRequest">
+            <ul>
+                <li>This request must be approved by the leader first.</li>
+                <li>Please enter the person who approved your request in the remark. </li>
+                <li>e.g: personal issue - approved by Quinn. </li>
+            </ul>
+        </div>
+    </div>
+}
 @helper LateInEarlyOutTimeFormat(int mins, short type)
 {
     if (type == (byte)Fanex.NexHR.Core.Enums.RequestType.LateIn)

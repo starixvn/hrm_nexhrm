@@ -164,13 +164,13 @@
 
                             <div class="row form-input">
                                 <div class="col m-r--m">
-                                    <div class="left label--l" id="divRemark">
+                                    <div class="left label--l">
                                         @Html.LabelFor(model => model.Remark)
                                     </div>
                                     <div class="left input--m">
-                                        <div id="infoRemark"></div>
                                         @Html.TextAreaFor(model => model.Remark, new { @class = "materialize-textarea" })
                                     </div>
+                                    <div id="remarkInfo"></div>
                                 </div>
                             </div>
                             <div class="row form-input line-button">
@@ -187,6 +187,7 @@
                     </div>
                     <div class="hide">
                         @RazorHelper.RequestLeaveLegend()
+                        @RazorHelper.WarningLeaveRequest()
                     </div>
                 </div>
             </div>

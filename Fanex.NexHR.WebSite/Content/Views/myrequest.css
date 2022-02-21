@@ -36,6 +36,35 @@
         .tipsy.leave-request .tipsy-inner ul ul li {
           list-style-type: circle; }
 
+.tipsy.warning .tipsy-inner {
+  max-width: none;
+  font-size: 1.3rem;
+  text-align: left;
+  line-height: 2.2rem;
+  -webkit-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
+  -ms-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1); }
+
+.tipsy.warning .tipsy-arrow {
+  border: none; }
+
+.tipsy.warning {
+  max-width: 50rem;
+  opacity: 1 !important; }
+  .tipsy.warning .tipsy-inner {
+    color: #FFFFFF;
+    background: #FF4500; }
+    .tipsy.warning .tipsy-inner ul {
+      padding-left: 2rem;
+      list-style-type: disc; }
+      .tipsy.warning .tipsy-inner ul li {
+        list-style-type: disc; }
+      .tipsy.warning .tipsy-inner ul ul {
+        list-style-type: circle; }
+        .tipsy.warning .tipsy-inner ul ul li {
+          list-style-type: circle; }
+
 .form-input .col .left.block-time {
   display: flex; }
 

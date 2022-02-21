@@ -144,9 +144,7 @@ function initEventForFromDateAndToDate() {
                     function (response) {
                         if (response !== null) {
                             $('#TotalDays').val(response);
-                            if (Number(response) >= 5) {
-                                ALMoreThan5DaysOrUL();
-                            }
+                            ALMoreThan5DaysOrUL();
                         }
                     });
             }
@@ -177,6 +175,15 @@ function initCreateUpdatePage() {
         html: true,
         title: function () {
             return $('#requestInfo .requestInfo').html();
+        }
+    });
+
+    $('#remarkInfo').tipsy({
+        className: 'warning',
+        gravity: 'ne',
+        html: true,
+        title: function () {
+            return $('#warningLeaveRequest .warningLeaveRequest').html();
         }
     });
 
@@ -233,13 +240,12 @@ function OnLeaveTypeChange() {
 function ALMoreThan5DaysOrUL() {
     var leaveTypeId = $('#LeaveTypeId').find(':selected').val();
     var totalDays = $('#TotalDays').val();
-    var notification = "This type of request must be approved by the leader first. Show the person who approved your request in the remark"; //(e.g: personal issue - approved by Quinn)
+    var $html = $('<a href="javascript:;"><span class="tooltip"><i class="mdi mdi-alert"></i></span></a>');
     if (leaveTypeId === "26" || ((leaveTypeId === "2" || leaveTypeId === "30") && totalDays >= 5)) {
-        $("#divRemark").css("margin-top", "7rem");
-        $("#infoRemark").css({ "color": "red", "font-style": "italic" }).html(notification);
+        $('#remarkInfo').html($html.prop('outerHTML'));
+        alert("This request must be approved by the leader first. Please enter the person who approved your request in the remark(e.g: personal issue - approved by Quinn)");
     } else {
-        $("#divRemark").css("margin-top", "0rem");
-        $("#infoRemark").html('');
+        $('#remarkInfo').html('');
     }
 }
 

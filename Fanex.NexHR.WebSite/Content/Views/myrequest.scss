@@ -53,9 +53,51 @@
             }
         }
     }
+
+    &.warning {
+        .tipsy-inner {
+            max-width: none;
+            font-size: 1.3rem;
+            text-align: left;
+            line-height: 2.2rem;
+            @include css3(box-shadow, 0 1px 2px 2px rgba(0, 0, 0, 0.1));
+        }
+
+        .tipsy-arrow {
+            border: none;
+        }
+    }
+
+    &.warning {
+        max-width: 50rem;
+        opacity: 1 !important;
+
+        .tipsy-inner {
+            color: #FFFFFF;
+            background: #FF4500;
+
+            ul {
+                padding-left: 2rem;
+                list-style-type: disc;
+
+                li {
+                    list-style-type: disc;
+                }
+
+                ul {
+                    list-style-type: circle;
+
+                    li {
+                        list-style-type: circle;
+                    }
+                }
+            }
+        }
+    }
 }
-.form-input .col .left.block-time{
-    display:flex;
+
+.form-input .col .left.block-time {
+    display: flex;
 }
 
 // update css mobile
