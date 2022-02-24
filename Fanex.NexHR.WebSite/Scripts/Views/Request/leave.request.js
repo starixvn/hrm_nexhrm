@@ -243,7 +243,7 @@ function ALMoreThan5DaysOrUL() {
     var $html = $('<a href="javascript:;"><span class="tooltip"><i class="mdi mdi-alert"></i></span></a>');
     if (leaveTypeId === "26" || ((leaveTypeId === "2" || leaveTypeId === "30") && totalDays >= 5)) {
         $('#remarkInfo').html($html.prop('outerHTML'));
-        alert("This request must be approved by the leader first. Please enter the person who approved your request in the remark(e.g: personal issue - approved by Quinn)");
+        alert("Annual Leave (>= 5 days) / Unpaid Leave request need to be approved by Management. So please get approval from your supervisor first and note it in the remarks.");
     } else {
         $('#remarkInfo').html('');
     }

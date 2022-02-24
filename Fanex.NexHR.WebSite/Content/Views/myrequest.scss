@@ -69,12 +69,12 @@
     }
 
     &.warning {
-        max-width: 50rem;
+        max-width: 40rem;
         opacity: 1 !important;
 
         .tipsy-inner {
-            color: #FFFFFF;
-            background: #FF4500;
+            color: black;
+            background: #EED202;
 
             ul {
                 padding-left: 2rem;

@@ -101,6 +101,12 @@
                 return View(leaveRequestViewModel);
             }
 
+            if (string.IsNullOrEmpty(leaveRequestViewModel.Remark) || string.IsNullOrWhiteSpace(leaveRequestViewModel.Remark))
+            {
+                ModelState.AddModelError(string.Empty, Messages.RemarkRequireError);
+                return View(model);
+            }
+
             var criteria = new InsertRequestCriteria
             {
                 EmpId = leaveRequestViewModel.EmployeeId,

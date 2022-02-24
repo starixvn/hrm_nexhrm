@@ -50,11 +50,11 @@
   border: none; }
 
 .tipsy.warning {
-  max-width: 50rem;
+  max-width: 40rem;
   opacity: 1 !important; }
   .tipsy.warning .tipsy-inner {
-    color: #FFFFFF;
-    background: #FF4500; }
+    color: black;
+    background: #EED202; }
     .tipsy.warning .tipsy-inner ul {
       padding-left: 2rem;
       list-style-type: disc; }
