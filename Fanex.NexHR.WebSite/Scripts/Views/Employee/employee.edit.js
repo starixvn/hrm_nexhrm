@@ -2,131 +2,6 @@
 /*global _global, _messages, actingButton, google, reloadButtonText, formatDate, initDatePicker*/
 /* exported query*/
 
-var directionsDisplay;
-
-function displayLatLong(marker, latitudeTextBox, longitudeTextBox) {
-    var directionsService = new google.maps.DirectionsService(),
-        curLatLng = marker.getPosition(),
-        smsLatlng = new google.maps.LatLng(10.8553024280436, 106.63105838755791);
-
-    latitudeTextBox.val(curLatLng.lat());
-    longitudeTextBox.val(curLatLng.lng());
-
-    var request = {
-        origin: curLatLng,
-        destination: smsLatlng,
-        travelMode: google.maps.DirectionsTravelMode.DRIVING
-    };
-
-    directionsService.route(request, function (response, status) {
-        if (status === google.maps.DirectionsStatus.OK) {
-            var distance = response.routes[0].legs[0].distance.text;
-            $('#DistanceToCompany').val(distance);
-            directionsDisplay.setDirections(response);
-        }
-    });
-}
-
-function InitializeGoogleMap(map, latlng) {
-    var myOptions = {
-        zoom: 16,
-        center: latlng,
-        scrollwheel: true
-    };
-    map = new google.maps.Map(document.getElementById('map-canvas'), myOptions);
-
-    return map;
-}
-
-function initialize() {
-    var marker, map, latlng,
-        checkInitLatlng = false,
-        latitudeTextBox = $('#GeoMapLatitude'),
-        longitudeTextBox = $('#GeoMapLongtitude'),
-        myOption = { suppressMarkers: true, polylineOptions: { strokeColor: 'red'} };
-
-    directionsDisplay = new google.maps.DirectionsRenderer(myOption);
-
-    if (latitudeTextBox.val() === '' && longitudeTextBox.val() === '') {
-        latlng = new google.maps.LatLng(10.8550869, 106.63152500000001);
-        checkInitLatlng = true;
-    } else {
-        latlng = new google.maps.LatLng(latitudeTextBox.val(), longitudeTextBox.val());
-    }
-
-    map = new InitializeGoogleMap(map, latlng);
-
-    if (checkInitLatlng) {
-        marker = new google.maps.Marker({
-            draggable: false,
-            map: map,
-            position: latlng
-        });
-    } else {
-        marker = new google.maps.Marker({
-            draggable: true,
-            map: map,
-            position: latlng
-        });
-        displayLatLong(marker, latitudeTextBox, longitudeTextBox);
-        google.maps.event.addListener(marker, 'dragend', function () {
-            displayLatLong(marker, latitudeTextBox, longitudeTextBox);
-        });
-    }
-    directionsDisplay.setMap(map);
-}
-
-function dynamicSearchMap() {
-    var marker, map, latlng,
-        latitudeTextBox = $('#GeoMapLatitude'),
-        longitudeTextBox = $('#GeoMapLongtitude'),
-        address = $('#geoMapAddress').val();
-
-    if (latitudeTextBox.val() === '' && longitudeTextBox.val() === '') {
-        latlng = new google.maps.LatLng(10.8550869, 106.63152500000001);
-        latitudeTextBox.val('10.8550869');
-        longitudeTextBox.val('106.63152500000001');
-    } else {
-        latlng = new google.maps.LatLng(latitudeTextBox.val(), longitudeTextBox.val());
-    }
-
-    map = new InitializeGoogleMap(map, latlng);
-
-    if (address === null || address === '') {
-        latlng = new google.maps.LatLng(latitudeTextBox.val(), longitudeTextBox.val());
-        marker = new google.maps.Marker({
-            draggable: true,
-            map: map,
-            position: latlng
-        });
-        displayLatLong(marker, latitudeTextBox, longitudeTextBox);
-        google.maps.event.addListener(marker, 'dragend', function () {
-            displayLatLong(marker, latitudeTextBox, longitudeTextBox);
-        });
-        alert('Please input an location!');
-    } else {
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ 'address': address }, function (results, status) {
-            if (status === google.maps.GeocoderStatus.OK) {
-                map.setCenter(results[0].geometry.location);
-                marker = new google.maps.Marker({
-                    map: map,
-                    position: results[0].geometry.location,
-                    draggable: true
-                });
-                displayLatLong(marker, latitudeTextBox, longitudeTextBox);
-
-                google.maps.event.addListener(marker, 'dragend', function () {
-                    displayLatLong(marker, latitudeTextBox, longitudeTextBox);
-                });
-            } else {
-                alert('Geocode was not successful for the following reason: ' + status);
-            }
-        });
-    }
-    directionsDisplay.setMap(map);
-}
-
 function bindSARole(onload) {
     if ($('#RoleArray4').prop('checked')) {
         $('#RoleArray3').prop('checked', true).prop('disabled', true);
@@ -390,17 +265,195 @@ function initEventForDelete() {
             }
 
             $.post(_global.root + 'employee/Delete',
-            { employeeId: $('#Id').val(), resignedDate: resignedDate },
-            function (response) {
-                if (response.IsSuccessful) {
-                    document.location = _global.root + 'employee/usermanagement';
-                } else {
-                    alert(response.Message);
-                }
-            }).error(function () { alert(_messages.errorTryAgain); });
+                { employeeId: $('#Id').val(), resignedDate: resignedDate },
+                function (response) {
+                    if (response.IsSuccessful) {
+                        document.location = _global.root + 'employee/usermanagement';
+                    } else {
+                        alert(response.Message);
+                    }
+                }).error(function () { alert(_messages.errorTryAgain); });
         });
     });
 }
+/* HERE MAP API */
+var platform = new H.service.Platform({
+    apikey: 'J7GXuxkgZ23QX19IcXY9gZd677O9gb0WQLXcsAp__Mw'
+});
+var defaultLayers = platform.createDefaultLayers();
+var address = "";
+
+var SMSTOWER = { lat: 10.8550869, lng: 106.63152500000001 };
+var map = new H.Map(
+    document.getElementById('map-canvas'),
+    defaultLayers.vector.normal.map,
+    {
+        zoom: 15,
+        center: SMSTOWER,
+        pixelRatio: window.devicePixelRatio || 1
+    });
+window.addEventListener('resize', () => map.getViewPort().resize());
+var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+var ui = H.ui.UI.createDefault(map, defaultLayers);
+
+
+
+function changeScreenMedia() {
+    window.addEventListener('resize', function (event) {
+        var width = document.documentElement.clientWidth;
+        if (width > 0 && width <= 993)
+            $('#map-canvas').css({ "width": "100%", "height": "50vh", "margin-bottom": "20rem" });
+        if (width > 993 && width <= 1627)
+            $('#map-canvas').css({ "width": "100%", "height": "50vh", "margin-bottom": "10rem" });
+        if (width > 1627)
+            $('#map-canvas').css({ "width": "100%", "height": "50vh", "margin-bottom": "5rem" });
+    });
+}
+
+function addNexcelMarker(map) {
+    var nexcelMarkup = '<svg  width="34" height="34" xmlns="http://www.w3.org/2000/svg">' +
+        '<rect stroke="black" fill="white" x="1" y="1" width="32" height="32" />' +
+        '<text x="17" y="28" font-size="22pt" font-family="Arial" font-weight="bold" ' +
+        'text-anchor="middle" fill="orange" >N</text></svg>';
+    var nexcelIcon = new H.map.Icon(nexcelMarkup);
+    var marker = new H.map.Marker({ lat: 10.8550869, lng: 106.63152500000001 }, { icon: nexcelIcon });
+
+    map.addObject(marker);
+}
+
+function searchHereMapLocation(platform, keyword) {
+    var geocoder = platform.getSearchService(),
+        geocodingParameters = {
+            q: keyword
+        };
+
+    geocoder.geocode(
+        geocodingParameters,
+        onSuccess,
+        onError
+    );
+}
+
+var bubble;
+function openBubble(position, text) {
+    if (!bubble) {
+        bubble = new H.ui.InfoBubble(
+            position,
+            { content: text });
+        ui.addBubble(bubble);
+    } else {
+        bubble.setPosition(position);
+        bubble.setContent(text);
+        bubble.open();
+    }
+}
+
+function showRouteToCompany(platform, lat, lng) {
+    //draw route on map
+    var onResult = function (result) {
+        if (result.routes.length) {
+            result.routes[0].sections.forEach((section) => {
+
+                let linestring = H.geo.LineString.fromFlexiblePolyline(section.polyline);
+                var routeOutline = new H.map.Polyline(linestring, {
+                    style: {
+                        lineWidth: 8,
+                        strokeColor: 'rgba(0, 128, 255, 0.7)',
+                        lineTailCap: 'arrow-tail',
+                        lineHeadCap: 'arrow-head'
+                    }
+                });
+                var routeArrows = new H.map.Polyline(linestring, {
+                    style: {
+                        lineWidth: 8,
+                        fillColor: 'white',
+                        strokeColor: 'white',
+                        lineDash: [0, 2],
+                        lineTailCap: 'arrow-tail',
+                        lineHeadCap: 'arrow-head'
+                    }
+                }
+                );
+                var routeLine = new H.map.Group();
+                routeLine.addObjects([routeOutline, routeArrows]);
+
+                var marker = new H.map.Marker({ lat, lng });
+                var infoBubble = new H.ui.InfoBubble({ lat, lng }, {
+                    content: address
+                });
+                marker.addEventListener('pointermove', function () {
+                    ui.addBubble(infoBubble);
+                    infoBubble.open();
+                }, false);
+
+                marker.addEventListener('pointerleave', function () {
+                    infoBubble.close();
+                }, false);
+                routeLine.addObject(marker);
+
+                var obj = map.getObjects();
+                obj.forEach((x, index) => {
+                    if (index > 0) {
+                        map.removeObject(x);
+                    }
+                });
+                map.addObjects([routeLine]);
+                map.getViewModel().setLookAtData({ bounds: routeLine.getBoundingBox() });
+            });
+        }
+    };
+    var routingParameters = {
+        'routingMode': 'fast',
+        'transportMode': 'car',
+        'origin': lat.toString() + ',' + lng.toString(),
+        'destination': '10.8550869,106.63152500000001',
+        'return': 'polyline'
+    };
+    var router = platform.getRoutingService(null, 8);
+    router.calculateRoute(routingParameters, onResult,
+        function (error) {
+            alert(error.message);
+        });
+}
+
+function distanceToCompany(platform, lat, lng) {
+    //calculate distance
+    const rService = platform.getRoutingService();
+    const params = {
+        mode: "fastest;car;traffic:enabled",
+        waypoint0: lat.toString() + ',' + lng.toString(),
+        waypoint1: "10.8550869,106.63152500000001",
+        representation: "display",
+        routeAttributes: "summary"
+    };
+    rService.calculateRoute(params, success => {
+        var meters = success.response.route[0].summary.distance / 1000;
+        $('#DistanceToCompany').val(meters.toFixed(1) + " km");
+    }, error => {
+        console.log(error);
+    });
+}
+
+function onSuccess(result) {
+    var locations = result.items;
+    //if dont have any address
+    if (locations.length <= 0)
+        alert("Please enter the correct address (do not abbreviate)");
+    else {
+        let location = locations[0];
+        $('#GeoMapLatitude').val(location.position.lat);
+        $('#GeoMapLongtitude').val(location.position.lng);
+        address = location.address.label;
+        showRouteToCompany(platform, location.position.lat, location.position.lng);
+        distanceToCompany(platform, location.position.lat, location.position.lng);
+    }
+}
+
+function onError(error) {
+    alert('Can\'t reach the remote server');
+}
+
+/* HERE MAP API */
 
 $(document).ready(function () {
     // Birthday picker.
@@ -441,20 +494,28 @@ $(document).ready(function () {
         } else {
             $('#geolocationMap').show();
 
+            var lat = $('#GeoMapLatitude').val();
+            var lng = $('#GeoMapLongtitude').val();
+            if (lat !== "" && lng !== "") {
+                address = $('#CurrentAddress').val();
+                showRouteToCompany(platform, lat, lng);
+            }
+
             $('#GeoMapLatitude, #GeoMapLongtitude, #DistanceToCompany').attr('readonly', true);
-            initialize();
             $('#searchmap').on('click', function () {
-                dynamicSearchMap();
+                searchHereMapLocation(platform, $('#geoMapAddress').val());
             });
         }
     });
+    addNexcelMarker(map);
+    changeScreenMedia();
 
     var successed = $('#successed').val();
     if (successed === 'true') {
         confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
-                function () {
-                    document.location = _global.root + 'Employee/Usermanagement';
-                }
-            );
+            function () {
+                document.location = _global.root + 'Employee/Usermanagement';
+            }
+        );
     }
 });
