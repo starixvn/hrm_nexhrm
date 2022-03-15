@@ -47,7 +47,7 @@
         {
             const string fileName = "EmployeeAttendance";
             const string sheetName = "Employee Attendance";
-            const int sizeColumns = 14;  
+            const int sizeColumns = 14;
             const int totalReportHeader = 3;
             const int rowFreezePane = 3;
 
@@ -346,7 +346,7 @@
 
         private static void WriteDateLeaveSchedules(IList<LeaveSchedule> leaveSchedules, ref ExcelTemplateWriter writer, int rowIndex)
         {
-            var startCol = 4;            
+            var startCol = 4;
             foreach (var leaveSchedule in leaveSchedules)
             {
                 const string value = "x";
@@ -355,8 +355,8 @@
                 if (leaveSchedule.IsLeaveDay)
                 {
                     cellValue = !leaveSchedule.IsHalfDayLeave ? value : leaveSchedule.LeaveType;
-                }  
-                
+                }
+
                 writer.WriteCellRange(rowIndex, 1, startCol, 1, cellValue);
                 startCol++;
             }
@@ -387,7 +387,7 @@
 
             using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
             {
-                var writer = new ExcelTemplateWriter(fileStream, reportName, reportName);               
+                var writer = new ExcelTemplateWriter(fileStream, reportName, reportName);
                 // Fill report header.
                 writer.WriteRow(0, new object[] { string.Format("{0}{1}", "HEAD COUNT ", report.StartDate.Year) });
                 FillHeaderHeadCount(report, ref writer);
@@ -597,6 +597,7 @@
                 WorkFromHome = totalWorkingHours.WorkFromHome,
                 WorkingDay = totalWorkingHours.TotalWorkingDay,
                 AnnualLeaveBalance = 0,
+                PreMonthAnnualLeave = totalWorkingHours.PreAnnualLeave,
                 PreMonthSickLeave = totalWorkingHours.PreMonthSickLeave,
                 PreMonthUnpaidLeave = totalWorkingHours.PreMonthUnpaidLeave,
                 PreMonthBusinessLeave = totalWorkingHours.PreMonthBusinessLeave,

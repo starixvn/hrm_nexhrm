@@ -137,13 +137,14 @@
                                     <th rowspan="2">@Labels.WFH</th>
                                     <th rowspan="2">@Labels.TotalWorkingDay</th>
                                     <th rowspan="2">@Labels.ALBalance</th>
-                                    <th colspan="4">@Labels.PreviousMonth</th>
+                                    <th colspan="5">@Labels.PreviousMonth</th>
                                 </tr>
                                 <tr>
                                     <th>@Labels.AnnualLeave</th>
                                     <th>@Labels.Others</th>
                                     <th>@Labels.SickLeave</th>
                                     <th>@Labels.Others</th>
+                                    <th>@Labels.AnnualLeave</th>
                                     <th>@Labels.SickLeave</th>
                                     <th>@Labels.UnpaidLeave</th>
                                     <th>@Labels.BusinessLeave</th>
@@ -198,6 +199,7 @@
         <td>{{:WorkFromHome.toFixed(1)}}</td>
         <td>{{:TotalWorkingDay}}</td>
         <td></td>
+        <td>{{:PreAnnualLeave.toFixed(1)}}</td>
         <td>{{:PreMonthSickLeave.toFixed(1)}}</td>
         <td>{{:PreMonthUnpaidLeave.toFixed(1)}}</td>
         <td>{{:PreMonthBusinessLeave.toFixed(1)}}</td>

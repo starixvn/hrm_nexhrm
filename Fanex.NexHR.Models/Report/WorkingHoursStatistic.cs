@@ -21,6 +21,7 @@
         public float BusinessLeave { get; set; }
 
         public float WorkFromHome { get; set; }
+        public float PreAnnualLeave { get; set; }
 
         public float PreMonthBusinessLeave { get; set; }
 
