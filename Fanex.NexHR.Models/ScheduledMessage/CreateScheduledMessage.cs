@@ -11,5 +11,9 @@
         public string Content { get; set; }
 
         public int CreatedBy { get; set; }
+
+        public string CronExpression { get; set; }
+        public int StepNumber { get; set; }
+        public int? RepeatTypeId { get; set; }
     }
 }

@@ -375,6 +375,9 @@
       <DependentUpon>report.workinghoursstatistic.scss</DependentUpon>
     </Content>
     <Content Include="Content\Views\scheduled-message.css" />
+    <Content Include="Content\Views\scheduled-message.min.css">
+      <DependentUpon>scheduled-message.css</DependentUpon>
+    </Content>
     <Content Include="Content\Views\view-mobile.css">
       <DependentUpon>view-mobile.scss</DependentUpon>
     </Content>

@@ -28,7 +28,11 @@
                 ConversationId = model.ConversationId,
                 SendDate = model.SendDate,
                 Content = model.Content,
-                CreatedBy = model.CreatedBy
+                CreatedBy = model.CreatedBy,
+                CronExpression = model.CronExpression,
+                StepNumber = model.StepNumber,
+                RepeatTypeId = model.RepeatTypeId
+
             }).ConfigureAwait(false);
         }
 
@@ -56,7 +60,10 @@
                 ScheduledMessageId = model.ScheduledMessageId,
                 ConversationId = model.ConversationId,
                 SendDate = model.SendDate,
-                Content = model.Content
+                Content = model.Content,
+                CronExpression = model.CronExpression,
+                StepNumber = model.StepNumber,
+                RepeatTypeId = model.RepeatTypeId
             }).ConfigureAwait(false);
         }
 

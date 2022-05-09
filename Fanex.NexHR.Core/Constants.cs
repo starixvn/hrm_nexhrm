@@ -55,5 +55,13 @@ namespace Fanex.NexHR.Core
 
         public const int valid = 2;
         public const int invalid = 3;
+
+        public const int RepeatMinute = 1;
+        public const int RepeatHour = 2;
+        public const int RepeatDay = 3;
+        public const int RepeatWeek = 4;
+        public const int RepeatMonth = 5;
+        public const int RepeatYear = 6;
+        public const int NumberOfDayInWeek = 7;
     }
 }

@@ -1,4 +1,8 @@
-﻿namespace Fanex.NexHR.Controllers
+﻿using System.Collections;
+using System.Collections.Generic;
+using Fanex.NexHR.Criteria.ScheduledMessage;
+
+namespace Fanex.NexHR.Controllers
 {
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
@@ -15,6 +19,7 @@
 
     public class ScheduledMessageController : BaseController
     {
+        private readonly BaseService baseService;
         private readonly IScheduledMessageService scheduledMessageService;
         private readonly IEmployeeService employeeService;
 
@@ -22,6 +27,7 @@
         {
             scheduledMessageService = new ScheduledMessageService();
             employeeService = new EmployeeService();
+            baseService = new BaseService();
         }
 
         [HttpGet]
@@ -55,13 +61,16 @@
         public async Task<ActionResult> Create()
         {
             var conversations = await scheduledMessageService.GetConversationsAsync(CurrentUser.Id).ConfigureAwait(false);
+            var repeatTypes = baseService.GetData<CronExpression>(new GetRepeatTypesCriteria());
 
             var viewModel = new CreateScheduledMessageViewModel
             {
                 SendDate = DateTime.Today,
                 Hour = 8,
                 Minute = 0,
-                Conversations = new SelectList(conversations, nameof(Conversation.ConversationId), nameof(Conversation.ConversationName))
+                StepNumber = 1,
+                Conversations = new SelectList(conversations, nameof(Conversation.ConversationId), nameof(Conversation.ConversationName)),
+                RepeatTypes = new SelectList(repeatTypes, nameof(CronExpression.Id), nameof(CronExpression.Description))
             };
 
             return PartialView("_Create", viewModel);
@@ -74,13 +83,18 @@
             if (ModelState.IsValid)
             {
                 viewModel.SendDate = viewModel.SendDate.AddHours(viewModel.Hour).AddMinutes(viewModel.Minute);
+                string cron = ConvertConditionToCron(viewModel.StepNumber, viewModel.RepeatTypeId,
+                    viewModel.SendDate);
 
                 var result = await scheduledMessageService.CreateAsync(new CreateScheduledMessage
                 {
                     ConversationId = viewModel.ConversationId,
                     SendDate = viewModel.SendDate,
                     Content = viewModel.Content,
-                    CreatedBy = CurrentUser.Id
+                    CreatedBy = CurrentUser.Id,
+                    CronExpression = cron,
+                    StepNumber = viewModel.StepNumber,
+                    RepeatTypeId = viewModel.IsRepeat ? viewModel.RepeatTypeId : null
                 }).ConfigureAwait(false);
 
                 return Json(new
@@ -95,11 +109,33 @@
             return Json(new { isSuccessful = false, errors });
         }
 
+        private static string ConvertConditionToCron(int stepNumber, int? repeatTypeId, DateTime startDate)
+        {
+            switch (repeatTypeId)
+            {
+                case Constants.RepeatMinute:
+                    return $"*/{stepNumber} * * * *";
+                case Constants.RepeatHour:
+                    return $"{startDate.Minute} */{stepNumber} * * *";
+                case Constants.RepeatDay:
+                    return $"{startDate.Minute} {startDate.Hour} */{stepNumber} * *";
+                case Constants.RepeatWeek:
+                    return $"{startDate.Minute} {startDate.Hour} */{stepNumber * Constants.NumberOfDayInWeek} * *";
+                case Constants.RepeatMonth:
+                    return $"{startDate.Minute} {startDate.Hour} {startDate.Day} */{stepNumber} *";
+                case Constants.RepeatYear:
+                    return $"{startDate.Minute} {startDate.Hour} {startDate.Day} {startDate.Month} *";
+                default:
+                    return null;
+            }
+        }
+
         [HttpGet]
         public async Task<ActionResult> Edit(int id)
         {
             var conversations = await scheduledMessageService.GetConversationsAsync(CurrentUser.Id).ConfigureAwait(false);
             var scheduledMessage = await scheduledMessageService.GetScheduledMessageAsync(id).ConfigureAwait(false);
+            var repeatTypes = baseService.GetData<CronExpression>(new GetRepeatTypesCriteria());
 
             var viewModel = new EditScheduledMessageViewModel
             {
@@ -109,7 +145,11 @@
                 Hour = scheduledMessage.SendDate.Hour,
                 Minute = scheduledMessage.SendDate.Minute,
                 Content = scheduledMessage.Content,
-                Conversations = new SelectList(conversations, nameof(Conversation.ConversationId), nameof(Conversation.ConversationName))
+                RepeatTypeId = scheduledMessage.RepeatTypeId,
+                StepNumber = scheduledMessage.StepNumber == 0 ? 1 : scheduledMessage.StepNumber,
+                IsRepeat = scheduledMessage.StepNumber != 0,
+                Conversations = new SelectList(conversations, nameof(Conversation.ConversationId), nameof(Conversation.ConversationName)),
+                RepeatTypes = new SelectList(repeatTypes, nameof(CronExpression.Id), nameof(CronExpression.Description))
             };
 
             return PartialView("_Edit", viewModel);
@@ -122,6 +162,8 @@
             if (ModelState.IsValid)
             {
                 viewModel.SendDate = viewModel.SendDate.AddHours(viewModel.Hour).AddMinutes(viewModel.Minute);
+                string cron = ConvertConditionToCron(viewModel.StepNumber, viewModel.RepeatTypeId,
+                    viewModel.SendDate);
 
                 var result = await scheduledMessageService.EditAsync(new EditScheduledMessage
                 {
@@ -129,6 +171,9 @@
                     ConversationId = viewModel.ConversationId,
                     SendDate = viewModel.SendDate,
                     Content = viewModel.Content,
+                    CronExpression = cron,
+                    StepNumber = viewModel.StepNumber,
+                    RepeatTypeId = viewModel.IsRepeat ? viewModel.RepeatTypeId : null
                 }).ConfigureAwait(false);
 
                 return Json(new

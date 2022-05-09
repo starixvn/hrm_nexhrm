@@ -229,6 +229,43 @@
     };
 }(jQuery));
 
+$(document).on('change', '#IsRepeat', function () {
+    var isOpenRepeatType = $('#IsRepeat').prop('checked');
+    if (isOpenRepeatType) {
+        $('#type-of-cron,#type-of-cron-edit').css("display", "unset");
+        $("#lable-time").html("Activation date");
+    } else {
+        $('#type-of-cron,#type-of-cron-edit').css("display", "none");
+        $("#lable-time").html("Send date");
+    }
+});
+
+$(document).on('change', '#RepeatTypeId', function () {
+    var id = $("#RepeatTypeId").val();
+    switch (id) {
+        case "1":
+            $("#StepNumber").attr("max", 59);
+            break;
+        case "2":
+            $("#StepNumber").attr("max", 23);
+            break;
+        case "3":
+            $("#StepNumber").attr("max", 31);
+            break;
+        case "4":
+            $("#StepNumber").attr("max", 3);
+            break;
+        case "5":
+            $("#StepNumber").attr("max", 12);
+            break;
+        case "6":
+            $("#StepNumber").attr("max", 1);
+            break;
+        default:
+            $("#StepNumber").attr("max", 99);
+    }
+});
+
 $(document).ready(function () {
     scheduledMessage.init();
 });

@@ -19,10 +19,35 @@
             </div>
         </div>
     </div>
+
+    <div class="row form-input" style="margin-bottom: 1rem">
+        <div class="col">
+            <div class="left label--l">
+                @Html.LabelFor(model => model.IsRepeat)
+            </div>
+            <div class="left">
+                @Html.MaterializeCheckBoxFor(model => model.IsRepeat, new { @class = "filled-in" })
+            </div>
+        </div>
+    </div>
+
+    <div class="row form-input" id="type-of-cron">
+        <div class="col">
+            <div class="left label--l">
+                @Html.LabelFor(model => model.RepeatTypeId)
+            </div>
+            <div class="left select-repeat">
+                @Html.TextBoxFor(model => model.StepNumber, new { type = "number", min = "1", max = "99", step = "1", MaxLength = "2" })
+            </div>
+            <div class="left select-repeat ml-2rem">
+                @Html.DropDownListFor(model => model.RepeatTypeId, Model.RepeatTypes, "", new { @class = "material-select" })
+            </div>
+        </div>
+    </div>
     <div class="row form-input">
         <div class="col">
             <div class="left label--l">
-                @Html.LabelFor(model => model.SendDate)
+                <label id="lable-time">Send date</label>
             </div>
             <div class="datepicker-button left select--m">
                 @Html.DatePickerFor(model => model.SendDate, DateTime.Today)
@@ -36,7 +61,7 @@
                 </span>
             </div>
         </div>
-        <div class="col">:</div>
+        <div class="col" style="padding-right:11px">:</div>
         <div class="col">
             <div class="left input-xs">
                 <span class="time">

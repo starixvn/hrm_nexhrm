@@ -21,5 +21,7 @@
         public string NickName { get; set; }
 
         public bool IsSent { get; set; }
+        public int StepNumber { get; set; }
+        public int RepeatTypeId { get; set; }
     }
 }

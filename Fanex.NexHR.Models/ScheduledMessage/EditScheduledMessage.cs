@@ -11,5 +11,8 @@
         public DateTime SendDate { get; set; }
 
         public string Content { get; set; }
+        public string CronExpression { get; set; }
+        public int StepNumber { get; set; }
+        public int? RepeatTypeId { get; set; }
     }
 }

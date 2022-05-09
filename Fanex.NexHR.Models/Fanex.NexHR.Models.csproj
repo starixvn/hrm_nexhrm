@@ -163,6 +163,7 @@
     <Compile Include="Request\RequestEntity.cs" />
     <Compile Include="Request\RequestStatus.cs" />
     <Compile Include="Request\RequestTypeModel.cs" />
+    <Compile Include="ScheduledMessage\CronExpression.cs" />
     <Compile Include="ScheduledMessage\EditConversation .cs" />
     <Compile Include="ScheduledMessage\CreateConversation.cs" />
     <Compile Include="ScheduledMessage\CreateScheduledMessage.cs" />

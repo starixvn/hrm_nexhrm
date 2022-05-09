@@ -245,6 +245,7 @@
     <Compile Include="ScheduledMessage\GetConversationsByCreatorCriteria.cs" />
     <Compile Include="ScheduledMessage\GetConversationsByIdCriteria.cs" />
     <Compile Include="ScheduledMessage\GetConversationsCriteria.cs" />
+    <Compile Include="ScheduledMessage\GetRepeatTypesCriteria.cs" />
     <Compile Include="ScheduledMessage\GetScheduledMessagesToProcessCriteria.cs" />
     <Compile Include="ScheduledMessage\GetScheduleMessageCriteria.cs" />
     <Compile Include="ScheduledMessage\GetScheduleMessagesCriteria.cs" />
