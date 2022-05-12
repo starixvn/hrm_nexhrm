@@ -15,7 +15,23 @@ table .mdi-border-color {
   display: none; }
 
 .ml-2rem {
-  margin-left: 2rem; }
+  margin-left: 2rem !important; }
 
 .select-repeat {
-  width: 19rem; }
+  width: 11rem; }
+
+.btn-dialog {
+  float: right !important;
+  margin-top: -28px !important;
+  margin-right: 8px !important; }
+
+.input-hour {
+  margin-left: -4px;
+  width: 4.5rem; }
+
+.input-minute {
+  margin-left: -20px;
+  width: 4.5rem; }
+
+.divide {
+  margin-left: -11px; }

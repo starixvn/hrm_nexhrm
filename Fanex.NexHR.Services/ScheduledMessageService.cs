@@ -9,6 +9,7 @@
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services.Interfaces;
+    using NCrontab;
 
     public class ScheduledMessageService : IScheduledMessageService
     {
@@ -79,6 +80,8 @@
         {
             var currentDate = DateTime.Now;
             currentDate = currentDate.AddSeconds(-currentDate.Second).AddMilliseconds(-currentDate.Millisecond);
+            var redundantTick = currentDate.Ticks % 10000;
+            currentDate = currentDate.AddTicks(-redundantTick);
 
             var scheduledMessages = await scheduledMessageRepository.GetScheduledMessagesToProcessAsync(new GetScheduledMessagesToProcessCriteria
             {
@@ -88,11 +91,24 @@
 
             var sentMessageIds = new List<int>();
 
+
             foreach (var scheduledMessage in scheduledMessages)
             {
-                if (nexbotService.SendMessage(scheduledMessage.SkypeConversationId, scheduledMessage.Content))
+                if (scheduledMessage.CronExpression != null)
                 {
-                    sentMessageIds.Add(scheduledMessage.ScheduledMessageId);
+                    CrontabSchedule schedule = CrontabSchedule.Parse(scheduledMessage.CronExpression);
+                    var nextRun = schedule.GetNextOccurrence(DateTime.Now.AddMinutes(-1));
+                    if (nextRun == currentDate)
+                    {
+                        nexbotService.SendMessage(scheduledMessage.SkypeConversationId, scheduledMessage.Content);
+                    }
+                }
+                else
+                {
+                    if (nexbotService.SendMessage(scheduledMessage.SkypeConversationId, scheduledMessage.Content))
+                    {
+                        sentMessageIds.Add(scheduledMessage.ScheduledMessageId);
+                    }
                 }
             }
 

@@ -23,5 +23,6 @@
         public bool IsSent { get; set; }
         public int StepNumber { get; set; }
         public int RepeatTypeId { get; set; }
+        public string CronExpression { get; set; }
     }
 }

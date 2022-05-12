@@ -53,17 +53,17 @@
             title: 'Create New Scheduled Message',
             buttons: [
                 {
-                    text: 'Cancel',
-                    class: 'btn-cancel waves-effect waves-light m-r--m',
+                    text: 'Save',
+                    class: 'btn-submit waves-effect waves-light btn-dialog',
                     click: function () {
-                        $(this).dialog('close');
+                        $createForm.submit();
                     }
                 },
                 {
-                    text: 'Save',
-                    class: 'btn-submit waves-effect waves-light',
+                    text: 'Cancel',
+                    class: 'btn-cancel waves-effect waves-light m-r--m btn-dialog',
                     click: function () {
-                        $createForm.submit();
+                        $(this).dialog('close');
                     }
                 }
             ],
@@ -91,17 +91,17 @@
             title: 'Edit Scheduled Message',
             buttons: [
                 {
-                    text: 'Cancel',
-                    class: 'btn-cancel waves-effect waves-light m-r--m',
+                    text: 'Save',
+                    class: 'btn-submit waves-effect waves-light btn-dialog',
                     click: function () {
-                        $(this).dialog('close');
+                        $editForm.submit();
                     }
                 },
                 {
-                    text: 'Save',
-                    class: 'btn-submit waves-effect waves-light',
+                    text: 'Cancel',
+                    class: 'btn-cancel waves-effect waves-light m-r--m btn-dialog',
                     click: function () {
-                        $editForm.submit();
+                        $(this).dialog('close');
                     }
                 }
             ],
@@ -233,7 +233,7 @@ $(document).on('change', '#IsRepeat', function () {
     var isOpenRepeatType = $('#IsRepeat').prop('checked');
     if (isOpenRepeatType) {
         $('#type-of-cron,#type-of-cron-edit').css("display", "unset");
-        $("#lable-time").html("Activation date");
+        $("#lable-time").html("From");
     } else {
         $('#type-of-cron,#type-of-cron-edit').css("display", "none");
         $("#lable-time").html("Send date");
