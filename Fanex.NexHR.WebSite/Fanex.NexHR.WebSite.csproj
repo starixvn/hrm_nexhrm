@@ -886,6 +886,7 @@
     <Content Include="Scripts\Views\Request\process.workfromhomerequest.js" />
     <Content Include="Views\WorkFromHomeRequest\Create.cshtml" />
     <Content Include="Views\WorkFromHomeRequest\Edit.cshtml" />
+    <Content Include="Views\Employee\SpecialUserManagement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

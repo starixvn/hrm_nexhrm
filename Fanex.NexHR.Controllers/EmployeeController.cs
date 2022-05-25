@@ -75,6 +75,19 @@
             return View(model);
         }
 
+        [Authorize(Roles = "HR")]
+        public ActionResult SpecialUserManagement(int jobTitleId = 0)
+        {
+            var model = new UserManagementViewModel
+            {
+                JobTitleId = jobTitleId,
+                Teams = _teamService.GetTeam(),
+                JobTitles = _jobTitleService.GetAll(),
+            };
+
+            return View(model);
+        }
+
         [ValidateInput(false)]
         public JsonResult GetEmployees(
             string query,
@@ -326,7 +339,8 @@
             EditEmployeeViewModel model = new EditEmployeeViewModel(employee)
             {
                 Teams = _teamService.GetAll(),
-                JobTitles = _jobTitleService.GetAll()
+                JobTitles = _jobTitleService.GetAll(),
+                LastUrl = Request.UrlReferrer != null ? Request.UrlReferrer.AbsoluteUri : string.Empty,
             };
 
             return View(model);
@@ -659,6 +673,7 @@
                 DomainUsername = model.DomainUsername,
                 Email = model.Email,
                 Enabled = model.Enabled,
+                IsSpecialUser = model.IsSpecialUser,
                 FullName = model.FullName,
                 Gender = model.Gender,
                 Geomaplatitude = model.GeoMapLatitude,

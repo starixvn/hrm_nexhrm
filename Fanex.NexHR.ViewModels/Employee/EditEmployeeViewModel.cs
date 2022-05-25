@@ -94,6 +94,8 @@
 
         public bool Enabled { get; set; }
 
+        public bool IsSpecialUser { get; set; }
+
         public Toeic ToeicScore { get; set; }
 
         public string GeoMapLatitude { get; set; }
@@ -109,6 +111,8 @@
         public string ContactPhone { get; set; }
 
         public string ContactAddress { get; set; }
+
+        public string LastUrl { get; set; }
 
         public IList<Team> Teams { get; set; }
 
@@ -194,6 +198,7 @@
                 ConfirmedDate = employee.ConfirmedDate;
                 ResignedDate = employee.ResignedDate;
                 Enabled = employee.Enabled;
+                IsSpecialUser = employee.IsSpecialUser;
                 ToeicScore = employee.ToeicScore;
                 GeoMapLatitude = employee.GeoMapLatitude;
                 GeoMapLongtitude = employee.GeoMapLongtitude;

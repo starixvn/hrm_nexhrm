@@ -477,6 +477,12 @@
 	<data name="EmployeeManagement" xml:space="preserve">
     <value>Employee management</value>
   </data>
+	<data name="SpecialEmployeeManagement" xml:space="preserve">
+    <value>Special Employee management</value>
+  </data>
+	<data name="SpecialUser" xml:space="preserve">
+    <value>Special User</value>
+  </data>
 	<data name="Keyword" xml:space="preserve">
     <value>Keyword</value>
   </data>

@@ -27,6 +27,8 @@
 
         public bool Enabled { get; set; }
 
+        public bool IsSpecialUser { get; set; }
+
         public string Phone { get; set; }
 
         public byte? Gender { get; set; }

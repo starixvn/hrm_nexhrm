@@ -4192,6 +4192,24 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Special Employee management.
+        /// </summary>
+        public static string SpecialEmployeeManagement {
+            get {
+                return ResourceManager.GetString("SpecialEmployeeManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Special User.
+        /// </summary>
+        public static string SpecialUser {
+            get {
+                return ResourceManager.GetString("SpecialUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Spent On.
         /// </summary>
         public static string SpentOn {

@@ -5,7 +5,7 @@
 var rowIndex = 1,
     employeeListType = 0,
     sorts = [],
-    hasData=false;
+    hasData = false;
 
 function index() {
     return rowIndex++;
@@ -36,9 +36,11 @@ function query(jobTitleId, isFirstLoad) {
         isDelete = null;
     }
 
+    var isSpecial = $('#isspecial').val();
+
     $.ajax({
         url: _global.root + 'employee/getemployees',
-        data: { query: keyword, teamId: $('#TeamId').val(), isDisable: isDisable, isDelete: isDelete, jobTitleId: jobTitleId, sort: JSON.stringify(sorts) },
+        data: { query: keyword, teamId: $('#TeamId').val(), isDisable: isDisable, isDelete: isDelete, jobTitleId: jobTitleId, sort: JSON.stringify(sorts), isSpecial },
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
