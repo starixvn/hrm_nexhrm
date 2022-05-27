@@ -18,7 +18,6 @@
 			<siteMapNode title="Employee Requests" controller="request" action="hrview" icon="account-box" roles="HR" />
 			<siteMapNode title="Requests Monitoring" controller="report" action="HRRequestMonitoring" icon="eye" roles="HR" />
 			<siteMapNode title="User Management" controller="employee" action="UserManagement" icon="settings-box" roles="HR" />
-			<siteMapNode title="Special User Management" controller="employee" action="SpecialUserManagement" icon="clipboard-text" roles="HR" />
 			<siteMapNode title="Team Management" controller="team" action="index" icon="account-multiple" roles="HR" />
 			<siteMapNode title="Create Account" controller="employee" action="create" icon="account-plus" roles="HR" />
 			<siteMapNode title="Job Title Management" controller="jobtitle" action="index" icon="book" roles="HR" />

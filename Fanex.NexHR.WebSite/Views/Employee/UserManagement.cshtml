@@ -40,7 +40,7 @@
                                 <div class="left filter-title-lbl">
                                     <label>@Labels.Title</label>
                                 </div>
-                                <div class="left filter-title">
+                                <div class="left filter-title" style="margin-left: 3px; width:317px">
                                     @Html.DropDownListFor(model => model.JobTitleId, new SelectList(Model.JobTitles, "Id", "Name"), Labels.AllTitles)
                                 </div>
                             </div>
@@ -61,7 +61,8 @@
                                 <a id="query" class="btn-submit waves-effect waves-light m-r--b" href="javascript:;" style="margin-left: -40px;">@Labels.Submit</a>
                                 <a id="exportExcel" class="waves-effect waves-light btn-export-excel m-r--b" href="javascript:;">@Labels.Excel</a>
                                 @Html.ActionLink("Postnatal Employee", "index", "postnatal", null, new { @class = "waves-effect waves-light btn-request m-r--b" })
-                                <a href="/EmployeeWorkFromHome/Index" class="btn btn-request">@Labels.EmployeeWorkFromHome</a>
+                                <a href="/EmployeeWorkFromHome/Index" class="btn btn-request m-r--b">@Labels.EmployeeWorkFromHome</a>
+                                <a href="/Employee/SpecialUserManagement" class="btn btn-request">@Labels.SpecialUser</a>
                             </div>
                         </div>
                     </div>

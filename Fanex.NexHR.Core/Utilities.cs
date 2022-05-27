@@ -99,15 +99,15 @@ namespace Fanex.NexHR.Core
                 {
                     var found = false;
                     var rand = (int)random[i];
-                    const int min1 =48 ;
-                    const int min2 =65 ;
-                    const int min3 =97 ;
-                    const int max1 =57 ;
-                    const int max2 =90 ;
-                    const int max3 =122 ;
+                    const int min1 = 48;
+                    const int min2 = 65;
+                    const int min3 = 97;
+                    const int max1 = 57;
+                    const int max2 = 90;
+                    const int max3 = 122;
                     while (!found)
                     {
-                        if (rand.IsWithin(min1,max1) || rand.IsWithin(min2,max2) || rand.IsWithin(min3,max3))
+                        if (rand.IsWithin(min1, max1) || rand.IsWithin(min2, max2) || rand.IsWithin(min3, max3))
                         {
                             found = true;
                         }
@@ -290,7 +290,8 @@ namespace Fanex.NexHR.Core
 
                 return orderedQuery?.ThenBy(expression);
             }
-            else {
+            else
+            {
                 if (index == 0)
                 {
                     return query.OrderByDescending(expression);
