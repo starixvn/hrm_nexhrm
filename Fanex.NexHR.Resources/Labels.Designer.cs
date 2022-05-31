@@ -2599,6 +2599,24 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lumi Employee.
+        /// </summary>
+        public static string LumiEmployee {
+            get {
+                return ResourceManager.GetString("LumiEmployee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lumi Last Working Date.
+        /// </summary>
+        public static string LumiLastWorkingDate {
+            get {
+                return ResourceManager.GetString("LumiLastWorkingDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lumi Shift.
         /// </summary>
         public static string LumiShift {
@@ -3193,6 +3211,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nex Effected Date.
+        /// </summary>
+        public static string NexEffectDate {
+            get {
+                return ResourceManager.GetString("NexEffectDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nex Employee.
         /// </summary>
         public static string NexEmployee {
@@ -3238,11 +3265,29 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nex Shift.
+        /// </summary>
+        public static string NexShift {
+            get {
+                return ResourceManager.GetString("NexShift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Next.
         /// </summary>
         public static string Next {
             get {
                 return ResourceManager.GetString("Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nex Team.
+        /// </summary>
+        public static string NexTeam {
+            get {
+                return ResourceManager.GetString("NexTeam", resourceCulture);
             }
         }
         

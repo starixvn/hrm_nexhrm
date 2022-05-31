@@ -1677,17 +1677,32 @@
 	<data name="LumiEffectDate" xml:space="preserve">
     <value>Lumi Effected Date</value>
   </data>
+	<data name="NexEffectDate" xml:space="preserve">
+    <value>Nex Effected Date</value>
+  </data>
 	<data name="LumiShift" xml:space="preserve">
     <value>Lumi Shift</value>
+  </data>
+	<data name="NexShift" xml:space="preserve">
+    <value>Nex Shift</value>
   </data>
 	<data name="LumiTeam" xml:space="preserve">
     <value>Lumi Team</value>
   </data>
+	<data name="NexTeam" xml:space="preserve">
+    <value>Nex Team</value>
+  </data>
 	<data name="NexEmployee" xml:space="preserve">
     <value>Nex Employee</value>
   </data>
+	<data name="LumiEmployee" xml:space="preserve">
+    <value>Lumi Employee</value>
+  </data>
 	<data name="NexLastWorkingDate" xml:space="preserve">
     <value>Nex Last Working Date</value>
+  </data>
+	<data name="LumiLastWorkingDate" xml:space="preserve">
+    <value>Lumi Last Working Date</value>
   </data>
 	<data name="IsTransferNexBalance" xml:space="preserve">
     <value>Is Transfer Nex Balance</value>
