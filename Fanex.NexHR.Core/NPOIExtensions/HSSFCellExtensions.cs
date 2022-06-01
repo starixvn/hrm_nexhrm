@@ -34,7 +34,7 @@ namespace Fanex.NexHR.Core.NPOIExtensions
                 ////}
                 ////else
                 ////{
-                    cell.SetCellValue(stringValue);
+                cell.SetCellValue(stringValue);
                 ////}
             }
             else

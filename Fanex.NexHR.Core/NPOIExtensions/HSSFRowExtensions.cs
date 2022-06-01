@@ -19,16 +19,7 @@
             int id = colIndex;
             foreach (var value in values)
             {
-                if (value is DateTime)
-                {
-                    var convert = Convert.ToDateTime(value);
-                    var formatValue = convert.ToString("d MMM, yyyy");
-                    row.GetCell(id).SetCellValue(formatValue);
-                }
-                else
-                {
-                    row.GetCell(id).SetCellValue(value);
-                }
+                row.GetCell(id).SetCellValue(value);
 
                 id++;
             }
