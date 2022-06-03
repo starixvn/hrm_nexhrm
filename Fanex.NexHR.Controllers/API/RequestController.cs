@@ -1,11 +1,13 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
+    using System.Web.Http;
     using Criteria.Employee;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Web.API;
     using Models;
+    using Newtonsoft.Json;
     using Services;
     using Services.Interfaces;
-    using System.Web.Http;
 
     [Authorize]
     [JwtAuthentication]
@@ -30,9 +32,10 @@
         [HttpPost]
         public IHttpActionResult ProcessRequest(long requestId, string command, string nickName)
         {
+            SerilogHelper.WriteInfo(JsonConvert.SerializeObject(new { RequestId = requestId, Command = command, Nickname = nickName }));
             var criteria = new GetEmployeeByNickNameCriteria
             {
-                 NickName = nickName
+                NickName = nickName
             };
 
             var approver = employeeService.GetEmployeeByNickName(criteria);
