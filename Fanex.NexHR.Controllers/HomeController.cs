@@ -8,7 +8,7 @@
     {
         public ActionResult Index()
         {
-            SerilogHelper.WriteInfo(JsonConvert.SerializeObject(new { RequestId = 10000, Command = "Oliver", Nickname = "Oliver" }));
+            LogFileHelper.WriteInfo(JsonConvert.SerializeObject(new { RequestId = 10000, Command = "Oliver", Nickname = "Oliver" }));
 
             ViewBag.Employee = CurrentUser;
 

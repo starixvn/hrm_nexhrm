@@ -32,7 +32,7 @@
         [HttpPost]
         public IHttpActionResult ProcessRequest(long requestId, string command, string nickName)
         {
-            SerilogHelper.WriteInfo(JsonConvert.SerializeObject(new { RequestId = requestId, Command = command, Nickname = nickName }));
+            LogFileHelper.WriteInfo(JsonConvert.SerializeObject(new { RequestId = requestId, Command = command, Nickname = nickName }));
             var criteria = new GetEmployeeByNickNameCriteria
             {
                 NickName = nickName
