@@ -193,9 +193,6 @@
     <None Include="app.config" />
     <None Include="Fanex.NexHR.Core.Debug.ruleset" />
     <None Include="Fanex.NexHR.Core.ruleset" />
-    <Content Include="NLog.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
