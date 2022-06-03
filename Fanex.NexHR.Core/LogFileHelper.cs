@@ -4,7 +4,7 @@
 
     public static class LogFileHelper
     {
-        private static readonly Logger logger = LogManager.LoadConfiguration("NLog.config").GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         public static void WriteInfo(string message)
         {
