@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
     using System.Web.Http;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.Web.API;
@@ -24,6 +25,8 @@
         [HttpGet]
         public IHttpActionResult ReminderReachedWorkingTime()
         {
+            LogFileHelper.WriteInfo("Call API ReminderReachedWorkingTime");
+
             timeSheetService.SendReminderReachedWorkingTime();
             return Ok();
         }
