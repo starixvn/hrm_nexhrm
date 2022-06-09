@@ -46,54 +46,35 @@
                             data_id = request.Id
                         });
 
-                <tr id="row@(request.Id)">
-                    @if (Model.RequestViewType == RequestViewType.LeaderView)
-                    {
-                        if (request.Status.Id == (int)RequestStatuse.Pending && !isApproveByManager)
-                        {
-                            <td class="col-checkbox">
-                                @Html.MaterializeCheckBox("checkbox_" + request.Id, htmlAttributes)
-                            </td>
-                        }
-                        else
-                        {
-                            <td></td>
-                        }
-                    }
-                    else
-                    {
-                        <td>@(index++)</td>
-                    }
-
-                    <td class="tooltip" title="@request.Requester.Team.Name">
-                        @request.Requester.Team.Code
-                    </td>
-                    <td class="tooltip" title="@request.Requester.FullName">
-                        @request.Requester.NickName
-                    </td>
-                    <td class="col-request">
+                    <tr id="row@(request.Id)">
                         @if (Model.RequestViewType == RequestViewType.LeaderView)
                         {
-                            <a href="javascript:;" data-controller="request" data-action="member">
-                                @(request.RequestType.Id == (int)RequestType.Leave ? request.LeaveType.Name : request.RequestType.Name)
-                            </a>
-                            <form class="request-model hide" action="">
-                                <input type="text" name="DateOption" value="0" />
-                                <input type="text" name="FromDate" value="@Model.FromDate.ToDateMonthYearFormatedDate()" />
-                                <input type="text" name="ToDate" value="@Model.ToDate.ToDateMonthYearFormatedDate()" />
-                                <input type="text" name="EmployeeId" value="@request.Requester.Id" />
-                                <input type="text" name="Employee" value="@request.Requester.NickName (@request.Requester.FullName)" />
-                                <input type="text" name="TeamId" value="@(Model.TeamId ?? -2)" />
-                                <input type="text" name="StatusId" value="@Model.StatusId" />
-                                <input type="text" name="RequestType" value="@request.RequestType.RequestFilter" />
-                                <input type="text" name="RequestViewType" value="@Model.RequestViewType" />
-                            </form>
+                            if (request.Status.Id == (int)RequestStatuse.Pending && !isApproveByManager)
+                            {
+                                <td class="col-checkbox">
+                                    @Html.MaterializeCheckBox("checkbox_" + request.Id, htmlAttributes)
+                                </td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
                         }
                         else
                         {
-                            if (Model.RequestViewType == RequestViewType.HRView)
+                            <td>@(index++)</td>
+                        }
+
+                        <td class="tooltip" title="@request.Requester.Team.Name">
+                            @request.Requester.Team.Code
+                        </td>
+                        <td class="tooltip" title="@request.Requester.FullName">
+                            @request.Requester.NickName
+                        </td>
+                        <td class="col-request">
+                            @if (Model.RequestViewType == RequestViewType.LeaderView)
                             {
-                                <a href="javascript:;" data-controller="request" data-action="hrview">
+                                <a href="javascript:;" data-controller="request" data-action="member">
                                     @(request.RequestType.Id == (int)RequestType.Leave ? request.LeaveType.Name : request.RequestType.Name)
                                 </a>
                                 <form class="request-model hide" action="">
@@ -106,125 +87,144 @@
                                     <input type="text" name="StatusId" value="@Model.StatusId" />
                                     <input type="text" name="RequestType" value="@request.RequestType.RequestFilter" />
                                     <input type="text" name="RequestViewType" value="@Model.RequestViewType" />
-                                    @Html.Hidden("IsFilterByEffectedDate", Model.IsFilterByEffectedDate)
                                 </form>
                             }
                             else
                             {
-                                <a href="javascript:;" data-controller="request" data-action="employeeview">
-                                    @(request.RequestType.Id == (int)RequestType.Leave ? request.LeaveType.Name : request.RequestType.Name)
-                                </a>
-                                <form class="request-model hide" action="">
-                                    <input type="text" name="DateOption" value="0" />
-                                    <input type="text" name="FromDate" value="@Model.FromDate.ToDateMonthYearFormatedDate()" />
-                                    <input type="text" name="ToDate" value="@Model.ToDate.ToDateMonthYearFormatedDate()" />
-                                    <input type="text" name="EmployeeId" value="@request.Requester.Id" />
-                                    <input type="text" name="Employee" value="@request.Requester.NickName (@request.Requester.FullName)" />
-                                    <input type="text" name="TeamId" value="@(Model.TeamId ?? -2)" />
-                                    <input type="text" name="StatusId" value="@Model.StatusId" />
-                                    <input type="text" name="RequestType" value="@request.RequestType.RequestFilter" />
-                                    <input type="text" name="RequestViewType" value="@Model.RequestViewType" />
-                                    @Html.Hidden("IsFilterByEffectedDate", Model.IsFilterByEffectedDate)
-                                </form>
-                            }
-                        }
-                    </td>
-                    <td class="align-left">
-                        @Html.Raw(RequestService.ConvertToRequestMessage(request))
-                    </td>
-                    @if (!string.IsNullOrWhiteSpace(request.Remark))
-                    {
-                        <td class="tooltip" title="@request.Remark">
-                            <span class="mdi mdi-message-text" alt="remark"></span>
-                        </td>
-                    }
-                    else
-                    {
-                        <td>-</td>
-                    }
-                    <td>
-                        @request.CreatedDate.ToShortFormatedDate()
-                    </td>
-                    @if (Model.RequestViewType == RequestViewType.StaffView)
-                    {
-                        switch (request.Status.Id)
-                        {
-                            case 1: //Pending
-                                if (request.RequestType.Id == 6)
+                                if (Model.RequestViewType == RequestViewType.HRView)
                                 {
-                                    <td>
-                                        <span class="tooltip status-nochange c-pending"
-                                              title="@request.Requester.NickName had @request.TotalDaysRequestInMonth.ToString("0.#") approved day(s) in @request.FromDate.ToMonthAndYearFormatedDate()">@request.Status.ToString()</span>
-                                        </td>
+                                    <a href="javascript:;" data-controller="request" data-action="hrview">
+                                        @(request.RequestType.Id == (int)RequestType.Leave ? request.LeaveType.Name : request.RequestType.Name)
+                                    </a>
+                                    <form class="request-model hide" action="">
+                                        <input type="text" name="DateOption" value="0" />
+                                        <input type="text" name="FromDate" value="@Model.FromDate.ToDateMonthYearFormatedDate()" />
+                                        <input type="text" name="ToDate" value="@Model.ToDate.ToDateMonthYearFormatedDate()" />
+                                        <input type="text" name="EmployeeId" value="@request.Requester.Id" />
+                                        <input type="text" name="Employee" value="@request.Requester.NickName (@request.Requester.FullName)" />
+                                        <input type="text" name="TeamId" value="@(Model.TeamId ?? -2)" />
+                                        <input type="text" name="StatusId" value="@Model.StatusId" />
+                                        <input type="text" name="RequestType" value="@request.RequestType.RequestFilter" />
+                                        <input type="text" name="RequestViewType" value="@Model.RequestViewType" />
+                                        @Html.Hidden("IsFilterByEffectedDate", Model.IsFilterByEffectedDate)
+                                    </form>
+                                }
+                                else
+                                {
+                                    <a href="javascript:;" data-controller="request" data-action="employeeview">
+                                        @(request.RequestType.Id == (int)RequestType.Leave ? request.LeaveType.Name : request.RequestType.Name)
+                                    </a>
+                                    <form class="request-model hide" action="">
+                                        <input type="text" name="DateOption" value="0" />
+                                        <input type="text" name="FromDate" value="@Model.FromDate.ToDateMonthYearFormatedDate()" />
+                                        <input type="text" name="ToDate" value="@Model.ToDate.ToDateMonthYearFormatedDate()" />
+                                        <input type="text" name="EmployeeId" value="@request.Requester.Id" />
+                                        <input type="text" name="Employee" value="@request.Requester.NickName (@request.Requester.FullName)" />
+                                        <input type="text" name="TeamId" value="@(Model.TeamId ?? -2)" />
+                                        <input type="text" name="StatusId" value="@Model.StatusId" />
+                                        <input type="text" name="RequestType" value="@request.RequestType.RequestFilter" />
+                                        <input type="text" name="RequestViewType" value="@Model.RequestViewType" />
+                                        @Html.Hidden("IsFilterByEffectedDate", Model.IsFilterByEffectedDate)
+                                    </form>
+                                }
+                            }
+                        </td>
+                        <td class="align-left">
+                            @Html.Raw(RequestService.ConvertToRequestMessage(request))
+                        </td>
+                        @if (!string.IsNullOrWhiteSpace(request.Remark))
+                        {
+                            <td class="tooltip" title="@request.Remark">
+                                <span class="mdi mdi-message-text" alt="remark"></span>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>-</td>
+                        }
+                        <td>
+                            @request.CreatedDate.ToShortFormatedDate()
+                        </td>
+                        @if (Model.RequestViewType == RequestViewType.StaffView || Model.RequestViewType == RequestViewType.LeaderView && isApproveByManager)
+                        {
+                            switch (request.Status.Id)
+                            {
+                                case 1: //Pending
+                                    if (request.RequestType.Id == 6)
+                                    {
+                                        <td>
+                                            <span class="tooltip status-nochange c-pending"
+                                                  title="@request.Requester.NickName had @request.TotalDaysRequestInMonth.ToString("0.#") approved day(s) in @request.FromDate.ToMonthAndYearFormatedDate()">@request.Status.ToString()</span>
+                                            </td>
                                     }
                                     else
                                     {
                                         <td>
                                             <span class="tooltip status-nochange c-pending"
-                                                  title="@request.Requester.NickName had @request.TotalDaysRequestInMonth.ToString("0.#") approved request(s) in @request.RequestedDate.ToMonthAndYearFormatedDate()">@request.Status.ToString()</span>
+                                                    title="@request.Requester.NickName had @request.TotalDaysRequestInMonth.ToString("0.#") approved request(s) in @request.RequestedDate.ToMonthAndYearFormatedDate()">@request.Status.ToString()</span>
                                             </td>
                                         }
                                         break;
-                                    case 2: //Approve
+                                case 2: //Approve
+                                    <td>
+                                        <span class="tooltip status-nochange c-approve"
+                                                title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">@request.Status.ToString()</span>
+                                        </td>
+                                        break;
+                                case 3: //Reject
+                                    <td>
+                                        <span class="tooltip status-nochange c-approve"
+                                                title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">@request.Status.ToString()</span>
+                                        </td>
+                                        break;
+                                }
+                            }
+                        else
+                        {
+                            switch (request.Status.Id)
+                            {
+                                case 1: //Pending
+                                    if (request.RequestType.Id == 6)
+                                    {
                                         <td>
-                                            <span class="tooltip status-nochange c-approve"
-                                                  title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">@request.Status.ToString()</span>
-                                            </td>
-                                            break;
-                                        case 3: //Reject
-                                            <td>
-                                                <span class="tooltip status-nochange c-approve"
-                                                      title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">@request.Status.ToString()</span>
-                                                </td>
-                                                break;
-                                        }
+                                            <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip c-pending"
+                                                title="@(annualBalance + " had " + request.TotalDaysRequestInMonth.ToString("0.#") + " approved day(s) in " + request.FromDate.ToMonthAndYearFormatedDate())">
+                                                @request.Status.ToString()
+                                            </a>
+                                        </td>
                                     }
                                     else
                                     {
-                                        switch (request.Status.Id)
-                                        {
-                                            case 1: //Pending
-                                                if (request.RequestType.Id == 6)
-                                                {
-                                                    <td>
-                                                        <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip c-pending"
-                                                           title="@(annualBalance + " had " + request.TotalDaysRequestInMonth.ToString("0.#") + " approved day(s) in " + request.FromDate.ToMonthAndYearFormatedDate())">
-                                                            @request.Status.ToString()
-                                                        </a>
-                                                    </td>
-                                                }
-                                                else
-                                                {
-                                                    <td>
-                                                        <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip c-pending"
-                                                           title="@request.Requester.NickName had @request.TotalDaysRequestInMonth.ToString("0.#") approved request(s) in @request.RequestedDate.ToMonthAndYearFormatedDate()">
-                                                            @request.Status.ToString()
-                                                        </a>
-                                                    </td>
-                                                }
-                                                break;
-                                            case 2: //Approve
-                                                <td>
-                                                    <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip c-approve"
-                                                       title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">
-                                                        @request.Status.ToString()
-                                                    </a>
-                                                </td>
-                                                break;
-                                            case 3: //Reject
-                                                <td>
-                                                    <a requestid="@request.Id" href="javascript:;" class="tooltip"
-                                                       title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">
-                                                        @request.Status.ToString()
-                                                    </a>
-                                                </td>
-                                                break;
-                                        }
+                                        <td>
+                                            <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip c-pending"
+                                                title="@request.Requester.NickName had @request.TotalDaysRequestInMonth.ToString("0.#") approved request(s) in @request.RequestedDate.ToMonthAndYearFormatedDate()">
+                                                @request.Status.ToString()
+                                            </a>
+                                        </td>
                                     }
-                    <td>
-                        <a class="viewhistory" href="javascript:;" id="/request/viewhistory?requestId=@request.Id&requestType=@request.RequestType.Id">@Labels.View</a>
-                    </td>
-                </tr>
+                                    break;
+                                case 2: //Approve
+                                    <td>
+                                        <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip c-approve"
+                                            title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">
+                                            @request.Status.ToString()
+                                        </a>
+                                    </td>
+                                    break;
+                                case 3: //Reject
+                                    <td>
+                                        <a requestid="@request.Id" href="javascript:;" class="tooltip"
+                                            title="@request.Status.Name by @request.ModifiedBy.NickName (@request.ModifiedDate.ToShortFormatedDate())">
+                                            @request.Status.ToString()
+                                        </a>
+                                    </td>
+                                    break;
+                            }
+                        }
+                        <td>
+                            <a class="viewhistory" href="javascript:;" id="/request/viewhistory?requestId=@request.Id&requestType=@request.RequestType.Id">@Labels.View</a>
+                        </td>
+                    </tr>
                 }
             </tbody>
             <tfoot>
