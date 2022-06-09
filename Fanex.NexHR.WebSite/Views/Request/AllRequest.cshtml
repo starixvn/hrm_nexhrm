@@ -153,14 +153,14 @@
                                     if (request.RequestType.Id == 6)
                                     {
                                         <td>
-                                            <span class="tooltip status-nochange c-pending"
+                                            <span class="tooltip status-nochange"
                                                   title="@request.Requester.NickName had @request.TotalDaysRequestInMonth.ToString("0.#") approved day(s) in @request.FromDate.ToMonthAndYearFormatedDate()">@request.Status.ToString()</span>
                                             </td>
                                     }
                                     else
                                     {
                                         <td>
-                                            <span class="tooltip status-nochange c-pending"
+                                            <span class="tooltip status-nochange"
                                                     title="@request.Requester.NickName had @request.TotalDaysRequestInMonth.ToString("0.#") approved request(s) in @request.RequestedDate.ToMonthAndYearFormatedDate()">@request.Status.ToString()</span>
                                             </td>
                                         }
