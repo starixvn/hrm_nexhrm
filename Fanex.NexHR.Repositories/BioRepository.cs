@@ -13,23 +13,23 @@
     {
         public IEnumerable<BioTimeChange> GetAllBioTimeChanges(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                return db.Query<BioTimeChange>(criteria.GetSpParams());
+                return db.Query<BioTimeChange>(criteria);
             }
         }
 
         public async Task<IEnumerable<BioTimeChange>> GetAllBioTimeChangesAsync(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                return await db.QueryAsync<BioTimeChange>(criteria.GetSpParams()).ConfigureAwait(false);
+                return await db.QueryAsync<BioTimeChange>(criteria);
             }
         }
 
         public IEnumerable<FingerprintAndCardSummary> GetFingerprintAndCardSummary(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var entityList = db.Query<FingerprintAndCardSummary, Employee, Team, FingerprintAndCardSummary>(
                         (f, e, g) =>
@@ -39,7 +39,7 @@
                             return f;
                         },
                         splitOn: "EmpId, GroupId",
-                        parameterSet: criteria.GetSpParams())
+                        parameterSet: criteria)
                     .ToList();
 
                 return entityList;
@@ -48,7 +48,7 @@
 
         public async Task<IEnumerable<FingerprintAndCardSummary>> GetFingerprintAndCardSummaryAsync(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var entityList = await db.QueryAsync<FingerprintAndCardSummary, Employee, Team, FingerprintAndCardSummary>(
                         (f, e, g) =>
@@ -58,7 +58,7 @@
                             return f;
                         },
                         splitOn: "EmpId, GroupId",
-                        parameterSet: criteria.GetSpParams()).ConfigureAwait(false);
+                        parameterSet: criteria).ConfigureAwait(false);
 
                 return entityList;
             }

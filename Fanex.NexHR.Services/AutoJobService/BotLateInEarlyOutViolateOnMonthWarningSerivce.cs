@@ -25,19 +25,15 @@
         private readonly INexbotService nexbotService;
         private readonly ILateInEarlyOutService lateInEarlyOutService;
 
-        public BotLateInEarlyOutViolateOnMonthWarningSerivce() : this(null, null, null)
-        {
-        }
-
         public BotLateInEarlyOutViolateOnMonthWarningSerivce(
             IMessageCategoryLogService messageCategoryLog,
             INexbotService nexbotService,
             ILateInEarlyOutService lateInEarlyOutService
         )
         {
-            this.messageCategoryLog = messageCategoryLog ?? new MessageCategoryLogService();
-            this.nexbotService = nexbotService ?? new NexbotService();
-            this.lateInEarlyOutService = lateInEarlyOutService ?? new LateInEarlyOutService();
+            this.messageCategoryLog = messageCategoryLog;
+            this.nexbotService = nexbotService;
+            this.lateInEarlyOutService = lateInEarlyOutService;
         }
 
         public async Task<CommandResult> SendMessageViolateOnMonthAsync()

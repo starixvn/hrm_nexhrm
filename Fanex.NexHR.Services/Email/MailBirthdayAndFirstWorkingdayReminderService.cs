@@ -6,12 +6,12 @@
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
-    using System.Web;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
+    using Microsoft.AspNetCore.Hosting;
 
     public class MailBirthdayAndFirstWorkingdayReminderService : IMailBirthdayAndFirstWorkingdayReminderService
     {
@@ -24,18 +24,18 @@
         private readonly string CompanyMailSign = ConfigurationManager.AppSettings["CompanyMailSign"];
         private readonly IEmailService emailService;
         private readonly IEmployeeService employeeService;
-        private bool isReminderBirthdayAndFirstWorkingdaySuccess = true;
+        private readonly IWebHostEnvironment environment;
 
-        public MailBirthdayAndFirstWorkingdayReminderService() : this(null, null)
-        {
-        }
+        private bool isReminderBirthdayAndFirstWorkingdaySuccess = true;
 
         public MailBirthdayAndFirstWorkingdayReminderService(
             IEmailService emailService,
-            IEmployeeService employeeService)
+            IEmployeeService employeeService,
+            IWebHostEnvironment environment)
         {
-            this.emailService = emailService ?? new EmailService();
-            this.employeeService = employeeService ?? new EmployeeService();
+            this.emailService = emailService;
+            this.employeeService = employeeService;
+            this.environment = environment;
         }
 
         public async Task<CommandResult> ReminderBirthdayAndFirstWorkingday()
@@ -95,7 +95,7 @@
                 employeesBirthday.Select(t => string.Format(Constants.ContentEmployeeWithDay, t.NickName, t.FullName, t.DateOfBirth.ToString(FormatDate))));
 
             var emailSubject = string.Format(Messages.ReminderHappyBirthdayTo, string.Join(", ", employeesBirthday.Select(t => t.NickName)));
-            var templatePath = Path.Combine(HttpRuntime.AppDomainAppPath, Constants.EmailTemplatePathForReminderBirthday);
+            var templatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForReminderBirthday);
             var bodyTemplate = Utilities.ReadTextFile(templatePath);
             var emailContent = string.Format(
                 bodyTemplate,
@@ -117,7 +117,7 @@
                 employeesFirstWorkingday.Select(t => string.Format(Constants.ContentEmployeeWithDay, t.NickName, t.FullName, t.JoinedDate?.ToString(FormatDate) ?? string.Empty)));
 
             var emailSubject = string.Format(Messages.ReminderFirstWorkingDayAnniversaryOf, string.Join(" - ", employeesFirstWorkingday.Select(t => t.NickName)));
-            var templatePath = Path.Combine(HttpRuntime.AppDomainAppPath, Constants.EmailTemplatePathForReminderFirstWorkingday);
+            var templatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForReminderFirstWorkingday);
             var bodyTemplate = Utilities.ReadTextFile(templatePath);
             var emailContent = string.Format(
                 bodyTemplate,

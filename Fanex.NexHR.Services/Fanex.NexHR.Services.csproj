@@ -1,17 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{7789CD20-1DC9-4077-921C-2548023BBC62}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Fanex.NexHR.Services</RootNamespace>
-    <AssemblyName>Fanex.NexHR.Services</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
     <SccProjectName>
     </SccProjectName>
     <SccLocalPath>
@@ -37,239 +26,40 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>Fanex.NexHR.Services.Debug.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>Fanex.NexHR.Services.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dapper.2.0.35\lib\net461\Dapper.dll</HintPath>
-    </Reference>
-    <Reference Include="Fanex.Caching, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.Caching.2.1.0\lib\net461\Fanex.Caching.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.Data, Version=2.1.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.Data.2.1.0.1\lib\net461\Fanex.Data.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.Data.Repository, Version=1.0.2.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.Data.Repository.1.0.2.1\lib\net461\Fanex.Data.Repository.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Fanex.Logging.1.0.0.0\lib\net40\Fanex.Logging.dll</HintPath>
-    </Reference>
-    <Reference Include="Fanex.MailDeliver.MailClient, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.MailDeliver.MailClient.1.0.0.2\lib\net40\Fanex.MailDeliver.MailClient.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NCrontab, Version=3.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NCrontab.3.3.1\lib\net35\NCrontab.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NPOI, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
-      <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NPOI.OOXML, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
-      <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.OOXML.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NPOI.OpenXml4Net, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
-      <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.OpenXml4Net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NPOI.OpenXmlFormats, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
-      <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="RestSharp, Version=106.3.1.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
-      <HintPath>..\packages\RestSharp.106.3.1\lib\net452\RestSharp.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Web.Extensions" />
-  </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\SonarQube\GlobalSuppressions.cs">
       <Link>GlobalSuppressions.cs</Link>
     </Compile>
-    <Compile Include="AuthService.cs" />
-    <Compile Include="AutoJobService\BioTasksService.cs" />
-    <Compile Include="AutoJobService\BotLateInEarlyOutViolateOnMonthWarningSerivce.cs" />
-    <Compile Include="AutoJobService\BotMissingCheckInCheckOutReminderSerivce.cs" />
-    <Compile Include="AutoJobService\EmployeeOnlineService.cs" />
-    <Compile Include="AutoJobService\FogotLogtimeReminderService.cs" />
-    <Compile Include="BaseService.cs" />
-    <Compile Include="AnnualLeaveService.cs" />
-    <Compile Include="BioService.cs" />
-    <Compile Include="CommandService.cs" />
-    <Compile Include="CompanyEventService.cs" />
-    <Compile Include="DepartmentService.cs" />
-    <Compile Include="CalendarService.cs" />
-    <Compile Include="EmployeeWorkFromHomeService.cs" />
-    <Compile Include="ExtensionNoService.cs" />
-    <Compile Include="Interfaces\IEmployeeOnlineService.cs" />
-    <Compile Include="Interfaces\IEmployeeWorkFromHomeService.cs" />
-    <Compile Include="Interfaces\IShellCommandService.cs" />
-    <Compile Include="Interfaces\ISyncDataService.cs" />
-    <Compile Include="Interfaces\IWorkFromHomeRequest.cs" />
-    <Compile Include="MessageCategoryLogService.cs" />
-    <Compile Include="HistoryWorkService.cs" />
-    <Compile Include="Interfaces\IAnnualLeaveService.cs" />
-    <Compile Include="Interfaces\IAuthService.cs" />
-    <Compile Include="Interfaces\IBioService.cs" />
-    <Compile Include="Interfaces\IBotBioTasksService.cs" />
-    <Compile Include="Interfaces\IBotLateInLateOutAutoJobService.cs" />
-    <Compile Include="Interfaces\IBotAutoJobService.cs" />
-    <Compile Include="Interfaces\ICommandService.cs" />
-    <Compile Include="Interfaces\ICompanyEventService.cs" />
-    <Compile Include="Interfaces\IDepartmentService.cs" />
-    <Compile Include="Interfaces\ICalendarService.cs" />
-    <Compile Include="Interfaces\IExtensionNoService.cs" />
-    <Compile Include="Interfaces\IMessageCategoryLogService.cs" />
-    <Compile Include="Interfaces\IBotFogotLogtimeReminderService.cs" />
-    <Compile Include="Interfaces\IJobTitleService.cs" />
-    <Compile Include="Interfaces\ILateInEarlyOutService.cs" />
-    <Compile Include="Interfaces\IMailBirthdayAndFirstWorkingdayReminderService.cs" />
-    <Compile Include="Interfaces\INexbotService.cs" />
-    <Compile Include="Interfaces\IHistoryWorkService.cs" />
-    <Compile Include="Interfaces\IRedmineService.cs" />
-    <Compile Include="Interfaces\INotificationService.cs" />
-    <Compile Include="Interfaces\IOvertimeService.cs">
+    <Compile Update="Interfaces\IOvertimeService.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="Interfaces\IReportService.cs" />
-    <Compile Include="Interfaces\ISessionService.cs" />
-    <Compile Include="Interfaces\ITimeSheetService.cs" />
-    <Compile Include="Interfaces\IScheduledMessageService.cs" />
-    <Compile Include="Interfaces\IToeicService.cs" />
-    <Compile Include="Interfaces\IPostnatalService.cs" />
-    <Compile Include="JobTitleService.cs" />
-    <Compile Include="LateInEarlyOutService.cs" />
-    <Compile Include="LookupCodeName.cs" />
-    <Compile Include="EmailService.cs" />
-    <Compile Include="EmployeeService.cs">
+    <Compile Update="EmployeeService.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="Interfaces\IEmailService.cs" />
-    <Compile Include="LookupDataService.cs" />
-    <Compile Include="Interfaces\ILookupDataService.cs" />
-    <Compile Include="Interfaces\IMemoService.cs">
+    <Compile Update="Interfaces\IMemoService.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="Interfaces\ITeamService.cs" />
-    <Compile Include="Email\MailBirthdayAndFirstWorkingdayReminderService.cs" />
-    <Compile Include="MemoService.cs" />
-    <Compile Include="ExportService.cs" />
-    <Compile Include="NexbotService.cs" />
-    <Compile Include="NotificationService.cs" />
-    <Compile Include="OvertimeService.cs" />
-    <Compile Include="PostnatalService.cs" />
-    <Compile Include="RedmineService.cs" />
-    <Compile Include="ReportService.cs" />
-    <Compile Include="SessionService.cs" />
-    <Compile Include="ShellCommandService.cs" />
-    <Compile Include="SyncDataService.cs" />
-    <Compile Include="TimeSheetService.cs" />
-    <Compile Include="ScheduledMessageService.cs" />
-    <Compile Include="TeamService.cs" />
-    <Compile Include="HolidayService.cs" />
-    <Compile Include="Interfaces\IHolidayService.cs" />
-    <Compile Include="Interfaces\IEmployeeService.cs" />
-    <Compile Include="Interfaces\IRequestService.cs" />
-    <Compile Include="Interfaces\IShiftService.cs" />
-    <Compile Include="Interfaces\ILeaveTypeService.cs" />
-    <Compile Include="LeaveTypeService.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RequestService.cs" />
-    <Compile Include="ShiftService.cs" />
-    <Compile Include="ToeicService.cs" />
-    <Compile Include="WorkFromHomeRequestService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Fanex.NexHR.Core\Fanex.NexHR.Core.csproj">
-      <Project>{2493CFDA-E539-4F5C-BE9D-4AE823E42473}</Project>
-      <Name>Fanex.NexHR.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Fanex.NexHR.Criteria\Fanex.NexHR.Criteria.csproj">
-      <Project>{7B4CD745-4FC6-489E-BBA6-9D21555B8BD7}</Project>
-      <Name>Fanex.NexHR.Criteria</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Fanex.NexHR.Models\Fanex.NexHR.Models.csproj">
-      <Project>{5955CE2D-B3DC-48C2-B3B4-CCEE2DB5B35F}</Project>
-      <Name>Fanex.NexHR.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Fanex.NexHR.Repositories\Fanex.NexHR.Repositories.csproj">
-      <Project>{89E66795-E15A-41B8-9684-35B05739C1F7}</Project>
-      <Name>Fanex.NexHR.Repositories</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Fanex.NexHR.Resources\Fanex.NexHR.Resources.csproj">
-      <Project>{C7D47FA8-C2DD-4C1A-BEC9-B9D5316E9168}</Project>
-      <Name>Fanex.NexHR.Resources</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Fanex.NexHR.ViewModels\Fanex.NexHR.ViewModels.csproj">
-      <Project>{41C13575-C69E-442C-BB46-665FFDF81164}</Project>
-      <Name>Fanex.NexHR.ViewModels</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\Fanex.NexHR.Core\Fanex.NexHR.Core.csproj" />
+    <ProjectReference Include="..\Fanex.NexHR.Criteria\Fanex.NexHR.Criteria.csproj" />
+    <ProjectReference Include="..\Fanex.NexHR.Models\Fanex.NexHR.Models.csproj" />
+    <ProjectReference Include="..\Fanex.NexHR.Repositories\Fanex.NexHR.Repositories.csproj" />
+    <ProjectReference Include="..\Fanex.NexHR.Resources\Fanex.NexHR.Resources.csproj" />
+    <ProjectReference Include="..\Fanex.NexHR.ViewModels\Fanex.NexHR.ViewModels.csproj" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -294,25 +84,32 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="Fanex.NexHR.Services.Debug.ruleset" />
-    <None Include="Fanex.NexHR.Services.ruleset" />
-    <Compile Include="Email\MailEmployeeService.cs" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.13.0.21683\analyzers\Google.Protobuf.dll" />
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.13.0.21683\analyzers\SonarAnalyzer.CFG.dll" />
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.13.0.21683\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.13.0.21683\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <ItemGroup>
+    <PackageReference Include="Fanex.Caching" Version="2.2.2" />
+    <PackageReference Include="Fanex.Data.Repository" Version="4.2.2" />
+    <PackageReference Include="Fanex.Logging" Version="2.0.1" />
+    <PackageReference Include="Fanex.MailDeliver.MailClient" Version="2.0.7" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="NCrontab" Version="3.3.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="RestSharp" Version="106.3.1" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.13.0.21683" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Security.Cryptography.Algorithms" Version="4.3.1" />
+    <PackageReference Include="System.Security.Cryptography.X509Certificates" Version="4.3.2" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.330701">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="NPOI" Version="2.5.6" />
+  </ItemGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
 </Project>

@@ -11,7 +11,7 @@
     {
         public IEnumerable<EmployeeSkypeAccount> GetEmployeeSkypeAccount(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var employees = db.Query<EmployeeSkypeAccount, Employee, Team, EmployeeSkypeAccount>(
                         (s, e, g) =>
@@ -21,7 +21,7 @@
                             return s;
                         },
                         splitOn: "EmpId, GroupId",
-                        parameterSet: criteria.GetSpParams());
+                        parameterSet: criteria);
 
                 return employees;
             }

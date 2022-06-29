@@ -1,14 +1,15 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web.Mvc;
     using Criteria.SkypeAccount;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Models.SkypeAccount;
-    using Services;
     using Services.Interfaces;
     using ViewModels.SkypeAccount;
-    using System;
 
     public class SkypeAccountController : BaseController
     {
@@ -16,11 +17,15 @@
         private readonly INexbotService nexbotService;
         private readonly ICommandService commandService;
 
-        public SkypeAccountController()
+        public SkypeAccountController(ISessionService sessionService,
+            ITeamService teamService,
+            INexbotService nexbotService,
+            ICommandService commandService
+            ) : base(sessionService)
         {
-            teamService = new TeamService();
-            nexbotService = new NexbotService();
-            commandService = new CommandService();
+            this.teamService = teamService;
+            this.nexbotService = nexbotService;
+            this.commandService = commandService;
         }
 
         public ActionResult Index()
@@ -77,7 +82,7 @@
                     ConversationId = viewModel.ConversationId
                 };
 
-                var result = commandService.Update(criteria);
+                var result = commandService.ExecuteNonQuery(criteria);
                 isSuccessful = result.IsSuccessful;
                 message = result.Message;
             }

@@ -1,35 +1,29 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using Criteria.Department;
-    using Models;
-    using Services;
-    using Services.Interfaces;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web.Mvc;
+    using Criteria.Department;
+    using Microsoft.AspNetCore.Mvc;
+    using Models;
+    using Services.Interfaces;
     using ViewModels;
 
     public class DepartmentController : BaseController
     {
-        private readonly IDepartmentService _departmentService;
-        private readonly ICommandService _commandService;
+        private readonly IDepartmentService departmentService;
+        private readonly ICommandService commandService;
 
-        public DepartmentController()
-            : this(null, null)
-        {
-        }
-
-        public DepartmentController(
+        public DepartmentController(ISessionService sessionService,
             IDepartmentService departmentService,
-            ICommandService commandService)
+            ICommandService commandService) : base(sessionService)
         {
-            _departmentService = departmentService ?? new DepartmentService();
-            _commandService = commandService ?? new CommandService();
+            this.departmentService = departmentService;
+            this.commandService = commandService;
         }
 
         public ActionResult Index()
         {
-            IList<Department> departments = _departmentService.GetAll();
+            IList<Department> departments = departmentService.GetAll();
 
             ViewBag.Departments = departments;
             return View();
@@ -37,7 +31,7 @@
 
         public ActionResult Create()
         {
-            IList<Department> departments = _departmentService.GetAll();
+            IList<Department> departments = departmentService.GetAll();
             ViewBag.Departments = departments;
 
             var model = new DepartmentViewModel();
@@ -58,7 +52,7 @@
                     CreatedBy = CurrentUser.Id
                 };
 
-                CommandResult commandResult = _commandService.Insert(criteria);
+                CommandResult commandResult = commandService.ExecuteNonQuery(criteria);
                 if (commandResult.IsSuccessful)
                 {
                     ViewBag.Inserted = true;
@@ -69,7 +63,7 @@
                 }
             }
 
-            IEnumerable<Department> departments = _departmentService.GetAll();
+            IEnumerable<Department> departments = departmentService.GetAll();
             ViewBag.Departments = departments;
 
             return View(model);
@@ -77,7 +71,7 @@
 
         public ActionResult Edit(int id)
         {
-            IEnumerable<Department> departments = _departmentService.GetAll();
+            IEnumerable<Department> departments = departmentService.GetAll();
 
             Department department = departments.SingleOrDefault(dep => dep.Id == id);
             ViewBag.Departments = departments.Where(dep => dep.Id != id);
@@ -125,7 +119,7 @@
                     ModifiedBy = CurrentUser.Id
                 };
 
-                CommandResult commandResult = _commandService.Update(criteria);
+                CommandResult commandResult = commandService.ExecuteNonQuery(criteria);
 
                 if (commandResult.IsSuccessful)
                 {
@@ -137,7 +131,7 @@
                 }
             }
 
-            IEnumerable<Department> departments = _departmentService.GetAll();
+            IEnumerable<Department> departments = departmentService.GetAll();
             ViewBag.Departments = departments.Where(dep => model != null && dep.Id != model.DepartmentId);
 
             return View(model);
@@ -151,7 +145,7 @@
                 ModifiedBy = CurrentUser.Id
             };
 
-            CommandResult commandResult = _commandService.Delete(criteria);
+            CommandResult commandResult = commandService.ExecuteNonQuery(criteria);
             return Json(commandResult);
         }
     }

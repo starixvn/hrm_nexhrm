@@ -9,11 +9,11 @@
 
     public class TeamService : BaseService, ITeamService
     {
-        private readonly ITeamRepository _teamRepository;
+        private readonly ITeamRepository teamRepository;
 
-        public TeamService(ITeamRepository teamRepository = null)
+        public TeamService(ITeamRepository teamRepository)
         {
-            _teamRepository = teamRepository ?? new TeamRepository();
+            this.teamRepository = teamRepository;
         }
 
         public Team GetById(GetTeamByIdCriteria criteria)
@@ -21,7 +21,7 @@
             Team team = null;
             if (criteria != null && criteria.IsValid())
             {
-                team = _teamRepository.GetById(criteria);
+                team = teamRepository.GetById(criteria);
             }
 
             return team;
@@ -33,7 +33,7 @@
             IList<Team> teams = null;
             if (criteria.IsValid())
             {
-                teams = _teamRepository.GetAll(criteria);
+                teams = teamRepository.GetAll(criteria);
             }
 
             return teams ?? new List<Team>();
@@ -48,7 +48,7 @@
             IList<Team> teams = null;
             if (criteria.IsValid())
             {
-                teams = _teamRepository.GetAll(criteria);
+                teams = teamRepository.GetAll(criteria);
             }
 
             return teams ?? new List<Team>();

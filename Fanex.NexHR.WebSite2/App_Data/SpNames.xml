@@ -1,0 +1,460 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Functions>
+	<Function Name="Employee">
+		<Setting Key="Employee_GetEmployees" SpName="Employee_GetEmployees" DbName="nexhr" Plain="0">
+			<Mapping DataField="DOB" ObjectProperty="DateOfBirth" />
+			<Mapping DataField="IdCardNumber" ObjectProperty="CardNo" />
+			<Mapping DataField="GroupId" ObjectProperty="Id" />
+			<Mapping DataField="JobTitleId" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="Employee_GetById" SpName="Employee_GetById" DbName="nexhr" Plain="0">
+			<Mapping DataField="DOB" ObjectProperty="DateOfBirth" />
+			<Mapping DataField="IdCardNumber" ObjectProperty="CardNo" />
+			<Mapping DataField="GroupId" ObjectProperty="Id" />
+			<Mapping DataField="JobTitleId" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="Employee_GetByDomainName" SpName="Employee_GetByDomainName" DbName="nexhr" Plain="0">
+			<Mapping DataField="DOB" ObjectProperty="DateOfBirth" />
+			<Mapping DataField="IdCardNumber" ObjectProperty="CardNo" />
+			<Mapping DataField="GroupId" ObjectProperty="Id" />
+			<Mapping DataField="JobTitleId" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="Employee_GetByNickName" SpName="Employee_GetByNickName" DbName="nexhr" Plain="0">
+			<Mapping DataField="DOB" ObjectProperty="DateOfBirth" />
+			<Mapping DataField="IdCardNumber" ObjectProperty="CardNo" />
+			<Mapping DataField="GroupId" ObjectProperty="Id" />
+			<Mapping DataField="JobTitleId" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="EmployeeOnline_GetAllStatus" SpName="EmployeeOnline_GetAllStatus" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="EmployeeOnline_UpdateStatus" SpName="EmployeeOnline_UpdateStatus" DbName="nexhr" Plain="0"></Setting>
+
+		<Setting Key="EmployeeSetting_Get" SpName="EmployeeSetting_Get" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Employee_GetBirthdayAndFirstWorkingday" SpName="Employee_GetBirthdayAndFirstWorkingday" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Employee_Insert" SpName="Employee_Insert" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Employee_Delete" SpName="Employee_Delete" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Employee_UpdateEmployee" SpName="Employee_UpdateEmployee" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="EmployeeShift_Get" SpName="EmployeeShift_Get" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="EmployeeShift_Update" SpName="EmployeeShift_Update" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="EmployeeAttendance_GetByType" SpName="EmployeeAttendance_GetByType" DbName="nexhr" Plain="0">
+			<Mapping DataField="RequestTypeId" ObjectProperty="Id" />
+			<Mapping DataField="FromShiftId" ObjectProperty="Id" />
+			<Mapping DataField="FromShiftName" ObjectProperty="Name" />
+			<Mapping DataField="ToShiftId" ObjectProperty="Id" />
+			<Mapping DataField="ToShiftName" ObjectProperty="Name" />
+			<Mapping DataField="RequesterId" ObjectProperty="Id" />
+			<Mapping DataField="LeaveTypeId" ObjectProperty="Id" />
+			<Mapping DataField="LeaveTypeName" ObjectProperty="Name" />
+		</Setting>
+		<Setting Key="Employee_GetLeaders" SpName="Employee_GetLeaders" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Employee_GetLeaderAndHR" SpName="Employee_GetLeaderAndHR" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Employee_GetHR" SpName="Employee_GetHR" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Employee_GetMembesByManager" SpName="Employee_GetMembesByManager" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="EmployeeGroup_Insert" SpName="EmployeeGroup_Insert" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="EmployeeGroup_Update" SpName="EmployeeGroup_Update" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="EmployeeGroup_Delete" SpName="EmployeeGroup_Delete" DbName="nexhr" Plain="0"></Setting>
+
+		<Setting Key="EmployeeCalendar_GetRangeDate" SpName="EmployeeCalendar_GetRangeDate" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="EmployeeCalendar_GetUnavailRequestDate" SpName="EmployeeCalendar_GetUnavailRequestDate" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="EmployeeCalendar_GetCurrentUserWorkedDates" SpName="EmployeeCalendar_GetCurrentUserWorkedDates" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Employee_GetEmployeeForRelatedTeam" SpName="Employee_GetEmployeeForRelatedTeam" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Employee_GetEmployeeByTeams" SpName="Employee_GetEmployeeByTeams" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="EmployeeCalendar_Insert" SpName="EmployeeCalendar_Insert" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Employee_GetManagements" SpName="Employee_GetManagements" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Employee_GetLeaderForStanbyTeam" SpName="Employee_GetLeaderForStanbyTeam" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Employee_GetEmployeeWorkLoad" SpName="Report_GetEmployeeWorkLoad" DbName="nexhr" Plain="1">
+			<Mapping DataField="Workload" ObjectProperty="PercentWorkload" />
+			<Mapping DataField="GroupId" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="EmployeeAttendance_GetMissingCheckInCheckOut" SpName="EmployeeAttendance_GetMissingCheckInCheckOut" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="HistoryWork_GetByEmpId" SpName="HistoryWork_GetByEmpId" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="HistoryWork_Insert" SpName="HistoryWork_Insert" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="HistoryWork_GetJobtitleAndTeam" SpName="HistoryWork_GetJobtitleAndTeam" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="HistoryWork_Update" SpName="HistoryWork_Update" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="HistoryWork_Filter" SpName="HistoryWork_Filter" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="HistoryWork_Delete" SpName="HistoryWork_Delete" DbName="nexhr" Plain="0"></Setting>
+	</Function>
+	<Function Name="Calendar">
+		<Setting Key="EmployeeCalendar_GetWorkingSchedule" SpName="EmployeeCalendar_GetWorkingSchedule" DbName="nexhr" Plain="0">
+			<Mapping DataField="EmpId" ObjectProperty="Id" />
+			<Mapping DataField="GroupId" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="EmployeeCalendar_GetLeaveSchedule" SpName="EmployeeCalendar_GetLeaveSchedule" DbName="nexhr" Plain="0">
+			<Mapping DataField="EmpId" ObjectProperty="Id" />
+			<Mapping DataField="GroupId" ObjectProperty="Id" />
+		</Setting>
+	</Function>
+	<Function Name="AnnualLeave">
+		<Setting Key="AnnualLeave_GetSummary" SpName="AnnualLeave_GetSummary" DbName="nexhr" Plain="0">
+			<Mapping DataField="EmpId" ObjectProperty="Id" />
+			<Mapping DataField="GroupId" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="AnnualLeave_InsertTransaction" SpName="AnnualLeave_InsertTransaction" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="AnnualLeave_InsertMultipleTransactions" SpName="AnnualLeave_InsertMultipleTransactions" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="AnnualLeave_UpdateTransaction" SpName="AnnualLeave_UpdateTransaction" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="AnnualLeave_DeleteTransaction" SpName="AnnualLeave_DeleteTransaction" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="AnnualLeave_GetTransByEmp" SpName="AnnualLeave_GetTransByEmp" DbName="nexhr" Plain="0">
+			<Mapping DataField="EmpId" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="AnnualLeave_GetByID" SpName="AnnualLeave_GetByID" DbName="nexhr" Plain="0">
+			<Mapping DataField="EmpId" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="AnnualLeave_ResetMultipleTransactions" SpName="AnnualLeave_ResetMultipleTransactions" DbName="nexhr" Plain="0">
+		</Setting>
+		<Setting Key="AnnualLeave_GetOpenAndCloseBalance" SpName="AnnualLeave_GetOpenAndCloseBalance" DbName="nexhr" Plain="0">
+		</Setting>
+		<Setting Key="DBA_AnnualLeave_CreateAnnualBalance" SpName="DBA_AnnualLeave_CreateAnnualBalance" DbName="nexhr" Plain="0">
+		</Setting>
+	</Function>
+	<Function Name="ExtensionNumber">
+		<Setting Key="ExtensionNO_GetAll" SpName="ExtensionNO_GetAll" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="ExtensionNO_GetGroupInfo" SpName="ExtensionNO_GetGroupInfo" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="ExtensionNO_Insert_EmployeeInfo" SpName="ExtensionNO_Insert_EmployeeInfo" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="ExtensionNO_GetEmployeeInfo" SpName="ExtensionNO_GetEmployeeInfo" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="ExtensionNO_Update_EmployeeInfo" SpName="ExtensionNO_Update_EmployeeInfo" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="ExtensionNO_DELETE_EmployeeInfo" SpName="ExtensionNO_DELETE_EmployeeInfo" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="ExtensionNO_Insert_GroupExternal" SpName="ExtensionNO_Insert_GroupExternal" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="ExtensionNO_Update_GroupExternal" SpName="ExtensionNO_Update_GroupExternal" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="ExtensionNO_DELETE_GroupExternal" SpName="ExtensionNO_DELETE_GroupExternal" DbName="nexhr" Plain="0"></Setting>
+	</Function>
+	<Function Name="Group">
+		<Setting Key="EmployeeGroup_GetById" SpName="EmployeeGroup_GetById" DbName="nexhr" Plain="0">
+			<Mapping DataField="DepartmentId" ObjectProperty="Id" />
+			<Mapping DataField="ParentId" ObjectProperty="Id" />
+			<Mapping DataField="LeaderId" ObjectProperty="Id" />
+			<Mapping DataField="AssistantLeaderId" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="EmployeeGroup_GetGroups" SpName="EmployeeGroup_GetGroups" DbName="nexhr" Plain="0">
+			<Mapping DataField="LeaderId" ObjectProperty="Id" />
+			<Mapping DataField="LeaderNickName" ObjectProperty="NickName" />
+			<Mapping DataField="LeaderFullName" ObjectProperty="FullName" />
+			<Mapping DataField="AssistantLeaderId" ObjectProperty="Id" />
+			<Mapping DataField="AssistantLeaderNickName" ObjectProperty="NickName" />
+			<Mapping DataField="AssistantLeaderFullName" ObjectProperty="FullName" />
+		</Setting>
+		<Setting Key="EmployeeGroup_GetGroupsByManagerID" SpName="EmployeeGroup_GetGroupsByManagerID" DbName="nexhr" Plain="0"></Setting>
+	</Function>
+	<Function Name="Lookup">
+		<Setting Key="Lookup_GetLookupData" SpName="Lookup_GetLookupData" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Lookup_GetJobTitle" SpName="Lookup_GetJobTitle" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="LookupData_Delete" SpName="LookupData_Delete" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="LookupData_Insert" SpName="LookupData_Insert" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="LookupData_Update" SpName="LookupData_Update" DbName="nexhr" Plain="0"></Setting>
+	</Function>
+	<Function Name="Shift">
+		<Setting Key="Shift_GetShifts" SpName="Shift_GetShifts" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="EmployeeCalendar_GetShiftByDate" SpName="EmployeeCalendar_GetShiftByDate" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="EmployeeCalendar_Update" SpName="EmployeeCalendar_Update" DbName="nexhr" Plain="0"></Setting>
+	</Function>
+
+	<Function Name="WorkingTimeRequest">
+		<Setting Key="WorkingTimeRequest_Insert" SpName="WorkingTimeRequest_Insert" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="WorkingTimeRequest_ApproveRequest" SpName="WorkingTimeRequest_ApproveRequest" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="WorkingTimeRequest_DisapproveRequest" SpName="WorkingTimeRequest_DisapproveRequest" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="WorkingTimeRequest_RejectRequest" SpName="WorkingTimeRequest_RejectRequest" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="WorkingTimeRequest_Delete" SpName="WorkingTimeRequest_Delete" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="WorkingTimeRequest_Update" SpName="WorkingTimeRequest_Update" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="WorkingTimeRequest_GetById" SpName="WorkingTimeRequest_GetById" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="WorkingTimeRequest_GetRequestByDate" SpName="WorkingTimeRequest_GetRequestByDate" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="WorkingTimeRequest_GetRequestHistory" SpName="WorkingTimeRequest_GetRequestHistory" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="WorkingTimeRequest_GetNumberRequestInMonth" SpName="WorkingTimeRequest_GetNumberRequestInMonth" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="WorkingTimeRequest_AvaibleLeaveBalance" SpName="WorkingTimeRequest_AvaibleLeaveBalance" DbName="nexhr" Plain="0"></Setting>
+	</Function>
+	<Function Name="Holiday">
+		<Setting Key="Holiday_Insert" SpName="Holiday_Insert" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Holiday_Update" SpName="Holiday_Update" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Holiday_Delete" SpName="Holiday_Delete" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Holiday_GetByYear" SpName="Holiday_GetByYear" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Holiday_GetById" SpName="Holiday_GetById" DbName="nexhr" Plain="0"></Setting>
+	</Function>
+	<Function Name="Memo">
+		<Setting Key="Memo_Insert" SpName="Memo_Insert" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Memo_Update" SpName="Memo_Update" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Memo_Delete" SpName="Memo_Delete" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Memo_GetAll" SpName="Memo_GetAll" DbName="nexhr" Plain="0">
+			<Mapping DataField="Type" ObjectProperty="MemoType" />
+		</Setting>
+		<Setting Key="Memo_GetById" SpName="Memo_GetById" DbName="nexhr" Plain="0">
+			<Mapping DataField="Type" ObjectProperty="MemoType" />
+		</Setting>
+	</Function>
+
+	<Function Name="LeaveType">
+		<Setting Key="LeaveType_GetAll" SpName="LeaveType_GetAll" DbName="nexhr" Plain="0"></Setting>
+	</Function>
+
+	<Function Name="TOEIC">
+		<Setting Key="TOEIC_GetScore" SpName="TOEIC_GetScore" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="TOEIC_GetAllScores" SpName="TOEIC_GetAllScores" DbName="nexhr" Plain="0">
+			<Mapping DataField="TeamID" ObjectProperty="Id" />
+			<Mapping DataField="JobTitleId" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="TOEIC_Update" SpName="TOEIC_Update" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="TOEIC_GetUpdatingScoreRelatedPeople" SpName="TOEIC_GetUpdatingScoreRelatedPeople" DbName="nexhr" Plain="0"></Setting>
+	</Function>
+	<Function Name="Department">
+		<Setting Key="Department_Get" SpName="Department_Get" DbName="nexhr" Plain="0">
+			<Mapping DataField="CreatedBy" ObjectProperty="Id" ></Mapping>
+			<Mapping DataField="ManagerId" ObjectProperty="Id" ></Mapping>
+			<Mapping DataField="ModifiedBy" ObjectProperty="Id" ></Mapping>
+		</Setting>
+		<Setting Key="Department_Insert" SpName="Department_Insert" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Department_Update" SpName="Department_Update" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Department_GetById" SpName="Department_GetById" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Department_Delete" SpName="Department_Delete" DbName="nexhr" Plain="0"></Setting>
+	</Function>
+	<Function Name="TimeRecord">
+		<Setting Key="TimeRecord_Get" SpName="TimeRecord_Get" DbName="nexhr" Plain="0">
+			<Mapping DataField="GroupId" ObjectProperty="Id" />
+			<Mapping DataField="GroupCode" ObjectProperty="Code" />
+			<Mapping DataField="GroupName" ObjectProperty="Name" />
+		</Setting>
+		<Setting Key="TimeRecord_UpdateType" SpName="TimeRecord_UpdateType" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="TimeRecord_GetPrivilegeCreateCheckInOut" SpName="TimeRecord_GetPrivilegeCreateCheckInOut" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="TimeRecord_InsertCheckInOutTime" SpName="TimeRecord_InsertCheckInOutTime" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="TimeRecord_EditInsertCheckInOutTime" SpName="TimeRecord_EditInsertCheckInOutTime" DbName="nexhr" Plain="0"></Setting>
+	</Function>
+	<Function Name="Report">
+		<Setting Key="Report_EmployeeDashBoard" SpName="Report_EmployeeDashBoard" DbName="nexhr" Plain="0">
+			<Mapping DataField="EmpId" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="Report_CompanySpaceDashBoard" SpName="Report_CompanySpaceDashBoard" DbName="nexhr" Plain="0">
+			<Mapping DataField="EmpId" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="Report_EmployeeSpaceDashBoard" SpName="Report_EmployeeSpaceDashBoard" DbName="nexhr" Plain="0">
+			<Mapping DataField="EmpId" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="Report_HRLeaderDashBoard" SpName="Report_HRLeaderDashBoard" DbName="nexhr" Plain="0"></Setting>
+
+		<Setting Key="EmployeeAttendance_ReminderLateInEarlyOut" SpName="EmployeeAttendance_ReminderLateInEarlyOut" DbName="nexhr" Plain="0">
+			<Mapping DataField="EmpId" ObjectProperty="Id" />
+		</Setting>
+
+		<Setting Key="Report_WorkingHoursSummary" SpName="Report_WorkingHoursSummary" DbName="nexhr" Plain="0">
+			<Mapping DataField="EmpId" ObjectProperty="Id" />
+			<Mapping DataField="GroupId" ObjectProperty="Id" />
+			<Mapping DataField="GroupCode" ObjectProperty="Code" />
+			<Mapping DataField="GroupName" ObjectProperty="Name" />
+		</Setting>
+		<Setting Key="Report_WorkingHoursStatistic" SpName="Report_WorkingHoursStatistic" DbName="nexhr" Plain="0">
+			<Mapping DataField="EmpId" ObjectProperty="Id" />
+			<Mapping DataField="GroupId" ObjectProperty="Id" />
+			<Mapping DataField="GroupCode" ObjectProperty="Code" />
+			<Mapping DataField="GroupName" ObjectProperty="Name" />
+		</Setting>
+		<Setting Key="Report_RequestMonitor" SpName="Report_RequestMonitor" DbName="nexhr" Plain="0">
+			<Mapping DataField="EmpId" ObjectProperty="Id" />
+			<Mapping DataField="GroupId" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="Report_GetLateInEarlyOut" SpName="Report_GetLateInEarlyOut" DbName="nexhr" Plain="0">
+			<Mapping DataField="EmpId" ObjectProperty="Id" />
+			<Mapping DataField="GroupId" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="Report_GetLateInEarlyOutDetail" SpName="Report_GetLateInEarlyOutDetail" DbName="nexhr" Plain="0">
+			<Mapping DataField="EmpId" ObjectProperty="Id" />
+			<Mapping DataField="GroupId" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="Report_LateInEarlyOutSummary" SpName="Report_LateInEarlyOutSummary" DbName="nexhr" Plain="0">
+			<Mapping DataField="GroupId" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="Report_GetHeadCountByYear" SpName="Report_GetHeadCountByYear" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="LeaveDeduction_Insert" SpName="LeaveDeduction_Insert" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="LeaveConversion_Get" SpName="LeaveConversion_Get" DbName="nexhr" Plain="0">
+			<Mapping DataField="EmpId" ObjectProperty="Id" />
+			<Mapping DataField="GroupId" ObjectProperty="Id" />
+			<Mapping DataField="ModifiedById" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="LeaveDeduction_Update" SpName="LeaveDeduction_Update" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="LeaveDeduction_Delete" SpName="LeaveDeduction_Delete" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Report_GetLateInEarlyOutSummary" SpName="Report_GetLateInEarlyOutSummary" DbName="nexhr" Plain="0">
+		</Setting>
+	</Function>
+	<Function Name="Overtime">
+		<Setting Key="Overtime_Insert" SpName="Overtime_Insert" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Overtime_ReportSummary" SpName="Overtime_ReportSummary" DbName="nexhr" Plain="0">
+			<Mapping DataField="CreatedId" ObjectProperty="Id" />
+			<Mapping DataField="CreatedNickName" ObjectProperty="NickName" />
+			<Mapping DataField="CreatedFullName" ObjectProperty="FullName" />
+		</Setting>
+		<Setting Key="Overtime_MyReport" SpName="Overtime_MyReport" DbName="nexhr" Plain="0">
+			<Mapping DataField="CreatedId" ObjectProperty="Id" />
+			<Mapping DataField="CreatedNickName" ObjectProperty="NickName" />
+			<Mapping DataField="CreatedFullName" ObjectProperty="FullName" />
+		</Setting>
+		<Setting Key="Overtime_ReportDetail" SpName="Overtime_ReportDetail" DbName="nexhr" Plain="0">
+			<Mapping DataField="CreatedBy" ObjectProperty="Id" />
+			<Mapping DataField="CreatedNickName" ObjectProperty="NickName" />
+			<Mapping DataField="CreatedFullName" ObjectProperty="FullName" />
+			<Mapping DataField="EmployeeId" ObjectProperty="Id" />
+			<Mapping DataField="EmployeeNickName" ObjectProperty="NickName" />
+			<Mapping DataField="EmployeeFullName" ObjectProperty="FullName" />
+		</Setting>
+		<Setting Key="Overtime_RejectRequest" SpName="Overtime_RejectRequest" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Overtime_GetById" SpName="Overtime_GetById" DbName="nexhr" Plain="0">
+			<Mapping DataField="CreatedId" ObjectProperty="Id" />
+			<Mapping DataField="EmployeeId" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="Overtime_Update" SpName="Overtime_Update" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Overtime_Delete" SpName="Overtime_Delete" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Overtime_ApproveRequest" SpName="Overtime_ApproveRequest" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Overtime_DisapproveRequest" SpName="Overtime_DisapproveRequest" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Overtime_GetSummary" SpName="Overtime_GetSummary" DbName="nexhr" Plain="0">
+			<Mapping DataField="EmpId" ObjectProperty="Id" />
+			<Mapping DataField="GroupId" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="Overtime_DeleteConversion" SpName="Overtime_DeleteConversion" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Overtime_GetConversions" SpName="Overtime_GetConversions" DbName="nexhr" Plain="0">
+			<Mapping DataField="EmpId" ObjectProperty="Id" />
+			<Mapping DataField="GroupId" ObjectProperty="Id" />
+			<Mapping DataField="ModifiedById" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="Overtime_InsertConversion" SpName="Overtime_InsertConversion" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Overtime_UpdateConversion" SpName="Overtime_UpdateConversion" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Overtime_GetNexHour" SpName="Overtime_GetNexHour" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Overtime_ReportHR" SpName="Overtime_ReportHR" DbName="nexhr" Plain="0">
+			<Mapping DataField="CreatedId" ObjectProperty="Id" />
+			<Mapping DataField="CreatedNickName" ObjectProperty="NickName" />
+			<Mapping DataField="CreatedFullName" ObjectProperty="FullName" />
+		</Setting>
+		<Setting Key="Overtime_ReportHRDetail" SpName="Overtime_ReportHRDetail" DbName="nexhr" Plain="0">
+			<Mapping DataField="EmployeeId" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="Overtime_YearlyNexRequest" SpName="Overtime_YearlyNexRequest" DbName="nexhr" Plain="0">
+			<Mapping DataField="EmpId" ObjectProperty="Id" />
+			<Mapping DataField="GroupId" ObjectProperty="Id" />
+			<Mapping DataField="GroupCode" ObjectProperty="Code" />
+			<Mapping DataField="GroupName" ObjectProperty="Name" />
+		</Setting>
+		<Setting Key="Overtime_ResetRequest" SpName="Overtime_ResetRequest" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Overtime_VerifyRequest" SpName="Overtime_VerifyRequest" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Overtime_VoidRequest" SpName="Overtime_VoidRequest" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="LeaveConversion_Insert" SpName="LeaveConversion_Insert" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="LeaveConversion_Update" SpName="LeaveConversion_Update" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="LeaveConversion_Delete" SpName="LeaveConversion_Delete" DbName="nexhr" Plain="0"></Setting>
+	</Function>
+	<Function Name="Attendance">
+		<Setting Key="GetMissingCheckInOutList" SpName="EmployeeAttendance_GetMissingCheckinOutToRemind" DbName="nexhr" Plain="1">
+			<Mapping DataField="Type" ObjectProperty="MissingType" />
+		</Setting>
+	</Function>
+	<Function Name="LateInEarlyOut">
+		<Setting Key="LateInEarlyOut_GetAllByEmpId" SpName="LateInEarlyOut_GetAllByEmpId" DbName="nexhr" Plain="1">
+			<Mapping DataField="Type" ObjectProperty="Types" />
+		</Setting>
+		<Setting Key="LateInEarlyOut_Insert" SpName="LateInEarlyOut_Insert" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="LateInEarlyOut_Update" SpName="LateInEarlyOut_Update" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="LateInEarlyOut_Delete" SpName="LateInEarlyOut_Delete" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="LateInEarlyOut_GetById" SpName="LateInEarlyOut_GetById" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="LateInEarlyOut_GetAllEmployee" SpName="LateInEarlyOut_GetAllEmployee" DbName="nexhr" Plain="1">
+			<Mapping DataField="Type" ObjectProperty="Types" />
+		</Setting>
+		<Setting Key="LateInEarlyOut_GetLateInEarlyOutOnMonth" SpName="LateInEarlyOut_GetLateInEarlyOutOnMonth" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="LateInEarlyOut_GetLateInEarlyOutDisciplineViolate" SpName="LateInEarlyOut_GetLateInEarlyOutDisciplineViolate" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="LateInEarlyOut_GetLateInEarlyOutToDeduct" SpName="LateInEarlyOut_GetLateInEarlyOutToDeduct" DbName="nexhr" Plain="0"></Setting>
+	</Function>
+	<Function Name="EmployeePostnatal">
+		<Setting Key="EmployeePostnatal_Insert" SpName="EmployeePostnatal_Insert" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="EmployeePostnatal_Update" SpName="EmployeePostnatal_Update" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="EmployeePostnatal_Delete" SpName="EmployeePostnatal_Delete" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="EmployeePostnatal_GetAll" SpName="EmployeePostnatal_GetAll" DbName="nexhr" Plain="1">
+			<Mapping DataField="Type" ObjectProperty="Types" />
+		</Setting>
+		<Setting Key="EmployeePostnatal_GetById" SpName="EmployeePostnatal_GetById" DbName="nexhr" Plain="1">
+			<Mapping DataField="Type" ObjectProperty="Types" />
+		</Setting>
+	</Function>
+	<Function Name="Notification">
+		<Setting Key="Notification_GetAllViolation" SpName="Notification_GetAllViolation" DbName="nexhr" Plain="1">
+			<Mapping DataField="EmpId" ObjectProperty="Id" />
+		</Setting>
+	</Function>
+	<Function Name="CompanyEvent">
+		<Setting Key="CompanyEvent_GetAll" SpName="CompanyEvent_GetAll" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="CompanyEvent_GetEventById" SpName="CompanyEvent_GetEventById" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="CompanyEvent_Insert" SpName="CompanyEvent_Insert" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="CompanyEvent_Update" SpName="CompanyEvent_Update" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="CompanyEvent_Delete" SpName="CompanyEvent_Delete" DbName="nexhr" Plain="1"></Setting>
+	</Function>
+	<Function Name="RedmineAPI">
+		<Setting Key="Employee_GetRedmineUserByDomainName" SpName="Employee_GetRedmineUserByDomainName" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="RedmineSpendTimeWriteLog_Insert" SpName="RedmineSpendTimeWriteLog_Insert" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="HRM_GetRedmineUsers" SpName="HRM_GetRedmineUsers" DbName="nexhr" Plain="1"></Setting>
+	</Function>
+	<Function Name="BioStation">
+		<Setting Key="BioDevice_GetAll" SpName="BioDevice_GetAll" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="RepeatType_GetAll" SpName="RepeatType_GetAll" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="BioDevice_Get" SpName="BioDevice_Get" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="BioDevice_Edit" SpName="BioDevice_Edit" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Bio_GetFigerprintAndCardSummary" SpName="Bio_GetFigerprintAndCardSummary" DbName="nexhr" Plain="0">
+			<Mapping DataField="EmpId" ObjectProperty="Id" />
+			<Mapping DataField="GroupId" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="BioStationTimeChange_Get" SpName="BioStationTimeChange_Get" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Bio_UpdateFingerprintAndCardStatus" SpName="Bio_UpdateFingerprintAndCardStatus" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Bio_GetPendingDevice" SpName="Bio_GetPendingDevice" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Bio_GetPendingFingerprintAndCard" SpName="Bio_GetPendingFingerprintAndCard" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Bio_GetWarningTimeChange" SpName="Bio_GetWarningTimeChange" DbName="nexhr" Plain="0"></Setting>
+	</Function>
+
+	<Function Name="Employee Skype Account Management">
+		<Setting Key="Employee_GetSkypeAccount" SpName="Employee_GetSkypeAccount" DbName="nexhr" Plain="0">
+			<Mapping DataField="EmpId" ObjectProperty="Id" />
+			<Mapping DataField="GroupId" ObjectProperty="Id" />
+		</Setting>
+		<Setting Key="Employee_UpdateSkypeAccount" SpName="Employee_UpdateSkypeAccount" DbName="nexhr" Plain="0"></Setting>
+	</Function>
+	<Function Name="Scheduled Message">
+		<Setting Key="Conversation_Get" SpName="Conversation_Get" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="ScheduledMessage_Insert" SpName="ScheduledMessage_Insert" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="ScheduledMessage_Get" SpName="ScheduledMessage_Get" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="ScheduledMessage_GetById" SpName="ScheduledMessage_GetById" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="ScheduledMessage_Update" SpName="ScheduledMessage_Update" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="ScheduledMessage_Delete" SpName="ScheduledMessage_Delete" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="ScheduledMessage_GetMessagesToProcess" SpName="ScheduledMessage_GetMessagesToProcess" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="ScheduledMessage_UpdateStatus" SpName="ScheduledMessage_UpdateStatus" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Conversation_Insert" SpName="Conversation_Insert" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Conversation_GetByCreator" SpName="Conversation_GetByCreator" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Conversation_GetById" SpName="Conversation_GetById" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Conversation_Update" SpName="Conversation_Update" DbName="nexhr" Plain="0"></Setting>
+	</Function>
+	<Function Name="Time Sheet">
+		<Setting Key="EmployeeAttendance_GetEmployeeReachedWorkingTime" SpName="EmployeeAttendance_GetEmployeeReachedWorkingTime" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="LogReachedWorkingTime_Insert" SpName="LogReachedWorkingTime_Insert" DbName="nexhr" Plain="0"></Setting>
+	</Function>
+	<Function Name="Schedule">
+		<Setting Key="MessageCategoryLog_CheckIfObjectNotChange" SpName="MessageCategoryLog_CheckIfObjectNotChange" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="MessageCategoryLog_GetJsonObjectByCategoryId" SpName="MessageCategoryLog_GetJsonObjectByCategoryId" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="MessageCategoryLog_UpdateJsonObject" SpName="MessageCategoryLog_UpdateJsonObject" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="LateInEarlyOut_GetLateInEarlyOutOnMonth" SpName="LateInEarlyOut_GetLateInEarlyOutOnMonth" DbName="nexhr" Plain="0"></Setting>
+	</Function>
+	<Function Name="Sync Data">
+		<Setting Key="SyncData_NexHRM_GetEmployeeByLastModifiedDate" SpName="SyncData_GetEmployeeByLastModifiedDate" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="SyncData_LumiHRM_GetEmployeeByLastModifiedDate" SpName="SyncData_GetEmployeeByLastModifiedDate" DbName="lumihr" Plain="0"></Setting>
+		<Setting Key="SyncData_NexHRM_GetDepartmentByLastModifiedDate" SpName="SyncData_GetDepartmentByLastModifiedDate" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="SyncData_LumiHRM_GetDepartmentByLastModifiedDate" SpName="SyncData_GetDepartmentByLastModifiedDate" DbName="lumihr" Plain="0"></Setting>
+		<Setting Key="SyncData_NexHRM_GetGroupByLastModifiedDate" SpName="SyncData_GetGroupByLastModifiedDate" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="SyncData_LumiHRM_GetGroupByLastModifiedDate" SpName="SyncData_GetGroupByLastModifiedDate" DbName="lumihr" Plain="0"></Setting>
+		<Setting Key="SyncData_NexHRM_GetJobTitle" SpName="SyncData_GetJobTitle" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="SyncData_LumiHRM_GetJobTitle" SpName="SyncData_GetJobTitle" DbName="lumihr" Plain="0"></Setting>
+	</Function>
+	<Function Name="Employee Transfer">
+		<Setting Key="EmployeeTransfer_GetLumiGroup" SpName="EmployeeTransfer_GetLumiGroup" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="EmployeeTransfer_GetLumiShift" SpName="EmployeeTransfer_GetLumiShift" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="Employee_Transfer" SpName="Employee_Transfer" DbName="nexhr" Plain="1"></Setting>
+	</Function>
+	<Function Name="Employee Work FromHome">
+		<Setting Key="EmployeeWorkFromHome_Get" SpName="EmployeeWorkFromHome_Get" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="EmployeeWorkFromHome_Insert" SpName="EmployeeWorkFromHome_Insert" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="EmployeeWorkFromHome_GetById" SpName="EmployeeWorkFromHome_GetById" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="EmployeeWorkFromHome_Update" SpName="EmployeeWorkFromHome_Update" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="EmployeeWorkFromHome_Delete" SpName="EmployeeWorkFromHome_Delete" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="EmployeeWorkFromHome_ApproveAndRejectRequest" SpName="EmployeeWorkFromHome_ApproveAndRejectRequest" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="EmployeeWorkFromHome_DisApproveRequest" SpName="EmployeeWorkFromHome_DisApproveRequest" DbName="nexhr" Plain="1"></Setting>
+	</Function>
+	<Function Name="Work From Home Request">
+		<Setting Key="WorkFromHomeRequest_Get" SpName="WorkFromHomeRequest_Get" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="WorkFromHomeRequest_Insert" SpName="WorkFromHomeRequest_Insert" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="WorkFromHomeRequest_GetById" SpName="WorkFromHomeRequest_GetById" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="WorkFromHomeRequest_Update" SpName="WorkFromHomeRequest_Update" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="WorkFromHomeRequest_Delete" SpName="WorkFromHomeRequest_Delete" DbName="nexhr" Plain="1"></Setting>
+	</Function>
+</Functions>

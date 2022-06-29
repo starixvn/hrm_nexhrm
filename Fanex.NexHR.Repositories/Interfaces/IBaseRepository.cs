@@ -6,12 +6,10 @@
 
     public interface IBaseRepository
     {
-        CommandResult Insert(ICriteria criteria, bool hasGetOutputParams = false);
+        Task<CommandResult> ExecuteNonQueryAsync(INonQueryCommand command);
 
-        CommandResult Update(ICriteria criteria, bool hasGetOutputParams = false);
+        Task<CommandResult> ExecuteNonQueryAsync(ICriteria criteria);
 
-        CommandResult Delete(ICriteria criteria, bool hasGetOutputParams = false);
-
-        Task<CommandResult> ExecuteNonQueryAsync(ICriteria criteria, bool hasGetOutputParams = false);
+        CommandResult ExecuteNonQuery(ICriteria criteria);
     }
 }

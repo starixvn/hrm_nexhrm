@@ -1,44 +1,37 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Linq;
-    using System.Text;
-    using System.Web;
     using Core;
     using Criteria.Memo;
     using Interfaces;
+    using Microsoft.AspNetCore.Hosting;
     using Models.Memo;
     using Resources;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Net;
 
     public class MemoService : BaseService, IMemoService
     {
-        private readonly IEmailService _emailService;
+        private readonly IEmailService emailService;
+        private readonly IWebHostEnvironment environment;
         private const string Email = "Email";
         private readonly string CompanyMailSign = ConfigurationManager.AppSettings["CompanyMailSign"];
 
-        public MemoService(IEmailService emailService = null)
+        public MemoService(IEmailService emailService, IWebHostEnvironment environment)
         {
-            _emailService = emailService ?? new EmailService();
+            this.emailService = emailService;
+            this.environment = environment;
         }
 
-        /// <summary>
-        /// Get all memo.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>List of memo.</returns>
         public IList<Memo> GetAll(GetAllMemoCriteria criteria)
         {
             IList<Memo> entityList = GetData<Memo>(criteria).ToList();
             return entityList;
         }
 
-        /// <summary>
-        /// Get memo by ID.
-        /// </summary>
-        /// <param name="criteria">Criteria to query DB.</param>
-        /// <returns>The memo object.</returns>
         public Memo GetById(GetMemoByIdCriteria criteria)
         {
             var memo = GetDataEntity<Memo>(criteria);
@@ -55,8 +48,8 @@
                 {
                     if (!string.IsNullOrEmpty(file))
                     {
-                        string filePath = HttpUtility.HtmlEncode(file);
-                        string fileName = HttpUtility.HtmlEncode(file.Split('/')[file.Split('/').Length - 1]);
+                        string filePath = WebUtility.HtmlEncode(file);
+                        string fileName = WebUtility.HtmlEncode(file.Split('/')[file.Split('/').Length - 1]);
                         content.Append($"<a href=\'{filePath}\'> {fileName}</a></br>");
                     }
                 }
@@ -68,27 +61,27 @@
 
         public void SendMail(string subject, string memoId)
         {
-            var link = HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Authority + HttpContext.Current.Request.ApplicationPath;
             var groupSd = ConfigurationManager.AppSettings["EmailSD"];
             var groupGo = ConfigurationManager.AppSettings["EmailGo"];
             var groupNetwork = ConfigurationManager.AppSettings["EmailNetwork"];
-            //// send email(s)
-            var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForMemoNotification));
 
-            var body = string.Format(bodyTemplate, subject, link + "memo/detail/" + memoId, CompanyMailSign, ConfigurationManager.AppSettings["CompanyMailSign"]);
-            _emailService.SendEmail(
+            var emailTemplatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForMemoNotification);
+            var bodyTemplate = Utilities.ReadTextFile(emailTemplatePath);
+
+            var body = string.Format(bodyTemplate, subject, AppSetting.BaseUrl + "memo/detail/" + memoId, CompanyMailSign, ConfigurationManager.AppSettings["CompanyMailSign"]);
+            emailService.SendEmail(
                 ConfigurationManager.AppSettings[Email],
                 groupGo,
                 string.Empty,
                 Messages.MemoSubject + " " + subject,
                 body);
-            _emailService.SendEmail(
+            emailService.SendEmail(
                ConfigurationManager.AppSettings[Email],
                groupSd,
                string.Empty,
                Messages.MemoSubject + " " + subject,
                body);
-            _emailService.SendEmail(
+            emailService.SendEmail(
                ConfigurationManager.AppSettings[Email],
                groupNetwork,
                string.Empty,

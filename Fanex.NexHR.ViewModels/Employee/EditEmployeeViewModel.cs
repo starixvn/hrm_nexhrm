@@ -2,7 +2,6 @@
 {
     using Core;
     using Models;
-    using Models.Attributes;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -51,7 +50,6 @@
 
         public string PlaceOfBirth { get; set; }
 
-        [Email]
         public string Email { get; set; }
 
         public string Phone { get; set; }

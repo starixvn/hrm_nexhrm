@@ -1,50 +1,51 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
     using Core;
     using Criteria.Employee;
     using Criteria.Toeic;
     using Fanex.NexHR.Core.Model;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Mvc;
     using Models;
     using Newtonsoft.Json;
     using Resources;
-    using Services;
     using Services.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Linq;
-    using System.Text;
-    using System.Web.Mvc;
     using ViewModels.Toeic;
 
     public class ToeicController : BaseController
     {
-        private readonly IEmployeeService _employeeService;
-        private readonly IEmailService _emailService;
-        private readonly IJobTitleService _jobTitleService;
-        private readonly ITeamService _teamService;
-        private readonly IToeicService _toeicService;
-        private readonly ICommandService _commandService;
-
-        public ToeicController()
-            : this(null, null, null, null, null, null)
-        {
-        }
+        private readonly IEmployeeService employeeService;
+        private readonly IEmailService emailService;
+        private readonly IJobTitleService jobTitleService;
+        private readonly ITeamService teamService;
+        private readonly IToeicService toeicService;
+        private readonly ICommandService commandService;
+        private readonly IWebHostEnvironment environment;
 
         public ToeicController(
+            ISessionService sessionService,
             IEmployeeService employeeService,
             IEmailService emailService,
             IJobTitleService jobTitleService,
             ITeamService teamService,
             IToeicService toeicService,
-            ICommandService commandService)
+            ICommandService commandService,
+            IWebHostEnvironment environment) : base(sessionService)
         {
-            _employeeService = employeeService ?? new EmployeeService();
-            _emailService = emailService ?? new EmailService();
-            _jobTitleService = jobTitleService ?? new JobTitleService();
-            _teamService = teamService ?? new TeamService();
-            _toeicService = toeicService ?? new ToeicService();
-            _commandService = commandService ?? new CommandService();
+            this.employeeService = employeeService;
+            this.emailService = emailService;
+            this.jobTitleService = jobTitleService;
+            this.teamService = teamService;
+            this.toeicService = toeicService;
+            this.commandService = commandService;
+            this.environment = environment;
         }
 
         public ActionResult ToeicManagement(int? jobTitleId = null)
@@ -52,17 +53,16 @@
             var model = new ToeicManagementViewModel
             {
                 JobTitleId = jobTitleId,
-                JobTitles = _jobTitleService.GetAll(),
-                Teams = _teamService.GetTeam()
+                JobTitles = jobTitleService.GetAll(),
+                Teams = teamService.GetTeam()
             };
 
-            model.JobTitles = _jobTitleService.GetAll();
-            model.Teams = _teamService.GetTeam();
+            model.JobTitles = jobTitleService.GetAll();
+            model.Teams = teamService.GetTeam();
 
             return View(model);
         }
 
-        [ValidateInput(false)]
         public ActionResult ToeicManagementDetail(ToeicManagementViewModel model)
         {
             IList<Employee> employees = new List<Employee>();
@@ -79,7 +79,7 @@
                     GroupId = model.TeamId
                 };
 
-                employees = _employeeService.GetEmployeeToeicScore(getToeicScoreCriteria);
+                employees = employeeService.GetEmployeeToeicScore(getToeicScoreCriteria);
                 employees = SortToeic(model.Sort, employees);
             }
 
@@ -110,7 +110,7 @@
             {
                 EmpId = empId
             };
-            var toeic = _toeicService.GetById(criteria) ?? new Toeic();
+            var toeic = toeicService.GetById(criteria) ?? new Toeic();
 
             return Json(toeic);
         }
@@ -127,9 +127,9 @@
                 {
                     EmpId = id.Value
                 };
-                toeic = _toeicService.GetById(criteria);
-                toeic = toeic ?? new Toeic { EmpId = id.Value };
-                toeic.Employee = toeic.Employee ?? name;
+                toeic = toeicService.GetById(criteria);
+                toeic ??= new Toeic { EmpId = id.Value };
+                toeic.Employee ??= name;
             }
 
             return PartialView(toeic);
@@ -186,7 +186,7 @@
                         Writing = model.Writing,
                         MinimumScore = model.MinimumScore
                     };
-                    result = _commandService.Update(toeicScoreCriteria);
+                    result = commandService.ExecuteNonQuery(toeicScoreCriteria);
 
                     if (result.IsSuccessful && model.SendMail)
                     {
@@ -200,7 +200,7 @@
                 }
             }
 
-            return Json(new { code = result.Code, error = ModelState.Values.SelectMany(v => v.Errors) }, JsonRequestBehavior.DenyGet);
+            return Json(new { code = result.Code, error = ModelState.Values.SelectMany(v => v.Errors) });
         }
 
         private void ValidateTOEIC(Toeic model)
@@ -294,7 +294,7 @@
             }
 
             var criteria = new GetUpdatingScoreRelatedPeopleCriteria { Id = empId };
-            var employees = _employeeService.GetUpdatingScoreRelatedPeople(criteria);
+            var employees = employeeService.GetUpdatingScoreRelatedPeople(criteria);
 
             if (!employees.Any())
             {
@@ -321,7 +321,7 @@
 
             var body = GetToeicNotificationEmailBody(nickName, newScore, oldScore);
 
-            _emailService.SendEmail(
+            emailService.SendEmail(
                 ConfigurationManager.AppSettings["Email"],
                 receiverEmail,
                 mailCC.ToString(),
@@ -334,7 +334,7 @@
             return score != null ? score.ToString() : "-";
         }
 
-        private static string GetToeicNotificationEmailBody(string nickName, Toeic newScore, Toeic oldScore)
+        private string GetToeicNotificationEmailBody(string nickName, Toeic newScore, Toeic oldScore)
         {
             var bodyContent = new
             {
@@ -347,7 +347,9 @@
                 OldTotal = GetDisplayScore(oldScore.LRTotal)
             };
 
-            var body = Utilities.ReadTextFile(System.Web.HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForTOEICScoreUpdatedNotification));
+            var templatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForTOEICScoreUpdatedNotification);
+
+            var body = Utilities.ReadTextFile(templatePath);
 
             body = string.Format(
                 body,
@@ -366,7 +368,7 @@
         private Toeic GetToeicScore(int empid)
         {
             var criteria = new GetToeicScoreByEmployeeIdCriteria { EmpId = empid };
-            var score = _toeicService.GetById(criteria) ?? new Toeic();
+            var score = toeicService.GetById(criteria) ?? new Toeic();
 
             return score;
         }

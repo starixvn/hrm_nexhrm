@@ -1,44 +1,38 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
     using System.Threading.Tasks;
-    using System.Web.Http;
-    using Fanex.NexHR.Services.AutoJobService;
     using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.Web.API;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
 
     [Authorize]
-    [JwtAuthentication]
-    public class LateInEarlyOutController : ApiController
+    public class LateInEarlyOutController : ControllerBase
     {
         private readonly IBotLateInLateOutAutoJobService botService;
-
-        public LateInEarlyOutController() : this(null)
-        {
-        }
 
         public LateInEarlyOutController(
             IBotLateInLateOutAutoJobService botService
         )
         {
-            this.botService = botService ?? new BotLateInEarlyOutViolateOnMonthWarningSerivce();
+            this.botService = botService;
         }
 
         [HttpPost]
-        public async Task<IHttpActionResult> LateInEarlyOutViolateOnMonth()
+        public async Task<IActionResult> LateInEarlyOutViolateOnMonth()
         {
             var result = await botService.SendMessageViolateOnMonthAsync().ConfigureAwait(false);
             return Ok(result);
         }
 
         [HttpPost]
-        public async Task<IHttpActionResult> ViolateDiscipline()
+        public async Task<IActionResult> ViolateDiscipline()
         {
             var result = await botService.SendMessageViolateDisciplineAsync().ConfigureAwait(false);
             return Ok(result);
         }
 
         [HttpPost]
-        public async Task<IHttpActionResult> Deduct()
+        public async Task<IActionResult> Deduct()
         {
             var result = await botService.SendMessageDeductAsync().ConfigureAwait(false);
             return Ok(result);

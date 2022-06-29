@@ -1,42 +1,42 @@
 ﻿namespace Fanex.NexHR.Controllers.Request
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using System.Web.Mvc;
     using Core.Enums;
     using Criteria.Request;
     using Criteria.Shift;
+    using Fanex.NexHR.Core;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.Request;
     using Resources;
-    using Services;
     using Services.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
     using ViewModels.CheckInOutRequest;
 
     public class CheckInOutController : BaseController
     {
-        private readonly IRequestService _requestService;
-        private readonly IShiftService _shiftService;
-        private readonly ICommandService _commandService;
-        private readonly INexbotService _nexbotService;
+        private readonly IRequestService requestService;
+        private readonly IShiftService shiftService;
+        private readonly ICommandService commandService;
+        private readonly INexbotService nexbotService;
+        private readonly IWebHostEnvironment environment;
 
-        public CheckInOutController()
-            : this(null, null, null, null)
-        {
-        }
-
-        public CheckInOutController(
+        public CheckInOutController(ISessionService sessionService,
             IRequestService requestService,
             IShiftService shiftService,
             ICommandService commandService,
-            INexbotService nexbotService)
+            INexbotService nexbotService,
+            IWebHostEnvironment environment) : base(sessionService)
         {
-            _requestService = requestService ?? new RequestService();
-            _shiftService = shiftService ?? new ShiftService();
-            _commandService = commandService ?? new CommandService();
-            _nexbotService = nexbotService ?? new NexbotService();
+            this.requestService = requestService;
+            this.shiftService = shiftService;
+            this.commandService = commandService;
+            this.nexbotService = nexbotService;
+            this.environment = environment;
         }
 
         public ActionResult EmployeeView()
@@ -62,7 +62,7 @@
                 IsFilterByEffectedDate = true
             };
 
-            IList<RequestEntity> checkInOutRequests = _requestService.GetRequest(criteria);
+            IList<RequestEntity> checkInOutRequests = requestService.GetRequest(criteria);
 
             return PartialView(checkInOutRequests);
         }
@@ -75,8 +75,8 @@
                 EmployeeId = CurrentUser.Id,
                 WorkDate = date ?? DateTime.Today,
                 CheckInOutType = type ?? (short)RequestType.CheckIn,
-                UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null),
-                TotalRequest = _requestService.GetNumberRequestInMonth(CurrentUser.Id, RequestType.CheckIn),
+                UnavailDates = requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null),
+                TotalRequest = requestService.GetNumberRequestInMonth(CurrentUser.Id, RequestType.CheckIn),
                 IsCrossDate = isCrossDate
             };
 
@@ -89,7 +89,6 @@
             return View(viewModel);
         }
 
-        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Create(CheckInOutRequestViewModel model)
         {
@@ -114,7 +113,7 @@
                     FromDate = model.WorkDate
                 };
 
-                CommandResult result = _commandService.Insert(criteria, hasGetOutputParams: true);
+                CommandResult result = commandService.ExecuteNonQuery(criteria);
                 model.Id = criteria.Id;
 
                 if (result.Code == 0 || result.Code == -1)
@@ -143,14 +142,14 @@
 
         private void SendEmailAndSkype(CheckInOutRequestViewModel model)
         {
-            model.GetTemplatePath();
+            model.EmailTemplatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForCheckInOut);
             Task.Factory.StartNew(() =>
             {
-                var leaders = _requestService.GetLeaderForCheckInOut(model);
+                var leaders = requestService.GetLeaderForCheckInOut(model);
                 if (leaders != null && leaders.Any())
                 {
-                    _requestService.SendMailForCheckInOut(model, leaders);
-                    _nexbotService.SendMessageForCheckInOutRequest(model, leaders);
+                    requestService.SendMailForCheckInOut(model, leaders);
+                    nexbotService.SendMessageForCheckInOutRequest(model, leaders);
                 }
             });
         }
@@ -158,7 +157,7 @@
         public ActionResult Update(int id)
         {
             var criteria = new GetRequestByIdCriteria { Id = id };
-            RequestEntity request = _requestService.GetRequestEntity(criteria);
+            RequestEntity request = requestService.GetRequestEntity(criteria);
 
             if (!Editable(request.Status.Id, request.Requester.Id))
             {
@@ -174,7 +173,7 @@
                 Hour = request.FromDate.Hour,
                 Minute = request.FromDate.Minute,
                 CheckInOutType = request.RequestType.Id,
-                UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null),
+                UnavailDates = requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null),
                 IsCrossDate = request.IsCrossDate
             };
 
@@ -209,7 +208,7 @@
                     IsCrossDate = model.IsCrossDate
                 };
 
-                CommandResult result = _commandService.Insert(criteria, hasGetOutputParams: true);
+                CommandResult result = commandService.ExecuteNonQuery(criteria);
 
                 if (result.Code == 0 || result.Code == -1)
                 {
@@ -247,7 +246,7 @@
                 Date = date ?? DateTime.Now
             };
 
-            Shift shift = _shiftService.GetByDate(getShiftByDateCriteria);
+            Shift shift = shiftService.GetByDate(getShiftByDateCriteria);
             return shift;
         }
     }

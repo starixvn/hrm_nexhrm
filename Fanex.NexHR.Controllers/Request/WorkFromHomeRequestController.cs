@@ -1,28 +1,25 @@
 ﻿namespace Fanex.NexHR.Controllers.Request
 {
     using System;
-    using System.Web.Mvc;
     using Fanex.NexHR.Criteria.WorkFromHomeRequest;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels.Request;
+    using Microsoft.AspNetCore.Mvc;
 
     public class WorkFromHomeRequestController : BaseController
     {
         private readonly ICommandService commandService;
         private readonly IWorkFromHomeRequest workFromHomeRequest;
-        public WorkFromHomeRequestController() : this(null, null)
-        {
-        }
 
-        public WorkFromHomeRequestController(
+        public WorkFromHomeRequestController(ISessionService sessionService,
             ICommandService commandService,
             IWorkFromHomeRequest workFromHomeRequest
-            )
+            ) : base(sessionService)
         {
-            this.commandService = commandService ?? new CommandService();
-            this.workFromHomeRequest = workFromHomeRequest ?? new WorkFromHomeRequestService();
+            this.commandService = commandService;
+            this.workFromHomeRequest = workFromHomeRequest;
         }
 
         public ActionResult Index()
@@ -58,7 +55,6 @@
             return View(model);
         }
 
-        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Create(WorkFromHomeRequestViewModel model)
         {
@@ -73,7 +69,7 @@
                     Remark = model.Remark
                 };
 
-                var result = workFromHomeRequest.Insert(criteria);
+                var result = commandService.ExecuteNonQuery(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
@@ -99,7 +95,6 @@
             return View(model);
         }
 
-        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Edit(WorkFromHomeRequestViewModel model)
         {
@@ -115,7 +110,7 @@
                     Remark = model.Remark
                 };
 
-                var result = workFromHomeRequest.Update(criteria);
+                var result = commandService.ExecuteNonQuery(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
@@ -132,7 +127,7 @@
         public ActionResult Delete(int id)
         {
             var criteria = new DeleteWorkFromHomeRequestCriteria { WorkFromHomeRequestId = id };
-            var result = workFromHomeRequest.Delete(criteria);
+            var result = commandService.ExecuteNonQuery(criteria);
 
             return Json(result);
         }

@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using System.Web.Mvc;
     using Core;
     using Core.Enums;
     using Criteria.Request;
@@ -14,31 +13,32 @@
     using ViewModels;
     using Resources;
     using System.Globalization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Hosting;
+    using System.IO;
 
     public class LeaveController : BaseController
     {
-        private readonly ILeaveTypeService _leaveTypeService;
-        private readonly IRequestService _requestService;
-        private readonly ICommandService _commandService;
-        private readonly INexbotService _nexbotService;
+        private readonly ILeaveTypeService leaveTypeService;
+        private readonly IRequestService requestService;
+        private readonly ICommandService commandService;
+        private readonly INexbotService nexbotService;
+        private readonly IWebHostEnvironment environment;
 
         private const int BusinessTripLeaveType = 9;
 
-        public LeaveController()
-            : this(null, null, null, null)
-        {
-        }
-
-        public LeaveController(
+        public LeaveController(ISessionService sessionService,
             ILeaveTypeService leaveTypeService,
             IRequestService requestService,
             ICommandService commandService,
-            INexbotService nexbotService)
+            INexbotService nexbotService,
+            IWebHostEnvironment environment) : base(sessionService)
         {
-            _leaveTypeService = leaveTypeService ?? new LeaveTypeService();
-            _requestService = requestService ?? new RequestService();
-            _commandService = commandService ?? new CommandService();
-            _nexbotService = nexbotService ?? new NexbotService();
+            this.leaveTypeService = leaveTypeService;
+            this.requestService = requestService;
+            this.commandService = commandService;
+            this.nexbotService = nexbotService;
+            this.environment = environment;
         }
         private const double day = 0.5;
 
@@ -62,7 +62,7 @@
                 IsFilterByEffectedDate = true
             };
 
-            IList<RequestEntity> leaveRequests = _requestService.GetRequest(criteria);
+            IList<RequestEntity> leaveRequests = requestService.GetRequest(criteria);
 
             return PartialView(leaveRequests);
         }
@@ -76,15 +76,14 @@
                 FromDate = fromDate ?? DateTime.Now.Date,
                 ToDate = toDate ?? DateTime.Now.Date,
                 TotalDays = 1,
-                LeaveTypes = _leaveTypeService.GetAll(),
-                UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null),
-                TotalRequest = _requestService.GetNumberRequestInMonth(CurrentUser.Id, RequestType.Leave)
+                LeaveTypes = leaveTypeService.GetAll(),
+                UnavailDates = requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null),
+                TotalRequest = requestService.GetNumberRequestInMonth(CurrentUser.Id, RequestType.Leave)
             };
 
             return View(model);
         }
 
-        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Create(LeaveRequestViewModel model)
         {
@@ -121,7 +120,7 @@
                 TotalDays = leaveRequestViewModel.TotalDays
             };
 
-            CommandResult result = _commandService.Insert(criteria, hasGetOutputParams: true);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
             model.Id = criteria.Id;
             if (result.Code == 0 || result.Code == -1)
             {
@@ -144,19 +143,24 @@
 
         private void SendEmailAndSkype(LeaveRequestViewModel model)
         {
-            model.GetTemplatePath();
+            var templatePath = model.IsUnpaidLeave || model.IsAnnualLeaveOver5Day
+                        ? Constants.EmailTemplatePathForUnpaidLeave
+                        : Constants.EmailTemplatePathForLeave;
+
+            model.EmailTemplatePath = Path.Combine(environment.WebRootPath, templatePath);
+
             model.CurrentUserEmail = CurrentUser.Email;
             Task.Factory.StartNew(() =>
             {
-                _requestService.SendMailForLeave(model);
-                _nexbotService.SendMessageForLeaveRequest(model);
+                requestService.SendMailForLeave(model);
+                nexbotService.SendMessageForLeaveRequest(model);
             });
         }
 
         public ActionResult Update(int id)
         {
             var criteria = new GetRequestByIdCriteria { Id = id };
-            RequestEntity request = _requestService.GetRequestEntity(criteria);
+            RequestEntity request = requestService.GetRequestEntity(criteria);
             var fromHourSub = request.FromDate.Hour;
             var toHourSub = request.ToDate.Hour;
             var fromMinutesSub = request.FromDate.Minute;
@@ -176,8 +180,8 @@
                 IsPlanned = request.IsPlanned,
                 Remark = request.Remark,
                 HalfDayOff = request.TotalDays == (decimal)0.5,
-                LeaveTypes = _leaveTypeService.GetAll(),
-                UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id, requestId: id),
+                LeaveTypes = leaveTypeService.GetAll(),
+                UnavailDates = requestService.GetDisableRequestDate(CurrentUser.Id, requestId: id),
                 FromHour = request.LeaveType.Id == BusinessTripLeaveType && request.TotalDays == (decimal)0.5 ? fromHourSub : 0,
                 ToHour = request.LeaveType.Id == BusinessTripLeaveType && request.TotalDays == (decimal)0.5 ? toHourSub : 0,
                 FromMinute = request.LeaveType.Id == BusinessTripLeaveType && request.TotalDays == (decimal)0.5 ? fromMinutesSub : 0,
@@ -187,7 +191,6 @@
             return View(model);
         }
 
-        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Update(LeaveRequestViewModel model)
         {
@@ -207,7 +210,7 @@
                     TotalDays = viewModel.TotalDays
                 };
 
-                CommandResult result = _commandService.Update(criteria);
+                CommandResult result = commandService.ExecuteNonQuery(criteria);
                 if (result.Code == 0 || result.Code == -1)
                 {
                     ViewBag.Updated = true;
@@ -227,7 +230,7 @@
             {
                 if (model != null)
                 {
-                    model.LeaveTypes = _leaveTypeService.GetAll();
+                    model.LeaveTypes = leaveTypeService.GetAll();
                 }
                 return View(model);
             }
@@ -244,7 +247,7 @@
                 RequestId = requestId
             };
 
-            var leaveBalanceInMonth = _requestService.GetAnnualLeaveBalanceInMonth(criteria);
+            var leaveBalanceInMonth = requestService.GetAnnualLeaveBalanceInMonth(criteria);
 
             return Json(leaveBalanceInMonth);
         }
@@ -252,14 +255,14 @@
         private LeaveRequestViewModel PrepareModelCreate(LeaveRequestViewModel model)
         {
             var viewModel = PrepareModel(model);
-            viewModel.UnavailDates = _requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null);
+            viewModel.UnavailDates = requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null);
             ViewBag.Year = model.FromDate.Year;
             return viewModel;
         }
 
         private LeaveRequestViewModel PrepareModel(LeaveRequestViewModel model)
         {
-            model.LeaveTypes = _leaveTypeService.GetAll();
+            model.LeaveTypes = leaveTypeService.GetAll();
             var fromTimeLeaveBusiness = string.Concat(model.FromHour, ":", model.FromMinute);
             var toTimeLeaveBusiness = string.Concat(model.ToHour, ":", model.ToMinute);
             var fromDate = model.LeaveTypeId == BusinessTripLeaveType ? Utilities.AddTimeToDate(model.FromDate, fromTimeLeaveBusiness) : Utilities.AddTimeToDate(model.FromDate, model.FromTime);

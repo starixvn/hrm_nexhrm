@@ -2,9 +2,9 @@
 {
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.ViewModels.CustomValidationAttribute;
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using System;
     using System.ComponentModel.DataAnnotations;
-    using System.Web.Mvc;
 
     public class EditScheduledMessageViewModel
     {

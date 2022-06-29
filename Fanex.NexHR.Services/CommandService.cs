@@ -3,46 +3,22 @@
     using Data.Repository;
     using Interfaces;
     using Models;
-    using Repositories;
     using Repositories.Interfaces;
     using Resources;
 
     public class CommandService : ICommandService
     {
-        private readonly IBaseRepository _repository;
-
-        public CommandService()
-            : this(null)
-        {
-        }
+        private readonly IBaseRepository repository;
 
         public CommandService(IBaseRepository repository)
         {
-            _repository = repository ?? new BaseRepository();
+            this.repository = repository;
         }
 
-        public CommandResult Insert(ICriteria criteria, bool hasGetOutputParams = false)
+        public CommandResult ExecuteNonQuery(ICriteria criteria)
         {
             var result = criteria != null && criteria.IsValid()
-                ? _repository.Insert(criteria, hasGetOutputParams)
-                : GetInvalidInput();
-
-            return result;
-        }
-
-        public CommandResult Update(ICriteria criteria, bool hasGetOutputParams = false)
-        {
-            var result = criteria != null && criteria.IsValid()
-                ? _repository.Update(criteria, hasGetOutputParams)
-                : GetInvalidInput();
-
-            return result;
-        }
-
-        public CommandResult Delete(ICriteria criteria, bool hasGetOutputParams = false)
-        {
-            var result = criteria != null && criteria.IsValid()
-                ? _repository.Delete(criteria, hasGetOutputParams)
+                ? repository.ExecuteNonQuery(criteria)
                 : GetInvalidInput();
 
             return result;

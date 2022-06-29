@@ -2,10 +2,12 @@
 {
     using System;
     using System.Linq;
-    using System.Web.Mvc;
     using Core.Enums;
     using Criteria.Bio;
     using Criteria.LookupData;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Models;
     using Models.Bio;
     using Services;
@@ -16,17 +18,22 @@
     [Authorize(Roles = "HR")]
     public class BioController : BaseController
     {
-        private readonly BaseService baseService;
         private readonly ICommandService commandService;
         private readonly IBioService bioService;
         private readonly ITeamService teamService;
+        private readonly BaseService baseService;
 
-        public BioController()
+        public BioController(ISessionService sessionService,
+            ICommandService commandService,
+            IBioService bioService,
+            ITeamService teamService,
+            BaseService baseService
+            ) : base(sessionService)
         {
-            baseService = new BaseService();
-            commandService = new CommandService();
-            bioService = new BioService();
-            teamService = new TeamService();
+            this.commandService = commandService;
+            this.bioService = bioService;
+            this.teamService = teamService;
+            this.baseService = baseService;
         }
 
         public ActionResult BioDevice()
@@ -79,7 +86,7 @@
                     ModifiedBy = CurrentUser.Id
                 };
 
-                var result = commandService.Update(criteria);
+                var result = commandService.ExecuteNonQuery(criteria);
 
                 return Json(new
                 {
@@ -170,7 +177,7 @@
                 UpdatedBy = CurrentUser.Id
             };
 
-            var commandResult = commandService.Update(criteria);
+            var commandResult = commandService.ExecuteNonQuery(criteria);
 
             return Json(new { commandResult });
         }

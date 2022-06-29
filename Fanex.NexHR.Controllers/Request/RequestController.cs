@@ -3,11 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web.Mvc;
     using Core;
     using Core.Enums;
     using Criteria.Request;
     using Criteria.Team;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.Request;
     using Resources;
@@ -23,21 +24,16 @@
         private readonly ILeaveTypeService leaveTypeService;
         private readonly ICommandService commandService;
 
-        public RequestController()
-            : this(null, null, null, null)
-        {
-        }
-
-        public RequestController(
+        public RequestController(ISessionService sessionService,
             IRequestService requestService,
             ITeamService teamService,
             ILeaveTypeService leaveTypeService,
-            ICommandService commandService)
+            ICommandService commandService) : base(sessionService)
         {
-            this.requestService = requestService ?? new RequestService();
-            this.teamService = teamService ?? new TeamService();
-            this.leaveTypeService = leaveTypeService ?? new LeaveTypeService();
-            this.commandService = commandService ?? new CommandService();
+            this.requestService = requestService;
+            this.teamService = teamService;
+            this.leaveTypeService = leaveTypeService;
+            this.commandService = commandService;
         }
         private const int months = 2;
         private const int numberId = 2;
@@ -127,7 +123,6 @@
             return View(model);
         }
 
-        [ValidateInput(false)]
         [Authorize(Roles = "AssistantLeader")]
         public ActionResult GetAllRequestByAssistantLeader(RequestViewModel model)
         {
@@ -142,7 +137,6 @@
             return View("HRView", newModel);
         }
 
-        [ValidateInput(false)]
         public ActionResult GetAllRequestByEmployee(RequestViewModel model)
         {
             if (model != null)
@@ -161,7 +155,6 @@
             return View(newModel);
         }
 
-        [ValidateInput(false)]
         [Authorize(Roles = "HR")]
         public ActionResult GetAllRequestByHR(RequestViewModel model)
         {
@@ -199,7 +192,7 @@
             {
                 Id = id
             };
-            CommandResult result = commandService.Delete(criteria);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
 
             return Json(result);
         }
@@ -221,7 +214,7 @@
         public JsonResult GetUnavailDate(int employeeId)
         {
             IList<DateTime> dates = requestService.GetDisableRequestDate(employeeId, requestId: null);
-            return Json(dates.Select(t => t.ToString("dd MMM yyyy")), JsonRequestBehavior.AllowGet);
+            return Json(dates.Select(t => t.ToString("dd MMM yyyy")));
         }
 
         public JsonResult GetDateRange(int employeeId, DateTime fromDate, DateTime toDate, long? requestId)
@@ -236,7 +229,7 @@
 
             DateRange totalDays = requestService.GetDateRange(getDateRangeCriteria);
 
-            return Json(totalDays.TotalDay, JsonRequestBehavior.AllowGet);
+            return Json(totalDays.TotalDay);
         }
 
         private RequestViewModel GetDefaultRequestViewModel(RequestViewType requestViewType)

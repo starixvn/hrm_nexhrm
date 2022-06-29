@@ -1,30 +1,27 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using System;
+    using System.Collections.Generic;
     using Criteria.Holiday;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.Holiday;
     using Resources;
-    using Services;
     using Services.Interfaces;
     using ViewModels.Holiday;
-    using System;
-    using System.Collections.Generic;
-    using System.Web.Mvc;
 
     public class HolidayController : BaseController
     {
-        private readonly IHolidayService _holidayService;
-        private readonly ICommandService _commandService;
+        private readonly IHolidayService holidayService;
+        private readonly ICommandService commandService;
 
-        public HolidayController()
-            : this(null, null)
+        public HolidayController(ISessionService sessionService, 
+            IHolidayService holidayService, 
+            ICommandService commandService) : base(sessionService)
         {
-        }
-
-        public HolidayController(IHolidayService holidayService, ICommandService commandService)
-        {
-            _holidayService = holidayService ?? new HolidayService();
-            _commandService = commandService ?? new CommandService();
+            this.holidayService = holidayService;
+            this.commandService = commandService;
         }
 
         public ActionResult Index(int? year)
@@ -40,9 +37,9 @@
                 Year = year
             };
 
-            IList<Holiday> holidays = _holidayService.GetByYear(criteria);
+            IList<Holiday> holidays = holidayService.GetByYear(criteria);
 
-            return Json(holidays, JsonRequestBehavior.AllowGet);
+            return Json(holidays);
         }
 
         [Authorize(Roles = "HR")]
@@ -73,7 +70,7 @@
                     ModifiedBy = CurrentUser.Id
                 };
 
-                result = _commandService.Insert(criteria);
+                result = commandService.ExecuteNonQuery(criteria);
 
                 if (result.IsSuccessful)
                 {
@@ -99,7 +96,7 @@
             {
                 Id = id
             };
-            Holiday holiday = _holidayService.GetById(criteria);
+            Holiday holiday = holidayService.GetById(criteria);
 
             var model = new HolidayViewModel
             {
@@ -130,7 +127,7 @@
                         ModifiedBy = CurrentUser.Id,
                     };
 
-                    result = _commandService.Update(criteria);
+                    result = commandService.ExecuteNonQuery(criteria);
                     if (result.IsSuccessful)
                     {
                         ViewBag.Updated = true;
@@ -158,7 +155,7 @@
                 Id = id,
                 ModifiedBy = CurrentUser.Id
             };
-            CommandResult result = _commandService.Delete(criteria);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
 
             return Json(result);
         }

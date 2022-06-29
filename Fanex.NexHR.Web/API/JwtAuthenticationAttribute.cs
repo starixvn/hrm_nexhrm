@@ -7,7 +7,6 @@
     using System.Security.Principal;
     using System.Threading;
     using System.Threading.Tasks;
-    using System.Web.Http.Filters;
 
     [AttributeUsage(AttributeTargets.All)]
     public class JwtAuthenticationAttribute : Attribute, IAuthenticationFilter

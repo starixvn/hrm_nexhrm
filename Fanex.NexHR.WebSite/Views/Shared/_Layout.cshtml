@@ -7,15 +7,15 @@
     <title>@AppSetting.HRMName - @ViewBag.Title</title>
     <meta name="viewport" content="width=device-width" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    @Styles.Render("~/Content/sitecss")
-    @RenderSection("css", false)
+   @* @Styles.Render("~/Content/sitecss")
+    @RenderSection("css", false)*@
 </head>
 <body class="locale_en production">
     <header>
-        @Html.Action("Header", "UI")
+       @* @Html.Action("Header", "UI")
         <ul id="nav-mobile" class="side-nav fixed">
             @Html.Action("NavBar", "UI")
-        </ul>
+        </ul>*@
     </header>
     <main>
         <section id="section_content">
@@ -47,11 +47,11 @@
     <footer></footer>
     <div id="message">
     </div>
-    <script type="text/javascript">
+    @*<script type="text/javascript">
         var isHRRole = '@Roles.IsUserInRole("HR")' === 'True';
-    </script>
-    @Scripts.Render("~/bundles/sitejs")
+    </script>*@
+    @*@Scripts.Render("~/bundles/sitejs")
     @RenderSection("js", false)
-    @Html.Action("GlobalScript", "UI")
+    @Html.Action("GlobalScript", "UI")*@
 </body>
 </html>

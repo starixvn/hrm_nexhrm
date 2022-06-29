@@ -14,13 +14,13 @@
         {
             IEnumerable<LateInEarlyOutDiscipline> lateinEarlyOuts;
 
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                using (var multi = await db.QueryMultipleAsync(criteria.GetSpParams()).ConfigureAwait(false))
+                using (var multi = await db.QueryMultipleAsync(criteria))
                 {
-                    lateinEarlyOuts = await multi.ReadAsync<LateInEarlyOutDiscipline>().ConfigureAwait(false);
+                    lateinEarlyOuts = await multi.ReadAsync<LateInEarlyOutDiscipline>();
 
-                    var lateInEarlyOutDetails = await multi.ReadAsync<LateInEarlyOutDisciplineDetail>().ConfigureAwait(false);
+                    var lateInEarlyOutDetails = await multi.ReadAsync<LateInEarlyOutDisciplineDetail>();
 
                     foreach (var lateinEarlyOut in lateinEarlyOuts)
                     {

@@ -21,17 +21,13 @@
         private readonly INexbotService nexbotService;
         private readonly CommandResult Result = new CommandResult { Code = 0 };
 
-        public BotMissingCheckInCheckOutReminderSerivce() : this(null, null)
-        {
-        }
-
         public BotMissingCheckInCheckOutReminderSerivce(
             IEmployeeService employeeService,
             INexbotService nexbotService
         )
         {
-            this.employeeService = employeeService ?? new EmployeeService();
-            this.nexbotService = nexbotService ?? new NexbotService();
+            this.employeeService = employeeService;
+            this.nexbotService = nexbotService;
         }
 
         public async Task<CommandResult> SendMessageAsync()

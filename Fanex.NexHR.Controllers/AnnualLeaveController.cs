@@ -3,6 +3,8 @@
     using Core.Enums;
     using Criteria.AnnualLeave;
     using Criteria.Employee;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.AnnualLeave;
     using Resources;
@@ -11,31 +13,26 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web.Mvc;
     using ViewModels.AnnualLeave;
 
     public class AnnualLeaveController : BaseController
     {
-        private readonly IAnnualLeaveService _annualLeaveService;
-        private readonly ICommandService _commandService;
-        private readonly IEmployeeService _employeeService;
-        private readonly ITeamService _teamService;
-
-        public AnnualLeaveController()
-            : this(null, null, null, null)
-        {
-        }
+        private readonly IAnnualLeaveService annualLeaveService;
+        private readonly ICommandService commandService;
+        private readonly IEmployeeService employeeService;
+        private readonly ITeamService teamService;
 
         public AnnualLeaveController(
+            ISessionService sessionService,
             IEmployeeService employeeService,
             ITeamService teamService,
             IAnnualLeaveService annualLeaveService,
-            ICommandService commandService)
+            ICommandService commandService) : base(sessionService)
         {
-            _employeeService = employeeService ?? new EmployeeService();
-            _teamService = teamService ?? new TeamService();
-            _annualLeaveService = annualLeaveService ?? new AnnualLeaveService();
-            _commandService = commandService ?? new CommandService();
+            this.employeeService = employeeService;
+            this.teamService = teamService;
+            this.annualLeaveService = annualLeaveService;
+            this.commandService = commandService;
         }
 
         [Authorize(Roles = "HR")]
@@ -53,7 +50,7 @@
                     TotalDays = model.TotalDays,
                     CreatedBy = CurrentUser.Id
                 };
-                result = _commandService.Insert(criteria);
+                result = commandService.ExecuteNonQuery(criteria);
             }
             else
             {
@@ -83,7 +80,7 @@
                     TotalDays = model.TotalDays,
                     CreatedBy = CurrentUser.Id
                 };
-                result = _commandService.Insert(criteria);
+                result = commandService.ExecuteNonQuery(criteria);
             }
             else
             {
@@ -119,7 +116,7 @@
                     CreatedBy = CurrentUser.Id
                 };
 
-                result = _commandService.Insert(criteria);
+                result = commandService.ExecuteNonQuery(criteria);
             }
 
             return Json(result);
@@ -129,7 +126,7 @@
         public ActionResult Create(int employeeId)
         {
             var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId };
-            ViewBag.Employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+            ViewBag.Employee = employeeService.GetEmployeeById(getEmployeeCriteria);
 
             return View(new AddAnnualLeaveTransactionViewModel
             {
@@ -155,7 +152,7 @@
                     CreatedBy = CurrentUser.Id
                 };
 
-                CommandResult result = _commandService.Insert(criteria);
+                CommandResult result = commandService.ExecuteNonQuery(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Inserted = true;
@@ -169,7 +166,6 @@
             return View(model);
         }
 
-        [ChildActionOnly]
         public PartialViewResult CreateLeaveConversion()
         {
             return PartialView(new LeaveConversionViewModel
@@ -180,7 +176,6 @@
             });
         }
 
-        [ChildActionOnly]
         public PartialViewResult CreateLeaveDeduction()
         {
             return PartialView(new LeaveDeductionViewModel
@@ -201,7 +196,7 @@
                 LeaveTransactionId = leaveTransactionId,
                 ModifiedBy = CurrentUser.Id
             };
-            CommandResult result = _commandService.Delete(criteria);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
             return Json(result);
         }
 
@@ -215,7 +210,7 @@
                 ModifiedBy = CurrentUser.Id
             };
 
-            return Json(_commandService.Delete(criteria));
+            return Json(commandService.ExecuteNonQuery(criteria));
         }
 
         [Authorize(Roles = "HR")]
@@ -228,7 +223,7 @@
                 ModifiedBy = CurrentUser.Id
             };
 
-            return Json(_commandService.Delete(criteria));
+            return Json(commandService.ExecuteNonQuery(criteria));
         }
 
         [Authorize(Roles = "HR")]
@@ -239,7 +234,7 @@
                 LeaveTransactionId = leaveTransactionId
             };
 
-            AnnualLeaveTransaction leaveTransaction = _annualLeaveService.GetAnnualLeaveTransactionById(criteria);
+            AnnualLeaveTransaction leaveTransaction = annualLeaveService.GetAnnualLeaveTransactionById(criteria);
             var model = new EditAnnualLeaveTransactionViewModel
             {
                 LeaveTransactionId = leaveTransaction.LeaveTransactionId,
@@ -266,7 +261,7 @@
                     CreditDays = model.TotalDays > 0 ? model.TotalDays : 0,
                     ModifiedBy = CurrentUser.Id
                 };
-                CommandResult result = _commandService.Update(criteria);
+                CommandResult result = commandService.ExecuteNonQuery(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Updated = true;
@@ -280,7 +275,6 @@
             return View(model);
         }
 
-        [ChildActionOnly]
         public PartialViewResult EditLeaveConversion()
         {
             return PartialView(new LeaveConversionViewModel
@@ -306,7 +300,7 @@
                     TotalDays = model.TotalDays,
                     ModifiedBy = CurrentUser.Id
                 };
-                result = _commandService.Update(criteria);
+                result = commandService.ExecuteNonQuery(criteria);
             }
             else
             {
@@ -320,7 +314,6 @@
             return Json(result);
         }
 
-        [ChildActionOnly]
         public PartialViewResult EditLeaveDeduction()
         {
             return PartialView(new LeaveDeductionViewModel
@@ -348,7 +341,7 @@
                     TotalDays = model.TotalDays,
                     ModifiedBy = CurrentUser.Id
                 };
-                result = _commandService.Update(criteria);
+                result = commandService.ExecuteNonQuery(criteria);
             }
             else
             {
@@ -376,7 +369,7 @@
                     ExcludedRequestTransactions = model.ExcludedRequestTrans
                 };
 
-                annualLeaveTransactions = _annualLeaveService.GetAnnualLeaveTransactions(criteria);
+                annualLeaveTransactions = annualLeaveService.GetAnnualLeaveTransactions(criteria);
             }
 
             return PartialView("_Employee", annualLeaveTransactions);
@@ -393,7 +386,7 @@
             };
 
             var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId };
-            Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+            Employee employee = employeeService.GetEmployeeById(getEmployeeCriteria);
 
             if (employee == null || employee.Id == 0)
             {
@@ -413,14 +406,13 @@
             {
                 Year = DateTime.Now.Year,
                 EmployeeId = -1,
-                Teams = _teamService.GetTeam(),
+                Teams = teamService.GetTeam(),
                 ShowOpenAndCloseAnnualBalance = GetOpenAndCloseAnnualBalance()
             };
 
             return View("Index", model);
         }
 
-        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Index(LeaveSummaryViewModel model)
         {
@@ -434,7 +426,7 @@
                     Year = model.Year,
                     MinAnnualBalance = model.MinAnnualBalance
                 };
-                leaveSummary = _annualLeaveService.GetAnnualLeaveBalance(getAnnualLeaveCriteria);
+                leaveSummary = annualLeaveService.GetAnnualLeaveBalance(getAnnualLeaveCriteria);
                 ViewBag.Year = model.Year;
             }
 
@@ -456,10 +448,10 @@
                     ConversionType = (int)LeaveConversionType.OvertimeConversion
                 };
 
-                leaveConversions = _annualLeaveService.GetLeaveConversionDetail(criteria);
+                leaveConversions = annualLeaveService.GetLeaveConversionDetail(criteria);
             }
 
-            return Json(leaveConversions, JsonRequestBehavior.AllowGet);
+            return Json(leaveConversions);
         }
 
         public ActionResult LeaveConversionDetail(
@@ -486,10 +478,10 @@
                     ConversionType = (int)LeaveConversionType.LateInEarlyOutDeduction
                 };
 
-                leaveDeductions = _annualLeaveService.GetLeaveConversionDetail(criteria);
+                leaveDeductions = annualLeaveService.GetLeaveConversionDetail(criteria);
             }
 
-            return Json(new { data = leaveDeductions }, JsonRequestBehavior.AllowGet);
+            return Json(new { data = leaveDeductions });
         }
 
         public ActionResult LeaveDeductionDetail(
@@ -502,7 +494,6 @@
         }
 
         [Authorize(Roles = "HR")]
-        [ChildActionOnly]
         public PartialViewResult MultipleInsert()
         {
             return PartialView(new AddMultiAnnualLeaveTransactionViewModel
@@ -512,7 +503,6 @@
         }
 
         [Authorize(Roles = "HR")]
-        [ChildActionOnly]
         public PartialViewResult MultipleReset()
         {
             return PartialView(new AddMultiAnnualLeaveTransactionViewModel
@@ -530,7 +520,7 @@
                 Year = ShowOpenAndCloseAnnualBalance.ToDate.Year
             };
 
-            return Json(_commandService.Insert(criteria));
+            return Json(commandService.ExecuteNonQuery(criteria));
         }
 
         [Authorize(Roles = "HR")]
@@ -544,7 +534,7 @@
                 Year = ShowOpenAndCloseAnnualBalance.FromDate.Year
             };
 
-            IList<LeaveSummary> leaveSummaries = _annualLeaveService.GetAnnualLeaveBalance(getAnnualLeaveCriteria).Where(m => m.LeaveBalance > minbalance).ToList();
+            IList<LeaveSummary> leaveSummaries = annualLeaveService.GetAnnualLeaveBalance(getAnnualLeaveCriteria).Where(m => m.LeaveBalance > minbalance).ToList();
 
             var resetAnnualLeaves = new ResetAnnualLeavesCriteria
             {
@@ -555,14 +545,14 @@
                 LeaveSummaries = leaveSummaries
             };
 
-            CommandResult result = _commandService.Update(resetAnnualLeaves);
+            CommandResult result = commandService.ExecuteNonQuery(resetAnnualLeaves);
 
             return Json(result);
         }
 
         private LeaveConversionDetailViewModel GetLeaveDetailModel(DateTime fromDate, DateTime toDate, int? employeeId, int? teamId)
         {
-            IList<Team> teams = _teamService.GetTeam();
+            IList<Team> teams = teamService.GetTeam();
 
             var model = new LeaveConversionDetailViewModel
             {
@@ -576,7 +566,7 @@
             if (employeeId.HasValue)
             {
                 var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId.Value };
-                Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+                Employee employee = employeeService.GetEmployeeById(getEmployeeCriteria);
 
                 model.Employee = employee.DisplayName;
             }
@@ -592,7 +582,7 @@
                 CloseDate = new DateTime(ShowOpenAndCloseAnnualBalance.FromDate.Year, 12, 31)
             };
 
-            ShowOpenAndCloseAnnualBalance model = _annualLeaveService.GetOpenAndCloseAnnualBalance(criteria);
+            ShowOpenAndCloseAnnualBalance model = annualLeaveService.GetOpenAndCloseAnnualBalance(criteria);
 
             return model;
         }

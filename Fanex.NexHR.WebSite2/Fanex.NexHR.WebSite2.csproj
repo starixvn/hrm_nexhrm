@@ -1,0 +1,96 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\css\login.css" />
+    <Content Remove="wwwroot\css\Login.min.css" />
+    <Content Remove="wwwroot\css\Login.scss" />
+    <Content Remove="wwwroot\Images\ajax-loader.gif" />
+    <Content Remove="wwwroot\Images\bg_todolist.jpg" />
+    <Content Remove="wwwroot\Images\calendar.jpg" />
+    <Content Remove="wwwroot\Images\cancel.png" />
+    <Content Remove="wwwroot\Images\chart.jpg" />
+    <Content Remove="wwwroot\Images\CustomScrollbar\mCSB_buttons.png" />
+    <Content Remove="wwwroot\Images\Dashboard\1.png" />
+    <Content Remove="wwwroot\Images\Dashboard\2.png" />
+    <Content Remove="wwwroot\Images\Dashboard\3.png" />
+    <Content Remove="wwwroot\Images\Dashboard\4.png" />
+    <Content Remove="wwwroot\Images\Dashboard\5.png" />
+    <Content Remove="wwwroot\Images\edit-icon.png" />
+    <Content Remove="wwwroot\Images\google-logo.jpg" />
+    <Content Remove="wwwroot\Images\ic_google.png" />
+    <Content Remove="wwwroot\Images\infinity.gif" />
+    <Content Remove="wwwroot\Images\leftLogin.png" />
+    <Content Remove="wwwroot\Images\loding.gif" />
+    <Content Remove="wwwroot\Images\logo.svg" />
+    <Content Remove="wwwroot\Images\logo1.png" />
+    <Content Remove="wwwroot\Images\LogoLuminet.png" />
+    <Content Remove="wwwroot\Images\LogoLuminet.svg" />
+    <Content Remove="wwwroot\Images\LumiHRM.png" />
+    <Content Remove="wwwroot\Images\NexHRM.png" />
+    <Content Remove="wwwroot\Images\Office_building_icon.png" />
+    <Content Remove="wwwroot\Images\preloader.gif" />
+    <Content Remove="wwwroot\Images\skype.png" />
+    <Content Remove="wwwroot\Images\sort-icon.png" />
+    <Content Remove="wwwroot\Images\sprite_ico_2012-05-15.png" />
+    <Content Remove="wwwroot\Images\user.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\login.css" />
+    <None Include="wwwroot\css\Login.min.css" />
+    <None Include="wwwroot\css\Login.scss" />
+    <None Include="wwwroot\Images\ajax-loader.gif" />
+    <None Include="wwwroot\Images\bg_todolist.jpg" />
+    <None Include="wwwroot\Images\calendar.jpg" />
+    <None Include="wwwroot\Images\cancel.png" />
+    <None Include="wwwroot\Images\chart.jpg" />
+    <None Include="wwwroot\Images\CustomScrollbar\mCSB_buttons.png" />
+    <None Include="wwwroot\Images\Dashboard\1.png" />
+    <None Include="wwwroot\Images\Dashboard\2.png" />
+    <None Include="wwwroot\Images\Dashboard\3.png" />
+    <None Include="wwwroot\Images\Dashboard\4.png" />
+    <None Include="wwwroot\Images\Dashboard\5.png" />
+    <None Include="wwwroot\Images\edit-icon.png" />
+    <None Include="wwwroot\Images\google-logo.jpg" />
+    <None Include="wwwroot\Images\ic_google.png" />
+    <None Include="wwwroot\Images\infinity.gif" />
+    <None Include="wwwroot\Images\leftLogin.png" />
+    <None Include="wwwroot\Images\loding.gif" />
+    <None Include="wwwroot\Images\logo.svg" />
+    <None Include="wwwroot\Images\logo1.png" />
+    <None Include="wwwroot\Images\LogoLuminet.png" />
+    <None Include="wwwroot\Images\LogoLuminet.svg" />
+    <None Include="wwwroot\Images\LumiHRM.png" />
+    <None Include="wwwroot\Images\NexHRM.png" />
+    <None Include="wwwroot\Images\Office_building_icon.png" />
+    <None Include="wwwroot\Images\preloader.gif" />
+    <None Include="wwwroot\Images\skype.png" />
+    <None Include="wwwroot\Images\sort-icon.png" />
+    <None Include="wwwroot\Images\sprite_ico_2012-05-15.png" />
+    <None Include="wwwroot\Images\user.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Fanex.NexHR.Controllers\Fanex.NexHR.Controllers.csproj" />
+    <ProjectReference Include="..\Fanex.NexHR.Core\Fanex.NexHR.Core.csproj" />
+    <ProjectReference Include="..\Fanex.NexHR.Criteria\Fanex.NexHR.Criteria.csproj" />
+    <ProjectReference Include="..\Fanex.NexHR.Models\Fanex.NexHR.Models.csproj" />
+    <ProjectReference Include="..\Fanex.NexHR.Repositories\Fanex.NexHR.Repositories.csproj" />
+    <ProjectReference Include="..\Fanex.NexHR.Resources\Fanex.NexHR.Resources.csproj" />
+    <ProjectReference Include="..\Fanex.NexHR.Services\Fanex.NexHR.Services.csproj" />
+    <ProjectReference Include="..\Fanex.NexHR.ViewModels\Fanex.NexHR.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="App_Data\SpNames.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -1,7 +1,6 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
     using System;
-    using System.Web.Mvc;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.EmployeeWorkFromHome;
     using Fanex.NexHR.Models;
@@ -9,23 +8,23 @@
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels.EmployeeWorkFromHome;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
 
     public class EmployeeWorkFromHomeController : BaseController
     {
         private readonly IEmployeeWorkFromHomeService employeeWorkFromHomeService;
         private readonly ITeamService teamService;
+        private readonly ICommandService commandService;
 
-        public EmployeeWorkFromHomeController()
-            : this(null, null)
-        {
-        }
-
-        public EmployeeWorkFromHomeController(
+        public EmployeeWorkFromHomeController(ISessionService sessionService,
             IEmployeeWorkFromHomeService employeeWorkFromHomeService,
-            ITeamService teamService)
+            ITeamService teamService,
+            ICommandService commandService) : base(sessionService)
         {
-            this.employeeWorkFromHomeService = employeeWorkFromHomeService ?? new EmployeeWorkFromHomeService();
-            this.teamService = teamService ?? new TeamService();
+            this.employeeWorkFromHomeService = employeeWorkFromHomeService;
+            this.teamService = teamService;
+            this.commandService = commandService;
         }
 
         public ActionResult Index()
@@ -72,7 +71,6 @@
             return View(model);
         }
 
-        [ValidateInput(false)]
         [HttpPost]
         [Authorize(Roles = "HR")]
         public ActionResult Create(EmployeeWorkFromHomeViewModel model)
@@ -88,7 +86,7 @@
                     Remark = model.Remark
                 };
 
-                var result = employeeWorkFromHomeService.Insert(criteria);
+                var result = commandService.ExecuteNonQuery(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
@@ -117,7 +115,6 @@
             return View(model);
         }
 
-        [ValidateInput(false)]
         [HttpPost]
         [Authorize(Roles = "HR")]
         public ActionResult Edit(EmployeeWorkFromHomeViewModel model)
@@ -134,7 +131,7 @@
                     Remark = model.Remark
                 };
 
-                var result = employeeWorkFromHomeService.Update(criteria);
+                var result = commandService.ExecuteNonQuery(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
@@ -152,7 +149,7 @@
         public ActionResult Delete(int id)
         {
             var criteria = new DeleteEmployeeWorkFromHomeCriteria { EmployeeWorkFromHomeId = id, DeletedBy = CurrentUser.Id };
-            var result = employeeWorkFromHomeService.Delete(criteria);
+            var result = commandService.ExecuteNonQuery(criteria);
             return Json(result);
         }
 
@@ -172,7 +169,7 @@
                         ProcessedBy = CurrentUser.Id,
                         ProcessedDate = DateTime.Now
                     };
-                    var result = employeeWorkFromHomeService.ProcessApproveAndReject(criteria);
+                    var result = commandService.ExecuteNonQuery(criteria);
                     if (!result.IsSuccessful)
                     {
                         commandResult.Code = result.Code;
@@ -195,7 +192,7 @@
                 ProcessedBy = CurrentUser.Id,
                 ProcessedDate = DateTime.Now
             };
-            var result = employeeWorkFromHomeService.ProcessApproveAndReject(criteria);
+            var result = commandService.ExecuteNonQuery(criteria);
             return Json(result);
         }
 
@@ -210,7 +207,7 @@
                 ProcessedBy = CurrentUser.Id,
                 ProcessedDate = DateTime.Now
             };
-            var result = employeeWorkFromHomeService.ProcessDisapprove(criteria);
+            var result = commandService.ExecuteNonQuery(criteria);
             return Json(result);
         }
 

@@ -14,9 +14,9 @@
 
         public IList<Overtime> GetOvertime(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
+                using (var multi = db.QueryMultiple(criteria))
                 {
                     IList<Overtime> overtimes = multi.Read<Overtime, Employee, Overtime>(
                         (ot, cre) =>
@@ -47,9 +47,9 @@
 
         public Overtime GetOvertimeById(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
+                using (var multi = db.QueryMultiple(criteria))
                 {
                     Overtime overtimeRequest = multi.Read<Overtime, Employee, Overtime>(
                         (ot, cre) =>
@@ -80,7 +80,7 @@
 
         public IList<EmployeeOvertime> GetEmployeeOvertime(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var employeeOvertimes = db.Query<EmployeeOvertime, Employee, Employee, EmployeeOvertime>(
                     (o, e, cr) =>
@@ -90,7 +90,7 @@
                         return o;
                     },
                     "EmployeeId, CreatedId",
-                    criteria.GetSpParams()).ToList();
+                    criteria).ToList();
 
                 return employeeOvertimes;
             }
@@ -98,7 +98,7 @@
 
         public IList<OvertimeSummary> GetOvertimeSummary(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var overtimeSummmary = db.Query<OvertimeSummary, Employee, Team, OvertimeSummary>(
                      (overtime, employee, team) =>
@@ -108,7 +108,7 @@
                          return overtime;
                      },
                      "EmpId, GroupId",
-                     criteria.GetSpParams()).ToList();
+                     criteria).ToList();
 
                 return overtimeSummmary;
             }
@@ -116,7 +116,7 @@
 
         public IList<OvertimeConversion> GetConversions(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var conversions = db.Query<OvertimeConversion, Employee, Team, Employee, OvertimeConversion>(
                     (otc, e1, t, e2) =>
@@ -127,7 +127,7 @@
                         return otc;
                     },
                     "EmpId, GroupId, ModifiedById",
-                    criteria.GetSpParams()).ToList();
+                    criteria).ToList();
 
                 return conversions;
             }
@@ -135,7 +135,7 @@
 
         public IList<ReportOvertimeHRDetail> GetReportOvertimeHRDetail(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var report = db.Query<ReportOvertimeHRDetail, Employee, ReportOvertimeHRDetail>(
                     (rp, e1) =>
@@ -144,7 +144,7 @@
                         return rp;
                     },
                     stringSplitOnEmployeeId,
-                    criteria.GetSpParams()).ToList();
+                    criteria).ToList();
 
                 return report;
             }

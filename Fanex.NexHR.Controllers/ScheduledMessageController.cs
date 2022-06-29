@@ -1,21 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Fanex.NexHR.Criteria.ScheduledMessage;
-
-namespace Fanex.NexHR.Controllers
+﻿namespace Fanex.NexHR.Controllers
 {
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
+    using Fanex.NexHR.Criteria.ScheduledMessage;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.ScheduledMessage;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels.ScheduledMessage;
-    using System;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using System.Web.Mvc;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class ScheduledMessageController : BaseController
     {
@@ -23,11 +21,14 @@ namespace Fanex.NexHR.Controllers
         private readonly IScheduledMessageService scheduledMessageService;
         private readonly IEmployeeService employeeService;
 
-        public ScheduledMessageController()
+        public ScheduledMessageController(ISessionService sessionService, 
+            BaseService baseService,
+            IScheduledMessageService scheduledMessageService,
+            IEmployeeService employeeService) : base(sessionService)
         {
-            scheduledMessageService = new ScheduledMessageService();
-            employeeService = new EmployeeService();
-            baseService = new BaseService();
+            this.scheduledMessageService = scheduledMessageService;
+            this.employeeService = employeeService;
+            this.baseService = baseService;
         }
 
         [HttpGet]

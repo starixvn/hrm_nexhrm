@@ -4,17 +4,17 @@
     using System.Collections.Generic;
     using System.Configuration;
     using System.Globalization;
-    using System.Web.Mvc;
     using Core;
     using Core.Enums;
     using Criteria.Employee;
     using Criteria.Report;
     using Fanex.NexHR.Core.Model;
     using Fanex.NexHR.ViewModels.YearlyNexRequest;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.Report;
     using Newtonsoft.Json;
-    using Services;
     using Services.Interfaces;
     using ViewModels;
     using ViewModels.Common;
@@ -30,21 +30,16 @@
 
         private static readonly bool isEditableSettingCheckInOut = bool.Parse(ConfigurationManager.AppSettings["IsEditableSettingCheckInOut"]);
 
-        public ReportController(
+        public ReportController(ISessionService sessionService,
             IEmployeeService employeeService,
             IReportService reportService,
             ITeamService teamService,
-            ICommandService commandService)
+            ICommandService commandService) : base(sessionService)
         {
-            this.employeeService = employeeService ?? new EmployeeService();
-            this.reportService = reportService ?? new ReportService();
-            this.teamService = teamService ?? new TeamService();
-            this.commandService = commandService ?? new CommandService();
-        }
-
-        public ReportController()
-            : this(null, null, null, null)
-        {
+            this.employeeService = employeeService;
+            this.reportService = reportService;
+            this.teamService = teamService;
+            this.commandService = commandService;
         }
 
         public ActionResult Attendance(EmployeeAttendanceViewModel model)
@@ -72,7 +67,6 @@
             return View(employeeAttendanceViewModel);
         }
 
-        [ValidateInput(false)]
         public ActionResult ListAttendance(EmployeeAttendanceViewModel model)
         {
             IList<EmployeeAttendanceModel> attendances = new List<EmployeeAttendanceModel>();
@@ -177,7 +171,7 @@
                 IPAddress = GetClientIpAddress(),
                 Platform = Request.Headers["User-Agent"]
             };
-            CommandResult result = commandService.Insert(criteria);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
             return Json(result);
         }
 
@@ -192,7 +186,7 @@
                 IPAddress = GetClientIpAddress(),
                 Platform = Request.Headers["User-Agent"]
             };
-            CommandResult result = commandService.Insert(criteria);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
             return Json(result);
         }
 
@@ -214,26 +208,19 @@
                 ModifiedDate = DateTime.Now,
                 IsEditCheckInOutOnline = true
             };
-            CommandResult result = commandService.Insert(criteria);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
             return Json(result);
         }
 
         public string GetClientIpAddress()
         {
-            var clientIp = Request.ServerVariables["X_FORWARDED_FOR"];
-
-            if (string.IsNullOrEmpty(clientIp))
+            var clientIP = HttpContext.Request?.Headers["x-forwarded-for"].ToString();
+            if (string.IsNullOrWhiteSpace(clientIP))
             {
-                clientIp = Request.UserHostAddress;
-            }
-            else
-            {
-                var forwardedIps = clientIp.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-
-                clientIp = forwardedIps[forwardedIps.Length - 1];
+                clientIP = HttpContext?.Connection?.RemoteIpAddress?.ToString();
             }
 
-            return clientIp;
+            return clientIP;
         }
 
         private bool IsPrivilegeCreateCheckInOut()
@@ -293,9 +280,8 @@
             return View("RequestMonitoring", model);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Hr", Justification = "Reviewed")]
         [Authorize(Roles = "HR")]
-        public ActionResult ListHrRequestMonitoring(RequestsMonitoringViewModel model)
+        public ActionResult ListHRRequestMonitoring(RequestsMonitoringViewModel model)
         {
             IList<RequestsMonitoring> requestMonitorings = GetRequestMonitoringDetail(model);
 
@@ -365,7 +351,6 @@
             return View(model);
         }
 
-        [ValidateInput(false)]
         [HttpPost]
         public JsonResult GetTotalWorkingHour(TotalWorkingHoursViewModel model)
         {
@@ -397,7 +382,7 @@
 
             IList<TotalWorkingHours> totalWorkingHour = SortTotalWorking(model?.Sort, totalWorkingHours);
 
-            return Json(totalWorkingHour, JsonRequestBehavior.AllowGet);
+            return Json(totalWorkingHour);
         }
 
         private static IList<TotalWorkingHours> SortTotalWorking(string sort, IList<TotalWorkingHours> totalWorkingHours)
@@ -417,7 +402,6 @@
             return totalWorkingSorted;
         }
 
-        [ValidateInput(false)]
         public ActionResult LateInEarlyOut(int empId = 0, string nickname = "")
         {
             IList<Team> teams = teamService.GetTeam();
@@ -439,7 +423,6 @@
             return View(model);
         }
 
-        [ValidateInput(false)]
         [HttpPost]
         public ActionResult ListLateInEarlyOut(LateInEarlyOutViewModel model)
         {
@@ -529,7 +512,6 @@
             return View(model);
         }
 
-        [ValidateInput(false)]
         [Authorize(Roles = "HR")]
         [HttpPost]
         public ActionResult ListLateInEarlyOutDiscipline(LateInEarlyOutSummaryViewModel model)
@@ -642,7 +624,6 @@
             return View(model);
         }
 
-        [ValidateInput(false)]
         [Authorize(Roles = "HR")]
         public ActionResult ListTimeRecord(TimeRecordViewModel model)
         {
@@ -677,7 +658,6 @@
             return PartialView("_ListTimeRecord", timeRecords);
         }
 
-        [ValidateInput(false)]
         [HttpPost]
         public JsonResult GetWorkingHoursStatistic(WorkingHoursStatisticViewModel model)
         {
@@ -693,7 +673,7 @@
 
             IList<WorkingHoursStatistic> totalWorkingHours = reportService.GetWorkingHoursStatistic(getWorkingHoursCriteria);
 
-            return Json(totalWorkingHours, JsonRequestBehavior.AllowGet);
+            return Json(totalWorkingHours);
         }
 
         [Authorize(Roles = "HR")]

@@ -1,28 +1,22 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using Criteria.Report;
     using Interfaces;
     using Models;
     using Models.Report;
-    using Repositories;
     using Repositories.Interfaces;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class ReportService : BaseService, IReportService
     {
         private readonly IReportRepository reportRepository;
         private readonly BaseService baseService;
 
-        public ReportService()
-            : this(null, null)
-        {
-        }
-
         public ReportService(IReportRepository reportRepository, BaseService baseService)
         {
-            this.reportRepository = reportRepository ?? new ReportRepository();
-            this.baseService = baseService ?? new BaseService();
+            this.reportRepository = reportRepository;
+            this.baseService = baseService;
         }
 
         public IList<TimeRecord> GetTimeRecords(GetTimeRecordCriteria criteria)

@@ -2,29 +2,23 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Web.Mvc;
     using Criteria.Shift;
+    using Microsoft.AspNetCore.Mvc;
     using Models;
-    using Services;
     using Services.Interfaces;
 
     public class ShiftController : BaseController
     {
-        private readonly IShiftService _shiftService;
+        private readonly IShiftService shiftService;
 
-        public ShiftController()
-            : this(null)
+        public ShiftController(ISessionService sessionService, IShiftService shiftService) : base(sessionService)
         {
-        }
-
-        public ShiftController(IShiftService shiftService)
-        {
-            _shiftService = shiftService ?? new ShiftService();
+            this.shiftService = shiftService;
         }
 
         public ActionResult Index()
         {
-            IList<Shift> shifts = _shiftService.GetAll();
+            IList<Shift> shifts = shiftService.GetAll();
 
             return View(shifts);
         }
@@ -36,7 +30,7 @@
                 EmployeeId = employeeId,
                 Date = date
             };
-            Shift shift = _shiftService.GetByDate(getShiftByDateCriteria);
+            Shift shift = shiftService.GetByDate(getShiftByDateCriteria);
 
             return Json(shift);
         }

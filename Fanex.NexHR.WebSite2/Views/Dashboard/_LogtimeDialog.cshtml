@@ -1,0 +1,47 @@
+﻿@model Fanex.NexHR.Models.RedmineAPI.LogTimeIssue
+
+<form id="formLogtime" class="form">
+
+    @*@Html.HiddenFor(model => model.IssueId)
+
+    <div class="row form-input">
+        <div class="left label--m">
+            @Html.LabelFor(model => model.SpentOn)
+        </div>
+        <div class="left datepicker-button select--m">
+            @Html.DatePickerFor(model => model.SpentOn, maxDate: DateTime.Now)
+            <i class="mdi-action-event calendar-icon left"></i>
+            <p class="bold total-hour-message"></p>
+            @Html.ValidationMessageFor(model => model.SpentOn)
+        </div>
+    </div>
+
+    <div class="row form-input">
+        <div class="left label--m">
+            @Html.LabelFor(model => model.Hours)
+        </div>
+        <div class="left select--m">
+            @Html.TextBoxFor(model => model.Hours)
+            @Html.ValidationMessageFor(model => model.Hours)
+        </div>
+    </div>
+
+    <div class="row form-input">
+        <div class="left label--m">
+            @Html.LabelFor(model => model.Activity)
+        </div>
+        <div class="left select--m">
+            @Html.EnumDropDownListFor(model => model.Activity)
+        </div>
+    </div>
+
+    <div class="row form-input">
+        <div class="left label--m">
+            @Html.LabelFor(model => model.Comments)
+        </div>
+        <div class="left select--m">
+            @Html.TextArea("Comments", new { @class = "comment", rows = 3 })
+            @Html.ValidationMessageFor(model => model.Comments)
+        </div>
+    </div>*@
+</form>

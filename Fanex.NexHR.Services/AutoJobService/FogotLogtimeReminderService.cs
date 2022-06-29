@@ -20,10 +20,10 @@
         private readonly IRedmineService redmineService;
         private readonly INexbotService nexbotService;
 
-        public FogotLogtimeReminderService()
+        public FogotLogtimeReminderService(IRedmineService redmineService, INexbotService nexbotService)
         {
-            redmineService = new RedmineService();
-            nexbotService = new NexbotService();
+            this.redmineService = redmineService;
+            this.nexbotService = nexbotService;
         }
 
         public async Task<CommandResult> SendMessageForgotLogtimeAsync()

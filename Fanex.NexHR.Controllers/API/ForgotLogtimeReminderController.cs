@@ -1,24 +1,22 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
-    using Fanex.NexHR.Services.AutoJobService;
-    using Fanex.NexHR.Web.API;
-    using System.Web.Http;
     using System.Threading.Tasks;
     using Fanex.NexHR.Services.Interfaces;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
 
     [Authorize]
-    [JwtAuthentication]
-    public class ForgotLogtimeReminderController : ApiController
+    public class ForgotLogtimeReminderController : ControllerBase
     {
         private readonly IBotFogotLogtimeReminderService fogotLogtimeService;
 
-        public ForgotLogtimeReminderController()
+        public ForgotLogtimeReminderController(IBotFogotLogtimeReminderService fogotLogtimeService)
         {
-            fogotLogtimeService = new FogotLogtimeReminderService();
+            this.fogotLogtimeService = fogotLogtimeService;
         }
 
         [HttpPost]
-        public async Task<IHttpActionResult> ForgotLogtime()
+        public async Task<IActionResult> ForgotLogtime()
         {
             var result = await fogotLogtimeService.SendMessageForgotLogtimeAsync().ConfigureAwait(false);
             return Ok(result);

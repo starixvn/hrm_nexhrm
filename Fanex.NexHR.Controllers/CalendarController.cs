@@ -2,8 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Web.Mvc;
     using Criteria.Calendar;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.Calendar;
     using Services;
@@ -13,23 +14,18 @@
 
     public class CalendarController : BaseController
     {
-        private readonly ICalendarService _calendarService;
-        private readonly ITeamService _teamService;
-        private readonly ICommandService _commandService;
+        private readonly ICalendarService calendarService;
+        private readonly ITeamService teamService;
+        private readonly ICommandService commandService;
 
-        public CalendarController()
-            : this(null, null, null)
-        {
-        }
-
-        public CalendarController(
+        public CalendarController(ISessionService sessionService,
             ICalendarService calendarService,
             ITeamService teamService,
-            ICommandService commandService)
+            ICommandService commandService) : base(sessionService)
         {
-            _calendarService = calendarService ?? new CalendarService();
-            _teamService = teamService ?? new TeamService();
-            _commandService = commandService ?? new CommandService();
+            this.calendarService = calendarService;
+            this.teamService = teamService;
+            this.commandService = commandService;
         }
 
         [Authorize(Roles = "HR")]
@@ -42,9 +38,9 @@
                 ShiftId = shiftId,
                 ModifiedBy = CurrentUser.Id,
             };
-            CommandResult result = _commandService.Update(criteria);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return Json(result);
         }
 
         [Authorize(Roles = "HR")]
@@ -62,10 +58,10 @@
                     SetOffDay = model.SetOffDay
                 };
 
-                result = _commandService.Insert(criteria);
+                result = commandService.ExecuteNonQuery(criteria);
             }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return Json(result);
         }
 
         public JsonResult GetWorkingSchedule(int employeeId, DateTime date)
@@ -78,8 +74,8 @@
                 EmployeeId = employeeId
             };
 
-            IList<WorkingSchedule> schedules = _calendarService.GetWorkingSchedule(criteria);
-            return Json(schedules, JsonRequestBehavior.AllowGet);
+            IList<WorkingSchedule> schedules = calendarService.GetWorkingSchedule(criteria);
+            return Json(schedules);
         }
 
         public ActionResult MyWorkingSchedule()
@@ -87,7 +83,6 @@
             return View();
         }
 
-        [ValidateInput(false)]
         public ActionResult WorkingCalendars(WorkingCalendarViewModel model)
         {
             if (model != null)
@@ -97,7 +92,7 @@
                     model.EmployeeId = -1;
                 }
 
-                model.Teams = _teamService.GetTeam();
+                model.Teams = teamService.GetTeam();
                 model.Month = model.Month == 0 ? DateTime.Now.Month : model.Month;
                 model.Year = model.Year == 0 ? DateTime.Now.Year : model.Year;
                 DateTime date = new DateTime(model.Year, model.Month, 1);
@@ -109,7 +104,7 @@
                     TeamId = model.TeamId
                 };
 
-                IList<WorkingSchedule> schedules = _calendarService.GetWorkingSchedule(criteria);
+                IList<WorkingSchedule> schedules = calendarService.GetWorkingSchedule(criteria);
                 model.WorkingSchedules = schedules;
             }
 
@@ -125,7 +120,7 @@
                     model.EmployeeId = -1;
                 }
 
-                model.Teams = _teamService.GetTeam();
+                model.Teams = teamService.GetTeam();
                 model.Month = model.Month == 0 ? DateTime.Now.Month : model.Month;
                 model.Year = model.Year == 0 ? DateTime.Now.Year : model.Year;
             }
@@ -144,12 +139,11 @@
                 TeamId = model.TeamId
             };
 
-            var schedules = _calendarService.GetLeaveSchedule(criteria);
+            var schedules = calendarService.GetLeaveSchedule(criteria);
 
             return PartialView("_LeaveDaySummarySchedule", schedules);
         }
 
-        [ChildActionOnly]
         public PartialViewResult AddEmployeeCalendar()
         {
             return PartialView(new AddEmployeeCalendarViewModel

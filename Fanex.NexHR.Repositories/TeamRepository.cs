@@ -11,7 +11,7 @@
     {
         public Team GetById(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var entity = db.QueryEntity<Team, Team, Department, Employee, Employee, Team>(
                     (t, t1, dep, x, y) =>
@@ -23,14 +23,14 @@
                         return t;
                     },
                     "ParentId, DepartmentId, LeaderId, AssistantLeaderId", 
-                    criteria.GetSpParams());
+                    criteria);
                 return entity;
             }
         }
 
         public IList<Team> GetAll(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var entity = db.Query<Team, Employee, Employee, Team>(
                    (t, x, y) =>
@@ -40,7 +40,7 @@
                        return t;
                    },
                    "LeaderId, AssistantLeaderId",
-                   criteria.GetSpParams());
+                   criteria);
 
                 return entity.ToList();
             }

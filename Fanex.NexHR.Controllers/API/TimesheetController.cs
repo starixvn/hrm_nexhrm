@@ -1,29 +1,23 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
-    using System.Web.Http;
     using Fanex.NexHR.Core;
-    using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.Web.API;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
 
     [Authorize]
-    [JwtAuthentication]
-    public class TimesheetController : ApiController
+
+    public class TimesheetController : ControllerBase
     {
         private readonly ITimeSheetService timeSheetService;
 
-        public TimesheetController()
-            : this(null)
-        {
-        }
-
         public TimesheetController(ITimeSheetService timeSheetService)
         {
-            this.timeSheetService = timeSheetService ?? new TimeSheetService();
+            this.timeSheetService = timeSheetService;
         }
 
         [HttpGet]
-        public IHttpActionResult ReminderReachedWorkingTime()
+        public IActionResult ReminderReachedWorkingTime()
         {
             LogFileHelper.WriteInfo("Call API ReminderReachedWorkingTime");
 

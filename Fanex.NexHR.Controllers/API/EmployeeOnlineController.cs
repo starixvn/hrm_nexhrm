@@ -1,27 +1,21 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
-    using System.Web.Http;
-    using Fanex.NexHR.Services.AutoJobService;
     using Fanex.NexHR.Services.Interfaces;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
 
-    //[Authorize]
-    //[JwtAuthentication]
-    public class EmployeeOnlineController : ApiController
+    [Authorize]
+    public class EmployeeOnlineController : ControllerBase
     {
         private readonly IEmployeeOnlineService employeeOnlineService;
 
-        public EmployeeOnlineController()
-            : this(null)
-        {
-        }
-
         public EmployeeOnlineController(IEmployeeOnlineService employeeOnlineService)
         {
-            this.employeeOnlineService = employeeOnlineService ?? new EmployeeOnlineService();
+            this.employeeOnlineService = employeeOnlineService;
         }
 
         [HttpGet]
-        public IHttpActionResult CheckOnline()
+        public IActionResult CheckOnline()
         {
             employeeOnlineService.RunCheckOnline();
             return Ok();

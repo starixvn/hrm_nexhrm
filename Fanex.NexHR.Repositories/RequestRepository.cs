@@ -1,15 +1,5 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="RequestRepository.cs" company=".">
-// Copyright (c) .. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2015.7.31">Created</change>
-// </history>
-
-namespace Fanex.NexHR.Repositories
+﻿namespace Fanex.NexHR.Repositories
 {
-    using Common.Extensions;
     using Core.Attributes;
     using Data;
     using Data.Repository;
@@ -28,9 +18,9 @@ namespace Fanex.NexHR.Repositories
         public IList<RequestEntity> GetRequest(ICriteria criteria)
         {
             IList<RequestEntity> entityList = new List<RequestEntity>();
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
+                using (IDataReader reader = db.ExecuteReader(criteria))
                 {
                     if (reader != null)
                     {
@@ -48,7 +38,7 @@ namespace Fanex.NexHR.Repositories
 
                 if (totalitem != null)
                 {
-                    var hashParam = db.GetOuputParams();
+                    var hashParam = db.GetOutputParams();
                     totalitem.SetValue(criteria, (int)hashParam["totalitem"], null);
                 }
             }
@@ -59,9 +49,9 @@ namespace Fanex.NexHR.Repositories
         public RequestEntity GetRequestEntity(ICriteria criteria)
         {
             RequestEntity request = new RequestEntity();
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                using (IDataReader reader = db.ExecuteReader(criteria.GetSpParams()))
+                using (IDataReader reader = db.ExecuteReader(criteria))
                 {
                     if (reader != null)
                     {
@@ -80,42 +70,43 @@ namespace Fanex.NexHR.Repositories
         {
             var entity = new RequestEntity
             {
-                Id = reader.ToInt("Id"),
-                CreatedDate = reader.ToDateTime("CreatedDate"),
-                Status = new RequestStatus { Id = reader.ToByte("Status") },
-                RequestType = new RequestTypeModel { Id = reader.ToShort("RequestType") },
-                TotalDaysRequestInMonth = reader.ToDecimal("TotalDaysRequestInMonth"),
-                IsAllowUpdateStatus = reader.ToInt("IsAllowUpdateStatus") == 1,
-                RequestedDate = reader.ToDateTime("RequestedDate"),
+                Id = reader.GetInt64(reader.GetOrdinal("Id")),
+                CreatedDate = reader.GetDateTime(reader.GetOrdinal("CreatedDate")),
+                Status = new RequestStatus { Id = reader.GetByte(reader.GetOrdinal("Status")) },
+                RequestType = new RequestTypeModel { Id = reader.GetInt16(reader.GetOrdinal("RequestType")) },
+                TotalDaysRequestInMonth = reader.GetDecimal(reader.GetOrdinal("TotalDaysRequestInMonth")),
+                IsAllowUpdateStatus = reader.GetBoolean(reader.GetOrdinal("IsAllowUpdateStatus")),
+
+                RequestedDate = reader.GetDateTime(reader.GetOrdinal("RequestedDate")),
                 Requester = new Employee
                 {
-                    Id = reader.To<int>("empID"),
-                    NickName = reader.To<string>("Requester"),
-                    FullName = reader.To<string>("FullNameRequester"),
-                    Email = reader.To<string>("EmailRequester"),
-                    AnnualLeaveBalance = reader.ToDecimal("AnnualLeaveBalance"),
-                    Team = new Team { Name = reader.To<string>("Team"), Code = reader.To<string>("TeamCode") }
+                    Id = reader.GetInt32(reader.GetOrdinal("empID")),
+                    NickName = reader.GetString(reader.GetOrdinal("Requester")),
+                    FullName = reader.GetString(reader.GetOrdinal("FullNameRequester")),
+                    Email = reader.GetString(reader.GetOrdinal("EmailRequester")),
+                    AnnualLeaveBalance = reader.GetDecimal(reader.GetOrdinal("AnnualLeaveBalance")),
+                    Team = new Team { Name = reader.GetString(reader.GetOrdinal("Team")), Code = reader.GetString(reader.GetOrdinal("TeamCode")) }
                 },
                 ModifiedBy = new Employee
                 {
-                    NickName = reader.To<string>("ProcessedBy"),
-                    FullName = reader.To<string>("FullNameProcessedBy"),
-                    Email = reader.To<string>("EmailProcessedBy")
+                    NickName = reader.GetString(reader.GetOrdinal("ProcessedBy")),
+                    FullName = reader.GetString(reader.GetOrdinal("FullNameProcessedBy")),
+                    Email = reader.GetString(reader.GetOrdinal("EmailProcessedBy"))
                 },
-                ModifiedDate = reader.ToDateTime("ProcessedDate"),
-                FromShift = new Shift { Name = reader.To<string>("FromShift") },
-                ToShift = new Shift { Name = reader.To<string>("ToShift") },
-                TotalMins = reader.ToInt("TotalMins"),
-                FromDate = reader.ToDateTime("FromDate"),
-                ToDate = reader.ToDateTime("ToDate"),
-                TotalDays = reader.ToDecimal("TotalDays"),
+                ModifiedDate = reader.GetDateTime(reader.GetOrdinal("ProcessedDate")),
+                FromShift = new Shift { Name = reader.GetString(reader.GetOrdinal("FromShift")) },
+                ToShift = new Shift { Name = reader.GetString(reader.GetOrdinal("ToShift"))},
+                TotalMins = reader.GetInt32(reader.GetOrdinal("TotalMins")),
+                FromDate = reader.GetDateTime(reader.GetOrdinal("FromDate")),
+                ToDate = reader.GetDateTime(reader.GetOrdinal("ToDate")),
+                TotalDays = reader.GetDecimal(reader.GetOrdinal("TotalDays")),
                 LeaveType = new LeaveType
                 {
-                    Id = reader.ToInt("LeaveTypeId"),
-                    Name = reader.ToString("LeaveTypeName")
+                    Id = reader.GetInt32(reader.GetOrdinal("LeaveTypeId")),
+                    Name = reader.GetString(reader.GetOrdinal("LeaveTypeName"))
                 },
-                Remark = reader.ToString("Remark"),
-                IsCrossDate = reader.ToBool("IsCrossDate")
+                Remark = reader.GetString(reader.GetOrdinal("Remark")),
+                IsCrossDate = reader.GetBoolean(reader.GetOrdinal("IsCrossDate"))
             };
 
             return entity;

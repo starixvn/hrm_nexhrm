@@ -12,7 +12,7 @@
     {
         public IList<WorkingSchedule> GetWorkingSchedule(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var workingSchedules = db.Query<WorkingSchedule, Employee, Team, WorkingSchedule>(
                      (schedule, employee, team) =>
@@ -22,7 +22,7 @@
                          return schedule;
                      },
                      "EmpId, GroupId",
-                     criteria.GetSpParams());
+                     criteria);
 
                 return workingSchedules.ToList();
             }
@@ -30,7 +30,7 @@
 
         public IList<LeaveSchedule> GetLeaveSchedule(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var leaveSchedules = db.Query<LeaveSchedule, Employee, Team, LeaveSchedule>(
                      (schedule, employee, team) =>
@@ -40,7 +40,7 @@
                          return schedule;
                      },
                      "EmpId, GroupId",
-                     criteria.GetSpParams());
+                     criteria);
 
                 return leaveSchedules.ToList();
             }

@@ -1,19 +1,7 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="RequestEntity.cs" company=".">
-// Copyright (c) .. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Anders.Le" date="2012.5.18">Created</change>
-// </history>
-
-namespace Fanex.NexHR.Models.Request
+﻿namespace Fanex.NexHR.Models.Request
 {
     using System;
 
-    /// <summary>
-    /// Request entity.
-    /// </summary>
     public class RequestEntity : EntityBase<long>
     {
         public Employee Requester { get; set; }

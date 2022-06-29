@@ -1,31 +1,34 @@
-﻿@helper NagivationItem(List<Fanex.NexHR.ViewModels.Navigation.NavigationViewModel> navItemList)
-    {
-        foreach (var navItem in navItemList)
-        {
-            <li id="@navItem.Id" class="el">
-                <i class="mdi mdi-@navItem.Icon"></i>
-                @Html.ActionLink(navItem.Title, navItem.Action, navItem.Controller)
-            </li>
-        }
-}
-@helper NavigationSection(List<Fanex.NexHR.ViewModels.Navigation.NavigationViewModel> sectionItemList)
-    {
-        for (int i = 0; i < sectionItemList.Count; i++)
-        {
-            var sectionItem = sectionItemList[i];
-            
-            <li class="bold section" id="@i">
-                <a class="collapsible-header waves-effect waves-deep-orange active">
-                    @sectionItem.Title<i class="right mdi-navigation-chevron-right"></i>
-                </a>
-                <div class="collapsible-body" style="display: block;">
-                    <ul>
-                        @NagivationItem(sectionItem.Childs)
-                    </ul>
-                </div>
-            </li>
-        }
-}
+@using Microsoft.AspNetCore.Mvc.Razor
+@{ HelperResult NagivationItem(List<Fanex.NexHR.ViewModels.Navigation.NavigationViewModel> navItemList)
+	    {
+	        foreach (var navItem in navItemList)
+	        {
+	            <li id="@navItem.Id" class="el">
+	                <i class="mdi mdi-@navItem.Icon"></i>
+	                @Html.ActionLink(navItem.Title, navItem.Action, navItem.Controller)
+	            </li>
+	        }
+		return new HelperResult(w => Task.CompletedTask);
+} }
+@{ HelperResult NavigationSection(List<Fanex.NexHR.ViewModels.Navigation.NavigationViewModel> sectionItemList)
+	    {
+	        for (int i = 0; i < sectionItemList.Count; i++)
+	        {
+	            var sectionItem = sectionItemList[i];
+	            
+	            <li class="bold section" id="@i">
+	                <a class="collapsible-header waves-effect waves-deep-orange active">
+	                    @sectionItem.Title<i class="right mdi-navigation-chevron-right"></i>
+	                </a>
+	                <div class="collapsible-body" style="display: block;">
+	                    <ul>
+	                        @NagivationItem(sectionItem.Childs)
+	                    </ul>
+	                </div>
+	            </li>
+	        }
+		return new HelperResult(w => Task.CompletedTask);
+} }
 
 <li class="no-padding">
     <ul id="navbar" class="collapsible collapsible-expandable" data-collapsible="accordion">
@@ -33,5 +36,5 @@
     </ul>
 </li>
 
-<input type="hidden" id="controller" value="@ViewBag.Controller.ToString().ToLower()" />
-<input type="hidden" id="action" value="@ViewBag.Action.ToString().ToLower()" />
+<input type="hidden" id="controller" value="@Microsoft.AspNetCore.Mvc.Controller.ToString().ToLower()" />
+<input type="hidden" id="action" value="@Microsoft.AspNetCore.Mvc.Action.ToString().ToLower()" />

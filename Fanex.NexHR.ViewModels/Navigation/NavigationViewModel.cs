@@ -2,11 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Globalization;
-    using System.Web;
 
-    /// <summary>
-    /// Navigation view model.
-    /// </summary>
     public class NavigationViewModel
     {
         private string _controller;
@@ -17,19 +13,19 @@
         {
         }
 
-        public NavigationViewModel(SiteMapNode sitemapNode)
-        {
-            if (sitemapNode != null)
-            {
-                Controller = sitemapNode["Controller"];
-                Action = sitemapNode["Action"];
-                Title = sitemapNode.Title;
-                Icon = sitemapNode["Icon"];
-                HoverController = sitemapNode["HoverController"];
-                HoverAction = sitemapNode["HoverAction"];
-                HoverIcon = sitemapNode["HoverIcon"];
-            }
-        }
+        //public NavigationViewModel(SiteMapNode sitemapNode)
+        //{
+        //    if (sitemapNode != null)
+        //    {
+        //        Controller = sitemapNode["Controller"];
+        //        Action = sitemapNode["Action"];
+        //        Title = sitemapNode.Title;
+        //        Icon = sitemapNode["Icon"];
+        //        HoverController = sitemapNode["HoverController"];
+        //        HoverAction = sitemapNode["HoverAction"];
+        //        HoverIcon = sitemapNode["HoverIcon"];
+        //    }
+        //}
 
         public string Icon { get; set; }
 

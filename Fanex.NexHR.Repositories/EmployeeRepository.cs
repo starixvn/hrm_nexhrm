@@ -29,7 +29,7 @@
 
         public IList<Employee> Query(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var entityList = db.Query<Employee, Toeic, Team, JobTitle, Employee>(
                      (employee, toeic, team, jobTitle) =>
@@ -40,7 +40,7 @@
                          return employee;
                      },
                      "LRExamDate, GroupId, JobTitleId",
-                     criteria.GetSpParams());
+                     criteria);
 
                 return entityList.ToList();
             }
@@ -48,7 +48,7 @@
 
         public IList<DashBoardPersonalSpace> GetDashBoardPersonalSpace(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var entityList = db.Query<DashBoardPersonalSpace, Employee, DashBoardPersonalSpace>(
                     (pe, e) =>
@@ -57,7 +57,7 @@
                         return pe;
                     },
                     "EmpId",
-                    criteria.GetSpParams());
+                    criteria);
 
                 return entityList.ToList();
             }
@@ -65,7 +65,7 @@
 
         public IList<DashBoardCompanySpace> GetDashBoardCompanySpace(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var entityList = db.Query<DashBoardCompanySpace, Employee, DashBoardCompanySpace>(
                     (pe, e) =>
@@ -74,7 +74,7 @@
                         return pe;
                     },
                     "EmpId",
-                    criteria.GetSpParams());
+                    criteria);
 
                 return entityList.ToList();
             }
@@ -82,7 +82,7 @@
 
         public IList<Employee> GetEmployeeToeicScore(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var entityList = db.Query<Employee, Team, JobTitle, Toeic, Employee>(
                      (e, t, job, to) =>
@@ -93,7 +93,7 @@
                          return e;
                      },
                      "TeamID, JobTitleId, LRExamDate",
-                     criteria.GetSpParams());
+                     criteria);
 
                 return entityList.ToList();
             }
@@ -102,9 +102,9 @@
         public async Task<SystemReminderModel> GetEmpployeeHasBirthdayAndFirstWorkingday(ICriteria criteria)
         {
             var model = new SystemReminderModel();
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                using (var multi = await db.QueryMultipleAsync(criteria.GetSpParams()).ConfigureAwait(false))
+                using (var multi = await db.QueryMultipleAsync(criteria))
                 {
                     model.EmployeeHasBirthday = multi.Read<Employee>().ToList();
                     model.EmployeeHasFirstWorkingDay = multi.Read<Employee>().ToList();
@@ -117,7 +117,7 @@
 
         public List<Workload> GetWorkloadByTeam(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var entityList = db.Query<Workload, Employee, Workload>(
                      (w, e) =>
@@ -125,7 +125,8 @@
                          w.Employee = e;
                          return w;
                      },
-                     parameterSet: criteria.GetSpParams());
+                     "EmpId",
+                     parameterSet: criteria);
 
                 return entityList.ToList();
             }
@@ -133,7 +134,7 @@
 
         private static Employee GetEmployeeEntity(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var employee = db.QueryEntity<Employee, dynamic, Toeic, Team, JobTitle, Employee>(
                     (e, def, to, te, job) =>
@@ -145,7 +146,7 @@
                         return e;
                     },
                     "MonShiftId, LRExamDate, GroupId, JobtitleId",
-                    criteria.GetSpParams());
+                    criteria);
 
                 return employee;
             }

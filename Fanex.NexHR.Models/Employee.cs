@@ -1,13 +1,12 @@
 ﻿namespace Fanex.NexHR.Models
 {
+    using Core;
+    using Core.Enums;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Text;
-    using Attributes;
-    using Core;
-    using Core.Enums;
 
     public class Employee : EntityBase<int>
     {
@@ -23,7 +22,6 @@
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
 
-        [Email]
         public string Email { get; set; }
 
         public bool Enabled { get; set; }
@@ -210,6 +208,11 @@
 
         public bool HasRolePM => Team != null && Team.Code == "PM";
 
+        public bool IsInRole(Role role)
+        {
+            return RoleList.Any(r => (short)role == r);
+        }
+
         public bool IsInRoles(params Role[] roles)
         {
             if (RoleList == null)
@@ -217,8 +220,7 @@
                 return false;
             }
 
-            var userRoles = System.Web.Security.Roles.GetRolesForUser();
-            return roles.Any(role => userRoles.Contains(role.EnumToString()));
+            return roles.Any(role => RoleList.Contains((short)role));
         }
 
         public static bool IsInRoles(IList<string> roles)
@@ -228,8 +230,9 @@
                 return false;
             }
 
-            var userRoles = System.Web.Security.Roles.GetRolesForUser();
-            return roles.Any(role => userRoles.Contains(role));
+            //var userRoles = System.Web.Security.Roles.GetRolesForUser();
+            //return roles.Any(role => userRoles.Contains(role));
+            return true;
         }
 
         public string DisplayRoles()

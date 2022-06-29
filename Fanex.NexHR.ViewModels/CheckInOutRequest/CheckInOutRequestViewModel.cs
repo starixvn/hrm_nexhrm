@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Web;
     using Core;
     using Core.Enums;
     using Models;
@@ -53,7 +52,7 @@
 
         public string EmailTemplate => Utilities.ReadTextFile(EmailTemplatePath);
 
-        public string EmailTemplatePath { get; private set; }
+        public string EmailTemplatePath { get; set; }
 
         public string SubjectEmail => string.Format(
             "{0} {1} on {2}",
@@ -62,11 +61,6 @@
             WorkDate.ToDateMonthYearFormatedDate());
 
         public bool IsStandbyAtWeekend => (WorkDate.DayOfWeek == DayOfWeek.Saturday || WorkDate.DayOfWeek == DayOfWeek.Sunday);
-
-        public void GetTemplatePath()
-        {
-            EmailTemplatePath = HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForCheckInOut);
-        }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

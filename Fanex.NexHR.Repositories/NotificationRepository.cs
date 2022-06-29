@@ -10,7 +10,7 @@
     {
         public Notification GetViolationByEmpId(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var noti = db.QueryEntity<Notification, Employee, Notification>(
                     (notification, employee) =>
@@ -19,7 +19,7 @@
                         return notification;
                     },
                         "EmpId",
-                        criteria.GetSpParams());
+                        criteria);
                 return noti;
             }
         }

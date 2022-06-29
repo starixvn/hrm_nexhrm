@@ -22,7 +22,6 @@ namespace Fanex.NexHR.Core
     using System.Security.Cryptography;
     using System.Text;
     using System.Text.RegularExpressions;
-    using System.Web.Mvc;
 
     public static class Utilities
     {
@@ -46,17 +45,7 @@ namespace Fanex.NexHR.Core
             }
         }
 
-        public static IList<SelectListItem> CheckInOutTypes => new List<SelectListItem>
-        {
-            new SelectListItem { Text = Labels.CheckIn, Value = ((short)RequestType.CheckIn).ToString() },
-            new SelectListItem { Text = Labels.CheckOut, Value = ((short)RequestType.CheckOut).ToString() }
-        };
-
-        public static IList<SelectListItem> LateInEarlyOutTypes => new List<SelectListItem>
-        {
-            new SelectListItem { Text = Labels.LateIn, Value = ((short)RequestType.LateIn).ToString() },
-            new SelectListItem { Text = Labels.EarlyOut, Value = ((short)RequestType.EarlyOut).ToString() }
-        };
+        
 
         public static DateTime AddTimeToDate(DateTime dateTime, string time)
         {
@@ -131,51 +120,6 @@ namespace Fanex.NexHR.Core
         public static bool IsWithin(this int value, int minimum, int maximum)
         {
             return value >= minimum && value <= maximum;
-        }
-
-        public static IList<SelectListItem> MinuteSteps(int step)
-        {
-            var list = new List<SelectListItem>();
-            var index = 60;
-            const int number = 15;
-            while (index > number)
-            {
-                list.Add(new SelectListItem
-                {
-                    Text = string.Format(Labels.MinuteFormat, index),
-                    Value = index.ToString()
-                });
-                index -= step;
-            }
-
-            return list;
-        }
-
-        public static IList<SelectListItem> TimeSteps(int minuteStep)
-        {
-            var list = new List<SelectListItem>();
-            var hour = 6;
-            var minute = 0;
-            const int hours = 24;
-            const int minutes = 60;
-
-            while (hour < hours)
-            {
-                var value = string.Format(Labels.HourFormat, ZeroPrefix(hour), ZeroPrefix(minute));
-                list.Add(new SelectListItem
-                {
-                    Text = value,
-                    Value = value
-                });
-                minute += minuteStep;
-                if (minute >= minutes)
-                {
-                    minute = 0;
-                    hour++;
-                }
-            }
-
-            return list;
         }
 
         public static string ZeroPrefix(object value)

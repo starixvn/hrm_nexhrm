@@ -54,7 +54,6 @@ namespace Fanex.NexHR.Core
         public void Render()
         {
             _sheet.Workbook.RemoveSheetAt(0);
-            _sheet.Workbook.ToReponseStream(_fileName);
         }
 
         public void WriteCellRange(int rowIndex, int totalRow, int colIndex, int totalCol, object value)

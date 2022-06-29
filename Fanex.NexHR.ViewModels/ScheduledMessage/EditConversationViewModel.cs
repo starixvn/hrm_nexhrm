@@ -1,8 +1,8 @@
 ﻿namespace Fanex.NexHR.ViewModels.ScheduledMessage
 {
     using Fanex.NexHR.Resources;
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using System.ComponentModel.DataAnnotations;
-    using System.Web.Mvc;
 
     public class EditConversationViewModel
     {

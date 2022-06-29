@@ -7,21 +7,14 @@
     using Criteria.Bio;
     using Interfaces;
     using Models.Bio;
-    using Repositories;
     using Repositories.Interfaces;
 
     public class BioService : BaseService, IBioService
     {
-        private readonly IBioRepository _bioRepository;
-
-        public BioService()
-            : this(null)
-        {
-        }
-
+        private readonly IBioRepository bioRepository;
         public BioService(IBioRepository bioRepository)
         {
-            _bioRepository = bioRepository ?? new BioRepository();
+            this.bioRepository = bioRepository;
         }
 
         public IList<FingerprintAndCardSummary> GetFingerprintAndCardSummary(GetFingerprintAndCardSummaryCriteria criteria)
@@ -30,7 +23,7 @@
 
             if (criteria != null && criteria.IsValid())
             {
-                fingerprintAndCardSummary = _bioRepository.GetFingerprintAndCardSummary(criteria).ToList();
+                fingerprintAndCardSummary = bioRepository.GetFingerprintAndCardSummary(criteria).ToList();
 
                 if (criteria.Type == FingerprintScannerType.Card)
                 {
@@ -62,7 +55,7 @@
 
             if (criteria != null && criteria.IsValid())
             {
-                fingerprintAndCardSummary = await _bioRepository.GetFingerprintAndCardSummaryAsync(criteria).ConfigureAwait(false);
+                fingerprintAndCardSummary = await bioRepository.GetFingerprintAndCardSummaryAsync(criteria).ConfigureAwait(false);
             }
 
             return fingerprintAndCardSummary.Where(x => x.IsWarning);
@@ -74,7 +67,7 @@
 
             if (criteria != null && criteria.IsValid())
             {
-                bioTimeChanges = _bioRepository
+                bioTimeChanges = bioRepository
                     .GetAllBioTimeChanges(criteria)
                     .OrderByDescending(x => x.TimeChange)
                     .ToList();
@@ -89,7 +82,7 @@
 
             if (criteria != null && criteria.IsValid())
             {
-                bioTimeChanges = await _bioRepository.GetAllBioTimeChangesAsync(criteria).ConfigureAwait(false);
+                bioTimeChanges = await bioRepository.GetAllBioTimeChangesAsync(criteria).ConfigureAwait(false);
             }
 
             return bioTimeChanges;

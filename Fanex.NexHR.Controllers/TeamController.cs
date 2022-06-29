@@ -2,38 +2,33 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web.Mvc;
     using Criteria.Team;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
     using Models;
     using Resources;
-    using Services;
     using Services.Interfaces;
     using ViewModels;
 
     public class TeamController : BaseController
     {
-        private readonly ITeamService _teamService;
-        private readonly IDepartmentService _departmentService;
-        private readonly ICommandService _commandService;
+        private readonly ITeamService teamService;
+        private readonly IDepartmentService departmentService;
+        private readonly ICommandService commandService;
 
-        public TeamController()
-            : this(null, null, null)
-        {
-        }
-
-        public TeamController(
+        public TeamController(ISessionService sessionService,
             ITeamService teamService,
             IDepartmentService departmentService,
-            ICommandService commandService)
+            ICommandService commandService) : base(sessionService)
         {
-            _teamService = teamService ?? new TeamService();
-            _departmentService = departmentService ?? new DepartmentService();
-            _commandService = commandService ?? new CommandService();
+            this.teamService = teamService;
+            this.departmentService = departmentService;
+            this.commandService = commandService;
         }
 
         public ActionResult Index()
         {
-            IList<Team> teams = _teamService.GetTeam();
+            IList<Team> teams = teamService.GetTeam();
 
             return View(teams);
         }
@@ -43,14 +38,13 @@
         {
             var model = new TeamViewModel
             {
-                Departments = _departmentService.GetAll(),
-                Teams = _teamService.GetTeam()
+                Departments = departmentService.GetAll(),
+                Teams = teamService.GetTeam()
             };
 
             return View(model);
         }
 
-        [ValidateInput(false)]
         [HttpPost]
         [Authorize(Roles = "HR")]
         public ActionResult Create(TeamViewModel model)
@@ -70,7 +64,7 @@
                         CreatedBy = CurrentUser.Id
                     };
 
-                    CommandResult result = _commandService.Insert(criteria);
+                    CommandResult result = commandService.ExecuteNonQuery(criteria);
 
                     if (result.IsSuccessful)
                     {
@@ -82,8 +76,8 @@
                     }
                 }
 
-                model.Departments = _departmentService.GetAll();
-                model.Teams = _teamService.GetTeam();
+                model.Departments = departmentService.GetAll();
+                model.Teams = teamService.GetTeam();
             }
 
             return View(model);
@@ -96,7 +90,7 @@
             {
                 Id = id
             };
-            Team team = _teamService.GetById(criteria);
+            Team team = teamService.GetById(criteria);
 
             TeamViewModel model = null;
             if (team != null)
@@ -116,8 +110,8 @@
 
             if (model != null)
             {
-                model.Departments = _departmentService.GetAll();
-                model.Teams = _teamService.GetTeam().Where(p => p.Id != id).ToList();
+                model.Departments = departmentService.GetAll();
+                model.Teams = teamService.GetTeam().Where(p => p.Id != id).ToList();
             }
 
             return View(model);
@@ -146,7 +140,7 @@
                     ModifiedBy = CurrentUser.Id
                 };
 
-                CommandResult result = _commandService.Update(criteria);
+                CommandResult result = commandService.ExecuteNonQuery(criteria);
 
                 if (result.IsSuccessful)
                 {
@@ -162,8 +156,8 @@
                 ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
-            model.Departments = _departmentService.GetAll();
-            model.Teams = _teamService.GetTeam().Where(p => p.Id != model.Id).ToList();
+            model.Departments = departmentService.GetAll();
+            model.Teams = teamService.GetTeam().Where(p => p.Id != model.Id).ToList();
 
             return View(model);
         }
@@ -178,7 +172,7 @@
                 ModifiedBy = CurrentUser.Id,
             };
 
-            CommandResult result = _commandService.Delete(criteria);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
             return Json(result);
         }
     }

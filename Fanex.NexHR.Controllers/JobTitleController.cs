@@ -1,26 +1,24 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
     using System.Collections.Generic;
-    using System.Web.Mvc;
     using Criteria.LookupData;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
     using Models;
     using Services;
     using Services.Interfaces;
 
     public class JobTitleController : BaseController
     {
-        private readonly IJobTitleService _jobTitleService;
-        private readonly ICommandService _commandService;
+        private readonly IJobTitleService jobTitleService;
+        private readonly ICommandService commandService;
 
-        public JobTitleController()
-            : this(null, null)
+        public JobTitleController(ISessionService sessionService,
+            IJobTitleService jobTitleService, 
+            ICommandService commandService) : base(sessionService)
         {
-        }
-
-        public JobTitleController(IJobTitleService jobTitleService, ICommandService commandService)
-        {
-            _jobTitleService = jobTitleService ?? new JobTitleService();
-            _commandService = commandService ?? new CommandService();
+            this.jobTitleService = jobTitleService;
+            this.commandService = commandService;
         }
 
         [Authorize(Roles = "HR")]
@@ -29,18 +27,16 @@
             return View();
         }
 
-        [ValidateInput(false)]
         [Authorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Index(string jobTitle)
         {
             var lookupDataJobTitleCriteria = new GetJobTitleCriteria { JobTitle = jobTitle };
-            IList<JobTitle> jobTitles = _jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
+            IList<JobTitle> jobTitles = jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
 
             return PartialView("_Index", jobTitles);
         }
 
-        [ValidateInput(false)]
         [Authorize(Roles = "HR")]
         [HttpPost]
         public JsonResult Insert(string name)
@@ -50,7 +46,7 @@
                 LookupCode = LookupCodeName.JobTitle,
                 Name = name
             };
-            CommandResult result = _commandService.Insert(insertLookupDataCriteria);
+            CommandResult result = commandService.ExecuteNonQuery(insertLookupDataCriteria);
 
             return Json(result);
         }
@@ -64,7 +60,7 @@
                 Id = id,
                 Name = name
             };
-            CommandResult result = _commandService.Update(updateLookupDataCriteria);
+            CommandResult result = commandService.ExecuteNonQuery(updateLookupDataCriteria);
 
             return Json(result);
         }
@@ -74,7 +70,7 @@
         public JsonResult Delete(int id)
         {
             var deleteLookupDataCriteria = new DeleteLookupDataCriteria { Id = id };
-            CommandResult result = _commandService.Delete(deleteLookupDataCriteria);
+            CommandResult result = commandService.ExecuteNonQuery(deleteLookupDataCriteria);
 
             return Json(result);
         }

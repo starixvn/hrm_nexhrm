@@ -8,7 +8,7 @@
     using Newtonsoft.Json;
 
     public class MessageCategoryLogService : BaseService, IMessageCategoryLogService
-    {
+    { 
         public async Task<bool> ObjectIsChangedOrNotExists(MessageCategory categoryId, object value)
         {
             string jsonObject = JsonConvert.SerializeObject(value);

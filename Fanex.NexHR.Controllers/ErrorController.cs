@@ -1,7 +1,8 @@
 ﻿
+using Microsoft.AspNetCore.Mvc;
+
 namespace Fanex.NexHR.Controllers
 {
-    using System.Web.Mvc;
 
     public class ErrorController: Controller
     {

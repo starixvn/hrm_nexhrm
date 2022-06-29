@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="Constants.cs" company=".">
-// Copyright (c) .. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2015.8.3">Created</change>
-// </history>
-
-namespace Fanex.NexHR.Core
+﻿namespace Fanex.NexHR.Core
 {
     public static class Constants
     {

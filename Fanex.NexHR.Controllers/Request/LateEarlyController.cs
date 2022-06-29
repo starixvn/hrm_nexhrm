@@ -1,29 +1,25 @@
 ﻿namespace Fanex.NexHR.Controllers.Request
 {
-    using Criteria.LateInEarlyOut;
-    using Models;
-    using Resources;
-    using Services;
-    using Services.Interfaces;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web.Mvc;
+    using Criteria.LateInEarlyOut;
+    using Microsoft.AspNetCore.Mvc;
+    using Models;
+    using Resources;
+    using Services.Interfaces;
     using ViewModels.LateInEarlyOut;
 
     public class LateEarlyController : BaseController
     {
-        private readonly ILateInEarlyOutService _lateinEarlyoutService;
-        private readonly ICommandService _commandService;
+        private readonly ILateInEarlyOutService lateInEarlyOutService;
+        private readonly ICommandService commandService;
 
-        public LateEarlyController()
-            : this(null, null)
+        public LateEarlyController(ISessionService sessionService, 
+            ILateInEarlyOutService lateInEarlyOutService, 
+            ICommandService commandService) : base(sessionService)
         {
-        }
-
-        public LateEarlyController(ILateInEarlyOutService service, ICommandService commandService)
-        {
-            _lateinEarlyoutService = service ?? new LateInEarlyOutService();
-            _commandService = commandService ?? new CommandService();
+            this.lateInEarlyOutService = lateInEarlyOutService;
+            this.commandService = commandService;
         }
 
         public ActionResult Index()
@@ -36,7 +32,6 @@
             return View(new LateInEarlyOutViewModel());
         }
 
-        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Create(LateInEarlyOutViewModel model)
         {
@@ -52,7 +47,7 @@
                         WorkDate = model.WorkDate,
                         ModifiedBy = CurrentUser.Id
                     };
-                    CommandResult result = _commandService.Insert(criteria);
+                    CommandResult result = commandService.ExecuteNonQuery(criteria);
                     if (result.IsSuccessful)
                     {
                         ViewBag.Requested = true;
@@ -81,13 +76,12 @@
 
             if (id > 0)
             {
-                model = _lateinEarlyoutService.GetById(criteria);
+                model = lateInEarlyOutService.GetById(criteria);
             }
 
             return View(model);
         }
 
-        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Edit(LateInEarlyOutViewModel model)
         {
@@ -104,7 +98,7 @@
                         WorkDate = model.WorkDate,
                         ModifiedBy = CurrentUser.Id
                     };
-                    CommandResult result = _commandService.Update(criteria);
+                    CommandResult result = commandService.ExecuteNonQuery(criteria);
                     if (result.IsSuccessful)
                     {
                         ViewBag.Requested = true;
@@ -126,7 +120,7 @@
         public JsonResult Delete(int id)
         {
             DeleteLateInEarlyOutCriteria criteria = new DeleteLateInEarlyOutCriteria { Id = id };
-            CommandResult result = _commandService.Delete(criteria);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
 
             return Json(result);
         }
@@ -144,7 +138,7 @@
                 EmpId = empId,
                 Year = year
             };
-            IList<LateInEarlyOutViewModel> list = _lateinEarlyoutService.GetAllByEmpId(criteria);
+            IList<LateInEarlyOutViewModel> list = lateInEarlyOutService.GetAllByEmpId(criteria);
 
             return list;
         }

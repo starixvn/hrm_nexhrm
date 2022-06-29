@@ -3,10 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Web.Mvc;
     using Common;
     using Core.Enums;
     using Fanex.NexHR.Models.Request;
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Models;
     using Resources;
 
@@ -104,7 +104,7 @@
 
             selecListItemTeam.Add(firstItem);
 
-            Teams = Teams ?? new List<Team>();
+            Teams ??= new List<Team>();
 
             foreach (Team team in Teams)
             {

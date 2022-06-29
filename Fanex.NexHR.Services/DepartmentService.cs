@@ -9,7 +9,7 @@
 
     public class DepartmentService : BaseService, IDepartmentService
     {
-        private readonly IDepartmentRepository _departmentRepository;
+        private readonly IDepartmentRepository departmentRepository;
 
         public DepartmentService()
             : this(null)
@@ -18,7 +18,7 @@
 
         public DepartmentService(IDepartmentRepository departmentRepository)
         {
-            _departmentRepository = departmentRepository ?? new DepartmentRepository();
+            this.departmentRepository = departmentRepository ?? new DepartmentRepository();
         }
 
         public IList<Department> GetAll()
@@ -28,7 +28,7 @@
 
             if (criteria.IsValid())
             {
-                departments = _departmentRepository.GetAll(criteria);
+                departments = departmentRepository.GetAll(criteria);
             }
 
             return departments ?? new List<Department>();
@@ -39,7 +39,7 @@
             Department department = null;
             if (criteria != null && criteria.IsValid())
             {
-                department = _departmentRepository.GetDepartmentById(criteria);
+                department = departmentRepository.GetDepartmentById(criteria);
             }
 
             return department;

@@ -10,11 +10,11 @@
 
     public class HistoryWorkService : BaseService, IHistoryWorkService
     {
-        private readonly IHistoryWorkRepository _historyWorkRepository;
+        private readonly IHistoryWorkRepository historyWorkRepository;
 
         public HistoryWorkService(IHistoryWorkRepository historyWorkRepository = null)
         {
-            _historyWorkRepository = historyWorkRepository ?? new HistoryWorkRepository();
+            this.historyWorkRepository = historyWorkRepository ?? new HistoryWorkRepository();
         }
 
         public IList<HistoryWork> GetHistoryWorkByEmpId(GetHistoryWorkByEmpIdCriteria criteria)
@@ -22,7 +22,7 @@
             IList<HistoryWork> historyWork = null;
             if (criteria != null && criteria.IsValid())
             {
-                historyWork = _historyWorkRepository.GetHistoryWorkByEmpId(criteria);
+                historyWork = historyWorkRepository.GetHistoryWorkByEmpId(criteria);
             }
 
             return historyWork ?? new List<HistoryWork>();
@@ -39,7 +39,7 @@
             IList<HistoryWork> filterHistory = null;
             if (criteria != null && criteria.IsValid())
             {
-                filterHistory = _historyWorkRepository.GetFilterHistoryWork(criteria);
+                filterHistory = historyWorkRepository.GetFilterHistoryWork(criteria);
             }
 
             return filterHistory ?? new List<HistoryWork>();

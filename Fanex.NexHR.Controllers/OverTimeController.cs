@@ -3,6 +3,8 @@
     using Criteria.Employee;
     using Criteria.Overtime;
     using Fanex.NexHR.Resources;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.Overtime;
     using Newtonsoft.Json;
@@ -11,31 +13,25 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web.Mvc;
     using ViewModels.Overtime;
 
     public class OvertimeController : BaseController
     {
-        private readonly IOvertimeService _overtimeService;
-        private readonly IEmployeeService _employeeService;
-        private readonly ICommandService _commandService;
-        private readonly ITeamService _teamService;
+        private readonly IOvertimeService overtimeService;
+        private readonly IEmployeeService employeeService;
+        private readonly ICommandService commandService;
+        private readonly ITeamService teamService;
 
-        public OvertimeController()
-            : this(null, null, null, null)
-        {
-        }
-
-        public OvertimeController(
+        public OvertimeController(ISessionService sessionService,
             IOvertimeService service,
             IEmployeeService employeeService,
             ICommandService commandService,
-            ITeamService teamService)
+            ITeamService teamService) : base(sessionService)
         {
-            _overtimeService = service ?? new OvertimeService();
-            _employeeService = employeeService ?? new EmployeeService();
-            _commandService = commandService ?? new CommandService();
-            _teamService = teamService ?? new TeamService();
+            overtimeService = service;
+            this.employeeService = employeeService;
+            this.commandService = commandService;
+            this.teamService = teamService;
         }
 
         public ActionResult Index(int chosenTab = 0)
@@ -66,7 +62,6 @@
             return PartialView(model);
         }
 
-        [ValidateInput(false)]
         [Authorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public ActionResult MemberOvertimeData(MemberOvertimeViewModel model)
@@ -81,7 +76,7 @@
                     CreatedBy = model.CreatedBy,
                     Status = model.Status
                 };
-                result = _overtimeService.GetOvertime(criteria);
+                result = overtimeService.GetOvertime(criteria);
                 foreach(var item in result)
                 {
                     item.Own = CurrentUser.Id == item.CreatedBy.Id;
@@ -114,11 +109,11 @@
                     TimeSheets = model.TimeSheets
                 };
 
-                CommandResult result = _commandService.Insert(criteria);
+                CommandResult result = commandService.ExecuteNonQuery(criteria);
                 if (result.IsSuccessful)
                 {
                     model.CreatedByName = CurrentUser.DisplayName;
-                    _overtimeService.SendMailForNEXRequest("NEX request Notification", model);
+                    overtimeService.SendMailForNEXRequest("NEX request Notification", model);
                     ViewBag.Inserted = true;
                 }
                 else
@@ -134,7 +129,7 @@
         public ActionResult Edit(int id)
         {
             var criteria = new GetOvertimeByIdCriteria { Id = id };
-            Overtime overtime = _overtimeService.GetOvertimeById(criteria);
+            Overtime overtime = overtimeService.GetOvertimeById(criteria);
             var model = new CreateOvertimeViewModel
             {
                 Id = overtime.Id,
@@ -172,11 +167,11 @@
                     TimeSheets = model.TimeSheets
                 };
 
-                CommandResult result = _commandService.Update(criteria);
+                CommandResult result = commandService.ExecuteNonQuery(criteria);
                 if (result.IsSuccessful)
                 {
                     model.CreatedByName = CurrentUser.DisplayName;
-                    _overtimeService.SendMailForNEXRequest("NEX request Notification - Edit", model);
+                    overtimeService.SendMailForNEXRequest("NEX request Notification - Edit", model);
                     ViewBag.Updated = true;
                 }
                 else
@@ -198,7 +193,7 @@
                 Id = id,
                 ModifiedId = CurrentUser.Id
             };
-            result = _commandService.Delete(criteria);
+            result = commandService.ExecuteNonQuery(criteria);
             return Json(result);
         }
 
@@ -212,10 +207,10 @@
                 ModifiedBy = CurrentUser.Id
             };
 
-            CommandResult result = _commandService.Update(criteria);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
             if (result.IsSuccessful)
             {
-                _overtimeService.SendMailForApprovalNotification("NEX request Notification", id, createdBy, CurrentUser.Id);
+                overtimeService.SendMailForApprovalNotification("NEX request Notification", id, createdBy, CurrentUser.Id);
             }
             return Json(result);
         }
@@ -230,7 +225,7 @@
                 ModifiedBy = CurrentUser.Id
             };
 
-            CommandResult result = _commandService.Update(criteria);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
 
             return Json(result);
         }
@@ -245,7 +240,7 @@
                 ModifiedBy = CurrentUser.Id
             };
 
-            CommandResult result = _commandService.Update(criteria);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
 
             return Json(result);
         }
@@ -260,7 +255,7 @@
                 ModifiedBy = CurrentUser.Id
             };
 
-            CommandResult result = _commandService.Update(criteria);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
 
             return Json(result);
         }
@@ -279,7 +274,7 @@
                 FromDate = new DateTime(year, 1, 1),
                 ToDate = new DateTime(year, 12, 31)
             };
-            IList<EmployeeOvertime> employeeOvertimes = _overtimeService.GetMyOvertime(criteria);
+            IList<EmployeeOvertime> employeeOvertimes = overtimeService.GetMyOvertime(criteria);
 
             return PartialView("_ListMyOvertime", employeeOvertimes);
         }
@@ -291,20 +286,19 @@
                 if (model.EmployeeId.HasValue)
                 {
                     var criteria = new GetEmployeeByIdCriteria { EmployeeId = model.EmployeeId.Value };
-                    model.Employee = _employeeService.GetEmployeeById(criteria).DisplayName;
+                    model.Employee = employeeService.GetEmployeeById(criteria).DisplayName;
                 }
 
                 if (model.CreatedBy.HasValue)
                 {
                     var criteria = new GetEmployeeByIdCriteria { EmployeeId = model.CreatedBy.Value };
-                    model.CreatedName = _employeeService.GetEmployeeById(criteria).DisplayName;
+                    model.CreatedName = employeeService.GetEmployeeById(criteria).DisplayName;
                 }
             }
 
             return PartialView(model);
         }
 
-        [ValidateInput(false)]
         [HttpPost]
         public ActionResult OvertimeRequestDetail(MemberOvertimeViewModel model)
         {
@@ -320,7 +314,7 @@
                     EmployeeId = model.EmployeeId,
                     OvertimeId = model.OvertimeId
                 };
-                result = _overtimeService.GetEmployeeOvertime(criteria);
+                result = overtimeService.GetEmployeeOvertime(criteria);
             }
 
             return PartialView("_ListOvertimeRequest", result);
@@ -330,7 +324,7 @@
         {
             OvertimeSummaryViewModel summary = new OvertimeSummaryViewModel
             {
-                Teams = _teamService.GetTeam(),
+                Teams = teamService.GetTeam(),
                 Year = DateTime.Now.Year
             };
 
@@ -353,7 +347,7 @@
                 Year = year
             };
 
-            List<OvertimeSummary> listSummary = _overtimeService.GetOvertimeSummary(criteria);
+            List<OvertimeSummary> listSummary = overtimeService.GetOvertimeSummary(criteria);
             ViewBag.Year = year;
             return PartialView("_ListOvertimeSummary", listSummary);
         }
@@ -381,12 +375,11 @@
                     GroupId = model.TeamId
                 };
 
-                conversions = _overtimeService.GetConversions(criteria);
+                conversions = overtimeService.GetConversions(criteria);
             }
             return PartialView("_ListOvertimeConversion", conversions);
         }
 
-        [ChildActionOnly]
         public ActionResult CreateOvertimeConversion()
         {
             OvertimeConversionCreateViewModel model = new OvertimeConversionCreateViewModel();
@@ -408,10 +401,10 @@
                     Description = string.IsNullOrEmpty(model.Description) ? string.Empty : model.Description,
                     CreatedBy = CurrentUser.Id
                 };
-                result = _commandService.Insert(criteria);
+                result = commandService.ExecuteNonQuery(criteria);
                 if (result.IsSuccessful)
                 {
-                    _overtimeService.SendMailForTransferNexBalance("NEX balance Notification", model);
+                    overtimeService.SendMailForTransferNexBalance("NEX balance Notification", model);
                 }
             }
             else
@@ -425,7 +418,6 @@
             return Json(result);
         }
 
-        [ChildActionOnly]
         public ActionResult EditOvertimeConversion()
         {
             OvertimeConversionEditViewModel model = new OvertimeConversionEditViewModel();
@@ -447,7 +439,7 @@
                     Description = string.IsNullOrEmpty(model.Description) ? string.Empty : model.Description,
                     ModifiedBy = CurrentUser.Id
                 };
-                result = _commandService.Update(criteria);
+                result = commandService.ExecuteNonQuery(criteria);
             }
             else
             {
@@ -470,7 +462,7 @@
                 Id = id,
                 ModifiedBy = CurrentUser.Id
             };
-            result = _commandService.Delete(criteria);
+            result = commandService.ExecuteNonQuery(criteria);
             return Json(result);
         }
 
@@ -480,7 +472,7 @@
             int? employeeId, 
             int? teamId)
         {
-            IList<Team> teams = _teamService.GetTeam();
+            IList<Team> teams = teamService.GetTeam();
 
             var model = new OvertimeConversionDetailViewModel
             {
@@ -494,7 +486,7 @@
             if (employeeId.HasValue)
             {
                 var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId.Value };
-                Employee employee = _employeeService.GetEmployeeById(getEmployeeCriteria);
+                Employee employee = employeeService.GetEmployeeById(getEmployeeCriteria);
 
                 model.Employee = employee.DisplayName;
             }
@@ -513,7 +505,7 @@
                 Date = model.Date,
                 Hour = model.Hour
             };
-            var nexHour = _overtimeService.GetNexHour(criteria);
+            var nexHour = overtimeService.GetNexHour(criteria);
             model.NexHour = nexHour.Value;
             return PartialView("_CreateEmployeeRecord", model);
         }
@@ -528,8 +520,8 @@
                 Date = date,
                 Hour = hour
             };
-            var nexHour = _overtimeService.GetNexHour(criteria);
-            return Json(nexHour, JsonRequestBehavior.AllowGet);
+            var nexHour = overtimeService.GetNexHour(criteria);
+            return Json(nexHour);
         }
 
         [Authorize(Roles = "HR")]
@@ -553,7 +545,7 @@
                     CreatedBy = model.CreatedBy,
                     Status = model.Status
                 };
-                result = _overtimeService.GetReportOvertimeHR(criteria);
+                result = overtimeService.GetReportOvertimeHR(criteria);
                 foreach (var item in result)
                 {
                     item.Own = CurrentUser.Id == item.CreatedBy.Id;
@@ -571,7 +563,7 @@
             {
                 Id = id
             };
-            var result = _overtimeService.GetReportOvertimeHRDetail(criteria);
+            var result = overtimeService.GetReportOvertimeHRDetail(criteria);
             return PartialView("_ListHRViewOvertimeDetail", result);
         }
 
@@ -585,7 +577,7 @@
                 ModifiedBy = CurrentUser.Id
             };
 
-            CommandResult result = _commandService.Update(criteria);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
 
             return Json(result);
         }
@@ -602,10 +594,10 @@
                 TimeSheets = model.TimeSheets
             };
 
-            CommandResult result = _commandService.Update(criteria);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
             if (result.IsSuccessful)
             {
-                _overtimeService.SendMailForNotification("NEX request Notification", model);
+                overtimeService.SendMailForNotification("NEX request Notification", model);
             }
             return Json(result);
         }
@@ -622,7 +614,7 @@
             if (employeeId.HasValue)
             {
                 var criteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId.Value };
-                model.Employee = _employeeService.GetEmployeeById(criteria).DisplayName;
+                model.Employee = employeeService.GetEmployeeById(criteria).DisplayName;
             }
 
             return View("OvertimeRequestDetail", model);

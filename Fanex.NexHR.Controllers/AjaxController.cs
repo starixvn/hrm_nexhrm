@@ -1,25 +1,19 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
     using System;
-    using System.Web.Mvc;
     using Criteria.Report;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
     using Models;
-    using Services;
     using Services.Interfaces;
 
     public class AjaxController : BaseController
     {
-        private readonly ICommandService _commandService;
+        private readonly ICommandService commandService;
 
-        public AjaxController()
-            : this(null)
+        public AjaxController(ISessionService sessionService, ICommandService commandService) : base(sessionService)
         {
-        }
-
-        public AjaxController(
-            ICommandService commandService)
-        {
-            _commandService = commandService ?? new CommandService();
+            this.commandService = commandService;
         }
 
         [Authorize(Roles = "HR")]
@@ -32,9 +26,9 @@
                 criteria.ModifiedDate = DateTime.Now;
             }
 
-            CommandResult commandResult = _commandService.Update(criteria);
+            CommandResult commandResult = commandService.ExecuteNonQuery(criteria);
 
-            return Json(commandResult, JsonRequestBehavior.AllowGet);
+            return Json(commandResult);
         }
     }
 }

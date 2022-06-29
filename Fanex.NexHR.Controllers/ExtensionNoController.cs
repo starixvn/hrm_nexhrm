@@ -7,34 +7,31 @@
     using ViewModels.ExtensionNo;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
-    using System.Web.Mvc;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
+    using System.Net;
+    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class ExtensionNoController : BaseController
     {
-        private readonly IExtensionNoService _extensionNoService;
-        private readonly ITeamService _teamService;
-        private readonly ICommandService _commandService;
+        private readonly IExtensionNoService extensionNoService;
+        private readonly ITeamService teamService;
+        private readonly ICommandService commandService;
 
-        public ExtensionNoController()
-            : this(null, null, null)
-        {
-        }
-
-        public ExtensionNoController(
+        public ExtensionNoController(ISessionService sessionService,
             IExtensionNoService extensionNoService,
             ITeamService teamService,
-            ICommandService commandService)
+            ICommandService commandService) : base(sessionService)
         {
-            _extensionNoService = extensionNoService ?? new ExtensionNoService();
-            _teamService = teamService ?? new TeamService();
-            _commandService = commandService ?? new CommandService();
+            this.extensionNoService = extensionNoService;
+            this.teamService = teamService;
+            this.commandService = commandService;
         }
 
         public ActionResult Index()
         {
             GetAllExtensionNoCriteria criteria = new GetAllExtensionNoCriteria();
-            List<ExtensionNoModel> lstEntity = _extensionNoService.GetAllExtensionNo(criteria).ToList();
+            List<ExtensionNoModel> lstEntity = extensionNoService.GetAllExtensionNo(criteria).ToList();
             var model = (from item in lstEntity
                          group item by item.TeamName into g
                          select new ExtensionNoViewModel { Name = g.Key, ListExt = g.ToList() }).ToList();
@@ -48,7 +45,6 @@
             return View(new ExtensionNoModel());
         }
 
-        [ValidateInput(false)]
         [HttpPost]
         [Authorize(Roles = "HR")]
         public ActionResult AddNewMember(ExtensionNoModel model)
@@ -59,14 +55,14 @@
                 var criteria = new AddNewExtensionNoMemberCriteria
                 {
                     EmpId = model.EmpId,
-                    NickName = HttpUtility.HtmlEncode(model.NickName),
-                    FullName = HttpUtility.HtmlEncode(model.FullName),
+                    NickName = WebUtility.HtmlEncode(model.NickName),
+                    FullName = WebUtility.HtmlEncode(model.FullName),
                     GroupId = model.TeamId,
                     IsInternal = model.IsInternal,
                     ExtensionNo = model.ExtensionNo
                 };
 
-                CommandResult result = _commandService.Insert(criteria);
+                CommandResult result = commandService.ExecuteNonQuery(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
@@ -88,25 +84,24 @@
                 IsInternal = isInternal,
                 EmpExtId = empExtId
             };
-            var model = _extensionNoService.GetEmployeeExtensionNoById(criteria);
+            var model = extensionNoService.GetEmployeeExtensionNoById(criteria);
             var groupCriteria = new GetAllExtensionGroupInfoCriteria
             {
                 IsInternal = isInternal,
                 GroupId = null
             };
-            var group = _extensionNoService.GetAllExtensionGroupInfo(groupCriteria);
+            var group = extensionNoService.GetAllExtensionGroupInfo(groupCriteria);
             ViewBag.Group = group.Select(x => new SelectListItem
             {
                 Text = x.TeamName,
                 Value = x.TeamId.ToString()
             }).ToList();
-            model.FullName = HttpUtility.HtmlDecode(model.FullName);
-            model.NickName = HttpUtility.HtmlDecode(model.NickName);
+            model.FullName = WebUtility.HtmlDecode(model.FullName);
+            model.NickName = WebUtility.HtmlDecode(model.NickName);
 
             return View(model);
         }
 
-        [ValidateInput(false)]
         [HttpPost]
         [Authorize(Roles = "HR")]
         public ActionResult EditExtensionNumber(ExtensionNoModel model)
@@ -119,7 +114,7 @@
                     IsInternal = model.IsInternal,
                     GroupId = null
                 };
-                var group = _extensionNoService.GetAllExtensionGroupInfo(criteria);
+                var group = extensionNoService.GetAllExtensionGroupInfo(criteria);
                 ViewBag.Group = group.Select(x => new SelectListItem
                 {
                     Text = x.TeamName,
@@ -130,14 +125,14 @@
                 {
                     ExtId = model.EmpExtId,
                     EmpId = model.EmpId,
-                    NickName = HttpUtility.HtmlEncode(model.NickName),
-                    FullName = HttpUtility.HtmlEncode(model.FullName),
+                    NickName = WebUtility.HtmlEncode(model.NickName),
+                    FullName = WebUtility.HtmlEncode(model.FullName),
                     GroupId = model.TeamId,
                     IsInternal = model.IsInternal,
                     ExtensionNo = model.ExtensionNo
                 };
 
-                CommandResult result = _commandService.Update(updateCriteria);
+                CommandResult result = commandService.ExecuteNonQuery(updateCriteria);
                 if (result.IsSuccessful)
                 {
                         ViewBag.Updated = true;
@@ -159,7 +154,7 @@
             {
                 ExtId = extId
             };
-            CommandResult result = _commandService.Delete(criteria);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
 
             return Json(result);
         }
@@ -170,9 +165,9 @@
         {
             var criteria = new AddNewExternalGroupCriteria
             {
-                FullName = HttpUtility.HtmlEncode(groupName)
+                FullName = WebUtility.HtmlEncode(groupName)
             };
-            CommandResult result = _commandService.Insert(criteria);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
 
             return Json(result);
         }
@@ -185,7 +180,7 @@
             {
                 ExtId = extId
             };
-            CommandResult result = _commandService.Delete(criteria);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
 
             return Json(result);
         }
@@ -199,7 +194,7 @@
                 ExtId = extId,
                 FullName = groupName
             };
-            CommandResult result = _commandService.Update(criteria);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
 
             return Json(result);
         }
@@ -211,7 +206,7 @@
                 IsInternal = false,
                 GroupId = null
             };
-            var group = _extensionNoService.GetAllExtensionGroupInfo(criteria);
+            var group = extensionNoService.GetAllExtensionGroupInfo(criteria);
 
             return View(group);
         }
@@ -221,7 +216,7 @@
             List<SelectListItem> groupExtensions;
             if (isInternal)
             {
-                IList<Team> teams = _teamService.GetTeam();
+                IList<Team> teams = teamService.GetTeam();
                 groupExtensions = teams.Select(x => new SelectListItem
                 {
                     Text = x.Name,
@@ -235,7 +230,7 @@
                     IsInternal = false,
                     GroupId = groupId
                 };
-                IList<ExtensionNoModel> extensions = _extensionNoService.GetAllExtensionGroupInfo(criteria);
+                IList<ExtensionNoModel> extensions = extensionNoService.GetAllExtensionGroupInfo(criteria);
                 groupExtensions = extensions.Select(x => new SelectListItem
                 {
                     Text = x.TeamName,

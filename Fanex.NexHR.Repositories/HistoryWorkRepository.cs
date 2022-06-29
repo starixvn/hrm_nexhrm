@@ -17,9 +17,9 @@
 
         public IList<HistoryWork> GetFilterHistoryWork(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var historyWork = db.Query<HistoryWork>(criteria.GetSpParams());
+                var historyWork = db.Query<HistoryWork>(criteria);
 
                 return historyWork.ToList();
             }
@@ -27,9 +27,9 @@
 
         public IList<HistoryWork> GetHistoryWorkByEmpId(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var historyWork = db.Query<HistoryWork>(criteria.GetSpParams());
+                var historyWork = db.Query<HistoryWork>(criteria);
 
                 return historyWork.ToList();
             }

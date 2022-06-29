@@ -12,7 +12,6 @@ namespace Fanex.NexHR.Web.Providers
     using System;
     using System.ComponentModel;
     using System.Text.RegularExpressions;
-    using System.Web.Mvc;
 
     /// <summary>
     /// Friendly name model metadata provider.

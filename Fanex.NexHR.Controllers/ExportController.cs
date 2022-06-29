@@ -5,6 +5,9 @@
     using Criteria.Calendar;
     using Criteria.Employee;
     using Criteria.Report;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.Report;
     using Newtonsoft.Json;
@@ -12,7 +15,7 @@
     using Services.Interfaces;
     using System;
     using System.Collections.Generic;
-    using System.Web.Mvc;
+    using System.IO;
     using ViewModels.Calendar;
     using ViewModels.Report;
     using ViewModels.TotalWorkingHours;
@@ -26,23 +29,21 @@
         private const string DayOffScheduleTemplatePath = @"~\App_Data\ExcelTemplates\DayOffSchedule.xls";
         private const string HeadCountReportTemplatePath = @"~\App_Data\ExcelTemplates\HeadCountReport.xls";
 
-        private readonly IEmployeeService _employeeService;
-        private readonly IReportService _reportService;
-        private readonly ICalendarService _calendarService;
+        private readonly IEmployeeService employeeService;
+        private readonly IReportService reportService;
+        private readonly ICalendarService calendarService;
+        private readonly IWebHostEnvironment environment;
 
-        public ExportController(
+        public ExportController(ISessionService sessionService,
             EmployeeService employeeService,
             IReportService reportService,
-            ICalendarService calendarService)
+            ICalendarService calendarService,
+            IWebHostEnvironment environment) : base(sessionService)
         {
-            _employeeService = employeeService ?? new EmployeeService();
-            _reportService = reportService ?? new ReportService();
-            _calendarService = calendarService ?? new CalendarService();
-        }
-
-        public ExportController()
-            : this(null, null, null)
-        {
+            this.employeeService = employeeService;
+            this.reportService = reportService;
+            this.calendarService = calendarService;
+            this.environment = environment;
         }
 
         public ActionResult TotalWorkingHours(TotalWorkingHoursViewModel model)
@@ -53,7 +54,7 @@
 
             var totalWorkingHoursViewModel = model;
 
-            totalWorkingHoursViewModel = totalWorkingHoursViewModel ?? new TotalWorkingHoursViewModel
+            totalWorkingHoursViewModel ??= new TotalWorkingHoursViewModel
             {
                 FromDate = new DateTime(year, month, 1),
                 ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
@@ -70,7 +71,7 @@
                 GroupId = totalWorkingHoursViewModel.TeamId
             };
 
-            IList<TotalWorkingHours> listTotalWorkingHours = _reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
+            IList<TotalWorkingHours> listTotalWorkingHours = reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
 
             if (model != null && model.Sort != null)
             {
@@ -79,14 +80,13 @@
                 listTotalWorkingHours = Utilities.MultipleSort(listTotalWorkingHours, sorts);
             }
 
-            string templatePath = Server.MapPath(TotalWorkingHoursTemplatePath);
+            string templatePath = Path.Combine(environment.WebRootPath, TotalWorkingHoursTemplatePath);
 
             ExportService.ExportTotalWorkingHours(listTotalWorkingHours, totalWorkingHoursViewModel.FromDate, totalWorkingHoursViewModel.ToDate, templatePath);
 
             return new EmptyResult();
         }
 
-        [ValidateInput(false)]
         [Authorize(Roles = "HR")]
         [HttpGet]
         public ActionResult EmployeeProfile(
@@ -109,7 +109,7 @@
                 TotalRow = 2000
             };
 
-            IList<Employee> listEmployees = _employeeService.Query(getAllEmployeeCriteria);
+            IList<Employee> listEmployees = employeeService.Query(getAllEmployeeCriteria);
 
             if (sort != null)
             {
@@ -118,7 +118,7 @@
                 listEmployees = Utilities.MultipleSort(listEmployees, sorts);
             }
 
-            string templatePath = Server.MapPath(EmployeeProfileTemplatePath);
+            string templatePath = Path.Combine(environment.WebRootPath, EmployeeProfileTemplatePath);
             ExportService.ExportEmployeeProfile(listEmployees, templatePath);
 
             return new EmptyResult();
@@ -144,7 +144,7 @@
                 ExcludeUserDelete = excludeUserDelete
             };
 
-            IList<EmployeeAttendanceModel> employeeAttendances = _reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
+            IList<EmployeeAttendanceModel> employeeAttendances = reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
 
             if (sort != null)
             {
@@ -153,7 +153,7 @@
                 employeeAttendances = Utilities.MultipleSort(employeeAttendances, sorts);
             }
 
-            string templatePath = Server.MapPath(EmployeeAttendaceTemplatePath);
+            string templatePath = Path.Combine(environment.WebRootPath, EmployeeAttendaceTemplatePath);
             ExportService.ExportEmployeeAttendances(employeeAttendances, templatePath);
 
             return new EmptyResult();
@@ -171,9 +171,8 @@
                 GroupId = model.TeamId
             };
 
-            IList<WorkingHoursStatistic> listTotalWorkingHours = _reportService.GetWorkingHoursStatistic(getWorkingHoursCriteria);
-            string templatePath = Server.MapPath(WorkingHoursStatisticTemplatePath);
-
+            IList<WorkingHoursStatistic> listTotalWorkingHours = reportService.GetWorkingHoursStatistic(getWorkingHoursCriteria);
+            string templatePath = Path.Combine(environment.WebRootPath, WorkingHoursStatisticTemplatePath);
             ExportService.ExportWorkingHoursStatistic(listTotalWorkingHours, getWorkingHoursCriteria.FromDateLastMonth, getWorkingHoursCriteria.ToDate, templatePath);
 
             return new EmptyResult();
@@ -182,8 +181,7 @@
         public ActionResult LeaveScheduleReport(WorkingCalendarViewModel model)
         {
             DateTime date = new DateTime(model.Year, model.Month, 1);
-            var templatePath = Server.MapPath(DayOffScheduleTemplatePath);
-
+            string templatePath = Path.Combine(environment.WebRootPath, DayOffScheduleTemplatePath);
             var criteria = new GetLeaveScheduleCriteria
             {
                 FromDate = date,
@@ -192,7 +190,7 @@
                 TeamId = model.TeamId
             };
 
-            var schedules = _calendarService.GetLeaveSchedule(criteria);
+            var schedules = calendarService.GetLeaveSchedule(criteria);
 
             ExportService.ExportLeaveSummaryScheduleReport(schedules, templatePath);
 
@@ -201,14 +199,14 @@
 
         public ActionResult HeadCountExport(int year)
         {
-            var templatePath = Server.MapPath(HeadCountReportTemplatePath);
+            string templatePath = Path.Combine(environment.WebRootPath, HeadCountReportTemplatePath);
             var criteria = new GetHeadCountByYearCriteria
             {
                 StartDateOfYear = new DateTime(year, 1, 1),
                 EndDateOfYear = new DateTime(year, 12, 31)
             };
 
-            var headCount = _reportService.GetTeamHeadCountInYear(criteria);
+            var headCount = reportService.GetTeamHeadCountInYear(criteria);
             var report = new HeadCountModel
             {
                 StartDate = criteria.StartDateOfYear,

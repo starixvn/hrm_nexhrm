@@ -1,22 +1,39 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
-    using Fanex.NexHR.Web.API;
+    using System;
     using System.Configuration;
-    using System.Net;
-    using System.Web.Http;
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Security.Claims;
+    using System.Text;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.IdentityModel.Tokens;
 
-    public class TokenController : ApiController
+    public class TokenController : ControllerBase
     {
         [AllowAnonymous]
         [HttpPost]
-        public IHttpActionResult GetToken(string username, string password)
+        public IActionResult GetToken(string username, string password)
         {
             if (CheckUser(username, password))
             {
-                return Ok(JwtManager.GenerateToken(username));
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = Encoding.ASCII.GetBytes("");
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new[] {
+                        new Claim(ClaimTypes.Name, username)
+                    }),
+                    Expires = DateTime.UtcNow.AddMinutes(20),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
+                var sercurityToken = tokenHandler.CreateToken(tokenDescriptor);
+                var token = tokenHandler.WriteToken(sercurityToken);
+
+                return Ok(token);
             }
 
-            throw new HttpResponseException(HttpStatusCode.Unauthorized);
+            return Unauthorized();
         }
 
         public static bool CheckUser(string username, string password)

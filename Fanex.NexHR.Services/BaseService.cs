@@ -1,17 +1,18 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Data.Repository;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     public class BaseService
     {
-        private readonly IDynamicRepository _dynamicRepository;
-        private readonly IBaseRepository _baseRepository;
+        private readonly IDynamicRepository dynamicRepository;
+        private readonly IBaseRepository baseRepository;
 
         public BaseService()
             : this(null, null)
@@ -22,57 +23,89 @@
             IDynamicRepository dynamicRepository,
             IBaseRepository baseRepository)
         {
-            _dynamicRepository = dynamicRepository ?? new DynamicRepository();
-            _baseRepository = baseRepository ?? new BaseRepository();
+            this.dynamicRepository = dynamicRepository ?? new DynamicRepository();
+            this.baseRepository = baseRepository ?? new BaseRepository();
         }
 
-        public virtual IList<T> GetData<T>(ICriteria criteria)
+        public IList<T> GetData<T>(ICriteria criteria)
         {
             if (criteria != null && criteria.IsValid())
             {
-                return _dynamicRepository.Fetch<T>(criteria).ToList();
+                return dynamicRepository.Fetch<T>(criteria).ToList();
             }
 
             return new List<T>();
         }
 
-        public virtual async Task<IEnumerable<T>> GetDataAsync<T>(ICriteria criteria)
+        public async Task<IEnumerable<T>> GetDataAsync<T>(ICriteria criteria)
         {
             if (criteria != null && criteria.IsValid())
             {
-                return await _dynamicRepository.FetchAsync<T>(criteria).ConfigureAwait(false);
+                return await dynamicRepository.FetchAsync<T>(criteria);
             }
 
             return new List<T>();
         }
 
-        public virtual T GetDataEntity<T>(ICriteria criteria)
+        public T GetDataEntity<T>(ICriteria criteria)
         {
             if (criteria != null && criteria.IsValid())
             {
-                return _dynamicRepository.Get<T>(criteria);
+                return dynamicRepository.Get<T>(criteria);
             }
 
             return default(T);
         }
 
-        public virtual async Task<T> GetDataEntityAsync<T>(ICriteria criteria)
+        public async Task<ValueTuple<IEnumerable<TFirst>, IEnumerable<TSecond>>> FetchMultipleAsync<TFirst, TSecond>(ICriteria criteria)
         {
             if (criteria != null && criteria.IsValid())
             {
-                return await _dynamicRepository.GetAsync<T>(criteria).ConfigureAwait(false);
+                return await dynamicRepository.FetchMultipleAsync<TFirst, TSecond>(criteria);
+            }
+
+            return new ValueTuple<IEnumerable<TFirst>, IEnumerable<TSecond>>(new List<TFirst>(), new List<TSecond>());
+        }
+
+        public async Task<ValueTuple<IEnumerable<TFirst>, IEnumerable<TSecond>, IEnumerable<TThird>>> FetchMultipleAsync<TFirst, TSecond, TThird>(ICriteria criteria)
+        {
+            if (criteria != null && criteria.IsValid())
+            {
+                return await dynamicRepository.FetchMultipleAsync<TFirst, TSecond, TThird>(criteria);
+            }
+
+            return new ValueTuple<IEnumerable<TFirst>, IEnumerable<TSecond>, IEnumerable<TThird>>(new List<TFirst>(), new List<TSecond>(), new List<TThird>());
+        }
+
+        public async Task<T> GetDataEntityAsync<T>(ICriteria criteria)
+        {
+            if (criteria != null && criteria.IsValid())
+            {
+                return await dynamicRepository.GetAsync<T>(criteria);
             }
 
             return default(T);
         }
 
-        public virtual async Task<CommandResult> ExecuteNonQueryAsync(ICriteria criteria)
+        public async Task<CommandResult> ExecuteNonQueryAsync(INonQueryCommand command)
+        {
+            var commandResult = new CommandResult();
+
+            if (command != null && command.IsValid())
+            {
+                commandResult = await baseRepository.ExecuteNonQueryAsync(command);
+            }
+
+            return commandResult;
+        }
+
+        public async Task<CommandResult> ExecuteNonQueryAsync(ICriteria criteria)
         {
             var commandResult = new CommandResult();
 
             if (criteria != null && criteria.IsValid())
             {
-                commandResult = await _baseRepository.ExecuteNonQueryAsync(criteria).ConfigureAwait(false);
+                commandResult = await baseRepository.ExecuteNonQueryAsync(criteria);
             }
 
             return commandResult;

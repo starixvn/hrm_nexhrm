@@ -2,7 +2,6 @@
 {
     using System;
     using System.Net.Http.Headers;
-    using System.Web.Http.Filters;
 
     public static class HttpAuthenticationChallengeContextExtensions
     {

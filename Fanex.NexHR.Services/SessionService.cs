@@ -1,26 +1,37 @@
-﻿namespace Fanex.NexHR.Services
+﻿
+namespace Fanex.NexHR.Services
 {
-    using System.Web;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services.Interfaces;
+    using Microsoft.AspNetCore.Http;
 
     public class SessionService : ISessionService
     {
-        public Employee CurrentEmployee
+        private readonly ISession session;
+        private readonly IHttpContextAccessor httpContextAccessor;
+
+        public SessionService(IHttpContextAccessor httpContextAccessor)
         {
-            get => (Employee)HttpContext.Current.Session?["CurrentUser"];
-            set => HttpContext.Current.Session["CurrentUser"] = value;
+            this.session = httpContextAccessor.HttpContext.Session;
+            this.httpContextAccessor = httpContextAccessor;
         }
 
-        public EmployeeSetting CurrentUserSetting {
-            get => (EmployeeSetting)HttpContext.Current.Session?["CurrentUserSetting"];
-            set => HttpContext.Current.Session["CurrentUserSetting"] = value;
+        public Employee CurrentEmployee
+        {
+            get => session.Get<Employee>("CurrentUser");
+            set => session.Set("CurrentUser", value);
+        }
+
+        public EmployeeSetting CurrentUserSetting
+        {
+            get => session.Get<EmployeeSetting>("CurrentUserSetting");
+            set => session.Set("CurrentUserSetting", value);
         }
 
         public void Clear()
         {
-            HttpContext.Current.Session.Abandon();
-            HttpContext.Current.Session.Clear();
+            session.Clear();
         }
     }
 }

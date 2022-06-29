@@ -19,11 +19,11 @@
 
     public class EmployeeService : BaseService, IEmployeeService
     {
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly IEmployeeRepository employeeRepository;
 
-        public EmployeeService(IEmployeeRepository employeeRepository = null)
+        public EmployeeService(IEmployeeRepository employeeRepository)
         {
-            _employeeRepository = employeeRepository ?? new EmployeeRepository();
+            this.employeeRepository = employeeRepository;
         }
 
         public Employee GetEmployeeById(GetEmployeeByIdCriteria criteria)
@@ -31,7 +31,7 @@
             Employee employee = null;
             if (criteria != null && criteria.IsValid())
             {
-                employee = _employeeRepository.GetById(criteria);
+                employee = employeeRepository.GetById(criteria);
             }
 
             return employee;
@@ -42,7 +42,7 @@
             Employee employee = null;
             if (criteria != null && criteria.IsValid())
             {
-                employee = _employeeRepository.GetByDomainName(criteria);
+                employee = employeeRepository.GetByDomainName(criteria);
             }
 
             return employee;
@@ -53,7 +53,7 @@
             Employee employee = null;
             if (criteria != null && criteria.IsValid())
             {
-                employee = _employeeRepository.GetByNickName(criteria);
+                employee = employeeRepository.GetByNickName(criteria);
             }
 
             return employee;
@@ -64,7 +64,7 @@
             IList<Employee> employees = null;
             if (criteria != null && criteria.IsValid())
             {
-                employees = _employeeRepository.Query(criteria);
+                employees = employeeRepository.Query(criteria);
             }
 
             return employees ?? new List<Employee>();
@@ -110,7 +110,7 @@
             IList<Employee> employees = null;
             if (criteria != null && criteria.IsValid())
             {
-                employees = _employeeRepository.GetEmployeeToeicScore(criteria);
+                employees = employeeRepository.GetEmployeeToeicScore(criteria);
             }
 
             return employees ?? new List<Employee>();
@@ -121,7 +121,7 @@
             SystemReminderModel employees = null;
             if (criteria != null && criteria.IsValid())
             {
-                employees = await _employeeRepository.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria).ConfigureAwait(false);
+                employees = await employeeRepository.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria).ConfigureAwait(false);
             }
 
             return employees;
@@ -152,7 +152,7 @@
                 EmpId = employeeId
             };
 
-            return _employeeRepository.GetDashBoardPersonalSpace(criteria);
+            return employeeRepository.GetDashBoardPersonalSpace(criteria);
         }
 
         private IList<DashBoardCompanySpace> GetDashBoardCompanySpace(int employeeId)
@@ -162,12 +162,12 @@
                 EmpId = employeeId
             };
 
-            return _employeeRepository.GetDashBoardCompanySpace(criteria);
+            return employeeRepository.GetDashBoardCompanySpace(criteria);
         }
 
         public IList<Workload> GetWorkloadByTeam(GetEmployeeWorkloadCriteria criteria)
         {
-            return _employeeRepository.GetWorkloadByTeam(criteria);
+            return employeeRepository.GetWorkloadByTeam(criteria);
         }
 
         public async Task<IEnumerable<MissingCheckInOutEmployee>> GetMissingCheckInOutEmployeeAsync()

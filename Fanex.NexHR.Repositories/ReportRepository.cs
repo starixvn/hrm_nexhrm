@@ -21,11 +21,11 @@
 
         public IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 IList<EmployeeAttendanceModel> attendances;
 
-                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
+                using (var multi = db.QueryMultiple(criteria))
                 {
                     attendances = multi.Read<EmployeeAttendanceModel>().ToList();
 
@@ -56,14 +56,14 @@
                             : 1;
                     }
 
-                    
+
                 }
 
                 PropertyInfo totalitem = GetTotalItemPropertyInfo(criteria);
 
                 if (totalitem != null)
                 {
-                    var hashParam = db.GetOuputParams();
+                    var hashParam = db.GetOutputParams();
                     totalitem.SetValue(criteria, (int)hashParam[totalItem], null);
                 }
 
@@ -94,7 +94,7 @@
 
         public IList<RequestsMonitoring> GetRequestMonitoring(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var entityList = db.Query<RequestsMonitoring, Employee, Team, RequestsMonitoring>(
                         (rq, e, g) =>
@@ -104,7 +104,7 @@
                             return rq;
                         },
                         splitOn: stringSplitOn,
-                        parameterSet: criteria.GetSpParams())
+                        parameterSet: criteria)
                     .ToList();
 
                 return entityList;
@@ -113,7 +113,7 @@
 
         public IList<TotalWorkingHours> GetTotalWorkingHours(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var entityList = db.Query<TotalWorkingHours, Employee, Team, TotalWorkingHours>(
                         (wkh, e, g) =>
@@ -123,7 +123,7 @@
                             return wkh;
                         },
                         splitOn: stringSplitOn,
-                        parameterSet: criteria.GetSpParams())
+                        parameterSet: criteria)
                     .ToList();
 
                 return entityList;
@@ -132,7 +132,7 @@
 
         public IList<TimeRecord> GetTimeRecords(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var timeRecords = db.Query<TimeRecord, Employee, Team, TimeRecord>(
                         (t, e, g) =>
@@ -142,7 +142,7 @@
                             return t;
                         },
                         splitOn: stringSplitOn,
-                        parameterSet: criteria.GetSpParams())
+                        parameterSet: criteria)
                     .ToList();
 
                 PropertyInfo totalitem = criteria.GetType()
@@ -152,7 +152,7 @@
 
                 if (totalitem != null)
                 {
-                    var hashParam = db.GetOuputParams();
+                    var hashParam = db.GetOutputParams();
                     totalitem.SetValue(criteria, (int)hashParam[totalItem], null);
                 }
 
@@ -162,7 +162,7 @@
 
         public IList<LateInEarlyOutModel> GetLateInEarlyOut(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var lateinEarlyOuts = db.Query<LateInEarlyOutModel, Employee, Team, LateInEarlyOutModel>(
                         (la, e, g) =>
@@ -172,7 +172,7 @@
                             return la;
                         },
                         splitOn: stringSplitOn,
-                        parameterSet: criteria.GetSpParams())
+                        parameterSet: criteria)
                     .ToList();
 
                 return lateinEarlyOuts;
@@ -181,7 +181,7 @@
 
         public IList<LateInEarlyOutDetail> GetLateInEarlyOutDetail(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var lateInEarlyOuts = db.Query<LateInEarlyOutDetail, Employee, Team, LateInEarlyOutDetail>(
                         (la, e, g) =>
@@ -191,7 +191,7 @@
                             return la;
                         },
                         splitOn: stringSplitOn,
-                        parameterSet: criteria.GetSpParams())
+                        parameterSet: criteria)
                     .ToList();
 
                 return lateInEarlyOuts;
@@ -202,9 +202,9 @@
         {
             IList<LateInEarlyOutDiscipline> lateinEarlyOuts;
 
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                using (var multi = db.QueryMultiple(criteria.GetSpParams()))
+                using (var multi = db.QueryMultiple(criteria))
                 {
                     lateinEarlyOuts = multi.Read<LateInEarlyOutDiscipline, Employee, Team, LateInEarlyOutDiscipline>(
                             (la, e, g) =>
@@ -245,7 +245,7 @@
 
         public IList<WorkingHoursStatistic> GetWorkingHoursStatistic(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var entityList = db.Query<WorkingHoursStatistic, Employee, Team, WorkingHoursStatistic>(
                         (wkh, e, g) =>
@@ -255,7 +255,7 @@
                             return wkh;
                         },
                         splitOn: stringSplitOn,
-                        parameterSet: criteria.GetSpParams())
+                        parameterSet: criteria)
                     .ToList();
 
                 return entityList;
@@ -264,7 +264,7 @@
 
         public IList<YearlyNexRequest> GetYearlyNexRequest(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var yearlyNexRequest = db.Query<YearlyNexRequest, Employee, Team, YearlyNexRequest>(
                      (yearly, employee, team) =>
@@ -274,7 +274,7 @@
                          return yearly;
                      },
                      "EmpId, GroupId",
-                     criteria.GetSpParams()).ToList();
+                     criteria).ToList();
 
                 return yearlyNexRequest;
             }

@@ -4,19 +4,19 @@
     using System.Collections.Generic;
     using System.Configuration;
     using System.Globalization;
+    using System.IO;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using System.Web;
     using Core;
     using Core.Enums;
     using Criteria.Employee;
     using Criteria.Request;
     using Data.Repository;
     using Interfaces;
+    using Microsoft.AspNetCore.Hosting;
     using Models;
     using Models.Request;
-    using Repositories;
     using Repositories.Interfaces;
     using Resources;
     using ViewModels;
@@ -24,30 +24,29 @@
 
     public class RequestService : BaseService, IRequestService
     {
-        private readonly IRequestRepository _requestRepository;
-        private readonly IEmailService _emailService;
-        private readonly ICommandService _commandService;
-        private readonly INexbotService _nexbotService;
+        private readonly IRequestRepository requestRepository;
+        private readonly IEmailService emailService;
+        private readonly ICommandService commandService;
+        private readonly INexbotService nexbotService;
+        private readonly IWebHostEnvironment environment;
+
         private const string stringTime = "HH:mm";
         private const string stringEmail = "Email";
         private const string BaseUrl = "BaseUrl";
         private const string CompanyMailSign = "CompanyMailSign";
 
-        public RequestService()
-            : this(null, null, null, null)
-        {
-        }
-
         public RequestService(
             IRequestRepository requestRepository,
             IEmailService emailService,
             ICommandService commandService,
-            INexbotService nexbotService)
+            INexbotService nexbotService,
+            IWebHostEnvironment environment)
         {
-            _requestRepository = requestRepository ?? new RequestRepository();
-            _emailService = emailService ?? new EmailService();
-            _commandService = commandService ?? new CommandService();
-            _nexbotService = nexbotService ?? new NexbotService();
+            this.requestRepository = requestRepository;
+            this.emailService = emailService;
+            this.commandService = commandService;
+            this.nexbotService = nexbotService;
+            this.environment = environment;
         }
 
         private static string GetMessageDateforLeaveRequest(DateTime fromDate, DateTime toDate)
@@ -156,17 +155,13 @@
         {
             ICriteria processRequestCriteria = GetProcessRequestCriteria(command, id, processBy);
 
-            CommandResult result = _commandService.Update(processRequestCriteria);
+            CommandResult result = commandService.ExecuteNonQuery(processRequestCriteria);
             if (result.IsSuccessful)
             {
-                string templateEmailToRequester = HttpContext.Current.Server
-                    .MapPath(Constants.EmailTemplatePathForRequester);
-                string templateLeaveEmailToRelated = HttpContext.Current.Server
-                    .MapPath(Constants.EmailTemplatePathForLeaveApproved);
-                string templateLeaveEmailToHR = HttpContext.Current.Server
-                    .MapPath(Constants.EmailTemplatePathForLeaveDisApproved);
-                string templateInOutEmailToRelated = HttpContext.Current.Server
-                    .MapPath(Constants.EmailTemplatePathForCheckInOutApproved);
+                string templateEmailToRequester = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForRequester);
+                string templateLeaveEmailToRelated = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForLeaveApproved);
+                string templateLeaveEmailToHR = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForLeaveDisApproved);
+                string templateInOutEmailToRelated = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForCheckInOutApproved);
 
                 Task.Factory.StartNew(() =>
                 {
@@ -178,7 +173,7 @@
                         templateInOutEmailToRelated,
                         templateLeaveEmailToHR);
 
-                    _nexbotService.SendMessageProcessRequest(GetRequestEntity(id), command);
+                    nexbotService.SendMessageProcessRequest(GetRequestEntity(id), command);
                 });
             }
 
@@ -227,7 +222,7 @@
 
             if (criteria != null && criteria.IsValid())
             {
-                entityList = _requestRepository.GetRequest(criteria);
+                entityList = requestRepository.GetRequest(criteria);
             }
 
             return entityList ?? new List<RequestEntity>();
@@ -238,7 +233,7 @@
             RequestEntity request = new RequestEntity();
             if (criteria != null && criteria.IsValid())
             {
-                request = _requestRepository.GetRequestEntity(criteria);
+                request = requestRepository.GetRequestEntity(criteria);
             }
 
             return request;
@@ -249,7 +244,7 @@
             IList<RequestEntity> requests = null;
             if (criteria != null && criteria.IsValid())
             {
-                requests = _requestRepository.GetRequest(criteria);
+                requests = requestRepository.GetRequest(criteria);
             }
 
             return requests ?? new List<RequestEntity>();
@@ -338,7 +333,7 @@
                     ConfigurationManager.AppSettings[BaseUrl],
                     ConfigurationManager.AppSettings[CompanyMailSign]);
 
-                _emailService.SendEmail(
+                emailService.SendEmail(
                     ConfigurationManager.AppSettings[stringEmail],
                     string.Join(";", managers.Select(t => t.Email)),
                     string.Join(";", leaders.Where(t => !t.Email.Equals(model.CurrentUserEmail)).Select(t => t.Email)),
@@ -361,7 +356,7 @@
                     ConfigurationManager.AppSettings[BaseUrl],
                     ConfigurationManager.AppSettings[CompanyMailSign]);
 
-                _emailService.SendEmail(
+                emailService.SendEmail(
                     ConfigurationManager.AppSettings[stringEmail],
                     string.Join(";", leaders.Select(t => t.Email)),
                     string.Empty,
@@ -396,7 +391,7 @@
                 ConfigurationManager.AppSettings[BaseUrl],
                 ConfigurationManager.AppSettings[CompanyMailSign]);
 
-            _emailService.SendEmail(
+            emailService.SendEmail(
                 ConfigurationManager.AppSettings[stringEmail],
                 string.Join(";", leaders.Select(t => t.Email)),
                 string.Empty,
@@ -488,7 +483,7 @@
             {
                 Id = requestId
             };
-            var request = _requestRepository.GetRequestEntity(getRequestByIdCriteria);
+            var request = requestRepository.GetRequestEntity(getRequestByIdCriteria);
             return request;
         }
 
@@ -555,7 +550,7 @@
                 action,
                 request.ModifiedBy.NickName);
 
-            _emailService.SendEmail(
+            emailService.SendEmail(
                 ConfigurationManager.AppSettings[stringEmail],
                 request.Requester.Email,
                 string.Empty,
@@ -615,7 +610,7 @@
 
             if (!string.IsNullOrEmpty(sendTo))
             {
-                _emailService.SendEmail(
+                emailService.SendEmail(
                      ConfigurationManager.AppSettings[stringEmail],
                      sendTo,
                      string.Empty,
@@ -648,7 +643,7 @@
                 request.FromDate.ToString(stringTime),
                 ConfigurationManager.AppSettings[CompanyMailSign]);
 
-            _emailService.SendEmail(
+            emailService.SendEmail(
                 ConfigurationManager.AppSettings[stringEmail],
                 request.ModifiedBy.Email,
                 sendCc,
@@ -676,7 +671,7 @@
 
             if (!string.IsNullOrEmpty(sendTo))
             {
-                _emailService.SendEmail(
+                emailService.SendEmail(
                      ConfigurationManager.AppSettings[stringEmail],
                      sendTo,
                      string.Empty,

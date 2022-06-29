@@ -1,5 +1,11 @@
 ﻿namespace Fanex.NexHR.Services.AutoJobService
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Bio;
@@ -7,29 +13,21 @@
     using Fanex.NexHR.Models.Bio;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
-    public class BioTasksService : IBotBioTasksService
+    public class BioTasksService : BaseService, IBotBioTasksService
     {
         private static readonly string BaseUrl = ConfigurationManager.AppSettings["BaseUrl"] + "/bio/fingerprint";
-        private readonly BaseService baseService;
         private readonly INexbotService nexbotService;
 
-        public BioTasksService()
+        public BioTasksService(INexbotService nexbotService)
         {
-            baseService = new BaseService();
-            nexbotService = new NexbotService();
+            this.nexbotService = nexbotService;
         }
 
         public async Task<CommandResult> SendMessageBioDeviceAsync()
         {
             var result = new CommandResult { Code = 0 };
-            var pendingDevices = await baseService.GetDataAsync<BioDevice>(new GetPendingBioDevicesCriteria()).ConfigureAwait(false);
+            var pendingDevices = await GetDataAsync<BioDevice>(new GetPendingBioDevicesCriteria()).ConfigureAwait(false);
             if (pendingDevices.Any())
             {
                 var conversations = nexbotService.GetRegisteredConversation(MessageCategory.BioDevice);
@@ -56,7 +54,7 @@
                 FromDate = DateTime.Now.Date.AddDays(-1),
                 ToDate = DateTime.Now.Date.AddDays(1)
             };
-            var warningTimeChanges = await baseService.GetDataAsync<BioTimeChange>(criteria).ConfigureAwait(false);
+            var warningTimeChanges = await GetDataAsync<BioTimeChange>(criteria).ConfigureAwait(false);
 
             if (warningTimeChanges.Any())
             {
@@ -79,7 +77,7 @@
         public async Task<CommandResult> SendMessageBioFingerprintAndCardAynsc()
         {
             var result = new CommandResult { Code = 0 };
-            var members = await baseService.GetDataAsync<FingerprintAndCardSummary>(
+            var members = await GetDataAsync<FingerprintAndCardSummary>(
                 new GetPendingFingerprintAndCardCriteria()
                 ).ConfigureAwait(false);
 

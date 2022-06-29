@@ -2,39 +2,40 @@
 {
     using System.Configuration;
     using System.IO;
-    using System.Web;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
+    using Fanex.NexHR.Services.Interfaces;
+    using Microsoft.AspNetCore.Hosting;
 
-    public class MailEmployeeService
+    public class MailEmployeeService: IMailEmployeeService
     {
         private readonly string HRMName = ConfigurationManager.AppSettings["HRMName"];
 
-        private readonly EmailService EmailService = new EmailService();
+        private readonly IEmailService emailService;
+        private readonly IWebHostEnvironment environment;
 
-        private readonly Employee _employee;
-
-        public MailEmployeeService(Employee employee)
+        public MailEmployeeService(IEmailService emailService, IWebHostEnvironment environment)
         {
-            _employee = employee;
+            this.emailService = emailService;
+            this.environment = environment;
         }
 
-        public void SendMailUpdateSuccess()
+        public void SendMailUpdateSuccess(Employee employee)
         {
-            var templatePath = Path.Combine(HttpRuntime.AppDomainAppPath, Constants.EmailTemplatePathForSuccessUpdateEmployee);
+            var templatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForSuccessUpdateEmployee);
             var bodyTemplate = Utilities.ReadTextFile(templatePath);
             var emailContent = string.Format(
                 bodyTemplate,
-                _employee.NickName,
+                employee.NickName,
                 HRMName,
                 ConfigurationManager.AppSettings["BaseUrl"],
                 ConfigurationManager.AppSettings["CompanyMailSign"]);
             var emailSubject = $"[{HRMName}] - {Messages.SuccessUpdateInformation}";
 
-            EmailService.SendEmail(
+            emailService.SendEmail(
                 ConfigurationManager.AppSettings["Email"],
-                _employee.Email,
+                employee.Email,
                 null,
                 emailSubject,
                 emailContent);

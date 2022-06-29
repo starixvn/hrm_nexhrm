@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Web;
     using Core;
     using Core.Enums;
     using Models;
@@ -79,7 +78,7 @@
 
         public string EmailTemplate => Utilities.ReadTextFile(EmailTemplatePath);
 
-        public string EmailTemplatePath { get; private set; }
+        public string EmailTemplatePath { get; set; }
 
         public string SubjectEmail
         {
@@ -93,13 +92,6 @@
                     FromDate.ToDateMonthYearFormatedDate(),
                     ToDate.ToDateMonthYearFormatedDate());
             }
-        }
-
-        public void GetTemplatePath()
-        {
-            EmailTemplatePath = IsUnpaidLeave || IsAnnualLeaveOver5Day
-                        ? HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForUnpaidLeave)
-                        : HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForLeave);
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

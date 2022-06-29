@@ -19,15 +19,10 @@
         private readonly INexbotService nexbotService;
         private readonly IBaseRepository respository;
 
-        public TimeSheetService()
-            : this(null, null)
-        {
-        }
-
         public TimeSheetService(INexbotService nexbotService, IBaseRepository respository)
         {
-            this.nexbotService = nexbotService ?? new NexbotService();
-            this.respository = respository ?? new BaseRepository();
+            this.nexbotService = nexbotService;
+            this.respository = respository;
         }
 
         public void SendReminderReachedWorkingTime()
@@ -62,7 +57,7 @@
                 WorkDate = workDate
             };
 
-            respository.Insert(criteria);
+            respository.ExecuteNonQuery(criteria);
         }
 
         private IList<ConversationUser> GetUserIgnoreReminderReachedWorkingTime()

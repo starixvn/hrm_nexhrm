@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.ViewModels.AnnualLeave
 {
     using System.Collections.Generic;
-    using System.Web.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Models;
     using Models.AnnualLeave;
 

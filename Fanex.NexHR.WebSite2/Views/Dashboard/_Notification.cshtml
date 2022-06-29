@@ -1,0 +1,60 @@
+﻿@using Fanex.NexHR.Models.Notification
+@model Notification
+<div class="notification">
+    <a href="#!" class="dropdown-button" data-activates='dropdown-notification'>
+        <i class="mdi-social-notifications"></i>
+        @if (Model.QuantityOfNewAlert != string.Empty)
+            {
+            <span class="badge">@Model.QuantityOfNewAlert</span>
+        }
+    </a>
+</div>
+@if (Model.QuantityOfNewAlert != string.Empty)
+{
+    <ul id='dropdown-notification' class='dropdown-content dropdown-notification'>
+        <li class="collection-header">
+            <h5 class="txt-uppercase primary-color">Notifications</h5>
+            @*<span class="new badge">@Model.QuantityOfNewAlert</span>*@
+        </li>
+        @if (Model.LateInEarlyOutInYear >= 2)
+        {
+            <li class="collection-item">
+                <a href="~/report/lateinearlyout?empId=@Model.Employee.Id&nickname=@Model.Employee.DisplayName">
+                    <p id="lateearlyYear">
+                        You have violated Late in/Early out <span class="txt-bold">@Model.LateInEarlyOutInYear times</span> within 12 months<br>
+                    </p>
+                </a>
+            </li>
+        }
+        @if (Model.LateInEarlyOutInMonth >= 3)
+        {
+            <li class="collection-item">
+                <a href="~/report/lateinearlyout?empId=@Model.Employee.Id&nickname=@Model.Employee.DisplayName">
+                    <p>
+                        You have been "Late in/Early out" <span class="txt-bold">@Model.LateInEarlyOutInMonth times</span> in this month<br>
+                    </p>
+                </a>
+            </li>
+        }
+        @if (Model.TimeMisssingCheckInOutThisMonth >= 2)
+        {
+            <li class="collection-item">
+                <a href="@Url.Action("EmployeeView","CheckInOut")">
+                    <p>
+                        You have forgot Check in/Check out <span class="txt-bold">@Model.TimeMisssingCheckInOutThisMonth times</span> in this month<br>
+                    </p>
+                </a>
+            </li>
+        }
+        @if (Model.ToeicExpired)
+        {
+            <li class="collection-item">
+                <a href="#">
+                    <p>
+                        You have to submit your Toeic score in this month <br>
+                    </p>
+                </a>
+            </li>
+        }
+    </ul>
+}

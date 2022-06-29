@@ -1,38 +1,36 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
     using System.Threading.Tasks;
-    using System.Web.Http;
-    using Fanex.NexHR.Services.AutoJobService;
     using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.Web.API;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
 
     [Authorize]
-    [JwtAuthentication]
-    public class BioTasksController : ApiController
+    public class BioTasksController : ControllerBase
     {
         private readonly IBotBioTasksService bioTasksService;
 
-        public BioTasksController()
+        public BioTasksController(IBotBioTasksService bioTasksService)
         {
-            bioTasksService = new BioTasksService();
+            this.bioTasksService = bioTasksService;
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> BioDevice()
+        public async Task<IActionResult> BioDevice()
         {
             var result = await bioTasksService.SendMessageBioDeviceAsync().ConfigureAwait(false);
             return Ok(result);
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> BioTimeChange()
+        public async Task<IActionResult> BioTimeChange()
         {
             var result = await bioTasksService.SendMessageBioTimeChangeAsync().ConfigureAwait(false);
             return Ok(result);
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> BioFingerprintAndCard()
+        public async Task<IActionResult> BioFingerprintAndCard()
         {
             var result = await bioTasksService.SendMessageBioFingerprintAndCardAynsc().ConfigureAwait(false);
             return Ok(result);

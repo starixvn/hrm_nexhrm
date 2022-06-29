@@ -13,30 +13,30 @@
     {
         public async Task<IEnumerable<Conversation>> GetConversationsAsync(GetConversationsCriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                return await db.QueryAsync<Conversation>(criteria.GetSpParams()).ConfigureAwait(false);
+                return await db.QueryAsync<Conversation>(criteria);
             }
         }
 
         public async Task<CommandResult> CreateAsync(CreateScheduledMessageCriteria criteria)
         {
-            return await ExecuteNonQueryAsync(criteria).ConfigureAwait(false);
+            return await ExecuteNonQueryAsync(criteria);
         }
 
         public async Task<IEnumerable<ScheduledMessage>> GetScheduledMessagesAsync(GetScheduleMessagesCriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                return await db.QueryAsync<ScheduledMessage>(criteria.GetSpParams()).ConfigureAwait(false);
+                return await db.QueryAsync<ScheduledMessage>(criteria);
             }
         }
 
         public async Task<ScheduledMessage> GetScheduledMessageAsync(GetScheduleMessageCriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                return await db.QueryEntityAsync<ScheduledMessage>(criteria.GetSpParams()).ConfigureAwait(false);
+                return await db.QueryEntityAsync<ScheduledMessage>(criteria);
             }
         }
 
@@ -52,27 +52,27 @@
 
         public async Task<IEnumerable<ScheduledMessage>> GetScheduledMessagesToProcessAsync(GetScheduledMessagesToProcessCriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                return await db.QueryAsync<ScheduledMessage>(criteria.GetSpParams()).ConfigureAwait(false);
+                return await db.QueryAsync<ScheduledMessage>(criteria);
             }
         }
 
         public async Task<CommandResult> UpdateSentMessageStatus(UpdateSentScheduledMessageStatusCriteria criteria)
         {
-            return await ExecuteNonQueryAsync(criteria).ConfigureAwait(false);
+            return await ExecuteNonQueryAsync(criteria);
         }
 
         public async Task<CommandResult> CreateConversationAsync(CreateConversationCriteria criteria)
         {
-            return await ExecuteNonQueryAsync(criteria).ConfigureAwait(false);
+            return await ExecuteNonQueryAsync(criteria);
         }
 
         public async Task<IEnumerable<Conversation>> GetConversationsByCreatorAsync(GetConversationsByCreatorCriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                using (var multiReader = await db.QueryMultipleAsync(criteria).ConfigureAwait(false))
+                using (var multiReader = await db.QueryMultipleAsync(criteria))
                 {
                     var conversations = multiReader.Read<Conversation>();
                     var permittedEmployees = multiReader.Read<PermittedEmployee>();
@@ -89,9 +89,9 @@
 
         public async Task<Conversation> GetConversationByIdAsync(GetConversationsByIdCriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                using (var multiReader = await db.QueryMultipleAsync(criteria).ConfigureAwait(false))
+                using (var multiReader = await db.QueryMultipleAsync(criteria))
                 {
                     var conversation = multiReader.Read<Conversation>().FirstOrDefault();
                     var permittedEmployees = multiReader.Read<PermittedEmployee>();
@@ -105,7 +105,7 @@
 
         public async Task<CommandResult> EditConversationAsync(EditConversationCriteria criteria)
         {
-            return await ExecuteNonQueryAsync(criteria).ConfigureAwait(false);
+            return await ExecuteNonQueryAsync(criteria);
         }
     }
 }

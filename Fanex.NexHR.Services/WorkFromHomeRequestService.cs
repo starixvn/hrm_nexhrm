@@ -8,18 +8,11 @@
 
     public class WorkFromHomeRequestService : IWorkFromHomeRequest
     {
-        private readonly ICommandService commandService;
         private readonly BaseService baseService;
 
-        public WorkFromHomeRequestService()
-            : this(null, null)
+        public WorkFromHomeRequestService(BaseService baseService)
         {
-        }
-
-        public WorkFromHomeRequestService(ICommandService commandService, BaseService baseService)
-        {
-            this.commandService = commandService ?? new CommandService();
-            this.baseService = baseService ?? new BaseService();
+            this.baseService = baseService;
         }
 
         public IList<WorkFromHomeRequest> GetAll(GetWorkFromHomeRequestCriteria criteria)
@@ -31,21 +24,6 @@
         {
             var criteria = new GetWorkFromHomeRequestByIdCriteria { Id = id };
             return baseService.GetDataEntity<WorkFromHomeRequest>(criteria);
-        }
-
-        public CommandResult Insert(InsertWorkFromHomeRequestCriteria criteria)
-        {
-            return commandService.Insert(criteria);
-        }
-
-        public CommandResult Update(EditWorkFromHomeRequestCriteria criteria)
-        {
-            return commandService.Update(criteria);
-        }
-
-        public CommandResult Delete(DeleteWorkFromHomeRequestCriteria criteria)
-        {
-            return commandService.Delete(criteria);
         }
     }
 }

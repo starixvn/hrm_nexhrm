@@ -1,24 +1,22 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
-    using Fanex.NexHR.Services;
-    using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.Web.API;
     using System.Threading.Tasks;
-    using System.Web.Http;
+    using Fanex.NexHR.Services.Interfaces;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
 
     [Authorize]
-    [JwtAuthentication]
-    public class ScheduledMessageController : ApiController
+    public class ScheduledMessageController : ControllerBase
     {
         private readonly IScheduledMessageService scheduledMessageService;
 
-        public ScheduledMessageController()
+        public ScheduledMessageController(IScheduledMessageService scheduledMessageService)
         {
-            scheduledMessageService = new ScheduledMessageService();
+            this.scheduledMessageService = scheduledMessageService;
         }
 
         [HttpPost]
-        public async Task<IHttpActionResult> SendScheduledMessages()
+        public async Task<ActionResult> SendScheduledMessages()
         {
             var result = await scheduledMessageService.SendScheduledMessages().ConfigureAwait(false);
             return Ok(result);

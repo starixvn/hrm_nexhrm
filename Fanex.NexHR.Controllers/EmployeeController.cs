@@ -1,63 +1,63 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using Core;
-    using Core.Enums;
-    using Core.Model;
-    using Criteria.Employee;
-    using Fanex.NexHR.Criteria.EmployeeTransfer;
-    using Fanex.NexHR.Criteria.HistoryWork;
-    using Fanex.NexHR.Criteria.LookupData;
-    using Fanex.NexHR.Resources;
-    using Models;
-    using Newtonsoft.Json;
-    using Services;
-    using Services.Email;
-    using Services.Interfaces;
-    using Simplicode.Imaging;
     using System;
     using System.Collections.Generic;
     using System.Drawing;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
-    using System.Web;
-    using System.Web.Mvc;
+    using Core;
+    using Core.Enums;
+    using Core.Model;
+    using Criteria.Employee;
+    using Fanex.NexHR.Criteria.HistoryWork;
+    using Fanex.NexHR.Criteria.LookupData;
+    using Fanex.NexHR.Resources;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Mvc;
+    using Models;
+    using Newtonsoft.Json;
+    using Services;
+    using Services.Email;
+    using Services.Interfaces;
     using ViewModels;
     using ViewModels.Employee;
 
     public class EmployeeController : BaseController
     {
-        private readonly ITeamService _teamService;
-        private readonly IJobTitleService _jobTitleService;
-        private readonly IShiftService _shiftService;
-        private readonly IEmployeeService _employeeService;
-        private readonly ICommandService _commandService;
-        private readonly IHistoryWorkService _historyWorkService;
+        private readonly ITeamService teamService;
+        private readonly IJobTitleService jobTitleService;
+        private readonly IShiftService shiftService;
+        private readonly IEmployeeService employeeService;
+        private readonly ICommandService commandService;
+        private readonly IHistoryWorkService historyWorkService;
+        private readonly IMailEmployeeService mailEmployeeService;
+        private readonly IWebHostEnvironment environment;
 
-        public EmployeeController()
-            : this(null, null, null, null, null, null)
-        {
-        }
-
-        public EmployeeController(
+        public EmployeeController(ISessionService sessionService,
             IEmployeeService employeeService,
             ITeamService teamService,
             IJobTitleService jobTitleService,
             IShiftService shiftService,
             ICommandService commandService,
-            IHistoryWorkService historyWorkService)
+            IHistoryWorkService historyWorkService,
+            IMailEmployeeService mailEmployeeService,
+            IWebHostEnvironment environment) : base(sessionService)
         {
-            _employeeService = employeeService ?? new EmployeeService();
-            _teamService = teamService ?? new TeamService();
-            _jobTitleService = jobTitleService ?? new JobTitleService();
-            _shiftService = shiftService ?? new ShiftService();
-            _commandService = commandService ?? new CommandService();
-            _historyWorkService = historyWorkService ?? new HistoryWorkService();
+            this.employeeService = employeeService;
+            this.teamService = teamService;
+            this.jobTitleService = jobTitleService;
+            this.shiftService = shiftService;
+            this.commandService = commandService;
+            this.historyWorkService = historyWorkService;
+            this.mailEmployeeService = mailEmployeeService;
+            this.environment = environment;
         }
 
         public ActionResult Index()
         {
-            var model = new StaffInfoViewModel { Teams = _teamService.GetTeam() };
+            var model = new StaffInfoViewModel { Teams = teamService.GetTeam() };
 
             return View(model);
         }
@@ -68,8 +68,8 @@
             var model = new UserManagementViewModel
             {
                 JobTitleId = jobTitleId,
-                Teams = _teamService.GetTeam(),
-                JobTitles = _jobTitleService.GetAll()
+                Teams = teamService.GetTeam(),
+                JobTitles = jobTitleService.GetAll()
             };
 
             return View(model);
@@ -81,14 +81,13 @@
             var model = new UserManagementViewModel
             {
                 JobTitleId = jobTitleId,
-                Teams = _teamService.GetTeam(),
-                JobTitles = _jobTitleService.GetAll(),
+                Teams = teamService.GetTeam(),
+                JobTitles = jobTitleService.GetAll(),
             };
 
             return View(model);
         }
 
-        [ValidateInput(false)]
         public JsonResult GetEmployees(
             string query,
             int? teamId = null,
@@ -116,11 +115,11 @@
                 IsSpecial = isSpecial ?? false
             };
 
-            listEmployee.Employees = _employeeService.Query(criteria);
+            listEmployee.Employees = employeeService.Query(criteria);
 
             listEmployee.Employees = SortEmployee(sort, listEmployee.Employees);
 
-            return Json(listEmployee, JsonRequestBehavior.AllowGet);
+            return Json(listEmployee);
         }
 
 
@@ -130,7 +129,7 @@
             const int startYear = 2011;
             var history = new WorkingHistoryViewModel { EmpId = employeeId };
             var criteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId };
-            history.Employee = _employeeService.GetEmployeeById(criteria);
+            history.Employee = employeeService.GetEmployeeById(criteria);
             history.FromDate = new DateTime(startYear, 1, 1);
 
             return View(history);
@@ -153,7 +152,7 @@
                 ToDate = model.ToDate,
             };
 
-            IList<HistoryWork> filterHistoryWork = _historyWorkService.GetFilterHistoryWork(criteria);
+            IList<HistoryWork> filterHistoryWork = historyWorkService.GetFilterHistoryWork(criteria);
 
             ViewBag.empid = model.EmpId;
             return filterHistoryWork;
@@ -164,10 +163,10 @@
         public ActionResult InsertHistoryWork(int employeeId)
         {
             var history = new WorkingHistoryViewModel { EmpId = employeeId };
-            history.Teams = _teamService.GetTeam();
+            history.Teams = teamService.GetTeam();
             history.Employee = GetEmployeeById(employeeId);
             var lookupDataJobTitleCriteria = new GetJobTitleCriteria { JobTitle = "" };
-            history.JobTitles = _jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
+            history.JobTitles = jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
 
             return View(history);
         }
@@ -194,7 +193,7 @@
                     GroupName = model.GroupName
                 };
 
-                result = _commandService.Insert(history);
+                result = commandService.ExecuteNonQuery(history);
             }
 
             return Json(result);
@@ -213,10 +212,10 @@
                     Id = id.Value
                 };
 
-                history = _historyWorkService.GetHistoryWorkInfo(criteria);
-                history.Teams = _teamService.GetTeam();
+                history = historyWorkService.GetHistoryWorkInfo(criteria);
+                history.Teams = teamService.GetTeam();
                 var lookupDataJobTitleCriteria = new GetJobTitleCriteria { JobTitle = "" };
-                history.JobTitles = _jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
+                history.JobTitles = jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
                 history.Id = id;
             }
 
@@ -244,7 +243,7 @@
                     GroupName = model.GroupName
                 };
 
-                result = _commandService.Update(history);
+                result = commandService.ExecuteNonQuery(history);
             }
             else
             {
@@ -262,7 +261,7 @@
                 Id = id,
             };
 
-            CommandResult result = _commandService.Delete(criteria);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
             return Json(result);
         }
 
@@ -282,14 +281,13 @@
                 WedShift = 1,
                 ThuShift = 1,
                 FriShift = 1,
-                Teams = _teamService.GetAll(),
-                Shifts = _shiftService.GetAll()
+                Teams = teamService.GetAll(),
+                Shifts = shiftService.GetAll()
             };
 
             return View(model);
         }
 
-        [ValidateInput(false)]
         [Authorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Create(CreateEmployeeViewModel model)
@@ -314,7 +312,7 @@
                     WedShift = model.WedShift
                 };
 
-                CommandResult result = _commandService.Insert(criteria, hasGetOutputParams: true);
+                CommandResult result = commandService.ExecuteNonQuery(criteria);
                 if (result.IsSuccessful)
                 {
                     return Redirect("Edit?id=" + criteria.EmployeeId);
@@ -324,8 +322,8 @@
                     ModelState.AddModelError(string.Empty, result.Message);
                 }
 
-                model.Teams = _teamService.GetAll();
-                model.Shifts = _shiftService.GetAll();
+                model.Teams = teamService.GetAll();
+                model.Shifts = shiftService.GetAll();
             }
 
             return View(model);
@@ -338,15 +336,14 @@
 
             EditEmployeeViewModel model = new EditEmployeeViewModel(employee)
             {
-                Teams = _teamService.GetAll(),
-                JobTitles = _jobTitleService.GetAll(),
-                LastUrl = Request.UrlReferrer != null ? Request.UrlReferrer.AbsoluteUri : string.Empty,
+                Teams = teamService.GetAll(),
+                JobTitles = jobTitleService.GetAll(),
+                LastUrl = employee.IsSpecialUser ? "Employee/SpecialUserManagement" : "Employee/Usermanagement"
             };
 
             return View(model);
         }
 
-        [ValidateInput(false)]
         [Authorize(Roles = "HR")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -358,26 +355,25 @@
             }
 
             UpdateEmployeeCriteria criteria = FillDataUpdateEmployeeCriteria(model);
-            CommandResult result = _commandService.Update(criteria);
-
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
+            
             if (result.IsSuccessful)
             {
                 ViewBag.Updated = true;
                 if (CurrentUser.Id == model.Id)
                 {
                     var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = model.Id };
-                    Employee currentUser = _employeeService.GetEmployeeById(getEmployeeCriteria);
+                    Employee currentUser = employeeService.GetEmployeeById(getEmployeeCriteria);
                     if (HttpContext.Session != null)
                     {
-                        HttpContext.Session["CurrentUser"] = currentUser;
+                        HttpContext.Session.Set("CurrentUser", currentUser);
                     }
                 }
 
                 Task.Factory.StartNew(() =>
                 {
                     var employee = GetEmployeeById(criteria.EmployeeId);
-                    var mailService = new MailEmployeeService(employee);
-                    mailService.SendMailUpdateSuccess();
+                    mailEmployeeService.SendMailUpdateSuccess(employee);
                 });
             }
             else
@@ -385,8 +381,8 @@
                 ModelState.AddModelError(string.Empty, result.Message);
             }
 
-            model.Teams = _teamService.GetAll();
-            model.JobTitles = _jobTitleService.GetAll();
+            model.Teams = teamService.GetAll();
+            model.JobTitles = jobTitleService.GetAll();
 
             return View(model);
         }
@@ -400,7 +396,7 @@
                 EmployeeId = employeeId,
                 ResignedDate = resignedDate
             };
-            CommandResult result = _commandService.Delete(criteria);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
 
             return Json(result);
         }
@@ -410,7 +406,7 @@
         {
             Employee employee = GetEmployeeById(employeeId);
             DefaultScheduleViewModel model = GetDefaultScheduleFromEmployee(employee);
-            model.Shifts = _shiftService.GetAll();
+            model.Shifts = shiftService.GetAll();
 
             return View(model);
         }
@@ -432,7 +428,7 @@
                     SatShift = model.SatShiftId,
                     SunShift = model.SunShiftId
                 };
-                CommandResult result = _commandService.Update(criteria);
+                CommandResult result = commandService.ExecuteNonQuery(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Updated = true;
@@ -442,7 +438,7 @@
                     ModelState.AddModelError(string.Empty, result.Message);
                 }
 
-                model.Shifts = _shiftService.GetAll();
+                model.Shifts = shiftService.GetAll();
             }
 
             return View(model);
@@ -459,7 +455,7 @@
                 model.EmployeeNickName = employee.NickName;
             }
 
-            model.Shifts = _shiftService.GetAll();
+            model.Shifts = shiftService.GetAll();
             return View(model);
         }
 
@@ -478,7 +474,9 @@
                 userId += ".jpg";
             }
 
-            if (System.IO.File.Exists(Server.MapPath("/avatars/" + userId)))
+            var avatarPath = Path.Combine(environment.WebRootPath, "/avatars/" + userId);
+
+            if (System.IO.File.Exists(avatarPath))
             {
                 fileName = "/avatars/" + userId;
             }
@@ -486,75 +484,36 @@
             return File(fileName, "image/jpeg");
         }
 
-        [Authorize(Roles = "HR")]
-        [HttpPost]
-        public JsonResult UploadAvatar(string code, HttpPostedFileBase file)
-        {
-            if (file != null && file.ContentLength > 0)
-            {
-                using (var stream = new MemoryStream())
-                {
-                    using (var processor = new ImageProcessor())
-                    {
-                        ////var resizer = new ResizeFilter(128, 128, ResizeMethod.Crop, AnchorLocation.Middle);
-                        ////processor.AddFilter(resizer);
-                        const int JpegCompression = 100;
-                        processor.OutputFormat = OutputFormat.Jpeg;
-                        processor.JpegCompression = JpegCompression;
-                        processor.ProcessImage(file.InputStream, stream);
+        //[Authorize(Roles = "HR")]
+        //[HttpPost]
+        //public JsonResult UploadAvatar(string code, HttpPostedFileBase file)
+        //{
+        //    if (file != null && file.ContentLength > 0)
+        //    {
+        //        using (var stream = new MemoryStream())
+        //        {
+        //            using (var processor = new ImageProcessor())
+        //            {
+        //                ////var resizer = new ResizeFilter(128, 128, ResizeMethod.Crop, AnchorLocation.Middle);
+        //                ////processor.AddFilter(resizer);
+        //                const int JpegCompression = 100;
+        //                processor.OutputFormat = OutputFormat.Jpeg;
+        //                processor.JpegCompression = JpegCompression;
+        //                processor.ProcessImage(file.InputStream, stream);
 
-                        using (var image = Image.FromStream(stream))
-                        {
-                            image.Save(Server.MapPath("/avatars/") + code + ".jpg");
-                        }
+        //                using (var image = Image.FromStream(stream))
+        //                {
+        //                    image.Save(Server.MapPath("/avatars/") + code + ".jpg");
+        //                }
 
-                        return Json(true);
-                    }
-                }
-            }
+        //                return Json(true);
+        //            }
+        //        }
+        //    }
 
-            return Json(null);
-        }
+        //    return Json(null);
+        //}
 
-        ////public ActionResult MySpace()
-        ////{
-        ////    var getMySpaceCriteria = new GetMySpaceCriteria()
-        ////    {
-        ////        EmpId = CurrentUser.Id
-        ////    };
-        ////    var model = employeeService.GetMySpace(getMySpaceCriteria);
-
-        ////    return View(model);
-        ////}
-
-        ////[ChildActionOnly]
-        ////public ActionResult ManagementDashboard()
-        ////{
-        ////    if (CurrentUser.IsInRoles(Role.AssistantLeader))
-        ////    {
-        ////        var criteria = new GetHRLeaderDashboardCriteria()
-        ////        {
-        ////            EmployeeId = CurrentUser.Id,
-        ////        };
-        ////        var model = employeeService.GetHRLeaderDashboard(criteria);
-        ////        return PartialView(model);
-        ////    }
-
-        ////    return Content(string.Empty);
-        ////}
-
-        ////[HttpPost]
-        ////public ActionResult PostFpsTransaction()
-        ////{
-        ////    using (var serviceFPS = new Service())
-        ////    {
-        ////        var resultMessage = string.Empty;
-        ////        var deviceCode = string.Empty;
-        ////        serviceFPS.CheckTransaction(CurrentUser.NickName, "login", string.Empty, "SubTest2", out resultMessage, out deviceCode);
-
-        ////        return Content(string.Empty);
-        ////    }
-        ////}
 
         public ActionResult Birthday(int month = 0)
         {
@@ -580,7 +539,7 @@
             {
                 EmployeeId = CurrentUser.Id
             };
-            Employee employee = _employeeService.GetEmployeeById(criteria);
+            Employee employee = employeeService.GetEmployeeById(criteria);
             return View(employee);
         }
 
@@ -598,7 +557,7 @@
                 ExcludedManager = false
             };
 
-            return Json(_employeeService.GetMembersByManager(getMemberByManager).Take(Records), JsonRequestBehavior.AllowGet);
+            return Json(employeeService.GetMembersByManager(getMemberByManager).Take(Records));
         }
 
         [Authorize(Roles = "HR")]
@@ -606,8 +565,8 @@
         {
             var model = new TransferEmployeeViewModel
             {
-                LumiGroups = _employeeService.GetLuminetGroups(),
-                LumiShifts = _employeeService.GetLuminetShifts(),
+                LumiGroups = employeeService.GetLuminetGroups(),
+                LumiShifts = employeeService.GetLuminetShifts(),
                 LastWorkingDate = DateTime.Now,
                 AffectedDate = DateTime.Now
             };
@@ -623,9 +582,9 @@
             {
                 return View((TransferEmployeeViewModel)null);
             }
-            model.LumiGroups = _employeeService.GetLuminetGroups();
-            model.LumiShifts = _employeeService.GetLuminetShifts();
-            var employee = _employeeService.GetEmployeeById(new GetEmployeeByIdCriteria { EmployeeId = model.EmployeeId });
+            model.LumiGroups = employeeService.GetLuminetGroups();
+            model.LumiShifts = employeeService.GetLuminetShifts();
+            var employee = employeeService.GetEmployeeById(new GetEmployeeByIdCriteria { EmployeeId = model.EmployeeId });
             if (model.EmployeeId <= 0)
             {
                 ModelState.AddModelError(string.Empty, Messages.NexEmployeeRequireError);
@@ -648,7 +607,7 @@
                 ModifiedBy = CurrentUser.Id,
                 IsTransferNexBalance = model.IsTransferLateInEarlyOut ? 1 : 0
             };
-            CommandResult result = _commandService.Insert(criteria);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
             if (result.Code == 0 || result.Code == -1)
             {
                 ViewBag.Requested = true;
@@ -743,7 +702,7 @@
                 TotalRow = 2000
             };
 
-            return _employeeService.Query(getAllEmployeeCriteria);
+            return employeeService.Query(getAllEmployeeCriteria);
         }
 
         private Employee GetEmployeeById(int employeeId)
@@ -753,7 +712,7 @@
                 EmployeeId = employeeId
             };
 
-            return _employeeService.GetEmployeeById(criteria);
+            return employeeService.GetEmployeeById(criteria);
         }
 
         private static DefaultScheduleViewModel GetDefaultScheduleFromEmployee(Employee employee)

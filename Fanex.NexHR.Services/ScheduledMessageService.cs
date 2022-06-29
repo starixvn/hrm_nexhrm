@@ -16,10 +16,10 @@
         private readonly IScheduledMessageRepository scheduledMessageRepository;
         private readonly INexbotService nexbotService;
 
-        public ScheduledMessageService()
+        public ScheduledMessageService(IScheduledMessageRepository scheduledMessageRepository, INexbotService nexbotService)
         {
-            scheduledMessageRepository = new ScheduledMessageRepository();
-            nexbotService = new NexbotService();
+            this.scheduledMessageRepository = scheduledMessageRepository;
+            this.nexbotService = nexbotService;
         }
 
         public async Task<CommandResult> CreateAsync(CreateScheduledMessage model)

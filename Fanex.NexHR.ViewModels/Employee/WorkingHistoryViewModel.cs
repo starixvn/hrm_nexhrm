@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Web.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Models;
 
     public class WorkingHistoryViewModel
@@ -65,7 +65,7 @@
 
             selectListItemTeam.Add(firstItem);
 
-            Teams = Teams ?? new List<Team>();
+            Teams ??= new List<Team>();
 
             foreach (Team team in Teams)
             {

@@ -1,37 +1,34 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Linq;
-    using System.Web;
     using Core;
     using Criteria.Employee;
     using Criteria.Overtime;
     using Interfaces;
+    using Microsoft.AspNetCore.Hosting;
     using Models;
     using Models.Overtime;
-    using Repositories;
     using Repositories.Interfaces;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.IO;
+    using System.Linq;
     using ViewModels.Overtime;
 
     public class OvertimeService : BaseService, IOvertimeService
     {
-        private readonly IOvertimeRepository _repository;
-        private readonly IEmailService _emailService;
+        private readonly IOvertimeRepository overtimeRepository;
+        private readonly IEmailService emailService;
+        private readonly IWebHostEnvironment environment;
         private const string FormatDate = "dd MMM, yyyy";
         private readonly string SenderEmail = ConfigurationManager.AppSettings["Email"];
         private readonly string BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
         private readonly string CompanyMailSign = ConfigurationManager.AppSettings["CompanyMailSign"];
 
-        public OvertimeService()
-            : this(null, null)
+        public OvertimeService(IOvertimeRepository overtimeRepository, IEmailService emailService, IWebHostEnvironment environment)
         {
-        }
-
-        public OvertimeService(IOvertimeRepository repository, IEmailService emailService)
-        {
-            _repository = repository ?? new OvertimeRepository();
-            _emailService = emailService ?? new EmailService();
+            this.overtimeRepository = overtimeRepository;
+            this.emailService = emailService;
+            this.environment = environment;
         }
 
         public IList<Overtime> GetOvertime(GetOvertimeCriteria criteria)
@@ -39,7 +36,7 @@
             IList<Overtime> overtimes = null;
             if (criteria != null && criteria.IsValid())
             {
-                overtimes = _repository.GetOvertime(criteria);
+                overtimes = overtimeRepository.GetOvertime(criteria);
             }
 
             return overtimes ?? new List<Overtime>();
@@ -50,7 +47,7 @@
             Overtime overtime = null;
             if (criteria != null && criteria.IsValid())
             {
-                overtime = _repository.GetOvertimeById(criteria);
+                overtime = overtimeRepository.GetOvertimeById(criteria);
             }
 
             return overtime;
@@ -61,7 +58,7 @@
             IList<EmployeeOvertime> overtimes = null;
             if (criteria != null && criteria.IsValid())
             {
-                overtimes = _repository.GetEmployeeOvertime(criteria);
+                overtimes = overtimeRepository.GetEmployeeOvertime(criteria);
             }
 
             return overtimes ?? new List<EmployeeOvertime>();
@@ -72,7 +69,7 @@
             IList<EmployeeOvertime> overtimes = null;
             if (criteria != null && criteria.IsValid())
             {
-                overtimes = _repository.GetEmployeeOvertime(criteria);
+                overtimes = overtimeRepository.GetEmployeeOvertime(criteria);
             }
 
             return overtimes ?? new List<EmployeeOvertime>();
@@ -83,7 +80,7 @@
             List<OvertimeSummary> listSummary = new List<OvertimeSummary>();
             if (criteria != null && criteria.IsValid())
             {
-                listSummary = _repository.GetOvertimeSummary(criteria).ToList();
+                listSummary = overtimeRepository.GetOvertimeSummary(criteria).ToList();
             }
 
             return listSummary;
@@ -94,7 +91,7 @@
             IList<OvertimeConversion> conversions = null;
             if (criteria != null && criteria.IsValid())
             {
-                conversions = _repository.GetConversions(criteria);
+                conversions = overtimeRepository.GetConversions(criteria);
             }
 
             return conversions ?? new List<OvertimeConversion>();
@@ -110,7 +107,7 @@
             IList<Overtime> overtimes = null;
             if (criteria != null && criteria.IsValid())
             {
-                overtimes = _repository.GetOvertime(criteria);
+                overtimes = overtimeRepository.GetOvertime(criteria);
             }
 
             return overtimes ?? new List<Overtime>();
@@ -121,7 +118,7 @@
             IList<ReportOvertimeHRDetail> report = null;
             if (criteria != null && criteria.IsValid())
             {
-                report = _repository.GetReportOvertimeHRDetail(criteria);
+                report = overtimeRepository.GetReportOvertimeHRDetail(criteria);
             }
 
             return report ?? new List<ReportOvertimeHRDetail>();
@@ -134,7 +131,9 @@
                 EmployeeId = model.EmpId
             };
             var receiver = GetDataEntity<Employee>(getEmployeeCriteria);
-            var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForOvertimeConversion));
+            
+            var templatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForOvertimeConversion);
+            var bodyTemplate = Utilities.ReadTextFile(templatePath);
             var body = string.Format(
                     bodyTemplate,
                     receiver.NickName,
@@ -144,7 +143,7 @@
                     BaseUrl,
                     CompanyMailSign);
 
-            _emailService.SendEmail(
+            emailService.SendEmail(
                     SenderEmail,
                     receiver.Email,
                     string.Empty,
@@ -157,7 +156,8 @@
             if (model != null)
             {
                 IList<Employee> managers = GetData<Employee>(new GetManagementsCriteria()).ToList();
-                var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForOvertimeRequest));
+                var templatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForOvertimeRequest);
+                var bodyTemplate = Utilities.ReadTextFile(templatePath);
                 var emloyees = string.Join(
                                                Constants.BrTag,
                                                model.TimeSheets.Select(t => 
@@ -177,7 +177,7 @@
                         BaseUrl,
                         CompanyMailSign);
 
-                    _emailService.SendEmail(
+                    emailService.SendEmail(
                         SenderEmail,
                         string.Join(";", managers.Select(t => t.Email)),
                         string.Empty,
@@ -194,12 +194,14 @@
                 EmployeeId = approvedBy
             };
             var manager = GetDataEntity<Employee>(getEmployeeCriteria);
-            var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForOvertimeApprovalNotification));
+            var templatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForOvertimeApprovalNotification);
+            var bodyTemplate = Utilities.ReadTextFile(templatePath);
+
             var criteria = new GetOvertimeByIdCriteria
             {
                 Id = overtimeId
             };
-            var overtime = _repository.GetOvertimeById(criteria);
+            var overtime = overtimeRepository.GetOvertimeById(criteria);
             var emloyees = string.Join(
                                                Constants.BrTag,
                                                overtime.OvertimeRecords.Select(t =>
@@ -230,7 +232,7 @@
                     BaseUrl,
                     CompanyMailSign);
 
-            _emailService.SendEmail(
+            emailService.SendEmail(
                     SenderEmail,
                     receiver.Email,
                     string.Empty,
@@ -256,7 +258,7 @@
                     BaseUrl,
                     CompanyMailSign);
 
-            _emailService.SendEmail(
+            emailService.SendEmail(
                     SenderEmail,
                     string.Join(";", HRs.Select(t => t.Email)),
                     string.Empty,
@@ -266,7 +268,8 @@
 
         public void SendMailForNotification(string subject, OvertimeVerifyViewModel model)
         {
-            var bodyTemplate = Utilities.ReadTextFile(HttpContext.Current.Server.MapPath(Constants.EmailTemplatePathForOvertimeNotification));
+            var templatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForOvertimeNotification);
+            var bodyTemplate = Utilities.ReadTextFile(templatePath);
 
             foreach (var item in model.TimeSheets)
             {
@@ -284,7 +287,7 @@
                 BaseUrl,
                 CompanyMailSign);
 
-                _emailService.SendEmail(
+                emailService.SendEmail(
                     SenderEmail,
                     employee.Email,
                     string.Empty,

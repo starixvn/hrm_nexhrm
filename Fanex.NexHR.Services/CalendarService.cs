@@ -11,11 +11,11 @@
 
     public class CalendarService : BaseService, ICalendarService
     {
-        private readonly ICalendarRepository _calendarRepository;
+        private readonly ICalendarRepository calendarRepository;
 
-        public CalendarService(ICalendarRepository calendarRepository = null)
+        public CalendarService(ICalendarRepository calendarRepository)
         {
-            _calendarRepository = calendarRepository ?? new CalendarRepository();
+            this.calendarRepository = calendarRepository;
         }
 
         public IList<WorkingSchedule> GetWorkingSchedule(GetWorkingScheduleCriteria criteria)
@@ -23,7 +23,7 @@
             IList<WorkingSchedule> workingSchedules = null;
             if (criteria != null && criteria.IsValid())
             {
-                workingSchedules = _calendarRepository.GetWorkingSchedule(criteria);
+                workingSchedules = calendarRepository.GetWorkingSchedule(criteria);
             }
 
             return workingSchedules ?? new List<WorkingSchedule>();
@@ -34,7 +34,7 @@
             IList<LeaveSchedule> leaveSchedules = null;
             if (criteria != null && criteria.IsValid())
             {
-                leaveSchedules = _calendarRepository.GetLeaveSchedule(criteria);
+                leaveSchedules = calendarRepository.GetLeaveSchedule(criteria);
             }
 
             return leaveSchedules ?? new List<LeaveSchedule>();

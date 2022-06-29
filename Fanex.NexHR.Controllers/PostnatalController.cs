@@ -1,15 +1,14 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using Criteria.Postnatal;
-    using Models;
-    using Services;
-    using Services.Interfaces;
-    using ViewModels.Postnatal;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web.Mvc;
+    using Criteria.Postnatal;
     using Fanex.NexHR.Core.Enums;
+    using Microsoft.AspNetCore.Mvc;
+    using Models;
+    using Services.Interfaces;
+    using ViewModels.Postnatal;
 
     public class PostnatalController : BaseController
     {
@@ -20,15 +19,12 @@
         private const int SixtyMinutes = 60;
 
 
-        public PostnatalController()
-            : this(null, null)
+        public PostnatalController(ISessionService sessionService, 
+            IPostnatalService postnatalService, 
+            ICommandService commandService) : base(sessionService)
         {
-        }
-
-        public PostnatalController(IPostnatalService postnatalService, ICommandService commandService)
-        {
-            this.postnatalService = postnatalService ?? new PostnatalService();
-            this.commandService = commandService ?? new CommandService();
+            this.postnatalService = postnatalService;
+            this.commandService = commandService;
         }
 
         public ActionResult Index()
@@ -49,7 +45,6 @@
             return View(model);
         }
 
-        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Create(PostnatalViewModel model)
         {
@@ -64,7 +59,7 @@
                     Minutes = GetMinuteByType(model),
                     Types = model.ChosenTypes.Count == MixPostnatalTypeCount ? (int)PostnatalType.MixLateInEarlyOutAndBreakTime : model.ChosenTypes[0]
                 };
-                CommandResult result = commandService.Insert(criteria);
+                CommandResult result = commandService.ExecuteNonQuery(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
@@ -97,7 +92,6 @@
             return View(employee);
         }        
 
-        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Edit(PostnatalViewModel model)
         {
@@ -115,7 +109,7 @@
                     Minutes = GetMinuteByType(model),
                     Types = model.ChosenTypes.Count == MixPostnatalTypeCount ? (int)PostnatalType.MixLateInEarlyOutAndBreakTime : model.ChosenTypes[0]
                 };
-                CommandResult result = commandService.Update(criteria);
+                CommandResult result = commandService.ExecuteNonQuery(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
@@ -137,7 +131,7 @@
                 FromDate = fromDate,
                 ToDate = toDate
             };
-            CommandResult result = commandService.Delete(criteria);
+            CommandResult result = commandService.ExecuteNonQuery(criteria);
             return Json(result);
         }
 

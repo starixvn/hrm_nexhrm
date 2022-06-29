@@ -12,7 +12,7 @@
     {
         public IList<LeaveSummary> GetAnnualLeaveBalance(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var leaveSummmary = db.Query<LeaveSummary, Employee, Team, LeaveSummary>(
                      (leave, employee, team) =>
@@ -22,7 +22,7 @@
                          return leave;
                      },
                      "EmpId, GroupId",
-                     criteria.GetSpParams()).ToList();
+                     criteria).ToList();
 
                 return leaveSummmary;
             }
@@ -30,7 +30,7 @@
 
         public IList<AnnualLeaveTransaction> GetAnnualLeaveTransactions(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var leaveTransactions = db.Query<AnnualLeaveTransaction, Employee, AnnualLeaveTransaction>(
                      (leaveTrans, employee) =>
@@ -39,7 +39,7 @@
                          return leaveTrans;
                      },
                      "EmpId",
-                     criteria.GetSpParams()).ToList();
+                     criteria).ToList();
 
                 return leaveTransactions;
             }
@@ -47,7 +47,7 @@
 
         public AnnualLeaveTransaction GetAnnualLeaveTransactionById(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var leaveTransaction = db.QueryEntity<AnnualLeaveTransaction, Employee, AnnualLeaveTransaction>(
                      (leaveTrans, employee) =>
@@ -56,7 +56,7 @@
                          return leaveTrans;
                      },
                      "EmpId",
-                     criteria.GetSpParams());
+                     criteria);
 
                 return leaveTransaction;
             }
@@ -64,7 +64,7 @@
 
         public IList<LeaveConversionDetail> GetLeaveConversionDetail(ICriteria criteria)
         {
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var leaveDeductions = db.Query<LeaveConversionDetail, Employee, Team, Employee, LeaveConversionDetail>(
                     (le, e, g, modi) =>
@@ -75,7 +75,7 @@
                         return le;
                     },
                     splitOn: "EmpId, GroupId, ModifiedById",
-                    parameterSet: criteria.GetSpParams()).ToList();
+                    parameterSet: criteria).ToList();
 
                 return leaveDeductions;
             }

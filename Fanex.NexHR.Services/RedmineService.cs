@@ -9,7 +9,6 @@
     using System.Net.Http.Headers;
     using System.Text;
     using System.Threading.Tasks;
-    using System.Web.Script.Serialization;
     using Core;
     using Core.Enums;
     using Criteria.Employee;
@@ -66,10 +65,10 @@
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                JavaScriptSerializer jss = new JavaScriptSerializer();
-                var obj = jss.Deserialize<dynamic>(json);
+                //JavaScriptSerializer jss = new JavaScriptSerializer();
+                //var obj = jss.Deserialize<dynamic>(json);
 
-                apiKey = obj["user"]["api_key"];
+                //apiKey = obj["user"]["api_key"];
             }
             return apiKey;
         }
@@ -93,36 +92,36 @@
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var jss = new JavaScriptSerializer();
-                var obj = jss.Deserialize<dynamic>(json);
+                //var jss = new JavaScriptSerializer();
+                //var obj = jss.Deserialize<dynamic>(json);
 
-                foreach (var issue in obj["issues"])
-                {
-                    var issueRemine = new RedmineIssue
-                    {
-                        IssueId = (int)issue["id"],
-                        Subject = issue["subject"],
-                        Description = issue["description"],
-                        ProjectName = issue["project"]["name"],
-                        Priority = issue["priority"]["name"],
-                        Tracker = issue["tracker"]["name"],
-                        Status = issue["status"]["name"],
-                        CreatedBy = issue["author"]["name"],
-                        Assignee = issue.ContainsKey("assigned_to") ? issue["assigned_to"]["name"] : string.Empty
-                    };
+                //foreach (var issue in obj["issues"])
+                //{
+                //    var issueRemine = new RedmineIssue
+                //    {
+                //        IssueId = (int)issue["id"],
+                //        Subject = issue["subject"],
+                //        Description = issue["description"],
+                //        ProjectName = issue["project"]["name"],
+                //        Priority = issue["priority"]["name"],
+                //        Tracker = issue["tracker"]["name"],
+                //        Status = issue["status"]["name"],
+                //        CreatedBy = issue["author"]["name"],
+                //        Assignee = issue.ContainsKey("assigned_to") ? issue["assigned_to"]["name"] : string.Empty
+                //    };
 
-                    if (issue.ContainsKey("start_date"))
-                    {
-                        issueRemine.StartDate = DateTime.ParseExact(issue["start_date"], apiDateTimeFormat, CultureInfo.InvariantCulture);
-                    }
+                //    if (issue.ContainsKey("start_date"))
+                //    {
+                //        issueRemine.StartDate = DateTime.ParseExact(issue["start_date"], apiDateTimeFormat, CultureInfo.InvariantCulture);
+                //    }
 
-                    if (issue.ContainsKey("due_date"))
-                    {
-                        issueRemine.DueDate = DateTime.ParseExact(issue["due_date"], apiDateTimeFormat, CultureInfo.InvariantCulture);
-                    }
+                //    if (issue.ContainsKey("due_date"))
+                //    {
+                //        issueRemine.DueDate = DateTime.ParseExact(issue["due_date"], apiDateTimeFormat, CultureInfo.InvariantCulture);
+                //    }
 
-                    tasks.Add(issueRemine);
-                }
+                //    tasks.Add(issueRemine);
+                //}
             }
             return tasks.OrderByDescending(x => x.Priority).ToList();
         }
@@ -175,20 +174,20 @@
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                JavaScriptSerializer jss = new JavaScriptSerializer();
-                var obj = jss.Deserialize<dynamic>(json);
-                var timeEntries = obj["time_entries"];
+                //JavaScriptSerializer jss = new JavaScriptSerializer();
+                //var obj = jss.Deserialize<dynamic>(json);
+                //var timeEntries = obj["time_entries"];
 
-                foreach (var timeEntry in timeEntries)
-                {
-                    var entry = new TimeEntry
-                    {
-                        SpentOn = DateTime.ParseExact(timeEntry["spent_on"], apiDateTimeFormat, CultureInfo.InvariantCulture),
-                        Hours = (double)timeEntry["hours"],
-                    };
+                //foreach (var timeEntry in timeEntries)
+                //{
+                //    var entry = new TimeEntry
+                //    {
+                //        SpentOn = DateTime.ParseExact(timeEntry["spent_on"], apiDateTimeFormat, CultureInfo.InvariantCulture),
+                //        Hours = (double)timeEntry["hours"],
+                //    };
 
-                    listEntries.Add(entry);
-                }
+                //    listEntries.Add(entry);
+                //}
             }
 
             return listEntries;

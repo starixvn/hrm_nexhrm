@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using System.Web.Mvc;
     using Core;
     using Core.Enums;
     using Criteria;
@@ -15,35 +14,34 @@
     using Criteria.Request;
     using Criteria.Workload;
     using Fanex.NexHR.Criteria.Report;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
     using Models;
     using Models.RedmineAPI;
     using Models.Report;
     using Models.Request;
     using Models.Workload;
     using Resources;
-    using Services;
     using Services.Interfaces;
     using ViewModels;
     using ViewModels.Report;
 
     public class DashboardController : BaseController
     {
-        private readonly IEmployeeService _employeeService;
-        private readonly ITeamService _teamService;
-        private readonly IRequestService _requestService;
-        private readonly INotificationService _notificationService;
-        private readonly ILateInEarlyOutService _lateinearlyoutService;
-        private readonly ICommandService _commandService;
-        private readonly IRedmineService _redmineService;
-        private readonly IReportService _reportService;
+        private readonly IEmployeeService employeeService;
+        private readonly ITeamService teamService;
+        private readonly IRequestService requestService;
+        private readonly INotificationService notificationService;
+        private readonly ILateInEarlyOutService lateinearlyoutService;
+        private readonly ICommandService commandService;
+        private readonly IRedmineService redmineService;
+        private readonly IReportService reportService;
+        private readonly IConfiguration configuration;
 
-        public DashboardController()
-            : this(null, null, null, null, null, null, null, null)
-        {
-        }
 
 #pragma warning disable S107 // Methods should not have too many parameters
         public DashboardController(
+            ISessionService sessionService,
             IEmployeeService employeeService,
             ITeamService teamService,
             IRequestService requestService,
@@ -51,17 +49,19 @@
             ILateInEarlyOutService lateinearlyoutService,
             ICommandService commandService,
             IRedmineService redmineService,
-            IReportService reportService)
+            IReportService reportService,
+            IConfiguration configuration) : base(sessionService)
 #pragma warning restore S107 // Methods should not have too many parameters
         {
-            _employeeService = employeeService ?? new EmployeeService();
-            _teamService = teamService ?? new TeamService();
-            _requestService = requestService ?? new RequestService();
-            _notificationService = notificationService ?? new NotificationService();
-            _lateinearlyoutService = lateinearlyoutService ?? new LateInEarlyOutService();
-            _commandService = commandService ?? new CommandService();
-            _redmineService = redmineService ?? new RedmineService();
-            _reportService = reportService ?? new ReportService();
+            this.employeeService = employeeService;
+            this.teamService = teamService;
+            this.requestService = requestService;
+            this.notificationService = notificationService;
+            this.lateinearlyoutService = lateinearlyoutService;
+            this.commandService = commandService;
+            this.redmineService = redmineService;
+            this.reportService = reportService;
+            this.configuration = configuration;
         }
 
         public async Task<ActionResult> Index()
@@ -71,7 +71,7 @@
                 EmpId = CurrentUser.Id
             };
 
-            MySpaceViewModel model = _employeeService.GetMySpace(getMySpaceCriteria);
+            MySpaceViewModel model = employeeService.GetMySpace(getMySpaceCriteria);
             model.SystemReminder = await GetRemind().ConfigureAwait(false);
 
             EmployeeAttendanceViewModel empAttendance = new EmployeeAttendanceViewModel
@@ -81,7 +81,7 @@
                 GroupId = CurrentUser.Team.Id,
                 DateOption = 0,
                 ExcludeUserDelete = true,
-                Teams = _teamService.GetTeam(),
+                Teams = teamService.GetTeam(),
                 IsDisplayTeamAttendence = CurrentUserSetting.DisplayTeamAttendence
             };
 
@@ -100,7 +100,7 @@
                 Date = DateTime.Now.Date
             };
 
-            return _lateinearlyoutService.GetAllEmployee(criteria);
+            return lateinearlyoutService.GetAllEmployee(criteria);
         }
 
         private async Task<SystemReminderModel> GetRemind()
@@ -110,7 +110,7 @@
                 OnDate = DateTime.Now.Date
             };
 
-            var lstEmployee = await _employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria).ConfigureAwait(false);
+            var lstEmployee = await employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria).ConfigureAwait(false);
             return lstEmployee;
         }
 
@@ -127,12 +127,12 @@
 
                 if (CurrentUserSetting.DisplayRedmineTask)
                 {
-                    model.InProgressTasks = await _redmineService.GetInProgressIssues(HttpContext.User.Identity.Name).ConfigureAwait(false);
+                    model.InProgressTasks = await redmineService.GetInProgressIssues(HttpContext.User.Identity.Name).ConfigureAwait(false);
                 }
 
                 if (CurrentUserSetting.DisplayRemindLogtime)
                 {
-                    model.ForgotLogtimeDates = await _redmineService.GetHaveNotLogTimeDates(HttpContext.User.Identity.Name, CurrentUser.Id).ConfigureAwait(false);
+                    model.ForgotLogtimeDates = await redmineService.GetHaveNotLogTimeDates(HttpContext.User.Identity.Name, CurrentUser.Id).ConfigureAwait(false);
                 }
             }
 
@@ -170,7 +170,7 @@
 
             if (ModelState.IsValid)
             {
-                var commandResult = await _redmineService.LogtimeToIssue(model, HttpContext.User.Identity.Name).ConfigureAwait(false);
+                var commandResult = await redmineService.LogtimeToIssue(model, HttpContext.User.Identity.Name).ConfigureAwait(false);
                 isSuccessful = commandResult.IsSuccessful;
                 message = commandResult.Message;
             }
@@ -188,9 +188,9 @@
 
         public async Task<ActionResult> GetTotalLogtimeHourOnDate(DateTime onDate)
         {
-            var totalHours = await _redmineService.GetTotalSpentHoursOnDate(HttpContext.User.Identity.Name, onDate).ConfigureAwait(false);
+            var totalHours = await redmineService.GetTotalSpentHoursOnDate(HttpContext.User.Identity.Name, onDate).ConfigureAwait(false);
 
-            return Json(new { totalHours }, JsonRequestBehavior.AllowGet);
+            return Json(new { totalHours });
         }
 
         private void WriteLogInputSpendTime(LogTimeIssue issue)
@@ -206,7 +206,7 @@
                 CreatedDate = DateTime.Now
             };
 
-            _commandService.Insert(criteria);
+            commandService.ExecuteNonQuery(criteria);
         }
 
         private IList<MissingCheckInOutModel> GetMissingCheckInOut(int? employeeId)
@@ -215,7 +215,7 @@
             {
                 EmpId = employeeId
             };
-            return _employeeService.GetMissingCheckInOutByEmpId(criteria);
+            return employeeService.GetMissingCheckInOutByEmpId(criteria);
         }
 
         private IList<RequestEntity> GetPendingRequest()
@@ -234,7 +234,7 @@
                 ItemsPerPage = 100
             };
 
-            IList<RequestEntity> entityList = _requestService.GetRequest(criteria);
+            IList<RequestEntity> entityList = requestService.GetRequest(criteria);
 
             return entityList;
         }
@@ -246,7 +246,7 @@
                 EmpId = CurrentUser.Id
             };
 
-            IList<EmployeeLateInEarlyOut> employees = _employeeService.GetEmployeeLateInEarlyOut(criteria);
+            IList<EmployeeLateInEarlyOut> employees = employeeService.GetEmployeeLateInEarlyOut(criteria);
 
             return employees;
         }
@@ -255,7 +255,7 @@
         {
             GetAllNotificationCriteria criteria = new GetAllNotificationCriteria { EmpId = employeeId };
 
-            var noti = _notificationService.GetViolationByEmpId(criteria);
+            var noti = notificationService.GetViolationByEmpId(criteria);
 
             return PartialView("_Notification", noti);
         }
@@ -268,7 +268,7 @@
                 FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1),
                 ToDate = DateTime.Today
             };
-            IList<Workload> listWorkload = _employeeService.GetWorkloadByTeam(criteria);
+            IList<Workload> listWorkload = employeeService.GetWorkloadByTeam(criteria);
 
             return PartialView("_ListTeamWorkload", listWorkload);
         }
@@ -276,7 +276,7 @@
         [NonAction]
         private bool IsLoadTeamWorkload()
         {
-            var ignoreTeamWorkloads = AppSetting.IgnoreTeamWorkload.Split(',');
+            var ignoreTeamWorkloads = configuration.GetSection("IgnoreTeamWorkload").Value.Split(',');
             return Array.IndexOf(ignoreTeamWorkloads, CurrentUser.Team.Code) < 0 && CurrentUserSetting.DisplayTeamWorkload;
         }
 
@@ -287,7 +287,7 @@
                 EmpId = CurrentUser.Id
             };
 
-            var isPrivilegeCreateCheckInOut = _reportService.GetIsPrivilegeCreateCheckInOut(criteria);
+            var isPrivilegeCreateCheckInOut = reportService.GetIsPrivilegeCreateCheckInOut(criteria);
             return isPrivilegeCreateCheckInOut;
         }
     }
