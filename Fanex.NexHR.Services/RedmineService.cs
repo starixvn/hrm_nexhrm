@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
@@ -22,11 +21,21 @@
     public class RedmineService : BaseService, IRedmineService
     {
         private const int startIndex = 5;
+        private readonly AppSetting appSetting;
         private readonly string apiDateTimeFormat = "yyyy-MM-dd";
-        private readonly string getCurrentUserUrl = AppSetting.Redmine_API_Address + "/users/{0}.json?offset=0&limit=100";
-        private readonly string getInprogessTasksUrl = AppSetting.Redmine_API_Address + "issues.json?assigned_to_id={0}&status_id=" + (int)RedmineIssueStatus.InProgress + "&offset=0&limit=100";
-        private readonly string logtimeToIssueUrl = AppSetting.Redmine_API_Address + "time_entries.json?key={0}";
-        private readonly string getTimeEntriesUrl = AppSetting.Redmine_API_Address + "time_entries.json?user_id={0}&spent_on=><{1}|{2}&offset=0&limit=100";
+        private readonly string getCurrentUserUrl;
+        private readonly string getInprogessTasksUrl;
+        private readonly string logtimeToIssueUrl;
+        private readonly string getTimeEntriesUrl;
+
+        public RedmineService(AppSetting appSetting)
+        {
+            this.appSetting = appSetting;
+            getCurrentUserUrl = appSetting.RedmineBaseUrl + "/users/{0}.json?offset=0&limit=100";
+            getInprogessTasksUrl = appSetting.RedmineBaseUrl + "issues.json?assigned_to_id={0}&status_id=" + (int)RedmineIssueStatus.InProgress + "&offset=0&limit=100";
+            logtimeToIssueUrl = appSetting.RedmineBaseUrl + "time_entries.json?key={0}";
+            getTimeEntriesUrl = appSetting.RedmineBaseUrl + "time_entries.json?user_id={0}&spent_on=><{1}|{2}&offset=0&limit=100";
+        }
 
         private int GetCurrentRedmineId(string loginName)
         {
@@ -44,7 +53,7 @@
 
         private HttpClient AuthorizeRequestHeader()
         {
-            var authValue = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{AppSetting.RedmineConnectionString}")));
+            var authValue = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{appSetting.RedmineSecret}")));
 
             var client = new HttpClient
             {
@@ -225,7 +234,6 @@
             var hadLogtimeDates = logtimeDates.GroupBy(x => x.SpentOn).Select(d => d.Key).ToList();
             employee.ForgotLogtimeDates = workingDates.Except(hadLogtimeDates).Distinct().OrderBy(x => x).ToList();
         }
-
 
         public async Task<double> GetTotalSpentHoursOnDate(string domainName, DateTime onDate)
         {

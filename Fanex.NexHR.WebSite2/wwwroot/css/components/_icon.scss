@@ -1,0 +1,91 @@
+@import "../utils/variables";
+
+.icon {
+    background-repeat: no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 0.5rem;
+
+    &.icon-shiftinfo {
+        background: url("../Images/sprite_ico_2012-05-15.png") -2.9rem -2.8rem;
+        width: 1.4rem;
+        height: 1.5rem;
+    }
+}
+
+.refesh-icon {
+    position: absolute;
+    right: 5px;
+    top: 4px;
+}
+
+.calendar-icon {
+    position: absolute;
+    top: -2px;
+    right: -18px;
+    color: $color-text-input;
+    z-index: 0;
+    font-size: 24px;
+}
+
+.colon {
+    position: relative;
+    top: 6px;
+}
+
+.icon-success {
+    font-size: 30px;
+    color: $green-darken;
+}
+
+.mdi-border-color:hover {
+    color: $c-iedit--hover;
+}
+
+.mdi-delete {
+    &:hover {
+        color: $c-idel--hover;
+    }
+
+    &.mdi-disabled {
+        color: rgba(0, 0, 0, 0.2);
+        cursor: default;
+    }
+}
+
+.mdi-refresh {
+    &:hover {
+        color: $blue;
+    }
+}
+
+.mdi-action-done {
+    font-weight: 600;
+
+    &:hover {
+        color: $green;
+    }
+}
+
+.mdi-action-highlight-remove {
+    font-weight: 500;
+
+    &:hover {
+        color: $c-idel--hover;
+    }
+}
+
+input#fileName::-webkit-file-upload-button {
+    padding: 0 1.5rem;
+    height: 3rem;
+    line-height: 3rem;
+    border-radius: 0;
+    color: #fff;
+    background: #2aaa55;
+    border: none;
+    cursor: pointer;
+
+    &:focus, &:active {
+        outline: none;
+    }
+}

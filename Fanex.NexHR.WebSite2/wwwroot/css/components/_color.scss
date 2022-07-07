@@ -1,0 +1,96 @@
+@import "../utils/variables";
+
+.primary-color {
+    color: $color-primary;
+}
+
+.second-color {
+    color: $color-second;
+}
+
+.danger-color {
+    color: $color-danger;
+}
+
+.waiting-color {
+    color: #2fa868;
+}
+
+.red-color{
+	color: red;
+}
+
+.black-text-75 {
+   color: rgba(0, 0, 0, 0.75);
+}
+
+//-------------------COLOR CLASSESS----------------------//
+
+.c-pending {
+	color: $orange;
+}
+
+.c-approve {
+	color: $green;
+}
+
+.c-verify {
+    color: $green;
+}
+
+.c-reject {
+	color: #ff0909;
+}
+
+.c-void {
+    color: #ff0909;
+}
+
+//-------------------Color working calendar-------------------
+%txt-White {
+	color: #fff;
+}
+
+@mixin leaveColor($color) {
+	@extend %whiteText;
+	background: $color;
+}
+.AL {
+	@include leaveColor(#00b8d4);
+}
+
+.HAL {
+	@include leaveColor(#cf92d7);
+}
+
+.UPL {
+	@include leaveColor(#f54337);
+}
+
+.OFF {
+	background: #bdbdbd;
+}
+
+.BL {
+	@include leaveColor(#4a148c);
+}
+
+.BT {
+	@include leaveColor(#01bfa5);
+}
+
+.ChangeShift {
+	@include leaveColor(#9ea8db);
+}
+
+.WL {
+	@include leaveColor(#ff4181);
+}
+
+.ML {
+	@include leaveColor(#b0b42b);
+}
+
+.HH {
+	@include leaveColor(#aa00ff);
+}

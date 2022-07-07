@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Core;
     using Core.Enums;
     using Criteria;
     using Criteria.Employee;
@@ -38,8 +37,8 @@
         private readonly IReportService reportService;
         private readonly IConfiguration configuration;
 
-
 #pragma warning disable S107 // Methods should not have too many parameters
+
         public DashboardController(
             ISessionService sessionService,
             IEmployeeService employeeService,
@@ -64,7 +63,7 @@
             this.configuration = configuration;
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             var getMySpaceCriteria = new GetMySpaceCriteria
             {
@@ -114,7 +113,7 @@
             return lstEmployee;
         }
 
-        public async Task<ActionResult> GetTodoList(int? employeeId)
+        public async Task<IActionResult> GetTodoList(int? employeeId)
         {
             var model = new ToDoViewModel();
 
@@ -153,7 +152,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult> LogtimeIssue(LogTimeIssue model)
+        public async Task<IActionResult> LogtimeIssue(LogTimeIssue model)
         {
             var isSuccessful = false;
             var message = string.Empty;
@@ -186,7 +185,7 @@
             return Json(new { isSuccessful, errors, message });
         }
 
-        public async Task<ActionResult> GetTotalLogtimeHourOnDate(DateTime onDate)
+        public async Task<IActionResult> GetTotalLogtimeHourOnDate(DateTime onDate)
         {
             var totalHours = await redmineService.GetTotalSpentHoursOnDate(HttpContext.User.Identity.Name, onDate).ConfigureAwait(false);
 

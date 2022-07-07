@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
     using System.Collections.Generic;
-    using System.DirectoryServices.AccountManagement;
-    using System.DirectoryServices.Protocols;
     using System.Security.Claims;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Resources;
@@ -11,19 +9,18 @@
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Configuration;
 
     public class AuthController : Controller
     {
         private readonly IAuthService authService;
         private readonly ISessionService sessionService;
-        private readonly IConfiguration configuration;
+        private readonly AppSetting appSetting;
 
-        public AuthController(IAuthService authService, ISessionService sessionService, IConfiguration configuration)
+        public AuthController(IAuthService authService, ISessionService sessionService, AppSetting appSetting)
         {
             this.authService = authService;
             this.sessionService = sessionService;
-            this.configuration = configuration;
+            this.appSetting = appSetting;
         }
 
         [HttpGet]
@@ -33,7 +30,7 @@
             {
                 string domainUsername = HttpContext.User.Identity.Name;
                 var employee = authService.GetEmployeeByDomain(domainUsername);
-                return !employee.Enabled || employee.IsDeleted ? View() : (ActionResult)RedirectToAction("Index", "Dashboard");
+                return !employee.Enabled || employee.IsDeleted ? View() : RedirectToAction("Index", "Dashboard");
             }
             return View();
         }
@@ -46,7 +43,7 @@
             {
                 if (IsValidAccount(model))
                 {
-                    string domainUsername = configuration.GetSection("domain").Value + model.UserName;
+                    string domainUsername = appSetting.DomainName + model.UserName;
                     var employee = authService.GetEmployeeByDomain(domainUsername);
                     if (employee != null)
                     {
@@ -69,7 +66,7 @@
                         HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                             new ClaimsPrincipal(identity), authProperties);
 
-                        return Url.IsLocalUrl(ReturnUrl) ? Redirect(ReturnUrl) : (ActionResult)RedirectToAction("Index", "Dashboard");
+                        return Url.IsLocalUrl(ReturnUrl) ? Redirect(ReturnUrl) : RedirectToAction("Index", "Dashboard");
                     }
                     else
                     {
@@ -80,8 +77,6 @@
                 {
                     ModelState.AddModelError("errorSummary", Messages.IncorrectUsernameOrPassword);
                 }
-
-                
             }
             return View(model);
         }

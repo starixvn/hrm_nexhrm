@@ -1,0 +1,39 @@
+﻿.ui-dialog.create-job-title .ui-dialog-titlebar .ui-dialog-title {
+  display: inline; }
+
+.ui-dialog.create-job-title .ui-dialog-titlebar .ui-dialog-titlebar-close {
+  margin: .5rem .5rem 0 0; }
+
+.ui-dialog.create-job-title .ui-dialog-content {
+  padding: .5rem; }
+
+.ui-dialog.create-job-title .ui-dialog-buttonpane {
+  padding: .5rem;
+  margin: 0; }
+  .ui-dialog.create-job-title .ui-dialog-buttonpane .btn-submit {
+    margin-right: 1rem; }
+
+table.table-custom tr td.col-edit .action-update, table.table-custom tr td.col-edit .action-cancel {
+  display: none; }
+
+table.table-custom tr td.col-edit .action-cancel {
+  margin-left: 1rem; }
+
+.jobTitle {
+  margin: 0 !important; }
+  .jobTitle:focus {
+    border-bottom: 1px solid #1d79ac; }
+
+@media only screen and (max-width: 993px) {
+  .form .form-input {
+    padding: 0 8px; }
+  table.table-custom tr th.col-sorter {
+    display: flex; }
+    table.table-custom tr th.col-sorter .sorter {
+      margin-left: 4px; }
+  table.table-custom tr td .action-cancel {
+    margin-left: 0 !important; }
+  .ui-dialog {
+    padding-left: 15px; }
+    .ui-dialog #dialog-form .label--l {
+      width: 70px; } }

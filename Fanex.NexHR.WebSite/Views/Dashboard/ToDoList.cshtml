@@ -91,7 +91,7 @@
     {
         <p class="red-border tasks">
             @{
-                var href = string.Format("{0}issues/{1}", AppSetting.Redmine_API_Address, issue.IssueId);
+                var href = string.Format("{0}issues/{1}", AppSetting.RedmineBaseUrl, issue.IssueId);
                 var dueDate = issue.DueDate.HasValue ? issue.DueDate.Value.ToString("dd MMM, yyyy") : string.Empty;
                 var startDate = issue.StartDate.HasValue ? issue.StartDate.Value.ToString("dd MMM, yyyy") : string.Empty;
 
@@ -130,7 +130,7 @@
         </span>
         @foreach (var date in Model.ForgotLogtimeDates)
         {
-            <a href="@AppSetting.Redmine_API_Address" target="_blank" class="redmine-date"><span class="req leave">@date.ToString("dd MMM, yyyy")</span></a>
+            <a href="@AppSetting.RedmineBaseUrl" target="_blank" class="redmine-date"><span class="req leave">@date.ToString("dd MMM, yyyy")</span></a>
         }
     </p>
 }

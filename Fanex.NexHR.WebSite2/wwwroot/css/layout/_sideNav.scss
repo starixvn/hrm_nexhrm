@@ -1,0 +1,78 @@
+﻿@import "../utils/variables";
+
+#logo-container {
+  margin-top: 8px;
+}
+
+.side-nav {
+  &.fixed {
+    li {
+    overflow: hidden;
+
+      &.logo {
+        border-bottom: 1px solid transparent;
+        padding-top: 17px;
+        text-align: center;
+        background: $color-background-header;
+      }
+
+      a {
+        line-height: 44px;
+        height: 44px;
+        &.collapsible-header {
+            line-height: 44px;
+            height: 44px;
+        }
+      }
+    }
+
+    ul.collapsible-accordion {
+      background-color: #FFF;
+    }
+
+    &:hover {
+      overflow-y: auto;
+    }
+  }
+}
+
+.bold > a {
+  font-weight: bold;
+  font-size: 1.4rem;
+
+  &:hover {
+      color: $color-text-main !important;      
+  }
+}
+
+#nav-mobile {
+	.collapsible-header {
+		.mdi-navigation-chevron-right {
+			margin-right: -5px !important;
+			font-size: 19px;
+			transform: rotate(0);
+			transition: transform 0.2s ease-out;
+		}
+
+		&.active {
+			.mdi-navigation-chevron-right {
+				transform: rotate(90deg);
+				transition: transform 0.2s ease-out;
+			}
+		}
+	}
+	.collapsible-body {
+		[class*="mdi"] {
+			font-size: 20px;
+			line-height: 44px;
+			height: 44px;
+			margin-left: 15px;
+			position: relative;
+			top: 2px;
+		}
+
+		li:hover, li.active {
+			a, i { color: $color-primary;}
+		}
+	}
+}

@@ -1,33 +1,34 @@
 ﻿namespace Fanex.NexHR.WebSite2
 {
-    using Fanex.Data;
     using Fanex.Data.Repository;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services;
+    using Fanex.NexHR.Services.Email;
     using Fanex.NexHR.Services.Interfaces;
     using Microsoft.AspNetCore.Authentication.Cookies;
+    using Microsoft.AspNetCore.Mvc.Infrastructure;
     using RestSharp;
 
     public static class DIExtensions
     {
         public static void RegisterServices(IServiceCollection services)
         {
-            
-
             services.AddSingleton<IAuthService, AuthService>();
             services.AddSingleton<IEmployeeService, EmployeeService>();
-            
 
             services.AddScoped<ISessionService, SessionService>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
+
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromDays(10);
                 options.Cookie.IsEssential = true;
             });
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(cookieOptions => {
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(cookieOptions =>
+            {
                 cookieOptions.LoginPath = "/Auth/Login";
                 cookieOptions.Cookie.Name = ".HRMSystemNameCookie";
             });
@@ -42,8 +43,11 @@
             services.AddSingleton<IEmailService, EmailService>();
             services.AddSingleton<INexbotService, NexbotService>();
             services.AddSingleton<IRestClient, RestClient>();
-            services.AddSingleton<BaseService, BaseService>();
-
+            services.AddSingleton<BaseService>();
+            services.AddSingleton<IJobTitleService, JobTitleService>();
+            services.AddSingleton<IShiftService, ShiftService>();
+            services.AddSingleton<IHistoryWorkService, HistoryWorkService>();
+            services.AddSingleton<IMailEmployeeService, MailEmployeeService>();
 
             services.AddSingleton<IDynamicRepository, DynamicRepository>();
             services.AddSingleton<IBaseRepository, BaseRepository>();
@@ -54,9 +58,7 @@
             services.AddSingleton<ILateInEarlyOutRepository, LateInEarlyOutRepository>();
             services.AddSingleton<IReportRepository, ReportRepository>();
             services.AddSingleton<INexbotRepository, NexbotRepository>();
-           // services.AddSingleton<ILateInEarlyOutRepository, LateInEarlyOutRepository>();
-
-
+            // services.AddSingleton<ILateInEarlyOutRepository, LateInEarlyOutRepository>();
         }
     }
 }

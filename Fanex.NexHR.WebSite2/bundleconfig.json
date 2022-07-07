@@ -1,0 +1,110 @@
+[
+    // ---------------------------- CSS ---------------------------
+    {
+        "outputFileName": "wwwroot/minify/css/site.min.css",
+        "inputFiles": [
+            "wwwroot/css/Materialize/materialize.css",
+            "wwwroot/css/components/materialdesignicons.css",
+            "wwwroot/css/themes/base/core.css",
+            "wwwroot/css/themes/base/accordion.css",
+            "wwwroot/css/themes/base/autocomplete.css",
+            "wwwroot/css/themes/base/button.css",
+            "wwwroot/css/themes/base/datepicker.css",
+            "wwwroot/css/themes/base/dialog.css",
+            "wwwroot/css/themes/base/draggable.css",
+            "wwwroot/css/themes/base/menu.css",
+            "wwwroot/css/themes/base/progressbar.css",
+            "wwwroot/css/themes/base/resizable.css",
+            "wwwroot/css/themes/base/selectable.css",
+            "wwwroot/css/themes/base/sortable.css",
+            "wwwroot/css/themes/base/slider.css",
+            "wwwroot/css/themes/base/spinner.css",
+            "wwwroot/css/themes/base/tabs.css",
+            "wwwroot/css/themes/base/tooltip.css",
+            "wwwroot/css/themes/base/theme.css",
+            "wwwroot/css/site.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/dashboard.min.css",
+        "inputFiles": [
+            "wwwroot/css/vendors/slick.css",
+            "wwwroot/css/Views/mydashboard.css",
+            "wwwroot/css/vendors/fullcalendar.css",
+            "wwwroot/css/Views/mycalendar.css",
+            "wwwroot/css/vendors/jquery.mCustomScrollbar.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/contextmenu.min.css",
+        "inputFiles": [
+            "wwwroot/css/ContextMenu/contextMenu.css"
+        ]
+    },
+    // ----------------------- Javascript ------------------------------
+    {
+        "outputFileName": "wwwroot/minify/js/site.min.js",
+        "inputFiles": [
+            "wwwroot/js/Libs/jquery-2.1.4.min.js",
+            "wwwroot/js/Libs/jquery-ui-1.11.4.js",
+            "wwwroot/js/Libs/jquery.validate*",
+            "wwwroot/js/Libs/jquery-dateFormat.min.js",
+            "wwwroot/js/Libs/materialize.js",
+            "wwwroot/js/Libs/jquery.tipsy.js",
+            "wwwroot/js/Libs/jsrender.js",
+            "wwwroot/js/Libs/jquery.cookie.js",
+            "wwwroot/js/Libs/chart.js",
+            "wwwroot/js/Libs/date.js",
+            "wwwroot/js/Libs/jquery.floatThead.min.js",
+            "wwwroot/js/Libs/common.js",
+            "wwwroot/js/Views/language.js",
+            "wwwroot/js/Notification/notification.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/dashboard.min.js",
+        "inputFiles": [
+            "wwwroot/js/Libs/slick.min.js",
+            "wwwroot/js/Views/Dashboard/employee.dashboard.js",
+            "wwwroot/js/Views/Dashboard/teamattendance.js",
+            "wwwroot/js/Libs/moment.js",
+            //"wwwroot/js/Libs/fullcalendar.js",
+            //"wwwroot/js/Libs/gcal.js",
+            "wwwroot/js/Views/Dashboard/calendar.js",
+            "wwwroot/js/Views/Dashboard/googleAPI.js",
+            "wwwroot/js/Libs/CustomScrollbar/jquery.mCustomScrollbar.concat.min.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/apiclientcalendarjs.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Dashboard/client.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/contextmenu.min.js",
+        "inputFiles": [
+            "wwwroot/js/Libs/jquery.contextMenu.min.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    }
+]

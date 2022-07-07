@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Drawing;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
@@ -18,8 +17,6 @@
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Newtonsoft.Json;
-    using Services;
-    using Services.Email;
     using Services.Interfaces;
     using ViewModels;
     using ViewModels.Employee;
@@ -34,6 +31,7 @@
         private readonly IHistoryWorkService historyWorkService;
         private readonly IMailEmployeeService mailEmployeeService;
         private readonly IWebHostEnvironment environment;
+        private readonly AppSetting appSetting;
 
         public EmployeeController(ISessionService sessionService,
             IEmployeeService employeeService,
@@ -43,7 +41,8 @@
             ICommandService commandService,
             IHistoryWorkService historyWorkService,
             IMailEmployeeService mailEmployeeService,
-            IWebHostEnvironment environment) : base(sessionService)
+            IWebHostEnvironment environment,
+            AppSetting appSetting) : base(sessionService)
         {
             this.employeeService = employeeService;
             this.teamService = teamService;
@@ -53,6 +52,7 @@
             this.historyWorkService = historyWorkService;
             this.mailEmployeeService = mailEmployeeService;
             this.environment = environment;
+            this.appSetting = appSetting;
         }
 
         public ActionResult Index()
@@ -121,7 +121,6 @@
 
             return Json(listEmployee);
         }
-
 
         [Authorize(Roles = "HR")]
         public ActionResult WorkingHistory(int employeeId)
@@ -294,7 +293,7 @@
         {
             if (model != null && ModelState.IsValid)
             {
-                model.DomainUsername = AppSetting.DomainName + model.DomainUsername;
+                model.DomainUsername = appSetting.DomainName + model.DomainUsername;
                 var criteria = new InsertEmployeeCriteria
                 {
                     Code = model.Code,
@@ -356,7 +355,7 @@
 
             UpdateEmployeeCriteria criteria = FillDataUpdateEmployeeCriteria(model);
             CommandResult result = commandService.ExecuteNonQuery(criteria);
-            
+
             if (result.IsSuccessful)
             {
                 ViewBag.Updated = true;
@@ -474,7 +473,7 @@
                 userId += ".jpg";
             }
 
-            var avatarPath = Path.Combine(environment.WebRootPath, "/avatars/" + userId);
+            var avatarPath = Path.Combine(environment.ContentRootPath, "/avatars/" + userId);
 
             if (System.IO.File.Exists(avatarPath))
             {
@@ -513,7 +512,6 @@
 
         //    return Json(null);
         //}
-
 
         public ActionResult Birthday(int month = 0)
         {

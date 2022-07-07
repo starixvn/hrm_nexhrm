@@ -1,0 +1,14 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.ViewModels.Common
+@model DropdownRenderViewModel
+
+<select id="@Model.Name" name="@Model.Name">
+        @{
+            foreach (RequestTypeFilterForAttendance requestType in (RequestTypeFilterForAttendance[])Enum.GetValues(typeof(RequestTypeFilterForAttendance)))
+            {
+                var value = (int)requestType;
+                <option value="@Model.SelectedValue" selected="@(value == Model.SelectedValue)">@Utilities.GetDescription(requestType)</option>
+            }
+        }
+</select>

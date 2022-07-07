@@ -1,0 +1,389 @@
+﻿[
+    {
+        "Title": "Personal",
+        "Roles": "Member",
+        "Controller": "",
+        "Action": "",
+        "Icon": "",
+        "Id": 1,
+        "ParentId": null
+    },
+    {
+        "Title": "My Dashboard",
+        "Controller": "dashboard",
+        "Action": "index",
+        "Icon": "home",
+        "Roles": "Member",
+        "Id": 2,
+        "ParentId": 1
+    },
+    {
+        "Title": "Leave Request",
+        "Controller": "leave",
+        "Action": "employeeview",
+        "Icon": "account-box",
+        "Roles": "Member",
+        "Id": 3,
+        "ParentId": 1
+    },
+    {
+        "Title": "Work From Home Request",
+        "Controller": "workfromhomerequest",
+        "Action": "index",
+        "Icon": "account-box",
+        "Roles": "Member",
+        "Id": 4,
+        "ParentId": 1
+    },
+    {
+        "Title": "Check In/Check Out",
+        "Controller": "checkinout",
+        "Action": "employeeview",
+        "Icon": "clock",
+        "Roles": "Member",
+        "Id": 5,
+        "ParentId": 1
+    },
+    {
+        "Title": "My Attendance",
+        "Controller": "report",
+        "Action": "timesheet",
+        "Icon": "table",
+        "Roles": "Member",
+        "Id": 6,
+        "ParentId": 1
+    },
+    {
+        "Title": "NEX Request",
+        "Controller": "overtime",
+        "Action": "index",
+        "Icon": "calendar-clock",
+        "Roles": "Member",
+        "Id": 7,
+        "ParentId": 1
+    },
+    {
+        "Title": "Member Requests",
+        "Controller": "request",
+        "Action": "member",
+        "Icon": "account",
+        "Roles": "AssistantLeader",
+        "Id": 8,
+        "ParentId": 1
+    },
+    {
+        "Title": "Requests Statistic",
+        "Controller": "report",
+        "Action": "LeaderRequestMonitoring",
+        "Icon": "file-find",
+        "Roles": "AssistantLeader",
+        "Id": 9,
+        "ParentId": 1
+    },
+    {
+        "Title": "My Profile",
+        "Controller": "employee",
+        "Action": "myprofile",
+        "Icon": "account-box-outline",
+        "Roles": "Member",
+        "Id": 10,
+        "ParentId": 1
+    },
+    {
+        "Title": "Late in/Early out",
+        "Controller": "LateEarly",
+        "Action": "index",
+        "Icon": "alarm",
+        "Roles": "Member",
+        "Id": 11,
+        "ParentId": 1
+    },
+    {
+        "Title": "Scheduled Message",
+        "Controller": "ScheduledMessage",
+        "Action": "index",
+        "Icon": "alarm",
+        "Roles": "Member",
+        "Id": 12,
+        "ParentId": 1
+    },
+    {
+        "Title": "HR Space",
+        "Roles": "HR",
+        "Id": 13,
+        "Controller": "",
+        "Action": "",
+        "Icon": "",
+        "ParentId": null
+    },
+    {
+        "Title": "Employee Requests",
+        "Controller": "request",
+        "Action": "hrview",
+        "Icon": "account-box",
+        "Roles": "HR",
+        "Id": 14,
+        "ParentId": 13
+    },
+    {
+        "Title": "Requests Monitoring",
+        "Controller": "report",
+        "Action": "HRRequestMonitoring",
+        "Icon": "eye",
+        "Roles": "HR",
+        "Id": 15,
+        "ParentId": 13
+    },
+    {
+        "Title": "User Management",
+        "Controller": "employee",
+        "Action": "UserManagement",
+        "Icon": "settings-box",
+        "Roles": "HR",
+        "Id": 16,
+        "ParentId": 13
+    },
+    {
+        "Title": "Team Management",
+        "Controller": "team",
+        "Action": "index",
+        "Icon": "account-multiple",
+        "Roles": "HR",
+        "Id": 17,
+        "ParentId": 13
+    },
+    {
+        "Title": "Create Account",
+        "Controller": "employee",
+        "Action": "create",
+        "Icon": "account-plus",
+        "Roles": "HR",
+        "Id": 18,
+        "ParentId": 13
+    },
+    {
+        "Title": "Job Title Management",
+        "Controller": "jobtitle",
+        "Action": "index",
+        "Icon": "book",
+        "Roles": "HR",
+        "Id": 19,
+        "ParentId": 13
+    },
+    {
+        "Title": "Late In/Early Out Violation",
+        "Controller": "report",
+        "Action": "lateinearlyoutdiscipline",
+        "Icon": "alarm",
+        "Roles": "HR",
+        "Id": 20,
+        "ParentId": 13
+    },
+    {
+        "Title": "Working Hours Statistic",
+        "Controller": "report",
+        "Action": "workinghoursstatistic",
+        "Icon": "alarm-plus",
+        "Roles": "HR",
+        "Id": 21,
+        "ParentId": 13
+    },
+    {
+        "Title": "Head Count Report",
+        "Controller": "report",
+        "Action": "headcount",
+        "Icon": "account",
+        "Roles": "HR",
+        "Id": 22,
+        "ParentId": 13
+    },
+    {
+        "Title": "NEX Review",
+        "Controller": "overtime",
+        "Action": "hrview",
+        "Icon": "clipboard-text",
+        "Roles": "HR",
+        "Id": 23,
+        "ParentId": 13
+    },
+    {
+        "Title": "Yearly NEX Request",
+        "Controller": "report",
+        "Action": "yearlynexrequest",
+        "Icon": "clipboard-text",
+        "Roles": "HR",
+        "Id": 24,
+        "ParentId": 13
+    },
+    {
+        "Title": "Company Space",
+        "Roles": "Member",
+        "Id": 25,
+        "Controller": "",
+        "Action": "",
+        "Icon": "",
+        "ParentId": null
+    },
+    {
+        "Title": "Staff Info",
+        "Controller": "employee",
+        "Action": "index",
+        "Icon": "folder-account",
+        "Roles": "Member",
+        "Id": 26,
+        "ParentId": 25
+    },
+    {
+        "Title": "Staff TOEIC Score",
+        "Controller": "toeic",
+        "Action": "toeicmanagement",
+        "Icon": "trophy-award",
+        "Roles": "Member",
+        "Id": 27,
+        "ParentId": 25
+    },
+    {
+        "Title": "Working Calendar",
+        "Controller": "calendar",
+        "Action": "workingcalendars",
+        "Icon": "calendar",
+        "Roles": "Member",
+        "Id": 28,
+        "ParentId": 25
+    },
+    {
+        "Title": "Employee Requests",
+        "Controller": "request",
+        "Action": "employeeview",
+        "Icon": "account-box",
+        "Roles": "Member",
+        "Id": 29,
+        "ParentId": 25
+    },
+    {
+        "Title": "Attendance Report",
+        "Controller": "report",
+        "Action": "attendance",
+        "Icon": "bulletin-board",
+        "Roles": "Member",
+        "Id": 30,
+        "ParentId": 25
+    },
+    {
+        "Title": "Late In/Early Out",
+        "Controller": "report",
+        "Action": "lateinearlyout",
+        "Icon": "alarm",
+        "Roles": "Member",
+        "Id": 31,
+        "ParentId": 25
+    },
+    {
+        "Title": "Leave Summary",
+        "Controller": "annualleave",
+        "Action": "index",
+        "Icon": "clipboard-text",
+        "Roles": "Member",
+        "Id": 32,
+        "ParentId": 25
+    },
+    {
+        "Title": "NEX Summary",
+        "Controller": "overtime",
+        "Action": "overtimesummary",
+        "Icon": "clipboard-text",
+        "Roles": "Member",
+        "Id": 33,
+        "ParentId": 25
+    },
+    {
+        "Title": "Total Working Hours",
+        "Controller": "report",
+        "Action": "totalworkinghour",
+        "Icon": "alarm-plus",
+        "Roles": "Member",
+        "Id": 34,
+        "ParentId": 25
+    },
+    {
+        "Title": "Geolocation Map",
+        "Controller": "geographicmap",
+        "Action": "index",
+        "Icon": "map-marker",
+        "Roles": "Member",
+        "Id": 35,
+        "ParentId": 25
+    },
+    {
+        "Title": "Extension Numbers",
+        "Controller": "ExtensionNo",
+        "Action": "index",
+        "Icon": "cellphone",
+        "Roles": "Member",
+        "Id": 36,
+        "ParentId": 25
+    },
+    {
+        "Title": "Company Memo",
+        "Controller": "memo",
+        "Action": "index",
+        "Icon": "file-document-box",
+        "Roles": "Member",
+        "Id": 37,
+        "ParentId": 25
+    },
+    {
+        "Title": "Company Event",
+        "Controller": "companyevent",
+        "Action": "index",
+        "Icon": "file-document-box",
+        "Roles": "Member",
+        "Id": 38,
+        "ParentId": 25
+    },
+    {
+        "Title": "BIO Space",
+        "Roles": "HR",
+        "Id": 39,
+        "Controller": "",
+        "Action": "",
+        "Icon": "",
+        "ParentId": null
+    },
+    {
+        "Title": "Time Record",
+        "Controller": "report",
+        "Action": "timerecord",
+        "Icon": "calendar-clock",
+        "Roles": "HR",
+        "Id": 40,
+        "ParentId": 39
+    },
+    {
+        "Title": "Bio Station Management",
+        "Controller": "Bio",
+        "Action": "BioDevice",
+        "Icon": "bio",
+        "Roles": "HR",
+        "Id": 41,
+        "ParentId": 39
+    },
+    {
+        "Title": "Bio Station Time Change",
+        "Controller": "Bio",
+        "Action": "BioTimeChange",
+        "Icon": "timer",
+        "Roles": "HR",
+        "Id": 42,
+        "ParentId": 39
+    },
+    {
+        "Title": "Fingerprint/Card Management",
+        "Controller": "Bio",
+        "Action": "Fingerprint",
+        "Icon": "fingerprint",
+        "Roles": "HR",
+        "Id": 43,
+        "ParentId": 39
+    }
+]

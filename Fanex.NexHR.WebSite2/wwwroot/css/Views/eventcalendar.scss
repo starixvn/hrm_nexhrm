@@ -1,0 +1,441 @@
+@import '../Common/utils/mixins';
+@import '../Common/utils/variables';
+
+#calendar {
+    width: 560px;
+
+    .ui-widget-content {
+        border: none;
+    }
+
+    .fc-toolbar {
+        background: #353c4e;
+        margin: 0;
+        padding: 1.4rem;
+
+        h2 {
+            font-size: 25px;
+            color: #fff;
+        }
+
+        .fc-prev-button, .fc-next-button {
+            background: #78828c;
+            padding: 0;
+            border-radius: 1px;
+
+            .ui-icon {
+                width: 30px;
+                height: 30px;
+                background: none;
+                text-indent: initial;
+
+                &.ui-icon-circle-triangle-e:after, &.ui-icon-circle-triangle-w:after {
+                    width: 30px;
+                    height: 30px;
+                    font-family: "Material Design Icons";
+                    font-size: 18px;
+                    line-height: 30px;
+                    color: #fff;
+                }
+
+                &.ui-icon-circle-triangle-e:after {
+                    content: "\f417";
+                }
+
+                &.ui-icon-circle-triangle-w:after {
+                    content: "\f416";
+                }
+            }
+        }
+    }
+
+    .fc-view-container {
+        table {
+            @include css3(box-shadow, none);
+        }
+
+        .fc-head {
+            table {
+                thead {
+                    background: #3b4354;
+                    color: #fff;
+
+                    tr {
+                        th {
+                            padding: .8rem .7rem;
+                            font-weight: normal;
+                        }
+                    }
+                }
+            }
+        }
+
+        .fc-body {
+            .fc-row.fc-week {
+                .fc-content-skeleton {
+                    table thead {
+                        border-bottom: none;
+
+                        .fc-day-number {
+                            &.fc-today {
+                                color: #fff;
+                            }
+                        }
+                    }
+                }
+
+                .fc-event-container {
+                    text-align: center;
+                    border-top: none !important;
+
+                    .fc-day-grid-event {
+                        padding: 0;
+                        margin-left: 0;
+                        margin-right: 0;
+                    }
+
+                    .fc-content {
+                        cursor: pointer;
+                        background-color: #1d79ac;
+                        border-radius: 0;
+                        color: #FFFFFF;
+                        padding: 2px;
+                    }
+
+                    .fc-event {
+                        background: none;
+                        color: #303f4d;
+                        border: none;
+
+                        .fc-content {
+                            .fc-time {
+                                display: none;
+                            }
+
+                            .fc-title {
+                                font-size: 12px;
+                            }
+                        }
+
+                        &.today {
+                            color: #fff;
+                        }
+                    }
+                }
+
+                .fc-more-cell {
+                    text-align: center;
+
+
+                    .fc-more {
+                        font-size: 13px;
+                    }
+                }
+            }
+        }
+    }
+
+    &.schedule {
+        .fc-view-container {
+            .fc-head {
+                .ui-widget-header {
+                    border: 1px solid #3c4355 !important;
+                    font-weight: normal;
+                }
+
+                table {
+                    thead {
+                        tr {
+                            th {
+                                border: 1px solid #3c4355 !important;
+                                font-weight: normal;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .fc-day {
+                border: 1px solid $c-border-table;
+
+                &.fc-sat, &.fc-sun {
+                    background: #e0e0e0;
+                }
+
+                &.fc-today {
+                    background: #f4773d;
+                }
+            }
+
+            .fc-body {
+                //border: 1px solid $c-border-table;
+            }
+        }
+    }
+}
+
+.ui-dialog {
+    &.dialog-update-shift {
+        overflow: visible;
+    }
+}
+
+//------------------------------TOOLTIP------------------------------//
+.detail-calendar {
+    opacity: 0.9 !important;
+    //position: relative;
+    //top: 2rem;
+    .tipsy-inner {
+        max-width: none;
+        //background: #fff;
+        //color: #000;
+        position: relative;
+        //top: 3rem;
+        @include css3(box-shadow, 0px 4px 19px 1px rgba(0,0,0,0.35));
+    }
+
+    .tipsy-arrow-s {
+        border-top-color: #fff;
+    }
+
+    .table-tooltip {
+        td {
+            padding: 7px 10px;
+            font-size: 1.3rem;
+        }
+    }
+}
+
+//--------------------MORE POPOVER---------------------//
+.fc-more-popover {
+    background: #fff;
+    padding: 5px;
+    @include css3(box-shadow, 0px 4px 19px 1px rgba(0,0,0,0.35));
+
+    .fc-header {
+        padding-top: 5px;
+    }
+
+    .fc-day-grid-event {
+        margin: 0 0 5px 0;
+        border-radius: 0;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        .fc-content {
+            padding: 2px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+    }
+}
+@media only screen and (max-width: $medium-screen-up) {
+    .card-container-base {
+        .card-content {
+            padding-top: 0.5rem;
+
+            .card-body {
+                .m-t--m {
+                    margin-top: 8px;
+                }
+            }
+        }
+    }
+
+    #calendar {
+        width: auto;
+
+        .ui-widget-content {
+            border: none;
+        }
+
+        .fc-toolbar {
+            background: #353c4e;
+            margin: 0;
+            padding: 1.8rem 1.4rem 0.2rem;
+
+            .fc-left {
+                left: 49px;
+                top: -7px;
+            }
+
+            .fc-right {
+                float: right;
+                position: relative;
+                right: 48px;
+                top: -7px;
+            }
+
+
+
+            h2 {
+                font-size: 16px;
+                line-height: 18px;
+                font-weight: 500;
+                color: #fff;
+            }
+
+            .fc-prev-button, .fc-next-button {
+                background: #78828c;
+                padding: 0;
+                border-radius: 1px;
+                height: auto;
+
+                .ui-icon {
+                    width: 32px;
+                    height: 32px;
+                    background: none;
+                    text-indent: initial;
+
+                    &.ui-icon-circle-triangle-e:after, &.ui-icon-circle-triangle-w:after {
+                        width: 30px;
+                        height: 30px;
+                        font-family: "Material Design Icons";
+                        font-size: 18px;
+                        line-height: 30px;
+                        color: #fff;
+                    }
+
+                    &.ui-icon-circle-triangle-e:after {
+                        content: "\f417";
+                    }
+
+                    &.ui-icon-circle-triangle-w:after {
+                        content: "\f416";
+                    }
+                }
+            }
+        }
+
+        .fc-view-container {
+            table {
+                @include css3(box-shadow, none);
+            }
+
+            .fc-head {
+                table {
+                    thead {
+                        background: #3b4354;
+                        color: #fff;
+
+                        tr {
+                            th {
+                                padding: .7rem .7rem;
+                                font-weight: normal;
+                                font-size: 1.2rem;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .fc-body {
+                .fc-row.fc-week {
+                    .fc-content-skeleton {
+                        table thead {
+                            border-bottom: none;
+
+                            .fc-day-number {
+                                &.fc-today {
+                                    color: #fff;
+                                }
+                            }
+                        }
+                    }
+
+                    .fc-event-container {
+                        text-align: center;
+                        border-top: none !important;
+
+                        .fc-day-grid-event .fc-content {
+                            cursor: pointer;
+                        }
+
+                        .fc-event {
+                            background: none;
+                            color: #888888;
+                            border: none;
+                            font-size: 1rem;
+                            margin-top: 0.7rem;
+
+                            .fc-content {
+                                .fc-time {
+                                    display: none;
+                                }
+                            }
+
+                            &.today {
+                                color: #fff;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &.schedule {
+            .fc-view-container {
+                .fc-head {
+                    .ui-widget-header {
+                        border: 0 !important;
+                        font-weight: normal;
+                    }
+
+                    table {
+                        thead {
+
+
+                            tr {
+                                th {
+                                    border: 0 !important;
+                                    font-weight: normal;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .fc-day {
+                    border: 1px solid $c-border-table;
+
+                    &.fc-sat, &.fc-sun {
+                        background: #fafafa;
+                    }
+
+                    &.fc-today {
+                        background: #F4773D;
+                    }
+                }
+
+                .fc-body {
+                    border: 1px solid $c-border-table;
+                }
+            }
+        }
+
+        &.fc-ltr {
+            .fc-basic-view {
+                .fc-body {
+                    .fc-row {
+                        height: 4.4rem;
+                        min-height: 1rem;
+                    }
+                }
+
+                .fc-day-number {
+                    font-size: 1rem;
+                    padding: 1px 4px;
+                    color: #333333;
+                }
+            }
+        }
+    }
+
+    .ui-dialog {
+        &.dialog-update-shift {
+            overflow: visible;
+        }
+    }
+}

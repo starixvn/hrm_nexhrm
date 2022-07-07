@@ -1,7 +1,10 @@
-﻿@using Fanex.NexHR.ViewModels.Report
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.Common
+@using Fanex.NexHR.ViewModels.Report
 
 @model EmployeeAttendanceViewModel
-@*
+
 @if (Model.IsDisplayTeamAttendence) // remove condition  "&& !Request.Browser.IsMobileDevice" to display this table in mobile
 {
         <div class="col s12 card-container-base card-team-attendance">
@@ -14,16 +17,20 @@
                         @using (Html.BeginForm("", "", FormMethod.Get, new { id = "team-attendance", style = "display: none;" }))
                         {
                             @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
-                            <div class="form">
-                                <div class="row form-input">
-                                    <div class="col m-r--l">
-                                        <div class="left label--m">
-                                            <label>
-                                                Date range
-                                            </label>
-                                        </div>
-                                        <div class="left select--s">
-                                            @RazorHelper.DateRangeDropDownList("Date", (int)DateRangeFilter.DateRange)
+                        <div class="form">
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>
+                                            Date range
+                                        </label>
+                                    </div>
+                                    <div class="left select--s">
+                                            @(await Html.PartialAsync("Partial/_DateRangeDropdownList", new DropdownRenderViewModel 
+                                            {
+                                                Name = "Date", 
+                                                SelectedValue = (int)DateRangeFilter.DateRange
+                                            }))
                                             @Html.Hidden("DateOption", Model.DateOption)
                                         </div>
                                     </div>
@@ -34,7 +41,7 @@
                                             </label>
                                         </div>
                                         <div class="datepicker-button input--s left">
-                                            @Html.DatePickerFor(model => model.FromDate, minDate: new DateTime(2010, 1, 1))
+                                            <date-picker name="FromDate" minDate="@{ new DateTime(2010, 1, 1);}"></date-picker>
                                             <i class="mdi-action-event calendar-icon left"></i>
                                         </div>
                                     </div>
@@ -45,7 +52,7 @@
                                             </label>
                                         </div>
                                         <div class="datepicker-button input--s left">
-                                            @Html.DatePickerFor(model => model.ToDate)
+                                            <date-picker name="ToDate"></date-picker>
                                             <i class="mdi-action-event calendar-icon left"></i>
                                         </div>
                                     </div>
@@ -56,7 +63,12 @@
                                             @Html.LabelFor(model => model.AttendanceType, "Request")
                                         </div>
                                         <div class="left select--s">
-                                            @RazorHelper.RequestTypeFilter("AttendanceType", Model.AttendanceType)
+                                            @(await Html.PartialAsync("Partial/_RequestTypeFilterDopdownlist", new DropdownRenderViewModel 
+                                            {
+                                                Name = "AttendanceType", 
+                                                SelectedValue = Model.AttendanceType
+                                            }))
+
                                         </div>
                                     </div>
                                     <div class="col m-r--l">
@@ -66,7 +78,10 @@
                                             </label>
                                         </div>
                                         <div class="left select-team">
-                                            @Html.DropDownListFor(model => model.GroupId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
+                                            <select id="GroupId" asp-for="GroupId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))" >
+                                                <option>@Labels.AllTeams</option>
+                                            </select>
+                                            @*@Html.DropDownListFor(model => model.GroupId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)*@
                                         </div>
                                     </div>
                                     <div class="col">
@@ -82,14 +97,14 @@
                                     </div>
                                     <div class="col">
                                         <a id="submit" class="btn-submit waves-effect waves-light m-r--b" type="button">Submit</a>
-                                        @if (Roles.IsUserInRole("AssistantLeader") || Roles.IsUserInRole("Leader"))
+                                        @*@if (Roles.IsUserInRole("AssistantLeader") || Roles.IsUserInRole("Leader"))
                                         {
                                             @Html.ActionLink("My Team Request", "member", "request", null, new { @class = "btn-request waves-effect waves-light" })
                                         }
                                         else
                                         {
                                             @Html.ActionLink("My Leave Request", "employeeview", "leave", null, new { @class = "btn-request waves-effect waves-light" })
-                                        }
+                                        }*@
                                     </div>
                                 </div>
                             </div>
@@ -229,4 +244,4 @@
             </tr>
         </script>
 
-    }*@
+    }

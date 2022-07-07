@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Configuration;
     using System.Globalization;
     using System.IO;
     using System.Linq;
@@ -29,28 +28,28 @@
         private readonly ICommandService commandService;
         private readonly INexbotService nexbotService;
         private readonly IWebHostEnvironment environment;
+        private readonly AppSetting appSetting;
 
         private const string stringTime = "HH:mm";
-        private const string stringEmail = "Email";
-        private const string BaseUrl = "BaseUrl";
-        private const string CompanyMailSign = "CompanyMailSign";
 
         public RequestService(
             IRequestRepository requestRepository,
             IEmailService emailService,
             ICommandService commandService,
             INexbotService nexbotService,
-            IWebHostEnvironment environment)
+            IWebHostEnvironment environment,
+            AppSetting appSetting)
         {
             this.requestRepository = requestRepository;
             this.emailService = emailService;
             this.commandService = commandService;
             this.nexbotService = nexbotService;
             this.environment = environment;
+            this.appSetting = appSetting;
         }
 
         private static string GetMessageDateforLeaveRequest(DateTime fromDate, DateTime toDate)
-        {    
+        {
             if ((toDate - fromDate).Days > 0)
             {
                 if (fromDate.Year == toDate.Year)
@@ -330,11 +329,11 @@
                     forDate,
                     model.LeaveTypeName,
                     model.Remark,
-                    ConfigurationManager.AppSettings[BaseUrl],
-                    ConfigurationManager.AppSettings[CompanyMailSign]);
+                    appSetting.BaseUrl,
+                    appSetting.CompanyMailSign);
 
                 emailService.SendEmail(
-                    ConfigurationManager.AppSettings[stringEmail],
+                    appSetting.Email,
                     string.Join(";", managers.Select(t => t.Email)),
                     string.Join(";", leaders.Where(t => !t.Email.Equals(model.CurrentUserEmail)).Select(t => t.Email)),
                     model.SubjectEmail,
@@ -353,11 +352,11 @@
                     forDate,
                     model.LeaveTypeName,
                     model.Remark,
-                    ConfigurationManager.AppSettings[BaseUrl],
-                    ConfigurationManager.AppSettings[CompanyMailSign]);
+                    appSetting.BaseUrl,
+                    appSetting.CompanyMailSign);
 
                 emailService.SendEmail(
-                    ConfigurationManager.AppSettings[stringEmail],
+                    appSetting.Email,
                     string.Join(";", leaders.Select(t => t.Email)),
                     string.Empty,
                     model.SubjectEmail,
@@ -388,11 +387,11 @@
                 content.ForDate,
                 content.Shift,
                 content.Time,
-                ConfigurationManager.AppSettings[BaseUrl],
-                ConfigurationManager.AppSettings[CompanyMailSign]);
+                appSetting.BaseUrl,
+                appSetting.CompanyMailSign);
 
             emailService.SendEmail(
-                ConfigurationManager.AppSettings[stringEmail],
+                appSetting.Email,
                 string.Join(";", leaders.Select(t => t.Email)),
                 string.Empty,
                 model.SubjectEmail,
@@ -453,8 +452,8 @@
             var getEmployeeByTeamsCriteria = new GetEmployeeByTeamsCriteria
             {
                 EmployeeId = employeeId,
-                TeamCodes = AppSetting.ProjectManagerTeams,
-                IgnoreTeams = AppSetting.IgnoreTeams
+                TeamCodes = appSetting.ProjectManagerTeams,
+                IgnoreTeams = appSetting.IgnoreTeams
             };
 
             var projectManagers = GetData<Employee>(getEmployeeByTeamsCriteria);
@@ -540,8 +539,8 @@
                 action,
                 request.ModifiedBy.NickName,
                 request.ModifiedBy.FullName,
-                ConfigurationManager.AppSettings[BaseUrl],
-                ConfigurationManager.AppSettings[CompanyMailSign]);
+                appSetting.BaseUrl,
+                appSetting.CompanyMailSign);
 
             var subject = string.Format(
                 Messages.ProcessSubject,
@@ -551,7 +550,7 @@
                 request.ModifiedBy.NickName);
 
             emailService.SendEmail(
-                ConfigurationManager.AppSettings[stringEmail],
+                appSetting.Email,
                 request.Requester.Email,
                 string.Empty,
                 subject,
@@ -583,7 +582,6 @@
             {
                 CheckInOutRelatedMail(request, sendCc, templateInOutEmailToRelatedPath);
             }
-
         }
 
         private void SendMailForHR(RequestEntity request,
@@ -606,12 +604,12 @@
                 forDate,
                 request.LeaveType.Name,
                 request.Remark,
-                ConfigurationManager.AppSettings[CompanyMailSign]);
+                appSetting.CompanyMailSign);
 
             if (!string.IsNullOrEmpty(sendTo))
             {
                 emailService.SendEmail(
-                     ConfigurationManager.AppSettings[stringEmail],
+                     appSetting.Email,
                      sendTo,
                      string.Empty,
                      subject,
@@ -641,10 +639,10 @@
                 request.FromDate.ToDateMonthYearFormatedDate(),
                 request.FromShift.Name,
                 request.FromDate.ToString(stringTime),
-                ConfigurationManager.AppSettings[CompanyMailSign]);
+                appSetting.CompanyMailSign);
 
             emailService.SendEmail(
-                ConfigurationManager.AppSettings[stringEmail],
+                appSetting.Email,
                 request.ModifiedBy.Email,
                 sendCc,
                 subject,
@@ -667,12 +665,12 @@
                 forDate,
                 request.LeaveType.Name,
                 request.Remark,
-                ConfigurationManager.AppSettings[CompanyMailSign]);
+                appSetting.CompanyMailSign);
 
             if (!string.IsNullOrEmpty(sendTo))
             {
                 emailService.SendEmail(
-                     ConfigurationManager.AppSettings[stringEmail],
+                     appSetting.Email,
                      sendTo,
                      string.Empty,
                      subject,

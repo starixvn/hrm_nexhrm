@@ -1,10 +1,11 @@
 ﻿@using Fanex.NexHR.Core;
-
+@using Fanex.NexHR.Models;
 @model Employee
+@inject AppSetting settings;
 
 @{ 
-    var logoSrc = "/Content/Images/" + AppSetting.HRMName + ".png";
-    var HRMName = AppSetting.HRMName;
+    var logoSrc = "/Content/Images/" + settings.HRMName + ".png";
+    var HRMName = settings.HRMName;
 }
 
 <div class="navbar-fixed">

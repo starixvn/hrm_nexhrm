@@ -1,0 +1,40 @@
+﻿'use strict';
+/*global _global:false*/
+
+function initTimepicker(control) {
+    control.timepicker({
+        'step': 15,
+        'timeFormat': 'H:i'
+    });
+    control.on('changeTime', function () {
+        control.timepicker('getTime');
+    });
+}
+
+$(document).ready(function () {
+    if ($('#chkDuration:checkbox:checked').length > 0) {
+        $('#duration').show();
+    }
+
+    $('#chkDuration').change(function () {
+        if ($('#chkDuration:checkbox:checked').length > 0) {
+            $('#duration').show();
+        }
+        else {
+            $('#duration').hide();
+        }
+    });
+
+    initTimepicker($('#FromTime'));
+    initTimepicker($('#ToTime'));
+
+    var successed = $('#successed').val();
+
+    if (successed === 'true') {
+        confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
+                function () {
+                    document.location = _global.root + 'companyevent/index';
+                }
+            );
+    }
+});

@@ -1,0 +1,60 @@
+﻿@using Fanex.NexHR.Core;
+@using Fanex.NexHR.Models;
+@model Employee
+@inject AppSetting settings;
+
+@{ 
+    var logoSrc = "/Images/" + settings.HRMName + ".png";
+    var HRMName = settings.HRMName;
+}
+
+<div class="navbar-fixed">
+    <div class="container left">
+        <a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect circle hide-on-large-only">
+            <i class="mdi-navigation-menu icon-open"></i>
+            <i class="mdi-content-clear icon-close"></i>
+        </a>
+    </div>
+    <nav class="right">
+        <div class="logo">
+            <a id="logo-container" class="brand-logo" href="~/">
+                <img src="@logoSrc" alt="." />
+            </a>
+        </div>
+        <div class="right nav-wrapper">
+            <div class="drop-down">
+                <div class="dropdown-button" href="#!" data-activates="dropdown1">
+                    <div class="name opacity70"><p>@Model.FullName - <i>@Model.NickName</i></p></div>
+                    <img class="avatar" src="@Url.Action("Avatar","Employee", new {id = Model.Code})" alt="@Model.NickName" />
+                </div>
+                <ul id="dropdown1" class="dropdown-content">
+                    <li><a class="" href="@Url.Action("create", "leave")">Request leave</a></li>
+                    <li><a class="" href="@Url.Action("create", "checkinout")">Request check in/out</a></li>
+                    <li><a class="" href="@Url.Action("myprofile", "employee")">My profile</a></li>
+                    @if (HRMName != "NexHRM")
+                    {
+                        <li><a class="" href="@Url.Action("logout", "auth")">Log out</a></li>
+                    }
+                </ul>
+            </div>
+            <div id="notification">
+                <div class="notification">
+                    <a href="#!" class="dropdown-button" data-activates='dropdown-notification'>
+                        <i class="mdi-social-notifications"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="box-search">
+                <div class="js-btn-search">
+                    <i class="mdi-action-search icon-open"></i>
+                    <i class="mdi-content-clear icon-close"></i>
+                </div>
+                <form class="search_bar" method="get" action="@Url.Action("Index","Employee")" accept-charset="UTF-8" id="search">
+                    <input type="text" autocomplete="off" name="query" id="searchbox" class="placeholder" placeholder="Nick or Full Name" />
+                    <label id="label-search" for="search"><i class="mdi-action-search"></i></label>
+                </form>
+            </div>
+            
+        </div>
+    </nav>
+</div>

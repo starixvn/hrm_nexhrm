@@ -1,0 +1,13 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.ViewModels.Common
+@model DropdownRenderViewModel
+
+<select id="@Model.Name" name="@Model.Name">
+        @{
+            foreach (DateRangeFilter dateRange in (DateRangeFilter[])Enum.GetValues(typeof(DateRangeFilter)))
+            {
+                var value = (int)dateRange;
+                <option value="@Model.SelectedValue" selected="@(value == Model.SelectedValue)">@Utilities.GetDescription(dateRange)</option>
+            }
+        }
+</select>

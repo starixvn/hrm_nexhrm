@@ -1,5 +1,4 @@
-﻿
-namespace Fanex.NexHR.Services
+﻿namespace Fanex.NexHR.Services
 {
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Models;
@@ -13,8 +12,8 @@ namespace Fanex.NexHR.Services
 
         public SessionService(IHttpContextAccessor httpContextAccessor)
         {
-            this.session = httpContextAccessor.HttpContext.Session;
             this.httpContextAccessor = httpContextAccessor;
+            this.session = httpContextAccessor.HttpContext.Session;
         }
 
         public Employee CurrentEmployee

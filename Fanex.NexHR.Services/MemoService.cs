@@ -1,29 +1,28 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Text;
     using Core;
     using Criteria.Memo;
     using Interfaces;
     using Microsoft.AspNetCore.Hosting;
     using Models.Memo;
     using Resources;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Net;
 
     public class MemoService : BaseService, IMemoService
     {
         private readonly IEmailService emailService;
         private readonly IWebHostEnvironment environment;
-        private const string Email = "Email";
-        private readonly string CompanyMailSign = ConfigurationManager.AppSettings["CompanyMailSign"];
+        private readonly AppSetting appSettings;
 
-        public MemoService(IEmailService emailService, IWebHostEnvironment environment)
+        public MemoService(IEmailService emailService, IWebHostEnvironment environment, AppSetting appSettings)
         {
             this.emailService = emailService;
             this.environment = environment;
+            this.appSettings = appSettings;
         }
 
         public IList<Memo> GetAll(GetAllMemoCriteria criteria)
@@ -61,28 +60,29 @@
 
         public void SendMail(string subject, string memoId)
         {
-            var groupSd = ConfigurationManager.AppSettings["EmailSD"];
-            var groupGo = ConfigurationManager.AppSettings["EmailGo"];
-            var groupNetwork = ConfigurationManager.AppSettings["EmailNetwork"];
+            var groupSd = appSettings.EmailSD;
+            var groupGo = appSettings.EmailGo;
+            var groupNetwork = appSettings.EmailNetwork;
 
             var emailTemplatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForMemoNotification);
             var bodyTemplate = Utilities.ReadTextFile(emailTemplatePath);
+            string companyMailSign = appSettings.CompanyMailSign;
 
-            var body = string.Format(bodyTemplate, subject, AppSetting.BaseUrl + "memo/detail/" + memoId, CompanyMailSign, ConfigurationManager.AppSettings["CompanyMailSign"]);
+            var body = string.Format(bodyTemplate, subject, appSettings.BaseUrl + "memo/detail/" + memoId, companyMailSign, appSettings.CompanyMailSign);
             emailService.SendEmail(
-                ConfigurationManager.AppSettings[Email],
+                appSettings.Email,
                 groupGo,
                 string.Empty,
                 Messages.MemoSubject + " " + subject,
                 body);
             emailService.SendEmail(
-               ConfigurationManager.AppSettings[Email],
+               appSettings.Email,
                groupSd,
                string.Empty,
                Messages.MemoSubject + " " + subject,
                body);
             emailService.SendEmail(
-               ConfigurationManager.AppSettings[Email],
+               appSettings.Email,
                groupNetwork,
                string.Empty,
                Messages.MemoSubject + " " + subject,

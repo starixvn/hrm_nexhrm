@@ -1,21 +1,21 @@
 ﻿@using Fanex.NexHR.Core;
-
+@inject AppSetting settings;
 <!DOCTYPE html>
 <html xml:lang="en" lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>@AppSetting.HRMName - @ViewBag.Title</title>
+    <title>@settings.HRMName - @ViewBag.Title</title>
     <meta name="viewport" content="width=device-width" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-   @* @Styles.Render("~/Content/sitecss")
-    @RenderSection("css", false)*@
+    <link rel="stylesheet" href="~/minify/css/site.min.css" asp-append-version="true">
+    @RenderSection("Styles", false)
 </head>
 <body class="locale_en production">
     <header>
-       @* @Html.Action("Header", "UI")
+        @(await Component.InvokeAsync("Header"))
         <ul id="nav-mobile" class="side-nav fixed">
-            @Html.Action("NavBar", "UI")
-        </ul>*@
+            @(await Component.InvokeAsync("Navbar"))
+        </ul>
     </header>
     <main>
         <section id="section_content">
@@ -47,12 +47,12 @@
     <footer></footer>
     <div id="message">
     </div>
-    @*<script type="text/javascript">
-        var isHRRole = '@Roles.IsUserInRole("HR")' === 'True';
-    </script>*@
-    @*@Scripts.Render("~/bundles/sitejs")
-    @RenderSection("js", false)
-    @Html.Action("GlobalScript", "UI")*@
+    <script type="text/javascript">
+        var isHRRole = true;
+    </script>
+    @(await Component.InvokeAsync("GlobalScripts"))
+    <script src="~/minify/js/site.min.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", false)
 </body>
 </html>
 

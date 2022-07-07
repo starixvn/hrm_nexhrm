@@ -1,0 +1,473 @@
+@import '../Common/utils/mixins';
+@import '../Common/utils/variables';
+@import 'monthPicker';
+
+.datagrid-wrap {
+    width: 976px;
+    height: 600px;
+
+    @media (min-width: 1360px) {
+        width: 1036px;
+    }
+
+    @media (min-width: 1900px) {
+        width: 1616px;
+    }
+
+    .datagrid-view {
+        width: 100%;
+        height: 580px;
+
+        .datagrid-view1 {
+            width: 30%;
+
+            td {
+                padding: 0;
+
+                div {
+                    height: 30px;
+                    line-height: 30px;
+                }
+            }
+
+            .datagrid-header {
+                width: 100%;
+
+                .datagrid-header-inner {
+                    color: #fff;
+
+                    table tbody {
+                        td {
+                            border-left: 1px solid #4d5568;
+                            border-bottom: 1px solid #4d5568;
+
+                            &.rownumber {
+                                width: 26px;
+
+                                @media (min-width: 1900px) {
+                                    width: 43px;
+                                }
+                            }
+
+                            &.rowfullname {
+                                width: 189px;
+
+                                @media (min-width: 1900px) {
+                                    width: 315px;
+                                }
+
+                                @media (max-width: $medium-screen-up) {
+                                    width: auto;
+                                }
+                            }
+                        }
+
+                        tr:first-child {
+                            background: #353c4e;
+                        }
+
+                        tr:last-child {
+                            background: #3c4355;
+                        }
+                    }
+                }
+            }
+
+            .datagrid-body {
+                width: 100%;
+                height: 500px;
+
+                @media (max-width: $medium-screen-up) {
+                    height: 517px;
+                }
+
+                td {
+                    border-left: 1px solid $c-border-table;
+                    border-bottom: 1px solid $c-border-table;
+
+                    &:last-child {
+                        border-right: 1px solid $c-border-table;
+                    }
+                }
+            }
+        }
+
+        .datagrid-view2 {
+            width: 633px;
+            left: 30%;
+
+            @media (min-width: 1360px) {
+                width: 715px;
+            }
+
+            @media (min-width: 1900px) {
+                width: 1084px;
+            }
+
+            td {
+                padding: 0;
+
+                div {
+                    width: 40px;
+                    height: 30px;
+                    text-align: center;
+                    line-height: 30px;
+                }
+            }
+
+            .datagrid-header {
+                width: 616px;
+                overflow: hidden;
+
+                @media (min-width: 1360px) {
+                    width: 698px;
+                }
+
+                @media (min-width: 1900px) {
+                    width: 1067px;
+                }
+
+                @media (max-width: $medium-screen-up) {
+                    width: auto;
+                }
+
+                .datagrid-header-inner {
+                    color: #fff;
+
+                    td {
+                        border-left: 1px solid #4d5568;
+                        border-bottom: 1px solid #4d5568;
+                    }
+
+                    table tbody {
+                        tr:first-child {
+                            background: #353c4e;
+                        }
+
+                        tr:last-child {
+                            background: #3c4355;
+                        }
+                    }
+                }
+            }
+
+            .datagrid-body {
+                width: 100%;
+                height: 517px;
+
+                tr {
+                    &:hover {
+                        background: #f4d1c0;
+                    }
+                }
+
+                td {
+                    border-left: 1px solid $c-border-table;
+                    border-bottom: 1px solid $c-border-table;
+                }
+
+                tr:hover {
+                    background-color: #f4d1c0;
+                }
+            }
+        }
+    }
+}
+
+.datagrid-wrap {
+    position: relative;
+
+    .datagrid-view {
+        position: relative;
+        overflow: hidden;
+
+        .datagrid-view1 {
+            position: absolute;
+            overflow: hidden;
+            left: 0;
+            top: 0;
+
+            .datagrid-body {
+                overflow: hidden;
+            }
+        }
+
+        .datagrid-view2 {
+            position: absolute;
+            overflow: hidden;
+            top: 0;
+        }
+    }
+}
+
+#colordef .grid_2 {
+    height: 30px;
+    width: 60px;
+    display: inline-block;
+    margin-right: 5px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.datagrid-body {
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    zoom: 1;
+
+    table {
+        tbody > tr {
+            &:nth-child(odd) {
+                background: #ededed;
+            }
+        }
+    }
+}
+
+#addform {
+    input[type="checkbox"] {
+        position: relative;
+        left: 0;
+        visibility: visible;
+        margin-top: 8px;
+    }
+}
+
+.column-checkinout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    input {
+        margin: 0 !important;
+    }
+
+    span {
+        padding-right: 5px;
+    }
+}
+
+@media only screen and (max-width: $medium-screen-up) {
+    #list-timesheet {
+        overflow: auto;
+    }
+
+    .my-attendance {
+        .card-content {
+            padding-top: 0.5rem;
+        }
+
+        .card-body {
+            .form {
+                margin-top: 1.5rem;
+                margin-bottom: 0;
+
+                .form-filter {
+                    .form-input {
+                        display: block;
+
+                        .col {
+                            padding: 0;
+                            display: -webkit-box;
+                            display: -ms-flexbox;
+                            display: flex;
+                            width: 100%;
+                            margin-bottom: 2rem;
+
+                            &:nth-child(2) {
+                                -webkit-box-pack: justify;
+                                -ms-flex-pack: justify;
+                                justify-content: space-between;
+                            }
+
+                            .label--s {
+                                width: 4.7rem;
+
+                                label {
+                                    color: #333333;
+                                    font-size: 1.2rem;
+                                    margin-top: 0.7rem;
+                                }
+                            }
+
+                            .select--m {
+                                width: auto;
+                                float: none !important;
+                                flex: 1;
+                                padding: 0 13px 0 0;
+                                max-width: 300px;
+
+                                .monpickr-wrap-parent {
+                                    flex: 1;
+                                    width: auto !important;
+
+                                    .monpickr-wrap {
+                                        position: relative !important;
+                                    }
+
+                                    #monthPickr {
+                                        width: auto !important;
+                                    }
+                                }
+
+                                .monpickr-arrows {
+                                    padding: 0;
+                                    width: auto !important;
+                                    display: -webkit-box;
+                                    display: -ms-flexbox;
+                                    display: flex;
+
+                                    .monpickr-prev, .monpickr-next {
+                                        top: 0;
+                                        margin: 0;
+                                        position: relative;
+
+                                        .ui-icon.ui-icon-circle-triangle-e {
+                                            &:after {
+                                                line-height: 32px;
+                                                padding-left: 7px;
+                                            }
+                                        }
+
+                                        .ui-icon.ui-icon-circle-triangle-w {
+                                            &:after {
+                                                line-height: 32px;
+                                                padding-left: 7px;
+                                            }
+                                        }
+
+                                        span {
+                                            background: #78828C;
+                                        }
+                                    }
+
+                                    .monpickr-selected-month {
+                                        margin: 0;
+                                        height: 3.2rem;
+                                        -webkit-box-sizing: border-box;
+                                        box-sizing: border-box;
+                                        flex: 1;
+                                        margin: 0 1.2rem;
+                                        width: 100% !important;
+                                        box-shadow: none !important;
+                                    }
+                                }
+
+                                .monpickr-wrap-parent .monpickr-wrap .monpickr.monpickr-arrows .monpickr-prev .ui-icon, .monpickr-wrap-parent .monpickr-wrap .monpickr.monpickr-arrows .monpickr-next .ui-icon {
+                                    width: 32px;
+                                    height: 32px;
+                                    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.16);
+                                    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.16);
+                                }
+                            }
+
+                            .btn-submit {
+                                margin: 0;
+                                height: 3.2rem;
+                                display: block;
+                                float: none;
+                                padding: 0;
+                                box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.16);
+                                -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.16);
+
+                                .waves-button-input {
+                                    height: auto;
+                                    padding: 0.8rem 1.5rem;
+                                    font-size: 1.2rem;
+                                    height: 3.2rem;
+                                }
+                            }
+
+                            a.btn-request {
+                                margin: 0;
+                                width: 46.4%;
+                                text-align: center;
+                                height: 32px;
+                                line-height: 32px;
+                                font-size: 1.2rem;
+                                background-color: #FF6721 !important;
+                                box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.16);
+                                -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.16);
+                            }
+                        }
+                    }
+                }
+            }
+
+            #list-timesheet {
+                padding: 0;
+                margin: 0 8px;
+
+                table {
+                    width: 900px;
+
+                    thead, tbody {
+                        tr {
+                            th, td {
+                                &:nth-child(2) {
+                                    -webkit-box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
+                                    -moz-box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
+                                    box-shadow: 4px 0px 0px 0px rgba(0, 0, 0, 0.08);
+                                    font-weight: 500;
+                                }
+                            }
+                        }
+                    }
+
+                    thead {
+                        tr {
+                            height: 35px !important;
+
+                            th {
+                                background-color: #343c4e;
+                                font-weight: 500;
+                                height: 35px !important;
+                            }
+                        }
+                    }
+
+                    tbody {
+                        tr:nth-child(odd) {
+                            td {
+                                background-color: #ededed;
+                            }
+                        }
+
+                        tr:nth-child(even) {
+                            td {
+                                background-color: #ffffff;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .form-filter {
+        padding: 0 8px;
+    }
+}
+@media only screen and (max-width: 374px) {
+    .my-attendance {
+        .card-body {
+            .form {
+                .form-filter {
+                    .form-input {
+                        .col {
+                            .select--m {
+                                padding-right: 5px;
+
+                                .monpickr-arrows {
+                                    .monpickr-selected-month{
+                                        margin: 0 5px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

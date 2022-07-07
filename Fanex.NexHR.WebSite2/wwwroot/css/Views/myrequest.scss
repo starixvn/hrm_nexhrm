@@ -1,0 +1,344 @@
+@import '../Common/utils/mixins';
+@import "../Common/utils/variables";
+
+.text-legend {
+    padding-bottom: 14px;
+    color: #5f5e67;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.select-time {
+    width: 6rem;
+}
+
+.tipsy {
+    &.leave-request {
+        .tipsy-inner {
+            max-width: none;
+            font-size: 1.3rem;
+            text-align: left;
+            line-height: 2.2rem;
+            @include css3(box-shadow, 0 1px 2px 2px rgba(0, 0, 0, 0.1));
+        }
+
+        .tipsy-arrow {
+            border: none;
+        }
+    }
+
+    &.leave-request {
+        max-width: 50rem;
+        opacity: 1 !important;
+
+        .tipsy-inner {
+            color: #4f4f4f;
+            background: #fff9c4;
+
+            ul {
+                padding-left: 2rem;
+                list-style-type: disc;
+
+                li {
+                    list-style-type: disc;
+                }
+
+                ul {
+                    list-style-type: circle;
+
+                    li {
+                        list-style-type: circle;
+                    }
+                }
+            }
+        }
+    }
+
+    &.warning {
+        .tipsy-inner {
+            max-width: none;
+            font-size: 1.3rem;
+            text-align: left;
+            line-height: 2.2rem;
+            @include css3(box-shadow, 0 1px 2px 2px rgba(0, 0, 0, 0.1));
+        }
+
+        .tipsy-arrow {
+            border: none;
+        }
+    }
+
+    &.warning {
+        max-width: 40rem;
+        opacity: 1 !important;
+
+        .tipsy-inner {
+            color: black;
+            background: #EED202;
+
+            ul {
+                padding-left: 2rem;
+                list-style-type: disc;
+
+                li {
+                    list-style-type: disc;
+                }
+
+                ul {
+                    list-style-type: circle;
+
+                    li {
+                        list-style-type: circle;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.form-input .col .left.block-time {
+    display: flex;
+}
+
+// update css mobile
+@media only screen and (max-width: $medium-screen-up) {
+    [type="radio"]:not(:checked) + label:before {
+        border: 2px solid #989898;
+    }
+
+    [type="radio"].with-gap:checked + label:after {
+        border: 2px solid #989898;
+        background-color: #989898;
+    }
+
+    [type="radio"].with-gap:checked + label:before {
+        border: 2px solid #989898;
+    }
+
+    .form-input label {
+        color: #989898;
+    }
+
+    .card-container-base.my-request, .card-container-base.my-check-in-out {
+        .card-content {
+            padding: .6rem .8rem .8rem;
+        }
+
+        &.lateearly {
+            .list-item-form.style-over {
+                margin-top: 20px;
+
+                .form-input.line-button {
+                    margin-top: 19px;
+                }
+            }
+
+            #listLateEarly {
+                margin: 0 !important;
+            }
+        }
+
+        .list-item-form {
+            margin-top: 0.9rem;
+            margin-bottom: 2.4rem;
+
+            &.style-over {
+                margin-top: 1.2rem;
+
+                .form-input {
+                    .col {
+                        .left {
+                            &:nth-child(1) {
+                                width: 92px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .form-create-update {
+                ul {
+                    margin: 0;
+                }
+            }
+
+            .form-input {
+                padding: 0 8px;
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+
+                &[class*="m-t"] {
+                    margin: 0;
+                }
+
+                &.line-button {
+
+                    .left {
+                        float: none !important;
+                        display: -webkit-box;
+                        display: -ms-flexbox;
+                        display: flex;
+
+                        .btn-back, .btn-submit input {
+                            font-size: 1.2rem;
+                            height: 3.2rem;
+                        }
+
+                        .btn-back, .btn-submit {
+                            height: 3.2rem;
+                            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.16);
+                        }
+                    }
+                }
+
+                label {
+                    margin-top: 10px;
+                }
+
+                .col {
+                    display: -webkit-box;
+                    display: -ms-flexbox;
+                    display: flex;
+                    padding: 0;
+                    margin: 0;
+                    width: 100%;
+
+                    &:nth-child(2) {
+                        width: 108px;
+                        padding-left: 8px;
+                    }
+
+                    .left {
+                        float: none !important;
+
+                        &:nth-child(1) {
+                            width: 79px;
+
+                            label {
+                                color: #333333;
+                            }
+
+                            &.text-legend {
+                                width: 100%;
+                                font-size: 1.4rem;
+                                line-height: 2rem;
+                                font-weight: 500;
+                                padding-bottom: 1.5rem;
+                            }
+                        }
+
+                        &:nth-child(2) {
+                            flex: 1;
+                        }
+
+                        &.input--m {
+                            label {
+                                margin: 7px 0 12px 3px;
+
+                                &:after {
+                                    width: 18px;
+                                    height: 18px;
+                                }
+
+                                &:before {
+                                    top: 1px;
+                                    left: 1px;
+                                }
+                            }
+                        }
+
+                        input[type="text"], textarea, input[type=number] {
+                            box-sizing: border-box;
+                            box-shadow: none;
+                        }
+
+                        input[type="text"] {
+                            height: 3.2rem;
+                            line-height: 3.2rem;
+                            padding: .4rem 0 0 .7rem !important;
+                            margin-bottom: 1.2rem;
+                        }
+
+                        textarea {
+                            height: 10rem !important;
+                            padding: 0.5rem !important;
+                        }
+
+                        &.checkInOut {
+                            .radioButton {
+                                padding-top: 0.4rem;
+
+                                [type="radio"].with-gap:checked + label:after {
+                                    background-color: #828282;
+                                }
+
+                                [type="radio"].with-gap:checked + label:before, [type="radio"]:not(:checked) + label:before {
+                                    border-color: #828282;
+                                }
+                            }
+                        }
+
+                        &.block-time {
+                            display: block;
+
+                            .datepicker-button {
+                                width: 100%;
+                            }
+
+                            .box-time {
+
+                                .col {
+                                    &:nth-child(2) {
+                                        width: 20px;
+
+                                        .colon {
+                                            text-align: center;
+                                            width: 100%;
+                                        }
+                                    }
+
+                                    &:nth-child(1), &:nth-child(3) {
+                                        width: 40px;
+
+                                        input {
+                                            height: 3.2rem;
+                                            margin-bottom: 1rem;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .datepicker-button {
+                        i.calendar-icon {
+                            right: .8rem;
+                            color: #828282;
+                            margin-right: 0;
+                        }
+                    }
+
+                    .select-wrapper {
+                        input.select-dropdown {
+                            margin-bottom: 1.2rem;
+                        }
+                    }
+                }
+            }
+        }
+
+        .form-update {
+            .form-input {
+                .col {
+                    .left {
+                        &:nth-child(2):not(i) {
+                            margin-bottom: 0.7rem;
+                            margin-top: 0.5rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

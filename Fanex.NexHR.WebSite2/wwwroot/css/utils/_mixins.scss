@@ -1,0 +1,14 @@
+﻿@mixin css3 ($css3, $value) {
+    -webkit-#{$css3}: $value;
+    -moz-#{$css3} : $value;
+    -ms-#{$css3}: $value;
+    #{$css3}: $value;
+}
+
+@mixin validation-block($c-bg, $c-color, $c-border, $padding) {
+	margin: 1rem 0.8rem 1.6rem;
+    padding: $padding;	
+    background: $c-bg;
+    color: $c-color;
+    border: 1px solid $c-border;
+}

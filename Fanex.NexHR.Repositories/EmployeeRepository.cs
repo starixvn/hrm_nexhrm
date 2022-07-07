@@ -125,7 +125,7 @@
                          w.Employee = e;
                          return w;
                      },
-                     "EmpId",
+                     splitOn: "Id",
                      parameterSet: criteria);
 
                 return entityList.ToList();
