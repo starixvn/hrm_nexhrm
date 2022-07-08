@@ -25,7 +25,10 @@
   <ItemGroup>
     <PackageReference Include="Fanex.Data" Version="4.2.2" />
     <PackageReference Include="Fanex.Data.Repository" Version="4.2.2" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.13.0.21683" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.41.0.50478">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.330701">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

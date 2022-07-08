@@ -9,19 +9,15 @@
 
 namespace Fanex.NexHR.Core
 {
-    using Enums;
-    using Model;
-    using Resources;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using System.Security.Cryptography;
     using System.Text;
     using System.Text.RegularExpressions;
+    using Model;
 
     public static class Utilities
     {
@@ -44,8 +40,6 @@ namespace Fanex.NexHR.Core
                 return availableToDate;
             }
         }
-
-        
 
         public static DateTime AddTimeToDate(DateTime dateTime, string time)
         {
@@ -73,49 +67,49 @@ namespace Fanex.NexHR.Core
             }
         }
 
-        public static string RandomString(int length)
-        {
-            // returns random string of length specified with characters including: 0-9, a-z, A-Z
-            var ca = new char[length];
-            var random = new byte[length];
+        //public static string RandomString(int length)
+        //{
+        //    // returns random string of length specified with characters including: 0-9, a-z, A-Z
+        //    var ca = new char[length];
+        //    var random = new byte[length];
 
-            // RNGCryptoServiceProvider is an implementation of a random number generator.
-            using (var rng = new RNGCryptoServiceProvider())
-            {
-                rng.GetBytes(random); // The array is now filled with cryptographically strong random bytes.
+        //    // RNGCryptoServiceProvider is an implementation of a random number generator.
+        //    using (var rng = new RNGCryptoServiceProvider())
+        //    {
+        //        rng.GetBytes(random); // The array is now filled with cryptographically strong random bytes.
 
-                for (var i = 0; i < length; i++)
-                {
-                    var found = false;
-                    var rand = (int)random[i];
-                    const int min1 = 48;
-                    const int min2 = 65;
-                    const int min3 = 97;
-                    const int max1 = 57;
-                    const int max2 = 90;
-                    const int max3 = 122;
-                    while (!found)
-                    {
-                        if (rand.IsWithin(min1, max1) || rand.IsWithin(min2, max2) || rand.IsWithin(min3, max3))
-                        {
-                            found = true;
-                        }
-                        else
-                        {
-                            // get a new random int.
-                            var single = new byte[1];
-                            rng.GetBytes(single);
-                            rand = single[0];
-                        }
-                    }
+        //        for (var i = 0; i < length; i++)
+        //        {
+        //            var found = false;
+        //            var rand = (int)random[i];
+        //            const int min1 = 48;
+        //            const int min2 = 65;
+        //            const int min3 = 97;
+        //            const int max1 = 57;
+        //            const int max2 = 90;
+        //            const int max3 = 122;
+        //            while (!found)
+        //            {
+        //                if (rand.IsWithin(min1, max1) || rand.IsWithin(min2, max2) || rand.IsWithin(min3, max3))
+        //                {
+        //                    found = true;
+        //                }
+        //                else
+        //                {
+        //                    // get a new random int.
+        //                    var single = new byte[1];
+        //                    rng.GetBytes(single);
+        //                    rand = single[0];
+        //                }
+        //            }
 
-                    var ci = (char)rand;
-                    ca[i] = ci;
-                }
+        //            var ci = (char)rand;
+        //            ca[i] = ci;
+        //        }
 
-                return new string(ca).ToLower(CultureInfo.InvariantCulture);
-            }
-        }
+        //        return new string(ca).ToLower(CultureInfo.InvariantCulture);
+        //    }
+        //}
 
         public static bool IsWithin(this int value, int minimum, int maximum)
         {
