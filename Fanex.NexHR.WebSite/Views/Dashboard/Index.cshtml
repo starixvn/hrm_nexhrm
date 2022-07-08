@@ -1,5 +1,6 @@
-﻿@model MySpaceViewModel
-
+﻿@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels
+@model MySpaceViewModel
 
 @{
     ViewBag.Title = "Dashboard";
@@ -8,19 +9,32 @@
     var isCheckInOnline = @Model.IsHavePrivilegeCreateCheckInOutRecord;
     var isCheckOutOnline = @Model.IsHavePrivilegeCreateCheckInOutRecord;
 }
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/dashboard.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/contextmenu.min.css" asp-append-version="true">
 
-@section css
-{
-    @Styles.Render("~/Content/dashboardcss", "~/Content/contextmenucss")
 }
-
-@section js
-{
-
-    @Scripts.Render("~/bundles/dashboardjs")
-    @Scripts.Render("~/bundles/apiclientcalendarjs")
-    @Scripts.Render("~/bundles/contextmenujs")
-
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Libs/slick.min.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Dashboard/employee.dashboard.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Dashboard/teamattendance.js" asp-append-version="true"></script>
+        <script src="~/js/Libs/moment.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Dashboard/calendar.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Dashboard/googleAPI.js" asp-append-version="true"></script>
+        <script src="~/minify/js/apiclientcalendarjs.min.js" asp-append-version="true"></script>
+        <script src="~/js/Libs/CustomScrollbar/jquery.mCustomScrollbar.concat.min.js" asp-append-version="true"></script>
+        <script src="~/js/Libs/fullcalendar.js" asp-append-version="true"></script>
+        <script src="~/js/Libs/gcal.js" asp-append-version="true"></script>
+        <script src="~/minify/js/contextmenu.min.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/dashboard.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/apiclientcalendarjs.min.js" asp-append-version="true"></script>
+        <script src="~/js/Libs/fullcalendar.js" asp-append-version="true"></script>
+        <script src="~/js/Libs/gcal.js" asp-append-version="true"></script>
+        <script src="~/minify/js/contextmenu.min.js" asp-append-version="true"></script>
+    </environment>
 }
 
 <div class="row">
@@ -121,7 +135,7 @@
                         <div class="slide-content">
                             <a class="white-text noEvent" href="@Url.Action("Birthday", "Employee", new {month = DateTime.Now.Month})">
                                 <div class="col s3">
-                                    <img class="circle" alt="" src="~/Content/Images/Dashboard/@MySpaceViewModel.RandomPictureName" />
+                                    <img class="circle" alt="" src="~/Images/Dashboard/@MySpaceViewModel.RandomPictureName" />
                                 </div>
                                 <div class="col s9 center detail">
                                     <span>Birthday in @DateTime.Now.ToString("MMMM")!</span>
@@ -171,7 +185,7 @@
                             {
                                 <div class="slide-content">
                                     <div class="col s3">
-                                        <img class="circle" alt="" src="~/Content/Images/Dashboard/@MySpaceViewModel.RandomPictureName" />
+                                        <img class="circle" alt="" src="~/Images/Dashboard/@MySpaceViewModel.RandomPictureName" />
                                     </div>
                                     <a class="white-text" href="@Url.Action("Detail", "CompanyEvent", new { id = item.Id })">
                                         <div class="col s9 center detail">
@@ -315,7 +329,7 @@
                 <div class="card">
                     <div id="calendar" class="dashboardCalendar">
                         <div class="authenGoogle" id="authenGoogle" style="display:none">
-                            <p class="center img"><img src="~/Content/Images/ic_google.png" /></p>
+                            <p class="center img"><img src="~/Images/ic_google.png" /></p>
                             <p class="center text">Sign in to Google to get calendar</p>
                             <p class="center button">
                                 <a class="btn-signin waves-effect waves-light" href="javascript:;" id="btnAuthen" onclick="handleAuthClick()">

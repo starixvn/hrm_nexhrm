@@ -1,5 +1,9 @@
 ﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.Services
+@using Fanex.NexHR.ViewModels
 @model ToDoViewModel
+@inject AppSetting settings;
 @if ((Model.MissingCheckInOutList.Count == 0) && (Model.PendingRequestsList.Count == 0) && (Model.InProgressTasks.Count == 0) && Model.ForgotLogtimeDates.Count == 0)
 {
     <p class="green-border">
@@ -91,7 +95,7 @@
     {
         <p class="red-border tasks">
             @{
-                var href = string.Format("{0}issues/{1}", AppSetting.RedmineBaseUrl, issue.IssueId);
+                var href = string.Format("{0}issues/{1}", settings.RedmineBaseUrl, issue.IssueId);
                 var dueDate = issue.DueDate.HasValue ? issue.DueDate.Value.ToString("dd MMM, yyyy") : string.Empty;
                 var startDate = issue.StartDate.HasValue ? issue.StartDate.Value.ToString("dd MMM, yyyy") : string.Empty;
 
@@ -130,7 +134,7 @@
         </span>
         @foreach (var date in Model.ForgotLogtimeDates)
         {
-            <a href="@AppSetting.RedmineBaseUrl" target="_blank" class="redmine-date"><span class="req leave">@date.ToString("dd MMM, yyyy")</span></a>
+            <a href="@settings.RedmineBaseUrl" target="_blank" class="redmine-date"><span class="req leave">@date.ToString("dd MMM, yyyy")</span></a>
         }
     </p>
 }

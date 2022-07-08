@@ -7,13 +7,10 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Welcome to LumiHRM</title>
-    @Styles.Render("~/Content/Views/login.min.css")
+    <link href="~/css/Login.min.css" rel="stylesheet" />
 
    
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <script src="~/Scripts/Libs/jquery-2.1.4.min.js"></script>
-    <script src="~/Scripts/Libs/jquery.validate.min.js"></script>
-    <script src="~/Scripts/Libs/jquery.validate.unobtrusive.min.js"></script>
 </head>
 <body>
     <div class="login">
@@ -21,39 +18,39 @@
             <div class="container">
                 <div class="login__flex">
                     <div class="login__left">
-                        <img src="~/Content/Images/leftLogin.png" alt="leftLogo" class="img-res" />
+                        <img src="~/Images/leftLogin.png" alt="leftLogo" class="img-res" />
                     </div>
                     <div class="login__form">
-                        @using (Html.BeginForm())
-                        {
+                        <form method="post" asp-route-returnUrl="~">
                             <div class="login__logo">
-                                <img src="~/Content/Images/LogoLuminet.svg" alt="logo" class="img-res" />
+                                <img src="~/Images/LogoLuminet.svg" alt="logo" class="img-res" />
                             </div>
-                            @Html.AntiForgeryToken()
-                            @Html.ValidationMessage("errorSummary", new { @class = "textdanger" })
+                            @*<span asp-validation-for="" class="textdanger"></span>*@
                             <div class="material-textfield">
-
-                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "custom-input", placeholder = " " } })
-                                @Html.LabelFor(model => model.UserName)
-                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "textdanger" })
+                                <input type="text" asp-for="UserName" class="custom-input" , placeholder=" ">
+                                <label asp-for="UserName"></label>
+                                <span asp-validation-for="UserName" class="textdanger"></span>
                             </div>
                             <div class="material-textfield">
-                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "custom-input", placeholder = " ", @type = "password" } })
-                                @Html.LabelFor(model => model.Password)
-                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "textdanger" })
+                                <input type="password" asp-for="Password" class="custom-input" , placeholder=" ">
+                                <label asp-for="Password"></label>
+                                <span asp-validation-for="Password" class="textdanger"></span>
                             </div>
                             <div class="custom-check">
-                                @Html.EditorFor(model => model.RememberMe, new { htmlAttributes = new { @class = "styled-checkbox" } })
-                                @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "form-check-label" })
+                                <input type="checkbox" asp-for="RememberMe" class="styled-checkbox">
+                                <label asp-for="RememberMe" class="form-check-label"></label>
                             </div>
                             <div class="login__btn">
                                 <input type="submit" class="btn btn-success submit-form" value="Login">
                             </div>
-                        }
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 </body>
 </html>

@@ -1,4 +1,5 @@
-﻿@model Fanex.NexHR.Models.RedmineAPI.LogTimeIssue
+﻿@using Fanex.NexHR.Core.Enums
+@model Fanex.NexHR.Models.RedmineAPI.LogTimeIssue
 
 <form id="formLogtime" class="form">
 
@@ -9,7 +10,7 @@
             @Html.LabelFor(model => model.SpentOn)
         </div>
         <div class="left datepicker-button select--m">
-            @Html.DatePickerFor(model => model.SpentOn, maxDate: DateTime.Now)
+            <date-picker name="SpentOn" max-date="DateTime.Now" value="DateTime.Now"></date-picker>
             <i class="mdi-action-event calendar-icon left"></i>
             <p class="bold total-hour-message"></p>
             @Html.ValidationMessageFor(model => model.SpentOn)
@@ -31,7 +32,7 @@
             @Html.LabelFor(model => model.Activity)
         </div>
         <div class="left select--m">
-            @Html.EnumDropDownListFor(model => model.Activity)
+            <select asp-for="Activity" Id="Activity" name="Activity" asp-items="Html.GetEnumSelectList<RedmineLogTimeActivity>()"></select>
         </div>
     </div>
 

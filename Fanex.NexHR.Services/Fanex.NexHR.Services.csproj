@@ -98,6 +98,7 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="NCrontab" Version="3.3.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="5.0.0" />
     <PackageReference Include="RestSharp" Version="106.3.1" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.13.0.21683" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
