@@ -8,19 +8,24 @@
     using Fanex.NexHR.ViewModels;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authentication.Cookies;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Hosting;
+    using Novell.Directory.Ldap;
 
     public class AuthController : Controller
     {
         private readonly IAuthService authService;
         private readonly ISessionService sessionService;
+        private readonly IWebHostEnvironment webHostEnvironment;
         private readonly AppSetting appSetting;
 
-        public AuthController(IAuthService authService, ISessionService sessionService, AppSetting appSetting)
+        public AuthController(IAuthService authService, ISessionService sessionService, AppSetting appSetting, IWebHostEnvironment webHostEnvironment)
         {
             this.authService = authService;
             this.sessionService = sessionService;
             this.appSetting = appSetting;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet]
@@ -83,26 +88,31 @@
 
         private bool IsValidAccount(LoginModel model)
         {
-            //string userDn = $"{model.UserName}@{AppSetting.LDAP.Replace("\\", "")}";
-            //var isValid = false;
-            //using (var connection = new LdapConnection())
-            //{
-            //    connection.Connect(AppSetting.LDAP, LdapConnection.DefaultPort);
-            //    try
-            //    {
-            //        connection.Bind(userDn, model.Password);
-            //        if (connection.Bound)
-            //        {
-            //            isValid = true;
-            //        }
-            //    }
-            //    catch
-            //    {
-            //        isValid = false;
-            //    }
-            //}
+            if (webHostEnvironment.IsDevelopment())
+            {
+                return true;
+            }
 
-            return true;
+            string userDn = $"{model.UserName}@{appSetting.DomainName.Replace("\\", "")}";
+            var isValid = false;
+            using (var connection = new LdapConnection())
+            {
+                connection.Connect(appSetting.LdapUrl, LdapConnection.DefaultPort);
+                try
+                {
+                    connection.Bind(userDn, model.Password);
+                    if (connection.Bound)
+                    {
+                        isValid = true;
+                    }
+                }
+                catch
+                {
+                    isValid = false;
+                }
+            }
+
+            return isValid;
         }
 
         public ActionResult Logout()

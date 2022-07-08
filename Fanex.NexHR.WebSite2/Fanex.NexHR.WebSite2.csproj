@@ -309,16 +309,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Nagivation.sitemap" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Nagivation.sitemap">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="compilerconfig.json" />
     <None Include="wwwroot\avatars\avatar.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -864,6 +854,12 @@
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Navigation.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

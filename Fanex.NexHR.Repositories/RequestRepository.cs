@@ -1,17 +1,17 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
-    using Core.Attributes;
-    using Data;
-    using Data.Repository;
-    using Interfaces;
-    using Models;
-    using Models.Request;
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Globalization;
     using System.Linq;
     using System.Reflection;
+    using Core.Attributes;
+    using Data;
+    using Data.Repository;
+    using Interfaces;
+    using Models;
+    using Models.Request;
 
     public class RequestRepository : BaseRepository, IRequestRepository
     {
@@ -95,7 +95,7 @@
                 },
                 ModifiedDate = reader.GetDateTime(reader.GetOrdinal("ProcessedDate")),
                 FromShift = new Shift { Name = reader.GetString(reader.GetOrdinal("FromShift")) },
-                ToShift = new Shift { Name = reader.GetString(reader.GetOrdinal("ToShift"))},
+                ToShift = new Shift { Name = reader.GetString(reader.GetOrdinal("ToShift")) },
                 TotalMins = reader.GetInt32(reader.GetOrdinal("TotalMins")),
                 FromDate = reader.GetDateTime(reader.GetOrdinal("FromDate")),
                 ToDate = reader.GetDateTime(reader.GetOrdinal("ToDate")),

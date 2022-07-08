@@ -1,5 +1,11 @@
 ﻿@using Fanex.NexHR.Core;
+@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Services.Interfaces
 @inject AppSetting settings;
+@inject ISessionService sessionService;
+@{
+    var isHR = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+}
 <!DOCTYPE html>
 <html xml:lang="en" lang="en">
 <head>
@@ -48,7 +54,7 @@
     <div id="message">
     </div>
     <script type="text/javascript">
-        var isHRRole = true;
+        var isHRRole = '@isHR' === "True";
     </script>
     @(await Component.InvokeAsync("GlobalScripts"))
     <script src="~/minify/js/site.min.js" asp-append-version="true"></script>

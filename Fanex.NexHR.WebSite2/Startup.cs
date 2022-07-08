@@ -31,7 +31,7 @@
                .UseDefaultDbSettingProvider(resourcePath: $"~/App_Data/SpNames.xml")
                .Run();
 
-            DIExtensions.RegisterServices(services);
+            services.RegisterServices();
 
             var appSettings = Configuration.GetSection("AppSettings").Get<AppSetting>();
             services.AddSingleton(appSettings);

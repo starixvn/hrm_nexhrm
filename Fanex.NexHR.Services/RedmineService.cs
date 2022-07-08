@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
@@ -12,6 +13,7 @@
     using Core.Enums;
     using Criteria.Employee;
     using Criteria.RedmineAPI;
+    using Fanex.Data;
     using Interfaces;
     using Models;
     using Models.RedmineAPI;
@@ -20,21 +22,14 @@
 
     public class RedmineService : BaseService, IRedmineService
     {
-        private const int startIndex = 5;
         private readonly AppSetting appSetting;
-        private readonly string apiDateTimeFormat = "yyyy-MM-dd";
-        private readonly string getCurrentUserUrl;
-        private readonly string getInprogessTasksUrl;
-        private readonly string logtimeToIssueUrl;
-        private readonly string getTimeEntriesUrl;
+        private readonly HttpClient httpClient;
+        private const string apiDateTimeFormat = "yyyy-MM-dd";
 
-        public RedmineService(AppSetting appSetting)
+        public RedmineService(AppSetting appSetting, IHttpClientFactory httpClientFactory)
         {
             this.appSetting = appSetting;
-            getCurrentUserUrl = appSetting.RedmineBaseUrl + "/users/{0}.json?offset=0&limit=100";
-            getInprogessTasksUrl = appSetting.RedmineBaseUrl + "issues.json?assigned_to_id={0}&status_id=" + (int)RedmineIssueStatus.InProgress + "&offset=0&limit=100";
-            logtimeToIssueUrl = appSetting.RedmineBaseUrl + "time_entries.json?key={0}";
-            getTimeEntriesUrl = appSetting.RedmineBaseUrl + "time_entries.json?user_id={0}&spent_on=><{1}|{2}&offset=0&limit=100";
+            httpClient = httpClientFactory.CreateClient();
         }
 
         private int GetCurrentRedmineId(string loginName)
@@ -51,40 +46,31 @@
             return redmineId;
         }
 
-        private HttpClient AuthorizeRequestHeader()
+        private HttpRequestMessage CreateRequest(string endPointPath, HttpMethod method)
         {
-            var authValue = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{appSetting.RedmineSecret}")));
-
-            var client = new HttpClient
-            {
-                DefaultRequestHeaders = { Authorization = authValue }
-            };
-
-            return client;
+            Uri url = new($"{appSetting.RedmineBaseUrl}{endPointPath}");
+            var request = new HttpRequestMessage(method, url);
+            string secret = Cryptography.DecryptPassword(appSetting.RedmineSecret);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{secret}")));
+            return request;
         }
 
         private async Task<string> GetCurrentRedmineUser(string domainName)
         {
-            HttpClient client = AuthorizeRequestHeader();
             int currentId = GetCurrentRedmineId(domainName);
-            var url = new Uri(string.Format(getCurrentUserUrl, currentId));
-            HttpResponseMessage response = await client.GetAsync(url).ConfigureAwait(false);
 
+            var request = CreateRequest(string.Format("/users/{0}.json?offset=0&limit=100", currentId), HttpMethod.Get);
+
+            using var response = await httpClient.SendAsync(request);
             var apiKey = string.Empty;
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                //JavaScriptSerializer jss = new JavaScriptSerializer();
-                //var obj = jss.Deserialize<dynamic>(json);
-
-                //apiKey = obj["user"]["api_key"];
+                var json = await response.Content.ReadAsStringAsync();
+                var obj = JsonConvert.DeserializeObject<dynamic>(json);
+                apiKey = obj["user"]["api_key"];
             }
-            return apiKey;
-        }
 
-        private static string GetLoginNameByDomainName(string domainName)
-        {
-            return domainName.Substring(startIndex);
+            return apiKey;
         }
 
         public async Task<IList<RedmineIssue>> GetInProgressIssues(string domainName)
@@ -92,55 +78,66 @@
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-            HttpClient client = AuthorizeRequestHeader();
-            int currentId = GetCurrentRedmineId(GetLoginNameByDomainName(domainName));
-            var url = new Uri(string.Format(getInprogessTasksUrl, currentId));
-            HttpResponseMessage response = await client.GetAsync(url).ConfigureAwait(false);
+            int currentId = GetCurrentRedmineId(domainName);
+
+            string endpoint = string.Format("issues.json?assigned_to_id={0}&status_id={1}&offset=0&limit=100",
+                            currentId,
+                            (int)RedmineIssueStatus.InProgress);
+            var request = CreateRequest(endpoint, HttpMethod.Get);
+
+            using var response = await httpClient.SendAsync(request);
 
             var tasks = new List<RedmineIssue>();
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                //var jss = new JavaScriptSerializer();
-                //var obj = jss.Deserialize<dynamic>(json);
-
-                //foreach (var issue in obj["issues"])
-                //{
-                //    var issueRemine = new RedmineIssue
-                //    {
-                //        IssueId = (int)issue["id"],
-                //        Subject = issue["subject"],
-                //        Description = issue["description"],
-                //        ProjectName = issue["project"]["name"],
-                //        Priority = issue["priority"]["name"],
-                //        Tracker = issue["tracker"]["name"],
-                //        Status = issue["status"]["name"],
-                //        CreatedBy = issue["author"]["name"],
-                //        Assignee = issue.ContainsKey("assigned_to") ? issue["assigned_to"]["name"] : string.Empty
-                //    };
-
-                //    if (issue.ContainsKey("start_date"))
-                //    {
-                //        issueRemine.StartDate = DateTime.ParseExact(issue["start_date"], apiDateTimeFormat, CultureInfo.InvariantCulture);
-                //    }
-
-                //    if (issue.ContainsKey("due_date"))
-                //    {
-                //        issueRemine.DueDate = DateTime.ParseExact(issue["due_date"], apiDateTimeFormat, CultureInfo.InvariantCulture);
-                //    }
-
-                //    tasks.Add(issueRemine);
-                //}
+                var json = await response.Content.ReadAsStringAsync();
+                GenerateTaskList(tasks, json);
             }
             return tasks.OrderByDescending(x => x.Priority).ToList();
         }
 
+        private static void GenerateTaskList(List<RedmineIssue> tasks, string json)
+        {
+            var obj = JsonConvert.DeserializeObject<dynamic>(json);
+
+            foreach (var issue in obj["issues"])
+            {
+                var issueRemine = new RedmineIssue
+                {
+                    IssueId = (int)issue["id"],
+                    Subject = issue["subject"],
+                    Description = issue["description"],
+                    ProjectName = issue["project"]["name"],
+                    Priority = issue["priority"]["name"],
+                    Tracker = issue["tracker"]["name"],
+                    Status = issue["status"]["name"],
+                    CreatedBy = issue["author"]["name"],
+                    Assignee = issue.ContainsKey("assigned_to") ? issue["assigned_to"]["name"] : string.Empty
+                };
+
+                if (issue.ContainsKey("start_date"))
+                {
+                    string startDate = issue["start_date"];
+                    DateTime.TryParseExact(startDate, apiDateTimeFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parseStartDate);
+                    issueRemine.StartDate = parseStartDate.Year > 1 ? parseStartDate : null;
+                }
+
+                if (issue.ContainsKey("due_date"))
+                {
+                    string dueDate = issue["due_date"];
+                    DateTime.TryParseExact(dueDate, apiDateTimeFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parseDueDate);
+                    issueRemine.DueDate = parseDueDate.Year > 1 ? parseDueDate : null;
+                }
+
+                tasks.Add(issueRemine);
+            }
+        }
+
         public async Task<CommandResult> LogtimeToIssue(LogTimeIssue issue, string domainName)
         {
-            HttpClient client = new HttpClient();
             var result = new CommandResult();
+            var apiKey = await GetCurrentRedmineUser(domainName);
 
-            var apiKey = await GetCurrentRedmineUser(GetLoginNameByDomainName(domainName)).ConfigureAwait(false);
             if (string.IsNullOrEmpty(apiKey))
             {
                 result.Code = -1;
@@ -148,7 +145,8 @@
             }
             else
             {
-                var url = new Uri(string.Format(logtimeToIssueUrl, apiKey));
+                var url = string.Format("time_entries.json?key={0}", apiKey);
+                var request = CreateRequest(url, HttpMethod.Post);
 
                 var jsonData = "{\"time_entry\":" +
                     JsonConvert.SerializeObject(new
@@ -159,10 +157,9 @@
                         comments = issue.Comments,
                         activity_id = (int)issue.Activity
                     }) + "}";
+                request.Content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = await client.PostAsync(url,
-                                                                    new StringContent(jsonData, Encoding.UTF8, "application/json"))
-                                                                    .ConfigureAwait(false);
+                using var response = await httpClient.SendAsync(request);
                 if (response.StatusCode != HttpStatusCode.Created)
                 {
                     result.Code = -1;
@@ -175,28 +172,35 @@
 
         private async Task<IList<TimeEntry>> GetTimeEntries(int currentUserId, DateTime fromDate, DateTime toDate)
         {
-            HttpClient client = AuthorizeRequestHeader();
+            string url = string.Format("time_entries.json?user_id={0}&spent_on=><{1}|{2}&offset=0&limit=100",
+                currentUserId,
+                fromDate.ToString(apiDateTimeFormat),
+                toDate.ToString(apiDateTimeFormat));
+
+            var request = CreateRequest(url, HttpMethod.Get);
             var listEntries = new List<TimeEntry>();
-            var url = new Uri(string.Format(getTimeEntriesUrl, currentUserId, fromDate.ToString(apiDateTimeFormat), toDate.ToString(apiDateTimeFormat)));
-            HttpResponseMessage response = await client.GetAsync(url).ConfigureAwait(false);
+
+            using var response = await httpClient.SendAsync(request);
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                //JavaScriptSerializer jss = new JavaScriptSerializer();
-                //var obj = jss.Deserialize<dynamic>(json);
-                //var timeEntries = obj["time_entries"];
+                var json = await response.Content.ReadAsStringAsync();
+                var obj = JsonConvert.DeserializeObject<dynamic>(json);
+                var timeEntries = obj["time_entries"];
 
-                //foreach (var timeEntry in timeEntries)
-                //{
-                //    var entry = new TimeEntry
-                //    {
-                //        SpentOn = DateTime.ParseExact(timeEntry["spent_on"], apiDateTimeFormat, CultureInfo.InvariantCulture),
-                //        Hours = (double)timeEntry["hours"],
-                //    };
+                foreach (var timeEntry in timeEntries)
+                {
+                    string spentTimeDate = timeEntry["spent_on"];
+                    DateTime.TryParseExact(spentTimeDate, apiDateTimeFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime spentDate);
 
-                //    listEntries.Add(entry);
-                //}
+                    var entry = new TimeEntry
+                    {
+                        SpentOn = spentDate,
+                        Hours = (double)timeEntry["hours"],
+                    };
+
+                    listEntries.Add(entry);
+                }
             }
 
             return listEntries;
@@ -217,8 +221,10 @@
         {
             var toDate = DateTime.Now.AddDays(-1);
             var fromDate = toDate.AddDays(-6);
-            var currentUser = GetCurrentRedmineId(GetLoginNameByDomainName(domainUser));
-            var timeEntries = await GetTimeEntries(currentUser, fromDate, toDate).ConfigureAwait(false);
+            var currentUser = GetCurrentRedmineId(domainUser);
+
+            var timeEntries = await GetTimeEntries(currentUser, fromDate, toDate);
+
             var hadLogtimeDates = timeEntries.GroupBy(x => x.SpentOn).Select(d => d.Key).ToList();
             var onWorkedDates = GetWorkedDatesOfUser(fromDate, toDate, currentUserId).ToList();
 
@@ -229,7 +235,7 @@
         {
             var toDate = DateTime.Now.AddDays(-1);
             var fromDate = toDate.AddDays(-6);
-            var logtimeDates = await GetTimeEntries(employee.RedmineId, fromDate, toDate).ConfigureAwait(false);
+            var logtimeDates = await GetTimeEntries(employee.RedmineId, fromDate, toDate);
             var workingDates = GetWorkedDatesOfUser(fromDate, toDate, employee.EmpId);
             var hadLogtimeDates = logtimeDates.GroupBy(x => x.SpentOn).Select(d => d.Key).ToList();
             employee.ForgotLogtimeDates = workingDates.Except(hadLogtimeDates).Distinct().OrderBy(x => x).ToList();
@@ -238,20 +244,20 @@
         public async Task<double> GetTotalSpentHoursOnDate(string domainName, DateTime onDate)
         {
             DateTime toDate = onDate;
-            var currentUserId = GetCurrentRedmineId(GetLoginNameByDomainName(domainName));
-            var timeEntries = await GetTimeEntries(currentUserId, onDate, toDate).ConfigureAwait(false);
+            var currentUserId = GetCurrentRedmineId(domainName);
+            var timeEntries = await GetTimeEntries(currentUserId, onDate, toDate);
             return timeEntries.Sum(x => x.Hours);
         }
 
         public async Task<IEnumerable<RedmineUser>> GetForgotLogtimeEmployees()
         {
-            var employees = await GetDataAsync<RedmineUser>(new GetRedmineUserCriteria()).ConfigureAwait(false);
+            var employees = await GetDataAsync<RedmineUser>(new GetRedmineUserCriteria());
 
             if (employees.Any())
             {
                 foreach (var employee in employees)
                 {
-                    await GetForgotDates(employee).ConfigureAwait(false);
+                    await GetForgotDates(employee);
                 }
             }
 

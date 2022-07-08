@@ -73,8 +73,6 @@
             "wwwroot/js/Views/Dashboard/employee.dashboard.js",
             "wwwroot/js/Views/Dashboard/teamattendance.js",
             "wwwroot/js/Libs/moment.js",
-            //"wwwroot/js/Libs/fullcalendar.js",
-            //"wwwroot/js/Libs/gcal.js",
             "wwwroot/js/Views/Dashboard/calendar.js",
             "wwwroot/js/Views/Dashboard/googleAPI.js",
             "wwwroot/js/Libs/CustomScrollbar/jquery.mCustomScrollbar.concat.min.js"

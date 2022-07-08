@@ -71,7 +71,7 @@
             };
 
             MySpaceViewModel model = employeeService.GetMySpace(getMySpaceCriteria);
-            model.SystemReminder = await GetRemind().ConfigureAwait(false);
+            model.SystemReminder = await GetRemind();
 
             EmployeeAttendanceViewModel empAttendance = new EmployeeAttendanceViewModel
             {
@@ -109,7 +109,7 @@
                 OnDate = DateTime.Now.Date
             };
 
-            var lstEmployee = await employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria).ConfigureAwait(false);
+            var lstEmployee = await employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
             return lstEmployee;
         }
 
@@ -126,25 +126,26 @@
 
                 if (CurrentUserSetting.DisplayRedmineTask)
                 {
-                    model.InProgressTasks = await redmineService.GetInProgressIssues(HttpContext.User.Identity.Name).ConfigureAwait(false);
+                    model.InProgressTasks = await redmineService.GetInProgressIssues(HttpContext.User.Identity.Name);
                 }
 
                 if (CurrentUserSetting.DisplayRemindLogtime)
                 {
-                    model.ForgotLogtimeDates = await redmineService.GetHaveNotLogTimeDates(HttpContext.User.Identity.Name, CurrentUser.Id).ConfigureAwait(false);
+                    model.ForgotLogtimeDates = await redmineService.GetHaveNotLogTimeDates(HttpContext.User.Identity.Name, CurrentUser.Id);
                 }
             }
 
             return PartialView("ToDoList", model);
         }
 
-        public ActionResult LogtimeIssue(int issueId, string issueName)
+        public IActionResult LogtimeIssue(int issueId, string issueName)
         {
+            var today = DateTime.Now;
             var model = new LogTimeIssue
             {
                 IssueId = issueId,
                 IssueName = issueName,
-                SpentOn = DateTime.Now,
+                SpentOn = today,
                 Hours = null,
                 Activity = RedmineLogTimeActivity.Development
             };
@@ -169,7 +170,7 @@
 
             if (ModelState.IsValid)
             {
-                var commandResult = await redmineService.LogtimeToIssue(model, HttpContext.User.Identity.Name).ConfigureAwait(false);
+                var commandResult = await redmineService.LogtimeToIssue(model, HttpContext.User.Identity.Name);
                 isSuccessful = commandResult.IsSuccessful;
                 message = commandResult.Message;
             }
@@ -187,7 +188,7 @@
 
         public async Task<IActionResult> GetTotalLogtimeHourOnDate(DateTime onDate)
         {
-            var totalHours = await redmineService.GetTotalSpentHoursOnDate(HttpContext.User.Identity.Name, onDate).ConfigureAwait(false);
+            var totalHours = await redmineService.GetTotalSpentHoursOnDate(HttpContext.User.Identity.Name, onDate);
 
             return Json(new { totalHours });
         }

@@ -5,20 +5,24 @@
     using Fanex.NexHR.ViewModels.Navigation;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Infrastructure;
+    using Newtonsoft.Json;
 
     public class NavbarViewComponent : ViewComponent
     {
         private readonly IActionContextAccessor actionContextAccessor;
         private readonly ISessionService sessionService;
         private readonly IConfiguration configuration;
+        private readonly IWebHostEnvironment hostEnvironment;
 
         public NavbarViewComponent(IActionContextAccessor actionContextAccessor,
             ISessionService sessionService,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IWebHostEnvironment hostEnvironment)
         {
             this.actionContextAccessor = actionContextAccessor;
             this.sessionService = sessionService;
             this.configuration = configuration;
+            this.hostEnvironment = hostEnvironment;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
@@ -26,12 +30,12 @@
             var routeData = actionContextAccessor.ActionContext?.RouteData;
             ViewBag.Controller = routeData?.Values["controller"]?.ToString();
             ViewBag.Action = routeData?.Values["action"]?.ToString();
-            ViewBag.NavigationItems = GetNagivationData();
-            await Task.CompletedTask;
+            ViewBag.NavigationItems = await GetNagivationData();
+
             return View();
         }
 
-        public IList<NavigationViewModel> GetNagivationData()
+        public async Task<IList<NavigationViewModel>> GetNagivationData()
         {
             var roles = sessionService.CurrentEmployee.RoleList;
             List<Role> roleList = new List<Role>();
@@ -45,14 +49,14 @@
                 roleList.Add(Role.Member);
             }
 
-            var navigationItemList = GetNavigation(roleList);
+            var navigationItemList = await GetNavigation(roleList);
 
             return navigationItemList;
         }
 
-        private IList<NavigationViewModel> GetNavigation(IList<Role> roles)
+        private async Task<IList<NavigationViewModel>> GetNavigation(IList<Role> roles)
         {
-            var menus = configuration.GetSection("Navigation").Get<List<NavigationViewModel>>();
+            var menus = await ReadNavigationJson();
 
             var menuItems = menus.Where(m => m.ParentId == null && (roles.Any(r => r == m.Roles) || roles.Any(r => r == Role.SA)));
             foreach (var menuItem in menuItems)
@@ -61,6 +65,21 @@
                 menuItem.Childs = childs.ToList();
             }
             return menuItems.ToList();
+        }
+
+        private async Task<IList<NavigationViewModel>> ReadNavigationJson()
+        {
+            var path = Path.Combine(hostEnvironment.ContentRootPath, "Navigation.json");
+            var jsonString = await File.ReadAllTextAsync(path);
+
+            var menus = new List<NavigationViewModel>();
+
+            if (!string.IsNullOrWhiteSpace(jsonString))
+            {
+                menus = JsonConvert.DeserializeObject<List<NavigationViewModel>>(jsonString) ?? new List<NavigationViewModel>();
+            }
+
+            return menus;
         }
     }
 }

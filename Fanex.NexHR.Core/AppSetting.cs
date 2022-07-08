@@ -11,7 +11,7 @@
         public string RedmineSecret { get; set; }
         public string ScheduledMessageUserGuide { get; set; }
         public string HRMName { get; set; }
-        public string LDAP { get; set; }
+        public string LdapUrl { get; set; }
         public string BaseUrl { get; set; }
         public string CompanyMailSign { get; set; }
         public string Email { get; set; }
