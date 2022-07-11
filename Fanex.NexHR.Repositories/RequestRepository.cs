@@ -75,8 +75,8 @@
                 Status = new RequestStatus { Id = reader.GetByte(reader.GetOrdinal("Status")) },
                 RequestType = new RequestTypeModel { Id = reader.GetInt16(reader.GetOrdinal("RequestType")) },
                 TotalDaysRequestInMonth = reader.GetDecimal(reader.GetOrdinal("TotalDaysRequestInMonth")),
-                IsAllowUpdateStatus = reader.GetBoolean(reader.GetOrdinal("IsAllowUpdateStatus")),
-
+                IsAllowUpdateStatus = !reader.IsDBNull(reader.GetOrdinal("IsAllowUpdateStatus")) &&
+                                        reader.GetByte(reader.GetOrdinal("IsAllowUpdateStatus")) == 1,
                 RequestedDate = reader.GetDateTime(reader.GetOrdinal("RequestedDate")),
                 Requester = new Employee
                 {
@@ -106,7 +106,7 @@
                     Name = reader.GetString(reader.GetOrdinal("LeaveTypeName"))
                 },
                 Remark = reader.GetString(reader.GetOrdinal("Remark")),
-                IsCrossDate = reader.GetBoolean(reader.GetOrdinal("IsCrossDate"))
+                IsCrossDate = !reader.IsDBNull(reader.GetOrdinal("IsCrossDate")) && reader.GetByte(reader.GetOrdinal("IsCrossDate")) == 1
             };
 
             return entity;

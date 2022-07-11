@@ -12,9 +12,9 @@
     using Criteria.RedmineAPI;
     using Criteria.Request;
     using Criteria.Workload;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Criteria.Report;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Configuration;
     using Models;
     using Models.RedmineAPI;
     using Models.Report;
@@ -35,7 +35,7 @@
         private readonly ICommandService commandService;
         private readonly IRedmineService redmineService;
         private readonly IReportService reportService;
-        private readonly IConfiguration configuration;
+        private readonly AppSetting appSetting;
 
 #pragma warning disable S107 // Methods should not have too many parameters
 
@@ -49,7 +49,7 @@
             ICommandService commandService,
             IRedmineService redmineService,
             IReportService reportService,
-            IConfiguration configuration) : base(sessionService)
+            AppSetting appSetting) : base(sessionService)
 #pragma warning restore S107 // Methods should not have too many parameters
         {
             this.employeeService = employeeService;
@@ -60,7 +60,7 @@
             this.commandService = commandService;
             this.redmineService = redmineService;
             this.reportService = reportService;
-            this.configuration = configuration;
+            this.appSetting = appSetting;
         }
 
         public async Task<IActionResult> Index()
@@ -276,8 +276,7 @@
         [NonAction]
         private bool IsLoadTeamWorkload()
         {
-            var ignoreTeamWorkloads = configuration.GetSection("IgnoreTeamWorkload").Value.Split(',');
-            return Array.IndexOf(ignoreTeamWorkloads, CurrentUser.Team.Code) < 0 && CurrentUserSetting.DisplayTeamWorkload;
+            return Array.IndexOf(appSetting.IgnoreTeamWorkload.Split(','), CurrentUser.Team.Code) < 0 && CurrentUserSetting.DisplayTeamWorkload;
         }
 
         private bool IsPrivilegeCreateCheckInOut()
