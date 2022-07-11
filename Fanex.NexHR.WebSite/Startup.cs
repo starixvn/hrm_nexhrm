@@ -4,6 +4,7 @@
     using Fanex.Data.SqlServer;
     using Fanex.NexHR.Core;
     using Microsoft.AspNetCore.DataProtection;
+    using StackExchange.Redis;
 
     public class Startup
     {
@@ -37,10 +38,12 @@
             var appSettings = Configuration.GetSection("AppSettings").Get<AppSetting>();
             services.AddSingleton(appSettings);
 
+            var redisConnectionString = Configuration.GetSection("Redis:ConnectionString").Value;
+            var appName = Configuration.GetSection("Redis:ApplicationName").Value;
+            var redis = ConnectionMultiplexer.Connect(redisConnectionString);
             services.AddDataProtection()
-               .SetApplicationName(appSettings.HRMName);
-
-            services.AddAntiforgery();
+                .SetApplicationName(appName)
+                .PersistKeysToStackExchangeRedis(redis, $"{appName}:DataProtection:Keys");
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
