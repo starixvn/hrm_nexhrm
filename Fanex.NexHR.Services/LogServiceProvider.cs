@@ -6,7 +6,7 @@
 
     public class LogServiceProvider : ILogServiceProvider
     {
-        private readonly Logger nlog = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+        private readonly Logger nlog = NLogBuilder.ConfigureNLog("NLog.config").GetCurrentClassLogger();
 
         public void LogFile(string message)
         {

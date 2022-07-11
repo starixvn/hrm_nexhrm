@@ -3,7 +3,7 @@
     using Fanex.Data;
     using Fanex.Data.SqlServer;
     using Fanex.NexHR.Core;
-    using Fanex.NexHR.Services.Interfaces;
+    using Microsoft.AspNetCore.DataProtection;
 
     public class Startup
     {
@@ -36,8 +36,11 @@
 
             var appSettings = Configuration.GetSection("AppSettings").Get<AppSetting>();
             services.AddSingleton(appSettings);
-            var log = services.BuildServiceProvider().GetRequiredService<ILogServiceProvider>();
-            log.LogFile("Test");
+
+            services.AddDataProtection()
+               .SetApplicationName(appSettings.HRMName);
+
+            services.AddAntiforgery();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -52,7 +55,7 @@
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-
+            app.UseCookiePolicy();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
