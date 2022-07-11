@@ -10,7 +10,7 @@
 
         public void LogFile(string message)
         {
-            nlog.Info(message);
+            nlog.Error(message);
         }
     }
 }

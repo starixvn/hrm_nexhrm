@@ -49,6 +49,7 @@
         <div class="right_wrap">
             @RenderSection("Right", required: false)
         </div>
+        @Html.AntiForgeryToken()
     </main>
     <footer></footer>
     <div id="message">

@@ -23,7 +23,7 @@
                         <img src="~/css/Images/leftLogin.png" alt="leftLogo" class="img-res" />
                     </div>
                     <div class="login__form">
-                        <form method="post" asp-route-returnUrl="~">
+                        <form method="post" asp-controller="Auth" asp-action="Login" asp-route-returnUrl="@ViewBag.ReturnUrl">
                             <div class="login__logo">
                                 <img src="~/css/Images/LogoLuminet.svg" alt="logo" class="img-res" />
                             </div>

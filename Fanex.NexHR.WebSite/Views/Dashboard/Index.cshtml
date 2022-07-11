@@ -135,7 +135,7 @@
                         <div class="slide-content">
                             <a class="white-text noEvent" href="@Url.Action("Birthday", "Employee", new {month = DateTime.Now.Month})">
                                 <div class="col s3">
-                                    <img class="circle" alt="" src="~/Images/Dashboard/@MySpaceViewModel.RandomPictureName" />
+                                    <img class="circle" alt="" src="~/css/Images/Dashboard/@MySpaceViewModel.RandomPictureName" />
                                 </div>
                                 <div class="col s9 center detail">
                                     <span>Birthday in @DateTime.Now.ToString("MMMM")!</span>
@@ -185,7 +185,7 @@
                             {
                                 <div class="slide-content">
                                     <div class="col s3">
-                                        <img class="circle" alt="" src="~/Images/Dashboard/@MySpaceViewModel.RandomPictureName" />
+                                        <img class="circle" alt="" src="~/css/Images/Dashboard/@MySpaceViewModel.RandomPictureName" />
                                     </div>
                                     <a class="white-text" href="@Url.Action("Detail", "CompanyEvent", new { id = item.Id })">
                                         <div class="col s9 center detail">
@@ -308,7 +308,7 @@
                 </div>
             </div>
         </div>
-        @Html.Partial("MyTeamAttendance", Model.EmployeeAttendanceModel)
+        @(await Html.PartialAsync("MyTeamAttendance", Model.EmployeeAttendanceModel))
         <div>
             @if (Model.IsLoadTeamWorkload)
             {
@@ -329,7 +329,7 @@
                 <div class="card">
                     <div id="calendar" class="dashboardCalendar">
                         <div class="authenGoogle" id="authenGoogle" style="display:none">
-                            <p class="center img"><img src="~/Images/ic_google.png" /></p>
+                            <p class="center img"><img src="~/css/Images/ic_google.png" /></p>
                             <p class="center text">Sign in to Google to get calendar</p>
                             <p class="center button">
                                 <a class="btn-signin waves-effect waves-light" href="javascript:;" id="btnAuthen" onclick="handleAuthClick()">

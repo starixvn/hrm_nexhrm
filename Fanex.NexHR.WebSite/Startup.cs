@@ -3,6 +3,7 @@
     using Fanex.Data;
     using Fanex.Data.SqlServer;
     using Fanex.NexHR.Core;
+    using Fanex.NexHR.Services.Interfaces;
 
     public class Startup
     {
@@ -35,12 +36,19 @@
 
             var appSettings = Configuration.GetSection("AppSettings").Get<AppSetting>();
             services.AddSingleton(appSettings);
+            var log = services.BuildServiceProvider().GetRequiredService<ILogServiceProvider>();
+            log.LogFile("Test");
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (!env.IsDevelopment())
+            if (env.IsDevelopment())
             {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                //app.UseMiddleware<ErrorHandler>();
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }

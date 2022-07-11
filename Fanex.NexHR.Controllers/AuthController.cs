@@ -20,7 +20,10 @@
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly AppSetting appSetting;
 
-        public AuthController(IAuthService authService, ISessionService sessionService, AppSetting appSetting, IWebHostEnvironment webHostEnvironment)
+        public AuthController(IAuthService authService,
+            ISessionService sessionService,
+            AppSetting appSetting,
+            IWebHostEnvironment webHostEnvironment)
         {
             this.authService = authService;
             this.sessionService = sessionService;
@@ -42,7 +45,7 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginModel model, string ReturnUrl)
+        public ActionResult Login(LoginModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -71,15 +74,17 @@
                         HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                             new ClaimsPrincipal(identity), authProperties);
 
-                        return Url.IsLocalUrl(ReturnUrl) ? Redirect(ReturnUrl) : RedirectToAction("Index", "Dashboard");
+                        return Url.IsLocalUrl(returnUrl) ? Redirect(returnUrl) : RedirectToAction("Index", "Dashboard");
                     }
                     else
                     {
+                        ViewBag.ReturnUrl = returnUrl;
                         ModelState.AddModelError("errorSummary", Messages.UserNotExists);
                     }
                 }
                 else
                 {
+                    ViewBag.ReturnUrl = returnUrl;
                     ModelState.AddModelError("errorSummary", Messages.IncorrectUsernameOrPassword);
                 }
             }
