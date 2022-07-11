@@ -1,4 +1,6 @@
-﻿@model Fanex.NexHR.ViewModels.LoginModel
+﻿@using Fanex.NexHR.Core
+@model Fanex.NexHR.ViewModels.LoginModel
+@inject AppSetting appSetting;
 @{
     Layout = null;
 }
@@ -6,8 +8,8 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Welcome to LumiHRM</title>
-    <link href="~/css/Login.min.css" rel="stylesheet" />
+    <title>Welcome to @appSetting.HRMName</title>
+    <link href="~/css/Login.min.css" rel="stylesheet" asp-append-version="true" />
 
    
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
@@ -18,12 +20,12 @@
             <div class="container">
                 <div class="login__flex">
                     <div class="login__left">
-                        <img src="~/Images/leftLogin.png" alt="leftLogo" class="img-res" />
+                        <img src="~/css/Images/leftLogin.png" alt="leftLogo" class="img-res" />
                     </div>
                     <div class="login__form">
                         <form method="post" asp-route-returnUrl="~">
                             <div class="login__logo">
-                                <img src="~/Images/LogoLuminet.svg" alt="logo" class="img-res" />
+                                <img src="~/css/Images/LogoLuminet.svg" alt="logo" class="img-res" />
                             </div>
                             @*<span asp-validation-for="" class="textdanger"></span>*@
                             <div class="material-textfield">
