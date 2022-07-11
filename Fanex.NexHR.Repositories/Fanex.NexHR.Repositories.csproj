@@ -35,12 +35,6 @@
     <ProjectReference Include="..\Fanex.NexHR.Models\Fanex.NexHR.Models.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.13.0.21683\analyzers\Google.Protobuf.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.13.0.21683\analyzers\SonarAnalyzer.CFG.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.13.0.21683\analyzers\SonarAnalyzer.CSharp.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.13.0.21683\analyzers\SonarAnalyzer.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Fanex.Data.Repository" Version="4.2.2" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.41.0.50478">

@@ -73,12 +73,6 @@
     <CodeAnalysisDictionary Include="FxCopDictionary.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.13.0.21683\analyzers\Google.Protobuf.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.13.0.21683\analyzers\SonarAnalyzer.CFG.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.13.0.21683\analyzers\SonarAnalyzer.CSharp.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.13.0.21683\analyzers\SonarAnalyzer.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NLog" Version="5.0.0" />

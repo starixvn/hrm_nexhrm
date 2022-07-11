@@ -34,12 +34,6 @@
     <ProjectReference Include="..\Fanex.NexHR.Resources\Fanex.NexHR.Resources.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.13.0.21683\analyzers\Google.Protobuf.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.13.0.21683\analyzers\SonarAnalyzer.CFG.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.13.0.21683\analyzers\SonarAnalyzer.CSharp.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.8.13.0.21683\analyzers\SonarAnalyzer.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.330701">
       <PrivateAssets>all</PrivateAssets>
