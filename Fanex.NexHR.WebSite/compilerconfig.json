@@ -6,5 +6,9 @@
   {
     "outputFile": "wwwroot/css/Materialize/materialize.css",
     "inputFile": "wwwroot/css/Materialize/materialize.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Login.css",
+    "inputFile": "wwwroot/css/Login.scss"
   }
 ]

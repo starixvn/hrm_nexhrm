@@ -74,7 +74,7 @@
                 CreatedDate = reader.GetDateTime(reader.GetOrdinal("CreatedDate")),
                 Status = new RequestStatus { Id = reader.GetByte(reader.GetOrdinal("Status")) },
                 RequestType = new RequestTypeModel { Id = reader.GetInt16(reader.GetOrdinal("RequestType")) },
-                TotalDaysRequestInMonth = reader.GetDecimal(reader.GetOrdinal("TotalDaysRequestInMonth")),
+                TotalDaysRequestInMonth = !reader.IsDBNull(reader.GetOrdinal("TotalDaysRequestInMonth")) ? reader.GetDecimal(reader.GetOrdinal("TotalDaysRequestInMonth")) : 0,
                 IsAllowUpdateStatus = !reader.IsDBNull(reader.GetOrdinal("IsAllowUpdateStatus")) &&
                                         reader.GetByte(reader.GetOrdinal("IsAllowUpdateStatus")) == 1,
                 RequestedDate = reader.GetDateTime(reader.GetOrdinal("RequestedDate")),
@@ -89,27 +89,30 @@
                 },
                 ModifiedBy = new Employee
                 {
-                    NickName = reader.GetString(reader.GetOrdinal("ProcessedBy")),
-                    FullName = reader.GetString(reader.GetOrdinal("FullNameProcessedBy")),
-                    Email = reader.GetString(reader.GetOrdinal("EmailProcessedBy"))
+                    NickName = GetStringFromReader(reader, "ProcessedBy"),
+                    FullName = GetStringFromReader(reader, "FullNameProcessedBy"),
+                    Email = GetStringFromReader(reader, "EmailProcessedBy")
                 },
-                ModifiedDate = reader.GetDateTime(reader.GetOrdinal("ProcessedDate")),
-                FromShift = new Shift { Name = reader.GetString(reader.GetOrdinal("FromShift")) },
-                ToShift = new Shift { Name = reader.GetString(reader.GetOrdinal("ToShift")) },
-                TotalMins = reader.GetInt32(reader.GetOrdinal("TotalMins")),
+                ModifiedDate = !reader.IsDBNull(reader.GetOrdinal("ProcessedDate")) ? reader.GetDateTime(reader.GetOrdinal("ProcessedDate")) : DateTime.Now,
+                FromShift = new Shift { Name = GetStringFromReader(reader, "FromShift") },
+                ToShift = new Shift { Name = GetStringFromReader(reader, "ToShift") },
+                TotalMins = !reader.IsDBNull(reader.GetOrdinal("TotalMins")) ? reader.GetInt32(reader.GetOrdinal("TotalMins")) : 0,
                 FromDate = reader.GetDateTime(reader.GetOrdinal("FromDate")),
                 ToDate = reader.GetDateTime(reader.GetOrdinal("ToDate")),
                 TotalDays = reader.GetDecimal(reader.GetOrdinal("TotalDays")),
                 LeaveType = new LeaveType
                 {
                     Id = reader.GetInt32(reader.GetOrdinal("LeaveTypeId")),
-                    Name = reader.GetString(reader.GetOrdinal("LeaveTypeName"))
+                    Name = GetStringFromReader(reader, "LeaveTypeName")
                 },
-                Remark = reader.GetString(reader.GetOrdinal("Remark")),
-                IsCrossDate = !reader.IsDBNull(reader.GetOrdinal("IsCrossDate")) && reader.GetByte(reader.GetOrdinal("IsCrossDate")) == 1
+                Remark = GetStringFromReader(reader, "Remark"),
+                IsCrossDate = !reader.IsDBNull(reader.GetOrdinal("IsCrossDate")) && reader.GetBoolean(reader.GetOrdinal("IsCrossDate"))
             };
 
             return entity;
         }
+
+        private static string GetStringFromReader(IDataReader reader, string name) => !reader.IsDBNull(reader.GetOrdinal(name)) ?
+            reader.GetString(reader.GetOrdinal(name)) : string.Empty;
     }
 }

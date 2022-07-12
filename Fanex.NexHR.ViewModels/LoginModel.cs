@@ -4,11 +4,11 @@
 
     public class LoginModel
     {
-        [Required(AllowEmptyStrings = false)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Username is required")]
         [Display(Name = "User name")]
-        public string UserName { get; set; }
+        public string Username { get; set; }
 
-        [Required(AllowEmptyStrings = false)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

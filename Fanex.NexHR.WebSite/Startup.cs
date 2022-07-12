@@ -54,7 +54,7 @@
             }
             else
             {
-                //app.UseMiddleware<ErrorHandler>();
+                app.UseMiddleware<ErrorHandler>();
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }

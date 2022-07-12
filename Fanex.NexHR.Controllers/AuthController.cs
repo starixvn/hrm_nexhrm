@@ -50,7 +50,7 @@
             {
                 if (IsValidAccount(model))
                 {
-                    string domainUsername = appSetting.DomainName + model.UserName;
+                    string domainUsername = appSetting.DomainName + model.Username;
                     var employee = authService.GetEmployeeByDomain(domainUsername);
                     if (employee != null)
                     {
@@ -60,7 +60,7 @@
 
                         var claims = new List<Claim>
                             {
-                                new Claim(ClaimTypes.Name, model.UserName),
+                                new Claim(ClaimTypes.Name, model.Username),
                                 new Claim(ClaimTypes.NameIdentifier, employee.Id.ToString())
                             };
                         var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -78,13 +78,13 @@
                     else
                     {
                         ViewBag.ReturnUrl = returnUrl;
-                        ModelState.AddModelError("errorSummary", Messages.UserNotExists);
+                        ModelState.AddModelError("Username", Messages.UserNotExists);
                     }
                 }
                 else
                 {
                     ViewBag.ReturnUrl = returnUrl;
-                    ModelState.AddModelError("errorSummary", Messages.IncorrectUsernameOrPassword);
+                    ModelState.AddModelError("Username", Messages.IncorrectUsernameOrPassword);
                 }
             }
             return View(model);
@@ -97,7 +97,7 @@
                 return true;
             }
 
-            string userDn = $"{model.UserName}@{appSetting.DomainName.Replace("\\", "")}";
+            string userDn = $"{model.Username}@{appSetting.DomainName.Replace("\\", "")}";
             var isValid = false;
             using (var connection = new LdapConnection())
             {
