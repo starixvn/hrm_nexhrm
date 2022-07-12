@@ -13,7 +13,7 @@
         {
             ViewBag.Employee = CurrentUser;
 
-            return View(RedirectToAction("index", "dashboard"));
+            return RedirectToAction("index", "dashboard");
         }
     }
 }
