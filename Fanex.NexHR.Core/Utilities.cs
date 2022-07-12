@@ -17,6 +17,8 @@ namespace Fanex.NexHR.Core
     using System.Reflection;
     using System.Text;
     using System.Text.RegularExpressions;
+    using Fanex.NexHR.Resources;
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Model;
 
     public static class Utilities
@@ -138,6 +140,33 @@ namespace Fanex.NexHR.Core
             }
 
             return result.ToString(0, result.Length - 1);
+        }
+
+        public static IList<SelectListItem> TimeSteps(int minuteStep)
+        {
+            var list = new List<SelectListItem>();
+            var hour = 6;
+            var minute = 0;
+            const int hours = 24;
+            const int minutes = 60;
+
+            while (hour < hours)
+            {
+                var value = string.Format(Labels.HourFormat, ZeroPrefix(hour), ZeroPrefix(minute));
+                list.Add(new SelectListItem
+                {
+                    Text = value,
+                    Value = value
+                });
+                minute += minuteStep;
+                if (minute >= minutes)
+                {
+                    minute = 0;
+                    hour++;
+                }
+            }
+
+            return list;
         }
 
         public static bool IsValidEmail(string email)

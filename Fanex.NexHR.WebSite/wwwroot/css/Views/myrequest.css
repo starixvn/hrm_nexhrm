@@ -2,10 +2,32 @@
   padding-bottom: 14px;
   color: #5f5e67;
   font-weight: bold;
-  font-style: italic; }
+  font-style: italic;
+}
 
 .select-time {
-  width: 6rem; }
+  width: 6rem;
+}
+
+#remarkInfo {
+  display: inline-block !important;
+  vertical-align: middle !important;
+  margin-left: 2rem !important;
+  margin-top: 2rem !important;
+}
+
+#remarkInfo .tooltip {
+  color: #EED202 !important;
+}
+
+.checkBox {
+  position: unset !important;
+  left: unset !important;
+  visibility: unset !important;
+  height: 16px;
+  width: 16px;
+  margin-top: 4px;
+}
 
 .tipsy.leave-request .tipsy-inner {
   max-width: none;
@@ -15,27 +37,32 @@
   -webkit-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
   -ms-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1); }
-
+  box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
+}
 .tipsy.leave-request .tipsy-arrow {
-  border: none; }
-
+  border: none;
+}
 .tipsy.leave-request {
   max-width: 50rem;
-  opacity: 1 !important; }
-  .tipsy.leave-request .tipsy-inner {
-    color: #4f4f4f;
-    background: #fff9c4; }
-    .tipsy.leave-request .tipsy-inner ul {
-      padding-left: 2rem;
-      list-style-type: disc; }
-      .tipsy.leave-request .tipsy-inner ul li {
-        list-style-type: disc; }
-      .tipsy.leave-request .tipsy-inner ul ul {
-        list-style-type: circle; }
-        .tipsy.leave-request .tipsy-inner ul ul li {
-          list-style-type: circle; }
-
+  opacity: 1 !important;
+}
+.tipsy.leave-request .tipsy-inner {
+  color: #4f4f4f;
+  background: #fff9c4;
+}
+.tipsy.leave-request .tipsy-inner ul {
+  padding-left: 2rem;
+  list-style-type: disc;
+}
+.tipsy.leave-request .tipsy-inner ul li {
+  list-style-type: disc;
+}
+.tipsy.leave-request .tipsy-inner ul ul {
+  list-style-type: circle;
+}
+.tipsy.leave-request .tipsy-inner ul ul li {
+  list-style-type: circle;
+}
 .tipsy.warning .tipsy-inner {
   max-width: none;
   font-size: 1.3rem;
@@ -44,146 +71,201 @@
   -webkit-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
   -ms-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1); }
-
+  box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
+}
 .tipsy.warning .tipsy-arrow {
-  border: none; }
-
+  border: none;
+}
 .tipsy.warning {
   max-width: 40rem;
-  opacity: 1 !important; }
-  .tipsy.warning .tipsy-inner {
-    color: black;
-    background: #EED202; }
-    .tipsy.warning .tipsy-inner ul {
-      padding-left: 2rem;
-      list-style-type: disc; }
-      .tipsy.warning .tipsy-inner ul li {
-        list-style-type: disc; }
-      .tipsy.warning .tipsy-inner ul ul {
-        list-style-type: circle; }
-        .tipsy.warning .tipsy-inner ul ul li {
-          list-style-type: circle; }
+  opacity: 1 !important;
+}
+.tipsy.warning .tipsy-inner {
+  color: black;
+  background: #EED202;
+}
+.tipsy.warning .tipsy-inner ul {
+  padding-left: 2rem;
+  list-style-type: disc;
+}
+.tipsy.warning .tipsy-inner ul li {
+  list-style-type: disc;
+}
+.tipsy.warning .tipsy-inner ul ul {
+  list-style-type: circle;
+}
+.tipsy.warning .tipsy-inner ul ul li {
+  list-style-type: circle;
+}
 
 .form-input .col .left.block-time {
-  display: flex; }
+  display: flex;
+}
 
 @media only screen and (max-width: 993px) {
-  [type="radio"]:not(:checked) + label:before {
-    border: 2px solid #989898; }
-  [type="radio"].with-gap:checked + label:after {
+  [type=radio]:not(:checked) + label:before {
     border: 2px solid #989898;
-    background-color: #989898; }
-  [type="radio"].with-gap:checked + label:before {
-    border: 2px solid #989898; }
+  }
+
+  [type=radio].with-gap:checked + label:after {
+    border: 2px solid #989898;
+    background-color: #989898;
+  }
+
+  [type=radio].with-gap:checked + label:before {
+    border: 2px solid #989898;
+  }
+
   .form-input label {
-    color: #989898; }
+    color: #989898;
+  }
+
   .card-container-base.my-request .card-content, .card-container-base.my-check-in-out .card-content {
-    padding: .6rem .8rem .8rem; }
+    padding: 0.6rem 0.8rem 0.8rem;
+  }
   .card-container-base.my-request.lateearly .list-item-form.style-over, .card-container-base.my-check-in-out.lateearly .list-item-form.style-over {
-    margin-top: 20px; }
-    .card-container-base.my-request.lateearly .list-item-form.style-over .form-input.line-button, .card-container-base.my-check-in-out.lateearly .list-item-form.style-over .form-input.line-button {
-      margin-top: 19px; }
+    margin-top: 20px;
+  }
+  .card-container-base.my-request.lateearly .list-item-form.style-over .form-input.line-button, .card-container-base.my-check-in-out.lateearly .list-item-form.style-over .form-input.line-button {
+    margin-top: 19px;
+  }
   .card-container-base.my-request.lateearly #listLateEarly, .card-container-base.my-check-in-out.lateearly #listLateEarly {
-    margin: 0 !important; }
+    margin: 0 !important;
+  }
   .card-container-base.my-request .list-item-form, .card-container-base.my-check-in-out .list-item-form {
     margin-top: 0.9rem;
-    margin-bottom: 2.4rem; }
-    .card-container-base.my-request .list-item-form.style-over, .card-container-base.my-check-in-out .list-item-form.style-over {
-      margin-top: 1.2rem; }
-      .card-container-base.my-request .list-item-form.style-over .form-input .col .left:nth-child(1), .card-container-base.my-check-in-out .list-item-form.style-over .form-input .col .left:nth-child(1) {
-        width: 92px; }
-    .card-container-base.my-request .list-item-form .form-create-update ul, .card-container-base.my-check-in-out .list-item-form .form-create-update ul {
-      margin: 0; }
-    .card-container-base.my-request .list-item-form .form-input, .card-container-base.my-check-in-out .list-item-form .form-input {
-      padding: 0 8px;
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex; }
-      .card-container-base.my-request .list-item-form .form-input[class*="m-t"], .card-container-base.my-check-in-out .list-item-form .form-input[class*="m-t"] {
-        margin: 0; }
-      .card-container-base.my-request .list-item-form .form-input.line-button .left, .card-container-base.my-check-in-out .list-item-form .form-input.line-button .left {
-        float: none !important;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex; }
-        .card-container-base.my-request .list-item-form .form-input.line-button .left .btn-back, .card-container-base.my-request .list-item-form .form-input.line-button .left .btn-submit input, .card-container-base.my-check-in-out .list-item-form .form-input.line-button .left .btn-back, .card-container-base.my-check-in-out .list-item-form .form-input.line-button .left .btn-submit input {
-          font-size: 1.2rem;
-          height: 3.2rem; }
-        .card-container-base.my-request .list-item-form .form-input.line-button .left .btn-back, .card-container-base.my-request .list-item-form .form-input.line-button .left .btn-submit, .card-container-base.my-check-in-out .list-item-form .form-input.line-button .left .btn-back, .card-container-base.my-check-in-out .list-item-form .form-input.line-button .left .btn-submit {
-          height: 3.2rem;
-          box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.16); }
-      .card-container-base.my-request .list-item-form .form-input label, .card-container-base.my-check-in-out .list-item-form .form-input label {
-        margin-top: 10px; }
-      .card-container-base.my-request .list-item-form .form-input .col, .card-container-base.my-check-in-out .list-item-form .form-input .col {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        padding: 0;
-        margin: 0;
-        width: 100%; }
-        .card-container-base.my-request .list-item-form .form-input .col:nth-child(2), .card-container-base.my-check-in-out .list-item-form .form-input .col:nth-child(2) {
-          width: 108px;
-          padding-left: 8px; }
-        .card-container-base.my-request .list-item-form .form-input .col .left, .card-container-base.my-check-in-out .list-item-form .form-input .col .left {
-          float: none !important; }
-          .card-container-base.my-request .list-item-form .form-input .col .left:nth-child(1), .card-container-base.my-check-in-out .list-item-form .form-input .col .left:nth-child(1) {
-            width: 79px; }
-            .card-container-base.my-request .list-item-form .form-input .col .left:nth-child(1) label, .card-container-base.my-check-in-out .list-item-form .form-input .col .left:nth-child(1) label {
-              color: #333333; }
-            .card-container-base.my-request .list-item-form .form-input .col .left:nth-child(1).text-legend, .card-container-base.my-check-in-out .list-item-form .form-input .col .left:nth-child(1).text-legend {
-              width: 100%;
-              font-size: 1.4rem;
-              line-height: 2rem;
-              font-weight: 500;
-              padding-bottom: 1.5rem; }
-          .card-container-base.my-request .list-item-form .form-input .col .left:nth-child(2), .card-container-base.my-check-in-out .list-item-form .form-input .col .left:nth-child(2) {
-            flex: 1; }
-          .card-container-base.my-request .list-item-form .form-input .col .left.input--m label, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.input--m label {
-            margin: 7px 0 12px 3px; }
-            .card-container-base.my-request .list-item-form .form-input .col .left.input--m label:after, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.input--m label:after {
-              width: 18px;
-              height: 18px; }
-            .card-container-base.my-request .list-item-form .form-input .col .left.input--m label:before, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.input--m label:before {
-              top: 1px;
-              left: 1px; }
-          .card-container-base.my-request .list-item-form .form-input .col .left input[type="text"], .card-container-base.my-request .list-item-form .form-input .col .left textarea, .card-container-base.my-request .list-item-form .form-input .col .left input[type=number], .card-container-base.my-check-in-out .list-item-form .form-input .col .left input[type="text"], .card-container-base.my-check-in-out .list-item-form .form-input .col .left textarea, .card-container-base.my-check-in-out .list-item-form .form-input .col .left input[type=number] {
-            box-sizing: border-box;
-            box-shadow: none; }
-          .card-container-base.my-request .list-item-form .form-input .col .left input[type="text"], .card-container-base.my-check-in-out .list-item-form .form-input .col .left input[type="text"] {
-            height: 3.2rem;
-            line-height: 3.2rem;
-            padding: .4rem 0 0 .7rem !important;
-            margin-bottom: 1.2rem; }
-          .card-container-base.my-request .list-item-form .form-input .col .left textarea, .card-container-base.my-check-in-out .list-item-form .form-input .col .left textarea {
-            height: 10rem !important;
-            padding: 0.5rem !important; }
-          .card-container-base.my-request .list-item-form .form-input .col .left.checkInOut .radioButton, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.checkInOut .radioButton {
-            padding-top: 0.4rem; }
-            .card-container-base.my-request .list-item-form .form-input .col .left.checkInOut .radioButton [type="radio"].with-gap:checked + label:after, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.checkInOut .radioButton [type="radio"].with-gap:checked + label:after {
-              background-color: #828282; }
-            .card-container-base.my-request .list-item-form .form-input .col .left.checkInOut .radioButton [type="radio"].with-gap:checked + label:before, .card-container-base.my-request .list-item-form .form-input .col .left.checkInOut .radioButton [type="radio"]:not(:checked) + label:before, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.checkInOut .radioButton [type="radio"].with-gap:checked + label:before, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.checkInOut .radioButton [type="radio"]:not(:checked) + label:before {
-              border-color: #828282; }
-          .card-container-base.my-request .list-item-form .form-input .col .left.block-time, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time {
-            display: block; }
-            .card-container-base.my-request .list-item-form .form-input .col .left.block-time .datepicker-button, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .datepicker-button {
-              width: 100%; }
-            .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(2), .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(2) {
-              width: 20px; }
-              .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(2) .colon, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(2) .colon {
-                text-align: center;
-                width: 100%; }
-            .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(1), .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(3), .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(1), .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(3) {
-              width: 40px; }
-              .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(1) input, .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(3) input, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(1) input, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(3) input {
-                height: 3.2rem;
-                margin-bottom: 1rem; }
-        .card-container-base.my-request .list-item-form .form-input .col .datepicker-button i.calendar-icon, .card-container-base.my-check-in-out .list-item-form .form-input .col .datepicker-button i.calendar-icon {
-          right: .8rem;
-          color: #828282;
-          margin-right: 0; }
-        .card-container-base.my-request .list-item-form .form-input .col .select-wrapper input.select-dropdown, .card-container-base.my-check-in-out .list-item-form .form-input .col .select-wrapper input.select-dropdown {
-          margin-bottom: 1.2rem; }
+    margin-bottom: 2.4rem;
+  }
+  .card-container-base.my-request .list-item-form.style-over, .card-container-base.my-check-in-out .list-item-form.style-over {
+    margin-top: 1.2rem;
+  }
+  .card-container-base.my-request .list-item-form.style-over .form-input .col .left:nth-child(1), .card-container-base.my-check-in-out .list-item-form.style-over .form-input .col .left:nth-child(1) {
+    width: 92px;
+  }
+  .card-container-base.my-request .list-item-form .form-create-update ul, .card-container-base.my-check-in-out .list-item-form .form-create-update ul {
+    margin: 0;
+  }
+  .card-container-base.my-request .list-item-form .form-input, .card-container-base.my-check-in-out .list-item-form .form-input {
+    padding: 0 8px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .card-container-base.my-request .list-item-form .form-input[class*=m-t], .card-container-base.my-check-in-out .list-item-form .form-input[class*=m-t] {
+    margin: 0;
+  }
+  .card-container-base.my-request .list-item-form .form-input.line-button .left, .card-container-base.my-check-in-out .list-item-form .form-input.line-button .left {
+    float: none !important;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .card-container-base.my-request .list-item-form .form-input.line-button .left .btn-back, .card-container-base.my-request .list-item-form .form-input.line-button .left .btn-submit input, .card-container-base.my-check-in-out .list-item-form .form-input.line-button .left .btn-back, .card-container-base.my-check-in-out .list-item-form .form-input.line-button .left .btn-submit input {
+    font-size: 1.2rem;
+    height: 3.2rem;
+  }
+  .card-container-base.my-request .list-item-form .form-input.line-button .left .btn-back, .card-container-base.my-request .list-item-form .form-input.line-button .left .btn-submit, .card-container-base.my-check-in-out .list-item-form .form-input.line-button .left .btn-back, .card-container-base.my-check-in-out .list-item-form .form-input.line-button .left .btn-submit {
+    height: 3.2rem;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.16);
+  }
+  .card-container-base.my-request .list-item-form .form-input label, .card-container-base.my-check-in-out .list-item-form .form-input label {
+    margin-top: 10px;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col, .card-container-base.my-check-in-out .list-item-form .form-input .col {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col:nth-child(2), .card-container-base.my-check-in-out .list-item-form .form-input .col:nth-child(2) {
+    width: 108px;
+    padding-left: 8px;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col .left, .card-container-base.my-check-in-out .list-item-form .form-input .col .left {
+    float: none !important;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col .left:nth-child(1), .card-container-base.my-check-in-out .list-item-form .form-input .col .left:nth-child(1) {
+    width: 79px;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col .left:nth-child(1) label, .card-container-base.my-check-in-out .list-item-form .form-input .col .left:nth-child(1) label {
+    color: #333333;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col .left:nth-child(1).text-legend, .card-container-base.my-check-in-out .list-item-form .form-input .col .left:nth-child(1).text-legend {
+    width: 100%;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    font-weight: 500;
+    padding-bottom: 1.5rem;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col .left:nth-child(2), .card-container-base.my-check-in-out .list-item-form .form-input .col .left:nth-child(2) {
+    flex: 1;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col .left.input--m label, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.input--m label {
+    margin: 7px 0 12px 3px;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col .left.input--m label:after, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.input--m label:after {
+    width: 18px;
+    height: 18px;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col .left.input--m label:before, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.input--m label:before {
+    top: 1px;
+    left: 1px;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col .left input[type=text], .card-container-base.my-request .list-item-form .form-input .col .left textarea, .card-container-base.my-request .list-item-form .form-input .col .left input[type=number], .card-container-base.my-check-in-out .list-item-form .form-input .col .left input[type=text], .card-container-base.my-check-in-out .list-item-form .form-input .col .left textarea, .card-container-base.my-check-in-out .list-item-form .form-input .col .left input[type=number] {
+    box-sizing: border-box;
+    box-shadow: none;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col .left input[type=text], .card-container-base.my-check-in-out .list-item-form .form-input .col .left input[type=text] {
+    height: 3.2rem;
+    line-height: 3.2rem;
+    padding: 0.4rem 0 0 0.7rem !important;
+    margin-bottom: 1.2rem;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col .left textarea, .card-container-base.my-check-in-out .list-item-form .form-input .col .left textarea {
+    height: 10rem !important;
+    padding: 0.5rem !important;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col .left.checkInOut .radioButton, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.checkInOut .radioButton {
+    padding-top: 0.4rem;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col .left.checkInOut .radioButton [type=radio].with-gap:checked + label:after, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.checkInOut .radioButton [type=radio].with-gap:checked + label:after {
+    background-color: #828282;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col .left.checkInOut .radioButton [type=radio].with-gap:checked + label:before, .card-container-base.my-request .list-item-form .form-input .col .left.checkInOut .radioButton [type=radio]:not(:checked) + label:before, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.checkInOut .radioButton [type=radio].with-gap:checked + label:before, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.checkInOut .radioButton [type=radio]:not(:checked) + label:before {
+    border-color: #828282;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col .left.block-time, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time {
+    display: block;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col .left.block-time .datepicker-button, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .datepicker-button {
+    width: 100%;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(2), .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(2) {
+    width: 20px;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(2) .colon, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(2) .colon {
+    text-align: center;
+    width: 100%;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(1), .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(3), .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(1), .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(3) {
+    width: 40px;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(1) input, .card-container-base.my-request .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(3) input, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(1) input, .card-container-base.my-check-in-out .list-item-form .form-input .col .left.block-time .box-time .col:nth-child(3) input {
+    height: 3.2rem;
+    margin-bottom: 1rem;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col .datepicker-button i.calendar-icon, .card-container-base.my-check-in-out .list-item-form .form-input .col .datepicker-button i.calendar-icon {
+    right: 0.8rem;
+    color: #828282;
+    margin-right: 0;
+  }
+  .card-container-base.my-request .list-item-form .form-input .col .select-wrapper input.select-dropdown, .card-container-base.my-check-in-out .list-item-form .form-input .col .select-wrapper input.select-dropdown {
+    margin-bottom: 1.2rem;
+  }
   .card-container-base.my-request .form-update .form-input .col .left:nth-child(2):not(i), .card-container-base.my-check-in-out .form-update .form-input .col .left:nth-child(2):not(i) {
     margin-bottom: 0.7rem;
-    margin-top: 0.5rem; } }
+    margin-top: 0.5rem;
+  }
+}

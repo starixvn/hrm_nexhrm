@@ -1,5 +1,5 @@
-@import '../Common/utils/mixins';
-@import "../Common/utils/variables";
+@import '../utils/_mixins.scss';
+@import '../utils/_variables.scss';
 
 .text-legend {
     padding-bottom: 14px;
@@ -10,6 +10,26 @@
 
 .select-time {
     width: 6rem;
+}
+
+#remarkInfo {
+    display: inline-block !important;
+    vertical-align: middle !important;
+    margin-left: 2rem !important;
+    margin-top: 2rem !important;
+}
+
+#remarkInfo .tooltip {
+    color: #EED202 !important;
+}
+
+.checkBox {
+    position: unset !important;
+    left: unset !important;
+    visibility: unset !important;
+    height: 16px;
+    width: 16px;
+    margin-top: 4px;
 }
 
 .tipsy {

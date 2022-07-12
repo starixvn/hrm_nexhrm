@@ -57,8 +57,9 @@ function bindHalfDay() {
             $.post(_global.root + 'shift/GetShiftByDate',
                 { employeeId: empId, date: $('#FromDate').val() },
                 function (response) {
+                    console.log(response)
                     if (response != null) {
-                        $('#FromTime').val(response.BeginCheckInTime);
+                        $('#FromTime').val(response.beginCheckInTime);
                         $('#FromTime').material_select(); // jshint ignore:line
                         setValueforToTime();
                     }
@@ -129,7 +130,7 @@ function initEventForFromDateAndToDate() {
                     { employeeId: empId, date: $('#FromDate').val() },
                     function (response) {
                         if (response != null) {
-                            $('#FromTime').val(response.BeginCheckInTime);
+                            $('#FromTime').val(response.beginCheckInTime);
                             $('#FromTime').material_select(); // jshint ignore:line
                             setValueforToTime();
                             $('input[type=submit]').show();
@@ -157,11 +158,12 @@ function getAnnualLeaveBalanceInMonth(empId) {
     $.post(_global.root + 'Leave/GetAnnualLeaveBalanceInMonth',
         { empId: empId, effectedDate: $('#ToDate').val(), requestId: requestId },
         function (response) {
+            console.log(response)
             if (response != null) {
-                $('#lblAnnualLeaveCanBeUsed').text(response.AnnualLeaveCanBeUsed);
-                $('#lblAnnualLeaveBalance').text(response.AnnualLeaveBalance);
-                $('#lblMonth').text(monthNames[response.Month - 1]);
-                $('#lblYear').text(response.Year);
+                $('#lblAnnualLeaveCanBeUsed').text(response.annualLeaveCanBeUsed);
+                $('#lblAnnualLeaveBalance').text(response.annualLeaveBalance);
+                $('#lblMonth').text(monthNames[response.month - 1]);
+                $('#lblYear').text(response.year);
             }
         });
 }
