@@ -24,6 +24,7 @@
                     </div>
                     <div class="login__form">
                         <form method="post" asp-controller="Auth" asp-action="Login" asp-route-returnUrl="@ViewBag.ReturnUrl">
+                            @Html.AntiForgeryToken()
                             <div class="login__logo">
                                 <img src="~/css/Images/LogoLuminet.svg" alt="logo" class="img-res" />
                             </div>
@@ -50,6 +51,7 @@
             </div>
         </div>
     </div>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

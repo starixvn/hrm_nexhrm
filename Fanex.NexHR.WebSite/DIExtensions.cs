@@ -1,41 +1,67 @@
 ﻿namespace Fanex.NexHR.WebSite
 {
     using Fanex.Data.Repository;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Email;
     using Fanex.NexHR.Services.Interfaces;
     using Microsoft.AspNetCore.Authentication.Cookies;
+    using Microsoft.AspNetCore.DataProtection;
     using Microsoft.AspNetCore.Mvc.Infrastructure;
     using RestSharp;
+    using StackExchange.Redis;
 
     public static class DIExtensions
     {
         public static void RegisterServices(this IServiceCollection services)
         {
-            RegisterAuthentication(services);
-
-            services.AddHttpClient();
-
             InjectRepository(services);
 
             InjectServices(services);
         }
 
-        private static void RegisterAuthentication(IServiceCollection services)
+        public static void RegisterAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
+            var redisConnectionString = configuration.GetSection("Redis:ConnectionString").Value;
+            var appName = configuration.GetSection("Redis:ApplicationName").Value;
+
+            var redis = ConnectionMultiplexer.Connect(redisConnectionString);
+            services.AddDataProtection()
+                .SetApplicationName(appName)
+                .PersistKeysToStackExchangeRedis(redis, $"{appName}:DataProtection:Keys");
+
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromDays(10);
                 options.Cookie.IsEssential = true;
+                options.Cookie.Name = $"{appName}.Session";
             });
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(cookieOptions =>
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = redisConnectionString;
+                options.InstanceName = $"{appName}:Session:";
+            });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(cookieOptions =>
             {
                 cookieOptions.LoginPath = "/Auth/Login";
-                cookieOptions.Cookie.Name = ".HRMSystemNameCookie";
+                cookieOptions.ExpireTimeSpan = TimeSpan.FromDays(10);
+                cookieOptions.Cookie = new CookieBuilder
+                {
+                    Name = $"{appName}.Cookie",
+                    SecurePolicy = CookieSecurePolicy.SameAsRequest
+                };
             });
+        }
+
+        public static void InjectConfiguration(this IServiceCollection services, IConfiguration configuration)
+        {
+            var appSettings = configuration.GetSection("AppSettings").Get<AppSetting>();
+            services.AddSingleton(appSettings);
         }
 
         private static void InjectServices(IServiceCollection services)
