@@ -12,6 +12,7 @@
     using Criteria.Employee;
     using Criteria.Request;
     using Data.Repository;
+    using Fanex.NexHR.Models.Core;
     using Interfaces;
     using Microsoft.AspNetCore.Hosting;
     using Models;
@@ -29,6 +30,7 @@
         private readonly INexbotService nexbotService;
         private readonly IWebHostEnvironment environment;
         private readonly AppSetting appSetting;
+        private readonly EmailSettings emailSettings;
 
         private const string stringTime = "HH:mm";
 
@@ -38,7 +40,8 @@
             ICommandService commandService,
             INexbotService nexbotService,
             IWebHostEnvironment environment,
-            AppSetting appSetting)
+            AppSetting appSetting,
+            EmailSettings emailSettings)
         {
             this.requestRepository = requestRepository;
             this.emailService = emailService;
@@ -46,6 +49,7 @@
             this.nexbotService = nexbotService;
             this.environment = environment;
             this.appSetting = appSetting;
+            this.emailSettings = emailSettings;
         }
 
         private static string GetMessageDateforLeaveRequest(DateTime fromDate, DateTime toDate)
@@ -330,10 +334,10 @@
                     model.LeaveTypeName,
                     model.Remark,
                     appSetting.BaseUrl,
-                    appSetting.CompanyMailSign);
+                    emailSettings.CompanyMailSign);
 
                 emailService.SendEmail(
-                    appSetting.Email,
+                    emailSettings.Email,
                     string.Join(";", managers.Select(t => t.Email)),
                     string.Join(";", leaders.Where(t => !t.Email.Equals(model.CurrentUserEmail)).Select(t => t.Email)),
                     model.SubjectEmail,
@@ -353,10 +357,10 @@
                     model.LeaveTypeName,
                     model.Remark,
                     appSetting.BaseUrl,
-                    appSetting.CompanyMailSign);
+                    emailSettings.CompanyMailSign);
 
                 emailService.SendEmail(
-                    appSetting.Email,
+                    emailSettings.Email,
                     string.Join(";", leaders.Select(t => t.Email)),
                     string.Empty,
                     model.SubjectEmail,
@@ -388,10 +392,10 @@
                 content.Shift,
                 content.Time,
                 appSetting.BaseUrl,
-                appSetting.CompanyMailSign);
+                emailSettings.CompanyMailSign);
 
             emailService.SendEmail(
-                appSetting.Email,
+                emailSettings.Email,
                 string.Join(";", leaders.Select(t => t.Email)),
                 string.Empty,
                 model.SubjectEmail,
@@ -540,7 +544,7 @@
                 request.ModifiedBy.NickName,
                 request.ModifiedBy.FullName,
                 appSetting.BaseUrl,
-                appSetting.CompanyMailSign);
+                emailSettings.CompanyMailSign);
 
             var subject = string.Format(
                 Messages.ProcessSubject,
@@ -550,7 +554,7 @@
                 request.ModifiedBy.NickName);
 
             emailService.SendEmail(
-                appSetting.Email,
+                emailSettings.Email,
                 request.Requester.Email,
                 string.Empty,
                 subject,
@@ -604,12 +608,12 @@
                 forDate,
                 request.LeaveType.Name,
                 request.Remark,
-                appSetting.CompanyMailSign);
+                emailSettings.CompanyMailSign);
 
             if (!string.IsNullOrEmpty(sendTo))
             {
                 emailService.SendEmail(
-                     appSetting.Email,
+                     emailSettings.Email,
                      sendTo,
                      string.Empty,
                      subject,
@@ -639,10 +643,10 @@
                 request.FromDate.ToDateMonthYearFormatedDate(),
                 request.FromShift.Name,
                 request.FromDate.ToString(stringTime),
-                appSetting.CompanyMailSign);
+                emailSettings.CompanyMailSign);
 
             emailService.SendEmail(
-                appSetting.Email,
+                emailSettings.Email,
                 request.ModifiedBy.Email,
                 sendCc,
                 subject,
@@ -665,12 +669,12 @@
                 forDate,
                 request.LeaveType.Name,
                 request.Remark,
-                appSetting.CompanyMailSign);
+                emailSettings.CompanyMailSign);
 
             if (!string.IsNullOrEmpty(sendTo))
             {
                 emailService.SendEmail(
-                     appSetting.Email,
+                     emailSettings.Email,
                      sendTo,
                      string.Empty,
                      subject,

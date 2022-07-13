@@ -2,9 +2,9 @@
 {
     using Fanex.Data.Repository;
     using Fanex.NexHR.Core;
+    using Fanex.NexHR.Models.Core;
     using Fanex.NexHR.Models.NexBot;
     using Fanex.NexHR.Models.SyncData;
-    using Fanex.NexHR.Models.Token;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services;
@@ -73,6 +73,9 @@
 
             var authSettings = configuration.GetSection("AuthorizedSettings").Get<AuthorizedSettings>();
             services.AddSingleton(authSettings);
+
+            var emailSettings = configuration.GetSection("AuthorizedSettings").Get<EmailSettings>();
+            services.AddSingleton(emailSettings);
         }
 
         private static void InjectServices(IServiceCollection services)

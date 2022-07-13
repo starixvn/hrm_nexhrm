@@ -1,5 +1,5 @@
-@import "../Common/utils/variables";
-@import "../Common/utils/mixins";
+@import "../utils/variables";
+@import "../utils/mixins";
 
 .flexWrap {
     display: flex;
@@ -101,7 +101,7 @@
     }
 
     .ui-dialog-content {
-         padding: 0 !important;
+        padding: 0 !important;
     }
 
     .ui-dialog .ui-dialog-buttonpane {
@@ -110,7 +110,7 @@
 }
 
 .todoBlock {
-    background: url(/Images/bg_todolist.jpg) no-repeat center bottom;
+    background: url(/css/Images/bg_todolist.jpg) no-repeat center bottom;
     background-size: cover;
 
     .card-body {
@@ -232,13 +232,13 @@
 }
 
 .tipsy-redmine {
-    opacity: 1!important;
+    opacity: 1 !important;
     font-size: 1.2rem !important;
 
     .tipsy-inner {
         background-color: #dcf9dc;
         text-align: left;
-        max-width:none;
+        max-width: none;
         color: #1e1c1c;
     }
 
@@ -246,7 +246,6 @@
         display: none;
     }
 }
-
 
 .redmine-tooltip {
     min-width: 300px;
@@ -299,8 +298,6 @@
         color: #484343;
     }
 }
-
-
 
 .workload {
     .card-title-block {
@@ -899,13 +896,15 @@
             }
         }
     }
+
     .collection {
         .collection-item.avatar {
-            .circle{
+            .circle {
                 display: none;
             }
         }
     }
+
     .dashboardCalendar {
         .fc-toolbar {
             padding: 1rem 1.3rem !important;

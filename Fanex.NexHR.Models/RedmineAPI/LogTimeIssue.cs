@@ -2,7 +2,7 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using Core.Enums;
+    using Fanex.NexHR.Core.Enums;
     using Resources;
 
     public class LogTimeIssue

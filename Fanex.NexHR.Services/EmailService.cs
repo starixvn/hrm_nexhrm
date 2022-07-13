@@ -1,20 +1,27 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using Core;
+    using Fanex.NexHR.Models.Core;
     using Interfaces;
     using MailDeliver.MailClient.API;
     using MailDeliver.Model;
-    using System.Configuration;
 
     public class EmailService : IEmailService
     {
+        private readonly EmailSettings emailSettings;
+        private readonly AppSetting appSetting;
+
+        public EmailService(EmailSettings emailSettings, AppSetting appSetting)
+        {
+            this.emailSettings = emailSettings;
+            this.appSetting = appSetting;
+        }
+
         public void SendEmail(string senderEmail, string receiverEmail, string mailCC, string subject, string body)
         {
-            var disableSendMail = bool.Parse(ConfigurationManager.AppSettings["IsDisabledSendMail"]);
-
             if (!Utilities.IsValidEmail(senderEmail)
                 || !Utilities.IsValidEmail(receiverEmail)
-                || disableSendMail)
+                || emailSettings.IsDisabledSendMail)
             {
                 return;
             }
@@ -24,7 +31,7 @@
                 MailTo = receiverEmail,
                 MailCc = mailCC,
                 Subject = subject,
-                Title = $"[{ConfigurationManager.AppSettings["HRMName"]}]",
+                Title = $"[{appSetting.HRMName}]",
                 Body = body,
             };
 

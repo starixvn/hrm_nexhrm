@@ -1,6 +1,6 @@
 ﻿namespace Fanex.NexHR.Models.Bio
 {
-    using Core.Enums;
+    using Fanex.NexHR.Core.Enums;
 
     public class BioCard
     {

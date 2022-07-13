@@ -1,24 +1,26 @@
 ﻿namespace Fanex.NexHR.Services.Email
 {
-    using System.Configuration;
     using System.IO;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Core;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
     using Microsoft.AspNetCore.Hosting;
 
-    public class MailEmployeeService: IMailEmployeeService
+    public class MailEmployeeService : IMailEmployeeService
     {
-        private readonly string HRMName = ConfigurationManager.AppSettings["HRMName"];
-
         private readonly IEmailService emailService;
         private readonly IWebHostEnvironment environment;
+        private readonly AppSetting appSetting;
+        private readonly EmailSettings emailSettings;
 
-        public MailEmployeeService(IEmailService emailService, IWebHostEnvironment environment)
+        public MailEmployeeService(IEmailService emailService, IWebHostEnvironment environment, AppSetting appSetting, EmailSettings emailSettings)
         {
             this.emailService = emailService;
             this.environment = environment;
+            this.appSetting = appSetting;
+            this.emailSettings = emailSettings;
         }
 
         public void SendMailUpdateSuccess(Employee employee)
@@ -28,13 +30,13 @@
             var emailContent = string.Format(
                 bodyTemplate,
                 employee.NickName,
-                HRMName,
-                ConfigurationManager.AppSettings["BaseUrl"],
-                ConfigurationManager.AppSettings["CompanyMailSign"]);
-            var emailSubject = $"[{HRMName}] - {Messages.SuccessUpdateInformation}";
+                appSetting.HRMName,
+                appSetting.BaseUrl,
+                emailSettings.CompanyMailSign);
+            var emailSubject = $"[{appSetting.HRMName}] - {Messages.SuccessUpdateInformation}";
 
             emailService.SendEmail(
-                ConfigurationManager.AppSettings["Email"],
+                emailSettings.Email,
                 employee.Email,
                 null,
                 emailSubject,

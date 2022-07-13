@@ -18,8 +18,8 @@
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            List<Employee> employeesBirthday = null;
-            List<Employee> employeesFirstWorkingday = null;
+            List<Employee> employeesBirthday = new List<Employee>();
+            List<Employee> employeesFirstWorkingday = new List<Employee>();
             var criteria = new GetBirthdayAndFirstWorkingdayCriteria
             {
                 OnDate = DateTime.Now.Date

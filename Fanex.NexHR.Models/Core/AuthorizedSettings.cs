@@ -1,4 +1,4 @@
-﻿namespace Fanex.NexHR.Models.Token
+﻿namespace Fanex.NexHR.Models.Core
 {
     public class AuthorizedSettings
     {

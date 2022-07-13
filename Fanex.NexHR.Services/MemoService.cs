@@ -7,6 +7,7 @@
     using System.Text;
     using Core;
     using Criteria.Memo;
+    using Fanex.NexHR.Models.Core;
     using Interfaces;
     using Microsoft.AspNetCore.Hosting;
     using Models.Memo;
@@ -17,12 +18,14 @@
         private readonly IEmailService emailService;
         private readonly IWebHostEnvironment environment;
         private readonly AppSetting appSettings;
+        private readonly EmailSettings emailSettings;
 
-        public MemoService(IEmailService emailService, IWebHostEnvironment environment, AppSetting appSettings)
+        public MemoService(IEmailService emailService, IWebHostEnvironment environment, AppSetting appSettings, EmailSettings emailSettings)
         {
             this.emailService = emailService;
             this.environment = environment;
             this.appSettings = appSettings;
+            this.emailSettings = emailSettings;
         }
 
         public IList<Memo> GetAll(GetAllMemoCriteria criteria)
@@ -60,29 +63,29 @@
 
         public void SendMail(string subject, string memoId)
         {
-            var groupSd = appSettings.EmailSD;
-            var groupGo = appSettings.EmailGo;
-            var groupNetwork = appSettings.EmailNetwork;
+            var groupSd = emailSettings.EmailSD;
+            var groupGo = emailSettings.EmailGo;
+            var groupNetwork = emailSettings.EmailNetwork;
 
             var emailTemplatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForMemoNotification);
             var bodyTemplate = Utilities.ReadTextFile(emailTemplatePath);
-            string companyMailSign = appSettings.CompanyMailSign;
+            string companyMailSign = emailSettings.CompanyMailSign;
 
-            var body = string.Format(bodyTemplate, subject, appSettings.BaseUrl + "memo/detail/" + memoId, companyMailSign, appSettings.CompanyMailSign);
+            var body = string.Format(bodyTemplate, subject, appSettings.BaseUrl + "memo/detail/" + memoId, companyMailSign, emailSettings.CompanyMailSign);
             emailService.SendEmail(
-                appSettings.Email,
+                emailSettings.Email,
                 groupGo,
                 string.Empty,
                 Messages.MemoSubject + " " + subject,
                 body);
             emailService.SendEmail(
-               appSettings.Email,
+               emailSettings.Email,
                groupSd,
                string.Empty,
                Messages.MemoSubject + " " + subject,
                body);
             emailService.SendEmail(
-               appSettings.Email,
+               emailSettings.Email,
                groupNetwork,
                string.Empty,
                Messages.MemoSubject + " " + subject,

@@ -1,12 +1,12 @@
 ﻿namespace Fanex.NexHR.Models
 {
-    using Core;
-    using Core.Enums;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Text;
+    using Fanex.NexHR.Core;
+    using Fanex.NexHR.Core.Enums;
 
     public class Employee : EntityBase<int>
     {
@@ -262,6 +262,7 @@
                     case "4":
                         roles = new StringBuilder("System admin");
                         break;
+
                     default:
                         roles = new StringBuilder("Member");
                         break;

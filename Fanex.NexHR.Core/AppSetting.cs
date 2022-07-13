@@ -13,10 +13,5 @@
         public string HRMName { get; set; }
         public string LdapUrl { get; set; }
         public string BaseUrl { get; set; }
-        public string CompanyMailSign { get; set; }
-        public string Email { get; set; }
-        public string EmailSD { get; set; }
-        public string EmailGo { get; set; }
-        public string EmailNetwork { get; set; }
     }
 }

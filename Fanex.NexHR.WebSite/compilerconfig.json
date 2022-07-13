@@ -14,5 +14,9 @@
   {
     "outputFile": "wwwroot/css/Views/myrequest.css",
     "inputFile": "wwwroot/css/Views/myrequest.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Views/mydashboard.css",
+    "inputFile": "wwwroot/css/Views/mydashboard.scss"
   }
 ]
