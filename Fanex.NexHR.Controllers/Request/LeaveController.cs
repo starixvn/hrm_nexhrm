@@ -131,7 +131,7 @@
                 }
 
                 model.IsEdit = false;
-                SendEmailAndSkype(model);
+                //SendEmailAndSkype(model);
             }
             else
             {

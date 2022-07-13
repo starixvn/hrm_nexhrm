@@ -5,7 +5,7 @@
 function cancelRequest(id) {
     confirm('<p>Are you sure you want to cancel this request?</p>', function () {
         $.post(_global.root + 'request/deleteworkingtimerequest' + "/" + id, function (data) {
-            if (data.IsSuccessful) {
+            if (data.isSuccessful) {
                 $('#row_' + id).remove();
                 autoIndex();
             }

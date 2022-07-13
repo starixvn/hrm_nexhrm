@@ -17,8 +17,8 @@
         public const string ContentEmployeeOvertime = "<li><strong>{0}</strong> ({1}) - {2}: {3} hour(s).";
 
         public const string EmailTemplatePathForRequester = "~/app_data/emails/process.request.cshtml";
-        public const string EmailTemplatePathForLeave = "~/app_data/emails/Leave.Request.cshtml";
-        public const string EmailTemplatePathForUnpaidLeave = "~/app_data/emails/UnpaidLeave.Request.cshtml";
+        public const string EmailTemplatePathForLeave = "app_data\\emails\\Leave.Request.cshtml";
+        public const string EmailTemplatePathForUnpaidLeave = "app_data\\emails\\UnpaidLeave.Request.cshtml";
         public const string EmailTemplatePathForCheckInOut = "~/app_data/emails/CheckInOut.Request.cshtml";
         public const string EmailTemplatePathForMemoNotification = "~/app_data/emails/MemoNotification.cshtml";
         public const string EmailTemplatePathForLeaveApproved = "~/app_data/emails/LeaveApprovalNotification.cshtml";

@@ -63,10 +63,18 @@ namespace Fanex.NexHR.Core
 
         public static string ReadTextFile(string filePath)
         {
-            using (var sr = new StreamReader(filePath))
+            if (filePath == null)
             {
-                return sr.ReadToEnd();
+                return string.Empty;
             }
+            else
+            {
+                using (var sr = new StreamReader(filePath))
+                {
+
+                    return sr.ReadToEnd();
+                }
+            }  
         }
 
         //public static string RandomString(int length)
