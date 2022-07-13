@@ -1,16 +1,16 @@
 ﻿namespace Fanex.NexHR.Models.NexBot
 {
-    using RestSharp.Deserializers;
+    using Newtonsoft.Json;
 
     public class Token
     {
-        [DeserializeAs(Name = "token_type")]
+        [JsonProperty("token_type")]
         public string TokenType { get; set; }
 
-        [DeserializeAs(Name = "expires_in")]
+        [JsonProperty("expires_in")]
         public int ExpiresIn { get; set; }
 
-        [DeserializeAs(Name = "access_token")]
+        [JsonProperty("access_token")]
         public string AccessToken { get; set; }
     }
 }

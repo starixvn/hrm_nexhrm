@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Data;
     using Data.Repository;
     using Interfaces;
@@ -9,11 +10,11 @@
 
     public class NexbotRepository : BaseRepository, INexbotRepository
     {
-        public IEnumerable<EmployeeSkypeAccount> GetEmployeeSkypeAccount(ICriteria criteria)
+        public async Task<IEnumerable<EmployeeSkypeAccount>> GetEmployeeSkypeAccount(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var employees = db.Query<EmployeeSkypeAccount, Employee, Team, EmployeeSkypeAccount>(
+                var employees = await db.QueryAsync<EmployeeSkypeAccount, Employee, Team, EmployeeSkypeAccount>(
                         (s, e, g) =>
                         {
                             s.Employee = e;

@@ -1,7 +1,9 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
+    using System.Threading.Tasks;
+
     public interface ITimeSheetService
     {
-        void SendReminderReachedWorkingTime();
+        Task SendReminderReachedWorkingTime();
     }
 }

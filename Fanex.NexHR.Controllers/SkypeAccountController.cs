@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Criteria.SkypeAccount;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -38,7 +39,7 @@
             return View(viewModel);
         }
 
-        public ActionResult GetEmployeeSkypeAccount(SkypeAccountFilter viewModel)
+        public async Task<IActionResult> GetEmployeeSkypeAccount(SkypeAccountFilter viewModel)
         {
             var criteria = new GetEmployeeSkypeAccountCriteria
             {
@@ -47,15 +48,15 @@
                 IsConfirmed = viewModel.IsConfirmed
             };
 
-            var employeeAccounts = nexbotService.GetEmployeeSkypeAccount(criteria);
+            var employeeAccounts = await nexbotService.GetEmployeeSkypeAccountAsync(criteria);
 
             return PartialView("_ListAccount", employeeAccounts);
         }
 
         [Authorize(Roles = "HR")]
-        public ActionResult EditAccount(int employeeId, string fullName, string nickName)
+        public async Task<IActionResult> EditAccount(int employeeId, string fullName, string nickName)
         {
-            var skypeAccounts = nexbotService.GetSkypeAccount();
+            var skypeAccounts = await nexbotService.GetSkypeAccountAsync();
 
             var viewModel = new SkypeAccountViewModel
             {

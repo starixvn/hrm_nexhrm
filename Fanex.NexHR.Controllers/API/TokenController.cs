@@ -1,16 +1,23 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
     using System;
-    using System.Configuration;
     using System.IdentityModel.Tokens.Jwt;
     using System.Security.Claims;
     using System.Text;
+    using Fanex.NexHR.Models.Token;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.IdentityModel.Tokens;
 
     public class TokenController : ControllerBase
     {
+        private readonly AuthorizedSettings authSettings;
+
+        public TokenController(AuthorizedSettings authSettings)
+        {
+            this.authSettings = authSettings;
+        }
+
         [AllowAnonymous]
         [HttpPost]
         public IActionResult GetToken(string username, string password)
@@ -36,10 +43,10 @@
             return Unauthorized();
         }
 
-        public static bool CheckUser(string username, string password)
+        public bool CheckUser(string username, string password)
         {
-            var isUsernamePasswordValid = password == ConfigurationManager.AppSettings["NexHRPassword"]
-                && username == ConfigurationManager.AppSettings["NexHRId"];
+            var isUsernamePasswordValid = password == authSettings.AppSecret
+                && username == authSettings.AppId;
 
             return isUsernamePasswordValid;
         }

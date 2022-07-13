@@ -2,6 +2,9 @@
 {
     using Fanex.Data.Repository;
     using Fanex.NexHR.Core;
+    using Fanex.NexHR.Models.NexBot;
+    using Fanex.NexHR.Models.SyncData;
+    using Fanex.NexHR.Models.Token;
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services;
@@ -10,7 +13,6 @@
     using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.DataProtection;
     using Microsoft.AspNetCore.Mvc.Infrastructure;
-    using RestSharp;
     using StackExchange.Redis;
 
     public static class DIExtensions
@@ -62,6 +64,15 @@
         {
             var appSettings = configuration.GetSection("AppSettings").Get<AppSetting>();
             services.AddSingleton(appSettings);
+
+            var nexBotSettings = configuration.GetSection("NexBotSettings").Get<NexBotSettings>();
+            services.AddSingleton(nexBotSettings);
+
+            var syncDataSettings = configuration.GetSection("SyncDataSettings").Get<SyncDataSettings>();
+            services.AddSingleton(syncDataSettings);
+
+            var authSettings = configuration.GetSection("AuthorizedSettings").Get<AuthorizedSettings>();
+            services.AddSingleton(authSettings);
         }
 
         private static void InjectServices(IServiceCollection services)
@@ -83,7 +94,6 @@
             services.AddSingleton<IReportService, ReportService>();
             services.AddSingleton<IEmailService, EmailService>();
             services.AddSingleton<INexbotService, NexbotService>();
-            services.AddSingleton<IRestClient, RestClient>();
             services.AddSingleton<IJobTitleService, JobTitleService>();
             services.AddSingleton<IShiftService, ShiftService>();
             services.AddSingleton<IHistoryWorkService, HistoryWorkService>();

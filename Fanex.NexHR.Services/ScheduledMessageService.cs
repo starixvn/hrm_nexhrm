@@ -6,7 +6,6 @@
     using Fanex.NexHR.Criteria.ScheduledMessage;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.ScheduledMessage;
-    using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services.Interfaces;
     using NCrontab;
@@ -33,7 +32,6 @@
                 CronExpression = model.CronExpression,
                 StepNumber = model.StepNumber,
                 RepeatTypeId = model.RepeatTypeId
-
             }).ConfigureAwait(false);
         }
 
@@ -91,7 +89,6 @@
 
             var sentMessageIds = new List<int>();
 
-
             foreach (var scheduledMessage in scheduledMessages)
             {
                 if (scheduledMessage.CronExpression != null)
@@ -100,12 +97,12 @@
                     var nextRun = schedule.GetNextOccurrence(DateTime.Now.AddMinutes(-1));
                     if (nextRun == currentDate)
                     {
-                        nexbotService.SendMessage(scheduledMessage.SkypeConversationId, scheduledMessage.Content);
+                        await nexbotService.SendMessageAsync(scheduledMessage.SkypeConversationId, scheduledMessage.Content);
                     }
                 }
                 else
                 {
-                    if (nexbotService.SendMessage(scheduledMessage.SkypeConversationId, scheduledMessage.Content))
+                    if (await nexbotService.SendMessageAsync(scheduledMessage.SkypeConversationId, scheduledMessage.Content))
                     {
                         sentMessageIds.Add(scheduledMessage.ScheduledMessageId);
                     }

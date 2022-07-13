@@ -12,22 +12,20 @@
 
     public interface INexbotService
     {
-        bool SendMessage(string conversationId, string message);
-
         Task<bool> SendMessageAsync(string conversationId, string message);
 
-        IList<ConversationUser> GetSkypeAccount();
+        Task<IList<ConversationUser>> GetSkypeAccountAsync();
 
-        IList<ConversationUser> GetIgnoredSkypeAccountByMessageCategory(MessageCategory messageCategory);
+        Task<IList<ConversationUser>> GetIgnoredSkypeAccountByMessageCategoryAsync(MessageCategory messageCategory);
 
-        IList<ConversationUser> GetRegisteredConversation(MessageCategory messageCategory);
+        Task<IList<ConversationUser>> GetRegisteredConversationAsync(MessageCategory messageCategory);
 
-        IEnumerable<EmployeeSkypeAccount> GetEmployeeSkypeAccount(GetEmployeeSkypeAccountCriteria criteria);
+        Task<IEnumerable<EmployeeSkypeAccount>> GetEmployeeSkypeAccountAsync(GetEmployeeSkypeAccountCriteria criteria);
 
-        void SendMessageForLeaveRequest(LeaveRequestViewModel request);
+        Task SendMessageForLeaveRequest(LeaveRequestViewModel request);
 
-        void SendMessageProcessRequest(RequestEntity request, string command);
+        Task SendMessageProcessRequest(RequestEntity request, string command);
 
-        void SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request, IList<Employee> leaders);
+        Task SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request, IList<Employee> leaders);
     }
 }

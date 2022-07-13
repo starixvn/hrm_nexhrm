@@ -2,9 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Configuration;
     using System.Globalization;
     using System.Linq;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Text;
     using System.Threading.Tasks;
     using Core;
@@ -16,165 +17,121 @@
     using Models.NexBot;
     using Models.Request;
     using Models.SkypeAccount;
-    using Repositories;
+    using Newtonsoft.Json;
     using Repositories.Interfaces;
-    using RestSharp;
     using ViewModels;
     using ViewModels.CheckInOutRequest;
 
     public class NexbotService : BaseService, INexbotService
     {
-        private readonly IRestClient webClient;
+        private const string ContentType = "application/json";
+        private readonly HttpClient httpClient;
         private readonly INexbotRepository nexbotRepository;
+        private readonly NexBotSettings nexBotSettings;
+        private readonly string BaseUrl;
 
-        private static readonly bool IsDisabledSendSkype = bool.Parse(ConfigurationManager.AppSettings["IsDisabledSendSkype"]);
-        private static readonly string BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-
-        public NexbotService()
+        public NexbotService(IHttpClientFactory httpClientFactory, INexbotRepository nexbotRepository, AppSetting appSetting, NexBotSettings nexBotSettings)
         {
-            webClient = new RestClient { Encoding = Encoding.UTF8 };
-            nexbotRepository = new NexbotRepository();
-        }
-
-        public bool SendMessage(string conversationId, string message)
-        {
-            if (!string.IsNullOrWhiteSpace(conversationId))
-            {
-                return ForwardToBot(message, conversationId);
-            }
-
-            return false;
+            httpClient = httpClientFactory.CreateClient();
+            this.nexbotRepository = nexbotRepository;
+            this.nexBotSettings = nexBotSettings;
+            BaseUrl = appSetting.BaseUrl;
         }
 
         public async Task<bool> SendMessageAsync(string conversationId, string message)
         {
             if (!string.IsNullOrWhiteSpace(conversationId))
             {
-                var result = await ForwardToBotAsync(message, conversationId).ConfigureAwait(false);
+                var result = await SendMessageToBotAsync(conversationId, message);
                 return result;
             }
 
             return false;
         }
 
-        private RestRequest CreateRequestHeader(string resource, Method method)
+        private async Task<HttpRequestMessage> CreateRequestAsync(string endPointPath, HttpMethod method)
         {
-            var token = GetToken();
-
-            var request = new RestRequest(resource, method);
-            request.AddHeader("Authorization", $"Bearer {token.AccessToken}");
-            request.AddHeader("content-type", "application/x-www-form-urlencoded");
-
+            var token = await GetTokenAsync();
+            Uri url = new($"{nexBotSettings.BotServiceUrl}{endPointPath}");
+            var request = new HttpRequestMessage(method, url);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
             return request;
         }
 
-        public IList<ConversationUser> GetSkypeAccount()
+        private async Task<string> GetTokenAsync()
         {
-            var request = CreateRequestHeader("/account/index", Method.GET);
-
-            webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
-            IRestResponse<List<ConversationUser>> response = webClient.Execute<List<ConversationUser>>(request);
-            var skypeAccounts = response.Data;
-
-            return skypeAccounts;
-        }
-
-        public IList<ConversationUser> GetIgnoredSkypeAccountByMessageCategory(MessageCategory messageCategory)
-        {
-            var request = CreateRequestHeader("/account/GetIgnoredAccountByMessageCategory", Method.GET);
-            request.AddParameter("messageCategoryId", (int)messageCategory);
-
-            webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
-            IRestResponse<List<ConversationUser>> response = webClient.Execute<List<ConversationUser>>(request);
-            var skypeAccounts = response.Data;
-
-            return skypeAccounts;
-        }
-
-        public IList<ConversationUser> GetRegisteredConversation(MessageCategory messageCategory)
-        {
-            var request = CreateRequestHeader("/account/GetRegisteredConversationByMessageCategory", Method.GET);
-            request.AddParameter("messageCategoryId", (int)messageCategory);
-
-            webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
-            IRestResponse<List<ConversationUser>> response = webClient.Execute<List<ConversationUser>>(request);
-            var skypeAccounts = response.Data;
-
-            return skypeAccounts;
-        }
-
-        private void SendApproveMessage(string conversationId, long requestId, string message)
-        {
-            if (!IsDisabledSendSkype)
+            Uri url = new(nexBotSettings.TokenUrl);
+            var authData = new Dictionary<string, string>
             {
-                var request = CreateRequestHeader("/request/approve", Method.POST);
+                {"grant_type", "client_credentials"  },
+                {"client_id", nexBotSettings.ClientId  },
+                {"client_secret", nexBotSettings.ClientPassword  },
+                {"scope", $"{nexBotSettings.ClientId}/.default"  },
+            };
+            httpClient.DefaultRequestHeaders.Add("Content-type", "application/x-www-form-urlencoded");
 
-                request.AddParameter("conversationId", conversationId);
-                request.AddParameter("requestId", requestId);
-                request.AddParameter("message", message);
-                request.AddParameter("callBackUrl", BaseUrl + "/api");
-
-                webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
-                webClient.Execute(request);
-            }
+            using var authDataContent = new FormUrlEncodedContent(authData);
+            using var response = await httpClient.PostAsync(url, authDataContent);
+            var responseData = await response.Content.ReadAsStringAsync();
+            var token = JsonConvert.DeserializeObject<Token>(responseData);
+            return token?.AccessToken;
         }
 
-        private bool ForwardToBot(string message, string conversationId)
+        public async Task<bool> SendMessageToBotAsync(string conversationId, string message)
         {
             var isSuccessful = false;
-            if (!IsDisabledSendSkype)
+            if (!nexBotSettings.DisabledSendSkype)
             {
-                var request = CreateRequestHeader("/messages/forward", Method.POST);
-                request.AddParameter("message", message);
-                request.AddParameter("conversationId", conversationId);
-
-                webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
-                isSuccessful = webClient.Execute(request).IsSuccessful;
+                var request = await CreateRequestAsync("/messages/forward", HttpMethod.Post);
+                var data = new Dictionary<string, string>
+                {
+                    { "conversationId", conversationId },
+                    { "message", message }
+                };
+                request.Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, ContentType);
+                using var response = await httpClient.SendAsync(request);
+                isSuccessful = response.IsSuccessStatusCode;
             }
 
             return isSuccessful;
         }
 
-        private async Task<bool> ForwardToBotAsync(string message, string conversationId)
+        public async Task<IList<ConversationUser>> GetSkypeAccountAsync()
+         => await SendHttpClientAsync<IList<ConversationUser>>("/account/index", HttpMethod.Get);
+
+        public async Task<IList<ConversationUser>> GetIgnoredSkypeAccountByMessageCategoryAsync(MessageCategory messageCategory)
+            => await SendHttpClientAsync<IList<ConversationUser>>(
+                $"/account/GetIgnoredAccountByMessageCategory?messageCategoryId={(int)messageCategory}",
+                HttpMethod.Get);
+
+        public async Task<IList<ConversationUser>> GetRegisteredConversationAsync(MessageCategory messageCategory)
+         => await SendHttpClientAsync<IList<ConversationUser>>(
+                $"/account/GetRegisteredConversationByMessageCategory?messageCategoryId={(int)messageCategory}",
+                HttpMethod.Get);
+
+        private async Task SendApproveMessageAsync(string conversationId, long requestId, string message)
         {
-            var isSuccessful = false;
-            if (!IsDisabledSendSkype)
+            if (!nexBotSettings.DisabledSendSkype)
             {
-                var request = CreateRequestHeader("/messages/forward", Method.POST);
-                request.AddParameter("message", message);
-                request.AddParameter("conversationId", conversationId);
-                webClient.BaseUrl = NexBotConfiguration.BotServiceUrl;
-                var response = await webClient.ExecuteTaskAsync(request).ConfigureAwait(false);
-                isSuccessful = response.IsSuccessful;
+                var data = new Dictionary<string, object>
+                {
+                    {"conversationId", conversationId },
+                    {"requestId", requestId },
+                    {"message", message },
+                    {"callBackUrl", $"{BaseUrl}/api" },
+                };
+
+                await SendHttpClientAsync<Task>("/request/approve", HttpMethod.Post, data);
             }
-
-            return isSuccessful;
         }
 
-        private Token GetToken()
-        {
-            webClient.BaseUrl = NexBotConfiguration.TokenUrl;
-
-            var request = new RestRequest(Method.POST);
-            request.AddParameter("grant_type", "client_credentials");
-            request.AddParameter("client_id", NexBotConfiguration.ClientId);
-            request.AddParameter("client_secret", NexBotConfiguration.ClientPassword);
-            request.AddParameter("scope", $"{NexBotConfiguration.ClientId}/.default");
-
-            request.AddHeader("Content-type", "application/x-www-form-urlencoded");
-
-            var response = webClient.Execute<Token>(request);
-
-            return response.Data;
-        }
-
-        public IEnumerable<EmployeeSkypeAccount> GetEmployeeSkypeAccount(GetEmployeeSkypeAccountCriteria criteria)
+        public async Task<IEnumerable<EmployeeSkypeAccount>> GetEmployeeSkypeAccountAsync(GetEmployeeSkypeAccountCriteria criteria)
         {
             if (criteria != null && criteria.IsValid())
             {
-                var employeeAccounts = nexbotRepository.GetEmployeeSkypeAccount(criteria).ToList();
+                var employeeAccounts = await nexbotRepository.GetEmployeeSkypeAccount(criteria);
 
-                var conversationUsers = GetSkypeAccount();
+                var conversationUsers = await GetSkypeAccountAsync();
 
                 return CombineEmployeeSkypeAccount(employeeAccounts, conversationUsers);
             }
@@ -182,7 +139,7 @@
             return new List<EmployeeSkypeAccount>();
         }
 
-        private static IList<EmployeeSkypeAccount> CombineEmployeeSkypeAccount(IList<EmployeeSkypeAccount> employeeAccounts, IList<ConversationUser> conversationUsers)
+        private static IList<EmployeeSkypeAccount> CombineEmployeeSkypeAccount(IEnumerable<EmployeeSkypeAccount> employeeAccounts, IList<ConversationUser> conversationUsers)
         {
             foreach (var account in employeeAccounts)
             {
@@ -193,10 +150,10 @@
                 }
             }
 
-            return employeeAccounts;
+            return employeeAccounts.ToList();
         }
 
-        public void SendMessageForLeaveRequest(LeaveRequestViewModel request)
+        public async Task SendMessageForLeaveRequest(LeaveRequestViewModel request)
         {
             if (request != null)
             {
@@ -213,23 +170,23 @@
                     };
                     leaders = GetData<Employee>(criteria);
                 }
-                SendMessageToHandleLeaveRequestMembers(leaders, request);
+                await SendMessageToHandleLeaveRequestMembers(leaders, request);
             }
         }
 
-        private void SendMessageToHandleLeaveRequestMembers(IEnumerable<Employee> leaders, LeaveRequestViewModel request)
+        private async Task SendMessageToHandleLeaveRequestMembers(IEnumerable<Employee> leaders, LeaveRequestViewModel request)
         {
             if (leaders != null && leaders.Any())
             {
                 foreach (var leader in leaders)
                 {
                     var message = GenerateMessageForLeaveRequest(request, leader.NickName);
-                    SendApproveMessage(leader.ConversationId, request.Id, message);
+                    await SendApproveMessageAsync(leader.ConversationId, request.Id, message);
                 }
             }
         }
 
-        private static string GenerateMessageForLeaveRequest(LeaveRequestViewModel request, string leaderName)
+        private string GenerateMessageForLeaveRequest(LeaveRequestViewModel request, string leaderName)
         {
             var forDate = GetDateStringForLeaveRequest(request.FromDate, request.ToDate, request.TotalDays);
             var message = $"Dear {leaderName}, {Constants.NewLine}";
@@ -267,17 +224,17 @@
             }
         }
 
-        public void SendMessageProcessRequest(RequestEntity request, string command)
+        public async Task SendMessageProcessRequest(RequestEntity request, string command)
         {
             var employeee = GetDataEntity<Employee>(new GetEmployeeSkypeAccountCriteria { EmployeeId = request.Requester.Id });
             if (employeee != null)
             {
                 var message = GenerateProcessRequestMessage(request, command);
-                SendMessage(employeee.ConversationId, message);
+                await SendMessageAsync(employeee.ConversationId, message);
             }
         }
 
-        private static string GenerateProcessRequestMessage(RequestEntity request, string command)
+        private string GenerateProcessRequestMessage(RequestEntity request, string command)
         {
             var action = command == Command.Reject.EnumToString() ? $"{command.ToLowerInvariant()}ed" : $"{command.ToLowerInvariant()}d";
 
@@ -291,16 +248,16 @@
             return message;
         }
 
-        public void SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request, IList<Employee> leaders)
+        public async Task SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request, IList<Employee> leaders)
         {
             foreach (var leader in leaders)
             {
                 var message = GenerateCheckInOutRequestMessage(request, leader.NickName);
-                SendApproveMessage(leader.ConversationId, request.Id, message);
+                await SendApproveMessageAsync(leader.ConversationId, request.Id, message);
             }
         }
 
-        private static string GenerateCheckInOutRequestMessage(CheckInOutRequestViewModel request, string leaderName)
+        private string GenerateCheckInOutRequestMessage(CheckInOutRequestViewModel request, string leaderName)
         {
             string type = request.CheckInOutType == (short)RequestType.CheckIn
                             ? RequestType.CheckIn.EnumToString().ToLower(CultureInfo.InvariantCulture)
@@ -314,6 +271,39 @@
             message += $"Please process this request at: {BaseUrl}/request/member. {Constants.NewLine}";
             message += $"Any questions, please contact HR department. Thanks";
             return message;
+        }
+
+        private async Task<T> SendHttpClientAsync<T>(string endPoint, HttpMethod method, IDictionary<string, object> data = null)
+        {
+            ValidateEndPoint(endPoint);
+
+            using var request = await CreateRequestAsync(endPoint, method);
+            if (data is not null)
+            {
+                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, ContentType);
+                request.Content = content;
+            }
+
+            using var response = await httpClient.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResult = await response.Content.ReadAsStringAsync();
+
+                var result = JsonConvert.DeserializeObject<T>(jsonResult);
+
+                return result;
+            }
+
+            return default;
+        }
+
+        private static void ValidateEndPoint(string endPoint)
+        {
+            if (string.IsNullOrWhiteSpace(endPoint))
+            {
+                throw new ArgumentNullException(nameof(endPoint));
+            }
         }
     }
 }

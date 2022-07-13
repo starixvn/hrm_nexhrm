@@ -1,5 +1,11 @@
 ﻿namespace Fanex.NexHR.Services.AutoJobService
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.LateInEarlyOut;
@@ -8,12 +14,6 @@
     using Fanex.NexHR.Resources;
     using Interfaces;
     using Newtonsoft.Json;
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public class BotLateInEarlyOutViolateOnMonthWarningSerivce : IBotLateInLateOutAutoJobService
     {
@@ -98,7 +98,7 @@
 
             if (deductedEmployees.Any())
             {
-                var conversations = nexbotService.GetRegisteredConversation(MessageCategory.DeductLateInEarlyOut);
+                var conversations = await nexbotService.GetRegisteredConversationAsync(MessageCategory.DeductLateInEarlyOut);
                 if (conversations.Any())
                 {
                     var message = GenerateMessageDeduct(deductedEmployees);
@@ -167,7 +167,7 @@
 
         private async Task SendMessageViolateOnMonthToRegisterConversation(IEnumerable<LateInEarlyOutViolateModel> violaters)
         {
-            var conversations = nexbotService.GetRegisteredConversation(MessageCategory.LateInEarlyOutViolateInMonth);
+            var conversations = await nexbotService.GetRegisteredConversationAsync(MessageCategory.LateInEarlyOutViolateInMonth);
             if (conversations.Any() && violaters.Any())
             {
                 string message = GenerateViolateOnMonthGroupMessage(violaters);
@@ -205,7 +205,7 @@
 
         private async Task SendMessageViolateDisciplineToGroup(IEnumerable<LateInEarlyOutDiscipline> violaters, DateTime fromDate, DateTime toDate)
         {
-            var conversations = nexbotService.GetRegisteredConversation(MessageCategory.ViolateLateInEarlyOutDiscipline);
+            var conversations = await nexbotService.GetRegisteredConversationAsync(MessageCategory.ViolateLateInEarlyOutDiscipline);
 
             if (conversations.Any())
             {

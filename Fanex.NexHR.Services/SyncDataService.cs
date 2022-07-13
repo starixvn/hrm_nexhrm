@@ -1,18 +1,26 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Threading.Tasks;
     using Fanex.NexHR.Criteria.SyncData;
     using Fanex.NexHR.Models.SyncData;
     using Fanex.NexHR.Models.SyncData.Flow;
     using Fanex.NexHR.Services.Interfaces;
-    using RestSharp;
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Text;
-    using System.Threading.Tasks;
+    using Newtonsoft.Json;
 
     public class SyncDataService : BaseService, ISyncDataService
     {
+        private readonly HttpClient httpClient;
+        private readonly SyncDataSettings settings;
+
+        public SyncDataService(IHttpClientFactory httpClientFactory, SyncDataSettings settings)
+        {
+            httpClient = httpClientFactory.CreateClient();
+            this.settings = settings;
+        }
+
         public async Task<IEnumerable<SyncEmployeeModel>> GetEmployeeAsync(bool isNexcel, DateTime modifiedDate)
         {
             var criteria = new SyncDataGetEmployeeCriteria
@@ -63,17 +71,20 @@
 
         public async Task<EpaFlow> GetFlowAsync(bool isNexcel)
         {
-            var restClient = new RestClient { Encoding = Encoding.UTF8 };
+            string baseUrl = isNexcel ? settings.NexGoalBaseUrl : settings.LumiGoalBaseUrl;
+            Uri url = new($"{baseUrl}{settings.FlowUrl}");
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+            request.Headers.Add("content-type", "application/x-www-form-urlencoded");
 
-            restClient.BaseUrl = isNexcel
-                ? new Uri(ConfigurationManager.AppSettings["NexGoalBaseUrl"])
-                : new Uri(ConfigurationManager.AppSettings["LumiGoalBaseUrl"]);
+            using var response = await httpClient.SendAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResult = await response.Content.ReadAsStringAsync();
+                var epaFlow = JsonConvert.DeserializeObject<EpaFlow>(jsonResult);
+                return epaFlow;
+            }
 
-            var request = new RestRequest(ConfigurationManager.AppSettings["FlowUrl"], Method.GET);
-            request.AddHeader("content-type", "application/x-www-form-urlencoded");
-            var response = await restClient.ExecuteGetTaskAsync<EpaFlow>(request);
-
-            return response.Data;
+            return default;
         }
     }
 }

@@ -1,16 +1,16 @@
 ﻿namespace Fanex.NexHR.Services.AutoJobService
 {
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.RedmineAPI;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public class FogotLogtimeReminderService : IBotFogotLogtimeReminderService
     {
@@ -34,7 +34,7 @@
             if (forgotLogtimeEmployees.Any())
             {
                 result.Code = 1;
-                SendMessageToEmployees(forgotLogtimeEmployees.Where(e => !string.IsNullOrWhiteSpace(e.ConversationId)));
+                await SendMessageToEmployees(forgotLogtimeEmployees.Where(e => !string.IsNullOrWhiteSpace(e.ConversationId)));
                 await SendMessageToGroups(forgotLogtimeEmployees, MessageCategory.ForgotSpendTime).ConfigureAwait(false);
             }
 
@@ -43,7 +43,7 @@
 
         private async Task SendMessageToGroups(IEnumerable<RedmineUser> forgotLogtimeEmployees, MessageCategory categoryId)
         {
-            var conversations = nexbotService.GetRegisteredConversation(categoryId);
+            var conversations = await nexbotService.GetRegisteredConversationAsync(categoryId);
 
             if (conversations.Any())
             {
@@ -73,12 +73,12 @@
             return message.ToString();
         }
 
-        private void SendMessageToEmployees(IEnumerable<RedmineUser> forgotLogtimeEmployees)
+        private async Task SendMessageToEmployees(IEnumerable<RedmineUser> forgotLogtimeEmployees)
         {
             foreach (var employee in forgotLogtimeEmployees)
             {
                 var message = GenerateMessage(employee);
-                nexbotService.SendMessage(employee.ConversationId, message);
+                await nexbotService.SendMessageAsync(employee.ConversationId, message);
             }
         }
 

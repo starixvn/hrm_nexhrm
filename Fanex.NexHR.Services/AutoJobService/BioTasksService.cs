@@ -30,7 +30,7 @@
             var pendingDevices = await GetDataAsync<BioDevice>(new GetPendingBioDevicesCriteria()).ConfigureAwait(false);
             if (pendingDevices.Any())
             {
-                var conversations = nexbotService.GetRegisteredConversation(MessageCategory.BioDevice);
+                var conversations = await nexbotService.GetRegisteredConversationAsync(MessageCategory.BioDevice);
 
                 if (conversations.Any())
                 {
@@ -58,7 +58,7 @@
 
             if (warningTimeChanges.Any())
             {
-                var conversations = nexbotService.GetRegisteredConversation(MessageCategory.BioTimeChange);
+                var conversations = await nexbotService.GetRegisteredConversationAsync(MessageCategory.BioTimeChange);
 
                 if (conversations.Any())
                 {
@@ -66,7 +66,7 @@
                     foreach (var conversation in conversations)
                     {
                         result.Code = 1;
-                        nexbotService.SendMessage(conversation.ConversationId, message);
+                        await nexbotService.SendMessageAsync(conversation.ConversationId, message);
                     }
                 }
             }
@@ -79,11 +79,11 @@
             var result = new CommandResult { Code = 0 };
             var members = await GetDataAsync<FingerprintAndCardSummary>(
                 new GetPendingFingerprintAndCardCriteria()
-                ).ConfigureAwait(false);
+                );
 
             if (members.Any())
             {
-                var conversations = nexbotService.GetRegisteredConversation(MessageCategory.BioFingerprintAndCard);
+                var conversations = await nexbotService.GetRegisteredConversationAsync(MessageCategory.BioFingerprintAndCard);
 
                 if (conversations.Any())
                 {
@@ -91,7 +91,7 @@
                     var message = GenerateMesssageBioFingerprintAndCard(members);
                     foreach (var conversation in conversations)
                     {
-                        nexbotService.SendMessage(conversation.ConversationId, message);
+                        await nexbotService.SendMessageAsync(conversation.ConversationId, message);
                     }
                 }
             }

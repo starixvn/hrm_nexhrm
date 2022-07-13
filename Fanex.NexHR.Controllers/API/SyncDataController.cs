@@ -1,11 +1,10 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
-    using Fanex.NexHR.Services;
+    using System;
+    using System.Threading.Tasks;
     using Fanex.NexHR.Services.Interfaces;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using System;
-    using System.Threading.Tasks;
 
     [Authorize]
     public class SyncDataController : ControllerBase
@@ -14,13 +13,9 @@
         private readonly DateTime DefaultModifiedDate = new DateTime(2010, 1, 1);
         private const string ModifiedDateTimeFormat = "yyyy-MM-dd HH:mm:ss:fff";
 
-        public SyncDataController() : this(null)
-        {
-        }
-
         public SyncDataController(ISyncDataService syncDataService)
         {
-            this.syncDataService = syncDataService ?? new SyncDataService();
+            this.syncDataService = syncDataService;
         }
 
         public async Task<IActionResult> GetEmployee(bool isNexcel, string lastModifiedDate)
