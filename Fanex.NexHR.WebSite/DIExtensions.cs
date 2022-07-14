@@ -102,7 +102,8 @@
             services.AddSingleton<IHistoryWorkService, HistoryWorkService>();
             services.AddSingleton<IMailEmployeeService, MailEmployeeService>();
             services.AddSingleton<ILeaveTypeService, LeaveTypeService>();
-
+            services.AddSingleton<IWorkFromHomeRequest, WorkFromHomeRequestService>();
+            
             // services.AddSingleton<ILateInEarlyOutRepository, LateInEarlyOutRepository>();
         }
 

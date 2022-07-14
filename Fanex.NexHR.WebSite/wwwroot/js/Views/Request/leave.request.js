@@ -59,7 +59,7 @@ function bindHalfDay() {
                 function (response) {
                     console.log(response)
                     if (response != null) {
-                        $('#FromTime').val(response.beginCheckInTime);
+                        $('#FromTime').val(response.BeginCheckInTime);
                         $('#FromTime').material_select(); // jshint ignore:line
                         setValueforToTime();
                     }
@@ -130,7 +130,7 @@ function initEventForFromDateAndToDate() {
                     { employeeId: empId, date: $('#FromDate').val() },
                     function (response) {
                         if (response != null) {
-                            $('#FromTime').val(response.beginCheckInTime);
+                            $('#FromTime').val(response.BeginCheckInTime);
                             $('#FromTime').material_select(); // jshint ignore:line
                             setValueforToTime();
                             $('input[type=submit]').show();
@@ -160,10 +160,10 @@ function getAnnualLeaveBalanceInMonth(empId) {
         function (response) {
             console.log(response)
             if (response != null) {
-                $('#lblAnnualLeaveCanBeUsed').text(response.annualLeaveCanBeUsed);
-                $('#lblAnnualLeaveBalance').text(response.annualLeaveBalance);
-                $('#lblMonth').text(monthNames[response.month - 1]);
-                $('#lblYear').text(response.year);
+                $('#lblAnnualLeaveCanBeUsed').text(response.AnnualLeaveCanBeUsed);
+                $('#lblAnnualLeaveBalance').text(response.AnnualLeaveBalance);
+                $('#lblMonth').text(monthNames[response.Month - 1]);
+                $('#lblYear').text(response.Year);
             }
         });
 }
