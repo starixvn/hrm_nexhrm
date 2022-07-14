@@ -1,0 +1,65 @@
+﻿@using Fanex.NexHR.Resources
+@{
+    ViewBag.Title = Labels.WorkFromHomeRequest;
+    var CurrentYear = DateTime.Now.Year;
+    var FromYear = 2010;
+    var ToYear = CurrentYear + 1;
+    var ListSelectYear = new List<SelectListItem>();
+     
+    for (var i = ToYear; i >= FromYear; i--)
+    {
+        ListSelectYear.Add(new SelectListItem
+        {
+            Text = i.ToString(),
+            Value = i.ToString(),
+            Selected = i == CurrentYear 
+        });
+    }
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/contextmenu.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Libs/jquery.contextMenu.min.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Request/workfromhome.request.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Request/process.workfromhomerequest.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/contextmenu.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/workfromhomerequest.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body card-leave-detail">
+                    <div class="form">
+                        <div class="row form-input">
+                            <div class="col">
+                                <div class="left label--s">
+                                    <label>@Labels.Year</label>
+                                </div>
+                                <div class="left select--xs">
+                                    <select id="Year" asp-items="ListSelectYear">
+                                    </select>    
+                                </div>
+                            </div>
+                            <div class="col">
+                                <a id="submit" class="btn-submit waves-effect waves-light m-r--b" href="javascript:;">@Labels.Submit</a>
+                                <a class="btn-request waves-effect waves-light" href="@Url.Action("Create")">@Labels.NewRequest</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="work-from-home-request" class="p-x--s">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

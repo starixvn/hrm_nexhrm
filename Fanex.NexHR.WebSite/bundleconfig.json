@@ -152,5 +152,17 @@
       "renameLocals": true
     },
     "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/workfromhomerequest.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Request/workfromhome.request.js",
+      "wwwroot/js/Views/Request/process.workfromhomerequest.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
   }
 ]
