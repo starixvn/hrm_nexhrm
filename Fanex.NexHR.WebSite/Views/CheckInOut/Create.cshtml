@@ -1,0 +1,216 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.CheckInOutRequest
+@model CheckInOutRequestViewModel
+@{
+    ViewBag.Title = Labels.NewCheckInOutRequest;
+    var listRadioBtn = new List<SelectListItem>();
+    listRadioBtn.Add(new SelectListItem
+    {
+            Text = @Labels.CheckIn,
+            Value = "1",
+            Selected = true 
+    });
+    listRadioBtn.Add(new SelectListItem
+    {
+            Text = @Labels.CheckOut,
+            Value = "2",
+            Selected = false 
+    });
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/myrequest.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Libs/jquery.contextMenu.min.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Request/checkinout.request.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Request/process.leave-checkinout.byemployee.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Request/search.request.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/contextmenu.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/empcheckinout.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base my-check-in-out">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase">@ViewBag.Title</span>
+                    <a id="legendInfo" href="javascript:;">
+                        <span class="tooltip">
+                            <i class="mdi mdi-information-outline">
+                            </i>
+                        </span>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="form list-item-form style-over">
+
+                        @using (Html.BeginForm("create", "checkinout", FormMethod.Post, new { @class = "form-create-update" }))
+                        {
+                            if (Model.TotalRequest > 1)
+                            {
+                                <div class="ui-state-error ui-corner-all" style="padding: 0 .7em; margin: 0.7em;">
+                                    <p>
+                                        <a href="@Url.Action("EmployeeView")">
+                                            You've already requested for Check in/out
+                                            @Model.TotalRequest times in @DateTime.Now.ToString("MMM yyyy")
+                                        </a>
+                                    </p>
+                                </div>
+                            }
+
+                            @Html.ValidationSummary()
+                            if (ViewBag.Requested == true)
+                            {
+                                <div class="row validation-summary-success">
+                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestCreated
+                                    <input type="hidden" id="successed" value="true" />
+                                    <input type="hidden" id="year" value="@ViewBag.Year" />
+                                </div>
+                            }
+                            if (ViewBag.TotalRequest >= 2)
+                            {
+                                <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+                                    <p>
+                                        <a href="@Url.Action("EmployeeView")">
+                                            You've already requested for Check in/Check out @ViewBag.TotalRequest times in @DateTime.Now.ToString("MMM yyyy")
+                                        </a>
+                                    </p>
+                                </div>
+                            }
+                                <div class="">
+                                    <!-- remove class 'card-content' to same structure html with page leave -->
+
+                                    <div class="row form-input m-b--m">
+                                        <div class="col">
+                                            <div class="left label--xl">
+                                                @Html.LabelFor(model => model.CheckInOutType, Labels.Request)
+                                            </div>
+                                            <div class="left checkInOut">
+                                                @foreach (var item in listRadioBtn)
+                                                {
+                                                    <div class="radioButton">
+                                                        <input class="with-gap radio-ckeckinout" type="radio" name="CheckInOutType" id="CheckInOutType_@item.Value" value="@item.Value" checked="@item.Selected"/>
+                                                        <div class="lable-checkinout">@item.Text</div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row form-input">
+                                        <div class="col">
+                                            <div class="left label--xl">
+                                                @Html.LabelFor(model => model.Employee, Labels.Employee)
+                                            </div>
+                                            <div class="left input--m">
+                                                @Html.EditorFor(model => model.Employee)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row form-input">
+                                        <div class="col">
+                                            <div class="left label--xl">
+                                                <label>@Labels.RequestTime</label>
+                                            </div>
+                                            <div class="left block-time">
+                                                <div class="datepicker-button left select--s">
+                                                     <date-picker 
+                                                        name="WorkDate"
+                                                        min-date="Utilities.RequestAvailableFromDate"
+                                                        max-date="DateTime.Now"
+                                                        value="Model.WorkDate"
+                                                    >
+                                                    </date-picker>
+                                                    <i class="mdi-action-event calendar-icon from-date left"></i>
+                                                </div>
+                                                <div class="box-time">
+                                                    <div class="col m-l--m">
+                                                        @Html.TextBoxFor(x => x.Hour, new { type = "number", min = "0", max = "23", step = "1", MaxLength = "2", id = "Hour", name = "Hour" })
+                                                    </div>
+                                                    <div class="col p-0">
+                                                        <span class="colon">:</span>
+                                                    </div>
+                                                    <div class="col">
+                                                        @Html.TextBoxFor(x => x.Minute, new { type = "number", min = "0", max = "59", step = "1", MaxLength = "2", id = "Minute", name = "Minute" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @if (Model.IsCrossDate)
+                                    {
+                                        <div class="row form-input">
+                                            <div class="col">
+                                                <div class="left label--xl">
+                                                    @Html.LabelFor(model => model.IsCrossDate, Labels.CrossDate)
+                                                </div>
+                                                <div class="left input--m">
+                                                    @Html.CheckBoxFor(model => model.IsCrossDate, new { @class = "filled-in, checkBox" })  
+                                                </div>
+                                            </div>
+                                        </div>
+                                        }
+                                        <div class="row form-input m-b--m">
+                                            <div class="col">
+                                                <div class="left label--xl">
+                                                    <label>@Labels.Shift</label>
+                                                </div>
+                                                <div class="left">
+                                                    <span class="label" id="shiftname">@Model.Shift</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row form-input line-button">
+                                            <div class="col">
+                                                <div class="left label--xl">&nbsp;</div>
+                                                <div class="left">
+                                                    @Html.HiddenFor(model => model.EmployeeId)
+                                                    @Html.HiddenFor(model => model.Employee)
+                                                    @Html.HiddenFor(model => model.Shift)
+                                                    @Html.HiddenFor(model => model.ForRequest)
+                                                    @Html.HiddenFor(model => model.CheckInOutType)
+                                                    @Html.HiddenFor(model => model.InTime)
+                                                    @Html.HiddenFor(model => model.OutTime)
+
+                                                    <a href="@Url.Action("EmployeeView")" class="btn-back waves-effect waves-light">@Labels.Cancel</a>
+                                                    <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Submit" />
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hide">
+        <div id="requestInfo">
+            <div class="requestInfo">
+                <ul>
+                    <li>
+                        In a month, if the employee forgets to check-in and/or check-out:
+                        <ul>
+                            <li>
+                                More than 2 times (except requests for Afternoon Shift 2 - A2), a reminder from
+                                HR will be issued via email and HR will also be responsible for requesting and approving
+                                those Check-in/out requests.
+                            </li>
+                            <li>
+                                More than 5 times, an Explanation Letter will be requested to be sent to HR and
+                                CC’ed to The Management.
+                            </li>
+                        </ul>
+                    </li>
+                    <li>Deadline to submit a Check-in/out request is 3 working days. </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

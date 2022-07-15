@@ -143,6 +143,19 @@
     "sourceMap": false
   },
   {
+    "outputFileName": "wwwroot/minify/js/empcheckinout.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Request/checkinout.request.js",
+      "wwwroot/js/Views/Request/process.leave-checkinout.byemployee.js",
+      "wwwroot/js/Views/Request/search.request.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
     "outputFileName": "wwwroot/minify/js/staffbirthday.min.js",
     "inputFiles": [
       "wwwroot/js/Views/Employee/employee.birthday.js"

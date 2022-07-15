@@ -1,0 +1,73 @@
+﻿@using Fanex.NexHR.Models.Request
+@using Fanex.NexHR.Resources
+@model IList<RequestEntity>
+@{
+    ViewBag.Title = Labels.MyCheckInOut;
+    var CurrentYear = DateTime.Now.Year;
+    var FromYear = 2010;
+    var ToYear = CurrentYear + 1;
+    var ListSelectYear = new List<SelectListItem>();
+     
+    for (var i = ToYear; i >= FromYear; i--)
+    {
+        ListSelectYear.Add(new SelectListItem
+        {
+            Text = i.ToString(),
+            Value = i.ToString(),
+            Selected = i == CurrentYear 
+        });
+    }
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/contextmenu.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/leaverequest.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Libs/jquery.contextMenu.min.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Request/checkinout.request.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Request/process.leave-checkinout.byemployee.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Request/search.request.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/contextmenu.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/empcheckinout.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    @using (Html.BeginForm("employeeview", "checkinout", FormMethod.Post))
+    {
+        <div class="col s12 card-container-base my-request">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-title-block">
+                        <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                    </div>
+                    <div class="card-body card-leave-detail">
+                        <div class="form">
+                            <div class="row form-input">
+                                <input type="hidden" value="CheckInOut" id="RequestType" />
+                                <div class="col">
+                                    <div class="left label--s">
+                                        <label>@Labels.Year</label>
+                                    </div>
+                                    <div class="left select--xs">
+                                        <select id="Year" asp-items="ListSelectYear">
+                                        </select> 
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <a id="submit" class="btn-submit waves-effect waves-light m-r--b" href="javascript:;">@Labels.Submit</a>
+                                    <a class="btn-request waves-effect waves-light" href="@Url.Action("Create")">@Labels.NewRequest</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="list-check-in-out-request" class="p-x--s">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

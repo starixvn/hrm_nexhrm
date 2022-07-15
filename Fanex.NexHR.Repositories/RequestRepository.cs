@@ -98,11 +98,11 @@
                 ToShift = new Shift { Name = GetStringFromReader(reader, "ToShift") },
                 TotalMins = !reader.IsDBNull(reader.GetOrdinal("TotalMins")) ? reader.GetInt32(reader.GetOrdinal("TotalMins")) : 0,
                 FromDate = reader.GetDateTime(reader.GetOrdinal("FromDate")),
-                ToDate = reader.GetDateTime(reader.GetOrdinal("ToDate")),
-                TotalDays = reader.GetDecimal(reader.GetOrdinal("TotalDays")),
+                ToDate = !reader.IsDBNull(reader.GetOrdinal("ToDate")) ? reader.GetDateTime(reader.GetOrdinal("ToDate")) : new DateTime(),
+                TotalDays = !reader.IsDBNull(reader.GetOrdinal("TotalDays")) ?  reader.GetDecimal(reader.GetOrdinal("TotalDays")) : 0,
                 LeaveType = new LeaveType
                 {
-                    Id = reader.GetInt32(reader.GetOrdinal("LeaveTypeId")),
+                    Id = !reader.IsDBNull(reader.GetOrdinal("LeaveTypeId")) ? reader.GetInt32(reader.GetOrdinal("LeaveTypeId")) : -1,
                     Name = GetStringFromReader(reader, "LeaveTypeName")
                 },
                 Remark = GetStringFromReader(reader, "Remark"),
