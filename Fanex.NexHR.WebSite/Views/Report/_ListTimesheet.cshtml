@@ -1,0 +1,253 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Models.Report
+@using Fanex.NexHR.Models.Request
+@using Fanex.NexHR.Resources
+@using System.Globalization
+@model IList<EmployeeAttendanceModel>
+
+<table id="data" class="table bordered striped highlight centered table-custom">
+    <thead>
+        <tr>
+            <th>@Labels.SymbolCount</th>
+            <th>@Labels.Date</th>
+            <th>@Labels.Nick</th>
+            <th>@Labels.Team</th>
+            <th>@Labels.Shift</th>
+            <th>@Labels.CheckIn</th>
+            <th>@Labels.CheckOut</th>
+            <th>@Labels.TotalHours</th>
+            <th>@Labels.LateIn</th>
+            <th>@Labels.EarlyOut</th>
+            <th>@Labels.Request</th>
+            <th style="width: 5%;">@Labels.WorkFromHome</th>
+            <th>@Labels.Note</th>
+        </tr>
+    </thead>
+    @if (Model != null && Model.Count > 0)
+    {
+        int index = 0;
+
+        <tbody>
+            @foreach (EmployeeAttendanceModel item in Model)
+            {
+                index++;
+
+                var trClass = "";
+                if (item.IsNotWork != 0)
+                {
+                    trClass = "offdate";
+                }
+                else if (item.ShiftId != 0)
+                {
+
+                }
+                else
+                {
+                    trClass = "noshift";
+                }
+
+            <tr class="@trClass">
+                <td>@index</td>
+                <td>@item.AttendanceDate.ToDateMonthYearFormatedDate()</td>
+                <td class="tooltip" title="@item.FullName">@item.NickName</td>
+                <td class="tooltip" title="@item.Team">@item.TeamCode</td>
+                <td>@item.ShiftCode</td>
+                @if (item.IsWorkFromHome)
+                {
+                    <td>
+                        <span class="column-checkinout">
+                            @if (@item.InFixed != null)
+                            {
+                                <span id="spanCheckInTime_@item.AttendanceId">@item.InFixed.Value.ToString("HH:mm")</span>
+                                <input class="checkin" type="text" value="@item.InFixed.Value.ToString("HH:mm")" id="txtCheckInTime_@item.AttendanceId" style="display:none;" />
+                            }
+                            else
+                            {
+                                <span></span>
+                                <input class="checkin" type="text" value="00:00" id="txtCheckInTime_@item.AttendanceId" style="display:none;" />
+                            }
+                            <a href="javascript:;" onclick="editCheckIn('@item.AttendanceId')" id='btnEditCheckIn_@item.AttendanceId'>
+                                <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
+                            </a>
+                            <a href="javascript:;" id="btnUpdateCheckIn_@item.AttendanceId" class="action-update"
+                               onclick="editCheckInAction('@item.AttendanceId', '@item.AttendanceDate')" title="Apply" style="display:none;">
+                                <i class="mdi-action-done mdi-dark mdi-18px"></i>
+                            </a>
+                            <a href="javascript:;" id="btnCancelUpdateCheckIn_@item.AttendanceId" class="action-cancel"
+                               onclick="cancelEditCheckIn('@item.AttendanceId')" title="Cancel" style="display:none;">
+                                <i class="mdi-action-highlight-remove mdi-dark mdi-18px"></i>
+                            </a>
+                        </span>
+                    </td>
+                }
+                else if (item.InFixed != null)
+                {
+                    <td>@item.InFixed.Value.ToString("HH:mm")</td>
+                }
+                else if (item.IsMissingCheckin.Equals(1))
+                {
+                    <td>
+                        @Html.ActionLink("Request", "Create", "CheckInOut", new { type = 1, date = item.AttendanceDate.ToDateMonthYearFormatedDate() }, null)
+                    </td>
+                }
+                else
+                {
+                    <td></td>
+                }
+                @if (item.IsWorkFromHome)
+                {
+                    <td>
+                        <span class="column-checkinout">
+                            @if (@item.OutFixed != null)
+                            {
+                                <span id="spanCheckOutTime_@item.AttendanceId">@item.OutFixed.Value.ToString("HH:mm")</span>
+                                <input class="checkout" type="text" value="@item.OutFixed.Value.ToString("HH:mm")" id="txtCheckOutTime_@item.AttendanceId" style="display:none;" />
+                            }
+                            else
+                            {
+                                <span></span>
+                                <input class="checkout" type="text" value="00:00" id="txtCheckOutTime_@item.AttendanceId" style="display:none;" />
+                            }
+                            <a href="javascript:;" onclick="editCheckOut('@item.AttendanceId')" id='btnEditCheckOut_@item.AttendanceId'>
+                                <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
+                            </a>
+                            <a href="javascript:;" id="btnUpdateCheckOut_@item.AttendanceId" class="action-update"
+                               onclick="editCheckOutAction('@item.AttendanceId','@item.AttendanceDate')" title="Apply" style="display:none;">
+                                <i class="mdi-action-done mdi-dark mdi-18px"></i>
+                            </a>
+                            <a href="javascript:;" id="btnCancelUpdateCheckOut_@item.AttendanceId" class="action-cancel"
+                               onclick="cancelEditCheckOut('@item.AttendanceId')" title="Cancel" style="display:none;">
+                                <i class="mdi-action-highlight-remove mdi-dark mdi-18px"></i>
+                            </a>
+                        </span>
+                    </td>
+                }
+                else if (item.OutFixed != null)
+                {
+                    <td>@item.OutFixed.Value.ToString("HH:mm")</td>
+                }
+                else if (item.IsMissingCheckOut.Equals(1))
+                {
+                    <td>
+                        @Html.ActionLink("Request", "Create", "CheckInOut", new { type = 2, date = item.AttendanceDate.ToDateMonthYearFormatedDate() }, null)
+                    </td>
+                }
+                else
+                {
+                    <td></td>
+                }
+                @if (item.TotalWorkHours > 0)
+                {
+                    <td>@{
+                        var display = string.Empty;
+                        var hour = Math.Floor(item.TotalWorkHours);
+
+                        if (hour > 0)
+                        {
+                            display = hour < 10 ? "0" + hour + "h" : hour + "h";
+                        }
+
+                        var minute = Math.Round((item.TotalWorkHours - hour) * 60);
+
+                        <span>@(minute < 10 ? display + "0" + minute + "\'" : display + minute + "\'")</span>
+                    }</td>
+                }
+                else
+                {
+                    <td></td>
+                }
+                @if (item.LateIn > 0)
+                {
+                    <td>@{
+                        double s = 60;
+                        var hour = Math.Floor(item.LateIn / s);
+                        var minute = item.LateIn % 60;
+                        string display;
+
+                        if (hour == 0)
+                        {
+                            display = minute > 9 ? "00:" + minute : "00:0" + minute;
+                        }
+                        else
+                        {
+                            display = (hour > 9 ? hour.ToString(CultureInfo.InvariantCulture) : "0" + hour) + ":" + (minute > 9 ? minute.ToString(CultureInfo.InvariantCulture) : "0" + minute);
+                        }
+
+                        <span>@display</span>
+                    }</td>
+                }
+                else
+                {
+                    <td></td>
+                }
+                @if (item.EarlyOut > 0)
+                {
+                    <td>@{
+                        double s = 60;
+                        var hour = Math.Floor(item.EarlyOut / s);
+                        var minute = item.EarlyOut % 60;
+                        string display;
+
+                        if (hour == 0)
+                        {
+                            display = minute > 9 ? "00:" + minute : "00:0" + minute;
+                        }
+                        else
+                        {
+                            display = (hour > 9 ? hour.ToString(CultureInfo.InvariantCulture) : "0" + hour) + ":" + (minute > 9 ? minute.ToString(CultureInfo.InvariantCulture) : "0" + minute);
+                        }
+
+                        <span>@display</span>
+                    }</td>
+                }
+                else
+                {
+                    <td></td>
+                }
+                <td>
+                    @if (item.Requests != null)
+                    {
+                        foreach (RequestEntity request in item.Requests)
+                        {
+                            var dataToShift = "";
+                            if (request.ToShift != null)
+                            {
+                                dataToShift = request.ToShift.Name;
+                            }
+
+                            <a href='javascript:;' class="tooltip-request req"
+                               data-requesttype="@request.RequestType.Id"
+                               data-fromdate="@request.FromDate.ToFormatedDate()"
+                               data-todate="@request.ToDate.ToFormatedDate()"
+                               data-createddate="@request.CreatedDate.ToFormatedDate()"
+                               data-fromshift="@request.FromShift.Name"
+                               data-toshift="@dataToShift"
+                               data-totaldays="@request.TotalDays"
+                               data-totalmins="@request.TotalMins"
+                               data-remark='@request.Remark'>
+                                @request.RequestType.Name
+                            </a>
+                        }
+                    }
+                </td>
+                <td style="text-align: center;">
+                    <input type="checkbox" id="isWorkFromHome" class="filled-in" disabled checked=@item.IsWorkFromHome />
+                    <label hidden style="padding-left: 15px !important; height: 12px !important; cursor: not-allowed"></label>
+                </td>
+                <td class="align-left">@item.Notes</td>
+            </tr>
+            }
+        </tbody>
+    }
+    else
+    {
+        <tr>
+            <td colspan="13"></td>
+        </tr>
+        <tr>
+            <td colspan="13" rowspan="2">
+                @Messages.NoInformation
+            </td>
+        </tr>
+    }
+</table>

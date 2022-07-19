@@ -103,7 +103,8 @@
             services.AddSingleton<IMailEmployeeService, MailEmployeeService>();
             services.AddSingleton<ILeaveTypeService, LeaveTypeService>();
             services.AddSingleton<IWorkFromHomeRequest, WorkFromHomeRequestService>();
-            
+            services.AddSingleton<ICalendarService, CalendarService>();
+
             // services.AddSingleton<ILateInEarlyOutRepository, LateInEarlyOutRepository>();
         }
 
@@ -118,6 +119,7 @@
             services.AddSingleton<ILateInEarlyOutRepository, LateInEarlyOutRepository>();
             services.AddSingleton<IReportRepository, ReportRepository>();
             services.AddSingleton<INexbotRepository, NexbotRepository>();
+            services.AddSingleton<ICalendarRepository, CalendarRepository>();
         }
     }
 }

@@ -24,17 +24,16 @@ $(document).ready(function () {
                 success: function (data) {
                     var events = [];
                     $(data).each(function (index, item) {
-                        var today = formatDate(new Date(), 'dd/MM/yyyy'),
-                            currentDay = formatJsonDate(item.WorkDate);
+                        var today = formatDate(new Date(), 'dd/MM/yyyy');
 
                         var cssClass = item.Title;
-                        if (today === currentDay) {
+                        if (today === formatDate(item.WorkDate, 'dd/MM/yyyy')) {
                             cssClass = cssClass + ' ' + 'today';
                         }
 
                         events.push({
                             title: item.Title,
-                            start: formatJsonDate(item.WorkDate),
+                            start: item.WorkDate,
                             className: cssClass
                         });
                     });

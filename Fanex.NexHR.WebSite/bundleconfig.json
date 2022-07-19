@@ -65,6 +65,42 @@
       "wwwroot/css/Views/myrequest.css"
     ]
   },
+  {
+    "outputFileName": "wwwroot/minify/css/monthpicker.min.css",
+    "inputFiles": [
+      "wwwroot/css/vendors/monPickr-0.0.3.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/minify/css/mytimesheet.min.css",
+    "inputFiles": [
+      "wwwroot/css/Views/report.timesheet.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/minify/css/fullcalendar.min.css",
+    "inputFiles": [
+      "wwwroot/css/vendors/fullcalendar.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/minify/css/mycalendar.min.css",
+    "inputFiles": [
+      "wwwroot/css/Views/mycalendar.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/minify/css/simplepagination.min.css",
+    "inputFiles": [
+      "wwwroot/css/SimplePagination/simplePagination.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/minify/css/myrecord.min.css",
+    "inputFiles": [
+      "wwwroot/css/Views/myrecord.css"
+    ]
+  },
   // ----------------------- Javascript ------------------------------
   {
     "outputFileName": "wwwroot/minify/js/site.min.js",
@@ -171,6 +207,73 @@
     "inputFiles": [
       "wwwroot/js/Views/Request/workfromhome.request.js",
       "wwwroot/js/Views/Request/process.workfromhomerequest.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/monthpicker.min.js",
+    "inputFiles": [
+      "wwwroot/js/Libs/monPickr-0.0.3.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/mytimesheet.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Report/report.timesheet.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/fullcalendar.min.js",
+    "inputFiles": [
+      "wwwroot/js/Libs/moment.js",
+      "wwwroot/js/Libs/fullcalendar.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/mycalendar.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Calendar/mycalendar.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/simplepagination.min.js",
+    "inputFiles": [
+      "wwwroot/js/Libs/jquery.simplePagination.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/mytimerecord.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Report/report.mytimerecord.js"
     ],
     "minify": {
       "enabled": true,

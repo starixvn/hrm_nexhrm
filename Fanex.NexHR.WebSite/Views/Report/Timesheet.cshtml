@@ -1,0 +1,64 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.Report
+@model TimesheetViewModel
+@{
+    ViewBag.Title = Labels.MyTimesheet;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/monthpicker.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/mytimesheet.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Libs/monPickr-0.0.3.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Report/report.timesheet.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/monthpicker.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/mytimesheet.min.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row content">
+    <div class="col s12 card-container-base my-attendance">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form">
+                        <form class="form-filter" action="" novalidate="novalidate">
+                            <div class="row form-input">
+                                <div class="col">
+                                    <div class="left label--s">
+                                        <label>@Labels.Month</label>
+                                    </div>
+                                    <div class="left select--m">
+                                        <div id="monthPickr"></div>
+                                        <input type="hidden" id="Year" name="Year" value="@DateTime.Now.Year" />
+                                        <input type="hidden" id="Month" name="Month" value="@DateTime.Now.Month" />
+                                        <input type="hidden" id="maxDate" value="@DateTime.Now.AddMonths(3).GetMaxDate().ToString("yyyy/MM/dd")" />
+                                        @Html.HiddenFor(model => model.EmpId)
+                                    </div>
+                                    <input id="submit" type="button" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />
+                                </div>
+                            <div class="col">
+                                <a class="btn-request waves-effect waves-light m-r--m" href="@Url.Action("myworkingschedule", "calendar")">@Labels.MyCalendar</a>
+                                <a class="btn-request waves-effect waves-light m-r--m" href="@Url.Action("mytimerecord", "report")">@Labels.MyTimeRecord</a>
+                                @if (Model.IsHavePrivilegeCreateCheckInOutRecord)
+                                {
+                                    <a href="javascript:;" class="btn btn-request waves-effect waves-light m-r--m" id="btnCreateCheckIn"><span class="fa fa-plus"></span> @Labels.CheckIn</a>
+                                    <a href="javascript:;" class="btn btn-request waves-effect waves-light m-r--m" id="btnCreateCheckOut"><span class="fa fa-plus"></span> @Labels.CheckOut</a>
+                                }
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="list-timesheet" class="p-x--s">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

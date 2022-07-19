@@ -1,0 +1,101 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels
+@model TimeRecordViewModel
+@{
+    ViewBag.Title = Labels.MyTimeRecord;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/simplepagination.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/contextmenu.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/myrecord.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Libs/jquery.contextMenu.min.js" asp-append-version="true"></script>
+        <script src="~/js/Libs/jquery.simplePagination.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Report/report.mytimerecord.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/contextmenu.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/simplepagination.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/mytimerecord.min.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form">
+                        @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+                        <form class="form-filter" action="">
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--m">
+                                        <label>@Labels.DateRange</label>
+                                    </div>
+                                    <div class="left select--s">
+                                        <select id="Date" name="Date">
+                                            @{
+                                                foreach (DateRangeFilter dateRange in (DateRangeFilter[])Enum.GetValues(typeof(DateRangeFilter)))
+                                                {
+                                                    var value = (int)dateRange;
+                                                    <option value="@value" selected="@(value == (int)DateRangeFilter.DateRange)">@Utilities.GetDescription(dateRange)</option>
+                                                }
+                                            }
+                                        </select>
+                                        @Html.Hidden("DateOption", Model.DateOption)
+                                    </div>
+                                </div>
+                                <div class="col-from-to">
+                                    <div class="col m-r--m">
+                                        <div class="left label--m">
+                                            @Html.LabelFor(model => model.FromDate, Labels.FromDate)
+                                        </div>
+                                        <div class="datepicker-button left select--s">
+                                            <date-picker 
+                                                name="FromDate"
+                                                min-date="new DateTime(2010, 01, 01)"
+                                                max-date="DateTime.Now"
+                                                value="Model.FromDate"
+                                            >
+                                            </date-picker>
+                                            <i class="mdi-action-event calendar-icon from-date left"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="left label--m">
+                                            @Html.LabelFor(model => model.ToDate, Labels.ToDate)
+                                        </div>
+                                        <div class="datepicker-button left select--s">
+                                            <date-picker 
+                                                name="ToDate"
+                                                min-date="new DateTime(2010, 01, 01)"
+                                                max-date="DateTime.Now"
+                                                value="Model.ToDate"
+                                            >
+                                            </date-picker>
+                                            <i class="mdi-action-event calendar-icon from-date left"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    @Html.HiddenFor(model => model.EmployeeId)
+                                    @Html.HiddenFor(model => model.ItemsPerPage)
+                                    @Html.HiddenFor(model => model.CurrentPage)
+                                    <input id="submit" class="btn-submit waves-effect waves-light" type="button" value="@Labels.Submit" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="time-record-detail" class="p-x--s">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

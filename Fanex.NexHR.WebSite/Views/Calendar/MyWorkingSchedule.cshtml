@@ -1,0 +1,37 @@
+﻿@using Fanex.NexHR.Resources
+@{
+    ViewBag.Title = Labels.MyCalendar;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/fullcalendar.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/mycalendar.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Libs/moment.js" asp-append-version="true"></script>
+        <script src="~/js/Libs/fullcalendar.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Calendar/mycalendar.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/fullcalendar.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/mycalendar.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="p-x--s m-t--m">
+                        <div id="calendar" class="schedule">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
