@@ -113,6 +113,12 @@
       "wwwroot/css/Views/overtime.manage.css"
     ]
   },
+  {
+    "outputFileName": "wwwroot/minify/css/myprofile.min.css",
+    "inputFiles": [
+      "wwwroot/css/Views/my.profile.css"
+    ]
+  },
   // ----------------------- Javascript ------------------------------
   {
     "outputFileName": "wwwroot/minify/js/site.min.js",

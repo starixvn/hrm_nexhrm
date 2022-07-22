@@ -4,6 +4,8 @@ Thumbs.db
 Thumbs.db
 *.1
 log.txt.*
+*/.vscode/*
+.vscode/*
 *.obj
 *.exe
 *.pdb
