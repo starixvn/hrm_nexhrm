@@ -1,5 +1,5 @@
-﻿@import "../Common/utils/variables";
-@import "../Common/utils/mixins";
+﻿@import "../utils/variables.scss";
+@import "../utils/_mixins.scss";
 
 table.list-emp {
     width: 800px;
@@ -19,6 +19,14 @@ table.list-emp {
     textarea {
         height: 45px;
     }
+}
+
+.datepicker-button-custom {
+    position: relative !important;
+}
+
+.datepicker-button-custom .calendar-icon {
+    cursor: pointer !important;
 }
 
 @media only screen and (max-width: $medium-screen-up) {

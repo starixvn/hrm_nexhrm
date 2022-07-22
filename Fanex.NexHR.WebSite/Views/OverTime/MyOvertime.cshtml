@@ -1,0 +1,54 @@
+﻿@using Fanex.NexHR.Resources
+@{
+    var CurrentYear = DateTime.Now.Year;
+    var FromYear = 2010;
+    var ToYear = CurrentYear + 1;
+    var ListSelectYear = new List<SelectListItem>();
+     
+    for (var i = ToYear; i >= FromYear; i--)
+    {
+        ListSelectYear.Add(new SelectListItem
+        {
+            Text = i.ToString(),
+            Value = i.ToString(),
+            Selected = i == CurrentYear 
+        });
+    }
+}
+
+<div class="form">
+    @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+    <form class="form-filter" id="form">
+        <div class="row form-input">
+            <div class="col">
+                <div class="left label--s">
+                    <label>@Labels.Year</label>
+                </div>
+                <div class="left select--xs">
+                    <select id="Year" asp-items="ListSelectYear">
+                    </select>  
+                </div>
+            </div>
+            <div class="col">
+                <input id="btn-submit" class="btn-submit waves-effect waves-light" type="button" value="@Labels.Submit" />
+            </div>
+        </div>
+    </form>
+</div>
+<div class="p-x--s">
+    <table id="dataMyOT" class="table bordered striped highlight table-custom centered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>@Labels.Nick</th>
+                <th>@Labels.FullName</th>
+                <th>@Labels.Date</th>
+                <th>@Labels.Duration</th>
+                <th>@Labels.Project</th>
+                <th>@Labels.RequestedBy</th>
+                <th>@Labels.Status</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>

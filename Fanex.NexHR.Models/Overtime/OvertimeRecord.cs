@@ -11,6 +11,7 @@
         }
 
         public int OvertimeId { get; set; }
+        public int RecordEmployeeId { get; set; }
 
         public Employee Employee { get; set; }
 

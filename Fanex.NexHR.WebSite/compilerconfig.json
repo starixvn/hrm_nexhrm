@@ -18,5 +18,9 @@
   {
     "outputFile": "wwwroot/css/Views/mydashboard.css",
     "inputFile": "wwwroot/css/Views/mydashboard.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Views/overtime.manage.css",
+    "inputFile": "wwwroot/css/Views/overtime.manage.scss"
   }
 ]

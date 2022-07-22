@@ -1,0 +1,42 @@
+﻿@using Fanex.NexHR.Models.Overtime;
+@model OvertimeRecord
+
+@{
+    var index = ViewData["index"];
+    var rowId = "row_" + Model.Unique;
+    var row_hour_Id = "row_hour_" + Model.Unique;
+    var row_note_Id = "note_" + Model.Unique;
+}
+<tr class="sortedIndex" id="@rowId">
+    <td>@index</td>
+    <td class="align-left row_name">
+        @Model.Employee.DisplayName
+    </td>
+    <td class="datepicker-td">
+        <div class="datepicker-button left select--s">
+            <date-picker 
+                name="Date"
+                value="Model.Date"
+            >
+            </date-picker>
+            <i class="mdi-action-event calendar-icon from-date left"></i>
+        </div>
+    </td>
+    <td>
+        @Html.TextBoxFor(model => model.Hour, new { id = row_hour_Id, @class = "row_hour", data_id = Model.Employee.Id, type = "number", step = "0.5", min="0.5", max="24"} )
+    </td>
+    <td class="row_nexhour">
+    @Model.NexHour
+    </td>
+    <td>
+        <div class="textarea-container">
+            @Html.TextAreaFor(model => model.Note, new { id=row_note_Id, @class="row_note" })
+        </div>
+    </td>
+    <td>
+        <a href="javascript:;" onclick="deleteRow(@Model.Unique);">
+            <i class="mdi mdi-delete mdi-dark"></i>
+        </a>
+    </td>
+</tr>
+

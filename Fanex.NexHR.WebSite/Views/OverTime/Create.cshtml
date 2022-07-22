@@ -1,0 +1,162 @@
+﻿@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.Overtime
+@using Fanex.NexHR.Core
+@model CreateOvertimeViewModel
+
+@{
+    ViewBag.Title = Labels.CreateOTRequest;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/overtimemanage.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/Overtime/manage.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/manageovertime.min.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row content">
+    <div class="col s12 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase">@ViewBag.Title</span> <a id="legendInfo" href="javascript:;">
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="form form-stl-table">
+                        @using (Html.BeginForm("create", "overtime", FormMethod.Post, new { id = "form", @class = "form-create-update" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary()
+                            if (ViewBag.Inserted == true)
+                            {
+                                <input type="hidden" id="successed" value="true" />
+                                <div class="row validation-summary-success">
+                                    <div class="col success green-text">
+                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.CreatedSuccessfully
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="row form-input m-t--s">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.Description, Labels.Project)
+                                    </div>
+                                    <div class="left input--l">
+                                        @Html.TextAreaFor(model => model.Description, new { @class = "materialize-textarea" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        @Html.Label(Labels.Employee)
+                                    </div>
+                                    <div class="left input--m">
+                                        <input type="text" id="Employee" placeholder="@Messages.SearchEmployeeWatermark" />
+                                        <input type="hidden" id="EmployeeId" />
+                                        @Html.HiddenFor(model => model.TimeSheetData)
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row form-input">
+                                <div class="col m-r--m col-list-emp">
+                                    <div class="left label--l">
+                                        @Html.Label("Employee List")
+                                    </div>
+                                    <div class="left cover-form-mb over-auto table-overtime-create">
+                                        <table class="table bordered striped highlight centered table-custom list-emp">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>@Labels.Employee</th>
+                                                    <th>@Labels.Date</th>
+                                                    <th>@Labels.Duration (hour)</th>
+                                                    <th>@Labels.NexHour</th>
+                                                    <th>@Labels.Note</th>
+                                                    <th>@Labels.Remove</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="timeSheets">
+                                                @if (Model.TimeSheets.Any())
+                                                {
+                                                    var i = 1;
+                                                    foreach (var item in Model.TimeSheets)
+                                                    {
+                                                        @*@Html.PartialAsync("_EditEmployeeRecord", item, new ViewDataDictionary(ViewData){ { "index", i} })*@ 
+                                                        var rowId = "row_" + i.ToString();
+                                                        var row_hour_Id = "row_hour_" + i.ToString();
+                                                        var row_note_Id = "note_" + i.ToString();
+                                                        var empId = item.Employee.Id;
+
+                                                        <tr class="sortedIndex" id="@rowId" data-unique="@i">
+                                                            <td>@i</td>
+                                                            <td class="align-left row_name">
+                                                                @item.Employee.DisplayName
+                                                            </td>
+                                                            <td class="datepicker-td">
+                                                                <div class="left select--s datepicker-button-custom">
+                                                                    <date-picker 
+                                                                        name="Date"
+                                                                        min-date="new DateTime(2010, 1, 1)"
+                                                                        value="@item.Date"
+                                                                    >
+                                                                    </date-picker>
+                                                                    <i class="mdi-action-event calendar-icon from-date left"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <input name="Hour" id="@row_hour_Id" class = "row_hour" data-id ="@item.Employee.Id" type = "number" step = "0.5" min="0.5" max="24" value="@item.Hour">
+                                                            <td class="row_nexhour">
+                                                                @item.NexHour
+                                                            </td>
+                                                            <td>
+                                                                <div class="textarea-container">
+                                                                    <textarea class="row_note" id="@row_note_Id" name="Note">@item.Note</textarea>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <a href="javascript:;" onclick="deleteRow(@i);">
+                                                                    <i class="mdi mdi-delete mdi-dark"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        i++;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <tr>
+                                                        <td colspan="7"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="7">No Employee</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input m-t--m">
+                                <div class="left label--xl">&nbsp;</div>
+                                <div class="left">
+                                    <a href="@Url.Action("Index")" class="btn-back waves-effect waves-light">@Labels.Cancel</a>
+                                    <input type="submit" class="btn-submit waves-effect waves-light right" value="@Labels.Submit" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

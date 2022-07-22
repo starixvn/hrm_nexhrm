@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 /*global _global, initDatePicker */
 /* exported deleteRow */
 
@@ -16,6 +16,8 @@ var manageOvertime = (function ($) {
     }
 
     function createRow(nick, id) {
+        var tempHour = 1;
+
         generateFooter();
         let index = $("#timeSheets").find("tr.sortedIndex").length + 1;
         let names = nick.split(' (');

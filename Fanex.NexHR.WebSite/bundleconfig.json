@@ -101,6 +101,18 @@
       "wwwroot/css/Views/myrecord.css"
     ]
   },
+  {
+    "outputFileName": "wwwroot/minify/css/mynex.min.css",
+    "inputFiles": [
+      "wwwroot/css/Views/mynex.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/minify/css/overtimemanage.min.css",
+    "inputFiles": [
+      "wwwroot/css/Views/overtime.manage.css"
+    ]
+  },
   // ----------------------- Javascript ------------------------------
   {
     "outputFileName": "wwwroot/minify/js/site.min.js",
@@ -274,6 +286,54 @@
     "outputFileName": "wwwroot/minify/js/mytimerecord.min.js",
     "inputFiles": [
       "wwwroot/js/Views/Report/report.mytimerecord.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/overtime.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Overtime/myOvertime.js",
+      "wwwroot/js/Views/Overtime/overtimeMember.js",
+      "wwwroot/js/Views/Overtime/overtimeRequest.js",
+      "wwwroot/js/Views/Overtime/overtime.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/overtimedetail.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Overtime/overtimeDetail.js",
+      "wwwroot/js/Views/Overtime/overtimeRequest.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/overtimesummary.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Overtime/overtimeSummary.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/manageovertime.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Overtime/manage.js"
     ],
     "minify": {
       "enabled": true,

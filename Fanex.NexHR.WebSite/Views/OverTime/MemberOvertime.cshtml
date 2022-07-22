@@ -1,0 +1,117 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.Overtime
+@model MemberOvertimeViewModel
+<div class="loading-process" style="display: none;"></div>
+<div class="form form-stl-table">
+    <form id="form">
+        @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+        <div class="row form-input">
+            <div class="col m-r--l">
+                <div class="left label--m">
+                    <label>@Labels.DateRange</label>
+                </div>
+                <div class="left select--s">
+                    <select id="Date" name="Date">
+                        @{
+                            foreach (DateRangeFilter dateRange in (DateRangeFilter[])Enum.GetValues(typeof(DateRangeFilter)))
+                            {
+                                var value = (int)dateRange;
+                                <option value="@value" selected="@(value ==  (int)DateRangeFilter.DateRange)">@Utilities.GetDescription(dateRange)</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-two-item">
+                <div class="col m-r--l">
+                    <div class="left label--l">
+                        @Html.LabelFor(model => model.FromDate)
+                    </div>
+                    <div class="left datepicker-button select--s">
+                        <date-picker 
+                            name="FromDate"
+                            min-date="new DateTime(2010, 1, 1)"
+                            value="Model.FromDate"
+                        >
+                        </date-picker>
+                        <i class="mdi-action-event calendar-icon from-date left"></i>
+                    </div>
+                </div>
+                <div class="col m-r--xl">
+                    <div class="left label--m">
+                        @Html.LabelFor(model => model.ToDate)
+                    </div>
+                    <div class="left datepicker-button select--s">
+                        <date-picker 
+                            name="ToDate"
+                            value="Model.ToDate"
+                        >
+                        </date-picker>
+                        <i class="mdi-action-event calendar-icon from-date left"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row form-input">
+            <div class="col m-r--l">
+                <div class="left label--m">
+                    @Html.LabelFor(m => m.Status)
+                </div>
+                <div class="left select--s">
+                    <select name="Status" id="Status">
+                        <option selected="@((byte)Model.Status == 0)" value="0">All</option>
+                        <option selected="@((byte)Model.Status == (byte)RequestStatuse.Pending)" value="@Convert.ToByte(RequestStatuse.Pending)">@Labels.Pending</option>
+                        <option selected="@((byte)Model.Status == (byte)RequestStatuse.Reject)" value="@Convert.ToByte(RequestStatuse.Reject)">@Labels.Rejected</option>
+                        <option selected="@((byte)Model.Status == (byte)RequestStatuse.Approve)" value="@Convert.ToByte(RequestStatuse.Approve)">@Labels.Approved</option>
+                        <option selected="@((byte)Model.Status == (byte)RequestStatuse.Verified)" value="@Convert.ToByte(RequestStatuse.Verified)">@Labels.Verified</option>
+                        <option selected="@((byte)Model.Status == (byte)RequestStatuse.Void)" value="@Convert.ToByte(RequestStatuse.Void)">@Labels.Void</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="col m-r--l">
+                <div class="left label--l">
+                    @Html.LabelFor(model => model.CreatedName, Labels.RequestedBy)
+                </div>
+                <div class="left input--m">
+                    @Html.HiddenFor(m => m.CreatedBy)
+                    @Html.TextBoxFor(m => m.CreatedName, new { placeholder = Messages.SearchEmployeeWatermark })
+                </div>
+            </div>
+            <div class="col m-r--l m-l--s">
+                <div class="left input--m">
+                    <input class="btn-submit waves-effect waves-light m-r--m" type="button" value="@Labels.Submit" id="btn-submit" />
+                   @* @if (!Fanex.NexHR.Web.Utilities.UserHasOnlyHRRole())
+                    {
+                        <a class="btn-request waves-effect waves-light" href="@Url.Action("Create")">@Labels.NewRequest</a>
+                    }*@
+                    <a class="btn-request waves-effect waves-light" href="@Url.Action("Create")">@Labels.NewRequest</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="p-x--s">
+    <table id="dataMemberOT" class="table bordered striped highlight table-custom centered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>@Labels.RequestedBy</th>
+                <th>@Labels.CreatedDate</th>
+                <th>@Labels.TotalHours</th>
+                <th>@Labels.TotalMembers</th>
+                <th>@Labels.Project</th>
+                <th>@Labels.Status</th>
+                <th>@Labels.Edit</th>
+                <th>@Labels.Delete</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    var IsManager = '@ViewBag.IsManager' === 'True';
+</script>

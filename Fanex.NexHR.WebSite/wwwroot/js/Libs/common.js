@@ -650,6 +650,7 @@ function initAutocomplete(selectorName, selectorId, isSpecial, isDisable = null)
                     $top: 10
                 },
                 success: function (data) {
+                    console.log(data)
                     var listEmployee = data.Employees;
                     if (listEmployee && listEmployee.length > 0) {
                         response($.map(listEmployee, function (item) {

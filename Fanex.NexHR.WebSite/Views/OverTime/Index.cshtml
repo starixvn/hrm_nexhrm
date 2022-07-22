@@ -1,0 +1,58 @@
+﻿@using Fanex.NexHR.Resources
+@{
+    ViewBag.Title = Labels.Overtime;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/contextmenu.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/mynex.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Libs/jquery.contextMenu.min.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Overtime/myOvertime.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Overtime/overtimeMember.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Overtime/overtimeRequest.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Overtime/overtime.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/contextmenu.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/overtime.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base card-my-newx">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <ul class="tabs">
+                        <li class="tab col"><a class="@(ViewBag.Tab == "MyNex" ? "active" : string.Empty) card-title" href="#myOT">@Labels.MyOvertime</a></li>
+                        @if (User.IsInRole("AssistantLeader")
+                        || User.IsInRole("HR")
+                        || User.IsInRole("PM"))
+                        {
+                            <li class="tab col"><a class="@(ViewBag.Tab == "NexRequest" ? "active" : string.Empty) card-title" href="#memberOT">@Labels.OTRequests</a></li>
+                        }
+                        <li class="tab col"><a class="@(ViewBag.Tab == "NexDetail" ? "active" : string.Empty) card-title" href="#OTRequest">@Labels.OvertimeDetail</a></li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    @*My Overtime*@
+                    <div id="myOT">
+                        <div class="loading-process" style="display: none;"></div>
+                    </div>
+                    @if (User.IsInRole("AssistantLeader")
+                        || User.IsInRole("HR")
+                        || User.IsInRole("PM"))
+                    {
+                        <div id="memberOT">
+                        </div>
+                    }
+                    @*Overtime Request*@
+                    <div id="OTRequest">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

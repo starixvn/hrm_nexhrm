@@ -462,10 +462,10 @@
     <None Include="wwwroot\js\Views\Memo\memo.js" />
     <None Include="wwwroot\js\Views\Overtime\manage.js" />
     <None Include="wwwroot\js\Views\Overtime\myOvertime.js" />
-    <None Include="wwwroot\js\Views\Overtime\overtime.conversion.js" />
-    <None Include="wwwroot\js\Views\Overtime\overtime.hrview.js" />
+    <None Include="wwwroot\js\Views\Overtime\overtimeConversion.js" />
+    <None Include="wwwroot\js\Views\Overtime\overtimeHrview.js" />
     <None Include="wwwroot\js\Views\Overtime\overtime.js" />
-    <None Include="wwwroot\js\Views\Overtime\overtime.member.js" />
+    <None Include="wwwroot\js\Views\Overtime\overtimeMember.js" />
     <None Include="wwwroot\js\Views\Overtime\overtimeDetail.js" />
     <None Include="wwwroot\js\Views\Overtime\overtimeRequest.js" />
     <None Include="wwwroot\js\Views\Overtime\overtimeSummary.js" />
