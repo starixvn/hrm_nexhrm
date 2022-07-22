@@ -78,6 +78,37 @@
             return date;
         }
 
+        public static List<SelectListItem> YearPicker(
+            int fromYear,
+            int currentYear,
+            bool hasFirstItem = false)
+        {
+            var listSelectYear = new List<SelectListItem>();
+            if (hasFirstItem)
+            {
+                listSelectYear.Add(new SelectListItem
+                {
+                    Text = Labels.All,
+                    Value = "-1",
+                    Selected = true
+                });
+            }
+
+            var toYear = DateTime.Now.GetMaxDate().Year + 1;
+
+            for (var index = toYear; index >= fromYear; index--)
+            {
+                listSelectYear.Add(new SelectListItem
+                {
+                    Text = index.ToString(),
+                    Value = index.ToString(),
+                    Selected = !hasFirstItem && (index == currentYear)
+                });
+            }
+
+            return listSelectYear;
+        }
+
         #region Business
 
         public static string ToText(this byte status)

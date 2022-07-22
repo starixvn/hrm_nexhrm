@@ -1,22 +1,9 @@
-﻿@using Fanex.NexHR.Models.Request
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Models.Request
 @using Fanex.NexHR.Resources
 @model IList<RequestEntity>
 @{
     ViewBag.Title = Labels.MyCheckInOut;
-    var CurrentYear = DateTime.Now.Year;
-    var FromYear = 2010;
-    var ToYear = CurrentYear + 1;
-    var ListSelectYear = new List<SelectListItem>();
-     
-    for (var i = ToYear; i >= FromYear; i--)
-    {
-        ListSelectYear.Add(new SelectListItem
-        {
-            Text = i.ToString(),
-            Value = i.ToString(),
-            Selected = i == CurrentYear 
-        });
-    }
 }
 @section Styles {
     <link rel="stylesheet" href="~/minify/css/contextmenu.min.css" asp-append-version="true">
@@ -53,7 +40,7 @@
                                         <label>@Labels.Year</label>
                                     </div>
                                     <div class="left select--xs">
-                                        <select id="Year" asp-items="ListSelectYear">
+                                        <select id="Year" asp-items="@Extensions.YearPicker(2010, DateTime.Now.Year)">
                                         </select> 
                                     </div>
                                 </div>

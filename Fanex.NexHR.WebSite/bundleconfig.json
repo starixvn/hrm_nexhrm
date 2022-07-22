@@ -119,6 +119,12 @@
       "wwwroot/css/Views/my.profile.css"
     ]
   },
+  {
+    "outputFileName": "wwwroot/minify/css/leaverequest.min.css",
+    "inputFiles": [
+      "wwwroot/css/Views/leaverequest.css"
+    ]
+  },
   // ----------------------- Javascript ------------------------------
   {
     "outputFileName": "wwwroot/minify/js/site.min.js",
@@ -340,6 +346,17 @@
     "outputFileName": "wwwroot/minify/js/manageovertime.min.js",
     "inputFiles": [
       "wwwroot/js/Views/Overtime/manage.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/lateearly.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/LateInEarlyOut/lateinearlyout.js"
     ],
     "minify": {
       "enabled": true,

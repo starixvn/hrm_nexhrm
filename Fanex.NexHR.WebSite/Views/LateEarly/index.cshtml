@@ -1,0 +1,46 @@
+@using Fanex.NexHR.Core
+@using Fanex.NexHR.Resources
+@{
+    ViewBag.Title = Labels.LateInEarlyOut;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/leaverequest.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/Employee/lateearly.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">My Late in/Early out Notification</span>
+                </div>
+                <div class="card-body card-leave-detail">
+                    <div class="form">
+                        <div class="row form-input">
+                            <div></div>
+                            <div class="col">
+                                <div class="left label--s">
+                                    <label>@Labels.Year</label>
+                                </div>
+                                <div class="left select--xs">
+                                    <select id="Year" asp-items="@Extensions.YearPicker(2010, DateTime.Now.Year)"></select>
+                                </div>
+                            </div>
+                            <div class="col m-l--m">
+                                <a id="submit" class="btn-submit waves-effect waves-light m-r--b" href="javascript:;">@Labels.Submit</a>
+                                <a class="btn-request waves-effect waves-light" href="@Url.Action("Create")">New Notification</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="listLateEarly" class="p-x--s">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
