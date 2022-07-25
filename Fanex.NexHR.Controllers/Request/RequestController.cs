@@ -39,7 +39,7 @@
         private const int numberId = 2;
 
         [Authorize(Roles = "AssistantLeader,HR")]
-        [HttpPost]
+        [HttpPost("request/process-request")]
         public JsonResult ProcessRequest(string command, long id)
         {
             CommandResult result = requestService.Process(command, id, CurrentUser.Id);

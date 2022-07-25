@@ -1,0 +1,18 @@
+﻿@using Fanex.NexHR.Models.Request
+@using Fanex.NexHR.Resources
+@model IList<RequestEntity>
+@{
+    ViewBag.Title = Labels.RequestHistory;
+    Layout = null;
+}
+
+@switch ((int)ViewBag.requestType)
+{
+    case 1:
+    case 2:
+        await Html.RenderPartialAsync("History/CheckInOutRequestHistory", Model);
+        break;
+    case 6:
+        await Html.RenderPartialAsync("History/LeaveRequestHistory", Model);
+        break;
+}

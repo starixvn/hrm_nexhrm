@@ -363,5 +363,17 @@
       "renameLocals": true
     },
     "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/managerequests.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Request/mgr.requests.js",
+      "wwwroot/js/Views/Employee/_employee.search.in.team.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
   }
 ]

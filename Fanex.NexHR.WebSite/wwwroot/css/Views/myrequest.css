@@ -43,6 +43,20 @@
   margin: -22px 0 0 25px;
 }
 
+.radio-member-rq {
+  position: unset !important;
+  left: unset !important;
+  visibility: unset !important;
+  height: 14px;
+  width: 14px;
+  margin-top: 7px;
+  margin-right: 30px;
+}
+
+.lable-member-rq {
+  margin: -22px 0 0 25px;
+}
+
 .tipsy.leave-request .tipsy-inner {
   max-width: none;
   font-size: 1.3rem;

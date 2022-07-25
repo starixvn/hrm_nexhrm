@@ -2,7 +2,7 @@
 'use strict';
 
 function processRequest(command, eventElement) {
-    $.post(_global.root + 'request/processrequest',
+    $.post(_global.root + 'request/process-request',
         { command: command, id: $(eventElement).attr('requestId') },
         function (response) {
             if (response.IsSuccessful) {
@@ -206,7 +206,7 @@ function initRejectMultiEvent() {
             confirm('Are you sure you want to reject checked request?', function () {
 
                 console.log(requestIds);
-                approveMultiRequest(requestIds);
+                rejectMultiRequest(requestIds);
             });
 
 

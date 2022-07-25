@@ -236,7 +236,7 @@ function initTooltipInformation() {
 
 function processRequest(requestId) {
     confirm('Are you sure you want to Approve?', function () {
-        $.post(_global.root + 'request/processrequest',
+        $.post(_global.root + 'request/process-request',
         { command: "Approve", id: requestId },
             function (response) {
                 if (response.IsSuccessful) {
