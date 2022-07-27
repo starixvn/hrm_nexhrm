@@ -27,9 +27,7 @@
                 <div class="card-title-block">
                     <ul class="tabs">
                         <li class="tab col"><a class="@(ViewBag.Tab == "MyNex" ? "active" : string.Empty) card-title" href="#myOT">@Labels.MyOvertime</a></li>
-                        @if (User.IsInRole("AssistantLeader")
-                        || User.IsInRole("HR")
-                        || User.IsInRole("PM"))
+                        @if (ViewBag.ValidRole)
                         {
                             <li class="tab col"><a class="@(ViewBag.Tab == "NexRequest" ? "active" : string.Empty) card-title" href="#memberOT">@Labels.OTRequests</a></li>
                         }
@@ -41,9 +39,7 @@
                     <div id="myOT">
                         <div class="loading-process" style="display: none;"></div>
                     </div>
-                    @if (User.IsInRole("AssistantLeader")
-                        || User.IsInRole("HR")
-                        || User.IsInRole("PM"))
+                    @if (ViewBag.ValidRole)
                     {
                         <div id="memberOT">
                         </div>

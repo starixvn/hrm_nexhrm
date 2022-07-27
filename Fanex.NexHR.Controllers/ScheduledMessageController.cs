@@ -210,7 +210,9 @@
         [HttpGet]
         public ActionResult CreateConversation()
         {
-            var hasHRRole = User.IsInRole(Role.HR.EnumToString());
+            var userRoles = employeeService.UserRoles(CurrentUser);
+            var hasHRRole = userRoles.Any(item => item == "HR");
+            //var hasHRRole = User.IsInRole(Role.HR.EnumToString());
 
             var viewModel = new CreateConversationViewModel
             {
@@ -263,7 +265,9 @@
         [HttpGet]
         public ActionResult ManageConversations()
         {
-            return View("ManageConversations", User.IsInRole(Role.HR.EnumToString()));
+            var userRoles = employeeService.UserRoles(CurrentUser);
+            ViewBag.HasHRRole = userRoles.Any(item => item == "HR");
+            return View("ManageConversations");
         }
 
         [HttpGet]
@@ -278,6 +282,8 @@
                 IsActive = x.IsActive,
                 PermittedEmployees = string.Join(", ", x.PermittedEmployees.Select(p => p.NickName))
             });
+            var userRoles = employeeService.UserRoles(CurrentUser);
+            ViewBag.HasHRRole = userRoles.Any(item => item == "HR");
 
             return PartialView("_Conversations", viewModel);
         }
@@ -285,6 +291,7 @@
         [HttpGet]
         public async Task<ActionResult> EditConversation(int id)
         {
+            var userRoles = employeeService.UserRoles(CurrentUser);
             var conversation = await scheduledMessageService.GetConversationByIdAsync(id).ConfigureAwait(false);
             var viewModel = new EditConversationViewModel
             {
@@ -293,8 +300,8 @@
                 ConversationName = conversation.ConversationName,
                 PermittedEmployeeIds = conversation.PermittedEmployees.Select(x => x.EmployeeId).ToArray(),
                 IsActive = conversation.IsActive,
-                HasHRRole = User.IsInRole(Role.HR.EnumToString())
-            };
+                HasHRRole = userRoles.Any(item => item == "HR")
+        };
 
             if (viewModel.HasHRRole)
             {

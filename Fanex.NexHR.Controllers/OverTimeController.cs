@@ -2,6 +2,9 @@
 {
     using Criteria.Employee;
     using Criteria.Overtime;
+    using Fanex.NexHR.Core;
+    using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Models.Attributes;
     using Fanex.NexHR.Resources;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -51,10 +54,13 @@
                     break;
             }
 
+            var userRoles = employeeService.UserRoles(CurrentUser);
+            ViewBag.ValidRole = userRoles.Any(item => (item == Role.HR.EnumToString() || item == Role.PM.EnumToString() || item == Role.AssistantLeader.EnumToString()));
+
             return View();
         }
 
-        [Authorize(Roles = "AssistantLeader,HR,PM")]
+        [HrmAuthorize(Roles = "AssistantLeader,HR,PM")]
         public ActionResult MemberOvertime()
         {
             var model = new MemberOvertimeViewModel();
@@ -62,7 +68,7 @@
             return PartialView(model);
         }
 
-        [Authorize(Roles = "AssistantLeader,HR,PM")]
+        [HrmAuthorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public ActionResult MemberOvertimeData(MemberOvertimeViewModel model)
         {
@@ -86,7 +92,7 @@
             return PartialView("_ListMemberOvertime", result);
         }
 
-        [Authorize(Roles = "AssistantLeader,PM")]
+        [HrmAuthorize(Roles = "AssistantLeader,PM")]
         public ActionResult Create()
         {
             var model = new CreateOvertimeViewModel();
@@ -94,7 +100,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "AssistantLeader,PM")]
+        [HrmAuthorize(Roles = "AssistantLeader,PM")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateOvertimeViewModel model)
@@ -125,7 +131,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "AssistantLeader,PM")]
+        [HrmAuthorize(Roles = "AssistantLeader,PM")]
         public ActionResult Edit(int id)
         {
             var criteria = new GetOvertimeByIdCriteria { Id = id };
@@ -152,7 +158,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "AssistantLeader,PM")]
+        [HrmAuthorize(Roles = "AssistantLeader,PM")]
         [HttpPost]
         public ActionResult Edit(CreateOvertimeViewModel model)
         {
@@ -183,7 +189,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "AssistantLeader,PM")]
+        [HrmAuthorize(Roles = "AssistantLeader,PM")]
         [HttpPost]
         public JsonResult Delete(int id)
         {
@@ -197,7 +203,7 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "AssistantLeader,HR,PM")]
+        [HrmAuthorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public ActionResult ApproveRequest(int id, int createdBy)
         {
@@ -215,7 +221,7 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "AssistantLeader,HR,PM")]
+        [HrmAuthorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public ActionResult RejectRequest(int id)
         {
@@ -230,7 +236,7 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "AssistantLeader,HR,PM")]
+        [HrmAuthorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public ActionResult DisapproveRequest(int id)
         {
@@ -245,7 +251,7 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "AssistantLeader,HR,PM")]
+        [HrmAuthorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public ActionResult ResetRequest(int id)
         {
@@ -386,7 +392,7 @@
             return PartialView("_CreateOvertimeConversion", model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult CreateOvertimeConversion(OvertimeConversionCreateViewModel model)
         {
@@ -424,7 +430,7 @@
             return PartialView("_EditOvertimeConversion", model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult EditOvertimeConversion(OvertimeConversionEditViewModel model)
         {
@@ -452,7 +458,7 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult DeleteOvertimeConversion(int id)
         {
@@ -494,7 +500,7 @@
             return model;
         }
 
-        [Authorize(Roles = "AssistantLeader,PM")]
+        [HrmAuthorize(Roles = "AssistantLeader,PM")]
         [HttpPost]
         public ActionResult CreateEmployeeRecord(OvertimeRecord model, int index)
         {
@@ -511,7 +517,7 @@
         }
 
 
-        [Authorize(Roles = "AssistantLeader,HR,PM")]
+        [HrmAuthorize(Roles = "AssistantLeader,HR,PM")]
         public JsonResult GetNexHour(int employeeId, DateTime date, float hour)
         {
             var criteria = new GetNexHourCriteria
@@ -524,14 +530,14 @@
             return Json(nexHour);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult HRView()
         {
             var model = new HROvertimeViewModel();
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public ActionResult HRView(HROvertimeViewModel model)
         {
@@ -555,7 +561,7 @@
             return PartialView("_ListHRViewOvertime", result);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public ActionResult HRViewDetail(int id)
         {
@@ -567,7 +573,7 @@
             return PartialView("_ListHRViewOvertimeDetail", result);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public ActionResult VoidRequest(int id)
         {
@@ -582,7 +588,7 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public ActionResult VerifyRequest(OvertimeVerifyViewModel model)
         {

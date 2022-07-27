@@ -16,6 +16,7 @@
     using System.Text;
     using System.Linq;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Core;
 
     public class EmployeeService : BaseService, IEmployeeService
     {
@@ -223,6 +224,54 @@
             }
 
             return employees.Length > numberLength ? employees.ToString().Substring(0, employees.Length - numberLength) : string.Empty;
+        }
+
+        public IList<string> UserRoles(Employee currentUser)
+        {
+            const int secondCase = 2;
+            const int threeCase = 3;
+            const int fourCase = 4;
+
+            var roles = new List<string>
+            {
+                Role.Member.EnumToString()
+            };
+
+            if (currentUser.HasRolePM)
+            {
+                roles.Add(Role.PM.EnumToString());
+            }
+
+            if (currentUser.RoleList != null)
+            {
+                foreach (var item in currentUser.RoleList)
+                {
+                    switch (item)
+                    {
+                        default:
+                            roles.Add(Role.AssistantLeader.EnumToString());
+                            break;
+
+                        case secondCase:
+                            roles.Add(Role.AssistantLeader.EnumToString());
+                            roles.Add(Role.Leader.EnumToString());
+                            break;
+
+                        case threeCase:
+                            roles.Add(Role.HR.EnumToString());
+                            break;
+
+                        case fourCase:
+                            roles.Add(Role.AssistantLeader.EnumToString());
+                            roles.Add(Role.Leader.EnumToString());
+                            roles.Add(Role.HR.EnumToString());
+                            roles.Add(Role.SA.EnumToString());
+                            break;
+                    }
+                }
+            }
+
+            return roles.ToArray();
         }
     }
 }

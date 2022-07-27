@@ -45,5 +45,7 @@
         IList<LuminetGroup> GetLuminetGroups();
 
         IList<LuminetShift> GetLuminetShifts();
+
+        IList<string> UserRoles(Employee currentUser);
     }
 }

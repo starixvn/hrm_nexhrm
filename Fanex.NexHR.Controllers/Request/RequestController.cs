@@ -7,6 +7,7 @@
     using Core.Enums;
     using Criteria.Request;
     using Criteria.Team;
+    using Fanex.NexHR.Models.Attributes;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
@@ -38,7 +39,7 @@
         private const int months = 2;
         private const int numberId = 2;
 
-        [Authorize(Roles = "AssistantLeader,HR")]
+        [HrmAuthorize(Roles = "AssistantLeader,HR")]
         [HttpPost("request/process-request")]
         public JsonResult ProcessRequest(string command, long id)
         {
@@ -46,7 +47,7 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "AssistantLeader,HR")]
+        [HrmAuthorize(Roles = "AssistantLeader,HR")]
         [HttpPost]
         public JsonResult ApproveMultiple(int[] requestIds)
         {
@@ -67,7 +68,7 @@
             return Json(commandResult);
         }
 
-        [Authorize(Roles = "AssistantLeader,HR")]
+        [HrmAuthorize(Roles = "AssistantLeader,HR")]
         [HttpPost]
         public JsonResult RejectMultiple(int[] requestIds)
         {
@@ -93,7 +94,7 @@
             return PartialView(model);
         }
 
-        [Authorize(Roles = "AssistantLeader")]
+        [HrmAuthorize(Roles = "AssistantLeader")]
         public ActionResult Member(RequestViewModel model)
         {
             if (model.TeamId == -1)
@@ -123,7 +124,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "AssistantLeader")]
+        [HrmAuthorize(Roles = "AssistantLeader")]
         public ActionResult GetAllRequestByAssistantLeader(RequestViewModel model)
         {
             model.Requests = GetRequest(model, (short)Role.AssistantLeader);
@@ -147,7 +148,7 @@
             return PartialView("AllRequest", model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult HRView(RequestViewModel model)
         {
             var newModel = GetRequestViewModel(model, RequestViewType.HRView);
@@ -155,7 +156,7 @@
             return View(newModel);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult GetAllRequestByHR(RequestViewModel model)
         {
             if (model != null)

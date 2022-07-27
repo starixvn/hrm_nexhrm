@@ -3,7 +3,6 @@
     ViewBag.Title = Labels.ManageConversations;
 }
 
-@model bool
 @section Styles {
     <link rel="stylesheet" href="~/minify/css/conversationmanagement.min.css" asp-append-version="true">
     <link rel="stylesheet" href="~/minify/css/leaverequest.min.css" asp-append-version="true">
@@ -56,7 +55,7 @@
                                     <th>@Labels.Name</th>
 
                                     <th>@Labels.ConversationId</th>
-                                    @if (Model)
+                                    @if (ViewBag.HasHRRole)
                                     {
                                         <th>@Labels.PermittedEmployees</th>
                                     }

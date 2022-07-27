@@ -3,10 +3,6 @@
 @using Fanex.NexHR.Resources
 @model IEnumerable<Fanex.NexHR.ViewModels.ScheduledMessage.ConversationViewModel>
 
-@{
-    var isHR = User.IsInRole(Role.HR.EnumToString());
-}
-
 @if (Model.Any())
 {
     foreach (var item in Model)
@@ -15,7 +11,7 @@
             <td class="align-left">@item.ConversationName</td>
 
             <td class="align-left">@item.SkypeConversationId</td>
-            @if (isHR)
+            @if (ViewBag.HasHRRole)
             {
                 <td class="align-left">@item.PermittedEmployees</td>
             }
@@ -35,5 +31,5 @@
 }
 else
 {
-    <tr><td colspan="@(isHR ? 5 : 4)">@Labels.NoData</td></tr>
+    <tr><td colspan="@(ViewBag.HasHRRole ? 5 : 4)">@Labels.NoData</td></tr>
 }
