@@ -415,5 +415,17 @@
       "renameLocals": true
     },
     "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/createlateearly.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Request/search.request.js",
+      "wwwroot/js/Views/LateInEarlyOut/create.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
   }
 ]

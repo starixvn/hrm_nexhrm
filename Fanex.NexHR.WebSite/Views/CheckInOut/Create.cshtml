@@ -95,8 +95,8 @@
                                                 @foreach (var item in listRadioBtn)
                                                 {
                                                     <div class="radioButton">
-                                                        <input class="with-gap radio-ckeckinout" type="radio" name="CheckInOutType" id="CheckInOutType_@item.Value" value="@item.Value" checked="@item.Selected"/>
-                                                        <div class="lable-checkinout">@item.Text</div>
+                                                        <input class="with-gap" type="radio" name="CheckInOutType" id="CheckInOutType_@item.Value" value="@item.Value" checked="@item.Selected"/>
+                                                        <label for="CheckInOutType_@item.Value">@item.Text</label>
                                                     </div>
                                                 }
                                             </div>
