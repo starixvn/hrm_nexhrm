@@ -1,0 +1,58 @@
+﻿@model Fanex.NexHR.ViewModels.ScheduledMessage.EditConversationViewModel
+
+@using (Html.AjaxBeginForm("EditConversation", null, new AjaxOptions
+{
+    HttpMethod = "POST",
+    OnSuccess = "conversationManagement.onEditSuccess",
+}, new { id = "edit-conversation-form" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(x => x.ConversationId)
+
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                @Html.LabelFor(model => model.ConversationName)
+            </div>
+            <div class="left input--l">
+                @Html.TextBoxFor(model => model.ConversationName)
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                @Html.LabelFor(model => model.SkypeConversationId)
+            </div>
+            <div class="left select--l">
+                @Html.TextBoxFor(model => model.SkypeConversationId)
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                @Html.LabelFor(model => model.IsActive)
+            </div>
+            <div class="left">
+                <input class="filled-in" asp-for="IsActive" type="checkbox" value="true">
+                <label for="IsActive"></label>
+            </div>
+        </div>
+    </div>
+
+    if (Model.HasHRRole)
+    {
+        <div class="row form-input">
+            <div class="col">
+                <div class="left label--l">
+                    @Html.LabelFor(model => model.PermittedEmployeeIds)
+                </div>
+                <div class="left input--l">
+                    @Html.ListBoxFor(model => model.PermittedEmployeeIds, Model.Employees, new { @class = "select-2" })
+                </div>
+            </div>
+        </div>
+    }
+}

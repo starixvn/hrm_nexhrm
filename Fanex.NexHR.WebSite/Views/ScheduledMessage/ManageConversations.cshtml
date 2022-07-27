@@ -1,0 +1,77 @@
+﻿@using Fanex.NexHR.Resources
+@{
+    ViewBag.Title = Labels.ManageConversations;
+}
+
+@model bool
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/conversationmanagement.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/leaverequest.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Libs/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
+        <script src="~/js/Libs/select2.js" asp-append-version="true"></script>
+        <script src="~/js/Views/ScheduledMessage/conversation-management.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/conversationmanagement.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base manage-message">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    @using (Html.AjaxBeginForm("SearchConversation", "ScheduledMessage", null, new AjaxOptions
+                    {
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "conversation-body",
+                        HttpMethod = "GET"
+                    }, new { id = "search-form" }))
+                    {
+                        <div class="form clearfix">
+                            <div class="row form-input">
+                                <div class="col">
+                                    @Html.ActionLink(Labels.Back, "Index", "ScheduledMessage",null, new { @class = "btn-back waves-effect waves-light m-r--s" })
+
+                                    @Html.AjaxActionLink("New Conversation", "CreateConversation", null, new AjaxOptions {
+                                   InsertionMode = InsertionMode.Replace,
+                                   UpdateTargetId = "dialog",
+                                   OnSuccess = "conversationManagement.onLoadingCreateFormSuccess"
+                               }, new { @class= "btn-request waves-effect waves-light m-r--s" })
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="p-x--s m-t--m cover-table">
+                        <table id="conversation-table" class="table bordered striped highlight centered table-custom">
+                            <thead>
+                                <tr>
+                                    <th>@Labels.Name</th>
+
+                                    <th>@Labels.ConversationId</th>
+                                    @if (Model)
+                                    {
+                                        <th>@Labels.PermittedEmployees</th>
+                                    }
+                                    <th>@Labels.Active</th>
+                                    <th>@Labels.Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="conversation-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dialog">
+</div>

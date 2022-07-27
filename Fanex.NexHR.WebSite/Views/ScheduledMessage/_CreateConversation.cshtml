@@ -1,0 +1,43 @@
+﻿@model Fanex.NexHR.ViewModels.ScheduledMessage.CreateConversationViewModel
+
+@using (Html.AjaxBeginForm("CreateConversation", null, new AjaxOptions
+{
+    HttpMethod = "POST",
+    OnSuccess = "conversationManagement.onCreateSuccess"
+}, new { id = "create-conversation-form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                @Html.LabelFor(model => model.ConversationName)
+            </div>
+            <div class="left input--l">
+                @Html.TextBoxFor(model => model.ConversationName)
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                @Html.LabelFor(model => model.SkypeConversationId)
+            </div>
+            <div class="left select--l">
+                @Html.TextBoxFor(model => model.SkypeConversationId)
+            </div>
+        </div>
+    </div>
+    if (Model.HasHRRole)
+    {
+        <div class="row form-input">
+            <div class="col">
+                <div class="left label--l">
+                    @Html.LabelFor(model => model.PermittedEmployeeIds)
+                </div>
+                <div class="left input--l">
+                    @Html.ListBoxFor(model => model.PermittedEmployeeIds, Model.Employees, new { @class = "select-2" })
+                </div>
+            </div>
+        </div>
+    }
+}

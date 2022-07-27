@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.WebSite
 {
+    using AspNetCore.Unobtrusive.Ajax;
     using Fanex.Data;
     using Fanex.Data.SqlServer;
     using StackExchange.Redis;
@@ -39,6 +40,7 @@
             services.RegisterAuthentication(Configuration);
             services.RegisterServices();
             services.InjectConfiguration(Configuration);
+            services.AddUnobtrusiveAjax();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -63,6 +65,8 @@
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseUnobtrusiveAjax();
 
             app.UseEndpoints(endpoints =>
             {

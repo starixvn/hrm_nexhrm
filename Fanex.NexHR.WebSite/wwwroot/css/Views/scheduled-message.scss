@@ -9,6 +9,15 @@
     }
 }
 
+.checkBox {
+    position: unset !important;
+    left: unset !important;
+    visibility: unset !important;
+    height: 16px;
+    width: 16px;
+    margin-top: 4px;
+}
+
 table {
     .mdi-border-color {
         top: 4px;

@@ -22,5 +22,9 @@
   {
     "outputFile": "wwwroot/css/Views/overtime.manage.css",
     "inputFile": "wwwroot/css/Views/overtime.manage.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Views/scheduled-message.css",
+    "inputFile": "wwwroot/css/Views/scheduled-message.scss"
   }
 ]

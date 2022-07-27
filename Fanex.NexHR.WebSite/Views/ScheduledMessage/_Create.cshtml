@@ -1,0 +1,87 @@
+﻿@model Fanex.NexHR.ViewModels.ScheduledMessage.CreateScheduledMessageViewModel
+
+@using (Html.AjaxBeginForm("Create", null, new AjaxOptions
+{
+    HttpMethod = "POST",
+    OnSuccess = "scheduledMessage.onCreateSuccess"
+}, new { id = "create-form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                @Html.LabelFor(model => model.ConversationId)
+            </div>
+            <div class="left select--l">
+                @Html.DropDownListFor(model => model.ConversationId, Model.Conversations, "", new { @class = "material-select" })
+            </div>
+        </div>
+    </div>
+
+    <div class="row form-input" style="margin-bottom: 1rem">
+        <div class="col">
+            <div class="left label--l">
+                @Html.LabelFor(model => model.IsRepeat)
+            </div>
+            <div class="left">
+                @Html.CheckBoxFor(model => model.IsRepeat, new { @class = "filled-in, checkBox" }) 
+            </div>
+        </div>
+    </div>
+
+    <div class="row form-input" id="type-of-cron">
+        <div class="col">
+            <div class="left label--l">
+                @Html.LabelFor(model => model.RepeatTypeId)
+            </div>
+            <div class="left select-repeat">
+                @Html.TextBoxFor(model => model.StepNumber, new { type = "number", min = "1", max = "99", step = "1", MaxLength = "2" })
+            </div>
+            <div class="left select-repeat ml-2rem">
+                @Html.DropDownListFor(model => model.RepeatTypeId, Model.RepeatTypes, "", new { @class = "material-select" })
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                <label id="lable-time">Send date</label>
+            </div>
+            <div class="datepicker-button left select-repeat">
+                <date-picker 
+                    name="SendDate"
+                    value="DateTime.Now"
+                >
+                </date-picker>
+                <i class="mdi-action-event calendar-icon from-date left"></i>
+            </div>
+        </div>
+        <div class="col">
+            <div class="left input-xs input-hour">
+                <span class="time">
+                    @Html.TextBoxFor(model => model.Hour, new { type = "number", min = "0", max = "23", step = "1", MaxLength = "2" })
+                </span>
+            </div>
+        </div>
+        <div class="col divide">:</div>
+        <div class="col">
+            <div class="left input-xs input-minute">
+                <span class="time">
+                    @Html.TextBoxFor(model => model.Minute, new { type = "number", min = "0", max = "59", step = "5", MaxLength = "2" })
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                @Html.LabelFor(model => model.Content)
+            </div>
+            <div class="left input--l">
+                @Html.TextAreaFor(model => model.Content, new { @class = "materialize-textarea", rows = "5" })
+            </div>
+        </div>
+    </div>
+}

@@ -105,6 +105,7 @@
             services.AddSingleton<IWorkFromHomeRequest, WorkFromHomeRequestService>();
             services.AddSingleton<ICalendarService, CalendarService>();
             services.AddSingleton<IOvertimeService, OvertimeService>();
+            services.AddSingleton<IScheduledMessageService, ScheduledMessageService>();
 
             // services.AddSingleton<ILateInEarlyOutRepository, LateInEarlyOutRepository>();
         }
@@ -122,6 +123,7 @@
             services.AddSingleton<INexbotRepository, NexbotRepository>();
             services.AddSingleton<ICalendarRepository, CalendarRepository>();
             services.AddSingleton<IOvertimeRepository, OvertimeRepository>();        
+            services.AddSingleton<IScheduledMessageRepository, ScheduledMessageRepository>();        
         }
     }
 }

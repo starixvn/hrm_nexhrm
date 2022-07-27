@@ -59,6 +59,7 @@
     </script>
     @(await Component.InvokeAsync("GlobalScripts"))
     <script src="~/minify/js/site.min.js" asp-append-version="true"></script>
+    @Html.RenderUnobtrusiveAjaxScript()
     @RenderSection("Scripts", false)
 </body>
 </html>

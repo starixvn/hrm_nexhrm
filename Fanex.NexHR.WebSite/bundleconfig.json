@@ -125,6 +125,19 @@
       "wwwroot/css/Views/leaverequest.css"
     ]
   },
+  {
+    "outputFileName": "wwwroot/minify/css/scheduledmessage.min.css",
+    "inputFiles": [
+      "wwwroot/css/Views/scheduled-message.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/minify/css/conversationmanagement.min.css",
+    "inputFiles": [
+      "wwwroot/css/Select2/materialize-select2.css",
+      "wwwroot/css/Views/conversation-management.css"
+    ]
+  },
   // ----------------------- Javascript ------------------------------
   {
     "outputFileName": "wwwroot/minify/js/site.min.js",
@@ -369,6 +382,33 @@
     "inputFiles": [
       "wwwroot/js/Views/Request/mgr.requests.js",
       "wwwroot/js/Views/Employee/_employee.search.in.team.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/scheduledmessage.min.js",
+    "inputFiles": [
+      "wwwroot/js/Libs/jquery.validate.unobtrusive.js",
+      "wwwroot/js/Libs/jquery.unobtrusive-ajax.js",
+      "wwwroot/js/Views/ScheduledMessage/scheduled-message.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/conversationmanagement.min.js",
+    "inputFiles": [
+      "wwwroot/js/Libs/jquery.validate.unobtrusive.js",
+      "wwwroot/js/Libs/jquery.unobtrusive-ajax.js",
+      "wwwroot/js/Libs/select2.js",
+      "wwwroot/js/Views/ScheduledMessage/conversation-management.js"
     ],
     "minify": {
       "enabled": true,
