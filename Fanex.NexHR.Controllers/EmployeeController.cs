@@ -88,6 +88,7 @@
             return View(model);
         }
 
+
         public JsonResult GetEmployees(
             string query,
             int? teamId = null,
@@ -104,7 +105,7 @@
 
             var criteria = new GetEmployeeCriteria
             {
-                Query = query,
+                Query = string.Empty,
                 TeamId = teamId == -1 ? null : teamId,
                 JobTitleId = jobTitleId,
                 IsDisable = isDisable,

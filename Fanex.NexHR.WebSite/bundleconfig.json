@@ -427,5 +427,16 @@
       "renameLocals": true
     },
     "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/staffinfo.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Employee/employee.index.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
   }
 ]
