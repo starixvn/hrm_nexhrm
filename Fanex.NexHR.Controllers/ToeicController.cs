@@ -59,7 +59,8 @@
 
             model.JobTitles = jobTitleService.GetAll();
             model.Teams = teamService.GetTeam();
-
+            var userRoles = employeeService.UserRoles(CurrentUser);
+            ViewBag.HasHRRole = userRoles.Any(item => item == "HR");
             return View(model);
         }
 
@@ -82,7 +83,8 @@
                 employees = employeeService.GetEmployeeToeicScore(getToeicScoreCriteria);
                 employees = SortToeic(model.Sort, employees);
             }
-
+            var userRoles = employeeService.UserRoles(CurrentUser);
+            ViewBag.HasHRRole = userRoles.Any(item => item == "HR");
             return PartialView("_ToeicManagementDetail", employees);
         }
 
@@ -116,7 +118,7 @@
         }
 
         [HttpGet]
-        //[Authorize(Roles = "HR")]
+        [Authorize(Roles = "HR")]
         public ActionResult UpdateToeic(int? id, string name)
         {
             Toeic toeic = null;
@@ -136,7 +138,7 @@
         }
 
         [HttpPost]
-       // [Authorize(Roles = "HR")]
+        [Authorize(Roles = "HR")]
         public ActionResult UpdateToeic(Toeic model)
         {
             var result = new CommandResult

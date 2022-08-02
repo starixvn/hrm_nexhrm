@@ -2,7 +2,7 @@
 @using Fanex.NexHR.Resources
 @model Toeic
 @{ DateTime currentDate = DateTime.Today; }
-<form id="  " class="form form-update-toeic">
+<form id="frmUpdateTOEIC" class="form form-update-toeic">
     <div id="divErrorCont" class="">
         &nbsp;
     </div>
@@ -11,28 +11,29 @@
             <label>@Labels.Employee</label>
         </div>
         <div class="left input--m">
-            @Html.TextBoxFor(model => model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
-            @Html.HiddenFor(model => model.EmpId)
+            <input asp-for="Employee" placeholder = "@Messages.SearchEmployeeWatermark"/>
+            <input asp-for="EmpId" type="hidden"/>
         </div>
     </div>
     <div class="row form-input">
         <div class="left label--l">
-            @Html.LabelFor(model => model.InputDate, Labels.Deadline)
+            <label>@Labels.Deadline</label>
         </div>
         <div class="datepicker-button left select--s">           
-            <date-picker name="InputDate">
+            <date-picker name="InputDate" value="@(Model != null ? Model.InputDate : null)">
             </date-picker>
             <i class="mdi-action-event calendar-icon left"></i>
         </div>
     </div>
     <div class="row form-input">
         <div class="left label--l">
-            @Html.LabelFor(model => model.LRExamDate)
+            <label>@Labels.LRExamDate</label>
         </div>
         <div class="datepicker-button left select--s">
             <date-picker name="LRExamDate"
                          min-date="currentDate.AddYears(-100)"
-                         max-date="currentDate">
+                         max-date="currentDate"
+                         value="@(Model != null ? Model.LRExamDate : null)">
             </date-picker>
             <i class="mdi-action-event calendar-icon left"></i>
         </div>
@@ -43,15 +44,15 @@
         </div>
         <div class="left score-toeic">
             <div class="left select--xs m-r--s">
-                @Html.TextBoxFor(model => model.Listening, new { type = "number", step = "5", onchange = "calculateToeicScore()" })
-                @Html.ValidationMessageFor(model => model.Listening)
+                <input asp-for="Listening" type = "number" step = "5" onchange = "calculateToeicScore()"/>
+                <span asp-validation-for="Listening"></span>
             </div>
             <div class="col left colon">
                 /
             </div>
             <div class="left select--xs">
-                @Html.TextBoxFor(model => model.OldListening, new { type = "number", step = "5", onchange = "calculateOldToeicScore()" })
-                @Html.ValidationMessageFor(model => model.OldListening)
+                <input asp-for="OldListening" type = "number" step = "5" onchange = "calculateOldToeicScore()"/>
+                <span asp-validation-for="OldListening"></span>
             </div>
         </div>
     </div>
@@ -61,15 +62,15 @@
         </div>
         <div class="left score-toeic">
             <div class="left select--xs m-r--s">
-                @Html.TextBoxFor(m => m.Reading, new { type = "number", step = "5", onchange = "calculateToeicScore()" })
-                @Html.ValidationMessageFor(model => model.Reading)
+                <input asp-for="Reading" type = "number" step = "5" onchange = "calculateToeicScore()"/>
+                <span asp-validation-for="Reading"></span>
             </div>
             <div class="col left colon">
                 /
             </div>
             <div class="left select--xs">
-                @Html.TextBoxFor(m => m.OldReading, new { type = "number", step = "5", onchange = "calculateOldToeicScore()" })
-                @Html.ValidationMessageFor(model => model.OldReading)
+                <input asp-for="OldReading" type = "number" step = "5" onchange = "calculateOldToeicScore()"/>
+                <span asp-validation-for="OldReading"></span>
             </div>
         </div>
     </div>
@@ -79,13 +80,13 @@
         </div>
         <div class="left score-toeic">
             <div class="left select--xs m-r--s">
-                @Html.TextBoxFor(model => model.Total, new { @readonly = "readonly", @class = "readonly-input" })
+                <input asp-for="Total" readonly = "readonly" class = "readonly-input"/>
             </div>
             <div class="col left colon">
                 /
             </div>
             <div class="left select--xs">
-                @Html.TextBoxFor(model => model.OldTotal, new { @readonly = "readonly", @class = "readonly-input" })
+                <input asp-for="OldTotal" readonly = "readonly" class = "readonly-input"/>
             </div>
         </div>
     </div>
@@ -94,15 +95,16 @@
             <label>@Labels.RequiredScore</label>
         </div>
         <div class="left input--s">
-            @Html.TextBoxFor(m => m.MinimumScore, new { type = "number", step = "5" })
+            <input asp-for="MinimumScore" type = "number" step = "5"/>
         </div>
     </div>
     <div class="row form-input">
         <div class="left label--l">
-            @Html.LabelFor(m => m.SendMail, Labels.SendMail)
+            <label>@Labels.SendMail</label>
         </div>
         <div class="left input--s">
-            @Html.MaterializeCheckBoxFor(m => m.SendMail, new { @class = "filled-in" })
+            <input asp-for="SendMail" type="checkbox" class="filled-in"/>
+            <label for="SendMail"></label>
         </div>
     </div>
 </form>

@@ -52,8 +52,7 @@
                                 </div>
                                 <div class="col">
                                     <input id="submit" type="button" value="@Labels.Submit" class="btn-submit waves-effect waves-light m-r--m" />
-                                    @*@if (Roles.IsUserInRole("HR"))*@
-                                    @if (true)
+                                    @if (ViewBag.HasHRRole)
                                     {
                                         <a class="btn-request waves-effect waves-light" id="btnNewTOEIC" href="javascript:;">Update TOEIC Score</a>
                                     }
@@ -85,8 +84,7 @@
                                         @Labels.Deadline
                                         <div class="sorter" data-property="InputDate"></div>
                                     </th>
-                                    @*@if (Roles.IsUserInRole("HR"))*@
-                                    @if (true)
+                                    @if (ViewBag.HasHRRole)
                                     {
                                         <th class="col-sorter" rowspan="2">
                                             @Labels.RequiredScore

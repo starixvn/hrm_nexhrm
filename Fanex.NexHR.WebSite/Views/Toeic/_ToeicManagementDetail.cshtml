@@ -59,7 +59,7 @@
         }
     </td>
     <td class=@(employee.ToeicScore.IsWarningExpiredDate ? "expired-date" : string.Empty)>@expiredDate</td>
-    @if (true)
+    @if (ViewBag.HasHRRole)
     {
         <td>
             @if (employee.ToeicScore.MinimumScore.HasValue && employee.ToeicScore.MinimumScore.Value != 0)
