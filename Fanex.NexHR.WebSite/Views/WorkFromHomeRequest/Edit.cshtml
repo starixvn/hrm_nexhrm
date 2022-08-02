@@ -26,10 +26,9 @@
                 </div>
                 <div class="card-body">
                     <div class="form form-stl-table">
-                        @using (Html.BeginForm("Edit", "WorkFromHomeRequest", FormMethod.Post, new { @class = "form-create-update" }))
-                        {
-                            @Html.ValidationSummary()
-                            if (ViewBag.Requested != null)
+                        <form asp-controller="WorkFromHomeRequest" asp-action="Edit" method="post" class="form-create-update">
+                            <div asp-validation-summary="All"></div>
+                            @if (ViewBag.Requested != null)
                             {
                                 if (ViewBag.Requested == true)
                                 {
@@ -39,11 +38,11 @@
                                     </div>
                                 }
                             }
-                            @Html.HiddenFor(model => model.Id)
+                            <input asp-for="Id" type="hidden" />
                             <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.FromDate, Labels.FromDate)
+                                        <label>@Labels.FromDate</label>
                                     </div>
                                     <div class="datepicker-button input--s left m-r--l">   
                                         <date-picker 
@@ -59,7 +58,7 @@
                             <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.FromDate, Labels.ToDate)
+                                        <label>@Labels.ToDate</label>
                                     </div>
                                     <div class="datepicker-button input--s left">
                                         <date-picker 
@@ -79,7 +78,7 @@
                                         <label for="Employee">@Labels.Remark</label>
                                     </div>
                                     <div class="left input--m">
-                                        @Html.TextAreaFor(model => model.Remark, new { @class = "materialize-textarea" })
+                                        <textarea asp-for="Remark" class="materialize-textarea"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +89,7 @@
                                     <input type="submit" class="btn-submit waves-effect waves-light right" value="@Labels.Submit" />
                                 </div>
                             </div>
-                        }
+                        </form>
                     </div>
                 </div>
             </div>

@@ -87,7 +87,7 @@
                 else if (item.IsMissingCheckin.Equals(1))
                 {
                     <td>
-                        @Html.ActionLink("Request", "Create", "CheckInOut", new { type = 1, date = item.AttendanceDate.ToDateMonthYearFormatedDate() }, null)
+                        <a asp-controller="CheckInOut" asp-action="Create" asp-route-type="1" asp-route-date="@item.AttendanceDate.ToDateMonthYearFormatedDate()">Request</a>
                     </td>
                 }
                 else
@@ -129,7 +129,7 @@
                 else if (item.IsMissingCheckOut.Equals(1))
                 {
                     <td>
-                        @Html.ActionLink("Request", "Create", "CheckInOut", new { type = 2, date = item.AttendanceDate.ToDateMonthYearFormatedDate() }, null)
+                        <a asp-controller="CheckInOut" asp-action="Create" asp-route-type="2" asp-route-date="@item.AttendanceDate.ToDateMonthYearFormatedDate()">Request</a>
                     </td>
                 }
                 else

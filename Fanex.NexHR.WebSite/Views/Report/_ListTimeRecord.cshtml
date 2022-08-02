@@ -4,6 +4,9 @@
 @model IList<TimeRecord>
 @{
     var pagerOption = ViewBag.PagerOption;
+    var CurrentPage = (int)pagerOption.CurrentPage;
+    var ItemsPerPage = (int)pagerOption.ItemsPerPage;
+    var TotalItem = (int)pagerOption.TotalItem;
 }
 @{
     string alertTable = ""; //use this class to style table when table has data or not
@@ -115,9 +118,9 @@ else
                         Showing <strong>@from</strong> to <strong>@to</strong> of <strong>@pagerOption.TotalItem</strong> entries
                     </div>
                     <div class="col right">
-                        @Html.Hidden("CurrentPage", (int)pagerOption.CurrentPage)
-                        @Html.Hidden("ItemsPerPage", (int)pagerOption.ItemsPerPage)
-                        @Html.Hidden("TotalItem", (int)pagerOption.TotalItem)
+                        <input name="CurrentPage" id="CurrentPage" value="@CurrentPage" type="hidden" />
+                        <input name="ItemsPerPage" id="ItemsPerPage" value="@ItemsPerPage" type="hidden" />
+                        <input name="TotalItem" id="TotalItem" value="@TotalItem" type="hidden" />
                         <ul id="numberlist" class="pagination"></ul>
                     </div>
                 </td>

@@ -105,7 +105,7 @@
 
             var criteria = new GetEmployeeCriteria
             {
-                Query = string.Empty,
+                Query = query,
                 TeamId = teamId == -1 ? null : teamId,
                 JobTitleId = jobTitleId,
                 IsDisable = isDisable,

@@ -4,6 +4,7 @@
 @model LeaveRequestViewModel
 @{
     ViewBag.Title = Labels.MyLeaveRequest;
+    var listLeaveTypes = new SelectList(Model.LeaveTypes, "Id", "Name");
 }
 @section Styles {
     <link rel="stylesheet" href="~/minify/css/myrequest.min.css" asp-append-version="true">
@@ -30,10 +31,9 @@
                 </div>
                 <div class="card-body">
                     <div class="form list-item-form">
-                        @using (Html.BeginForm("update", "leave", FormMethod.Post, new { @class = "form-create-update" }))
-                        {
-                            @Html.ValidationSummary()
-                            if (ViewBag.Updated == true)
+                        <form asp-controller="leave" asp-action="update" method="post" class="form-create-update">
+                            <div asp-validation-summary="All"></div>
+                            @if (ViewBag.Updated == true)
                             {
                                 <div class="row validation-summary-success">
                                     <div class="col success green-text"><i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestUpdated</div>
@@ -44,45 +44,49 @@
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left text-legend">
-                                        @Html.Raw(Messages.LeaveRequestLegendText)
+                                        ※ In <span id='lblMonth'>{0}</span>,
+                                        you can use up to <span id='lblAnnualLeaveCanBeUsed' class='red-color'>{1}</span>
+                                        day (s) AL in a total of <span id = 'lblAnnualLeaveBalance' class='red-color'> {2} </span>
+                                        day (s) for <span id='lblYear'>{3}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.LeaveTypeId, Labels.LeaveType)
+                                        <label>@Labels.LeaveType</label>
                                     </div>
                                     <div class="left input--m leaveTypeId">
-                                        @Html.DropDownListFor(model => model.LeaveTypeId, new SelectList(Model.LeaveTypes, "Id", "Name"))
-                                        @Html.ValidationMessageFor(model => model.LeaveTypeId)
+                                        <select asp-for="LeaveTypeId" asp-items="@listLeaveTypes"></select> 
+                                        <span asp-validation-for="LeaveTypeId"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row form-input">
                                 <div class="col m-b--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.Employee, Labels.Employee)
+                                        <label>@Labels.Employee</label>
                                     </div>
                                     <div class="left">
-                                        <span class="label">@Html.DisplayFor(model => model.Employee)</span>
+                                        <span class="label">@Model.Employee</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row form-input">
                                 <div class="col m-b--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.HalfDayOff, Labels.HalfDayOff)
+                                        <label>@Labels.HalfDayOff</label>
                                     </div>
                                     <div class="left input--m">
-                                        @Html.CheckBoxFor(model => model.HalfDayOff, new { @class = "filled-in, checkBox" })     
+                                        <input asp-for="HalfDayOff" type="checkbox" class="filled-in"/>
+                                        <label for="HalfDayOff"></label>   
                                     </div>
                                 </div>
                             </div>
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.FromDate, Labels.FromDate)
+                                        <label>@Labels.FromDate</label>
                                     </div>
                                     <div class="left block-time">
                                         <div class="datepicker-button select--s left">
@@ -98,13 +102,13 @@
                                         </div>
                                         <div class="box-time hide">
                                             <div class="col m-l--m">
-                                                @Html.TextBoxFor(x => x.FromHour, new { type = "number", min = "0", max = "23", step = "1", MaxLength = "2", id = "Hour", name = "Hour" })
+                                                <input asp-for="FromHour" type = "number" min = "0" max = "23" step = "1" MaxLength = "2" id = "Hour" name = "Hour"/>
                                             </div>
                                             <div class="col p-0">
                                                 <span class="colon">:</span>
                                             </div>
                                             <div class="col">
-                                                @Html.TextBoxFor(x => x.FromMinute, new { type = "number", min = "0", max = "59", step = "1", MaxLength = "2", id = "Minute", name = "Minute" })
+                                                 <input asp-for="FromMinute" type = "number" min = "0" max = "59" step = "1" MaxLength = "2" id = "Minute" name = "Minute"/>
                                             </div>
                                         </div>
                                     </div>
@@ -112,7 +116,7 @@
                                 <div class="col">
                                     <div class="left select-time">
                                         <span class="time hide">
-                                            @Html.DropDownList("FromTime", Utilities.TimeSteps(30))
+                                            <select asp-for="FromTime" asp-items="Utilities.TimeSteps(30)"></select> 
                                         </span>
                                     </div>
                                 </div>
@@ -120,7 +124,7 @@
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.ToDate, Labels.ToDate)
+                                        <label>@Labels.ToDate</label>
                                     </div>
                                     <div class="left block-time">
                                         <div class="datepicker-button select--s left">
@@ -136,13 +140,13 @@
                                         </div>
                                         <div class="box-time hide">
                                             <div class="col m-l--m">
-                                                @Html.TextBoxFor(x => x.ToHour, new { type = "number", min = "0", max = "23", step = "1", MaxLength = "2", id = "Hour", name = "Hour" })
+                                                <input asp-for="ToHour" type = "number" min = "0" max = "23" step = "1" MaxLength = "2" id = "Hour" name = "Hour"/>
                                             </div>
                                             <div class="col p-0">
                                                 <span class="colon">:</span>
                                             </div>
                                             <div class="col">
-                                                @Html.TextBoxFor(x => x.ToMinute, new { type = "number", min = "0", max = "59", step = "1", MaxLength = "2", id = "Minute", name = "Minute" })
+                                                <input asp-for="ToMinute" type = "number" min = "0" max = "59" step = "1" MaxLength = "2" id = "Minute" name = "Minute"/>
                                             </div>
                                         </div>
                                     </div>
@@ -150,7 +154,7 @@
                                 <div class="col">
                                     <div class="left select-time">
                                         <span class="time hide">
-                                            @Html.DropDownList("ToTime", Utilities.TimeSteps(30))
+                                            <select asp-for="ToTime" asp-items="Utilities.TimeSteps(30)"></select> 
                                         </span>
                                     </div>
                                 </div>
@@ -158,21 +162,22 @@
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.TotalDays, Labels.TotalDays)
+                                        <label>@Labels.TotalDays</label>
                                     </div>
                                     <div class="left input--xs">
-                                        @Html.EditorFor(model => model.TotalDays)
+                                        <input asp-for="TotalDays" />
                                     </div>
                                 </div>
                             </div>
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.Remark)
+                                        <label>@Labels.Remark</label>
                                     </div>
                                     <div class="left input--m">
-                                        @Html.TextAreaFor(model => model.Remark, new { @class = "materialize-textarea" })
+                                        <textarea asp-for="Remark" class="materialize-textarea"></textarea>
                                     </div>
+                                    <div id="remarkInfo" style="margin-top: -15px;"></div>
                                 </div>
                             </div>
                             <div class="row form-input line-button">
@@ -184,12 +189,26 @@
                                     </div>
                                 </div>
                             </div>
-                            @Html.HiddenFor(model => model.Employee)
-                            @Html.HiddenFor(model => model.EmployeeId)
-                            @Html.HiddenFor(model => model.Id)
-                            @Html.HiddenFor(model => model.LeaveTypeName)
-                            @Html.HiddenFor(model => model.ForRequest)
-                        }
+                            <input asp-for="Employee" type="hidden" />
+                            <input asp-for="EmployeeId" type="hidden" />
+                            <input asp-for="Id" type="hidden" />
+                            <input asp-for="LeaveTypeName" type="hidden" />
+                            <input asp-for="ForRequest" type="hidden" />
+                        </form>
+                    </div>
+
+                    <div class="hide">
+                        <div id="warningLeaveRequest">
+                            <div class="warningLeaveRequest">
+                                <ul>
+                                    <li>Annual Leave (>= 5 days) / Unpaid Leave request need to be approved by Management. So please get approval from your supervisor first and note it in the remarks.</li>
+                                    <li>e.g:</li>
+                                    <div>- home repair ([Supervisor Name] approved)</div>
+                                    <div>- family outing - [Supervisor Name] approved</div>
+                                    <div>...</div>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

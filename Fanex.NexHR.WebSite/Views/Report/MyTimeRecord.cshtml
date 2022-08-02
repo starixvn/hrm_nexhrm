@@ -31,7 +31,7 @@
                 </div>
                 <div class="card-body">
                     <div class="form">
-                        @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+                        <input id="DateTime-Now" name="DateTime-Now" type="hidden" value="@DateTime.Now.ToString("MMMM dd, yyyy")">
                         <form class="form-filter" action="">
                             <div class="row form-input">
                                 <div class="col m-r--m">
@@ -48,13 +48,13 @@
                                                 }
                                             }
                                         </select>
-                                        @Html.Hidden("DateOption", Model.DateOption)
+                                        <input asp-for="DateOption" type="hidden">
                                     </div>
                                 </div>
                                 <div class="col-from-to">
                                     <div class="col m-r--m">
                                         <div class="left label--m">
-                                            @Html.LabelFor(model => model.FromDate, Labels.FromDate)
+                                            <label>@Labels.FromDate</label>
                                         </div>
                                         <div class="datepicker-button left select--s">
                                             <date-picker 
@@ -69,7 +69,7 @@
                                     </div>
                                     <div class="col">
                                         <div class="left label--m">
-                                            @Html.LabelFor(model => model.ToDate, Labels.ToDate)
+                                            <label>@Labels.ToDate</label>
                                         </div>
                                         <div class="datepicker-button left select--s">
                                             <date-picker 
@@ -84,9 +84,9 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    @Html.HiddenFor(model => model.EmployeeId)
-                                    @Html.HiddenFor(model => model.ItemsPerPage)
-                                    @Html.HiddenFor(model => model.CurrentPage)
+                                    <input asp-for="EmployeeId" type="hidden" />
+                                    <input asp-for="ItemsPerPage" type="hidden" />
+                                    <input asp-for="CurrentPage" type="hidden" />
                                     <input id="submit" class="btn-submit waves-effect waves-light" type="button" value="@Labels.Submit" />
                                 </div>
                             </div>

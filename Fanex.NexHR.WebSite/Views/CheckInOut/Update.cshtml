@@ -30,10 +30,9 @@
                 </div>
                 <div class="card-body">
                     <div class="form list-item-form form-update style-over">
-                        @using (Html.BeginForm("update", "checkinout", FormMethod.Post, new { @class = "form-create-update" }))
-                        {
-                            @Html.ValidationSummary(true)
-                            if (ViewBag.Updated == true)
+                        <form asp-controller="checkinout" asp-action="update" method="post" class="form-create-update">
+                            <div asp-validation-summary="All"></div>
+                            @if (ViewBag.Updated == true)
                             {
                                 <div class="row">
                                     <div class="col success green-text m-b--m">
@@ -46,7 +45,7 @@
                             <div class="row form-input">
                                 <div class="col m-b--m">
                                     <div class="left label--xl">
-                                        @Html.LabelFor(model => model.CheckInOutType, Labels.Request)
+                                        <label>@Labels.Request</label>
                                     </div>
                                     <div class="left input--m">
                                         <span class="label">@Model.CheckInOutType.ToText()</span>
@@ -56,10 +55,10 @@
                             <div class="row form-input">
                                 <div class="col m-b--m">
                                     <div class="left label--xl">
-                                        @Html.LabelFor(model => model.Employee)
+                                        <label>@Labels.Employee</label>
                                     </div>
                                     <div class="left">
-                                        <span class="label">@Html.DisplayFor(model => model.Employee)</span>
+                                        <span class="label">@Model.Employee</span>
                                     </div>
                                 </div>
                             </div>
@@ -81,29 +80,28 @@
                                         </div>
                                         <div class="box-time">
                                             <div class="col m-l--m">
-                                                @*@Html.Html5Number(0, 23, 1, Model.Hour, new { Name = "Hour", MaxLength = "2", id = "Hour" })*@
-                                                @Html.TextBoxFor(x => x.Hour, new { type = "number", min = "0", max = "23", step = "1", MaxLength = "2", id = "Hour", name = "Hour" })
+                                                <input asp-for="Hour" type = "number" min = "0" max = "23" step = "1" MaxLength = "2" id = "Hour" name = "Hour"/>
                                             </div>
                                             <div class="col p-0">
                                                 <span class="colon">:</span>
                                             </div>
                                             <div class="col">
-                                                @*@Html.Html5Number(0, 59, 1, Model.Minute, new { Name = "Minute", MaxLength = "2", id = "Minute" })*@
-                                                @Html.TextBoxFor(x => x.Minute, new { type = "number", min = "0", max = "59", step = "1", MaxLength = "2", id = "Minute", name = "Minute" })
+                                                <input asp-for="Minute" type = "number" min = "0" max = "59" step = "1" MaxLength = "2" id = "Minute" name = "Minute"/>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            if (Model.IsCrossDate)
+                            @if (Model.IsCrossDate)
                             {
                                 <div class="row form-input">
                                     <div class="col">
                                         <div class="left label--xl">
-                                            @Html.LabelFor(model => model.IsCrossDate, Labels.CrossDate)
+                                            <label>@Labels.CrossDate</label>
                                         </div>
                                         <div class="left input--m">
-                                            @Html.CheckBoxFor(model => model.IsCrossDate, new { @class = "filled-in, checkBox" })     
+                                            <input asp-for="IsCrossDate" type="checkbox" class="filled-in"/>
+                                            <label for="IsCrossDate"></label>
                                         </div>
                                     </div>
                                 </div>
@@ -111,7 +109,7 @@
                             <div class="row form-input m-b--m">
                                 <div class="col">
                                     <div class="left label--xl">
-                                        @Html.LabelFor(model => model.Shift)
+                                        <label>Shift</label>
                                     </div>
                                     <div class="left">
                                         <span id="shiftname" class="label">@Model.Shift</span>
@@ -122,20 +120,20 @@
                                 <div class="col m-b--m">
                                     <div class="left label--xl">&nbsp;</div>
                                     <div class="left">
-                                        @Html.HiddenFor(model => model.Employee)
-                                        @Html.HiddenFor(model => model.EmployeeId)
-                                        @Html.HiddenFor(model => model.Id)
-                                        @Html.HiddenFor(model => model.CheckInOutType)
-                                        @Html.HiddenFor(model => model.Shift)
-                                        @Html.HiddenFor(model => model.ForRequest)
-                                        @Html.HiddenFor(model => model.InTime)
-                                        @Html.HiddenFor(model => model.OutTime)
+                                        <input asp-for="Employee" type="hidden" />
+                                        <input asp-for="EmployeeId" type="hidden" />
+                                        <input asp-for="Id" type="hidden" />
+                                        <input asp-for="CheckInOutType" type="hidden" />
+                                        <input asp-for="Shift" type="hidden" />
+                                        <input asp-for="ForRequest" type="hidden" />
+                                        <input asp-for="InTime" type="hidden" />
+                                        <input asp-for="OutTime" type="hidden" />
                                         <a href="@Url.Action("EmployeeView")" class="btn-back waves-effect waves-light">@Labels.Cancel</a>
                                         <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Submit" />
                                     </div>
                                 </div>
                             </div>
-                        }
+                        </form>
                     </div>
                 </div>
             </div>

@@ -39,7 +39,7 @@
                                         <input type="hidden" id="Year" name="Year" value="@DateTime.Now.Year" />
                                         <input type="hidden" id="Month" name="Month" value="@DateTime.Now.Month" />
                                         <input type="hidden" id="maxDate" value="@DateTime.Now.AddMonths(3).GetMaxDate().ToString("yyyy/MM/dd")" />
-                                        @Html.HiddenFor(model => model.EmpId)
+                                        <input asp-for="EmpId" type="hidden" />
                                     </div>
                                     <input id="submit" type="button" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />
                                 </div>

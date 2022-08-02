@@ -23,8 +23,7 @@
 }
 
 <div class="row content">
-    @using (Html.BeginForm("employeeview", "checkinout", FormMethod.Post))
-    {
+    <form asp-controller="checkinout" asp-action="employeeview" method="post">
         <div class="col s12 card-container-base my-request">
             <div class="card">
                 <div class="card-content">
@@ -56,5 +55,5 @@
                 </div>
             </div>
         </div>
-    }
+    </form>
 </div>

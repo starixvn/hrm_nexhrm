@@ -22,12 +22,10 @@
         public bool IsCrossDate { get; set; }
 
         [Required]
-        [DisplayFormat(DataFormatString = "{0:f2}", ApplyFormatInEditMode = true)]
         [Range(0, MaxHour)]
         public int Hour { get; set; }
 
         [Required]
-        [DisplayFormat(DataFormatString = "{0:f2}", ApplyFormatInEditMode = true)]
         [Range(0, MaxMinute)]
         public int Minute { get; set; }
 
