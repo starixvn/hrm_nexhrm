@@ -212,7 +212,6 @@
         {
             var userRoles = employeeService.UserRoles(CurrentUser);
             var hasHRRole = userRoles.Any(item => item == "HR");
-            //var hasHRRole = User.IsInRole(Role.HR.EnumToString());
 
             var viewModel = new CreateConversationViewModel
             {

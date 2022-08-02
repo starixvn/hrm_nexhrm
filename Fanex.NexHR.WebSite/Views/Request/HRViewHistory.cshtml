@@ -1,0 +1,30 @@
+﻿@using Fanex.NexHR.Models.Request
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels
+@model RequestViewModel
+
+@{
+    ViewBag.Title = Labels.RequestHistory;
+    Layout = null;
+}
+
+@switch ((int)ViewBag.requestType)
+{
+    case 1:
+        IList<RequestEntity> entityCheckInOut = ViewBag.EntityList;
+        <partial name="History/CheckInOutRequestHistory" model="entityCheckInOut" />
+        break;
+    case 2:
+        IList<RequestEntity> entityLateInEarlyOut = ViewBag.EntityList;
+        <partial name="History/LateInEarlyOutRequestHistory" model="entityLateInEarlyOut" />
+        break;
+    case 3:
+        IList<RequestEntity> entityChangeShift = ViewBag.EntityList;
+         <partial name="History/ChangeShiftRequestHistory" model="entityChangeShift" />
+        break;
+    case 4:
+        IList<RequestEntity> entityLeave = ViewBag.EntityList;
+          <partial name="History/LeaveRequestHistory" model="entityLeave" />
+        break;
+
+}
