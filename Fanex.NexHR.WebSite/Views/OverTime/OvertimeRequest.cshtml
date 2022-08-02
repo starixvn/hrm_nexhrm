@@ -7,8 +7,8 @@
 <div class="loading-process" style="display: none;"></div>
 <div class="form form-stl-table">
     <form id="form">
-        @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
-        @Html.HiddenFor(model => model.OvertimeId)
+        <input id="DateTime-Now" name="DateTime-Now" type="hidden" value="@DateTime.Now.ToString("MMMM dd, yyyy")">
+        <input type="hidden" asp-for="OvertimeId"/>
         <div class="row form-input">
             <div class="col m-r--l">
                 <div class="left label--m">
@@ -29,7 +29,7 @@
             <div class="col-two-item">
                 <div class="col m-r--l">
                     <div class="left label--l">
-                        @Html.LabelFor(model => model.FromDateOT)
+                        <label>@Labels.FromDate</label>
                     </div>
                     <div class="left datepicker-button select--s">
                         <date-picker 
@@ -42,7 +42,7 @@
                 </div>
                 <div class="col m-r--l">
                     <div class="left label--m">
-                        @Html.LabelFor(model => model.ToDateOT)
+                        <label>@Labels.ToDate</label>
                     </div>
                     <div class="left datepicker-button select--s">
                         <date-picker 
@@ -59,14 +59,14 @@
                     <label>@Labels.RequestedBy</label>
                 </div>
                 <div class="left input--m">
-                    @Html.TextBoxFor(m => m.CreatedName, new { placeholder = Messages.SearchEmployeeWatermark })
-                    @Html.HiddenFor(m => m.CreatedBy)
+                    <input type="hidden" asp-for="CreatedBy"/>
+                    <input asp-for="CreatedName" placeholder="@Messages.SearchEmployeeWatermark"/>
                 </div>
             </div>
 
             <div class="col m-r--l">
                 <div class="left label--m">
-                    @Html.LabelFor(m => m.Status)
+                    <label>@Labels.Status</label>
                 </div>
                 <div class="left input--s">   
                     <select name="Status" id="Status">
@@ -85,8 +85,8 @@
                     <label>@Labels.Employee</label>
                 </div>
                 <div class="left input--m">
-                    @Html.TextBoxFor(m => m.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
-                    @Html.HiddenFor(m => m.EmployeeId)
+                    <input type="hidden" asp-for="EmployeeId"/>
+                    <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark"/>
                 </div>
             </div>
 

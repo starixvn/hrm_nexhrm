@@ -24,14 +24,14 @@
         </div>
     </td>
     <td>
-        @Html.TextBoxFor(model => model.Hour, new { id = row_hour_Id, @class = "row_hour", data_id = Model.Employee.Id, step = "0.5", min = "0.5", max = "24" })
+        <input asp-for="Hour" type = "number" min = "0.5" max = "24" step = "0.5" id = "@row_hour_Id" class="row_hour" data-id="@Model.Employee.Id"/>
     </td>
     <td class="row_nexhour">
         @Model.NexHour
     </td>
     <td>
         <div class="textarea-container">
-            @Html.TextAreaFor(model => model.Note, new { id = row_note_Id, @class = "row_note" })
+            <textarea asp-for="Note" id="@row_note_Id" class="row_note"></textarea>
         </div>
     </td>
     <td>

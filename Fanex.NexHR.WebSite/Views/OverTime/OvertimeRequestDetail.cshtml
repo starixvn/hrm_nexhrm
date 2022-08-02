@@ -25,7 +25,9 @@
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    <div id="OTRequest"> @{await Html.RenderPartialAsync("OvertimeRequest", Model); }</div>
+                    <div id="OTRequest">
+                        <partial name="OvertimeRequest" model="Model" />
+                    </div>
                 </div>
             </div>
         </div>

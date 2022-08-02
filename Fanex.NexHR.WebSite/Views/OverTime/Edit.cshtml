@@ -28,10 +28,9 @@
                 </div>
                 <div class="card-body">
                     <div class="form form-stl-table">
-                        @using (Html.BeginForm("edit", "overtime", FormMethod.Post, new { id = "form", @class = "form-create-update" }))
-                        {
-                            @Html.ValidationSummary()
-                            if (ViewBag.Updated == true)
+                        <form asp-controller="overtime" asp-action="edit" method="post" id="form" class="form-create-update">
+                            <div asp-validation-summary="All"></div>
+                            @if (ViewBag.Updated == true)
                             {
                                 <input type="hidden" id="successed" value="true" />
                                 <div class="row validation-summary-success">
@@ -44,7 +43,7 @@
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.Date, Labels.CreatedDate)
+                                        <label>@Labels.CreatedDate</label>
                                     </div>
                                     <div class="left">
                                         <span class="label">@Model.Date.ToDateMonthYearFormatedDate()</span>
@@ -54,39 +53,39 @@
                             <div class="row form-input">
                                 <div class="col m-b--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.CreatedByName, Labels.RequestedBy)
+                                        <label>@Labels.RequestedBy</label>
                                     </div>
                                     <div class="left">
-                                        <span class="label">@Html.DisplayFor(model => model.CreatedByName)</span>
+                                        <span class="label">@Model.CreatedByName</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row form-input m-t--s">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.Description, Labels.Project)
+                                        <label>@Labels.Project</label>
                                     </div>
                                     <div class="left input--l">
-                                        @Html.TextAreaFor(model => model.Description, new { @class = "materialize-textarea" })
+                                        <textarea asp-for="Description" class="materialize-textarea"> </textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.Label(Labels.Employee)
+                                        <label>@Labels.Employee</label>
                                     </div>
                                     <div class="left input--m">
                                         <input type="text" id="Employee" placeholder="@Messages.SearchEmployeeWatermark" />
                                         <input type="hidden" id="EmployeeId" />
-                                        @Html.HiddenFor(model => model.TimeSheetData)
+                                        <input type="hidden" asp-for="TimeSheetData"/>
                                     </div>
                                 </div>
                             </div>
                             <div class="row form-input">
                                 <div class="col m-r--m col-list-emp">
                                     <div class="left label--l">
-                                        @Html.Label("Employee List")
+                                        <label>Employee List</label>
                                     </div>
                                     <div class="left cover-form-mb over-auto table-overtime-create">
                                         <table class="table bordered striped highlight centered table-custom list-emp">
@@ -107,7 +106,6 @@
                                                     var i = 1;
                                                     foreach (var item in Model.TimeSheets)
                                                     {
-                                                        @*@Html.Partial("_EditEmployeeRecord", item, new ViewDataDictionary { { "index", i } });*@
                                                         var rowId = "row_" + i.ToString();
                                                         var row_hour_Id = "row_hour_" + i.ToString();
                                                         var row_note_Id = "note_" + i.ToString();
@@ -166,12 +164,12 @@
                             <div class="row form-input m-t--m">
                                 <div class="left label--xl">&nbsp;</div>
                                 <div class="left">
-                                    @Html.HiddenFor(m => m.Id)
+                                    <input asp-for="Id" type="hidden"/>
                                     <a href="@Url.Action("Index")" class="btn-back waves-effect waves-light">@Labels.Cancel</a>
                                     <input type="submit" class="btn-submit waves-effect waves-light right" value="@Labels.Submit" />
                                 </div>
                             </div>
-                        }
+                        </form>
                     </div>
                 </div>
             </div>

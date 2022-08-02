@@ -1,24 +1,7 @@
 ﻿@using Fanex.NexHR.Core
 @using Fanex.NexHR.Resources
-@{
-    var CurrentYear = DateTime.Now.Year;
-    var FromYear = 2010;
-    var ToYear = CurrentYear + 1;
-    var ListSelectYear = new List<SelectListItem>();
-     
-    for (var i = ToYear; i >= FromYear; i--)
-    {
-        ListSelectYear.Add(new SelectListItem
-        {
-            Text = i.ToString(),
-            Value = i.ToString(),
-            Selected = i == CurrentYear 
-        });
-    }
-}
-
 <div class="form">
-    @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+    <input id="DateTime-Now" name="DateTime-Now" type="hidden" value="@DateTime.Now.ToString("MMMM dd, yyyy")">
     <form class="form-filter" id="form">
         <div class="row form-input">
             <div class="col">
