@@ -144,6 +144,12 @@
       "wwwroot/css/Views/conversation-management.css"
     ]
   },
+  {
+    "outputFileName": "wwwroot/minify/css/workingcalendars.min.css",
+    "inputFiles": [
+      "wwwroot/css/Views/report.timesheet.css"
+    ]
+  },
   // ----------------------- Javascript ------------------------------
   {
     "outputFileName": "wwwroot/minify/js/site.min.js",
@@ -450,6 +456,54 @@
     "outputFileName": "wwwroot/minify/js/staffinfo.min.js",
     "inputFiles": [
       "wwwroot/js/Views/Employee/employee.index.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/workingcalendars.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Calendar/employee.workingcalendars.js",
+      "wwwroot/js/Views/Employee/_employee.search.in.company.js",
+      "wwwroot/js/Views/fixtable.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/leavecalendarsjs.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Calendar/employee.leavecalendar.js",
+      "wwwroot/js/Views/Employee/_employee.search.in.company.js",
+      "wwwroot/js/Views/fixtable.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/holidays.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Holiday/holiday.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/holidayedit.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Holiday/holiday.edit.js"
     ],
     "minify": {
       "enabled": true,

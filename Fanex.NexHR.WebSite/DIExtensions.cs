@@ -107,6 +107,7 @@
             services.AddSingleton<ICalendarService, CalendarService>();
             services.AddSingleton<IOvertimeService, OvertimeService>();
             services.AddSingleton<IScheduledMessageService, ScheduledMessageService>();
+            services.AddSingleton<IHolidayService, HolidayService>();
 
             // services.AddSingleton<ILateInEarlyOutRepository, LateInEarlyOutRepository>();
         }

@@ -35,7 +35,7 @@
         private readonly IWebHostEnvironment environment;
 
         public ExportController(ISessionService sessionService,
-            EmployeeService employeeService,
+            IEmployeeService employeeService,
             IReportService reportService,
             ICalendarService calendarService,
             IWebHostEnvironment environment) : base(sessionService)

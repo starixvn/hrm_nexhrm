@@ -1,0 +1,68 @@
+
+@using Fanex.NexHR.Models
+@using Fanex.NexHR.Resources
+@model IList<Shift>
+@{
+    ViewBag.Title = Labels.ShiftInfo;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="p-x--s over-auto">
+                        @{
+                            <div id="shifts" class="m-t--m">
+                                <table class="table bordered striped highlight table-custom centered" style="width: 700px;">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Labels.Shift
+                                            </th>
+                                            <th>
+                                                @Labels.CheckIn
+                                            </th>
+                                            <th>
+                                                @Labels.CheckOut
+                                            </th>
+                                            <th>
+                                                @Labels.BreakTimeMins
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (Shift item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @item.Name
+                                                </td>
+                                                <td>
+                                                    @item.BeginCheckInTime &nbsp;@((item.BeginCheckInTime == item.EndCheckInTime) ? string.Empty : "- " + item.EndCheckInTime)
+                                                </td>
+                                                <td>
+                                                    @item.BeginCheckOutTime &nbsp;@((item.BeginCheckOutTime == item.EndCheckOutTime) ? string.Empty : "- " + item.EndCheckOutTime)
+                                                </td>
+                                                <td>
+                                                    @((item.BreakTimeMins == 0) ? string.Empty : "12:00 - 13:00")
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

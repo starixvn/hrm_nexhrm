@@ -1,0 +1,102 @@
+@using Fanex.NexHR.Core
+@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.Models.Holiday
+@using Fanex.NexHR.Services.Interfaces
+@inject ISessionService sessionService;
+@model IList<Holiday>
+@{
+    var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+    ViewBag.Title = Labels.Holidays;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/Holiday/holiday.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/holidays.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginGetForm())
+                    {
+                        <div class="form form-stl-table">
+                            <div class="row form-input">
+                                <div class="col">
+                                    <div class="left label--s">
+                                        <label>@Labels.Year</label>
+                                    </div>
+                                    <div class="left select--xs">
+                                        <select id="year" name="year" asp-items="@Extensions.YearPicker(2010, DateTime.Now.Year)"></select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <input type="button" id="submit" value="@Labels.Submit" class="btn-submit waves-effect waves-light m-r--m" />
+                                    @if (@isHRRole) {
+                                        <a asp-action="Create" class= "btn-request waves-effect waves-light">@Labels.NewHoliday</a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="p-x--s">
+                        <table id="data" class="table bordered striped highlight centered table-custom">
+                            <thead>
+                                <tr>
+                                    <th>@Labels.SymbolCount</th>
+                                    <th>@Labels.Name</th>
+                                    <th>@Labels.From</th>
+                                    <th>@Labels.To</th>
+                                    @if (@isHRRole)
+                                    {
+                                        <th>@Labels.Edit</th>
+                                        <th>@Labels.Delete</th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="template" type="text/x-jsrender">
+    <tr id="row_{{:Id}}">
+        <td>{{:~index()}}</td>
+        <td class="align-left">
+            {{:Name}}
+        </td>
+        <td>
+            {{:~formatDate(FromDate, 'dd MMM, yyyy')}}
+        </td>
+        <td>
+            {{:~formatDate(ToDate, 'dd MMM, yyyy')}}
+        </td>
+        {{if ~isHRRole}}
+        <td class="cmd">
+            <a href="/holiday/edit/{{:Id}}">
+                <i class="mdi mdi-border-color mdi-dark"></i>
+            </a>
+        </td>
+        <td class="cmd">
+            <a href="javascript:;" onclick="deleteHoliday({{:Id}});">
+                <i class="mdi mdi-delete mdi-dark"></i>
+            </a>
+        </td>
+        {{/if}}
+    </tr>
+</script>

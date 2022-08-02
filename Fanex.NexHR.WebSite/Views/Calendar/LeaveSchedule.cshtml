@@ -1,0 +1,91 @@
+@using Fanex.NexHR.Core
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.Calendar
+@model WorkingCalendarViewModel
+
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/monthpicker.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/workingcalendars.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/Calendar/employee.leavecalendar.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Employee/_employee.search.in.company.js" asp-append-version="true"></script>
+        <script src="~/js/Views/fixtable.js" asp-append-version="true"></script>
+        <script src="~/js/Libs/monPickr-0.0.3.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/leavecalendars.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/monthpicker.min.js" asp-append-version="true"></script>
+    </environment>
+}
+@{
+    ViewBag.Title = Labels.LeaveSchedules;
+}
+@{ 
+    
+    int Month = 12;
+    int year = DateTime.Now.GetMaxDate().Year + 1;
+
+    var maxDate = new System.Text.StringBuilder();
+    maxDate.AppendFormat("{0}/{1}/1", year, Month);
+    DateTime currentDate = new DateTime(Model.Year, Model.Month, 1);
+}
+@section Breadcrumb {
+}
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form form-filter form-stl-table">
+                        @using (Html.BeginForm("GetEmployeeLeaveSchedule", "Calendar", FormMethod.Post))
+                        {
+                            <div class="row form-input">
+                                <div class="col m-l--l m-r--xl">
+                                    <div class="left label--s">
+                                        @Html.Label(Labels.Month)
+                                    </div>
+                                    <div class="left select--s">
+                                        <div id="monthPickr"></div>
+                                        <input type="hidden" id="hdtoday" value="@maxDate.ToString()" />
+                                        <input type="hidden" id="hdmonth" value="@currentDate" />
+                                        <input type="hidden" id="maxDate" value="@maxDate.ToString()" />
+                                        @Html.HiddenFor(model => model.Month)
+                                        @Html.HiddenFor(model => model.Year)
+                                    </div>
+                                </div>
+                                <div class="col m-l--l m-r--l">
+                                    <div class="left label--s">
+                                        @Html.Label(Labels.Team)
+                                    </div>
+                                    <div class="left select-team">
+                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.Employee)
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.TextBoxFor(model => model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
+                                        @Html.HiddenFor(model => model.EmployeeId)
+                                    </div>
+                                </div>
+                                <div class="col col-btn-submit-excel">
+                                    <input type="submit" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />
+                                    <input id="exportExcel" type="button" value="@Labels.Excel" class="waves-effect waves-light btn-export-excel m-r--b" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div id="grid-zone" class="over-auto"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
