@@ -132,6 +132,12 @@
     ]
   },
   {
+    "outputFileName": "wwwroot/minify/css/view-mobile.min.css",
+    "inputFiles": [
+      "wwwroot/css/Views/view-mobile.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/minify/css/conversationmanagement.min.css",
     "inputFiles": [
       "wwwroot/css/Select2/materialize-select2.css",
@@ -156,6 +162,18 @@
       "wwwroot/js/Libs/common.js",
       "wwwroot/js/Views/language.js",
       "wwwroot/js/Notification/notification.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/toeic.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Employee/employee.toeic.js",
+      "wwwroot/js/Libs/moment.js"
     ],
     "minify": {
       "enabled": true,

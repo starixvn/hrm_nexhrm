@@ -116,7 +116,7 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = "HR")]
+        //[Authorize(Roles = "HR")]
         public ActionResult UpdateToeic(int? id, string name)
         {
             Toeic toeic = null;
@@ -136,7 +136,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = "HR")]
+       // [Authorize(Roles = "HR")]
         public ActionResult UpdateToeic(Toeic model)
         {
             var result = new CommandResult
