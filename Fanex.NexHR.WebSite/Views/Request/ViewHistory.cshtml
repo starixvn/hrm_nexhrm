@@ -10,9 +10,9 @@
 {
     case 1:
     case 2:
-        await Html.RenderPartialAsync("History/CheckInOutRequestHistory", Model);
+        <partial name="History/CheckInOutRequestHistory" model="Model" />
         break;
     case 6:
-        await Html.RenderPartialAsync("History/LeaveRequestHistory", Model);
+        <partial name="History/LeaveRequestHistory" model="Model" />
         break;
 }

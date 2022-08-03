@@ -7,33 +7,32 @@
 }, new { id = "edit-conversation-form" }))
 {
     @Html.AntiForgeryToken()
-
-    @Html.HiddenFor(x => x.ConversationId)
+    <input type="hidden" asp-for="ConversationId"/>
 
     <div class="row form-input">
         <div class="col">
             <div class="left label--l">
-                @Html.LabelFor(model => model.ConversationName)
+                <label>Name</label>
             </div>
             <div class="left input--l">
-                @Html.TextBoxFor(model => model.ConversationName)
+                <input asp-for="ConversationName"/>
             </div>
         </div>
     </div>
     <div class="row form-input">
         <div class="col">
             <div class="left label--l">
-                @Html.LabelFor(model => model.SkypeConversationId)
+                <label>Conversation ID</label>
             </div>
             <div class="left select--l">
-                @Html.TextBoxFor(model => model.SkypeConversationId)
+                <input asp-for="SkypeConversationId"/>
             </div>
         </div>
     </div>
     <div class="row form-input">
         <div class="col">
             <div class="left label--l">
-                @Html.LabelFor(model => model.IsActive)
+                <label>Active</label>
             </div>
             <div class="left">
                 <input class="filled-in" asp-for="IsActive" type="checkbox" value="true">
@@ -47,10 +46,10 @@
         <div class="row form-input">
             <div class="col">
                 <div class="left label--l">
-                    @Html.LabelFor(model => model.PermittedEmployeeIds)
+                    <label>Permitted Employees</label>
                 </div>
                 <div class="left input--l">
-                    @Html.ListBoxFor(model => model.PermittedEmployeeIds, Model.Employees, new { @class = "select-2" })
+                    <select asp-for="PermittedEmployeeIds" asp-items="@Model.Employees" class="select-2"></select>
                 </div>
             </div>
         </div>

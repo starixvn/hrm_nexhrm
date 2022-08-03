@@ -7,26 +7,27 @@
 }, new { id = "edit-form" }))
 {
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(model => model.ScheduledMessageId)
-    @Html.ValidationSummary()
+    <input type="hidden" asp-for="ScheduledMessageId"/>
+    <div asp-validation-summary="All"></div>
 
     <div class="row form-input">
         <div class="col">
             <div class="left label--l">
-                @Html.LabelFor(model => model.ConversationId)
+                <label>Conversation</label>
             </div>
             <div class="left select--l">
-                @Html.DropDownListFor(x => x.ConversationId, Model.Conversations, "")
+                <select asp-for="ConversationId" asp-items="@Model.Conversations"></select>
             </div>
         </div>
     </div>
     <div class="row form-input" style="margin-bottom: 1rem">
         <div class="col">
             <div class="left label--l">
-                @Html.LabelFor(model => model.IsRepeat)
+                <label>Repeat</label>
             </div>
             <div class="left">
-                @Html.CheckBoxFor(model => model.IsRepeat, new { @class = "filled-in, checkBox" }) 
+                <input type="checkbox" asp-for="IsRepeat" class="filled-in"/>
+                <label for="IsRepeat"></label>
             </div>
         </div>
     </div>
@@ -34,13 +35,13 @@
     <div class="row form-input" id="type-of-cron-edit" style="@(Model.IsRepeat ? "" : "display:none")">
         <div class="col">
             <div class="left label--l">
-                @Html.LabelFor(model => model.RepeatTypeId)
+                <label>Repeat every</label>
             </div>
             <div class="left select-repeat">
-                @Html.TextBoxFor(model => model.StepNumber, new { type = "number", min = "1", max = "99", step = "1", MaxLength = "2" })
+                <input type="number" asp-for="StepNumber" min = "1" max = "99" step = "1" MaxLength = "2"/>
             </div>
             <div class="left select-repeat ml-2rem">
-                @Html.DropDownListFor(model => model.RepeatTypeId, Model.RepeatTypes, "", new { @class = "material-select" })
+                <select asp-for="RepeatTypeId" asp-items="@Model.RepeatTypes" class="material-select"></select>
             </div>
         </div>
     </div>
@@ -61,7 +62,7 @@
         <div class="col">
             <div class="left input-xs input-hour">
                 <span class="time">
-                    @Html.TextBoxFor(model => model.Hour, new { type = "number", min = "0", max = "23", step = "1", MaxLength = "2" })
+                    <input type="number" asp-for="Hour" min = "0" max = "23" step = "1" MaxLength = "2"/>
                 </span>
             </div>
         </div>
@@ -69,7 +70,7 @@
         <div class="col">
             <div class="left input-xs input-minute">
                 <span class="time">
-                    @Html.TextBoxFor(model => model.Minute, new { type = "number", min = "0", max = "59", step = "5", MaxLength = "2" })
+                    <input type="number" asp-for="Minute" min = "0" max = "59" step = "5" MaxLength = "2"/>
                 </span>
             </div>
         </div>
@@ -77,10 +78,10 @@
     <div class="row form-input">
         <div class="col">
             <div class="left label--l">
-                @Html.LabelFor(x => x.Content)
+                <label>Content</label>
             </div>
             <div class="left input--l">
-                @Html.TextAreaFor(x => x.Content, new { @class = "materialize-textarea", rows = "5" })
+                <textarea asp-for="Content" class="materialize-textarea" rows="5"></textarea>
             </div>
         </div>
     </div>

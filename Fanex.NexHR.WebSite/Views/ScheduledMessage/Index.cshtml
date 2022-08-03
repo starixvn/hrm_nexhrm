@@ -56,8 +56,7 @@
                                         UpdateTargetId = "dialog",
                                         OnSuccess = "scheduledMessage.onLoadingCreateFormSuccess"
                                     }, new { @class= "btn-request waves-effect waves-light m-r--s" })
-
-                                    @Html.ActionLink(Labels.ManageConversations, "ManageConversations","ScheduledMessage", null, new { @class = "btn-request waves-effect waves-light m-r--s" })
+                                    <a asp-controller="ScheduledMessage" asp-action="ManageConversations" class="btn-request waves-effect waves-light m-r--s">@Labels.ManageConversations</a>
                                 </div>
                             </div>
                         </div>

@@ -5,8 +5,8 @@
 @model RequestViewModel
 
 <div class="form form-stl-table">
-    @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
-    @Html.Hidden("ActionName", Model.PartialActionName)
+    <input id="DateTime-Now" name="DateTime-Now" type="hidden" value="@DateTime.Now.ToString("MMMM dd, yyyy")">
+    <input id="ActionName" name="ActionName" type="hidden" value="@Model.PartialActionName">
     <form class="form-filter" action="">
         <div class="row form-input">
             <div class="col m-r--m">
@@ -23,12 +23,12 @@
                                 }
                             }
                         </select>
-                    @Html.Hidden("DateOption", Model.DateOption)
+                    <input type="hidden" asp-for="DateOption"/>
                 </div>
             </div>
             <div class="col m-r--m">
                 <div class="left label--m">
-                    @Html.LabelFor(model => model.FromDate, Labels.FromDate)
+                    <label>@Labels.FromDate</label>
                 </div>
                 <div class="left datepicker-button select--datepicker">
                     <date-picker 
@@ -42,7 +42,7 @@
             </div>
             <div class="col m-r--m">
                 <div class="left label--m">
-                    @Html.LabelFor(model => model.ToDate, Labels.ToDate)
+                    <label>@Labels.ToDate</label>
                 </div>
                 <div class="left datepicker-button select--datepicker">
                     <date-picker 
@@ -55,25 +55,25 @@
             </div>
             <div class="col">
                 <div class="left label--m">
-                    @Html.LabelFor(model => model.ToDate, Labels.FilterBy)
+                    <label>@Labels.FilterBy</label>
                 </div>
                 <div class="left select--datepicker">
-                    @Html.DropDownListFor(model => model.IsFilterByEffectedDate, Model.DateTypes)
+                    <select asp-for="IsFilterByEffectedDate" asp-items="@Model.DateTypes"></select> 
                 </div>
             </div>
         </div>
         <div class="row form-input">
             <div class="col m-r--m">
                 <div class="left label--m">
-                    @Html.LabelFor(model => model.Teams)
+                    <label>Team</label>
                 </div>
                 <div class="left select--m">
-                    @Html.DropDownList("TeamId", Model.GetSelectListItemTeam(Model.TeamId))
+                    <select asp-for="TeamId" asp-items="@Model.GetSelectListItemTeam(Model.TeamId)"></select> 
                 </div>
             </div>
             <div class="col m-r--m">
                 <div class="left label--m">
-                    @Html.LabelFor(model => model.StatusId)
+                    <label>Status</label>
                 </div>
                 <div class="left select--datepicker">
                     <select name="statusId" id="statusId">
@@ -86,26 +86,26 @@
             </div>
             <div class="col m-r--m">
                 <div class="left label--m">
-                    @Html.LabelFor(model => model.Employee)
+                    <label>Employee</label>
                 </div>
                 <div class="left input--m">
-                    @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
-                    @Html.HiddenFor(model => model.EmployeeId)
+                    <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark"/>
+                    <input type="hidden" asp-for="EmployeeId"/>
                 </div>
             </div>
         </div>
         <div class="row form-input">
             <div class="col m-r--m">
                 <div class="left label--m">
-                    @Html.LabelFor(model => model.LeaveTypeId)
+                    <label>Leave Type</label>
                 </div>
                 <div class="left select--m">
-                    @Html.DropDownListFor(model => model.LeaveTypeId, new SelectList(Model.LeaveTypes, "Id", "Name"))
+                    <select asp-for="LeaveTypeId" asp-items="@(new SelectList(Model.LeaveTypes, "Id", "Name"))"></select> 
                 </div>
             </div>
             <div class="col">
                 <div class="left label--m">
-                    @Html.LabelFor(model => model.RequestType, Labels.Request)
+                    <label>Request</label>
                 </div>
                 <div class="left">
                     @foreach (var item in @Extensions.RequestTypes)
@@ -117,9 +117,9 @@
                     }
                 </div>
             </div>
-            @Html.HiddenFor(model => model.ItemsPerPage)
-            @Html.HiddenFor(model => model.CurrentPage)
-            @Html.HiddenFor(model => model.RequestViewType)
+            <input type="hidden" asp-for="ItemsPerPage"/>
+            <input type="hidden" asp-for="CurrentPage"/>
+            <input type="hidden" asp-for="RequestViewType"/>
         <div class="left">
             <input id="submit" class="btn-submit waves-effect waves-light m-r--m" type="button" value="@Labels.Submit" />
             @if (Model.RequestViewType == RequestViewType.LeaderView)

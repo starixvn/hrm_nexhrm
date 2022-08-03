@@ -36,7 +36,7 @@
                         <div class="form clearfix">
                             <div class="row form-input">
                                 <div class="col">
-                                    @Html.ActionLink(Labels.Back, "Index", "ScheduledMessage",null, new { @class = "btn-back waves-effect waves-light m-r--s" })
+                                    <a asp-controller="ScheduledMessage" asp-action="Index" class="btn-back waves-effect waves-light m-r--s">@Labels.Back</a>
 
                                     @Html.AjaxActionLink("New Conversation", "CreateConversation", null, new AjaxOptions {
                                    InsertionMode = InsertionMode.Replace,

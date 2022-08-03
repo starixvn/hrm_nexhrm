@@ -15,7 +15,6 @@
                 @if (Model.RequestViewType == RequestViewType.LeaderView && isAnyAllowUpdate)
                 {
                     <th class="col-checkbox">
-                        @*@Html.MaterializeCheckBox("checkuncheckall", new { @class = "checkuncheckall filled-in" })*@
                         <input class="checkuncheckall filled-in checkBox" id="checkuncheckall" name="checkuncheckall" type="checkbox" value="true">
                     </th>
                 }
@@ -62,7 +61,6 @@
                             if (request.IsAllowUpdateStatus && request.Status.Id == (int)RequestStatuse.Pending)
                             {
                                 <td class="col-checkbox">
-                                    @*@Html.MaterializeCheckBox("checkbox_" + request.Id, htmlAttributes)*@
                                     <input class="filled-in chk-request checkBox" id="checkbox_@request.Id" name="checkbox_@request.Id" type="checkbox" value="true" data-id ="@request.Id">
                                 </td>
                             }
@@ -117,7 +115,7 @@
                                         <input type="text" name="StatusId" value="@Model.StatusId" />
                                         <input type="text" name="RequestType" value="@request.RequestType.RequestFilter" />
                                         <input type="text" name="RequestViewType" value="@Model.RequestViewType" />
-                                        @Html.Hidden("IsFilterByEffectedDate", Model.IsFilterByEffectedDate)
+                                        <input asp-for="IsFilterByEffectedDate"/>
                                     </form>
                                 }
                                 else
@@ -135,7 +133,7 @@
                                         <input type="text" name="StatusId" value="@Model.StatusId" />
                                         <input type="text" name="RequestType" value="@request.RequestType.RequestFilter" />
                                         <input type="text" name="RequestViewType" value="@Model.RequestViewType" />
-                                        @Html.Hidden("IsFilterByEffectedDate", Model.IsFilterByEffectedDate)
+                                        <input asp-for="IsFilterByEffectedDate"/>
                                     </form>
                                 }
                             }
@@ -249,9 +247,9 @@
                             Showing <strong>@from</strong> to <strong>@to</strong> of <strong>@Model.TotalItem</strong> entries
                         </div>
                         <div class="col right">
-                            @Html.Hidden("CurrentPage", (int)Model.CurrentPage)
-                            @Html.Hidden("ItemsPerPage", (int)Model.ItemsPerPage)
-                            @Html.Hidden("TotalItem", (int)Model.TotalItem)
+                            <input type="hidden" asp-for="CurrentPage" value="@((int)Model.CurrentPage)"/>
+                            <input type="hidden" asp-for="ItemsPerPage" value="@((int)Model.ItemsPerPage)"/>
+                            <input type="hidden" asp-for="TotalItem" value="@((int)Model.TotalItem)"/>
                             <ul id="numberlist" class="pagination"></ul>
                         </div>
                     </td>
