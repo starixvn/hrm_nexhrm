@@ -8,7 +8,7 @@
 <form class="form form-calendar-add">
     <div class="row form-input">
         <div class="left label--m">
-            @Html.LabelFor(model => model.FromDate, Labels.FromDate)
+            <label asp-for="@Model.FromDate">@Labels.FromDate</label>
         </div>
         <div class="left datepicker-button select--s">
             <date-picker
@@ -22,7 +22,7 @@
 
     <div class="row form-input">
         <div class="left label--m">
-            @Html.LabelFor(model => model.ToDate, Labels.ToDate)
+            <label asp-for="@Model.ToDate">@Labels.ToDate</label>
         </div>
         <div class="left datepicker-button select--s">
             <date-picker
@@ -36,20 +36,20 @@
 
     <div class="row form-input">
         <div class="left label--m">
-            @Html.LabelFor(model => model.AddEmployee, "Employee")
+            <label asp-for="@Model.AddEmployee">@Labels.Employee</label>
         </div>
         <div class="left input--m">
-            @Html.TextBoxFor(model => model.AddEmployee, new { placeholder = Messages.SearchEmployeeWatermark })
-            @Html.HiddenFor(model => model.AddEmployeeId)
+            <input asp-for="@Model.AddEmployee" placeholder="@Messages.SearchEmployeeWatermark"/>
+            <input type="hidden" asp-for="@Model.AddEmployeeId"/>
         </div>
     </div>
 
     <div class="row form-input">
         <div class="left label--m">
-            @Html.LabelFor(model => model.SetOffDay, Labels.SetOffDay)
+            <label asp-for="@Model.AddEmployee">@Labels.SetOffDay</label>
         </div>
         <div class="left input--m">
-            @Html.CheckBoxFor(model => model.SetOffDay)
+            <input asp-for="@Model.SetOffDay" type="checkbox" />
         </div>
     </div>
 

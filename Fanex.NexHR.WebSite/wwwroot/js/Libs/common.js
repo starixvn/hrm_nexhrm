@@ -397,13 +397,12 @@ function getEncodePlainText(text) {
 }
 
 function formatJsonDate(jsonDate, mask) {
-    var date = new Date(parseInt(jsonDate.substr(6)));
+    //var date = new Date(parseInt(jsonDate.substr(6)));
 
     if (mask) {
-        date = $.format.date(date, mask);
+        jsonDate = $.format.date(jsonDate, mask);
     }
-
-    return date;
+    return jsonDate;
 };
 
 function formatJsonDateToShortFormatedDate(jsonDate) {

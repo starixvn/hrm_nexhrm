@@ -32,6 +32,7 @@
 
 @{
     ViewBag.Title = Labels.WorkingCalendar;
+    var teams = new SelectList(Model.Teams, "Id", "Name");
 }
 @{
     //Set max month we can select in MonthPick
@@ -55,37 +56,38 @@
                 </div>
                 <div class="card-body">
                     <div class="form form-calendar-working">
-                        @using (Html.BeginGetForm())
-                        {
+                        <form action="/Calendar/WorkingCalendars" method="get" novalidate="novalidate">
                             <div class="row form-input">
                                 <div class="col m-l--l m-r--xl">
                                     <div class="left label--s">
-                                        @Html.Label(Labels.Month)
+                                        <label asp-for="@Labels.Month">@Labels.Month</label>
                                     </div>
                                     <div class="left select--s">
                                         <div id="monthPickr"></div>
                                         <input type="hidden" id="hdtoday" value="@maxDate.ToString()" />
                                         <input type="hidden" id="hdmonth" value="@currentDate" />
                                         <input type="hidden" id="maxDate" value="@maxDate.ToString()" />
-                                        @Html.HiddenFor(model => model.Month)
-                                        @Html.HiddenFor(model => model.Year)
+                                        <input type="hidden" asp-for="@Model.Month"/>
+                                        <input type="hidden" asp-for="@Model.Year"/>
                                     </div>
                                 </div>
                                 <div class="col m-l--l m-r--l">
                                     <div class="left label--s">
-                                        @Html.Label(Labels.Team)
+                                        <label asp-for="@Labels.Team">@Labels.Team</label>
                                     </div>
                                     <div class="left select-team">
-                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
+                                        <select asp-for="@Model.TeamId" asp-items="@teams">
+                                            <option value="">@Labels.AllTeams</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col m-r--l">
                                     <div class="left label--m">
-                                        @Html.LabelFor(model => model.Employee)
+                                        <label asp-for="@Labels.Employee">@Labels.Employee</label>
                                     </div>
                                     <div class="left input--m">
-                                        @Html.TextBoxFor(model => model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
-                                        @Html.HiddenFor(model => model.EmployeeId)
+                                        <input asp-for="@Model.Employee" placeholder="@Messages.SearchEmployeeWatermark"/>
+                                        <input type="hidden" asp-for="@Model.EmployeeId"/>
                                     </div>
                                 </div>
                                 <div class="col col-btn">
@@ -101,7 +103,7 @@
                                     </div>
                                 </div>
                             </div>
-                        }
+                        </form>
                     </div>
                     <div class="over-auto">
 
@@ -445,7 +447,6 @@
                     </div>
                     <div class="hide">
                         <div id="addform" title="Add Calendars">
-                            @* @Html.ActionLink("Calendar", "AddEmployeeCalendar", null) *@
                             @(await Component.InvokeAsync("AddEmployeeCalendar"))
                         </div>
                     </div>

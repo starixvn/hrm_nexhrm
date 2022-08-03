@@ -3,11 +3,10 @@
     using System;
     using System.Collections.Generic;
     using Criteria.Calendar;
-    using Microsoft.AspNetCore.Authorization;
+    using Fanex.NexHR.Models.Attributes;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.Calendar;
-    using Services;
     using Services.Interfaces;
     using ViewModels;
     using ViewModels.Calendar;
@@ -28,7 +27,7 @@
             this.commandService = commandService;
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public JsonResult UpdateEmployeeShiftDate(int employeeId, DateTime date, int? shiftId)
         {
             var criteria = new UpdateEmployeeShiftDateCriteria
@@ -43,7 +42,7 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult InsertEmployeeCalendar(AddEmployeeCalendarViewModel model)
         {

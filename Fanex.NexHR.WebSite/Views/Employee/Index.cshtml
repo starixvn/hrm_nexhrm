@@ -1,8 +1,13 @@
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.ViewModels.Employee
 @model StaffInfoViewModel
+@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Services.Interfaces
+@inject ISessionService sessionService;
 @{
     ViewBag.Title = Labels.StaffInfo;
+    var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+    var teams = new SelectList(Model.Teams, "Id", "Name");
 }
 
 @section Styles {
@@ -29,26 +34,28 @@
                         <div class="row form-input">
                             <div class="col m-r--m">
                                 <div class="left label--m">
-                                    @Html.LabelFor(model => model.Keyword, Labels.Keyword)
+                                    <label asp-for="@Model.Keyword">@Labels.Keyword</label>
                                 </div>
                                 <div class="left input--m">
-                                    @Html.TextBoxFor(model => model.Keyword, new { placeholder = Messages.SearchEmployeeWatermark })
+                                    <input asp-for="@Model.Keyword" placeholder="@Messages.SearchEmployeeWatermark"/>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="left label--s">
-                                    @Html.LabelFor(model => model.TeamId, Labels.Team)
+                                    <label asp-for="@Model.TeamId">@Labels.Team</label>
                                 </div>
                                 <div class="left select--m">
-                                    @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
+                                    <select asp-for="@Model.TeamId" asp-items="@teams">
+                                        <option value="">@Labels.AllTeams</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col col-btn-submit-excel">
                                 <a id="query" class="btn-submit waves-effect waves-light m-r--b" href="javascript:;">@Labels.Submit</a>
-                                @* @if (Roles.IsUserInRole("HR"))
+                                @if (@isHRRole)
                                 {
                                     <a id="exportExcel" class="waves-effect waves-light btn-export-excel m-r--b">@Labels.Excel</a>
-                                } *@
+                                }
                                 <a class="btn-request waves-effect waves-light" href="@Url.Action("birthday", "employee")">@Labels.StaffBirthday</a>
                             </div>
                         </div>
@@ -109,7 +116,7 @@
         <td class="align-left">{{:JobTitle && JobTitle.Name}}</td>
         <td class="align-left"><a href="skype:{{:Skype}}?chat">{{:Skype}}</a></td>
         <td>{{:Phone}}</td>
-        <td>{{:DateOfBirth}}</td>
+        <td>{{:~formatDate(DateOfBirth, 'dd MMM, yyyy')}}</td>
         <td>
             {{if JoinedDate != null}}
             {{:~formatDate(JoinedDate, 'dd MMM, yyyy')}}

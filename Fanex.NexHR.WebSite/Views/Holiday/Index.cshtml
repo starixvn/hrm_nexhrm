@@ -29,8 +29,7 @@
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    @using (Html.BeginGetForm())
-                    {
+                    <form action="/Holiday" method="get">
                         <div class="form form-stl-table">
                             <div class="row form-input">
                                 <div class="col">
@@ -49,7 +48,7 @@
                                 </div>
                             </div>
                         </div>
-                    }
+                    </form>
                     <div class="p-x--s">
                         <table id="data" class="table bordered striped highlight centered table-custom">
                             <thead>

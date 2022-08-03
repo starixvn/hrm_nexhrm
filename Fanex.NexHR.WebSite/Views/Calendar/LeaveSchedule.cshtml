@@ -22,6 +22,7 @@
 }
 @{
     ViewBag.Title = Labels.LeaveSchedules;
+    var teams = new SelectList(Model.Teams, "Id", "Name");
 }
 @{ 
     
@@ -32,8 +33,7 @@
     maxDate.AppendFormat("{0}/{1}/1", year, Month);
     DateTime currentDate = new DateTime(Model.Year, Model.Month, 1);
 }
-@section Breadcrumb {
-}
+
 <div class="row content">
     <div class="col s12 card-container-base">
         <div class="card">
@@ -43,37 +43,38 @@
                 </div>
                 <div class="card-body">
                     <div class="form form-filter form-stl-table">
-                        @using (Html.BeginForm("GetEmployeeLeaveSchedule", "Calendar", FormMethod.Post))
-                        {
+                        <form action="/Calendar/GetEmployeeLeaveSchedule" method="post" novalidate="novalidate">
                             <div class="row form-input">
                                 <div class="col m-l--l m-r--xl">
                                     <div class="left label--s">
-                                        @Html.Label(Labels.Month)
+                                        <label asp-for="@Labels.Month">@Labels.Month</label>
                                     </div>
                                     <div class="left select--s">
                                         <div id="monthPickr"></div>
                                         <input type="hidden" id="hdtoday" value="@maxDate.ToString()" />
                                         <input type="hidden" id="hdmonth" value="@currentDate" />
                                         <input type="hidden" id="maxDate" value="@maxDate.ToString()" />
-                                        @Html.HiddenFor(model => model.Month)
-                                        @Html.HiddenFor(model => model.Year)
+                                        <input type="hidden" asp-for="@Model.Month"/>
+                                        <input type="hidden" asp-for="@Model.Year"/>
                                     </div>
                                 </div>
                                 <div class="col m-l--l m-r--l">
                                     <div class="left label--s">
-                                        @Html.Label(Labels.Team)
+                                        <label asp-for="@Labels.Team">@Labels.Team</label>
                                     </div>
                                     <div class="left select-team">
-                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
+                                        <select asp-for="@Model.TeamId" asp-items="@teams">
+                                            <option value="">@Labels.AllTeams</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col m-r--l">
                                     <div class="left label--m">
-                                        @Html.LabelFor(model => model.Employee)
+                                        <label asp-for="@Labels.Employee">@Labels.Employee</label>
                                     </div>
                                     <div class="left input--m">
-                                        @Html.TextBoxFor(model => model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
-                                        @Html.HiddenFor(model => model.EmployeeId)
+                                        <input asp-for="@Model.Employee" placeholder="@Messages.SearchEmployeeWatermark"/>
+                                        <input type="hidden" asp-for="@Model.EmployeeId"/>
                                     </div>
                                 </div>
                                 <div class="col col-btn-submit-excel">
@@ -81,7 +82,7 @@
                                     <input id="exportExcel" type="button" value="@Labels.Excel" class="waves-effect waves-light btn-export-excel m-r--b" />
                                 </div>
                             </div>
-                        }
+                        </form>
                     </div>
                     <div id="grid-zone" class="over-auto"></div>
                 </div>

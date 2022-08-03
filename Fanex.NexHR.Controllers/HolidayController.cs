@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Criteria.Holiday;
-    using Microsoft.AspNetCore.Authorization;
+    using Fanex.NexHR.Models.Attributes;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.Holiday;
@@ -42,7 +42,7 @@
             return Json(holidays);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult Create()
         {
             HolidayViewModel newHoliday = new HolidayViewModel
@@ -55,7 +55,7 @@
             return View(newHoliday);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Create(HolidayViewModel holiday)
         {            
@@ -89,7 +89,7 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult Edit(int id)
         {
             var criteria = new GetHolidayByIdCriteria
@@ -109,7 +109,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Edit(HolidayViewModel holiday)
         {
@@ -146,7 +146,7 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult Delete(int id)
         {

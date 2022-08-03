@@ -1,8 +1,14 @@
 @using Fanex.NexHR.Core
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.Models
+@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Services.Interfaces
+@inject ISessionService sessionService;
 
 @model Fanex.NexHR.Models.Employee
+@{
+    var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+}
 @if (Model != null)
 {
     ViewBag.Title = Model.NickName + " - " + Model.FullName;
@@ -57,7 +63,7 @@ else
                                                 <p class="accinfo">
                                                     <span class="label--l">@Labels.Telegram:</span> <span><a href="ymsgr:SendIM?@(Model.Yahoo)">@Model.Yahoo</a></span>
                                                 </p>
-                                                @* @if (Roles.IsUserInRole("HR"))
+                                                @if (@isHRRole)
                                                 {   
                                                     <p class="accinfo">
                                                         <span class="label--l">@Labels.Address:</span> <span>@Model.Address</span>
@@ -65,7 +71,7 @@ else
                                                     <p class="accinfo">
                                                         <span class="label--l">@Labels.CurrentAddress:</span> <span class="address">@Model.CurrentAddress</span>
                                                     </p>
-                                                } *@
+                                                }
                                             </div>
                                         </div>
                                         <div class="col">
@@ -82,7 +88,7 @@ else
                                                 <p class="accinfo">
                                                     <span class="label--l">@Labels.Gender:</span> <span class="txt-bold">@(Model.Gender == 1 ? "Male" : "Female")</span>
                                                 </p>                                                
-                                                @* @if (Roles.IsUserInRole("HR"))
+                                                @if (@isHRRole)
                                                 {
                                                     <p class="accinfo">
                                                     <span class="label--l">@Labels.Marriage:</span> <span class="txt-bold">@(Model.Mariage == null ? "Unknown" : (Model.Mariage == true ? "Yes" : "No"))</span>
@@ -112,7 +118,7 @@ else
                                                         <span class="label--l">@Labels.PassportExp:</span> <span class="txt-bold">@Model.PassportExp.ToDateMonthYearFormatedDate()</span>
                                                     </p>
                                                             }
-                                                } *@
+                                                }
                                             </div>
                                         </div>
                                     </div>

@@ -24,10 +24,8 @@
                     <span class="card-title txt-uppercase left">@Labels.CreateHoliday</span>
                 </div>
                 <div class="card-body">
-                    @using (Html.BeginForm())
-                    {
-                        <div class="form form-stl-table">
-                            @Html.ValidationSummary(true)
+                    <form action="/Holiday/Create" method="post" novalidate="novalidate">
+                        <div class="form form-stl-table" data-valmsg-summary="true">
                             @if (ViewBag.Inserted == true)
                             {
                                 <input type="hidden" id="successed" value="true" />
@@ -39,11 +37,11 @@
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.Name, Labels.HolidayName)
+                                        <label asp-for="@Model.Name">@Labels.HolidayName</label>
                                     </div>
                                     <div class="left input--m">
-                                        @Html.EditorFor(model => model.Name)
-                                        @Html.ValidationMessageFor(model => model.Name)
+                                        <input asp-for="@Model.Name" class="text-box single-line"/>
+                                        <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
                                     </div>
                                 </div>
                             </div>
@@ -63,7 +61,7 @@
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.FromDate, Labels.FromDate)
+                                        <label asp-for="@Model.FromDate">@Labels.FromDate</label>
                                     </div>
                                     <div class="left">
                                         <div class="select--s datepicker-button">
@@ -74,14 +72,14 @@
                                             </date-picker>
                                             <i class="mdi-action-event calendar-icon left"></i>
                                         </div>
-                                        @Html.ValidationMessageFor(model => model.FromDate)
+                                        <span class="field-validation-valid" data-valmsg-for="FromDate" data-valmsg-replace="true"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row form-input">
                                 <div class="col">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.ToDate, Labels.ToDate)
+                                        <label asp-for="@Model.ToDate">@Labels.ToDate</label>
                                     </div>
                                     <div class="left">
                                         <div class="select--s datepicker-button">
@@ -92,7 +90,7 @@
                                             </date-picker>
                                             <i class="mdi-action-event calendar-icon left"></i>
                                         </div>
-                                        @Html.ValidationMessageFor(model => model.ToDate)
+                                        <span class="field-validation-valid" data-valmsg-for="ToDate" data-valmsg-replace="true"></span>
                                     </div>
                                 </div>
                             </div>
@@ -100,14 +98,13 @@
                                 <div class="col">
                                     <div class="left label--l">&nbsp;</div>
                                     <div class="left">
-                                        @Html.AntiForgeryToken()
                                         <a class="btn-back waves-effect waves-light" href="@Url.Action("index", "holiday")">@Labels.Back</a>
                                         <input id="btnAdd" class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Submit" />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    }
+                    </form>
                 </div>
             </div>
         </div>
