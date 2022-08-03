@@ -521,5 +521,16 @@
       "renameLocals": true
     },
     "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/reportmonitoring.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Report/report.monitoring.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
   }
 ]

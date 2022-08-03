@@ -80,7 +80,7 @@
 
         public static List<SelectListItem> RequestTypes => new List<SelectListItem>
         {
-            new SelectListItem { Text = Labels.All, Value = ((int)RequestTypeFilterForRequest.All).ToString(), Selected = true  },
+            new SelectListItem { Text = Labels.All, Value = ((int)RequestTypeFilterForRequest.All).ToString() },
             new SelectListItem { Text = Labels.Leave, Value = ((int)RequestTypeFilterForRequest.Leave).ToString() },
             new SelectListItem { Text = Labels.CheckInOut, Value = ((int)RequestTypeFilterForRequest.CheckInOut).ToString() }
         };

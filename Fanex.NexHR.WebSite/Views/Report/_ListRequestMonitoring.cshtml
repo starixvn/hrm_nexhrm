@@ -1,0 +1,171 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Models
+@using Fanex.NexHR.Resources
+@model IList<RequestsMonitoring>
+<table id="data" class="table bordered striped highlight centered table-custom">
+    <thead>
+        <tr>
+            <th rowspan="2">@Labels.SymbolCount</th>
+            <th rowspan="2">@Labels.FullName</th>
+            <th rowspan="2">@Labels.Nick</th>
+            <th rowspan="2">@Labels.Team</th>
+            <th colspan="4">@Labels.Leave</th>
+            <th colspan="2">@Labels.CheckInOut</th>
+            <th rowspan="2">@Labels.LateInEarlyOut (@Labels.Times)</th>
+            <th rowspan="2">@Labels.Absent (@Labels.Times)</th>
+        </tr>
+        <tr>
+            <th>@Labels.Request (@Labels.Times)</th>
+            <th>@Labels.Annual (Days)</th>
+            <th>@Labels.Unpaid (Days)</th>
+            <th>@Labels.Others (Days)</th>
+            <th>@Labels.Request (@Labels.Times)</th>
+            <th>@Labels.Missing (@Labels.Times)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            int index = 1;
+            var isLeader = (bool)ViewBag.isLeader;
+
+            foreach (RequestsMonitoring request in Model)
+            {
+                var requestLink = "/request/{0}?DateOption=0&TeamId=-2&IsFilterByEffectedDate=true&StatusId={1}&FromDate={2}&ToDate={3}&EmployeeId={4}&Employee={5}&RequestType={6}";
+                var leaveRequestLink = string.Format(requestLink, isLeader ? "member" : "hrview",
+                    0,
+                    ((DateTime)ViewBag.FromDate).ToDateMonthYearFormatedDate(),
+                    ((DateTime)ViewBag.ToDate).ToDateMonthYearFormatedDate(),
+                    request.Requester.Id,
+                    request.Requester.DisplayName,
+                    1);
+
+                var allLeaveTypeQuery = "&LeaveTypeId=1";
+                var annualLeaveTypeQuery = "&LeaveTypeId=2";
+                var unpaidLeaveTypeQuery = "&LeaveTypeId=26";
+
+                var allLeaveRequestLink = string.Concat(leaveRequestLink, allLeaveTypeQuery);
+                var annualLeaveRequestLink = string.Concat(leaveRequestLink, annualLeaveTypeQuery);
+                var unpaidLeaveRequestLink = string.Concat(leaveRequestLink, unpaidLeaveTypeQuery);
+
+
+                var checkInOutRequestLink = string.Format(requestLink, isLeader ? "member" : "hrview",
+                (byte)RequestStatuse.Approve,
+                ((DateTime)ViewBag.FromDate).ToDateMonthYearFormatedDate(),
+                ((DateTime)ViewBag.ToDate).ToDateMonthYearFormatedDate(),
+                request.Requester.Id,
+                request.Requester.DisplayName,
+                4);
+                var attendanceLink = "/report/attendance?FromDate={0}&ToDate={1}&EmployeeId={2}&Employee={3}";
+                attendanceLink = string.Format(attendanceLink, ((DateTime)ViewBag.FromDate).ToDateMonthYearFormatedDate(),
+                    ((DateTime)ViewBag.ToDate).ToDateMonthYearFormatedDate(),
+                    request.Requester.Id,
+                    request.Requester.DisplayName);
+            <tr>
+                <td>@(index++)</td>
+                <td class="align-left">
+                    @request.Requester.FullName
+                </td>
+                <td>
+                    @request.Requester.NickName
+                </td>
+                <td class="tooltip" title="@request.Requester.Team.Name">
+                    @request.Requester.Team.Code
+                </td>
+                <td class="@(request.TotalLeaveTimes > ViewBag.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.TotalLeaveTimes > 0)
+                    {
+                        <a class="TotalLeaveTimes" href="@allLeaveRequestLink">@request.TotalLeaveTimes</a>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+                <td class="@(request.TotalAnnualLeave > ViewBag.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.TotalAnnualLeave > 0)
+                    {
+                        <a href="@annualLeaveRequestLink">@request.TotalAnnualLeave.ToString("0.0")</a>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+                <td class="@(request.TotalUnpaidLeave > ViewBag.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.TotalUnpaidLeave > 0)
+                    {
+                        <a href="@unpaidLeaveRequestLink">@request.TotalUnpaidLeave.ToString("0.0")</a>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+                <td class="@(request.TotalOtherLeave > ViewBag.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.TotalOtherLeave > 0)
+                    {
+                        <a href="@leaveRequestLink">@request.TotalOtherLeave.ToString("0.0")</a>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+                <td class="@(request.TotalCheckInOutTimes > ViewBag.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.TotalCheckInOutTimes > 0)
+                    {
+                        <a class="TotalCheckInOutTimes" href="@checkInOutRequestLink">@request.TotalCheckInOutTimes</a>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+                <td class="@(request.TotalMissingCheckInOutTimes > ViewBag.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.TotalMissingCheckInOutTimes > 0)
+                    {
+                        <a href="@attendanceLink">@request.TotalMissingCheckInOutTimes</a>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+                <td class="@(request.LateInEarlyOutTimes > ViewBag.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.LateInEarlyOutTimes > 0)
+                    {
+                        <a href="@attendanceLink">@request.LateInEarlyOutTimes</a>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+                <td class="@(request.TotalAbsentTimes > ViewBag.MaxRequest ? "overloadRequest" : string.Empty)">
+                    @if (request.TotalAbsentTimes > 0)
+                    {
+                        <a href="@attendanceLink">@request.TotalAbsentTimes</a>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+            </tr>
+            }
+        }
+        else
+        { 
+                <tr>
+                    <td colspan="12"></td>
+                </tr>
+                <tr>
+                    <td colspan="12" rowspan="2">
+                        @Messages.NoInformation
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>

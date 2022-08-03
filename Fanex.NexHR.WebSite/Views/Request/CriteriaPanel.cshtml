@@ -111,7 +111,7 @@
                     @foreach (var item in @Extensions.RequestTypes)
                     {
                         <div class="radioButton">
-                            <input class="with-gap" type="radio" name="RequestType" id="RequestType_@item.Value" value="@item.Value" checked="@item.Selected"/>
+                            <input class="with-gap" type="radio" name="RequestType" id="RequestType_@item.Value" value="@item.Value" checked="@(item.Value==Model.RequestType.ToString())"/>
                             <label for="RequestType_@item.Value">@item.Text</label>
                         </div>
                     }

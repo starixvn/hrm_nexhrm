@@ -1,0 +1,122 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.Report
+@model RequestsMonitoringViewModel
+@{
+    ViewBag.Title = Labels.RequestMonitoring;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/Report/report.monitoring.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/reportmonitoring.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form form-stl-table">
+                        <input id="DateTime-Now" name="DateTime-Now" type="hidden" value="@DateTime.Now.ToString("MMMM dd, yyyy")">
+                        <form action="" class="form-filter">
+                            <input type="hidden" asp-for="IsLeader"/>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.DateRange</label>
+                                    </div>
+                                    <div class="left select--s">
+                                        <select id="Date" name="Date">
+                                            @{
+                                                foreach (DateRangeFilter dateRange in (DateRangeFilter[])Enum.GetValues(typeof(DateRangeFilter)))
+                                                {
+                                                    var value = (int)dateRange;
+                                                    <option value="@value" selected="@(value == (int)DateRangeFilter.DateRange)">@Utilities.GetDescription(dateRange)</option>
+                                                }
+                                            }
+                                        </select>
+                                        <input type="hidden" asp-for="DateOption"/>
+                                    </div>
+                                </div>
+                                <div class="col m-r--m">
+                                    <div class="left label--m">
+                                        <label>@Labels.FromDate</label>
+                                    </div>
+                                    <div class="left datepicker-button select--s">
+                                        <date-picker 
+                                                name="FromDate"
+                                                value="Model.FromDate"
+                                        >
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon from-date left"></i>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="left label--m">
+                                        <label>@Labels.ToDate</label>
+                                    </div>
+                                    <div class="left datepicker-button select--s">
+                                        <date-picker 
+                                            name="ToDate"
+                                            value="Model.ToDate"
+                                        >
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon from-date left"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.RequestType</label>
+                                    </div>
+                                    <div class="left select--s">
+                                        <select id="RequestType" name="RequestType">
+                                            @{
+                                                foreach (RequestMonitoringType requestType in (RequestMonitoringType[])Enum.GetValues(typeof(RequestMonitoringType)))
+                                                {
+                                                    var value = (int)requestType;
+                                                    <option value="@value" selected="@(value == Model.RequestType)">@Utilities.GetDescription(requestType)</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col m-r--m">
+                                    <div class="left label--m">
+                                        <label>@Labels.MaxRequest</label>
+                                    </div>
+                                    <div class="left select--s">
+                                        <select id="MaxRequest" name="MaxRequest" class="minWidthDropdown">
+                                            @for (int i = 1; i <= 10; i++)
+                                            {
+                                                <option selected="@(i == Model.MaxRequest)" value="@i">@i</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="request-monitoring-detail" class="p-x--s over-auto">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,13 +9,11 @@
     {
             Text = @Labels.CheckIn,
             Value = "1",
-            Selected = true 
     });
     listRadioBtn.Add(new SelectListItem
     {
             Text = @Labels.CheckOut,
             Value = "2",
-            Selected = false 
     });
 }
 @section Styles {
@@ -92,7 +90,7 @@
                                             @foreach (var item in listRadioBtn)
                                             {
                                                 <div class="radioButton">
-                                                    <input class="with-gap" type="radio" name="CheckInOutType" id="CheckInOutType_@item.Value" value="@item.Value" checked="@item.Selected"/>
+                                                    <input class="with-gap" type="radio" name="CheckInOutType" id="CheckInOutType_@item.Value" value="@item.Value" checked="@(item.Value==Model.CheckInOutType.ToString())"/>
                                                     <label for="CheckInOutType_@item.Value">@item.Text</label>
                                                 </div>
                                             }
