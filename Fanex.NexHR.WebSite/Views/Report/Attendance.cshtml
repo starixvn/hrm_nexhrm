@@ -1,0 +1,149 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.Common
+@using Fanex.NexHR.ViewModels.Report
+@model EmployeeAttendanceViewModel
+@{
+    ViewBag.Title = Labels.AttendanceReport;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/simplepagination.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+
+    @section Scripts {
+    <environment include="Development">
+        <script src="~/js/Libs/jquery.simplePagination.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Report/report.attendance.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/simplepagination.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/attendance.min.js" asp-append-version="true"></script>
+    </environment>
+}
+    @section Breadcrumb {
+}
+    <div class="row content">
+        <div class="col s12 card-container-base">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-title-block">
+                        <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="form form-stl-table">
+                            <form action="" class="form-filter">
+                                <div class="row form-input">
+                                    <div class="col m-r--l">
+                                        <div class="left label--m">
+                                            <label>@Labels.DateRange</label>
+                                        </div>
+                                        <div class="left select--s">
+                                            <select id="Date" name="Date">
+                                                @{
+                                                foreach (DateRangeFilter requestType in (DateRangeFilter[])Enum.GetValues(typeof(DateRangeFilter)))
+                                                {
+                                                    var value = (int)requestType;
+                                                    <option value="@value" selected="@(value == (int)DateRangeFilter.DateRange)">@Utilities.GetDescription(requestType)</option>
+                                                }
+                                            }
+                                        </select>
+                                        <input type="hidden" id="DateOption" value="@Model.DateOption" />
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.FromDate</label>
+                                    </div>
+                                    <div class="left datepicker-button select--s">
+                                        <date-picker name="FromDate"
+                                                     min-date="@(new DateTime(2010, 1, 1))"
+                                                     max-date="DateTime.Now.AddMonths(4)"
+                                                     value="@(Model != null ? Model.FromDate : null)">
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col m-l--xl m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.ToDate</label>
+                                    </div>
+                                    <div class="left datepicker-button select--s">
+                                        <date-picker name="ToDate" value="@(Model != null ? Model.ToDate : null)">
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.Request</label>
+                                    </div>
+                                    <div class="left select--s">
+                                        <select id="AttendanceType" name="AttendanceType">
+                                            @{
+                                                foreach (RequestTypeFilterForAttendance requestType in (RequestTypeFilterForAttendance[])Enum.GetValues(typeof(RequestTypeFilterForAttendance)))
+                                                {
+                                                    var value = (int)requestType;
+                                                    <option value="@value" selected="@(value == (Model != null ? Model.AttendanceType : 0))">@Utilities.GetDescription(requestType)</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.Team</label>
+                                    </div>
+                                    <div class="left select-team">
+                                        <select id="GroupId" name="GroupId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
+                                            <option>@Labels.AllTeams</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="left label--m">
+                                        <label>@Labels.Employee</label>
+                                    </div>
+                                    <div class="left input--m">
+                                        <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark" />
+                                        <input asp-for="EmployeeId" type="hidden" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        &nbsp;
+                                    </div>
+                                    <div class="left">
+                                        <input asp-for="ExcludeUserDelete" type="checkbox" class="filled-in" />
+                                        <label for="ExcludeUserDelete"></label>
+                                    </div>
+                                    <div class="left">
+                                        <label>@Labels.ExcludeUserDelete</label>
+                                    </div>
+                                </div>
+                                <div class="col col-btn">
+                                    <div class="left">
+                                        &nbsp;
+                                    </div>
+                                    <div class="left">
+                                        <input asp-for="CurrentPage" type="hidden" />
+                                        <input asp-for="ItemsPerPage" type="hidden" />
+                                        <input class="btn-submit waves-effect waves-light m-r--m" type="button" value="@Labels.Submit" id="submit" />
+                                        <input class="btn-export-excel waves-effect waves-light" type="button" value="@Labels.Excel" id="exportExcel" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="p-x--s cover-form-mb over-auto table-report-attendance" id="attendance-detail">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

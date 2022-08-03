@@ -22,7 +22,7 @@
 
     public class ExportController : BaseController
     {
-        private const string EmployeeAttendaceTemplatePath = @"~\App_Data\ExcelTemplates\EmployeeAttendace.xls";
+        private const string EmployeeAttendaceTemplatePath = @"App_Data\ExcelTemplates\EmployeeAttendace.xls";
         private const string EmployeeProfileTemplatePath = @"~\App_Data\ExcelTemplates\EmployeeProfile.xls";
         private const string TotalWorkingHoursTemplatePath = @"~\App_Data\ExcelTemplates\TotalWorkingHours.xls";
         private const string WorkingHoursStatisticTemplatePath = @"~\App_Data\ExcelTemplates\WorkingHoursStatistic.xls";
@@ -134,6 +134,7 @@
             bool excludeUserDelete,
             string sort = null)
         {
+            const string fileName = "EmployeeAttendance.xls";
             var getEmployeeAttendanceReportCriteria = new GetEmployeeAttendanceReportByTypeCriteria
             {
                 FromDate = fromDate,
@@ -154,9 +155,9 @@
             }
 
             string templatePath = Path.Combine(environment.WebRootPath, EmployeeAttendaceTemplatePath);
-            ExportService.ExportEmployeeAttendances(employeeAttendances, templatePath);
+            var memoryStream = ExportService.ExportEmployeeAttendances(employeeAttendances, templatePath);
 
-            return new EmptyResult();
+            return File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
 
         public ActionResult WorkingHoursStatistic(WorkingHoursStatisticViewModel model)

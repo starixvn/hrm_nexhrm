@@ -9,6 +9,7 @@
     using Criteria.Employee;
     using Criteria.Report;
     using Fanex.NexHR.Core.Model;
+    using Fanex.NexHR.Models.Attributes;
     using Fanex.NexHR.ViewModels.YearlyNexRequest;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -261,7 +262,7 @@
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Hr", Justification = "Reviewed")]
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult HrRequestMonitoring()
         {
             var year = DateTime.Now.Year;
@@ -280,7 +281,7 @@
             return View("RequestMonitoring", model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult ListHRRequestMonitoring(RequestsMonitoringViewModel model)
         {
             IList<RequestsMonitoring> requestMonitorings = GetRequestMonitoringDetail(model);
@@ -288,7 +289,7 @@
             return PartialView("_ListRequestMonitoring", requestMonitorings);
         }
 
-        [Authorize(Roles = "AssistantLeader")]
+        [HrmAuthorize(Roles = "AssistantLeader")]
         public ActionResult LeaderRequestMonitoring()
         {
             var year = DateTime.Now.Year;
@@ -307,7 +308,7 @@
             return View("RequestMonitoring", model);
         }
 
-        [Authorize(Roles = "AssistantLeader")]
+        [HrmAuthorize(Roles = "AssistantLeader")]
         public ActionResult ListLeaderRequestMonitoring(RequestsMonitoringViewModel model)
         {
             return PartialView("_ListRequestMonitoring", GetRequestMonitoringDetail(model));
@@ -494,7 +495,7 @@
             return Json(lateInEarlyOuts);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult LateInEarlyOutDiscipline()
         {
             IList<Team> teams = teamService.GetTeam();
@@ -512,7 +513,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public ActionResult ListLateInEarlyOutDiscipline(LateInEarlyOutSummaryViewModel model)
         {
@@ -593,7 +594,7 @@
             return PartialView("_ListTimeRecord", timeRecords);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult TimeRecord(DateTime? fromDate, DateTime? toDate)
         {
             DateTime from;
@@ -624,7 +625,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult ListTimeRecord(TimeRecordViewModel model)
         {
             IList<TimeRecord> timeRecords = new List<TimeRecord>();
@@ -676,7 +677,7 @@
             return Json(totalWorkingHours);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult WorkingHoursStatistic()
         {
             IList<Team> teams = teamService.GetTeam();
@@ -697,13 +698,13 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult HeadCount()
         {
             return View();
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult GetHeadCount(int year)
         {
             var critera = new GetHeadCountByYearCriteria
@@ -721,7 +722,7 @@
             return PartialView("_HeadCountTable", model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult YearlyNexRequest()
         {
             IList<Team> teams = teamService.GetTeam();
@@ -734,7 +735,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public ActionResult GetYearlyNexRequest(int? empId, int? teamId, int year)
         {

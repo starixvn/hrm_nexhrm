@@ -205,6 +205,17 @@
     "sourceMap": false
   },
   {
+    "outputFileName": "wwwroot/minify/js/attendance.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Report/report.attendance.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
     "outputFileName": "wwwroot/minify/js/apiclientcalendarjs.min.js",
     "inputFiles": [
       "wwwroot/js/Views/Dashboard/client.js"

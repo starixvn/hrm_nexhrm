@@ -8,6 +8,7 @@
     using Models;
     using Models.Calendar;
     using Models.Report;
+    using NPOI.SS.UserModel;
     using Resources;
 
     public static class ExportService
@@ -41,7 +42,7 @@
             }
         }
 
-        public static void ExportEmployeeAttendances(
+        public static MemoryStream ExportEmployeeAttendances(
             IList<EmployeeAttendanceModel> employeeAttendances,
             string templatePath)
         {
@@ -62,7 +63,7 @@
                 writer.AutosizeColumns(sizeColumns);
                 writer.CreateFreezePane(0, rowFreezePane);
 
-                writer.Render();
+                return writer.Render();                
             }
         }
 

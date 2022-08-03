@@ -10,6 +10,7 @@
     using Criteria.Employee;
     using Criteria.Toeic;
     using Fanex.NexHR.Core.Model;
+    using Fanex.NexHR.Models.Attributes;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
@@ -118,7 +119,7 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult UpdateToeic(int? id, string name)
         {
             Toeic toeic = null;
@@ -138,7 +139,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult UpdateToeic(Toeic model)
         {
             var result = new CommandResult

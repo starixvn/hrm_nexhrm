@@ -51,9 +51,13 @@ namespace Fanex.NexHR.Core
 
         #endregion Properties
 
-        public void Render()
+        public MemoryStream Render()
         {
             _sheet.Workbook.RemoveSheetAt(0);
+            var memoryStream = new MemoryStream();
+            _sheet.Workbook.Write(memoryStream);
+            memoryStream.Position = 0;
+            return memoryStream;
         }
 
         public void WriteCellRange(int rowIndex, int totalRow, int colIndex, int totalCol, object value)
