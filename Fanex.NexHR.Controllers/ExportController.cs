@@ -22,7 +22,7 @@
 
     public class ExportController : BaseController
     {
-        private const string EmployeeAttendaceTemplatePath = @"App_Data\ExcelTemplates\EmployeeAttendace.xls";
+        private const string EmployeeAttendaceTemplatePath = "ExcelTemplates/EmployeeAttendace.xlsx";
         private const string EmployeeProfileTemplatePath = @"~\App_Data\ExcelTemplates\EmployeeProfile.xls";
         private const string TotalWorkingHoursTemplatePath = @"~\App_Data\ExcelTemplates\TotalWorkingHours.xls";
         private const string WorkingHoursStatisticTemplatePath = @"~\App_Data\ExcelTemplates\WorkingHoursStatistic.xls";
@@ -134,7 +134,7 @@
             bool excludeUserDelete,
             string sort = null)
         {
-            const string fileName = "EmployeeAttendance.xls";
+            const string fileName = "EmployeeAttendance.xlsx";
             var getEmployeeAttendanceReportCriteria = new GetEmployeeAttendanceReportByTypeCriteria
             {
                 FromDate = fromDate,
@@ -154,10 +154,10 @@
                 employeeAttendances = Utilities.MultipleSort(employeeAttendances, sorts);
             }
 
-            string templatePath = Path.Combine(environment.WebRootPath, EmployeeAttendaceTemplatePath);
-            var memoryStream = ExportService.ExportEmployeeAttendances(employeeAttendances, templatePath);
+            string templatePath = Path.Combine(environment.ContentRootPath, EmployeeAttendaceTemplatePath);
+            var bytes = ExportService.ExportEmployeeAttendances(employeeAttendances, templatePath);
 
-            return File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+            return File(bytes, "application/xlsx", fileName);
         }
 
         public ActionResult WorkingHoursStatistic(WorkingHoursStatisticViewModel model)

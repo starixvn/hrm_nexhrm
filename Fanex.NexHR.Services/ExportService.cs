@@ -5,6 +5,7 @@
     using System.IO;
     using System.Linq;
     using Core;
+    using Fanex.NexHR.Services.ExportExcel;
     using Models;
     using Models.Calendar;
     using Models.Report;
@@ -42,29 +43,12 @@
             }
         }
 
-        public static MemoryStream ExportEmployeeAttendances(
+        public static byte[] ExportEmployeeAttendances(
             IList<EmployeeAttendanceModel> employeeAttendances,
             string templatePath)
         {
-            const string fileName = "EmployeeAttendance";
-            const string sheetName = "Employee Attendance";
-            const int sizeColumns = 14;
-            const int totalReportHeader = 3;
-            const int rowFreezePane = 3;
-
-            using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
-            {
-                var writer = new ExcelTemplateWriter(fileStream, fileName, sheetName);
-
-                // Fill report header.
-                writer.CopyRows(0, totalReportHeader);
-
-                FillContentRowEmployeeAttendances(employeeAttendances, ref writer);
-                writer.AutosizeColumns(sizeColumns);
-                writer.CreateFreezePane(0, rowFreezePane);
-
-                return writer.Render();                
-            }
+            var excel = new AttendancesReportExcel(templatePath, employeeAttendances);
+            return excel.Export();
         }
 
         public static void ExportEmployeeProfile(
