@@ -2,7 +2,6 @@
 @model Fanex.NexHR.ViewModels.AddEmployeeCalendarViewModel
 @{
     ViewBag.Title = Labels.MultipleInsert;
-    var dateTime = DateTime.Now.Date;
 }
 
 <form class="form form-calendar-add">
@@ -13,7 +12,7 @@
         <div class="left datepicker-button select--s">
             <date-picker
                 name="FromDate"
-                value="@dateTime"
+                value="Model.FromDate"
             >
             </date-picker>
             <i class="mdi-action-event calendar-icon left"></i>
@@ -27,7 +26,7 @@
         <div class="left datepicker-button select--s">
             <date-picker
                 name="ToDate"
-                value="@dateTime"
+                value="Model.ToDate"
             >
             </date-picker>
             <i class="mdi-action-event calendar-icon left"></i>

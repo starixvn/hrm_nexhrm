@@ -1,0 +1,148 @@
+@using Fanex.NexHR.Core
+@using Fanex.NexHR.ViewModels.Report
+@using Fanex.NexHR.Resources
+
+@model LateInEarlyOutDetailViewModel
+@{
+    ViewBag.Title = Labels.LateInEarlyOutDetail;
+    var teams = new SelectList(Model.Teams, "Id", "Name");
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/Employee/_employee.search.in.company.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Report/report.latein.earlyout.detail.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/lateinearlyoutdetailjs.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form form-stl-table">
+                        <form action="/report/LateInEarlyOutDetail?employeeId=@Model.EmployeeId&fromDate=@Model.FromDate&toDate=@Model.ToDate" method="post" novalidate="novalidate">
+                            <input id="DateTime-Now" name="DateTime-Now" type="hidden" value="@DateTime.Now.ToString("MMMM dd, yyyy")">
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.DateRange</label>
+                                    </div>
+                                    <div class="left select--m">
+                                        <select id="Date" name="Date">
+                                            @{
+                                                foreach (DateRangeFilter dateRange in (DateRangeFilter[])Enum.GetValues(typeof(DateRangeFilter)))
+                                                {
+                                                    var value = (int)dateRange;
+                                                    <option value="@value" selected="@(value == (int)DateRangeFilter.DateRange)">@Utilities.GetDescription(dateRange)</option>
+                                                }
+                                            }
+                                        </select>
+                                        <input asp-for="DateOption" type="hidden">
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label asp-for="@Model.FromDate">@Labels.FromDate</label>
+                                    </div>
+                                    <div class="left datepicker-button input--s">
+                                        <date-picker
+                                            name="FromDate"
+                                            min-date="new DateTime(2010, 01, 01)"
+                                            max-date="DateTime.Now"
+                                            value="Model.FromDate">
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label asp-for="@Model.ToDate">@Labels.ToDate</label>
+                                    </div>
+                                    <div class="left datepicker-button input--s">
+                                        <date-picker
+                                            name="ToDate"
+                                            min-date="new DateTime(2010, 01, 01)"
+                                            max-date="DateTime.Now"
+                                            value="Model.ToDate">
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label asp-for="@Model.TeamId">@Labels.Team</label>
+                                    </div>
+                                    <div class="left select--m">
+                                        <select asp-for="@Model.TeamId" asp-items="@teams">
+                                            <option value="">@Labels.AllTeams</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label asp-for="@Model.Employee"></label>
+                                    </div>
+                                    <div class="left input--s">
+                                        <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark" value="@Model.Employee"/>
+                                        <input asp-for="@Model.EmployeeId" type="hidden"/> 
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect wave-light" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="p-x--s over-auto">
+                        <table id="data" class="table bordered striped highlight centered table-custom">
+                            <thead>
+                                <tr>
+                                    <th>@Labels.SymbolCount</th>
+                                    <th>@Labels.Name</th>
+                                    <th>@Labels.Nick</th>
+                                    <th>@Labels.Team</th>
+                                    <th>@Labels.WorkigDay</th>
+                                    <th>@Labels.Type</th>
+                                    <th>@Labels.Hours</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="template" type="text/x-jsrender">
+    <tr>
+        <td>{{:~index()}}</td>
+        <td class="align-left">{{:Employee.FullName}}</td>
+        <td>{{:Employee.NickName}}</td>
+        <td class="tooltip" title="{{:Employee.Team.Name}}">
+            {{:Employee.Team.Code}}
+        </td>
+        <td>{{:~formatJsonDate(WorkDate, 'dd MMM, yyyy')}}</td>
+        <td>
+            {{if TypeId == 0}}
+            Leave Deduction
+            {{else TypeId == 1}}
+            Late In
+            {{else}}
+            Early Out
+            {{/if}}
+        </td>
+        <td>{{:(Minutes / 60).toFixed(1)}}</td>
+    </tr>
+</script>

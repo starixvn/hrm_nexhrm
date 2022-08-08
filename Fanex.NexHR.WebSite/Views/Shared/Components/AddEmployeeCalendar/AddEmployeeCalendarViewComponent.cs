@@ -5,9 +5,9 @@ namespace Fanex.NexHR.WebSite.Views.Calendar.Components.AddEmployeeCalendar
 
     public class AddEmployeeCalendarViewComponent : ViewComponent
     {
-        public async Task<IViewComponentResult> InvokeAsync()
+        public IViewComponentResult Invoke(AddEmployeeCalendarViewModel model)
         {
-            return View(new AddEmployeeCalendarViewModel());
+            return View(model);
         }
     }
 }

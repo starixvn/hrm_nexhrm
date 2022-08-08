@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.AnnualLeave;
+    using Fanex.NexHR.Models.Attributes;
     using Resources;
     using Services;
     using Services.Interfaces;

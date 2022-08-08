@@ -647,5 +647,41 @@
       "renameLocals": true
     },
     "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/lateinearlyoutjs.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Report/report.latein.earlyout.js",
+      "wwwroot/js/Views/Employee/_employee.search.in.company.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/lateinearlyoutdetailjs.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Employee/_employee.search.in.company.js",
+      "wwwroot/js/Views/Report/report.latein.earlyout.detail.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/leavedeductiondetailjs.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/AnnualLeave/leave.deduction.detail.js",
+      "wwwroot/js/Views/Employee/_employee.search.in.company.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
   }
 ]

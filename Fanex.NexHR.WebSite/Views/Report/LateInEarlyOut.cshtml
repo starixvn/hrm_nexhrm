@@ -1,0 +1,99 @@
+@using Fanex.NexHR.Core
+@using Fanex.NexHR.ViewModels.Report
+@using Fanex.NexHR.ViewModels.AnnualLeave
+@using Fanex.NexHR.Resources
+@model LateInEarlyOutViewModel
+@{
+    ViewBag.Title = Labels.LateInEarlyOut;
+    var teams = new SelectList(Model.Teams, "Id", "Name");
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/Report/report.latein.earlyout.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Employee/_employee.search.in.company.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/lateinearlyoutjs.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form form-stl-table">
+                        <form class="form-filter" action="" novalidate="novalidate">
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--s">
+                                        <label asp-for="@Model.Year">@Labels.Year</label>
+                                    </div>
+                                    <div class="left select--xs">
+                                        <select id="Year" name="Year" asp-items="@Extensions.YearPicker(2010, DateTime.Now.Year)"></select>
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--s">
+                                        <label asp-for="@Labels.Team">@Labels.Team</label>
+                                    </div>
+                                    <div class="left select--m">
+                                        <select asp-for="@Model.TeamId" asp-items="@teams">
+                                            <option value="">@Labels.AllTeams</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="left label--m">
+                                        <label asp-for="@Model.Employee">@Model.Employee</label>
+                                    </div>
+                                    <div class="left input--m">
+                                        <input asp-for="@Model.Employee" placeholder="@Messages.SearchEmployeeWatermark" />
+                                        <input type="hidden" asp-for="@Model.EmployeeId" />
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="formrow">
+                                        <span class="bold-color">※ Deduction Taken (Hours): </span>
+                                        <span class="font-description">@Messages.DeductionTakenDescription.</span>
+                                    </div>
+                                    <div class="formrow">
+                                        <span class="bold-color">※ @Labels.UsedNEX: </span>
+                                        <span class="font-description">@Messages.UsedNEXDescription.</span>
+                                    </div>
+                                    <div class="formrow">
+                                        <span class="bold-color">※ Balance (Hours):</span>
+                                        <span class="font-description"> @Messages.BalanceDescription.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="list-detail" class="p-x--s over-auto"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hide">
+            <div id="insertform" title="Add Leave Deduction">
+                @(await Component.InvokeAsync("CreateLeaveDeduction", new LeaveDeductionViewModel {
+                    DeductDate = DateTime.Now,
+                    TotalDays = decimal.Parse("0.5"),
+                    Description = Labels.LeaveDeductionDescription,
+                    IsAnnual = true
+                }))
+            </div>
+        </div>
+    </div>
+</div>

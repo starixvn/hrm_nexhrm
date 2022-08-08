@@ -1,0 +1,56 @@
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.AnnualLeave
+@model LeaveDeductionViewModel
+
+<form class="form form-annual-deduction">
+    <div class="validation-summary-info ui-corner-all">
+        <span>
+            <i class="mdi-action-info-outline mdi-24px m-r--s"></i>
+            Annual leave balance: <span id="annualBalance" class="txt-bold"></span>
+        </span>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label asp-for="@Model.TotalDays"></label>
+        </div>
+        <div class="left input--xs">
+            <input asp-for="@Model.TotalDays"/>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label asp-for="@Model.IsAnnual"></label>
+        </div>
+        <div class="left input--m">
+            <input checked="@Model.IsAnnual" class="filled-in" asp-for="@Model.IsAnnual" type="checkbox" value="@Model.IsAnnual">
+            <label for="IsAnnual"></label>
+            <input name="IsAnnual" type="hidden">
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label asp-for="@Model.Description"></label>
+        </div>
+        <div class="left input--m">
+            <textarea asp-for="@Model.Description" class="materialize-textarea" value="@Model.Description"></textarea>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label asp-for="@Model.DeductDate"></label>
+        </div>
+        <div class="left datepicker-button select--s">
+            <date-picker
+                name="DeductDate"
+                value="Model.DeductDate"
+            >
+            </date-picker>
+            <i class="mdi-action-event calendar-icon left"></i>
+        </div>
+    </div>
+    <div class="row form-input center">
+        <input type="hidden" asp-for="@Model.EmpId"/>
+        <input class="btn-cancel waves-effect waves-light m-r--m" id="cancel" type="button" value="@Labels.Cancel" />
+        <input class="btn-ok waves-effect waves-light" id="insert" type="submit" value="@Labels.Submit" />
+    </div>
+</form>

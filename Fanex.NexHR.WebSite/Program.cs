@@ -14,7 +14,7 @@ namespace Fanex.NexHR.WebSite
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseNLog()
-                .UseUrls($"http://*:5000")
+                .UseUrls($"http://localhost:5000")
                 .UseStartup<Startup>();
     }
 }

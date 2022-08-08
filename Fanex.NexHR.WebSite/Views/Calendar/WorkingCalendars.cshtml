@@ -1,6 +1,7 @@
 @using Fanex.NexHR.Core
 @using Fanex.NexHR.Core.Enums
 @using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels
 @using Fanex.NexHR.ViewModels.Calendar
 @using Fanex.NexHR.Models.Calendar
 @using Fanex.NexHR.Services.Interfaces
@@ -10,7 +11,6 @@
     var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
     ViewBag.Title = Labels.Holidays;
 }
-@addTagHelper *, AddEmployeeCalendar
 
 @section Styles {
     <link rel="stylesheet" href="~/minify/css/monthpicker.min.css" asp-append-version="true">
@@ -447,7 +447,10 @@
                     </div>
                     <div class="hide">
                         <div id="addform" title="Add Calendars">
-                            @(await Component.InvokeAsync("AddEmployeeCalendar"))
+                            @(await Component.InvokeAsync("AddEmployeeCalendar", new AddEmployeeCalendarViewModel {
+                                FromDate = DateTime.Now.Date,
+                                ToDate = DateTime.Now.Date
+                            }))
                         </div>
                     </div>
                 </div>
