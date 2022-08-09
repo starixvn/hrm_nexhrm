@@ -255,27 +255,10 @@
 
         #region Employee Leave Schedule
 
-        public static void ExportLeaveSummaryScheduleReport(LeaveDaySummarySchedule schedules, string templatePath)
+        public static byte[] ExportLeaveSummaryScheduleReport(LeaveDaySummarySchedule schedules, string templatePath)
         {
-            string fileName = Labels.LeaveTakenSchedulesReport;
-            string sheetName = Labels.LeaveSchedules;
-            const int total1 = 1;
-            const int total2 = 3;
-            const int totalColumnsWidth = 35;
-
-            using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
-            {
-                var writer = new ExcelTemplateWriter(fileStream, fileName, sheetName);
-
-                writer.CopyRows(0, total1);
-                writer.CopyRows(1, total2);
-                WriteHeaderLeaveDaysSchedule(schedules, ref writer);
-                WriteLeaveDayScheduleContent(schedules.EmployeeLeaveShedules, ref writer);
-                WriteLeaveDayScheduleSumRow(schedules.TotalLeaves, ref writer, schedules.EmployeeLeaveShedules.Count);
-
-                writer.SyncColumnsWidth(totalColumnsWidth);
-                writer.Render();
-            }
+            var leaveScheduleExcel = new LeaveScheduleExcel(templatePath, schedules);
+            return leaveScheduleExcel.Export();
         }
 
         private static void WriteHeaderLeaveDaysSchedule(LeaveDaySummarySchedule schedules, ref ExcelTemplateWriter writer)

@@ -26,7 +26,7 @@
         private const string EmployeeProfileTemplatePath = "ExcelTemplates/EmployeeProfile.xlsx";
         private const string TotalWorkingHoursTemplatePath = @"~\App_Data\ExcelTemplates\TotalWorkingHours.xls";
         private const string WorkingHoursStatisticTemplatePath = @"~\App_Data\ExcelTemplates\WorkingHoursStatistic.xls";
-        private const string DayOffScheduleTemplatePath = @"~\App_Data\ExcelTemplates\DayOffSchedule.xls";
+        private const string DayOffScheduleTemplatePath = "ExcelTemplates/DayOffSchedule.xlsx";
         private const string HeadCountReportTemplatePath = @"~\App_Data\ExcelTemplates\HeadCountReport.xls";
 
         private readonly IEmployeeService employeeService;
@@ -184,7 +184,6 @@
         public ActionResult LeaveScheduleReport(WorkingCalendarViewModel model)
         {
             DateTime date = new DateTime(model.Year, model.Month, 1);
-            string templatePath = Path.Combine(environment.WebRootPath, DayOffScheduleTemplatePath);
             var criteria = new GetLeaveScheduleCriteria
             {
                 FromDate = date,
@@ -195,9 +194,11 @@
 
             var schedules = calendarService.GetLeaveSchedule(criteria);
 
-            ExportService.ExportLeaveSummaryScheduleReport(schedules, templatePath);
+            const string fileName = "DayOffSchedule.xlsx";
+            string templatePath = Path.Combine(environment.ContentRootPath, DayOffScheduleTemplatePath);
+            var bytes = ExportService.ExportLeaveSummaryScheduleReport(schedules, templatePath);
 
-            return new EmptyResult();
+            return File(bytes, "application/xlsx", fileName);
         }
 
         public ActionResult HeadCountExport(int year)

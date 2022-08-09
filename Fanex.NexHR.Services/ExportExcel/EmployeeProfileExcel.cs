@@ -13,7 +13,7 @@ namespace Fanex.NexHR.Services.ExportExcel
         private const byte RowStartBody = 4;
         private const byte TotalCols = 29;
         private int rowIndex = RowStartBody;
-        private int stt = 1;
+        private int rowNumber = 1;
 
         public EmployeeProfileExcel(string templatePath, IList<Employee> employee) 
             : base(templatePath, 0, "EmployeeProfile")
@@ -39,14 +39,14 @@ namespace Fanex.NexHR.Services.ExportExcel
             {
                 RenderRow(emp, worksheet);
                 rowIndex++;
-                stt++;
+                rowNumber++;
             }
         }
 
         protected internal virtual void RenderRow(Employee employee, ExcelWorksheet worksheet)
         {
             int colIndex = 1;
-            worksheet.Cells[rowIndex, colIndex].Value = stt;
+            worksheet.Cells[rowIndex, colIndex].Value = rowNumber;
             worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
             worksheet.Cells[rowIndex, colIndex].Value = employee.Code;

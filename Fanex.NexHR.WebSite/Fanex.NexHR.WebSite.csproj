@@ -13,9 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="ExcelTemplates\DayOffSchedule.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="ExcelTemplates\HeadCountReport.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -531,6 +528,9 @@
 
   <ItemGroup>
     <None Update="App_Data\SpNames.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ExcelTemplates\DayOffSchedule.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="ExcelTemplates\EmployeeAttendace.xlsx">
