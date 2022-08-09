@@ -1,0 +1,81 @@
+﻿@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.Employee
+@model WorkingHistoryViewModel
+@{
+    ViewBag.Title = Labels.EmployeeWorkingHistory;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/Employee/employee.historywork.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/historywork.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form form-employee-workingHistory">
+                        <form class="form-filter" action="#">
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--m">
+                                        <label>@Labels.Employee</label>
+                                    </div>
+                                    <div class="left select--daterange">
+                                        @Html.TextBox("FullName", Model.Employee.DisplayName, new { placeholder = Messages.SearchEmployeeWatermark })
+                                        @Html.HiddenFor(model => model.EmpId)
+                                    </div>
+                                </div>
+                                <div class="col m-r--m">
+                                    <div class="left label--m">
+                                        <label>@Labels.FromDate</label>
+                                    </div>
+                                    <div class="left datepicker-button select--datepicker">
+                                        <date-picker
+                                            name="FromDate"
+                                            value="@Model.FromDate"
+                                        >
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col m-r--m">
+                                    <input type="hidden" id="employeeId" value="@Model.EmpId" />
+                                    <div class="left label--m">
+                                        <label>@Labels.ToDate</label>
+                                    </div>
+                                    <div class="left datepicker-button select--datepicker">
+                                        <date-picker
+                                            name="ToDate"
+                                            value="@Model.ToDate"
+                                        >
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col m-r--m">
+                                    <input id="submit" type="button" value="@Labels.Submit" class="btn-submit waves-effect waves-light m-r--m" />
+                                    <a class="btn-request waves-effect waves-light" id="btnInsertHistoryWork" href="javascript:;">@Labels.NewJobtitleorTeam</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="history-detail" class="p-x--s over-auto cover-form-mb table-team"></div>
+                    <div id="dialog-history" style="text-align:left; padding: 0.5em 0 0.5em;" title="@Labels.NewJobtitleorTeam">&nbsp;</div>
+                    <div id="dialog-histtory-update" style="text-align:left; padding: 0.5em 0 0.5em;" title="@Labels.UpdateJobtitleOrTeam">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

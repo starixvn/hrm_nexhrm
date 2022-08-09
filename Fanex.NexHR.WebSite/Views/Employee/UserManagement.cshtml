@@ -1,0 +1,208 @@
+﻿@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.Employee
+@model UserManagementViewModel
+@{
+    ViewBag.Title = Labels.EmployeeManagement;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/Employee/user.management.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/usermanagement.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form form-stl-table">
+                        <div class="row form-input">
+                            <div class="col m-r--l">
+                                <div class="left label--m">
+                                    <label>@Labels.Keyword</label>
+                                </div>
+                                <div class="left filter-keyword">
+                                    <input asp-for="Keyword" placeholder="@Messages.SearchEmployeeWatermark "/>
+                                </div>
+                            </div>
+                            <div class="col m-r--l">
+                                <div class="left label--s">
+                                    <label>@Labels.Team</label>
+                                </div>
+                                <div class="left select--m">
+                                    <select asp-for="TeamId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
+                                            <option value="">@Labels.AllTeams</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col m-r--l">
+                                <div class="left filter-title-lbl">
+                                    <label>@Labels.Title</label>
+                                </div>
+                                <div class="left filter-title" style="margin-left: 3px; width:317px"> 
+                                    <select asp-for="JobTitleId" asp-items="@(new SelectList(Model.JobTitles, "Id", "Name"))">
+                                            <option value="">@Labels.AllTitles</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col">
+                                <div class="left label--m">&nbsp;</div>
+                                <div class="left radioButton">
+                                    <input class="with-gap" name="name" type="radio" id="IsActive" checked="checked" />
+                                    <label for="IsActive" class="m-r--l">@Labels.ActiveUsers</label>
+                                    <input class="with-gap" name="name" type="radio" id="IsDisable" />
+                                    <label class="m-r--l" for="IsDisable">@Labels.DisabledUsers</label>
+                                    <input class="with-gap" name="name" type="radio" id="IsDeleted" />
+                                    <label class="m-r--l" for="IsDeleted">@Labels.DeletedUsers</label>
+                                </div>
+                            </div>
+                            <div class="col col-btn-submit-excel">
+                                <a id="query" class="btn-submit waves-effect waves-light m-r--b" href="javascript:;" style="margin-left: -40px;">@Labels.Submit</a>
+                                <a id="exportExcel" class="waves-effect waves-light btn-export-excel m-r--b" href="javascript:;">@Labels.Excel</a>
+                                <a asp-controller="postnatal" asp-action="index" class="waves-effect waves-light btn-request m-r--b">Postnatal Employee</a>
+                                <a href="/EmployeeWorkFromHome/Index" class="btn btn-request m-r--b">@Labels.EmployeeWorkFromHome</a>
+                                <a href="/Employee/SpecialUserManagement" class="btn btn-request">@Labels.SpecialUser</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="jobtitleid" value="@Model.JobTitleId" />
+                <div class="p-x--s over-auto cover-form-mb table-team">
+                    <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Labels.SymbolCount
+                                </th>
+                                <th class="col-sorter">
+                                    @Labels.Code
+                                    <div class="sorter" data-property="Code">
+                                    </div>
+                                </th>
+                                <th class="col-sorter">
+                                    @Labels.Nick
+                                    <div class="sorter" data-property="NickName">
+                                    </div>
+                                </th>
+                                <th class="col-sorter">
+                                    @Labels.FullName
+                                    <div class="sorter" data-property="FullName">
+                                    </div>
+                                </th>
+                                <th class="col-sorter">
+                                    @Labels.Team
+                                    <div class="sorter" data-property="CodeOfTeam">
+                                    </div>
+                                </th>
+                                <th class="col-sorter">
+                                    @Labels.Gender
+                                    <div class="sorter" data-property="Gender">
+                                    </div>
+                                </th>
+                                <th class="col-sorter">
+                                    @Labels.JobTitle
+                                    <div class="sorter" data-property="JobTitle">
+                                    </div>
+                                </th>
+                                <th class="col-sorter">
+                                    @Labels.DoB
+                                    <div class="sorter" data-property="DateOfBirth">
+                                    </div>
+                                </th>
+                                <th class="col-sorter">
+                                    @Labels.PlaceOfBirth
+                                    <div data-property="PlaceOfBirth">
+                                    </div>
+                                </th>
+                                <th class="col-sorter">
+                                    @Labels.JoinedDate
+                                    <div class="sorter" data-property="JoinedDate">
+                                    </div>
+                                </th>
+                                <th id="resignedDate" class="col-sorter">
+                                    @Labels.ResignedDate
+                                    <div class="sorter" data-property="ResignedDate">
+                                    </div>
+                                </th>
+                                <th>
+                                    @Labels.Edit
+                                </th>
+                                <th>
+                                    @Labels.Schedule
+                                </th>
+                                <th>
+                                    @Labels.History
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="template" type="text/x-jsrender">
+    <tr id="row{{:Id}}" {{if Enabled == false }} class="disabled" {{/if}}>
+        <td>{{:~index()}}</td>
+        <td>{{:Code}}</td>
+        <td class="nick" data-code="{{:Code}}">
+            <a href="/employee/detail?employeeId={{:Id}}">{{:NickName}}</a>
+        </td>
+        <td class="align-left">{{:FullName}}</td>
+        <td title="{{:Team.Name}}" class="tooltip">{{:Team.Code}}</td>
+        <td>
+            {{if Gender == 0 }}
+            F
+            {{else}}
+            M
+            {{/if}}
+        </td>
+        <td class="align-left">
+            {{if JobTitle != null}}
+            {{:JobTitle && JobTitle.Name}}
+            {{/if}}
+        </td>
+        <td>{{:~formatDate(DateOfBirth, 'dd MMM, yyyy')}}</td>
+        <td>{{:PlaceOfBirth}}</td>
+        <td>
+            {{if JoinedDate != null}}
+            {{:~formatDate(JoinedDate, 'dd MMM, yyyy')}}
+            {{/if}}
+        </td>
+        <td class="ResignedDate">
+            {{if ResignedDate != null}}
+            {{:~formatDate(ResignedDate, 'dd MMM, yyyy')}}
+            {{/if}}
+        </td>
+        <td>
+            {{if !IsDeleted}}
+            <a href="/employee/edit/{{:Id}}"><i class="mdi mdi-border-color mdi-dark mdi-18px"></i></a>
+            {{else}}
+            -
+            {{/if}}
+        </td>
+        <td>
+            {{if !IsDeleted}}
+            <a href="/employee/defaultschedule?employeeId={{:Id}}"><i class="mdi mdi-border-color mdi-dark mdi-18px"></i></a>
+            {{else}}
+            -
+            {{/if}}
+        </td>
+        <td>
+            <a href="/employee/workinghistory?employeeId={{:Id}}">View</a>
+        </td>
+    </tr>
+</script>

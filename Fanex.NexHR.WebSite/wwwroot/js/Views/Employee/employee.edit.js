@@ -35,6 +35,7 @@ function query() {
 
 function uploadComplete(evt) {
     if (evt.target.status === 200) {
+        console.log("ok done")
         var url = $('#avatar').attr('src'),
             parts = url.split('?f=');
 
@@ -515,7 +516,7 @@ $(document).ready(function () {
 
         confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfully!</p><p>Press OK to continue</p>',
             function () {
-                document.location = $('#LastUrl').val();
+                document.location = _global.root + $('#LastUrl').val();
                 //document.location = _global.root + 'Employee/Usermanagement';
             }
         );

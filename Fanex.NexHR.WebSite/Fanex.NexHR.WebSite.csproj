@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\avatars\03000.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="ExcelTemplates\DayOffSchedule.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

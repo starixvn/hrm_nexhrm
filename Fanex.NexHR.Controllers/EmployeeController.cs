@@ -11,9 +11,11 @@
     using Criteria.Employee;
     using Fanex.NexHR.Criteria.HistoryWork;
     using Fanex.NexHR.Criteria.LookupData;
+    using Fanex.NexHR.Models.Attributes;
     using Fanex.NexHR.Resources;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Newtonsoft.Json;
@@ -62,7 +64,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult UserManagement(int jobTitleId = 0)
         {
             var model = new UserManagementViewModel
@@ -75,7 +77,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult SpecialUserManagement(int jobTitleId = 0)
         {
             var model = new UserManagementViewModel
@@ -122,7 +124,7 @@
             return Json(listEmployee);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult WorkingHistory(int employeeId)
         {
             const int startYear = 2011;
@@ -134,7 +136,7 @@
             return View(history);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult HistoryWorkDetail(WorkingHistoryViewModel model)
         {
             IList<HistoryWork> filterHistory = GetFilterHistoryWork(model);
@@ -158,7 +160,7 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult InsertHistoryWork(int employeeId)
         {
             var history = new WorkingHistoryViewModel { EmpId = employeeId };
@@ -171,7 +173,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult InsertHistoryWork(WorkingHistoryViewModel model)
         {
             var result = new CommandResult
@@ -199,7 +201,7 @@
         }
 
         [HttpGet]
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult EditHistoryWork(int? id)
         {
             var history = new WorkingHistoryViewModel { };
@@ -222,7 +224,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult EditHistoryWork(WorkingHistoryViewModel model)
         {
             var result = new CommandResult
@@ -252,7 +254,7 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public JsonResult DeleteHistoryWork(int id)
         {
             var criteria = new DeleteHistoryWorkCriteria
@@ -270,7 +272,7 @@
             return View(employee);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult Create()
         {
             var model = new CreateEmployeeViewModel
@@ -287,7 +289,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Create(CreateEmployeeViewModel model)
         {
@@ -328,7 +330,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult Edit(int id)
         {
             Employee employee = GetEmployeeById(id);
@@ -343,7 +345,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(EditEmployeeViewModel model)
@@ -386,7 +388,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult Delete(int employeeId, DateTime resignedDate)
         {
@@ -400,7 +402,7 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult DefaultSchedule(int employeeId)
         {
             Employee employee = GetEmployeeById(employeeId);
@@ -410,7 +412,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public ActionResult DefaultSchedule(DefaultScheduleViewModel model)
         {
@@ -443,7 +445,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult MonthSchedule(int employeeId)
         {
             Employee employee = GetEmployeeById(employeeId);
@@ -473,9 +475,9 @@
                 userId += ".jpg";
             }
 
-            var avatarPath = Path.Combine(environment.ContentRootPath, "/avatars/" + userId);
+            var avaPath = Path.Combine(environment.WebRootPath, "avatars\\" + userId);
 
-            if (System.IO.File.Exists(avatarPath))
+            if (System.IO.File.Exists(avaPath))
             {
                 fileName = "/avatars/" + userId;
             }
@@ -483,35 +485,27 @@
             return File(fileName, "image/jpeg");
         }
 
-        //[Authorize(Roles = "HR")]
-        //[HttpPost]
-        //public JsonResult UploadAvatar(string code, HttpPostedFileBase file)
-        //{
-        //    if (file != null && file.ContentLength > 0)
-        //    {
-        //        using (var stream = new MemoryStream())
-        //        {
-        //            using (var processor = new ImageProcessor())
-        //            {
-        //                ////var resizer = new ResizeFilter(128, 128, ResizeMethod.Crop, AnchorLocation.Middle);
-        //                ////processor.AddFilter(resizer);
-        //                const int JpegCompression = 100;
-        //                processor.OutputFormat = OutputFormat.Jpeg;
-        //                processor.JpegCompression = JpegCompression;
-        //                processor.ProcessImage(file.InputStream, stream);
+        [HrmAuthorize(Roles = "HR")]
+        [HttpPost]
+        public async Task<JsonResult> UploadAvatar(string code, IFormFile file)
+        {
+            if(file != null)
+            {
+                string FileName = code + ".jpg";
+                var path = Path.Combine(environment.WebRootPath, "avatars\\" + FileName);
 
-        //                using (var image = Image.FromStream(stream))
-        //                {
-        //                    image.Save(Server.MapPath("/avatars/") + code + ".jpg");
-        //                }
+                var stream = new FileStream(path, FileMode.Create);
+                await CopyFiles(file, stream);
+                stream.Close();
+                return Json(true);
+            }
+            return Json(null);
+        }
 
-        //                return Json(true);
-        //            }
-        //        }
-        //    }
-
-        //    return Json(null);
-        //}
+        private static async Task CopyFiles(IFormFile file, FileStream stream)
+        {
+            await file.CopyToAsync(stream);
+        }
 
         public ActionResult Birthday(int month = 0)
         {
@@ -541,7 +535,7 @@
             return View(employee);
         }
 
-        [Authorize(Roles = "AssistantLeader,HR")]
+        [HrmAuthorize(Roles = "AssistantLeader,HR")]
         public JsonResult GetMembersByManager(string keyword, int? groupId = null)
         {
             const int Records = 10;
@@ -558,7 +552,7 @@
             return Json(employeeService.GetMembersByManager(getMemberByManager).Take(Records));
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult Transfer()
         {
             var model = new TransferEmployeeViewModel
@@ -572,7 +566,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Transfer(TransferEmployeeViewModel model)
         {

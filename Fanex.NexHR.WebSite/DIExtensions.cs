@@ -108,6 +108,7 @@
             services.AddSingleton<IOvertimeService, OvertimeService>();
             services.AddSingleton<IScheduledMessageService, ScheduledMessageService>();
             services.AddSingleton<IHolidayService, HolidayService>();
+            services.AddSingleton<IAnnualLeaveService, AnnualLeaveService>();
 
             // services.AddSingleton<ILateInEarlyOutRepository, LateInEarlyOutRepository>();
         }
@@ -126,6 +127,7 @@
             services.AddSingleton<ICalendarRepository, CalendarRepository>();
             services.AddSingleton<IOvertimeRepository, OvertimeRepository>();        
             services.AddSingleton<IScheduledMessageRepository, ScheduledMessageRepository>();        
+            services.AddSingleton<IAnnualLeaveRepository, AnnualLeaveRepository>();        
         }
     }
 }

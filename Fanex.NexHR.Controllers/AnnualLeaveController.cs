@@ -3,6 +3,7 @@
     using Core.Enums;
     using Criteria.AnnualLeave;
     using Criteria.Employee;
+    using Fanex.NexHR.Models.Attributes;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
@@ -35,7 +36,7 @@
             this.commandService = commandService;
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult AddLeaveConversion(LeaveConversionViewModel model)
         {
@@ -64,7 +65,7 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult AddLeaveDeduction(LeaveDeductionViewModel model)
         {
@@ -94,7 +95,7 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult AdjustAnnualLeaves(AddMultiAnnualLeaveTransactionViewModel model)
         {
@@ -122,7 +123,7 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult Create(int employeeId)
         {
             var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId };
@@ -135,7 +136,7 @@
             });
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Create(AddAnnualLeaveTransactionViewModel model)
         {
@@ -187,7 +188,7 @@
             });
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult Delete(int leaveTransactionId)
         {
@@ -200,7 +201,7 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult DeleteLeaveConversion(int leaveConversionId)
         {
@@ -213,7 +214,7 @@
             return Json(commandService.ExecuteNonQuery(criteria));
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult DeleteLeaveDeduction(int leaveDeductionId)
         {
@@ -226,7 +227,7 @@
             return Json(commandService.ExecuteNonQuery(criteria));
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult Edit(int leaveTransactionId)
         {
             var criteria = new GetAnnualLeaveByIdCriteria
@@ -246,7 +247,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Edit(EditAnnualLeaveTransactionViewModel model)
         {
@@ -285,7 +286,7 @@
             });
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult EditLeaveConversion(LeaveConversionViewModel model)
         {
@@ -325,7 +326,7 @@
             });
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult EditLeaveDeduction(LeaveDeductionViewModel model)
         {
@@ -355,7 +356,7 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Employee(AnnualLeaveBalanceViewModel model)
         {
@@ -375,7 +376,7 @@
             return PartialView("_Employee", annualLeaveTransactions);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult Employee(int employeeId, int year)
         {
             var model = new AnnualLeaveBalanceViewModel
@@ -493,7 +494,7 @@
             return View(GetLeaveDetailModel(fromDate, toDate, employeeId, teamId));
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public PartialViewResult MultipleInsert()
         {
             return PartialView(new AddMultiAnnualLeaveTransactionViewModel
@@ -502,7 +503,7 @@
             });
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public PartialViewResult MultipleReset()
         {
             return PartialView(new AddMultiAnnualLeaveTransactionViewModel
@@ -511,7 +512,7 @@
             });
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult OpenAnnualLeaves()
         {
@@ -523,7 +524,7 @@
             return Json(commandService.ExecuteNonQuery(criteria));
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult ResetAnnualLeaves(int minbalance, string descriptionReset)
         {

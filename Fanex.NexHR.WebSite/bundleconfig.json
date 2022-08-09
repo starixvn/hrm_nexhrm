@@ -150,6 +150,12 @@
       "wwwroot/css/Views/report.timesheet.css"
     ]
   },
+  {
+    "outputFileName": "wwwroot/minify/css/employeeedit.min.css",
+    "inputFiles": [
+      "wwwroot/css/Views/employee.edit.css"
+    ]
+  },
   // ----------------------- Javascript ------------------------------
   {
     "outputFileName": "wwwroot/minify/js/site.min.js",
@@ -526,6 +532,62 @@
     "outputFileName": "wwwroot/minify/js/reportmonitoring.min.js",
     "inputFiles": [
       "wwwroot/js/Views/Report/report.monitoring.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/usermanagement.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Employee/user.management.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/employeeedit.min.js",
+    "inputFiles": [
+      "wwwroot/js/Libs/birthdaypicker.js",
+      "wwwroot/js/Views/Employee/employee.edit.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/defaultschedule.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Employee/employee.defaultschedule.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/monthschedule.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Employee/employee.monthschedule.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/historywork.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Employee/employee.historywork.js"
     ],
     "minify": {
       "enabled": true,

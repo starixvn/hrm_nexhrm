@@ -1,0 +1,106 @@
+﻿@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.Employee
+@model DefaultScheduleViewModel
+@if (Model != null)
+{
+    ViewBag.Title = "Working schedule of " + Model.EmployeeNickName;
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/Employee/employee.defaultschedule.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/defaultschedule.min.js" asp-append-version="true"></script>
+    </environment>
+}
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                @if (Model != null)
+                {
+                    <script type="text/javascript">
+                        var id = @Model.EmployeeId;
+                    </script>
+                    <div class="card-title-block">
+                        <span class="card-title left">@ViewBag.Title</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="form">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.ValidationSummary(true)
+                                if (ViewBag.Updated == true)
+                                {
+                                <div class="row validation-summary-success success flash">
+                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.Saved
+                                </div>
+                                }
+                                <div class="row form-input">
+                                    <div class="col">
+                                        <input id="defaultschedule" class="with-gap" type="radio" name="defaultschedule" />
+                                        <label class="m-r--m" for="defaultschedule">@Labels.DefaultWorkingSchedule</label>
+                                        <input id="monthschedule" class="with-gap" type="radio" name="monthschedule" />
+                                        <label class="m-r--m" for="monthschedule">@Labels.EditByMonth</label>
+                                    </div>
+                                </div>
+                                <div class="row form-input m-t--m">
+                                    <div class="left">
+                                        <div class="col">
+                                            <label>@Labels.Sun</label>
+                                            @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[0].WorkDate.ToShortDateString() : string.Empty)
+                                            @Html.DropDownListFor(model => model.SunShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
+                                        </div>
+                                        <div class="col">
+                                            <label>@Labels.Mon</label>
+                                            @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[1].WorkDate.ToShortDateString() : string.Empty)
+                                            @Html.DropDownListFor(model => model.MonShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
+                                        </div>
+                                        <div class="col">
+                                            <label>@Labels.Tue</label>
+                                            @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[2].WorkDate.ToShortDateString() : string.Empty)
+                                            @Html.DropDownListFor(model => model.TueShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
+                                        </div>
+                                        <div class="col">
+                                            <label>@Labels.Wed</label>
+                                            @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[3].WorkDate.ToShortDateString() : string.Empty)
+                                            @Html.DropDownListFor(model => model.WedShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
+                                        </div>
+                                        <div class="col">
+                                            <label>@Labels.Thu</label>
+                                            @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[4].WorkDate.ToShortDateString() : string.Empty)
+                                            @Html.DropDownListFor(model => model.ThuShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
+                                        </div>
+                                        <div class="col">
+                                            <label>@Labels.Fri</label>
+                                            @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[5].WorkDate.ToShortDateString() : string.Empty)
+                                            @Html.DropDownListFor(model => model.FriShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
+                                        </div>
+                                        <div class="col">
+                                            <label>@Labels.Sat</label>
+                                            @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[6].WorkDate.ToShortDateString() : string.Empty)
+                                            @Html.DropDownListFor(model => model.SatShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-input">
+                                    @Html.AntiForgeryToken()
+                                    @Html.HiddenFor(model => model.EmployeeId)
+                                    <div class="col">
+                                        <input type="submit" class="btn-submit waves-effect waves-light" value="@Labels.Save" />
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="card-title-block">
+                        <span class="card-title left">@Messages.NoDataIsAvailable</span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
