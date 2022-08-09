@@ -9,7 +9,6 @@
     using Models;
     using Models.Calendar;
     using Models.Report;
-    using NPOI.SS.UserModel;
     using Resources;
 
     public static class ExportService
@@ -51,29 +50,12 @@
             return excel.Export();
         }
 
-        public static void ExportEmployeeProfile(
+        public static byte[] ExportEmployeeProfile(
             IList<Employee> employees,
             string templatePath)
         {
-            const string fileName = "EmployeeProfile";
-            const string sheetName = "Employee Profile";
-            const int totalReportHeader = 3;
-            const int sizeColumns = 29;
-            const int rowFreezePane = 3;
-
-            using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
-            {
-                var writer = new ExcelTemplateWriter(fileStream, fileName, sheetName);
-
-                // Fill report header.
-                writer.CopyRows(0, totalReportHeader);
-
-                FillContentRowEmployeeProfile(employees, ref writer);
-                writer.AutosizeColumns(sizeColumns);
-                writer.CreateFreezePane(0, rowFreezePane);
-
-                writer.Render();
-            }
+            var employeeProfileExcel = new EmployeeProfileExcel(templatePath, employees);
+            return employeeProfileExcel.Export();
         }
 
         #region Total Working Hours

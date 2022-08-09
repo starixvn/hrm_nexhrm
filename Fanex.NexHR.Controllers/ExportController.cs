@@ -5,7 +5,7 @@
     using Criteria.Calendar;
     using Criteria.Employee;
     using Criteria.Report;
-    using Microsoft.AspNetCore.Authorization;
+    using Fanex.NexHR.Models.Attributes;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using Models;
@@ -23,7 +23,7 @@
     public class ExportController : BaseController
     {
         private const string EmployeeAttendaceTemplatePath = "ExcelTemplates/EmployeeAttendace.xlsx";
-        private const string EmployeeProfileTemplatePath = @"~\App_Data\ExcelTemplates\EmployeeProfile.xls";
+        private const string EmployeeProfileTemplatePath = "ExcelTemplates/EmployeeProfile.xlsx";
         private const string TotalWorkingHoursTemplatePath = @"~\App_Data\ExcelTemplates\TotalWorkingHours.xls";
         private const string WorkingHoursStatisticTemplatePath = @"~\App_Data\ExcelTemplates\WorkingHoursStatistic.xls";
         private const string DayOffScheduleTemplatePath = @"~\App_Data\ExcelTemplates\DayOffSchedule.xls";
@@ -87,7 +87,7 @@
             return new EmptyResult();
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpGet]
         public ActionResult EmployeeProfile(
             string query = null,
@@ -99,7 +99,7 @@
         {
             var getAllEmployeeCriteria = new GetEmployeeCriteria
             {
-                Query = query,
+                Query = query ?? string.Empty,
                 TeamId = teamId == -1 ? null : teamId,
                 JobTitleId = jobTitleId,
                 IsDisable = isDisable,
@@ -111,6 +111,8 @@
 
             IList<Employee> listEmployees = employeeService.Query(getAllEmployeeCriteria);
 
+            const string fileName = "EmployeeProfile.xlsx";
+
             if (sort != null)
             {
                 var sorts = JsonConvert.DeserializeObject<List<SortModel>>(sort);
@@ -118,10 +120,10 @@
                 listEmployees = Utilities.MultipleSort(listEmployees, sorts);
             }
 
-            string templatePath = Path.Combine(environment.WebRootPath, EmployeeProfileTemplatePath);
-            ExportService.ExportEmployeeProfile(listEmployees, templatePath);
+            string templatePath = Path.Combine(environment.ContentRootPath, EmployeeProfileTemplatePath);
+            var bytes = ExportService.ExportEmployeeProfile(listEmployees, templatePath);
 
-            return new EmptyResult();
+            return File(bytes, "application/xlsx", fileName);
         }
 
         [HttpGet]
