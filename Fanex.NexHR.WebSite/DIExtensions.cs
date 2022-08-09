@@ -109,6 +109,8 @@
             services.AddSingleton<IScheduledMessageService, ScheduledMessageService>();
             services.AddSingleton<IHolidayService, HolidayService>();
             services.AddSingleton<IAnnualLeaveService, AnnualLeaveService>();
+            services.AddSingleton<IPostnatalService, PostnatalService>();
+            services.AddSingleton<IEmployeeWorkFromHomeService, EmployeeWorkFromHomeService>();
 
             // services.AddSingleton<ILateInEarlyOutRepository, LateInEarlyOutRepository>();
         }

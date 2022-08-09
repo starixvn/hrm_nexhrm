@@ -4,6 +4,7 @@
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.EmployeeWorkFromHome;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Attributes;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
@@ -60,7 +61,7 @@
             
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult Create()
         {
             var model = new EmployeeWorkFromHomeViewModel
@@ -72,7 +73,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult Create(EmployeeWorkFromHomeViewModel model)
         {
             if (model != null && ModelState.IsValid)
@@ -99,7 +100,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult Edit(int id)
         {
             var employeeWorkFromHome = employeeWorkFromHomeService.GetById(id);
@@ -116,7 +117,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult Edit(EmployeeWorkFromHomeViewModel model)
         {
             if (model != null && ModelState.IsValid)
@@ -145,7 +146,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult Delete(int id)
         {
             var criteria = new DeleteEmployeeWorkFromHomeCriteria { EmployeeWorkFromHomeId = id, DeletedBy = CurrentUser.Id };
@@ -154,7 +155,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public JsonResult ProcessRequestMultiple(string command, int[] requestIds)
         {
             var commandResult = new CommandResult();
@@ -181,7 +182,7 @@
             return Json(commandResult);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult ProcessRequest(string command, int id)
         {
@@ -197,7 +198,7 @@
         }
 
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult ProcessDisapproveRequest(int id)
         {

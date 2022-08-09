@@ -1,0 +1,111 @@
+﻿@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.Postnatal;
+@model PostnatalViewModel
+@{
+    ViewBag.Title = "Edit postnatal employee";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/postnatal.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/Postanal/create.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Employee/_employee.search.in.company.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/createpostnatalemployee.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form form-stl-table">
+                        @using (Html.BeginForm("Edit", "postnatal", FormMethod.Post, new { @class = "form-create-update" }))
+                        {
+                            @Html.ValidationSummary()
+                            if (ViewBag.Requested != null)
+                            {
+                                if (ViewBag.Requested == true)
+                                {
+                                    <div class="row validation-summary-success">
+                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestCreated
+                                        <input type="hidden" id="successed" value="true" />
+                                    </div>
+                                }
+                            }
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label for="Employee">@Labels.Employee</label>
+                                    </div>
+                                    <div class="left input--employee">
+                                        @Html.HiddenFor(model => model.EmpId, htmlAttributes: new { id = "EmployeeId" })
+                                        @Html.HiddenFor(model => model.OldEmpId, htmlAttributes: new { id = "OldEmployeeId" })
+                                        @Html.TextBoxFor(model => model.Nickname, htmlAttributes: new { id = "Employee" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.FromDate, Labels.Date)
+                                    </div>
+                                    <div class="datepicker-button input--s left m-r--l">
+                                        @Html.HiddenFor(model => model.OldFromDate)
+                                        <date-picker
+                                            name="FromDate"
+                                            value="@Model.FromDate"
+                                            min-date="new DateTime(2010, 1, 1)"
+                                        >
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                    <div class="datepicker-button input--s left">
+                                        <date-picker
+                                            name="ToDate"
+                                            value="@Model.ToDate"
+                                            min-date="new DateTime(2010, 1, 1)"
+                                        >
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                        @Html.HiddenFor(model => model.OldToDate)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        @Html.LabelFor(model => model.ChosenTypes, Labels.Type)
+                                    </div>
+                                    <div class="left select--m">
+                                        @*@Html.MaterializeCheckBoxListFor(model => model.ChosenTypes, Model.TypeList, new { @class = "filled-in" })*@
+                                        @for (var i = 0; i < Model.TypeList.Count; i++)
+                                        {
+                                            var id = "ChosenTypes" + @Model.TypeList[i].Value.ToString();
+                                            <input checked="@Model.TypeList[i].Selected" class="filled-in" id="@id" name="ChosenTypes" type="checkbox" value="@Model.TypeList[i].Value">
+                                            <label for="@id">@Model.TypeList[i].Text</label>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input m-t--m col-btn">
+                                <div class="left label--xl">&nbsp;</div>
+                                <div class="left">
+                                    <a href="@Url.Action("Index")" class="btn-back waves-effect waves-light">@Labels.Cancel</a>
+                                    <input type="submit" class="btn-submit waves-effect waves-light right" value="@Labels.Submit" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

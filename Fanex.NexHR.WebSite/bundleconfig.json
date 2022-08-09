@@ -156,6 +156,12 @@
       "wwwroot/css/Views/employee.edit.css"
     ]
   },
+  {
+    "outputFileName": "wwwroot/minify/css/postnatal.min.css",
+    "inputFiles": [
+      "wwwroot/css/Views/employee.postnatal.css"
+    ]
+  },
   // ----------------------- Javascript ------------------------------
   {
     "outputFileName": "wwwroot/minify/js/site.min.js",
@@ -588,6 +594,42 @@
     "outputFileName": "wwwroot/minify/js/historywork.min.js",
     "inputFiles": [
       "wwwroot/js/Views/Employee/employee.historywork.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/postnatalemployee.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Postanal/postnatalemployee.js",
+      "wwwroot/js/Views/Employee/_employee.search.in.company.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/createpostnatalemployee.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Postanal/create.js",
+      "wwwroot/js/Views/Employee/_employee.search.in.company.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/employeeworkfromhome.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Employee/_employee.search.in.company.js",
+      "wwwroot/js/Views/EmployeeWorkFromHome/employee.workfromhome.js"
     ],
     "minify": {
       "enabled": true,

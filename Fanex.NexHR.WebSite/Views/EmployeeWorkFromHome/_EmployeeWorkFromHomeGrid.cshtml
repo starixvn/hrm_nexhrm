@@ -1,0 +1,131 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.Models
+@model IList<EmployeeWorkFromHome>
+<table id="data" class="table bordered striped highlight centered table-custom">
+    <thead>
+        <tr>
+            <th class="col-checkbox">
+                @*@Html.MaterializeCheckBox("checkuncheckall", new { @class = "checkuncheckall filled-in" })*@
+                <input class="checkuncheckall filled-in" id="checkuncheckall" name="checkuncheckall" type="checkbox">
+                <label for="checkuncheckall"></label>
+            </th>
+            <th>@Labels.NickName</th>
+            <th>@Labels.FullName</th>
+            <th>@Labels.From</th>
+            <th>@Labels.To</th>
+            <th>@Labels.Remark</th>
+            <th>@Labels.HRRemark</th>
+            <th>@Labels.CreatedBy</th>
+            <th>@Labels.CreatedDate</th>
+            <th>@Labels.Status</th>
+            <th>@Labels.Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count > 0)
+        {
+
+            foreach (EmployeeWorkFromHome employeeWorkFromHome in Model)
+            {
+                var disableAction = employeeWorkFromHome.CreatedById != ViewBag.EmployeeId;
+                var styleDisalbe = disableAction ? "pointer-events: none; cursor: default; opacity: .4;" : "";
+
+                var id = employeeWorkFromHome.WorkFromHomeRequestId;
+                <tr>
+                    @if (@employeeWorkFromHome.StatusId == 1)
+                    {
+                        <td class="col-checkbox">
+                            @*@Html.MaterializeCheckBox("checkbox_" + employeeWorkFromHome.WorkFromHomeRequestId, htmlAttributes)*@
+                            <input 
+                                class="filled-in chk-request" 
+                                data-id="@id" 
+                                id="checkbox_@id" 
+                                name="checkbox_@id" 
+                                type="checkbox" 
+                            />
+                            <label for="checkbox_@id"></label>
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    <td>@employeeWorkFromHome.Nickname</td>
+                    <td class="align-left">@employeeWorkFromHome.Fullname</td>
+                    <td>@employeeWorkFromHome.FromDate.ToDateMonthYearFormatedDate()</td>
+                    <td>@employeeWorkFromHome.ToDate.ToDateMonthYearFormatedDate()</td>
+                    @if (!string.IsNullOrWhiteSpace(employeeWorkFromHome.Remark))
+                    {
+                        <td class="tooltip" title="@employeeWorkFromHome.Remark">
+                            <span class="mdi mdi-message-text" alt="remark"></span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(employeeWorkFromHome.HRRemark))
+                    {
+                        <td class="tooltip" title="@employeeWorkFromHome.HRRemark">
+                            <span class="mdi mdi-message-text" alt="HRRemark"></span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    <td>@employeeWorkFromHome.CreatedBy</td>
+                    <td>@employeeWorkFromHome.CreatedDate.ToFormatedDate()</td>
+                    @{
+                        switch (@employeeWorkFromHome.StatusId)
+                        {
+                            case 1: //Pending
+                                <td>
+                                    <a workFromHomeRequestId="@employeeWorkFromHome.WorkFromHomeRequestId" href="javascript:;" class="@employeeWorkFromHome.Status c-pending">
+                                        @employeeWorkFromHome.Status
+                                    </a>
+                                </td>
+                                break;
+                            case 2: //Approve
+                                <td>
+                                    <a workFromHomeRequestId="@employeeWorkFromHome.WorkFromHomeRequestId" href="javascript:;" class="@employeeWorkFromHome.Status.ToString() tooltip c-approve"
+                                       title="@employeeWorkFromHome.Status by @employeeWorkFromHome.ProcessedBy (@employeeWorkFromHome.ProcessedDate.ToShortFormatedDate())">
+                                        @employeeWorkFromHome.Status.ToString()
+                                    </a>
+                                </td>
+                                break;
+                            case 3: //Reject
+                                <td>
+                                    <a workFromHomeRequestId="@employeeWorkFromHome.WorkFromHomeRequestId" href="javascript:;" class="tooltip"
+                                       title="@employeeWorkFromHome.Status by @employeeWorkFromHome.ProcessedBy (@employeeWorkFromHome.ProcessedDate.ToShortFormatedDate())">
+                                        @employeeWorkFromHome.Status.ToString()
+                                    </a>
+                                </td>
+                                break;
+                        }
+                    }
+                    <td class="action-column">
+                        <a href="/EmployeeWorkFromHome/Edit?id=@employeeWorkFromHome.EmployeeWorkFromHomeId">
+                            <i class='mdi mdi-border-color mdi-edit mdi-dark' style="top: 5px"></i>
+                        </a>
+                        <a style="@styleDisalbe" href="javascript:;" onclick="deleteRequest('@employeeWorkFromHome.EmployeeWorkFromHomeId');">
+                            <i class='mdi mdi-delete mdi-dark'></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="11"></td>
+            </tr>
+            <tr>
+                <td colspan="11" rowspan="2">
+                    @Messages.NoInformation
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

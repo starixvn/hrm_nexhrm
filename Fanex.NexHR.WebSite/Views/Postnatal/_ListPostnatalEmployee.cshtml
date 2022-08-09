@@ -1,0 +1,61 @@
+﻿@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.Postnatal
+@model IList<PostnatalViewModel>
+<table id="data" class="table bordered striped highlight centered table-custom">
+    <thead>
+        <tr>
+            <th>@Labels.SymbolCount</th>
+            <th>@Labels.Employee</th>
+            <th>@Labels.FromDate</th>
+            <th>@Labels.ToDate</th>
+            <th>@Labels.Type</th>
+            <th>@Labels.ModifiedBy</th>
+            <th>@Labels.CreatedDate</th>
+            <th>@Labels.Edit</th>
+            <th>@Labels.Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int index = 1;}
+        @if (Model.Any())
+        {
+            foreach (PostnatalViewModel item in Model)
+            {
+                <tr id="row_@(item.EmpId + item.FromDate.ToOADate() + item.ToDate.ToOADate())">
+                    <td>@(index++)</td>
+                    <td class="tooltip" title="@item.Fullname">
+                        @item.Nickname
+                    </td>
+                    <td>@item.FromDate.Date.ToString("dd MMM, yyyy")</td>
+                    <td>@item.ToDate.Date.Date.ToString("dd MMM, yyyy")</td>
+                    <td>
+                        @(item.Types == 1 ? "Late in/Early out" : (item.Types == 2 ? "Break time" : "Late in/Early out/Break time"))
+                    </td>
+                    <td>@item.ModifiedBy</td>
+                    <td>@item.ModifiedDate.Date.ToString("dd MMM, yyyy")</td>
+                    <td title="Edit">
+                        <a href="/postnatal/Edit?empid=@item.EmpId&from=@item.FromDate&to=@item.ToDate">
+                            <i class='mdi mdi-border-color mdi-dark'></i>
+                        </a>
+                    </td>
+                    <td title="Delete">
+                        <a href="javascript:;" onclick="deleteRequest('@item.EmpId', '@item.FromDate', '@item.ToDate');">
+                            <i class='mdi mdi-delete mdi-dark'></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="10"></td>
+            </tr>
+            <tr>
+                <td colspan="10" rowspan="2">
+                    @Messages.NoInformation
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
