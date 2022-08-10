@@ -27,9 +27,8 @@
                 </div>
                 <div class="card-body">
                     <div class="form form-stl-table">
-                        @using (Html.BeginForm("Create", "postnatal", FormMethod.Post, new { @class = "form-create-update" }))
-                        {
-                            @Html.ValidationSummary()
+                        <form asp-controller="postnatal" asp-action="Create" method="post" class="form-create-update">
+                            <div asp-validation-summary="All"></div>
                             if (ViewBag.Requested != null)
                             {
                                 if (ViewBag.Requested == true)
@@ -46,16 +45,15 @@
                                         <label for="Employee">@Labels.Employee</label>
                                     </div>
                                     <div class="left input--employee">
-                                        @*@Html.HiddenFor(model => model.EmpId, htmlAttributes: new { id = "EmployeeId" })*@
                                         <input type="hidden" asp-for="EmpId" id="EmployeeId"/>
-                                        @Html.Editor("Employee")
+                                        <input name="Employee" id="Employee"/>
                                     </div>
                                 </div>
                             </div>
                             <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model=>model.FromDate, Labels.Date)
+                                        <label>@Labels.Date</label>
                                     </div>
                                     <div class="datepicker-button input--s left m-r--l">
                                         <date-picker
@@ -80,11 +78,9 @@
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.ChosenTypes, Labels.Type)
+                                        <label>@Labels.Type</label>
                                     </div>
                                     <div class="left select--l">
-                                        @*@Html.MaterializeCheckBoxListFor(model => model.ChosenTypes, Model.TypeList, new { @class = "filled-in" })*@
-
                                         @for (var i = 0; i < Model.TypeList.Count; i++)
                                         {
                                             var id = "ChosenTypes" + @Model.TypeList[i].Value.ToString();
@@ -101,7 +97,7 @@
                                     <input type="submit" class="btn-submit waves-effect waves-light right" value="@Labels.Submit" />
                                 </div>
                             </div>
-                        }
+                        </form>
                     </div>
                 </div>
             </div>

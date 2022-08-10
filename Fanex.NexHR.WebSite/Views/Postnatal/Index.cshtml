@@ -25,11 +25,11 @@
                             <div class="col">
                                 <div class="col m-r--m col-employee">
                                     <div class="left label--m">
-                                        @Html.Label("Employee")
+                                        <label>Employee</label>
                                     </div>
                                     <div class="left input--m">
-                                        @Html.TextBox("Employee", null, new { placeholder = Messages.SearchEmployeeWatermark })
-                                        @Html.Hidden("EmployeeId")
+                                        <input name="Employee" id="Employee" placeholder="@Messages.SearchEmployeeWatermark"/>
+                                        <input type="hidden" name="EmployeeId" id="EmployeeId"/>
                                     </div>
                                 </div>
                                 <div class="left label--s label-year">

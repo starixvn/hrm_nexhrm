@@ -6,7 +6,6 @@
     <thead>
         <tr>
             <th class="col-checkbox">
-                @*@Html.MaterializeCheckBox("checkuncheckall", new { @class = "checkuncheckall filled-in" })*@
                 <input class="checkuncheckall filled-in" id="checkuncheckall" name="checkuncheckall" type="checkbox">
                 <label for="checkuncheckall"></label>
             </th>
@@ -36,7 +35,6 @@
                     @if (@employeeWorkFromHome.StatusId == 1)
                     {
                         <td class="col-checkbox">
-                            @*@Html.MaterializeCheckBox("checkbox_" + employeeWorkFromHome.WorkFromHomeRequestId, htmlAttributes)*@
                             <input 
                                 class="filled-in chk-request" 
                                 data-id="@id" 

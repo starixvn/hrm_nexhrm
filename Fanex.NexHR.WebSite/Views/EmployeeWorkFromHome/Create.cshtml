@@ -26,12 +26,11 @@
                 </div>
                 <div class="card-body">
                     <div class="form form-stl-table">
-                        @using (Html.BeginForm("Create", "EmployeeWorkFromHome", FormMethod.Post, new { @class = "form-create-update" }))
-                        {
-                            @Html.ValidationSummary()
-                            if (ViewBag.Requested != null)
+                        <form asp-controller="EmployeeWorkFromHome" asp-action="Create" method="post" class = "form-create-update">
+                            <div asp-validation-summary="All"></div>
+                            @if (ViewBag.Requested != null)
                             {
-                                if (ViewBag.Requested == true)
+                                @if (ViewBag.Requested == true)
                                 {
                                     <div class="row validation-summary-success">
                                         <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestCreated
@@ -45,15 +44,15 @@
                                         <label for="Employee">@Labels.Employee</label>
                                     </div>
                                     <div class="left input--m">
-                                        @Html.HiddenFor(model => model.EmpId, htmlAttributes: new { id = "EmployeeId" })
-                                        @Html.Editor("Employee")
+                                        <input type="hidden" asp-for="EmpId" id="EmployeeId"/>
+                                        <input id="Employee" name="Employee"/>
                                     </div>
                                 </div>
                             </div>
                             <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.FromDate, Labels.FromDate)
+                                        <label>@Labels.FromDate</label>
                                     </div>
                                     <div class="datepicker-button input--s left m-r--l">
                                         <date-picker
@@ -69,7 +68,7 @@
                             <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--l">
-                                        @Html.LabelFor(model => model.FromDate, Labels.ToDate)
+                                        <label>@Labels.ToDate</label>
                                     </div>
                                     <div class="datepicker-button input--s left">
                                         <date-picker
@@ -89,7 +88,7 @@
                                         <label for="Employee">@Labels.Remark</label>
                                     </div>
                                     <div class="left input--m">
-                                        @Html.TextAreaFor(model => model.Remark, new { @class = "materialize-textarea" })
+                                        <textarea asp-for="Remark" class="materialize-textarea"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +99,7 @@
                                     <input type="submit" class="btn-submit waves-effect waves-light right" value="@Labels.Submit" />
                                 </div>
                             </div>
-                        }
+                        </form>
                     </div>
                 </div>
             </div>

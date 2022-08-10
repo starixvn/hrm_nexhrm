@@ -43,9 +43,9 @@
                             using (Html.BeginForm())
                             {
                                 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADr32LIjcxE7pM5BzdZO_t8AFDyTv9LsE&libraries=places&sensor=false"></script>
-                                @Html.TextBoxFor(model => model.LastUrl, new { style = "display: none;" })
+                                <input type="hidden" asp-for="LastUrl"/>
                                 <div class="form">
-                                    @Html.ValidationSummary()
+                                    <div asp-validation-summary="All"></div>
                                     @if (ViewBag.Updated == true)
                                     {
                                         <input type="hidden" id="successed" value="true" />
@@ -71,62 +71,62 @@
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.Code, Labels.StaffCode)
+                                                <label>@Labels.StaffCode</label>
                                             </div>
                                             <div class="left input--l">
-                                                @Html.EditorFor(model => model.Code)
-                                                @Html.ValidationMessageFor(model => model.Code)
+                                                <input asp-for="Code"/>
+                                                <span asp-validation-for="Code"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.EmployeeCard, Labels.EmployeeCard)
+                                                <label>@Labels.EmployeeCard</label>
                                             </div>
                                             <div class="left input--l">
-                                                @Html.TextBoxFor(model => model.EmployeeCard, new { maxlength = "10" })
-                                                @Html.ValidationMessageFor(model => model.EmployeeCard)
+                                                <input asp-for="EmployeeCard" maxlength="10"/>
+                                                <span asp-validation-for="EmployeeCard"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.DomainUsername, Labels.DomainUsername)
+                                                <label>@Labels.DomainUsername</label>
                                             </div>
                                             <div class="left input--l">
-                                                @Html.EditorFor(model => model.DomainUsername)
-                                                @Html.ValidationMessageFor(model => model.DomainUsername)
+                                                <input asp-for="DomainUsername"/>
+                                                <span asp-validation-for="DomainUsername"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.FullName, Labels.FullName)
+                                                <label>@Labels.FullName</label>
                                             </div>
                                             <div class="left input--l">
-                                                @Html.EditorFor(model => model.FullName)
-                                                @Html.ValidationMessageFor(model => model.FullName)
+                                                <input asp-for="FullName"/>
+                                                <span asp-validation-for="FullName"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.NickName, Labels.NickName)
+                                                <label>@Labels.NickName</label>
                                             </div>
                                             <div class="left input--l">
-                                                @Html.EditorFor(model => model.NickName)
-                                                @Html.ValidationMessageFor(model => model.NickName)
+                                                <input asp-for="NickName"/>
+                                                <span asp-validation-for="NickName"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.DateOfBirth, Labels.DateOfBirth)
+                                                <label>@Labels.DateOfBirth</label>
                                             </div>
                                             <div class="left">
                                                 <div class="datepicker-button select--s">
@@ -137,58 +137,59 @@
                                                     </date-picker>
                                                     <i class="mdi-action-event calendar-icon left"></i>
                                                 </div>
-                                                @Html.ValidationMessageFor(model => model.DateOfBirth)
+                                                <span asp-validation-for="DateOfBirth"></span>
                                             </div>
-                                            @Html.HiddenFor(model => model.DateOfBirth)
+                                            <input type="hidden" asp-for="DateOfBirth"/>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.PlaceOfBirth, Labels.PlaceOfBirth)
+                                                <label>@Labels.PlaceOfBirth</label>
                                             </div>
                                             <div class="left input--l">
-                                                @Html.TextAreaFor(model => model.PlaceOfBirth, new { @class = "materialize-textarea" })
+                                                <textarea asp-for="PlaceOfBirth" class="materialize-textarea"></textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.Email, Labels.Email)
+                                                <label>@Labels.Email</label>
                                             </div>
                                             <div class="left input--l">
-                                                @Html.EditorFor(model => model.Email)
-                                                @Html.ValidationMessageFor(model => model.Email)
+                                                <input asp-for="Email"/>
+                                                <span asp-validation-for="Email"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.JobTitleId, Labels.JobTitle)
+                                                <label>@Labels.JobTitle</label>
                                             </div>
                                             <div class="left select--l">
-                                                @Html.DropDownListFor(model => model.JobTitleId, new SelectList(Model.JobTitles, "Id", "Name"))
-                                                @Html.ValidationMessageFor(model => model.JobTitleId)
+                                                <select asp-for="JobTitleId" asp-items="@(new SelectList(Model.JobTitles, "Id", "Name"))">
+                                                </select>
+                                                <span asp-validation-for="JobTitleId"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.Phone, Labels.Phone)
+                                                <label>@Labels.Phone</label>
                                             </div>
                                             <div class="left input--l">
-                                                @Html.EditorFor(model => model.Phone)
-                                                @Html.ValidationMessageFor(model => model.Phone)
+                                                <input asp-for="Phone"/>
+                                                <span asp-validation-for="Phone"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.Gender, Labels.Gender)
+                                                <label>@Labels.Gender</label>
                                             </div>
                                             <div class="left select--l">
                                                 @{
@@ -198,25 +199,26 @@
                                                         new SelectListItem {Text = "Male", Value = "1"}
                                                     };
                                                 }
-                                                @Html.DropDownListFor(model => model.Gender, gender)
-                                                @Html.ValidationMessageFor(model => model.Gender)
+                                                <select asp-for="Gender" asp-items="@gender">
+                                                </select>
+                                                <span asp-validation-for="Gender"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.CardNo, Labels.IdNo + ".")
+                                                <label>Id No.</label>
                                             </div>
                                             <div class="left input--l">
-                                                @Html.EditorFor(model => model.CardNo)
+                                                <input asp-for="CardNo"/>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.IssuedDate, Labels.IssuedDate)
+                                                <label>@Labels.IssuedDate</label>
                                             </div>
                                             <div class="left datepicker-button select--s">
                                                 <date-picker
@@ -232,73 +234,73 @@
                                     <div class="row form-input">
                                         <div class="col">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.IssuedPlace, Labels.IssuingAuthority)
+                                                <label>@Labels.IssuingAuthority</label>
                                             </div>
                                             <div class="left input--l">
-                                                @Html.TextAreaFor(model => model.IssuedPlace, new { @class = "materialize-textarea" })
+                                                <textarea asp-for="IssuedPlace" class="materialize-textarea"></textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.Address, Labels.Address)
+                                                <label>@Labels.Address</label>
                                             </div>
                                             <div class="left input--l">
-                                                @Html.TextAreaFor(model => model.Address, new { @class = "materialize-textarea" })
+                                                <textarea asp-for="Address" class="materialize-textarea"></textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.CurrentAddress, Labels.CurrentAddress)
+                                                <label>@Labels.CurrentAddress</label>
                                             </div>
                                             <div class="left input--l">
-                                                @Html.TextAreaFor(model => model.CurrentAddress, new { @class = "materialize-textarea" })
+                                                <textarea asp-for="CurrentAddress" class="materialize-textarea"></textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.ContactName, Labels.ContactName)
+                                                <label>@Labels.ContactName</label>
                                             </div>
                                             <div class="left input--l">
-                                                @Html.EditorFor(model => model.ContactName)
-                                                @Html.ValidationMessageFor(model => model.ContactName)
+                                                <input asp-for="ContactName"/>
+                                                <span asp-validation-for="ContactName"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.UserRelationship, Labels.UserRelationship)
+                                                <label>@Labels.UserRelationship</label>
                                             </div>
                                             <div class="left input--l">
-                                                @Html.EditorFor(model => model.UserRelationship)
-                                                @Html.ValidationMessageFor(model => model.UserRelationship)
+                                                <input asp-for="UserRelationship"/>
+                                                <span asp-validation-for="UserRelationship"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.ContactPhone, Labels.ContactPhone)
+                                                <label>@Labels.ContactPhone</label>
                                             </div>
                                             <div class="left input--l">
-                                                @Html.EditorFor(model => model.ContactPhone)
-                                                @Html.ValidationMessageFor(model => model.ContactPhone)
+                                                <input asp-for="ContactPhone"/>
+                                                <span asp-validation-for="ContactPhone"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.ContactAddress, Labels.ContactAddress)
+                                                <label>@Labels.ContactAddress</label>
                                             </div>
                                             <div class="left input--l">
-                                                @Html.TextAreaFor(model => model.ContactAddress, new { @class = "materialize-textarea" })
+                                                <textarea asp-for="ContactAddress" class="materialize-textarea"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -327,7 +329,7 @@
                                                     <label>Latitude: </label>
                                                 </div>
                                                 <div class="left input--m">
-                                                    @Html.TextBoxFor(model => model.GeoMapLatitude, new { @class = "latlng" })
+                                                    <input asp-for="GeoMapLatitude" class = "latlng"/>
                                                 </div>
                                             </div>
                                             <div class="col m-r--l">
@@ -335,7 +337,7 @@
                                                     <label>Longtitude: </label>
                                                 </div>
                                                 <div class="left input--m">
-                                                    @Html.TextBoxFor(model => model.GeoMapLongtitude, new { @class = "latlng" })
+                                                    <input asp-for="GeoMapLongtitude" class = "latlng"/>
                                                 </div>
                                             </div>
                                             <div class="col m-r--l">
@@ -343,7 +345,7 @@
                                                     <label>Distance: </label>
                                                 </div>
                                                 <div class="left input--s">
-                                                    @Html.TextBoxFor(model => model.DistanceToCompany, new { @class = "distance" })
+                                                    <input asp-for="DistanceToCompany" class = "distance"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -353,21 +355,21 @@
                                     <div class="row form-input m-t--m">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.TeamId, Labels.Team)
+                                                <label>@Labels.Team</label>
                                             </div>
                                             <div class="left select--l">
-                                                @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"))
-                                                @Html.ValidationMessageFor(model => model.TeamId)
+                                                <select asp-for="TeamId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
+                                                </select>
+                                                <span asp-validation-for="TeamId"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input m-b--m">
                                         <div class="col">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.SubGroups)
+                                                <label>Other team(s)</label>
                                             </div>
                                             <div class="left input--l subteam">
-                                                @*@Html.MaterializeCheckBoxListFor(model => model.SubGroupArray, new SelectList(Model.Teams, "Id", "Name"), new { @class = "filled-in SubGroupArray" })*@
                                                 @for (var i = 0; i < Model.Teams.Count; i++)
                                                 {
                                                     var id = "SubGroupArray" + @Model.Teams[i].Id.ToString();
@@ -381,10 +383,9 @@
                                     <div class="row form-input m-b--m">
                                         <div class="col">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.LeaderGroups)
+                                                <label>Teams' leaders receive requests</label>
                                             </div>
                                             <div class="left input--l subteam">
-                                                @*@Html.MaterializeCheckBoxListFor(model => model.LeaderGroupsArray, new SelectList(Model.Teams, "Id", "Name"), new { @class = "filled-in LeaderGroupsArray" })*@
                                                 @for (var i = 0; i < Model.Teams.Count; i++)
                                                 {
                                                     var id = "LeaderGroupsArray" + @Model.Teams[i].Id.ToString();
@@ -398,22 +399,21 @@
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.Roles)
+                                                <label>@Labels.Roles</label>
                                             </div>
                                             <div class="left role input--l">
                                                 @{
                                                     var roles = new List<SelectListItem>
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     {
-                                                                                    new SelectListItem {Text = "Assistant leader", Value = "1"},
-                                                                                    new SelectListItem {Text = "Leader", Value = "2"},
-                                                                                    new SelectListItem {Text = "Human resource", Value = "3"},
-                                                                                    new SelectListItem {Text = "System admin", Value = "4"}
-                                                                                };
+                                                        new SelectListItem {Text = "Assistant leader", Value = "1"},
+                                                        new SelectListItem {Text = "Leader", Value = "2"},
+                                                        new SelectListItem {Text = "Human resource", Value = "3"},
+                                                        new SelectListItem {Text = "System admin", Value = "4"}
+                                                    };
                                                 }
                                                 <input type="checkbox" class="filled-in" id="Member" name="Member" checked="checked"
                                                        disabled="disabled" value="true" />
                                                 <label for="Member">@Labels.Member</label>
-                                                @*@Html.MaterializeCheckBoxListFor(model => model.RoleArray, roles, new { @class = "filled-in" })*@
                                                 @for (var i = 0; i < roles.Count; i++)
                                                 {
                                                     var id = "RoleArray" + roles[i].Value.ToString();
@@ -421,14 +421,14 @@
                                                     <input checked="@isChecked" class="filled-in" id="@id" name="RoleArray" type="checkbox" value="@roles[i].Value.ToString()">
                                                     <label for="@id">@roles[i].Text</label>
                                                 }
-                                                @Html.ValidationMessageFor(model => model.RoleArray)
+                                                <span asp-validation-for="RoleArray"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input m-t--m">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.GroupDate, Labels.GroupDate)
+                                                <label>@Labels.GroupDate</label>
                                             </div>
                                             <div class="left">
                                                 <div class="datepicker-button select--s">
@@ -439,14 +439,13 @@
                                                     </date-picker>
                                                     <i class="mdi-action-event calendar-icon left"></i>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.JoinedDate, Labels.JoinedDate)
+                                                <label>@Labels.JoinedDate</label>
                                             </div>
                                             <div class="left">
                                                 <div class="datepicker-button select--s">
@@ -457,14 +456,14 @@
                                                     </date-picker>
                                                     <i class="mdi-action-event calendar-icon left"></i>
                                                 </div>
-                                                @Html.ValidationMessageFor(model => model.JoinedDate)
+                                                <span asp-validation-for="JoinedDate"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.ConfirmedDate, Labels.ConfirmedDate)
+                                                <label>@Labels.ConfirmedDate</label>
                                             </div>
                                             <div class="left">
                                                 <div class="datepicker-button select--s">
@@ -475,14 +474,14 @@
                                                     </date-picker>
                                                     <i class="mdi-action-event calendar-icon left"></i>
                                                 </div>
-                                                @Html.ValidationMessageFor(model => model.ConfirmedDate)
+                                                <span asp-validation-for="ConfirmedDate"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.ResignedDate, Labels.LastWorkingDate)
+                                                <label>@Labels.LastWorkingDate</label>
                                             </div>
                                             <div class="left">
                                                 <div class="datepicker-button select--s">
@@ -493,41 +492,41 @@
                                                     </date-picker>
                                                     <i class="mdi-action-event calendar-icon left"></i>
                                                 </div>
-                                                @Html.ValidationMessageFor(model => model.ResignedDate)
+                                                <span asp-validation-for="ResignedDate"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.Skype, Labels.Skype)
+                                                <label>@Labels.Skype</label>
                                             </div>
                                             <div class="left input--l">
-                                                @Html.EditorFor(model => model.Skype)
-                                                @Html.ValidationMessageFor(model => model.Skype)
+                                                <input asp-for="Skype"/>
+                                                <span asp-validation-for="Skype"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.Yahoo, Labels.Telegram)
+                                                <label>@Labels.Telegram</label>
                                             </div>
                                             <div class="left input--l">
-                                                @Html.EditorFor(model => model.Yahoo)
-                                                @Html.ValidationMessageFor(model => model.Yahoo)
+                                                <input asp-for="Yahoo"/>
+                                                <span asp-validation-for="Yahoo"></span>
                                             </div>
                                         </div>
                                     </div>
                                         <div class="row form-input">
                                             <div class="col m-r--m">
                                                 <div class="left label--xl">
-                                                    @Html.LabelFor(model => model.Mariage, Labels.Marriage)
+                                                    <label>@Labels.Marriage</label>
                                                 </div>
                                                 <div class="left input">
                                                     <input class="filled-in" asp-for="Mariage" type="checkbox">
                                                     <label for="Mariage"></label>
-                                                    @Html.ValidationMessageFor(model => model.Mariage)
+                                                    <span asp-validation-for="Email"></span>
                                                 </div>
                                             </div>
 
@@ -536,17 +535,17 @@
                                     <div class="row form-input m-t--m">
                                         <div class="col">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.PassportNo, Labels.PassportNo)
+                                                <label>@Labels.PassportNo</label>
                                             </div>
                                             <div class="left input--l">
-                                                @Html.EditorFor(model => model.PassportNo)
+                                                <input asp-for="PassportNo"/>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.PassportExp, Labels.PassportExp)
+                                                <label>@Labels.PassportExp</label>
                                             </div>
                                             <div class="left datepicker-button select--s">
                                                 <date-picker
@@ -643,12 +642,12 @@
                                     <div class="row form-input m-t--m">
                                         <div class="col m-r--m">
                                             <div class="left label--xl">
-                                                @Html.LabelFor(model => model.Enabled)
+                                                <label>Enabled</label>
                                             </div>
                                             <div class="left input">
                                                 <input class="filled-in" asp-for="Enabled" type="checkbox">
                                                 <label for="Enabled"></label>
-                                                @Html.ValidationMessageFor(model => model.Enabled)
+                                                <span asp-validation-for="Enabled"></span>
                                             </div>
                                         </div>
                                         <div class="col">
@@ -662,7 +661,7 @@
                                             <div class="left input">
                                                 <input class="filled-in" asp-for="IsSpecialUser" type="checkbox">
                                                 <label for="IsSpecialUser"></label>
-                                                @Html.ValidationMessageFor(model => model.IsSpecialUser)
+                                                <span asp-validation-for="IsSpecialUser"></span>
                                             </div>
                                         </div>
                                         <div class="col">
@@ -673,7 +672,7 @@
                                             <div class="left label--xl">&nbsp;</div>
                                             <div class="left">
                                                 @Html.AntiForgeryToken()
-                                                @Html.HiddenFor(model => model.Id)
+                                                <input type="hidden" asp-for="Id"/>
                                                 <input class="btn-delete waves-effect waves-light m-r--m" type="button" id="delete" value="@Labels.Delete?" />
                                                 <input class="btn-submit waves-effect waves-light" type="submit" value="@Labels.Save" />
                                             </div>

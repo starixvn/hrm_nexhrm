@@ -38,24 +38,27 @@
                             <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--m">
-                                        @Html.LabelFor(model => model.Teams)
+                                        <label>@Labels.Team</label>
                                     </div>
                                     <div class="left select--m">
-                                        @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
+                                        <select asp-for="TeamId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
+                                            <option value="">All teams</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col m-r--l">
                                     <div class="left label--m">
-                                        @Html.LabelFor(model => model.Employee)
+                                        <label>@Labels.Employee</label>
                                     </div>
                                     <div class="left input--m">
-                                        @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
-                                        @Html.HiddenFor(model => model.EmployeeId)
+                                        @*@Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })*@
+                                        <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark"/>
+                                        <input type="hidden" asp-for="EmployeeId"/>
                                     </div>
                                 </div>
                                 <div class="col m-r--l">
                                     <div class="left label--m">
-                                        @Html.LabelFor(model => model.StatusId)
+                                        <label>StatusId</label>
                                     </div>
                                     <div class="left select--datepicker">
                                         <select name="statusId" id="statusId">
@@ -70,7 +73,7 @@
                             <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--m">
-                                        @Html.LabelFor(model => model.FromDate, Labels.FromDate)
+                                        <label>@Labels.FromDate</label>
                                     </div>
                                     <div class="left datepicker-button select--m">
                                         <i class="mdi-action-event calendar-icon left"></i>
@@ -84,7 +87,7 @@
                                 </div>
                                 <div class="col m-r--l">
                                     <div class="left label--m">
-                                        @Html.LabelFor(model => model.ToDate, Labels.ToDate)
+                                        <label>@Labels.ToDate</label>
                                     </div>
                                     <div class="left datepicker-button select--m">
                                         <date-picker

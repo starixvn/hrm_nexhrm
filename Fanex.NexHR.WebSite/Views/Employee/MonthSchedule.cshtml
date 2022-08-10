@@ -27,7 +27,7 @@
             <div class="card-content">
                 @if (Model.EmployeeId > 0)
                 {
-                    @Html.HiddenFor(model => model.EmployeeId)
+                    <input type="hidden" asp-for="EmployeeId"/>
                     <div class="card-title-block">
                         <span class="card-title left">@ViewBag.Title</span>
                     </div>
@@ -62,7 +62,7 @@
             <div class="form">
                 <div class="row form-input m-b--m">
                     <div class="left label--l">
-                        @Html.Label("Current Shift")
+                        <label>Current Shift</label>
                     </div>
                     <div class="left">
                         <span id="current"></span>
@@ -70,10 +70,12 @@
                 </div>
                 <div class="row form-input">
                     <div class="left label--l">
-                        @Html.LabelFor(model => model.ShiftId, "Change To")
+                        <label>Change To</label>
                     </div>
                     <div class="left input--s">
-                        @Html.DropDownListFor(model => model.ShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
+                        <select asp-for="ShiftId" asp-items="@(new SelectList(Model.Shifts, "Id", "Name"))">
+                            <option value="">OFF</option>
+                        </select>
                     </div>
                 </div>
                 <div class="row">

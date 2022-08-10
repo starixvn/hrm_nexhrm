@@ -27,14 +27,13 @@
                     </div>
                     <div class="card-body">
                         <div class="form">
-                            @using (Html.BeginForm())
-                            {
-                                @Html.ValidationSummary(true)
-                                if (ViewBag.Updated == true)
+                            <form asp-controller="employee" asp-action="DefaultSchedule" method="post">
+                                <div asp-validation-summary="All"></div>
+                                @if (ViewBag.Updated == true)
                                 {
-                                <div class="row validation-summary-success success flash">
-                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.Saved
-                                </div>
+                                    <div class="row validation-summary-success success flash">
+                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.Saved
+                                    </div>
                                 }
                                 <div class="row form-input">
                                     <div class="col">
@@ -49,48 +48,62 @@
                                         <div class="col">
                                             <label>@Labels.Sun</label>
                                             @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[0].WorkDate.ToShortDateString() : string.Empty)
-                                            @Html.DropDownListFor(model => model.SunShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
+                                            <select asp-for="SunShiftId" asp-items="@(new SelectList(Model.Shifts, "Id", "Name"))">
+                                                <option value="">OFF</option>
+                                            </select>
                                         </div>
                                         <div class="col">
                                             <label>@Labels.Mon</label>
                                             @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[1].WorkDate.ToShortDateString() : string.Empty)
-                                            @Html.DropDownListFor(model => model.MonShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
+                                            <select asp-for="MonShiftId" asp-items="@(new SelectList(Model.Shifts, "Id", "Name"))">
+                                                <option value="">OFF</option>
+                                            </select>
                                         </div>
                                         <div class="col">
                                             <label>@Labels.Tue</label>
                                             @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[2].WorkDate.ToShortDateString() : string.Empty)
-                                            @Html.DropDownListFor(model => model.TueShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
+                                            <select asp-for="TueShiftId" asp-items="@(new SelectList(Model.Shifts, "Id", "Name"))">
+                                                <option value="">OFF</option>
+                                            </select>
                                         </div>
                                         <div class="col">
                                             <label>@Labels.Wed</label>
                                             @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[3].WorkDate.ToShortDateString() : string.Empty)
-                                            @Html.DropDownListFor(model => model.WedShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
+                                            <select asp-for="WedShiftId" asp-items="@(new SelectList(Model.Shifts, "Id", "Name"))">
+                                                <option value="">OFF</option>
+                                            </select>
                                         </div>
                                         <div class="col">
                                             <label>@Labels.Thu</label>
                                             @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[4].WorkDate.ToShortDateString() : string.Empty)
-                                            @Html.DropDownListFor(model => model.ThuShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
+                                            <select asp-for="ThuShiftId" asp-items="@(new SelectList(Model.Shifts, "Id", "Name"))">
+                                                <option value="">OFF</option>
+                                            </select>
                                         </div>
                                         <div class="col">
                                             <label>@Labels.Fri</label>
                                             @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[5].WorkDate.ToShortDateString() : string.Empty)
-                                            @Html.DropDownListFor(model => model.FriShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
+                                            <select asp-for="FriShiftId" asp-items="@(new SelectList(Model.Shifts, "Id", "Name"))">
+                                                <option value="">OFF</option>
+                                            </select>
                                         </div>
                                         <div class="col">
                                             <label>@Labels.Sat</label>
                                             @(ViewBag.WeekWorking != null ? ViewBag.WeekWorking[6].WorkDate.ToShortDateString() : string.Empty)
-                                            @Html.DropDownListFor(model => model.SatShiftId, new SelectList(Model.Shifts, "Id", "Name"), Labels.Off)
+                                            <select asp-for="SatShiftId" asp-items="@(new SelectList(Model.Shifts, "Id", "Name"))">
+                                                <option value="">OFF</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row form-input">
                                     @Html.AntiForgeryToken()
-                                    @Html.HiddenFor(model => model.EmployeeId)
+                                    <input type="hidden" asp-for="EmployeeId"/>
                                     <div class="col">
                                         <input type="submit" class="btn-submit waves-effect waves-light" value="@Labels.Save" />
                                     </div>
                                 </div>
-                            }
+                            </form>
                         </div>
                     </div>
                 }
