@@ -10,6 +10,7 @@
 
     public class Employee : EntityBase<int>
     {
+        public int UserId { get; set; }
         public string DomainUsername { get; set; }
 
         [Required]

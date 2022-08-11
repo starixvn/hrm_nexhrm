@@ -655,7 +655,7 @@ function initAutocomplete(selectorName, selectorId, isSpecial, isDisable = null)
                         response($.map(listEmployee, function (item) {
                             return {
                                 label: item.NickName + ' (' + item.FullName + ')',
-                                value: item.Id
+                                value: item.UserId
                             };
                         }));
                     }

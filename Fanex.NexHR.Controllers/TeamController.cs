@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Criteria.Team;
+    using Fanex.NexHR.Models.Attributes;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
@@ -33,7 +34,7 @@
             return View(teams);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult Create()
         {
             var model = new TeamViewModel
@@ -46,7 +47,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult Create(TeamViewModel model)
         {
             if (model != null)
@@ -83,7 +84,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult Edit(int id)
         {
             var criteria = new GetTeamByIdCriteria
@@ -118,7 +119,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult Edit(TeamViewModel model)
         {
             if (ModelState.IsValid)
@@ -162,7 +163,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult Delete(int id)
         {

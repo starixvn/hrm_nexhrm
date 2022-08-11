@@ -111,6 +111,7 @@
             services.AddSingleton<IAnnualLeaveService, AnnualLeaveService>();
             services.AddSingleton<IPostnatalService, PostnatalService>();
             services.AddSingleton<IEmployeeWorkFromHomeService, EmployeeWorkFromHomeService>();
+            services.AddSingleton<IDepartmentService, DepartmentService>();
 
             // services.AddSingleton<ILateInEarlyOutRepository, LateInEarlyOutRepository>();
         }
