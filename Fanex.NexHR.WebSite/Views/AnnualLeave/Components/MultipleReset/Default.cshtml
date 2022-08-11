@@ -1,0 +1,34 @@
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.AnnualLeave
+@model AddMultiAnnualLeaveTransactionViewModel
+
+<div id="resetform">
+    <div class="form form-stl-table">
+        <form action="/annualeleave" method="post">
+            <div class="row form-input">
+                <div class="col">
+                    <div class="left label--l">
+                        <label asp-for="@Labels.MaxBalance">@Labels.MaxBalance</label>
+                    </div>
+                    <div class="left input--m">
+                        <input id="MinBalance" name="MinBalance" type="text" class="text-box single-line"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-input">
+                <div class="col">
+                    <div class="left label--l">
+                        <label asp-for="@Labels.Description">@Labels.Description</label>
+                    </div>
+                    <div class="left input--m">
+                        <textarea id="DescriptionReset" name="DescriptionReset" rows="2" cols="20" class="materialize-textarea"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row center">
+                <input type="button" id="cancelReset" class="btn-cancel waves-effect waves-light m-r--m" value="@Labels.Cancel" />
+                <input type="submit" id="insert" class="btn-ok waves-effect waves-light" value="@Labels.Submit" />
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,173 @@
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.Models.AnnualLeave
+@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Services.Interfaces
+@inject ISessionService sessionService;
+
+@model IList<LeaveSummary>
+@{
+    int year = ViewBag.Year;
+    var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+
+    void DisplayNumber(float value)
+    {
+        if (value == 0)
+        {
+            <td>-</td>
+        }
+        else
+        {
+            <td class="@(value > 0 ? string.Empty : "red-color")">@value.ToString("0.0")</td>
+        }
+    }
+}
+<table id="data" class="table bordered striped highlight centered table-custom">
+    <thead>
+        <tr>
+            @if (@isHRRole)
+            {
+                <th rowspan="2" class="col-checkbox">
+                    <input class="checkuncheckall filled-in" id="checkuncheckall" name="checkuncheckall" type="checkbox" value="true">
+                    <label for="checkuncheckall"></label>
+                    <input name="checkuncheckall" type="hidden" value="false">
+                </th>
+            }
+            else
+            {
+                <th rowspan="2">#</th>
+            }
+            <th rowspan="2">@Labels.Nick</th>
+            @if (year == 2022)
+            {
+                <th rowspan="2">@year</th>
+            }
+            else
+            {
+                <th colspan="2">@Labels.AnnualLeave</th>
+            }
+            <th colspan="12">
+                Take Annual Leave @year
+            </th>
+            <th rowspan="2">
+                Balance of AL @year
+            </th>
+            @if (@isHRRole)
+            {
+                <th rowspan="2">@Labels.Edit</th>
+            }
+        </tr>
+        <tr>
+            @if (year != 2022)
+            {
+                <th>@(year - 1)</th>
+                <th>@year</th>
+            }
+            <th>@Labels.Jan</th>
+            <th>@Labels.Feb</th>
+            <th>@Labels.Mar</th>
+            <th>@Labels.Apr</th>
+            <th>@Labels.May</th>
+            <th>@Labels.Jun</th>
+            <th>@Labels.Jul</th>
+            <th>@Labels.Aug</th>
+            <th>@Labels.Sep</th>
+            <th>@Labels.Oct</th>
+            <th>@Labels.Nov</th>
+            <th style="border-right: none;">@Labels.Dec</th>
+        </tr>
+    </thead>
+    @if (Model != null && Model.Any())
+    {
+        int index = 1;
+        IList<LeaveSummary> leaveSummaryByTeams = Model.GroupBy(t => t.Employee.Team.Id).Select(grp => grp.First()).ToList();
+        <tbody>
+            @foreach (LeaveSummary leaveSummaryByTeam in leaveSummaryByTeams)
+            {
+                <tr class="row-divider">
+                    <td colspan="19">
+                        <b>@leaveSummaryByTeam.Employee.Team.Name.ToUpper()</b>
+                    </td>
+                </tr>
+
+                IList<LeaveSummary> leaveSummaries = Model.Where(t => t.Employee.Team.Id == leaveSummaryByTeam.Employee.Team.Id).ToList();
+                foreach (LeaveSummary leaveSummary in leaveSummaries)
+                {
+                    var htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(
+                        new
+                        {
+                            @class = "aba filled-in",
+                            data_id = leaveSummary.Employee.Id
+                        });
+                    <tr>
+                        @if (@isHRRole)
+                        {
+                            <td class="col-checkbox">
+                                <input class="aba filled-in" id="checkbox_@leaveSummary.Employee.Id" data-id="@leaveSummary.Employee.Id" name="checkbox_@leaveSummary.Employee.Id" type="checkbox" value="true">
+                                <label for="checkbox_@leaveSummary.Employee.Id"></label>
+                                <input name="checkbox_@leaveSummary.Employee.Id" type="hidden" value="false">
+                            </td>
+                        }
+                        else
+                        {
+                            <td>@(index++)</td>
+                        }
+                        <td class="tooltip" title="@leaveSummary.Employee.FullName">@leaveSummary.Employee.NickName</td>
+                        @if (year != 2022)
+                        {
+                            DisplayNumber(leaveSummary.AnnualLeaveLastYear); 
+                        }
+                        @{
+                            DisplayNumber(leaveSummary.AnnualLeaveCurrentYear);
+                            DisplayNumber(leaveSummary.Jan);
+                            DisplayNumber(leaveSummary.Feb);
+                            DisplayNumber(leaveSummary.Mar);
+                            DisplayNumber(leaveSummary.Apr);
+                            DisplayNumber(leaveSummary.May);
+                            DisplayNumber(leaveSummary.Jun);
+                            DisplayNumber(leaveSummary.Jul);
+                            DisplayNumber(leaveSummary.Aug);
+                            DisplayNumber(leaveSummary.Sep);
+                            DisplayNumber(leaveSummary.Oct);
+                            DisplayNumber(leaveSummary.Nov);
+                            DisplayNumber(leaveSummary.Dec);
+                            DisplayNumber(leaveSummary.LeaveBalance);
+                        }
+                        @if (@isHRRole)
+                        {
+                            <td class="center">
+                                <a href="~/annualleave/employee?employeeId=@leaveSummary.Employee.Id&year=@year">
+                                    <i class="mdi mdi-border-color mdi-18px mdi-dark"></i>
+                                </a>
+                            </td>
+                        }
+                    </tr>
+                }
+            }
+        </tbody>
+    }
+    else
+    {
+        if (year != 2022)
+        {
+            <tr>
+                <td colspan="18"></td>
+            </tr>
+            <tr>
+                <td colspan="18" rowspan="2">
+                    @Messages.NoInformation
+                </td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td colspan="17"></td>
+            </tr>
+            <tr>
+                <td colspan="17" rowspan="2">
+                    @Messages.NoInformation
+                </td>
+            </tr>
+        }
+    }
+</table>

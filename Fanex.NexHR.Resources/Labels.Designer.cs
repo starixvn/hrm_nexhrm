@@ -2032,6 +2032,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Include employee&apos;s request.
+        /// </summary>
+        public static string IncludeEmployeeRequest {
+            get {
+                return ResourceManager.GetString("IncludeEmployeeRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Indesign.
         /// </summary>
         public static string Indesign {

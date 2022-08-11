@@ -1,0 +1,52 @@
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.AnnualLeave
+@model AddMultiAnnualLeaveTransactionViewModel
+
+<div id="insertform">
+    <div class="form form-stl-table">
+        <form action="/annualeleave" method="post" novalidate="novalidate">
+            <div class="row form-input">
+                <div class="col">
+                    <div class="left label--l">
+                        <label asp-for="@Model.TotalDays">@Labels.TotalDays</label>
+                    </div>
+                    <div class="left input--m">
+                        <input asp-for="@Model.TotalDays" class="text-box single-line"/>
+                        <span class="field-validation-valid" data-valmsg-for="TotalDays" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-input">
+                <div class="col">
+                    <div class="left label--l">
+                        <label asp-for="@Model.Description">@Labels.Description</label>
+                    </div>
+                    <div class="left input--m">
+                        <textarea asp-for="Description" class="materialize-textarea"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-input">
+                <div class="col">
+                    <div class="left label--l">
+                        <label asp-for="@Model.AffectedFrom">@Labels.AffectFrom</label>
+                    </div>
+                    <div class="left input--s datepicker-button">
+                        <date-picker
+                            name="AffectedFrom"
+                            value="Model.AffectedFrom"
+                        >
+                        </date-picker>
+                        <i class="mdi-action-event calendar-icon left"></i>
+                        @Html.ValidationMessageFor(model => model.AffectedFrom)
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" asp-for="@Model.EmpIds"/>
+            <div class="row center">
+                <input class="btn-cancel waves-effect waves-light m-r--m" type="button" id="cancel" value="@Labels.Cancel" />
+                <input class="btn-ok waves-effect waves-light" type="submit" id="insert" value="@Labels.Add" />
+            </div>
+        </form>
+    </div>
+</div>

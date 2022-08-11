@@ -1758,4 +1758,7 @@
   <data name="LRExamDate" xml:space="preserve">
     <value>L/R Exam Date</value>
   </data>
+  <data name="IncludeEmployeeRequest" xml:space="preserve">
+    <value>Include employee's request</value>
+  </data>
 </root>

@@ -1,4 +1,4 @@
-namespace Fanex.NexHR.WebSite.Views.Shared.Components.AnnualLeave.CreateLeaveDeduction
+namespace Fanex.NexHR.WebSite.Views.Shared.Components.CreateLeaveDeduction
 {
     using Microsoft.AspNetCore.Mvc;
     using Fanex.NexHR.ViewModels.AnnualLeave;

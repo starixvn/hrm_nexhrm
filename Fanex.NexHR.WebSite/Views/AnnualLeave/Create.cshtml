@@ -1,0 +1,103 @@
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.AnnualLeave
+@model AddAnnualLeaveTransactionViewModel
+@{
+    ViewBag.Title = Labels.AdjustAnnualLeaveBalance;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/AnnualLeave/annualleave.edit.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/editleavetransaction.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                @if (Model.EmployeeId > 0)
+                {
+                    <div class="card-title-block">
+                        <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="form form-stl-table">
+                            <form action="/AnnualLeave/Create?employeeId=@Model.EmployeeId" method="post" novalidate="novalidate">
+                                <input type="hidden" asp-for="@Model.EmployeeId"/>
+                                <input type="hidden" asp-for="@Model.AffectedFrom.Year"/>
+
+                                @Html.ValidationSummary()
+                                @if (ViewBag.Inserted == true)
+                                {
+                                    <input type="hidden" id="successed" value="true" />
+                                    <div class="row validation-summary-success">
+                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.AdjustSuccessfully
+                                    </div>
+                                }
+                                <div class="row form-input">
+                                    <div class="col m-r--m">
+                                        <div class="left label--m">
+                                            <label asp-for="@Labels.TotalDays">@Labels.TotalDays</label>
+                                        </div>
+                                        <div class="left input--xs">
+                                            <input asp-for="@Model.TotalDays" class="text-box single-line"/>
+                                            <span class="field-validation-valid" data-valmsg-for="TotalDays" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-input">
+                                    <div class="col">
+                                        <div class="left label--m">
+                                            <label asp-for="@Labels.Description">@Labels.Description</label>
+                                        </div>
+                                        <div class="left input--l">
+                                            <textarea asp-for="Description" class="materialize-textarea"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-input">
+                                    <div class="col">
+                                        <div class="left label--m">
+                                            <label asp-for="@Labels.AffectFrom">@Labels.AffectFrom</label>
+                                        </div>
+                                        <div class="left input--s datepicker-button">
+                                            <date-picker
+                                                name="AffectedFrom"
+                                                value="Model.AffectedFrom"
+                                            >
+                                            </date-picker>
+                                            <i class="mdi-action-event calendar-icon left"></i>
+                                            <span class="field-validation-valid" data-valmsg-for="AffectedFrom" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-input line-button">
+                                    <div class="col">
+                                        <div class="left label--m">
+                                            &nbsp;
+                                        </div>
+                                        <div class="left">
+                                            <a href="/AnnualLeave/employee?employeeId=@Model.EmployeeId&year=@Model.AffectedFrom.Year" class= "btn-cancel waves-effect waves-ligh">@Labels.Cancel</a>
+                                            <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Adjust" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="card-title-block">
+                        <span class="card-title txt-uppercase left">@Messages.NoDataIsAvailable</span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

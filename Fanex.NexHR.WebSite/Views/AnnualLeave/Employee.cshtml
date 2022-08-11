@@ -1,0 +1,69 @@
+@using Fanex.NexHR.Core
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.AnnualLeave
+@model AnnualLeaveBalanceViewModel
+@{
+    ViewBag.Title = Model.EmployeeNickName + "'s annual leave balance";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/AnnualLeave/employee.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/employeeannualleavebalance.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">
+                        @ViewBag.Title
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="form form-annual-employee">
+                        <form method="post" novalidate="novalidate">
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--s">
+                                        <label assp-for="@Labels.Year">@Labels.Year</label>
+                                    </div>
+                                    <div class="left select--xs">
+                                        <select id="Year" name="Year" asp-items="@Extensions.YearPicker(2010, DateTime.Now.Year)"></select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="left">
+                                        <input class="filled-in" id="ExcludedRequestTrans" name="ExcludedRequestTrans" type="checkbox" value="true">
+                                        <label for="ExcludedRequestTrans"></label>
+                                        <input name="ExcludedRequestTrans" type="hidden" value="false">
+                                    </div>
+                                    <div class="left">
+                                        <label asp-for="ExcludedRequestTrans">@Labels.IncludeEmployeeRequest</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <input type="button" id="submit" class="btn-submit waves-effect waves-light" value="@Labels.View" />
+                                </div>
+                                <div class="col">
+                                    <a href="/AnnualLeave/Create?employeeId=@Model.EmployeeId" class= "btn-request waves-effect waves-light">Adjustment</a>
+                                </div>
+                                <input type="hidden" asp-for="@Model.EmployeeId"/>
+                                <input type="hidden" asp-for="@Model.Year"/>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="p-x--s">
+                        <div id="div-content" class="over-auto table-resize table-medium"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
