@@ -275,6 +275,7 @@
         [HrmAuthorize(Roles = "HR")]
         public ActionResult Create()
         {
+            ViewBag.DomainName = appSetting.DomainName;
             var model = new CreateEmployeeViewModel
             {
                 MonShift = 1,

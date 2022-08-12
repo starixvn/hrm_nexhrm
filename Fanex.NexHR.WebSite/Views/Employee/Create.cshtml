@@ -1,0 +1,154 @@
+﻿@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels
+@model CreateEmployeeViewModel
+@{
+    ViewBag.Title = Labels.CreateAccount;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form form-stl-table">
+                        <form asp-controller="employee" asp-action="create" method="post">
+                            <div asp-validation-summary="All"></div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--xl">
+                                        <label>@Labels.FullName</label>
+                                    </div>
+                                    <div class="col left input--l">
+                                        <input asp-for="FullName"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--xl">
+                                        <label>@Labels.NickName</label>
+                                    </div>
+                                    <div class="col left input--l">
+                                         <input asp-for="NickName"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--xl">
+                                        <label>@Labels.DomainUsername</label>
+                                    </div>
+                                    <div class="left label--s">
+                                        <label style="margin-left:1rem;"><strong>@ViewBag.DomainName</strong></label>
+                                    </div>
+                                    <div class="left input-spvn">
+                                        <input asp-for="DomainUsername"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--xl">
+                                        <label>@Labels.Code</label>
+                                    </div>
+                                    <div class="col left input--l">
+                                        <input asp-for="Code"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--xl">
+                                        <label>@Labels.Team</label>
+                                    </div>
+                                    <div class="col left select--l">
+                                        <select asp-for="TeamId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--xl">
+                                        <label>@Labels.WorkingSchedule</label>
+                                    </div>
+                                    <div class="left">
+                                        <div class="col">
+                                            <label class="label--s">@Labels.Sun</label>
+                                            <div class="select--xs">
+                                                 <select asp-for="SunShift" asp-items="@(new SelectList(Model.Shifts, "Id", "Name"))">
+                                                    <option value="">OFF</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label class="label--s">@Labels.Mon</label>
+                                            <div class="select--xs">
+                                                 <select asp-for="MonShift" asp-items="@(new SelectList(Model.Shifts, "Id", "Name"))">
+                                                    <option value="">OFF</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label class="label--s">@Labels.Tue</label>
+                                            <div class="select--xs">
+                                                 <select asp-for="TueShift" asp-items="@(new SelectList(Model.Shifts, "Id", "Name"))">
+                                                    <option value="">OFF</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label class="label--s">@Labels.Wed</label>
+                                            <div class="select--xs">
+                                                 <select asp-for="WedShift" asp-items="@(new SelectList(Model.Shifts, "Id", "Name"))">
+                                                    <option value="">OFF</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label class="label--s">@Labels.Thu</label>
+                                            <div class="select--xs">
+                                                 <select asp-for="ThuShift" asp-items="@(new SelectList(Model.Shifts, "Id", "Name"))">
+                                                    <option value="">OFF</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label class="label--s">@Labels.Fri</label>
+                                            <div class="select--xs">
+                                                 <select asp-for="FriShift" asp-items="@(new SelectList(Model.Shifts, "Id", "Name"))">
+                                                    <option value="">OFF</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label class="label--s">@Labels.Sat</label>
+                                            <div class="select--xs">
+                                                 <select asp-for="SatShift" asp-items="@(new SelectList(Model.Shifts, "Id", "Name"))">
+                                                    <option value="">OFF</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m col-btn">
+                                    <div class="left label--xl">&nbsp;</div>
+                                    <div class="left col">
+                                        <input class="btn-submit waves-effect waves-light" type="submit" value="@Labels.Next" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

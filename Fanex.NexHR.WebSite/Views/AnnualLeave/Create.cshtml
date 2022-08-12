@@ -31,7 +31,7 @@
                                 <input type="hidden" asp-for="@Model.EmployeeId"/>
                                 <input type="hidden" asp-for="@Model.AffectedFrom.Year"/>
 
-                                @Html.ValidationSummary()
+                                <div asp-validation-summary="All"></div>
                                 @if (ViewBag.Inserted == true)
                                 {
                                     <input type="hidden" id="successed" value="true" />
