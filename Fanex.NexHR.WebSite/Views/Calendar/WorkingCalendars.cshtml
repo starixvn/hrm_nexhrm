@@ -10,6 +10,10 @@
 @{
     var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
     ViewBag.Title = Labels.Holidays;
+    var addEmployeeCalendarViewModel = new AddEmployeeCalendarViewModel {
+        FromDate = DateTime.Now.Date,
+        ToDate = DateTime.Now.Date
+    };
 }
 
 @section Styles {
@@ -447,10 +451,7 @@
                     </div>
                     <div class="hide">
                         <div id="addform" title="Add Calendars">
-                            @(await Component.InvokeAsync("AddEmployeeCalendar", new AddEmployeeCalendarViewModel {
-                                FromDate = DateTime.Now.Date,
-                                ToDate = DateTime.Now.Date
-                            }))
+                            <partial name="AddEmployeeCalendar" model="addEmployeeCalendarViewModel" />
                         </div>
                     </div>
                 </div>

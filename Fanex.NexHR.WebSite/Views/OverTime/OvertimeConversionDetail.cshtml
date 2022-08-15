@@ -1,0 +1,140 @@
+@using Fanex.NexHR.Core
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.Overtime
+@model OvertimeConversionDetailViewModel
+@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Services.Interfaces
+@inject ISessionService sessionService;
+@{
+    ViewBag.Title = Labels.OvertimePaymentDetail;
+    var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+    var teams = new SelectList(Model.Teams, "Id", "Name");
+    var overtimeConversionEditViewModel = new OvertimeConversionEditViewModel();
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/Overtime/overtimeConversion.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Employee/_employee.search.in.company.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/overtimeconversion.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form form-stl-table">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.DateRange</label>
+                                    </div>
+                                    <div class="left select--m">
+                                        <select id="Date" name="Date">
+                                            @{
+                                                foreach (DateRangeFilter dateRange in (DateRangeFilter[])Enum.GetValues(typeof(DateRangeFilter)))
+                                                {
+                                                    var value = (int)dateRange;
+                                                    <option value="@value" selected="@(value == (int)DateRangeFilter.DateRange)">@Utilities.GetDescription(dateRange)</option>
+                                                }
+                                            }
+                                        </select>
+                                        <input type="hidden" asp-for="@Model.DateOption"/>
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label asp-for="@Model.FromDate">@Labels.FromDate</label>
+                                    </div>
+                                    <div class="left datepicker-button select--s">
+                                        <date-picker
+                                            name="FromDate"
+                                            value="Model.FromDate"
+                                        >
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col m-l--xl m-r--l">
+                                    <div class="left label--m">
+                                        <label asp-for="@Model.ToDate">@Labels.ToDate</label>
+                                    </div>
+                                    <div class="left datepicker-button select--s">
+                                        <date-picker
+                                            name="ToDate"
+                                            value="Model.ToDate"
+                                        >
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label asp-for="@Model.TeamId">@Labels.Team</label>
+                                    </div>
+                                    <div class="left select--m">
+                                        <select asp-for="@Model.TeamId" asp-items="@teams">
+                                            <option value="">@Labels.AllTeams</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label asp-for="@Model.Employee">@Labels.Employee</label>
+                                    </div>
+                                    <div class="left select-team">
+                                        <input asp-for="@Model.Employee" placeholder="@Messages.SearchEmployeeWatermark"/>
+                                        <input type="hidden" asp-for="@Model.EmployeeId"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="p-x--s over-auto table-resize table-medium">
+                        <table id="data" class="table bordered striped highlight table-custom centered">
+                            <thead>
+                                <tr>
+                                    <th>@Labels.SymbolCount</th>
+                                    <th>@Labels.Name</th>
+                                    <th>@Labels.Nick</th>
+                                    <th>@Labels.Team</th>
+                                    <th>@Labels.Date</th>
+                                    <th>@Labels.Paid</th>
+                                    <th>@Labels.Description</th>
+                                    @if (@isHRRole)
+                                    {
+                                        <th>@Labels.Edit</th>
+                                        <th>@Labels.Delete</th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hide">
+            <div id="editConversion" title="Update Overtime Conversion" class="align-left">
+                <partial name="EditOvertimeConversion" model="overtimeConversionEditViewModel" />
+            </div>
+        </div>
+    </div>
+</div>

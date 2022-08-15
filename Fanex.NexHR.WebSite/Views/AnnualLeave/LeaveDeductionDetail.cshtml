@@ -10,6 +10,12 @@
     ViewBag.Title = Labels.LeaveDeductionDetail;
     var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
     var teams = new SelectList(Model.Teams, "Id", "Name");
+    var leaveDeductionViewModel = new LeaveDeductionViewModel {
+        DeductDate = DateTime.Now,
+        TotalDays = decimal.Parse("0.5"),
+        Description = Labels.LeaveDeductionDescription,
+        IsAnnual = true
+    };
 }
 @section Styles {
     <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
@@ -130,12 +136,7 @@
                     </div>
                     <div class="hide">
                         <div id="updateform" title="Edit Leave Deduction">
-                            @(await Component.InvokeAsync("EditLeaveDeduction", new LeaveDeductionViewModel {
-                                DeductDate = DateTime.Now,
-                                TotalDays = decimal.Parse("0.5"),
-                                Description = Labels.LeaveDeductionDescription,
-                                IsAnnual = true
-                            }))
+                            <partial name="EditLeaveDeduction" model="leaveDeductionViewModel" />
                         </div>
                     </div>
                 </div>

@@ -400,7 +400,8 @@
   {
     "outputFileName": "wwwroot/minify/js/overtimesummary.min.js",
     "inputFiles": [
-      "wwwroot/js/Views/Overtime/overtimeSummary.js"
+      "wwwroot/js/Views/Overtime/overtimeSummary.js",
+      "wwwroot/js/Views/Employee/_employee.search.in.company.js"
     ],
     "minify": {
       "enabled": true,
@@ -717,6 +718,18 @@
     "outputFileName": "wwwroot/minify/js/editleavetransaction.min.js",
     "inputFiles": [
       "wwwroot/js/Views/AnnualLeave/annualleave.edit.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/overtimeconversion.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Overtime/overtimeConversion.js",
+      "wwwroot/js/Views/Employee/_employee.search.in.company.js"
     ],
     "minify": {
       "enabled": true,

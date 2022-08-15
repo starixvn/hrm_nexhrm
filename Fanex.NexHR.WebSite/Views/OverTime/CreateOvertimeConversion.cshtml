@@ -1,0 +1,41 @@
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.Overtime
+@model OvertimeConversionCreateViewModel
+
+<form action="/Overtime/CreateOvertimeConversion" method="post" novalidate="novalidate" class="form form-annual-deduction">
+    <div class="row form-input">
+        <div class="left label--l">
+            <label asp-for="@Model.Deduct">@Labels.Pay</label>
+        </div>
+        <div class="left input--xs">
+            <input asp-for="@Model.Deduct" class="text-box single-line"/>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label asp-for="@Model.DeductDate">@Labels.PayDate</label>
+        </div>
+        <div class="left datepicker-button select--s">
+            <date-picker
+                name="DeductDate"
+                value="Model.DeductDate"
+            >
+            </date-picker>
+            <i class="mdi-action-event calendar-icon left"></i>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label asp-for="@Model.Description">@Labels.Description</label>
+        </div>
+        <div class="left input--m">
+            <textarea asp-for="Description" class="materialize-textarea"></textarea>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">&nbsp;</div>
+        <input type="hidden" asp-for="@Model.EmpId"/>
+        <input class="btn-cancel waves-effect waves-light m-r--m" id="cancel-insert" type="button" value="@Labels.Cancel" />
+        <input class="btn-ok waves-effect waves-light" type="submit" id="create" value="@Labels.Submit" />
+    </div>
+</form>
