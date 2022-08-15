@@ -168,6 +168,12 @@
       "wwwroot/css/Views/annualleavebalance.css"
     ]
   },
+  {
+    "outputFileName": "wwwroot/minify/css/jobtitle.min.css",
+    "inputFiles": [
+      "wwwroot/css/Views/jobtitle.css"
+    ]
+  },
   // ----------------------- Javascript ------------------------------
   {
     "outputFileName": "wwwroot/minify/js/site.min.js",
@@ -730,6 +736,17 @@
     "inputFiles": [
       "wwwroot/js/Views/Overtime/overtimeConversion.js",
       "wwwroot/js/Views/Employee/_employee.search.in.company.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/jobtitle.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Jobtitle/jobtitle.js"
     ],
     "minify": {
       "enabled": true,

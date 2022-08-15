@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using Criteria.LookupData;
+    using Fanex.NexHR.Models.Attributes;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
@@ -21,13 +22,13 @@
             this.commandService = commandService;
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult Index()
         {
             return View();
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Index(string jobTitle)
         {
@@ -37,7 +38,7 @@
             return PartialView("_Index", jobTitles);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult Insert(string name)
         {
@@ -51,7 +52,7 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult Update(int id, string name)
         {
@@ -65,7 +66,7 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult Delete(int id)
         {
