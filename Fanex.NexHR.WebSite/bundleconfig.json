@@ -180,6 +180,12 @@
       "wwwroot/css/Views/report.latein.earlyout.discipline.css"
     ]
   },
+  {
+    "outputFileName": "wwwroot/minify/css/geolocation.min.css",
+    "inputFiles": [
+      "wwwroot/css/Views/geolocation.css"
+    ]
+  },
   // ----------------------- Javascript ------------------------------
   {
     "outputFileName": "wwwroot/minify/js/site.min.js",
@@ -789,6 +795,17 @@
     "inputFiles": [
       "wwwroot/js/Views/Report/report.workinghoursstatistic.js",
       "wwwroot/js/Views/Employee/_employee.search.in.company.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/geolocationmap.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Geolocationmap/geolocationmap.js"
     ],
     "minify": {
       "enabled": true,
