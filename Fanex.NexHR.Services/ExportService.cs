@@ -13,33 +13,14 @@
 
     public static class ExportService
     {
-        public static void ExportTotalWorkingHours(
+        public static byte[] ExportTotalWorkingHours(
             IList<TotalWorkingHours> listTotalWorkingHours,
             DateTime fromDate,
             DateTime toDate,
             string templatePath)
         {
-            string fileName = "TotalWorkingHours_" + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year;
-            const string sheetName = "Total Working Hours";
-            const string fomatFromDate = "dd MMM, yyyy";
-            const int totalReportHeader = 4;
-            const int rowFreezePane = 4;
-
-            var reportTitle = "Total Working Hours: " + fromDate.ToString(fomatFromDate) + " - " + toDate.ToString(fomatFromDate);
-            using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
-            {
-                var writer = new ExcelTemplateWriter(fileStream, fileName, sheetName);
-
-                // Fill report title.
-                writer.WriteRow(0, new object[] { reportTitle });
-
-                // Fill report header.
-                writer.CopyRows(0, totalReportHeader);
-                FillContentRowTotalWorkingHours(listTotalWorkingHours, ref writer);
-
-                writer.CreateFreezePane(0, rowFreezePane);
-                writer.Render();
-            }
+            var excelTotalWorkingHours = new TotalWorkingHoursExcel(templatePath, listTotalWorkingHours, fromDate, toDate);
+            return excelTotalWorkingHours.Export();
         }
 
         public static byte[] ExportEmployeeAttendances(

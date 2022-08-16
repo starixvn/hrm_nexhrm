@@ -117,7 +117,7 @@ function refreshSorting() {
 $(document).ready(function () {
     $("#Date").change(function () {
         setDateTimeRange($("#Date").val());
-        dateOption = $('#Date').val();  // jshint ignore:line
+        //dateOption = $("#Date").val();  // jshint ignore:line
         $(".DateOption").val($("#Date").val());
     });
 

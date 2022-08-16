@@ -753,5 +753,17 @@
       "renameLocals": true
     },
     "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/totalworkinghour.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Report/report.totalworkinghours.js",
+      "wwwroot/js/Views/Employee/_employee.search.in.company.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
   }
 ]

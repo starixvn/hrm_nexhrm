@@ -24,7 +24,7 @@
     {
         private const string EmployeeAttendaceTemplatePath = "ExcelTemplates/EmployeeAttendace.xlsx";
         private const string EmployeeProfileTemplatePath = "ExcelTemplates/EmployeeProfile.xlsx";
-        private const string TotalWorkingHoursTemplatePath = @"~\App_Data\ExcelTemplates\TotalWorkingHours.xls";
+        private const string TotalWorkingHoursTemplatePath = "ExcelTemplates/TotalWorkingHours.xlsx";
         private const string WorkingHoursStatisticTemplatePath = @"~\App_Data\ExcelTemplates\WorkingHoursStatistic.xls";
         private const string DayOffScheduleTemplatePath = "ExcelTemplates/DayOffSchedule.xlsx";
         private const string HeadCountReportTemplatePath = @"~\App_Data\ExcelTemplates\HeadCountReport.xls";
@@ -80,11 +80,11 @@
                 listTotalWorkingHours = Utilities.MultipleSort(listTotalWorkingHours, sorts);
             }
 
-            string templatePath = Path.Combine(environment.WebRootPath, TotalWorkingHoursTemplatePath);
+            string fileName = "TotalWorkingHours_" + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year + ".xlsx";
+            string templatePath = Path.Combine(environment.ContentRootPath, TotalWorkingHoursTemplatePath);
+            var bytes = ExportService.ExportTotalWorkingHours(listTotalWorkingHours, totalWorkingHoursViewModel.FromDate, totalWorkingHoursViewModel.ToDate, templatePath);
 
-            ExportService.ExportTotalWorkingHours(listTotalWorkingHours, totalWorkingHoursViewModel.FromDate, totalWorkingHoursViewModel.ToDate, templatePath);
-
-            return new EmptyResult();
+            return File(bytes, "application/xlsx", fileName);
         }
 
         [HrmAuthorize(Roles = "HR")]

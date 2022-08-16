@@ -1,0 +1,251 @@
+@using Fanex.NexHR.Core
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.TotalWorkingHours
+@model TotalWorkingHoursViewModel
+@{
+    ViewBag.Title = Labels.TotalWorkingHours;
+    var teams = new SelectList(Model.Teams, "Id", "Name");
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/Employee/_employee.search.in.company.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Report/report.totalworkinghours.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/totalworkinghour.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <form action="/report/totalworkinghour" id="form" method="post" novalidate="novalidate">
+                        <input type="hidden" id="DateTime-Now" name="DateTime-Now" value="@DateTime.Now.ToString("MMMM dd, yyyy")"/>
+                        <div class="form form-stl-table">
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.DateRange</label>
+                                    </div>
+                                    <div class="left select--m">
+                                        <select id="Date" name="Date">
+                                            @{
+                                                foreach (DateRangeFilter dateRange in (DateRangeFilter[])Enum.GetValues(typeof(DateRangeFilter)))
+                                                {
+                                                    var value = (int)dateRange;
+                                                    <option value="@value" selected="@(value == (int)DateRangeFilter.DateRange)">@Utilities.GetDescription(dateRange)</option>
+                                                }
+                                            }
+                                        </select>
+                                        <input type="hidden" asp-for="DateOption" value="@Model.DateOption"/>
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label asp-for="@Model.FromDate">@Labels.FromDate</label>
+                                    </div>
+                                    <div class="left datepicker-button input--s">
+                                        <date-picker
+                                            name="FromDate"
+                                            min-date="new DateTime(2010, 01, 01)"
+                                            max-date="DateTime.Now"
+                                            value="Model.FromDate"
+                                        >
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col m-l--xl m-r--l">
+                                    <div class="left label--m">
+                                        <label asp-for="@Model.ToDate">@Labels.ToDate</label>
+                                    </div>
+                                    <div class="left datepicker-button input--s">
+                                        <date-picker
+                                            name="ToDate"
+                                            min-date="new DateTime(2010, 01, 01)"
+                                            max-date="DateTime.Now"
+                                            value="Model.ToDate"
+                                        >
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label asp-for="@Model.Team">@Labels.Team</label>
+                                    </div>
+                                    <div class="left select--m">
+                                        <select asp-for="@Model.TeamId" asp-items="@teams">
+                                            <option value="">@Labels.AllTeams</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col m-r--m">
+                                    <div class="left label--m">
+                                        <label asp-for="@Model.Employee">@Labels.Employee</label>
+                                    </div>
+                                    <div class="left input--m">
+                                        <input asp-for="@Model.Employee" placeholder="@Messages.SearchEmployeeWatermark"/>
+                                        <input type="hidden" asp-for="@Model.EmployeeId"/>
+                                    </div>
+                                </div>
+                                <div class="col col-btn-submit-excel">
+                                    <input id="btnSubmit" type="button" value="@Labels.Submit" onclick="submitForm('False')" class="btn-submit waves-effect waves-light m-r--m" />
+                                    <input id="btnExport" class="btn-export-excel waves-effect waves-light" type="button" value="Excel" />
+                                    <input type="hidden" asp-for="IsExportExcel"/>
+                                </div>
+                            </div>
+                            &nbsp;
+                            <div class="p-x--s over-auto table-resize table-large table-2-row-thead">
+                                <table id="data" class="table bordered striped highlight table-custom centered">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2">@Labels.SymbolCount</th>
+                                            <th class="col-sorter" rowspan="2">
+                                                @Labels.Code
+                                                <div class="sorter" data-property="Code">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter" rowspan="2">
+                                                @Labels.FullName
+                                                <div class="sorter" data-property="FullName">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter" rowspan="2">
+                                                @Labels.Nick
+                                                <div class="sorter" data-property="NickName">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter" rowspan="2">
+                                                @Labels.Team
+                                                <div class="sorter" data-property="Team">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter" rowspan="2">
+                                                @Labels.WorkigDay
+                                                <div class="sorter" data-property="WorkigDay">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter" rowspan="2">
+                                                @Labels.ActualWorkingDay
+                                                <div class="sorter" data-property="ActualWorkingDay">
+                                                </div>
+                                            </th>
+                                            <th colspan="2">@Labels.ForCompany</th>
+                                            <th colspan="2">@Labels.ForInsurance</th>
+                                            <th class="col-sorter" rowspan="2">
+                                                @Labels.UnpaidLeave
+                                                <div class="sorter" data-property="UnpaidLeave">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter" rowspan="2">
+                                                @Labels.LateIn
+                                                <div class="sorter" data-property="LateIn">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter" rowspan="2">
+                                                @Labels.EarlyOut
+                                                <div class="sorter" data-property="EarlyOut">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter" rowspan="2">
+                                                @Labels.TotalHours
+                                                <div class="sorter" data-property="TotalHours">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter" rowspan="2">
+                                                @Labels.AverageHours
+                                                <div class="sorter" data-property="AverageHours">
+                                                </div>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="col-sorter">
+                                                @Labels.AnnualLeave
+                                                <div class="sorter" data-property="AnnualLeave">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter">
+                                                @Labels.Others
+                                                <div class="sorter" data-property="Others">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter">
+                                                @Labels.SickLeave
+                                                <div class="sorter" data-property="SickLeave">
+                                                </div>
+                                            </th>
+                                            <th class="col-sorter">
+                                                @Labels.Others
+                                                <div class="sorter" data-property="Others">
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var dateOption = '@Model.DateOption',
+        fromDate = '@Model.FromDate',
+        toDate = '@Model.ToDate';
+</script>
+<script id="template" type="text/x-jsrender">
+    <tr>
+        <td>{{:~index()}}</td>
+        <td>{{:Employee.Code}}</td>
+        <td class="align-left">{{:Employee.FullName}}</td>
+        <td>{{:Employee.NickName}}</td>
+        <td class="tooltip" title="{{:Employee.Team.Name}}">{{:Employee.Team.Code}}</td>
+        <td>{{:WorkingDay}}</td>
+        <td>{{:ActualWorkingDay}}</td>
+        <td>{{:AnnualLeave.toFixed(1)}}</td>
+        <td>{{:PaidLeave.toFixed(1)}}</td>
+        <td>{{:SickLeave.toFixed(1)}}</td>
+        <td>{{:InsuranceLeave.toFixed(1)}}</td>
+        <td id="unpaidLeave">
+            {{if ~isHRRole}}
+            <form id="form" style="display:none;">
+                <input type="text" class="DateOption" id="DateOption" name="DateOption" value="{{:~dateOption}}" />
+                <input type="text" class="FromDate" id="FromDate" name="FromDate" value="{{:~fromDate}}" />
+                <input type="text" class="ToDate" id="ToDate" name="ToDate" value="{{:~toDate}}" />
+                <input type="text" id="EmployeeId" name="EmployeeId" value="{{:Employee.Id}}" />
+                <input type="text" id="Employee" name="Employee" value="{{:Employee.NickName}} ({{:Employee.FullName}})" />
+                <input type="text" class="TeamId" id="TeamId" name="TeamId" value="{{if Employee.TeamId == null}} -2 {{else}} Employee.TeamId {{/if}}" />
+                <input type="text" id="StatusId" name="StatusId" value="0" />
+                <input type="text" id="RequestType" name="RequestType" value="1" />
+                <input type="text" id="IsFilterByEffectedDate" name="IsFilterByEffectedDate" value="true" />
+                <input type="text" class="LeaveTypeId" id="LeaveTypeId" name="LeaveTypeId" value="26" />
+            </form>
+            {{/if}}
+            {{if ~isHRRole && UnpaidLeave > 0}}
+            <a class="UnpaidLeave" href="javascript:;">
+                {{:UnpaidLeave.toFixed(1)}}
+            </a>
+            {{else}}
+            {{:UnpaidLeave.toFixed(1)}}
+            {{/if}}
+        </td>
+        <td>{{:~displayMinuteForTotalWorking(LateIn)}}</td>
+        <td>{{:~displayMinuteForTotalWorking(EarlyOut)}}</td>
+        <td>{{:~totalHoursToTime(TotalHours)}}</td>
+        <td>{{:~totalHoursToTime(AverageHours)}}</td>
+    </tr>
+</script>
