@@ -1,0 +1,79 @@
+﻿@using Fanex.NexHR.Models.Report
+@using Fanex.NexHR.Resources
+@model IList<LateInEarlyOutDiscipline>
+
+<table id="data" class="table bordered striped highlight table-custom centered" style="max-width: 990px">
+    <thead>
+        <tr>
+            <th>@Labels.SymbolCount</th>
+            <th>@Labels.Nick</th>
+            <th>@Labels.FullName</th>
+            <th>@Labels.Total</th>
+        </tr>
+    </thead>
+    @if (Model != null && Model.Any())
+    {
+        IList<LateInEarlyOutDiscipline> lateInEarlyOutByTeams = Model.GroupBy(t => t.Employee.Team.Id).Select(grp => grp.First()).ToList();
+        int index = 0;
+        <tbody>
+            @foreach (LateInEarlyOutDiscipline lateInEarlyOutByTeam in lateInEarlyOutByTeams)
+            {
+                <tr class="row-divider">
+                    <td class="align-left txt-uppercase" colspan="4">
+                        <b>@lateInEarlyOutByTeam.Employee.Team.Name.ToUpper()</b>
+                    </td>
+                </tr>
+                IList<LateInEarlyOutDiscipline> lateInEarlyOuts = Model.Where(t => t.Employee.Team.Id == lateInEarlyOutByTeam.Employee.Team.Id).ToList();
+                foreach (LateInEarlyOutDiscipline lateInEarlyOut in lateInEarlyOuts)
+                {
+                    index++;
+                    <tr>
+                        <td>@index</td>
+                        <td>@lateInEarlyOut.Employee.NickName</td>
+                        <td class="align-left">@lateInEarlyOut.Employee.FullName</td>
+                        @if (lateInEarlyOut.TotalTimes != 0)
+                        {
+                            <td>
+                                <a href='javascript:;' class="@(lateInEarlyOut.TotalTimes >= 3 ? "red-color tooltip-detail" : "tooltip-detail")">@lateInEarlyOut.TotalTimes</a>
+                                <div class="latein-earlyout-summary-detail hide">
+                                    <table class="table bordered striped highlight table-custom centered">
+                                        <thead>
+                                            <tr>
+                                                <th>@Labels.Month</th>
+                                                <th>@Labels.Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (LateInEarlyOutDisciplineDetail detail in lateInEarlyOut.LateInEarlyOutDisciplineDetails)
+                                            {
+                                                <tr>
+                                                    <td>@detail.Month.ToString("MMM, yyyy")</td>
+                                                    <td>@detail.TotalTimes</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>-</td>
+                        }
+                    </tr>
+                }
+            }
+        </tbody>
+    }
+    else
+    {
+        <tr>
+            <td colspan="4"></td>
+        </tr>
+        <tr>
+            <td colspan="4" rowspan="2">
+                @Messages.NoInformation
+            </td>
+        </tr>
+    }
+</table>

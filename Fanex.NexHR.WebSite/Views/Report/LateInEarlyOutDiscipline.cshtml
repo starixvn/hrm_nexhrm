@@ -1,0 +1,82 @@
+﻿@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.Report
+@model LateInEarlyOutSummaryViewModel
+@{
+    ViewBag.Title = Labels.LateInEarlyOutDiscipline;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/monthpicker.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/lateinearlyoutdiscipline.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Libs/monPickr-0.0.3.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Report/report.latein.earlyout.discipline.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Employee/_employee.search.in.company.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/monthpicker.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/lateinearlyoutdiscipline.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form form-stl-table">
+                        <form class="form-filter" action="" novalidate="novalidate">
+                            <div class="row form-input">
+                                <div class="col m-l--l m-r--xl">
+                                    <div class="left label--s">
+                                        <label>@Labels.To</label>
+                                    </div>
+                                    <div class="left select--s">
+                                        <div id="toMonthPickr"></div>
+                                        <input type="hidden" asp-for="ToYear"/>
+                                        <input type="hidden" asp-for="ToMonth"/>
+                                    </div>
+                                </div>
+                                <div class="col m-l--l m-r--l">
+                                    <div class="left label--s">
+                                        <label>@Labels.Team</label>
+                                    </div>
+                                    <div class="left select-team">
+                                        <select asp-for="TeamId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
+                                            <option value="">@Labels.AllTeams</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.Employee</label>
+                                    </div>
+                                    <div class="left input--m">
+                                        <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark"/>
+                                        <input type="hidden" asp-for="EmployeeId"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light" />
+                                </div>
+                            </div>
+                            @{
+                                var minDate = new DateTime(2010, 1, 1).ToString("yyyy/MM/dd");
+                                var maxDate = DateTime.Now.ToString("yyyy/MM/dd");
+                            }
+                            <input type="hidden" id="minDate" name="minDate" value="@minDate"/>
+                            <input type="hidden" id="maxDate" name="maxDate" value="@maxDate"/>
+                        </form>
+                    </div>
+                    <div id="list-detail" class="p-x--s">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

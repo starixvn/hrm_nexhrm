@@ -51,16 +51,15 @@
 <div class="row hide">
     <div id="dialog-form" title="Create An Job Title">
         <p class="validateTips"></p>
-        @using (Html.BeginForm())
-        {
+        <form asp-controller="JobTitle" asp-action="Insert">
             <div class="row form-input">
                 <div class="left label--l">
-                    @Html.Label("name", Labels.JobTitle)
+                    <label>@Labels.JobTitle</label>
                 </div>
                 <div class="left input--m">
-                    @Html.Editor("name")
+                    <input class="text-box single-line" id="name" name="name" type="text" value="">
                 </div>
             </div>
-        }
+        </form>
     </div>
 </div>
