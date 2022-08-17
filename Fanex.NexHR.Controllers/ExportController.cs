@@ -25,7 +25,7 @@
         private const string EmployeeAttendaceTemplatePath = "ExcelTemplates/EmployeeAttendace.xlsx";
         private const string EmployeeProfileTemplatePath = "ExcelTemplates/EmployeeProfile.xlsx";
         private const string TotalWorkingHoursTemplatePath = "ExcelTemplates/TotalWorkingHours.xlsx";
-        private const string WorkingHoursStatisticTemplatePath = @"~\App_Data\ExcelTemplates\WorkingHoursStatistic.xls";
+        private const string WorkingHoursStatisticTemplatePath = "ExcelTemplates/WorkingHoursStatistic.xlsx";
         private const string DayOffScheduleTemplatePath = "ExcelTemplates/DayOffSchedule.xlsx";
         private const string HeadCountReportTemplatePath = @"~\App_Data\ExcelTemplates\HeadCountReport.xls";
 
@@ -174,11 +174,12 @@
                 GroupId = model.TeamId
             };
 
+            string fileName = "WorkingHoursStatistic_" + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year + ".xlsx";
             IList<WorkingHoursStatistic> listTotalWorkingHours = reportService.GetWorkingHoursStatistic(getWorkingHoursCriteria);
-            string templatePath = Path.Combine(environment.WebRootPath, WorkingHoursStatisticTemplatePath);
-            ExportService.ExportWorkingHoursStatistic(listTotalWorkingHours, getWorkingHoursCriteria.FromDateLastMonth, getWorkingHoursCriteria.ToDate, templatePath);
+            string templatePath = Path.Combine(environment.ContentRootPath, WorkingHoursStatisticTemplatePath);
+            var bytes = ExportService.ExportWorkingHoursStatistic(listTotalWorkingHours, getWorkingHoursCriteria.FromDateLastMonth, getWorkingHoursCriteria.ToDate, templatePath);
 
-            return new EmptyResult();
+            return File(bytes, "application/xlsx", fileName);
         }
 
         public ActionResult LeaveScheduleReport(WorkingCalendarViewModel model)

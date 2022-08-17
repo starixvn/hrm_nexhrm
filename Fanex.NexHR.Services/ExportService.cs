@@ -451,32 +451,20 @@
             return value?.Trim() ?? string.Empty;
         }
 
-        public static void ExportWorkingHoursStatistic(
+        public static byte[] ExportWorkingHoursStatistic(
             IList<WorkingHoursStatistic> listTotalWorkingHours,
             DateTime fromDate,
             DateTime toDate,
             string templatePath)
         {
-            const int totalReportHeader = 3;
-            const int rowFreezePane = 4;
-            string fileName = "WorkingHoursStatistic_" + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year;
-            string sheetName = "Total Working Hours " + fromDate.ToString("MMM, yyyy");
+            // const int totalReportHeader = 3;
+            // const int rowFreezePane = 4;
+            // string fileName = "WorkingHoursStatistic_" + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year;
+            // string sheetName = "Total Working Hours " + fromDate.ToString("MMM, yyyy");
+            // var reportTitle = "Total Working Hours: " + fromDate.ToString("dd MMM, yyyy") + " - " + toDate.ToString("dd MMM, yyyy");
 
-            var reportTitle = "Total Working Hours: " + fromDate.ToString("dd MMM, yyyy") + " - " + toDate.ToString("dd MMM, yyyy");
-            using (FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read))
-            {
-                var writer = new ExcelTemplateWriter(fileStream, fileName, sheetName);
-
-                // Fill report title.
-                writer.WriteRow(0, new object[] { reportTitle });
-
-                // Fill report header.
-                writer.CopyRows(0, totalReportHeader);
-                FillContentRowWorkingHoursStatistic(listTotalWorkingHours, ref writer);
-
-                writer.CreateFreezePane(0, rowFreezePane);
-                writer.Render();
-            }
+            var excelWorkingHoursStatistic = new WorkingHoursStatisticExcel(templatePath, listTotalWorkingHours, fromDate, toDate);
+            return excelWorkingHoursStatistic.Export();
         }
 
         #region Working Hours Statistic

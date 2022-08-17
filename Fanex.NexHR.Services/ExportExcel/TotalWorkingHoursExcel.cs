@@ -32,7 +32,6 @@ namespace Fanex.NexHR.Services.ExportExcel
             templateWorksheet.Cells[1, 1, 1, TotalCols]
                    .Copy(worksheet.Cells[RowStartTitle, 1, RowStartTitle, TotalCols]);
 
-            string fileName = "TotalWorkingHours_" + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year;
             const string formatDate = "dd MMM, yyyy";
 
             worksheet.Cells[1, 1, 1, TotalCols].Merge = true;
