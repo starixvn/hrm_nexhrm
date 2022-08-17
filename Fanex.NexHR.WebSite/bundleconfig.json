@@ -812,5 +812,27 @@
       "renameLocals": true
     },
     "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/extensionno.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/ExtensionNo/extensionno.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/addextensionno.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/ExtensionNo/addextensionno.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
   }
 ]

@@ -8,7 +8,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Authorization;
+    using Fanex.NexHR.Models.Attributes;
     using System.Net;
     using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -39,14 +39,14 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult AddNewMember()
         {
             return View(new ExtensionNoModel());
         }
 
         [HttpPost]
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult AddNewMember(ExtensionNoModel model)
         {
             if (model != null && ModelState.IsValid)
@@ -76,7 +76,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult EditExtensionNumber(bool isInternal, int empExtId)
         {
             var criteria = new GetEmployeeExtensionNoByIdCriteria
@@ -103,7 +103,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult EditExtensionNumber(ExtensionNoModel model)
         {
             if (model != null && ModelState.IsValid)
@@ -146,7 +146,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult DeleteExtensionNumber(int extId)
         {
@@ -159,7 +159,7 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult AddNewExternalGroup(string groupName)
         {
@@ -172,7 +172,7 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult DeleteExternalGroup(int extId)
         {
@@ -185,7 +185,7 @@
             return Json(result);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult EditExternalGroup(int extId, string groupName)
         {

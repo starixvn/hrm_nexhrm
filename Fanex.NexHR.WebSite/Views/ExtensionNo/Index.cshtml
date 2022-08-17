@@ -1,0 +1,119 @@
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.ExtensionNo
+@using Fanex.NexHR.Models
+@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Services.Interfaces
+@using System.Net
+@inject ISessionService sessionService;
+
+@model List<ExtensionNoViewModel>
+@{
+    ViewBag.Title = Labels.ExtensionNumbers;
+    var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/ExtensionNo/extensionno.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/extensionno.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form hidden">
+                        @if (@isHRRole)
+                        {
+                            <div class="col">
+                                <a class="btn-request waves-effect waves-light m-r--s" href="/ExtensionNo/AddNewMember">@Labels.NewExtensionNumber</a>
+                                <a class="btn-submit waves-effect waves-light" href="/ExtensionNo/ManageExternalGroup">@Labels.ManageExternalGroup</a>
+                            </div>
+                        }
+                    </div>
+                    <div class="p-x--s">
+                        <table id="data" class="table bordered striped highlight table-custom centered">
+                            <thead>
+                                <tr>
+                                    <th>@Labels.SymbolCount</th>
+                                    <th>@Labels.FullName</th>
+                                    <th>@Labels.Nick</th>
+                                    <th>@Labels.ExtensionNumber</th>
+                                    @if (@isHRRole)
+                                    {
+                                        <th>@Labels.Edit</th>
+                                        <th>@Labels.Delete</th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    int index = 1;
+                                    foreach (ExtensionNoViewModel item in Model)
+                                    {
+                                        if (item.ListExt.Count > 0)
+                                        {
+                                    <tr>
+                                        <td class="rowdivider align-left" colspan="19">
+                                            <b>@item.Name.ToUpper()</b>
+                                        </td>
+                                    </tr>
+                                        }
+                                        foreach (ExtensionNoModel ext in item.ListExt)
+                                        {
+                                    <tr id="@ext.EmpExtId">
+                                        <td>
+                                            @(index++)
+                                        </td>
+                                        <td class="align-left">
+                                            @WebUtility.HtmlDecode(ext.FullName)
+                                        </td>
+                                        <td>
+                                            @WebUtility.HtmlDecode(ext.NickName)
+                                        </td>
+                                        <td style="color: #0789D1;">
+                                            @ext.ExtensionNo
+                                        </td>
+                                        @if (@isHRRole)
+                                        {
+                                            <td>
+                                                <a href="@Url.Action("EditExtensionNumber", "ExtensionNo", new { isInternal = ext.IsInternal, empExtID = ext.EmpExtId })">
+                                                    <i class='mdi mdi-border-color mdi-dark'></i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="javascript:;" class="deleteExt">
+                                                    <i class='mdi mdi-delete mdi-dark'></i>
+                                                </a>
+                                            </td>
+                                        }
+                                    </tr>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="5"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5" rowspan="2">
+                                            @Messages.NoInformation
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
