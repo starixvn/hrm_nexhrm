@@ -14,6 +14,6 @@
         public Role Roles { get; set; }
         public IDictionary<string, object> HtmlAttributes { get; set; }
         public List<NavigationViewModel> Childs { get; set; }
-        public string ElementId => $"{Controller}_{Action}";
+        public string ElementId => $"{Controller.ToLowerInvariant()}_{Action.ToLowerInvariant()}";
     }
 }

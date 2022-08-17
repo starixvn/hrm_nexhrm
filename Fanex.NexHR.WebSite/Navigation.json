@@ -1,10 +1,10 @@
 ﻿[
     {
         "Title": "Personal",
-        "Roles": "Member",
         "Controller": "",
         "Action": "",
         "Icon": "",
+        "Roles": "Member",
         "Id": 1,
         "ParentId": null
     },

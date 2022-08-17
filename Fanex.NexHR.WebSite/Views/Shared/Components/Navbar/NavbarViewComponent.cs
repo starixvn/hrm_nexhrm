@@ -28,8 +28,8 @@
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var routeData = actionContextAccessor.ActionContext?.RouteData;
-            ViewBag.Controller = routeData?.Values["controller"]?.ToString();
-            ViewBag.Action = routeData?.Values["action"]?.ToString();
+            ViewBag.Controller = routeData?.Values["controller"]?.ToString()?.ToLowerInvariant();
+            ViewBag.Action = routeData?.Values["action"]?.ToString()?.ToLowerInvariant();
             ViewBag.NavigationItems = await GetNagivationData();
 
             return View();

@@ -215,7 +215,7 @@ function validateFromDateAndToDate() {
 $(document).ready(function () {
     var currentUrl = $('#controller').val() + '_' + $('#action').val(),
         selectNavItem = $('#' + currentUrl);
-
+    console.log(selectNavItem);
     if (selectNavItem !== undefined) {
         selectNavItem.addClass('active');
 
