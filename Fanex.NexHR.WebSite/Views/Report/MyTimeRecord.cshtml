@@ -35,22 +35,22 @@
                         <form class="form-filter" action="">
                             <div class="row form-input">
                                 <div class="col m-r--m">
-                                    <div class="left label--m">
-                                        <label>@Labels.DateRange</label>
-                                    </div>
-                                    <div class="left select--s">
-                                        <select id="Date" name="Date">
-                                            @{
-                                                foreach (DateRangeFilter dateRange in (DateRangeFilter[])Enum.GetValues(typeof(DateRangeFilter)))
-                                                {
-                                                    var value = (int)dateRange;
-                                                    <option value="@value" selected="@(value == (int)DateRangeFilter.DateRange)">@Utilities.GetDescription(dateRange)</option>
-                                                }
-                                            }
-                                        </select>
-                                        <input asp-for="DateOption" type="hidden">
-                                    </div>
+                                <div class="left label--m">
+                                    <label>@Labels.DateRange</label>
                                 </div>
+                                <div class="left select--s">
+                                    <select id="Date" name="Date">
+                                        @{
+                                            foreach (DateRangeFilter dateRange in (DateRangeFilter[])Enum.GetValues(typeof(DateRangeFilter)))
+                                            {
+                                                var value = (int)dateRange;
+                                                <option value="@value" selected="@(value == (int)DateRangeFilter.DateRange)">@Utilities.GetDescription(dateRange)</option>
+                                            }
+                                        }
+                                    </select>
+                                    <input asp-for="DateOption" type="hidden">
+                                </div>
+                            </div>
                                 <div class="col-from-to">
                                     <div class="col m-r--m">
                                         <div class="left label--m">

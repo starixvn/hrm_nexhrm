@@ -1761,4 +1761,7 @@
   <data name="IncludeEmployeeRequest" xml:space="preserve">
     <value>Include employee's request</value>
   </data>
+  <data name="SectionTeam" xml:space="preserve">
+    <value>Sec./Team</value>
+  </data>
 </root>

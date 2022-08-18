@@ -4111,6 +4111,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sec./Team.
+        /// </summary>
+        public static string SectionTeam {
+            get {
+                return ResourceManager.GetString("SectionTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send Date.
         /// </summary>
         public static string SendDate {

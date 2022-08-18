@@ -1,0 +1,122 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels
+@model TimeRecordViewModel
+@{
+    ViewBag.Title = @Labels.TimeRecord;
+    var teams = new SelectList(Model.Teams, "Id", "Name");
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/simplepagination.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/contextmenu.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+    @section Scripts {
+    <environment include="Development">
+        <script src="~/js/Libs/jquery.contextMenu.min.js" asp-append-version="true"></script>
+        <script src="~/js/Libs/jquery.simplePagination.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Report/report.timerecord.js" asp-append-version="true"></script>
+         <script src="~/js/Views/Employee/_employee.search.in.team.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/contextmenu.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/simplepagination.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/reporttimerecord.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/managerequests.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form form-stl-table">
+                        <input id="DateTime-Now" name="DateTime-Now" type="hidden" value="@DateTime.Now.ToString("MMMM dd, yyyy")">
+                        <form class="form-filter" action="">
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--m">
+                                        <label>@Labels.DateRange</label>
+                                    </div>
+                                    <div class="left select--daterange">
+                                    <select id="Date" name="Date">
+                                        @{
+                                            foreach (DateRangeFilter dateRange in (DateRangeFilter[])Enum.GetValues(typeof(DateRangeFilter)))
+                                            {
+                                                var value = (int)dateRange;
+                                                <option value="@value" selected="@(value == Model.DateOption)">@Utilities.GetDescription(dateRange)</option>
+                                            }
+                                        }
+                                    </select>
+                                <input type="hidden" asp-for="DateOption"/>
+                            </div>
+                            </div>
+                                <div class="col-from-to">
+                                    <div class="col m-r--m">
+                                        <div class="left label--m">
+                                            <label>@Labels.FromDate</label>
+                                        </div>
+                                        <div class="datepicker-button left select--s">
+                                            <date-picker name="FromDate"
+                                                         min-date="new DateTime(2010, 01, 01)"
+                                                         max-date="DateTime.Now"
+                                                         value="Model.FromDate">
+                                            </date-picker>
+                                            <i class="mdi-action-event calendar-icon from-date left"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="left label--m">
+                                            <label>@Labels.ToDate</label>
+                                        </div>
+                                        <div class="datepicker-button left select--s">
+                                            <date-picker name="ToDate"
+                                                         min-date="new DateTime(2010, 01, 01)"
+                                                         max-date="DateTime.Now"
+                                                         value="Model.ToDate">
+                                            </date-picker>
+                                            <i class="mdi-action-event calendar-icon from-date left"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--m">
+                                        <label asp-for="@Model.TeamIds">@Labels.Team</label>
+                                    </div>
+                                    <div class="left select--m">
+                                        <select asp-for="@Model.TeamIds" asp-items="@teams">
+                                            <option value="">@Labels.AllTeams</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col m-r--m">
+                                    <div class="left label--m">
+                                        <label asp-for="@Model.Employee"></label>
+                                    </div>
+                                    <div class="left select--s">
+                                        <input asp-for="@Model.Employee" placeholder="@Messages.SearchEmployeeWatermark" />
+                                        <input type="hidden" asp-for="@Model.EmployeeId" />
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <input asp-for="CurrentPage" type="hidden" />
+                                    <input asp-for="ItemsPerPage" type="hidden" />
+                                    <input id="submit" class="btn-submit waves-effect waves-light" type="button" value="@Labels.Submit" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="time-record-detail" class="p-x--s over-auto">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

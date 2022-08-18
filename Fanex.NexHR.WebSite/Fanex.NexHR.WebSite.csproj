@@ -488,7 +488,6 @@
     <None Include="wwwroot\js\Views\Report\report.latein.earlyout.js" />
     <None Include="wwwroot\js\Views\Report\report.leave.summary.js" />
     <None Include="wwwroot\js\Views\Report\report.monitoring.js" />
-    <None Include="wwwroot\js\Views\Report\report.mytimerecord.js" />
     <None Include="wwwroot\js\Views\Report\report.timerecord.js" />
     <None Include="wwwroot\js\Views\Report\report.timesheet.js" />
     <None Include="wwwroot\js\Views\Report\report.totalworkinghours.js" />
