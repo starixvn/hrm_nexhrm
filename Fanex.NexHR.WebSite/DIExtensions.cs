@@ -113,7 +113,8 @@
             services.AddSingleton<IEmployeeWorkFromHomeService, EmployeeWorkFromHomeService>();
             services.AddSingleton<IDepartmentService, DepartmentService>();
             services.AddSingleton<IExtensionNoService, ExtensionNoService>();
-
+            services.AddSingleton<IBioService, BioService>();
+            
             // services.AddSingleton<ILateInEarlyOutRepository, LateInEarlyOutRepository>();
         }
 
@@ -131,7 +132,8 @@
             services.AddSingleton<ICalendarRepository, CalendarRepository>();
             services.AddSingleton<IOvertimeRepository, OvertimeRepository>();        
             services.AddSingleton<IScheduledMessageRepository, ScheduledMessageRepository>();        
-            services.AddSingleton<IAnnualLeaveRepository, AnnualLeaveRepository>();        
+            services.AddSingleton<IAnnualLeaveRepository, AnnualLeaveRepository>();     
+            services.AddSingleton<IBioRepository, BioRepository>();
         }
     }
 }

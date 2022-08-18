@@ -1,0 +1,33 @@
+﻿@model Fanex.NexHR.ViewModels.Bio.EditBioDeviceViewModel
+@using Fanex.NexHR.Resources
+
+@using (Html.AjaxBeginForm("EditBioDevice", null, new AjaxOptions
+ {
+     HttpMethod = "POST",
+     OnSuccess = "bioManagement.onEditBioDeviceSuccess"
+ }, new { id = "edit-bio-form" }))
+{
+    @Html.AntiForgeryToken()
+    <input asp-for="DeviceId" type="hidden" />
+    <div class="row form-input">
+        <div class="left label--l">
+            <label asp-for="@Model.DisplayName">@Labels.DisplayName</label>
+        </div>
+        <div class="left select--m">
+            <input asp-for="@Model.DisplayName" />
+            <span asp-validation-for="DisplayName" class="textdanger"></span>
+        </div>
+    </div>
+
+    <div class="row form-input">
+        <div class="left label--l">
+            <label asp-for="@Model.StatusId">@Labels.StatusId</label>
+        </div>
+        <div class="left select--m">
+            <select id="StatusId" name="StatusId" asp-items="@(new SelectList(Model.BioDeviceStatuses, ""))">
+                <option></option>
+            </select>
+            <span asp-validation-for="StatusId" class="textdanger"></span>
+        </div>
+    </div>
+}

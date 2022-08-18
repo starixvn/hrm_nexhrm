@@ -4345,6 +4345,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to StatusId.
+        /// </summary>
+        public static string StatusId {
+            get {
+                return ResourceManager.GetString("StatusId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Subject.
         /// </summary>
         public static string Subject {

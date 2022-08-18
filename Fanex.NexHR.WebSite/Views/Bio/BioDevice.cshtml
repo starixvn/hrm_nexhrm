@@ -1,0 +1,56 @@
+﻿@using System.Collections.Generic
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.Bio
+@model IEnumerable<BioDeviceViewModel>
+
+@{
+    ViewBag.Title = Labels.BioStationManagement;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/simplepagination.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+    @section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/Bio/bio-management.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/biostationmanagement.min.js.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+    <div class="row content">
+        <div class="col s12 card-container-base">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-title-block">
+                        <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="p-x--s m-t--m cover-form-mb table-biodevice">
+                            <table id="bio-device-table" class="table bordered striped highlight centered responsive-table table-custom">
+                                <thead>
+                                    <tr>
+                                        <th>@Labels.DeviceId</th>
+                                        <th>@Labels.DeviceName</th>
+                                        <th>@Labels.DisplayName</th>
+                                        <th>@Labels.Active</th>
+                                        <th>@Labels.Status</th>
+                                        <th>@Labels.Edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach (var bioDevice in Model)
+                                {
+                                    <partial name="_BioDeviceRow" model="bioDevice" />
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dialog" />
