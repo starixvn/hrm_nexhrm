@@ -26,7 +26,7 @@
                 <div class="card-body">
                     <div class="form form-stl-table">
                         <form action="/ExtensionNo/EditExtensionNumber?isInternal=@Model.IsInternal&empExtID=@Model.EmpExtId" method="post">
-                            @Html.ValidationSummary()
+                            <div asp-validation-summary="All"></div>
                             @if (ViewBag.Updated == true)
                             {
                                 <div class="row validation-summary-success">

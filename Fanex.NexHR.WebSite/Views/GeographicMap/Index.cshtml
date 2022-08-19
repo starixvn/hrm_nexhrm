@@ -8,7 +8,7 @@
         <script src="~/js/Views/Geolocationmap/geolocationmap.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
-        <script src="~/minify/js/geolocation.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/geolocationmap.min.js" asp-append-version="true"></script>
     </environment>
 }
 @{
@@ -43,7 +43,9 @@
                                         @Labels.Employee
                                     </label>
                                 </div>
-                                <div class="col m-r--m input--m">@Html.Editor("Employee")</div>
+                                <div class="col m-r--m input--m">
+                                    <input class="text-box single-line ui-autocomplete-input" id="Employee" name="Employee" type="text" value="" autocomplete="off"/>
+                                 </div>
                                 <input id="searchmap" class="btn-request waves-effect waves-light" type="button" value="@Labels.Search" />
                             </div>
                         </div>
@@ -60,6 +62,7 @@
 </html>
 
 <input type="hidden" id="currentUser" name="currentUser" value="@ViewBag.NickName"/>
+<input id="roleHR" name="roleHR" type="hidden" value="@((bool)ViewBag.RoleHR)">
 @Html.Hidden("roleHR", (bool)ViewBag.RoleHR)
 <input type="hidden" id="Latitude" name="Latitude"/>
 <input type="hidden" id="Longitude" name="Longitude"/>

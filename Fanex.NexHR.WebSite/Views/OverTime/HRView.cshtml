@@ -31,9 +31,8 @@
                 </div>
                 <div class="card-body">
                     <div class="form form-stl-table">
-                        @using (Html.BeginForm())
-                        {
-                            @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+                        <form asp-controller="Overtime" asp-action="HRView">
+                            <input type="hidden" id="DateTime-Now" name="DateTime-Now" value="@DateTime.Now.ToString("MMMM dd, yyyy")"/>
                             <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--m">
@@ -49,12 +48,12 @@
                                             }
                                         }
                                         </select>
-                                        @Html.Hidden("DateOption", Model.DateOption)
+                                        <input type="hidden" asp-for="DateOption"/>
                                     </div>
                                 </div>
                                 <div class="col m-r--l">
                                     <div class="left label--m">
-                                        @Html.LabelFor(model => model.FromDate, Labels.FromDate)
+                                        <label>@Labels.FromDate</label>
                                     </div>
                                     <div class="left datepicker-button select--s">
                                         <date-picker
@@ -67,7 +66,7 @@
                                 </div>
                                 <div class="col m-r--l">
                                     <div class="left label--m">
-                                        @Html.LabelFor(model => model.ToDate, Labels.ToDate)
+                                        <label>@Labels.ToDate</label>
                                     </div>
                                     <div class="left datepicker-button select--s">
                                         <date-picker
@@ -83,7 +82,7 @@
                             <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--m">
-                                        @Html.LabelFor(model => model.Status)
+                                        <label>Status</label>
                                     </div>
                                     <div class="left input--s">
                                         @{
@@ -95,7 +94,8 @@
                                                 new SelectListItem {Text = Labels.Void, Value = RequestStatuse.Void.ToString("D")}
                                             };
                                         }
-                                        @Html.DropDownListFor(model => model.Status, selectList)
+                                        <select asp-for="Status" asp-items="@selectList">
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col m-r--l">
@@ -103,15 +103,15 @@
                                         <label>@Labels.CreatedBy</label>
                                     </div>
                                     <div class="left input--m">
-                                        @Html.TextBoxFor(model => model.CreatedName, new { placeholder = Messages.SearchEmployeeWatermark })
-                                        @Html.HiddenFor(model => model.CreatedBy)
+                                        <input asp-for="CreatedName"  placeholder = "@Messages.SearchEmployeeWatermark"/>
+                                        <input type="hidden" asp-for="CreatedBy"/>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light" />
                                 </div>
                             </div>
-                        }
+                        </form>
                     </div>
                     <div class="p-x--s over-auto">
                         <table id="data" class="table bordered striped highlight table-custom centered">

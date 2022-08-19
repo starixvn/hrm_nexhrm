@@ -30,7 +30,7 @@
                     <div class="form form-memo">
                         <form action="/memo/Create" method="post" novalidate="novalidate">
                             <div class="container_24 bunhat">
-                                @Html.ValidationSummary()
+                                <div asp-validation-summary="All"></div>
                                 @if (ViewBag.Updated)
                                 {
                                     <div class="row validation-summary-success">

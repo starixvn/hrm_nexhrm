@@ -31,7 +31,7 @@
                     {
                         <div class="form form-memo">
                             <div id="error" class="red-text"></div>
-                            @Html.ValidationSummary()
+                            <div asp-validation-summary="All"></div>
                             @if (ViewBag.Updated == true)
                             {
                                 <div class="row validation-summary-success">

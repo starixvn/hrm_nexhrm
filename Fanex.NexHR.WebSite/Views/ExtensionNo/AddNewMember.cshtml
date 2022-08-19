@@ -27,7 +27,7 @@
                 <div class="card-body">
                     <div class="form form-stl-table">
                         <form action="/extensionno/AddNewMember" method="post">
-                            @Html.ValidationSummary()
+                            <div asp-validation-summary="All"></div>
                             @if (ViewBag.Requested == true)
                             {
                                 <div class="row validation-summary-success">

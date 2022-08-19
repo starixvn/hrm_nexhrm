@@ -40,26 +40,25 @@
                 <div class="card-body">
 
                     <div class="form form-stl-table">
-                        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
-                        {
+                        <form method="post" id="form">
                             <div class="row form-input">
                                 <div class="row">
                                     <div class="col m-r--l">
                                         <div class="left label--l">
-                                            @Html.Label(Labels.CurrentMonth)
+                                            <label>Current Monthe</label>  
                                         </div>
                                         <div class="left select--s">
                                             <div id="monthPickr"></div>
                                             <input type="hidden" id="maxDate" value="@maxDate.ToString()" />
-                                            @Html.HiddenFor(model => model.Month)
-                                            @Html.HiddenFor(model => model.Year)
-                                            @Html.HiddenFor(model => model.DateOption)
+                                            <input type="hidden" asp-for="Month"/>
+                                            <input type="hidden" asp-for="Year"/>
+                                            <input type="hidden" asp-for="DateOption"/>
                                         </div>
                                     </div>
 
                                     <div class="col m-r--s">
                                         <div class="left label--s">
-                                            @Html.LabelFor(model => model.FromDate, Labels.From)
+                                            <label>@Labels.From</label>  
                                         </div>
                                         <div class="left datepicker-button input--s">
                                             <date-picker 
@@ -75,7 +74,7 @@
 
                                     <div class="col m-l--l m-r--s">
                                         <div class="left label--s">
-                                            @Html.LabelFor(model => model.ToDate, Labels.To)
+                                            <label>@Labels.To</label>  
                                         </div>
                                         <div class="left datepicker-button input--s">
                                             <date-picker 
@@ -93,7 +92,7 @@
                                 <div class="row">
                                     <div class="col m-r--l">
                                         <div class="left label--l">
-                                            @Html.LabelFor(model => model.FromDateLastMonth, Labels.FromLastMonth)
+                                            <label>@Labels.FromLastMonth</label>  
                                         </div>
                                         <div class="left datepicker-button input--s">
                                             <date-picker 
@@ -108,7 +107,7 @@
                                     </div>
                                     <div class="col m-l--l m-r--s">
                                         <div class="left label--s">
-                                            @Html.LabelFor(model => model.ToDateLastMonth, Labels.To)
+                                            <label>@Labels.To</label>  
                                         </div>
                                         <div class="left datepicker-button input--s">
                                             <date-picker 
@@ -126,30 +125,31 @@
                                 <div class="row">
                                     <div class="col m-l--l m-r--s">
                                         <div class="left label--s">
-                                            @Html.Label(Labels.Team)
+                                            <label>@Labels.Team</label>
                                         </div>
                                         <div class="left select-team">
-                                            @Html.DropDownListFor(model => model.TeamId, new SelectList(Model.Teams, "Id", "Name"), Labels.AllTeams)
+                                            <select asp-for="TeamId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
+                                                <option value="">@Labels.AllTeams</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col m-r--l">
                                         <div class="left label--m">
-                                            @Html.LabelFor(model => model.Employee)
+                                            <label>@Labels.Employee</label>
                                         </div>
                                         <div class="left input--m">
-                                            @Html.TextBoxFor(model => model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
-                                            @Html.HiddenFor(model => model.EmployeeId)
+                                            <input asp-for="Employee" placeholder = "@Messages.SearchEmployeeWatermark"/>
+                                            <input type="hidden" asp-for="EmployeeId"/>
                                         </div>
                                     </div>
                                     <div class="col m-r--l col-btn-submit-excel">
                                         <input id="btnSubmit" type="button" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />
                                         <input id="btnExport" class="btn-export-excel waves-effect waves-light" type="button" value="Excel" />
-                                        @Html.HiddenFor(model => model.IsExportExcel)
+                                        <input type="hidden" asp-for="IsExportExcel"/>
                                     </div>
                                 </div>
                             </div>
-
-                        }
+                        </form>
                     </div>
                     <div class="p-x--s over-auto table-resize table-large table-row-thead">
                         <table id="data" class="table bordered striped highlight table-custom centered">
