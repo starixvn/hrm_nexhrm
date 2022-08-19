@@ -116,6 +116,7 @@
             services.AddSingleton<IBioService, BioService>();
             services.AddSingleton<ILookupDataService, LookupDataService>();
             services.AddSingleton<IMemoService, MemoService>();
+            services.AddSingleton<ICompanyEventService, CompanyEventService>();
             
             // services.AddSingleton<ILateInEarlyOutRepository, LateInEarlyOutRepository>();
         }

@@ -1,0 +1,155 @@
+@using Fanex.NexHR.Resources
+@model Fanex.NexHR.Models.CompanyEvent.CompanyEvent
+@{
+    ViewBag.Title = "New Event";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/companyevent.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Libs/jquery.timepicker.js" asp-append-version="true"></script>
+        <script src="~/js/Views/CompanyEvent/event-edit.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/companyeventedit.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form form-stl-table">
+                        <form action="/CompanyEvent/Create?from=@Model.FromDate&to=@Model.ToDate" method="post" novalidate="novalidate">
+                            @Html.ValidationSummary()
+
+                            @if (ViewBag.Insert == true)
+                            {
+                                <div class="row validation-summary-success">
+                                    <div class="col success green-text">
+                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Company event has
+                                        been created successfully!
+                                    </div>
+                                </div>
+                                <input type="hidden" id="successed" value="true" />
+                            }
+
+                            <div class="row form-input m-t--s">
+                                <div class='col'>
+                                    <div class="left label--l">
+                                        <label asp-for="@Model.Title">@Labels.Title</label>
+                                    </div>
+                                    <div class="left input--m">
+                                        <input asp-for="@Model.Title"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col">
+                                    <div class="left label--l">
+                                        <label asp-for="@Model.FromDate">@Labels.FromDate</label>
+                                    </div>
+                                    <div class="left datepicker-button select--m">
+                                        <date-picker
+                                            name="FromDate"
+                                            value="Model.FromDate"
+                                            min-date="new DateTime(2010, 1, 1)"
+                                            max-date="DateTime.Now.AddMonths(4)"
+                                        >
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col m-l--xl m-r--l">
+                                    <div class="left label--m">
+                                        <label asp-for="@Model.ToDate">@Labels.ToDate</label>
+                                    </div>
+                                    <div class="left datepicker-button select--m">
+                                        <date-picker
+                                            name="ToDate"
+                                            value="Model.ToDate"
+                                        >
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input m-b--m">
+                                <div class='col'>
+                                    <div class="left label--l">
+                                        <label for="Duration">@Labels.Duration</label>
+                                    </div>
+                                    <div class="left input">
+                                        <input class="filled-in" id="chkDuration" name="chkDuration" type="checkbox" value="true">
+                                        <label for="chkDuration"></label>
+                                        <input name="chkDuration" type="hidden" value="false">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="duration" style="display: none">
+                                <div class="row form-input">
+                                    <div class="col">
+                                        <div class="left label--l">
+                                            <label asp-for="@Model.FromTime">@Labels.FromTime</label>
+                                        </div>
+                                        <div class="left select--m">
+                                            <input asp-for="@Model.FromTime"/>
+                                        </div>
+                                    </div>
+                                    <div class="col m-l--xl m-r--l">
+                                        <div class="left label--m">
+                                            <label asp-for="@Model.ToTime">@Labels.ToTime</label>
+                                        </div>
+                                        <div class="left input--m">
+                                            <input asp-for="@Model.ToTime"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input m-t--s">
+                                <div class='col'>
+                                    <div class="left label--l">
+                                        <label asp-for="@Model.Location">@Labels.Location</label>
+                                    </div>
+                                    <div class="left input--m">
+                                        <input asp-for="@Model.Location"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class='col'>
+                                    <div class="left label--l">
+                                        <label asp-for="@Model.Description">@Labels.Description</label>
+                                    </div>
+                                    <div class="left input--m">
+                                        <textarea asp-for="Description" class="materialize-textarea"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input line-button">
+                                <div class="col">
+                                    <div class="left label--l">
+                                        &nbsp;
+                                    </div>
+                                    <div class="left">
+                                        <a class="btn-back waves-effect waves-light"
+                                           href="@Url.Action("Index","CompanyEvent")">
+                                            @Labels.Cancel
+                                        </a>
+                                        <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Submit" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.Models.CompanyEvent
+@model CompanyEvent
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="p-x--s m-t--m">
+                        @if (!ReferenceEquals(Model, null))
+                        {
+                            <table class="data memo table bordered striped highlight table-custom">
+                                <thead>
+                                    <tr>
+                                        <th colspan="4"><b>@Model.Title</b></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><b>@Labels.FromDate</b></td>
+                                        <td>@Model.FromDate.ToString("dd MMM, yyyy")</td>
+                                        <td><b>@Labels.ToDate</b></td>
+                                        <td>@Model.ToDate.ToString("dd MMM, yyyy")</td>
+                                    </tr>
+                                    @if (Model.FromTime != "" && Model.ToTime != "")
+                                    {
+                                        <tr>
+                                            <td><b>@Labels.FromTime</b></td>
+                                            <td>@Model.FromTime</td>
+                                            <td><b>@Labels.ToTime</b></td>
+                                            <td>@Model.ToTime</td>
+                                        </tr>
+                                    }
+                                    <tr>
+                                        <td><b>@Labels.Location</b></td>
+                                        <td colspan="3">@Model.Location</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>@Labels.Description</b></td>
+                                        <td colspan="3" style="max-width:100px;">
+                                            @Model.Description
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                            <a href="@Url.Action("index")" class="btn-back waves-effect waves-light m-t--m">@Labels.Back</a>
+                        }
+                        else
+                        {
+                            <h2>@Messages.ThisContentHasAlreadyBeenDeleted</h2>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

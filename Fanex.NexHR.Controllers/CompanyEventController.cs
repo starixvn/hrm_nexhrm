@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Criteria.CompanyEvent;
-    using Microsoft.AspNetCore.Authorization;
+    using Fanex.NexHR.Models.Attributes;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.CompanyEvent;
@@ -58,7 +58,7 @@
             return View(companyEvent);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Create(CompanyEvent model)
         {
@@ -90,13 +90,13 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult Edit(int id)
         {
             return View(GetDetail(id));
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Edit(CompanyEvent model)
         {
@@ -127,7 +127,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public JsonResult Delete(int id)
         {
             CommandResult result = new CommandResult();

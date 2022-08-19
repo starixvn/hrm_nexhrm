@@ -186,6 +186,18 @@
       "wwwroot/css/Views/geolocation.css"
     ]
   },
+  {
+    "outputFileName": "wwwroot/minify/css/eventcalendar.min.css",
+    "inputFiles": [
+      "wwwroot/css/Views/eventcalendar.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/minify/css/companyevent.min.css",
+    "inputFiles": [
+      "wwwroot/css/vendors/jquery.timepicker.css"
+    ]
+  },
   // ----------------------- Javascript ------------------------------
   {
     "outputFileName": "wwwroot/minify/js/site.min.js",
@@ -917,7 +929,7 @@
     "minify": {
       "enabled": true,
       "renameLocals": true
-    },
+      },
     "sourceMap": false
   },
   {
@@ -929,6 +941,30 @@
     "minify": {
       "enabled": true,
       "renameLocals": true
+    },
+    "sourceMap": false
+    },
+  {
+    "outputFileName": "wwwroot/minify/js/companyevent.min.js",
+    "inputFiles": [
+       "wwwroot/js/Libs/jquery.contextMenu.min.js",
+       "wwwroot/js/Views/CompanyEvent/event.js"
+    ],
+    "minify": {
+    "enabled": true,
+    "renameLocals": true
+    },
+    "sourceMap": false
+    },
+  {
+    "outputFileName": "wwwroot/minify/js/companyeventedit.min.js",
+    "inputFiles": [
+        "wwwroot/js/Libs/jquery.timepicker.js",
+        "wwwroot/js/Views/CompanyEvent/event-edit.js"
+    ],
+    "minify": {
+    "enabled": true,
+    "renameLocals": true
     },
     "sourceMap": false
   }
