@@ -7,11 +7,11 @@
 
     public interface IBioRepository
     {
-        IEnumerable<BioTimeChange> GetAllBioTimeChanges(ICriteria criteria);
+        Task<IEnumerable<BioTimeChange>> GetAllBioTimeChanges(ICriteria criteria);
 
         Task<IEnumerable<BioTimeChange>> GetAllBioTimeChangesAsync(ICriteria criteria);
 
-        IEnumerable<FingerprintAndCardSummary> GetFingerprintAndCardSummary(ICriteria criteria);
+        Task<IEnumerable<FingerprintAndCardSummary>> GetFingerprintAndCardSummary(ICriteria criteria);
 
         Task<IEnumerable<FingerprintAndCardSummary>> GetFingerprintAndCardSummaryAsync(ICriteria criteria);
     }

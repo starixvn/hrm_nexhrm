@@ -11,11 +11,11 @@
 
     public class BioRepository : BaseRepository, IBioRepository
     {
-        public IEnumerable<BioTimeChange> GetAllBioTimeChanges(ICriteria criteria)
+        public async Task<IEnumerable<BioTimeChange>> GetAllBioTimeChanges(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                return db.Query<BioTimeChange>(criteria);
+                return await db.QueryAsync<BioTimeChange>(criteria);
             }
         }
 
@@ -27,11 +27,11 @@
             }
         }
 
-        public IEnumerable<FingerprintAndCardSummary> GetFingerprintAndCardSummary(ICriteria criteria)
+        public async Task<IEnumerable<FingerprintAndCardSummary>> GetFingerprintAndCardSummary(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var entityList = db.Query<FingerprintAndCardSummary, Employee, Team, FingerprintAndCardSummary>(
+                var entityList = await db.QueryAsync<FingerprintAndCardSummary, Employee, Team, FingerprintAndCardSummary>(
                         (f, e, g) =>
                         {
                             f.Employee = e;
@@ -39,8 +39,7 @@
                             return f;
                         },
                         splitOn: "EmpId, GroupId",
-                        parameterSet: criteria)
-                    .ToList();
+                        parameterSet: criteria);
 
                 return entityList;
             }

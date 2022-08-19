@@ -3,9 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.Enums;
     using Criteria.Bio;
     using Criteria.LookupData;
+    using Fanex.NexHR.Models.Attributes;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Models;
@@ -15,29 +18,32 @@
     using ViewModels;
     using ViewModels.Bio;
 
-    //[Authorize(Roles = "HR")]
+    [HrmAuthorize(Roles = "HR")]
     public class BioController : BaseController
     {
         private readonly ICommandService commandService;
 
         private readonly ITeamService teamService;
         private readonly IBaseService baseService;
+        private readonly IBioService bioService;
 
         public BioController(ISessionService sessionService,
             ICommandService commandService,
 
             ITeamService teamService,
-            IBaseService baseService
+            IBaseService baseService,
+            IBioService bioService
             ) : base(sessionService)
         {
             this.commandService = commandService;
             this.teamService = teamService;
             this.baseService = baseService;
+            this.bioService = bioService;
         }
 
-        public ActionResult BioDevice()
+        public async Task<ActionResult> BioDevice()
         {
-            //var bioDevices = baseService.GetData<BioDevice>(new GetBioDevicesCriteria());
+            //var bioDevices = await baseService.GetDataAsync<BioDevice>(new GetBioDevicesCriteria());
             var bioDevices = new List<BioDevice>
             {
                 new BioDevice
@@ -63,9 +69,9 @@
             return View(viewModel);
         }
 
-        public ActionResult EditBioDevice(int id)
+        public async Task<ActionResult> EditBioDevice(int id)
         {
-            //var bioDevice = baseService.GetDataEntity<BioDevice>(new GetBioDeviceCriteria { DeviceId = id });
+            //var bioDevice = await baseService.GetDataEntityAsync<BioDevice>(new GetBioDeviceCriteria { DeviceId = id });
             var bioDevice = new BioDevice
             {
                 DeviceId = 1,
@@ -75,12 +81,13 @@
                 Status = "Status",
                 Active = true
             };
+            var bioDeviceStatuses = await baseService.GetDataAsync<LookupData>(new GetAllLookupDataCriteria { LookupCode = LookupCodeName.BioDeviceStatus });
             var viewModel = new EditBioDeviceViewModel
             {
                 DeviceId = bioDevice.DeviceId,
                 DisplayName = bioDevice.DisplayName,
                 StatusId = bioDevice.StatusId,
-                BioDeviceStatuses = baseService.GetData<LookupData>(new GetAllLookupDataCriteria { LookupCode = LookupCodeName.BioDeviceStatus })
+                BioDeviceStatuses = bioDeviceStatuses
                 .Select(x => new SelectListItem
                 {
                     Value = x.Value,
@@ -119,9 +126,9 @@
         }
 
         [HttpGet]
-        public ActionResult ReloadBioDevice(int id)
+        public async Task<ActionResult> ReloadBioDevice(int id)
         {
-            var bioDevice = baseService.GetDataEntity<BioDevice>(new GetBioDeviceCriteria { DeviceId = id });
+            var bioDevice = await baseService.GetDataEntityAsync<BioDevice>(new GetBioDeviceCriteria { DeviceId = id });
 
             var viewModel = new BioDeviceViewModel
             {
@@ -147,14 +154,14 @@
             return View(viewModel);
         }
 
-        public ActionResult GetBioStationTimeChange(BioStationTimeChangeViewModel viewModel)
+        public async Task<ActionResult> GetBioStationTimeChange(BioStationTimeChangeViewModel viewModel)
         {
             var criteria = new GetBioTimeChangeCriteria
             {
                 FromDate = viewModel.From,
                 ToDate = viewModel.To
             };
-            //var timeChanges = bioService.GetBioTimeChanges(criteria);
+            //var timeChanges = await bioService.GetBioTimeChanges(criteria);
             var timeChanges = new List<BioTimeChange>
             {
                 new BioTimeChange
@@ -179,7 +186,7 @@
             return View(viewModel);
         }
 
-        public ActionResult GetFingerprintScannerData(FingerprintAndCardViewModel viewModel)
+        public async Task<ActionResult> GetFingerprintScannerData(FingerprintAndCardViewModel viewModel)
         {
             var criteria = new GetFingerprintAndCardSummaryCriteria
             {
@@ -188,6 +195,8 @@
                 Type = viewModel.Type,
                 Status = viewModel.Status
             };
+
+            //var listFingerprintData = await bioService.GetFingerprintAndCardSummary(criteria);
 
             var listFingerprintData = new List<FingerprintAndCardSummary>
             {
@@ -213,9 +222,6 @@
                     NickName = "NickName"
                 }
             };
-
-            //var listFingerprintData = bioService.GetFingerprintAndCardSummary(criteria);
-
             return PartialView("_ListFingerprint", listFingerprintData);
         }
 

@@ -18,13 +18,14 @@
             this.bioRepository = bioRepository;
         }
 
-        public IList<FingerprintAndCardSummary> GetFingerprintAndCardSummary(GetFingerprintAndCardSummaryCriteria criteria)
+        public async Task<IList<FingerprintAndCardSummary>> GetFingerprintAndCardSummary(GetFingerprintAndCardSummaryCriteria criteria)
         {
             var fingerprintAndCardSummary = new List<FingerprintAndCardSummary>();
 
             if (criteria != null && criteria.IsValid())
             {
-                fingerprintAndCardSummary = bioRepository.GetFingerprintAndCardSummary(criteria).ToList();
+                var fingerprintAndCardSummaryAsync = await bioRepository.GetFingerprintAndCardSummary(criteria);
+                fingerprintAndCardSummary = fingerprintAndCardSummaryAsync.ToList();
 
                 if (criteria.Type == FingerprintScannerType.Card)
                 {
@@ -62,19 +63,19 @@
             return fingerprintAndCardSummary.Where(x => x.IsWarning);
         }
 
-        public IList<BioTimeChange> GetBioTimeChanges(GetBioTimeChangeCriteria criteria)
+        public async Task<IList<BioTimeChange>> GetBioTimeChanges(GetBioTimeChangeCriteria criteria)
         {
-            IList<BioTimeChange> bioTimeChanges = null;
+            IList<BioTimeChange> bioTimeChangesOrder = null;
 
             if (criteria != null && criteria.IsValid())
             {
-                bioTimeChanges = bioRepository
-                    .GetAllBioTimeChanges(criteria)
+                var bioTimeChanges = await bioRepository.GetAllBioTimeChanges(criteria);
+                bioTimeChangesOrder = bioTimeChanges
                     .OrderByDescending(x => x.TimeChange)
                     .ToList();
             }
 
-            return bioTimeChanges ?? new List<BioTimeChange>();
+            return bioTimeChangesOrder ?? new List<BioTimeChange>();
         }
 
         public async Task<IEnumerable<BioTimeChange>> GetBioTimeChangesAsync(GetBioTimeChangeCriteria criteria)

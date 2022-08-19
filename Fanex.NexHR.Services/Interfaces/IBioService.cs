@@ -7,11 +7,11 @@
 
     public interface IBioService
     {
-        IList<FingerprintAndCardSummary> GetFingerprintAndCardSummary(GetFingerprintAndCardSummaryCriteria criteria);
+        Task<IList<FingerprintAndCardSummary>> GetFingerprintAndCardSummary(GetFingerprintAndCardSummaryCriteria criteria);
 
         Task<IEnumerable<FingerprintAndCardSummary>> GetWarningFingerprintAndCardSummaryAsync(GetFingerprintAndCardSummaryCriteria criteria);
 
-        IList<BioTimeChange> GetBioTimeChanges(GetBioTimeChangeCriteria criteria);
+        Task<IList<BioTimeChange>> GetBioTimeChanges(GetBioTimeChangeCriteria criteria);
 
         Task<IEnumerable<BioTimeChange>> GetBioTimeChangesAsync(GetBioTimeChangeCriteria criteria);
     }
