@@ -1,0 +1,78 @@
+﻿@using Fanex.NexHR.Models.Bio
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.Core.Enums
+@model IList<FingerprintAndCardSummary>
+
+<table id="data" class="table bordered striped highlight table-custom centered">
+    <thead>
+        <tr>
+            <th>@Labels.SymbolCount</th>
+            <th>@Labels.Code</th>
+            <th>@Labels.Nick</th>
+            <th>@Labels.FullName</th>
+            <th>@Labels.Team</th>
+            <th>@Labels.Fingerprint</th>
+            <th>@Labels.CardNo</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    @if (Model.Any())
+    {
+        <tbody>
+            @{
+                var index = 0;
+            }
+            @foreach (FingerprintAndCardSummary item in Model)
+            {
+                index++;
+                var warningClass = item.IsWarning ? "warning" : "";
+                <tr class="@warningClass">
+                    <td>@index</td>
+                    <td>@item.Employee.Code</td>
+                    <td>@item.Employee.NickName</td>
+                    <td class="align-left">FullName</td>
+                    <td class="tooltip" title="@item.Employee.Team.Name">Team</td>
+                    <td>
+                        @if (@item.TotalFingerprint > 0)
+                        {
+                            @item.TotalFingerprint
+                            ;
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td>
+                        @{
+                            var displayCardNo = !string.IsNullOrEmpty(item.CardNo) ? item.CardNo : "-";
+                        }
+
+                        @displayCardNo
+                    </td>
+
+                    <td>
+                        @{
+                            var className = item.IsWarning ? "c-pending" : "c-approve";
+                            var status = item.IsWarning ? FingerprintScannerStatus.Pending.ToString()
+                            : FingerprintScannerStatus.Approve.ToString();
+                        }
+                        <a href="javascript:;" class="@status.ToLowerInvariant() tooltip @className"
+                   data-employeeId="@item.Employee.Id"
+                   data-bioUserId="@item.BioUserId">
+                            @status
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    }
+    else
+    {
+        <tr>
+            <td colspan="14">@Messages.NoInformation</td>
+        </tr>
+    }
+</table>

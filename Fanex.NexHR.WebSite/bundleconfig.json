@@ -883,6 +883,19 @@
         "sourceMap": false
     },
     {
+        "outputFileName": "wwwroot/minify/js/fingerprintscanner.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Bio/fingerprint-scanner.js",
+            "wwwroot/js/Views/Employee/_employee.search.in.company.js",
+            "wwwroot/js/Views/fixtable.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
     	"outputFileName": "wwwroot/minify/js/memoindex.min.js",
     	"inputFiles": [
       	    "wwwroot/js/Views/Memo/memo.js",

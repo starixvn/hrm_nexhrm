@@ -159,6 +159,7 @@
                 Status = viewModel.Status
             };
 
+
             var listFingerprintData = bioService.GetFingerprintAndCardSummary(criteria);
 
             return PartialView("_ListFingerprint", listFingerprintData);

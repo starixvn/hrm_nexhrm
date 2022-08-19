@@ -1,0 +1,112 @@
+﻿@using Fanex.NexHR.ViewModels
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.Core
+@using Fanex.NexHR.Core.Enums
+@model FingerprintAndCardViewModel
+
+@{
+    ViewBag.Title = "Index";
+    ViewBag.Title = Labels.LeaveSchedules;
+    var teams = new SelectList(Model.Teams, "Id", "Name");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/contextmenu.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Libs/jquery.contextMenu.min.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Bio/fingerprint-scanner.js" asp-append-version="true"></script>
+         <script src="~/js/Views/Employee/_employee.search.in.team.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/contextmenu.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/fingerprintscanner.min.js" asp-append-version="true"></script>
+    </environment>
+}
+@{ ViewBag.Title = "Fingerprint & Card management"; }
+
+@section Breadcrumb {
+}
+    <div class="row content">
+        <div class="col s12 card-container-base">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-title-block">
+                        <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="form form-stl-table">
+                        @using (Html.BeginForm("GetFingerprintScannerData", "Bio", FormMethod.Get, new { id = "fingerprint-scanner" }))
+                        {
+                            <div class="row form-input">
+                                <div class="col m-l--l m-r--l">
+                                    <div class="left label--s">
+                                        <label>@Labels.Team</label>
+                                    </div>
+                                    <div class="left select-team">
+                                        <select asp-for="@Model.TeamId" asp-items="@teams">
+                                            <option value="">@Labels.AllTeams</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.Employee</label>
+                                    </div>
+                                    <div class="left input--m">
+                                        <input asp-for="@Model.Employee" placeholder="@Messages.SearchEmployeeWatermark" />
+                                        <input type="hidden" asp-for="@Model.EmployeeId" />
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.Type</label>
+                                    </div>
+                                    <div class="left input--m">
+                                        <select id="type" name="type">
+                                            @{
+                                                <option value="">@Labels.All</option>
+                                                foreach (FingerprintScannerType type in (FingerprintScannerType[])Enum.GetValues(typeof(FingerprintScannerType)))
+                                                {
+                                                    var value = (int)type;
+                                                    <option value="@value">@Utilities.GetDescription(type)</option>
+                                                }
+                                            }
+                                        </select>
+                                        <input type="hidden" id="TypeOption" value="@Model.Type" />
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.Status</label>
+                                    </div>
+                                    <div class="left input--m">
+                                        <select id="status" name="status">
+                                            @{
+                                                <option value="">@Labels.All</option>
+                                                foreach (FingerprintScannerStatus status in (FingerprintScannerStatus[])Enum.GetValues(typeof(FingerprintScannerStatus)))
+                                                {
+                                                    var value = (int)status;
+                                                    <option value="@value">@Utilities.GetDescription(status)</option>
+                                                }
+                                            }
+                                        </select>
+                                        <input type="hidden" id="StatusOption" value="@Model.Status" />
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <input type="submit" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div id="list-finger-card" class="over-auto table-resize table-medium">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
