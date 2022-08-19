@@ -1,0 +1,137 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.Overtime
+@model HROvertimeViewModel
+@{
+    ViewBag.Title = Labels.OvertimeReview;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/contextmenu.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/Overtime/overtimeHrview.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Employee/_employee.search.in.company.js" asp-append-version="true"></script>
+        <script src="~/js/Libs/jquery.contextMenu.min.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/overtimehrview.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/contextmenu.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form form-stl-table">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.DateRange</label>
+                                    </div>
+                                    <div class="left select--s">
+                                        <select id="Date" name="Date">
+                                        @{
+                                            foreach (DateRangeFilter dateRange in (DateRangeFilter[])Enum.GetValues(typeof(DateRangeFilter)))
+                                            {
+                                                var value = (int)dateRange;
+                                                <option value="@value" selected="@(value == (int)DateRangeFilter.DateRange)">@Utilities.GetDescription(dateRange)</option>
+                                            }
+                                        }
+                                        </select>
+                                        @Html.Hidden("DateOption", Model.DateOption)
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.FromDate, Labels.FromDate)
+                                    </div>
+                                    <div class="left datepicker-button select--s">
+                                        <date-picker
+                                            name="FromDate"
+                                            value="Model.FromDate"
+                                        >
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.ToDate, Labels.ToDate)
+                                    </div>
+                                    <div class="left datepicker-button select--s">
+                                        <date-picker
+                                            name="ToDate"
+                                            value="Model.ToDate"
+                                        >
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        @Html.LabelFor(model => model.Status)
+                                    </div>
+                                    <div class="left input--s">
+                                        @{
+                                            var selectList = new List<SelectListItem>
+                                            {
+                                                new SelectListItem {Text = "All", Value="0"},
+                                                new SelectListItem {Text = Labels.Approved, Value = RequestStatuse.Approve.ToString("D")},
+                                                new SelectListItem {Text = Labels.Verified, Value = RequestStatuse.Verified.ToString("D")},
+                                                new SelectListItem {Text = Labels.Void, Value = RequestStatuse.Void.ToString("D")}
+                                            };
+                                        }
+                                        @Html.DropDownListFor(model => model.Status, selectList)
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.CreatedBy</label>
+                                    </div>
+                                    <div class="left input--m">
+                                        @Html.TextBoxFor(model => model.CreatedName, new { placeholder = Messages.SearchEmployeeWatermark })
+                                        @Html.HiddenFor(model => model.CreatedBy)
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="p-x--s over-auto">
+                        <table id="data" class="table bordered striped highlight table-custom centered">
+                            <thead>
+                                <tr>
+                                    <th>@Labels.SymbolCount</th>
+                                    <th>@Labels.Project</th>
+                                    <th>@Labels.CreatedBy</th>
+                                    <th>@Labels.CreatedDate</th>
+                                    <th>@Labels.TotalMembers</th>
+                                    <th>@Labels.Status</th>
+                                    <th>@Labels.Reset</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                        <div id="dialog-NEX-detail" title="Verify NEX Request"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
