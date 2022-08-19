@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Security.Claims;
+    using System.Threading.Tasks;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
@@ -44,7 +45,7 @@
         }
 
         [HttpPost]
-        public ActionResult Login(LoginModel model, string returnUrl)
+        public async Task<ActionResult> Login(LoginModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -54,7 +55,7 @@
                     var employee = authService.GetEmployeeByDomain(domainUsername);
                     if (employee != null)
                     {
-                        var employeeSetting = authService.GetEmployeeSetting(employee.Id);
+                        var employeeSetting = await authService.GetEmployeeSetting(employee.Id);
                         sessionService.CurrentEmployee = employee;
                         sessionService.CurrentUserSetting = employeeSetting;
 
@@ -70,7 +71,7 @@
                             IsPersistent = model.RememberMe
                         };
 
-                        HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                             new ClaimsPrincipal(identity), authProperties);
 
                         return Url.IsLocalUrl(returnUrl) ? Redirect(returnUrl) : RedirectToAction("Index", "Dashboard");

@@ -4,12 +4,10 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Fanex.NexHR.Core;
-    using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.ScheduledMessage;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.ScheduledMessage;
-    using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels.ScheduledMessage;
     using Microsoft.AspNetCore.Mvc;
@@ -17,12 +15,12 @@
 
     public class ScheduledMessageController : BaseController
     {
-        private readonly BaseService baseService;
+        private readonly IBaseService baseService;
         private readonly IScheduledMessageService scheduledMessageService;
         private readonly IEmployeeService employeeService;
 
-        public ScheduledMessageController(ISessionService sessionService, 
-            BaseService baseService,
+        public ScheduledMessageController(ISessionService sessionService,
+            IBaseService baseService,
             IScheduledMessageService scheduledMessageService,
             IEmployeeService employeeService) : base(sessionService)
         {
@@ -116,16 +114,22 @@
             {
                 case Constants.RepeatMinute:
                     return $"*/{stepNumber} * * * *";
+
                 case Constants.RepeatHour:
                     return $"{startDate.Minute} */{stepNumber} * * *";
+
                 case Constants.RepeatDay:
                     return $"{startDate.Minute} {startDate.Hour} */{stepNumber} * *";
+
                 case Constants.RepeatWeek:
                     return $"{startDate.Minute} {startDate.Hour} */{stepNumber * Constants.NumberOfDayInWeek} * *";
+
                 case Constants.RepeatMonth:
                     return $"{startDate.Minute} {startDate.Hour} {startDate.Day} */{stepNumber} *";
+
                 case Constants.RepeatYear:
                     return $"{startDate.Minute} {startDate.Hour} {startDate.Day} {startDate.Month} *";
+
                 default:
                     return null;
             }
@@ -300,7 +304,7 @@
                 PermittedEmployeeIds = conversation.PermittedEmployees.Select(x => x.EmployeeId).ToArray(),
                 IsActive = conversation.IsActive,
                 HasHRRole = userRoles.Any(item => item == "HR")
-        };
+            };
 
             if (viewModel.HasHRRole)
             {

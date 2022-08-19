@@ -4,16 +4,17 @@
     using Criteria.Team;
     using Interfaces;
     using Models;
-    using Repositories;
     using Repositories.Interfaces;
 
-    public class TeamService : BaseService, ITeamService
+    public class TeamService : ITeamService
     {
         private readonly ITeamRepository teamRepository;
+        private readonly IBaseService baseService;
 
-        public TeamService(ITeamRepository teamRepository)
+        public TeamService(ITeamRepository teamRepository, IBaseService baseService)
         {
             this.teamRepository = teamRepository;
+            this.baseService = baseService;
         }
 
         public Team GetById(GetTeamByIdCriteria criteria)
@@ -56,7 +57,7 @@
 
         public IList<Team> GetTeamManagedByEmp(GetTeamByManagerIdCriteria criteria)
         {
-            IList<Team> teams = GetData<Team>(criteria);
+            IList<Team> teams = baseService.GetData<Team>(criteria);
             return teams;
         }
     }

@@ -10,32 +10,34 @@
     using Fanex.NexHR.Models.EmployeeOnline;
     using Fanex.NexHR.Services.Interfaces;
 
-    public class EmployeeOnlineService : BaseService, IEmployeeOnlineService
+    public class EmployeeOnlineService : IEmployeeOnlineService
     {
         private readonly string getallComputerNameCommand = "import-module activedirectory\n\r  Get-ADComputer -Filter 'Name -like \"CP*\" -or Name -like \"NB*\"' | Select -Expand Name";
         private readonly string checkConnectionCommand = "Test-Connection -ComputerName {0} -BufferSize 16 -Count 1 -Quiet -ErrorAction SilentlyContinue";
 
         private readonly IShellCommandService shellCommandService;
+        private readonly IBaseService baseService;
 
-        public EmployeeOnlineService()
+        public EmployeeOnlineService(IShellCommandService shellCommandService, IBaseService baseService)
         {
-            this.shellCommandService = new ShellCommandService();
+            this.shellCommandService = shellCommandService;
+            this.baseService = baseService;
         }
 
         public async Task RunCheckOnline()
         {
             var criteria = new GetEmployeeOnlineStatusCriteria();
 
-            var employees = GetData<Employee>(criteria);
+            var employees = baseService.GetData<Employee>(criteria);
 
             var computers = GetComputerNames();
 
             var employeeOnlines = new List<EmployeeOnline>();
 
-            foreach(var computer in computers)
+            foreach (var computer in computers)
             {
                 var computerArr = computer.Split('-');
-                if(computerArr.Count() > 1)
+                if (computerArr.Count() > 1)
                 {
                     var nick = computerArr[1];
                     if (!employeeOnlines.Any(t => t.NickName.Equals(nick)) && employees.Any(t => t.NickName.Equals(nick, StringComparison.OrdinalIgnoreCase)))
@@ -55,8 +57,6 @@
                               );
                     }
                 }
-
-                    
             }
 
             await UpdateEmployeeOnline(employeeOnlines);
@@ -64,12 +64,12 @@
 
         private async Task UpdateEmployeeOnline(IList<EmployeeOnline> employeeOnlines)
         {
-            var criteria = new UpdateEmployeeOnlineCriteria
+            var criteria = new UpdateEmployeeOnlineCommand
             {
                 EmployeeOnlines = employeeOnlines
             };
 
-            await ExecuteNonQueryAsync(criteria);
+            await baseService.ExecuteNonQueryAsync(criteria);
         }
 
         private string[] GetComputerNames()

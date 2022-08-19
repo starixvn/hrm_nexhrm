@@ -20,16 +20,18 @@
     using Newtonsoft.Json;
     using Resources;
 
-    public class RedmineService : BaseService, IRedmineService
+    public class RedmineService : IRedmineService
     {
         private readonly AppSetting appSetting;
         private readonly HttpClient httpClient;
+        private readonly IBaseService baseService;
         private const string apiDateTimeFormat = "yyyy-MM-dd";
 
-        public RedmineService(AppSetting appSetting, IHttpClientFactory httpClientFactory)
+        public RedmineService(AppSetting appSetting, IHttpClientFactory httpClientFactory, IBaseService baseService)
         {
             this.appSetting = appSetting;
             httpClient = httpClientFactory.CreateClient();
+            this.baseService = baseService;
         }
 
         private int GetCurrentRedmineId(string loginName)
@@ -39,7 +41,7 @@
 
             if (criteria.IsValid())
             {
-                var userRedmind = GetDataEntity<RedmineUser>(criteria);
+                var userRedmind = baseService.GetDataEntity<RedmineUser>(criteria);
                 redmineId = userRedmind != null ? userRedmind.RedmineId : 0;
             }
 
@@ -214,7 +216,7 @@
                 FromDate = from,
                 ToDate = to
             };
-            return GetData<DateTime>(criteria);
+            return baseService.GetData<DateTime>(criteria);
         }
 
         public async Task<IList<DateTime>> GetHaveNotLogTimeDates(string domainUser, int currentUserId)
@@ -251,7 +253,7 @@
 
         public async Task<IEnumerable<RedmineUser>> GetForgotLogtimeEmployees()
         {
-            var employees = await GetDataAsync<RedmineUser>(new GetRedmineUserCriteria());
+            var employees = await baseService.GetDataAsync<RedmineUser>(new GetRedmineUserCriteria());
 
             if (employees.Any())
             {

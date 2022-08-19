@@ -22,13 +22,13 @@
     using ViewModels;
     using ViewModels.CheckInOutRequest;
 
-    public class RequestService : BaseService, IRequestService
+    public class RequestService : IRequestService
     {
         private readonly IRequestRepository requestRepository;
         private readonly IEmailService emailService;
-        private readonly ICommandService commandService;
         private readonly INexbotService nexbotService;
         private readonly IWebHostEnvironment environment;
+        private readonly IBaseService baseService;
         private readonly AppSetting appSetting;
         private readonly EmailSettings emailSettings;
 
@@ -37,19 +37,21 @@
         public RequestService(
             IRequestRepository requestRepository,
             IEmailService emailService,
-            ICommandService commandService,
+
             INexbotService nexbotService,
             IWebHostEnvironment environment,
             AppSetting appSetting,
-            EmailSettings emailSettings)
+            EmailSettings emailSettings,
+            IBaseService baseService)
         {
             this.requestRepository = requestRepository;
             this.emailService = emailService;
-            this.commandService = commandService;
+
             this.nexbotService = nexbotService;
             this.environment = environment;
             this.appSetting = appSetting;
             this.emailSettings = emailSettings;
+            this.baseService = baseService;
         }
 
         private static string GetMessageDateforLeaveRequest(DateTime fromDate, DateTime toDate)
@@ -154,11 +156,11 @@
             return msg;
         }
 
-        public CommandResult Process(string command, long id, int processBy)
+        public async Task<CommandResult> Process(string command, long id, int processBy)
         {
-            ICriteria processRequestCriteria = GetProcessRequestCriteria(command, id, processBy);
+            INonQueryCommand processRequestCriteria = GetProcessRequestCriteria(command, id, processBy);
 
-            CommandResult result = commandService.ExecuteNonQuery(processRequestCriteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(processRequestCriteria);
             if (result.IsSuccessful)
             {
                 string templateEmailToRequester = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForRequester);
@@ -166,7 +168,7 @@
                 string templateLeaveEmailToHR = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForLeaveDisApproved);
                 string templateInOutEmailToRelated = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForCheckInOutApproved);
 
-                Task.Factory.StartNew(() =>
+                Task.Run(() =>
                 {
                     SendMailForProcessRequest(
                         id,
@@ -183,9 +185,9 @@
             return result;
         }
 
-        private static ICriteria GetProcessRequestCriteria(string command, long id, int processBy)
+        private static INonQueryCommand GetProcessRequestCriteria(string command, long id, int processBy)
         {
-            ICriteria processRequestCriteria;
+            INonQueryCommand processRequestCriteria;
             switch (command)
             {
                 case "Disapprove":
@@ -266,14 +268,14 @@
                 RequestType = (int)requestType
             };
 
-            NumberRequestInMonth numberRequest = GetDataEntity<NumberRequestInMonth>(criteria);
+            NumberRequestInMonth numberRequest = baseService.GetDataEntity<NumberRequestInMonth>(criteria);
 
             return numberRequest?.NumberRequest ?? 0;
         }
 
         public LeaveBalanceInMonth GetAnnualLeaveBalanceInMonth(GetLeaveBalanceInMonthCriteria criteria)
         {
-            var entityList = GetDataEntity<LeaveBalanceInMonth>(criteria);
+            var entityList = baseService.GetDataEntity<LeaveBalanceInMonth>(criteria);
             return entityList;
         }
 
@@ -287,13 +289,13 @@
                 RequestId = requestId
             };
 
-            IList<DateTime> dates = GetData<DateTime>(criteria);
+            IList<DateTime> dates = baseService.GetData<DateTime>(criteria);
             return dates;
         }
 
         public DateRange GetDateRange(GetDateRangeEmployeeCalendarCriteria criteria)
         {
-            DateRange dateRange = GetDataEntity<DateRange>(criteria);
+            DateRange dateRange = baseService.GetDataEntity<DateRange>(criteria);
             return dateRange ?? new DateRange();
         }
 
@@ -302,13 +304,13 @@
             if (model != null)
             {
                 var criteria = new GetLeadersOfEmployeeCriteria { EmployeeId = model.EmployeeId };
-                IList<Employee> leaders = GetData<Employee>(criteria);
+                IList<Employee> leaders = baseService.GetData<Employee>(criteria);
 
                 string forDate = GetDateStringForLeaveRequest(model.FromDate, model.ToDate, model.TotalDays);
 
                 if (model.IsUnpaidLeave || model.IsAnnualLeaveOver5Day)
                 {
-                    IList<Employee> managers = GetData<Employee>(new GetManagementsCriteria()).ToList();
+                    IList<Employee> managers = baseService.GetData<Employee>(new GetManagementsCriteria()).ToList();
 
                     SendMailToManagers(managers, leaders, model, forDate);
                 }
@@ -409,7 +411,7 @@
             if (model.IsStandbyAtWeekend)
             {
                 var getLeaderCriteria = new GetLeaderForStanbyTeamCriteria();
-                leaders = GetData<Employee>(getLeaderCriteria);
+                leaders = baseService.GetData<Employee>(getLeaderCriteria);
             }
             else
             {
@@ -418,7 +420,7 @@
                     EmployeeId = model.EmployeeId
                 };
 
-                leaders = GetData<Employee>(criteria);
+                leaders = baseService.GetData<Employee>(criteria);
             }
 
             return leaders;
@@ -460,7 +462,7 @@
                 IgnoreTeams = appSetting.IgnoreTeams
             };
 
-            var projectManagers = GetData<Employee>(getEmployeeByTeamsCriteria);
+            var projectManagers = baseService.GetData<Employee>(getEmployeeByTeamsCriteria);
 
             if (results == null)
             {
@@ -567,7 +569,7 @@
             string templateInOutEmailToRelatedPath)
         {
             var criteria = new GetEmployeeForRelatedTeamCriteria { EmpId = request.Requester.Id };
-            var employees = GetData<Employee>(criteria)
+            var employees = baseService.GetData<Employee>(criteria)
                 .Where(i => i.Id != request.ModifiedBy.Id && i.Id != request.Requester.Id && i.Email != null && !i.Email.Equals(request.ModifiedBy.Email));
 
             if (request.RequestType.Id == (int)RequestType.Leave)
@@ -591,7 +593,7 @@
         private void SendMailForHR(RequestEntity request,
             string templateLeaveEmailToHR)
         {
-            IList<Employee> HRs = GetData<Employee>(new GetHRCriteria()).ToList();
+            IList<Employee> HRs = baseService.GetData<Employee>(new GetHRCriteria()).ToList();
 
             var sendTo = string.Join(";", HRs.Select(t => t.Email));
             var subject = string.Format(

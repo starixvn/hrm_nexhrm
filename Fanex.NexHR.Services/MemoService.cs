@@ -13,30 +13,32 @@
     using Models.Memo;
     using Resources;
 
-    public class MemoService : BaseService, IMemoService
+    public class MemoService : IMemoService
     {
         private readonly IEmailService emailService;
         private readonly IWebHostEnvironment environment;
+        private readonly IBaseService baseService;
         private readonly AppSetting appSettings;
         private readonly EmailSettings emailSettings;
 
-        public MemoService(IEmailService emailService, IWebHostEnvironment environment, AppSetting appSettings, EmailSettings emailSettings)
+        public MemoService(IEmailService emailService, IWebHostEnvironment environment, IBaseService baseService, AppSetting appSettings, EmailSettings emailSettings)
         {
             this.emailService = emailService;
             this.environment = environment;
+            this.baseService = baseService;
             this.appSettings = appSettings;
             this.emailSettings = emailSettings;
         }
 
         public IList<Memo> GetAll(GetAllMemoCriteria criteria)
         {
-            IList<Memo> entityList = GetData<Memo>(criteria).ToList();
+            IList<Memo> entityList = baseService.GetData<Memo>(criteria).ToList();
             return entityList;
         }
 
         public Memo GetById(GetMemoByIdCriteria criteria)
         {
-            var memo = GetDataEntity<Memo>(criteria);
+            var memo = baseService.GetDataEntity<Memo>(criteria);
             if (memo != null && memo.MemoType == 1)
             {
                 string attachFile = memo.Contents;

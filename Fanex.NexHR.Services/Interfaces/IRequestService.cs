@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Core.Enums;
     using Criteria.Request;
     using Models;
@@ -11,7 +12,7 @@
 
     public interface IRequestService
     {
-        CommandResult Process(string command, long id, int processBy);
+        Task<CommandResult> Process(string command, long id, int processBy);
 
         IList<RequestEntity> GetRequest(GetRequestCriteria criteria);
 

@@ -6,13 +6,15 @@
     using Models.AnnualLeave;
     using Repositories.Interfaces;
 
-    public class AnnualLeaveService : BaseService, IAnnualLeaveService
+    public class AnnualLeaveService : IAnnualLeaveService
     {
         private readonly IAnnualLeaveRepository annualLeaveRepository;
+        private readonly IBaseService baseService;
 
-        public AnnualLeaveService(IAnnualLeaveRepository annualLeaveRepository)
+        public AnnualLeaveService(IAnnualLeaveRepository annualLeaveRepository, IBaseService baseService)
         {
             this.annualLeaveRepository = annualLeaveRepository;
+            this.baseService = baseService;
         }
 
         public IList<LeaveSummary> GetAnnualLeaveBalance(GetAnnualLeaveSummaryCriteria criteria)
@@ -31,7 +33,7 @@
             ShowOpenAndCloseAnnualBalance showOpenAndCloseAnnualBalance = null;
             if (criteria != null && criteria.IsValid())
             {
-                showOpenAndCloseAnnualBalance = GetDataEntity<ShowOpenAndCloseAnnualBalance>(criteria);
+                showOpenAndCloseAnnualBalance = baseService.GetDataEntity<ShowOpenAndCloseAnnualBalance>(criteria);
             }
 
             return showOpenAndCloseAnnualBalance;

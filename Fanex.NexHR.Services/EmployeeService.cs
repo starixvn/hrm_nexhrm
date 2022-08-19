@@ -1,30 +1,31 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
     using Criteria;
     using Criteria.Employee;
     using Criteria.Workload;
+    using Fanex.NexHR.Core;
+    using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.EmployeeTransfer;
     using Interfaces;
     using Models;
+    using Models.Report;
     using Models.Workload;
-    using Repositories;
     using Repositories.Interfaces;
     using ViewModels;
-    using Models.Report;
-    using System.Threading.Tasks;
-    using Fanex.NexHR.Criteria.EmployeeTransfer;
-    using System.Text;
-    using System.Linq;
-    using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Core;
 
-    public class EmployeeService : BaseService, IEmployeeService
+    public class EmployeeService : IEmployeeService
     {
         private readonly IEmployeeRepository employeeRepository;
+        private readonly IBaseService baseService;
 
-        public EmployeeService(IEmployeeRepository employeeRepository)
+        public EmployeeService(IEmployeeRepository employeeRepository, IBaseService baseService)
         {
             this.employeeRepository = employeeRepository;
+            this.baseService = baseService;
         }
 
         public Employee GetEmployeeById(GetEmployeeByIdCriteria criteria)
@@ -73,13 +74,13 @@
 
         public IList<Employee> GetMembersByManager(GetMemberByManagerCriteria criteria)
         {
-            IList<Employee> employees = GetData<Employee>(criteria);
+            IList<Employee> employees = baseService.GetData<Employee>(criteria);
             return employees;
         }
 
         public DefaultSchedule GetEmployeeShift(GetEmployeeShiftCriteria criteria)
         {
-            DefaultSchedule defaultSchedule = GetDataEntity<DefaultSchedule>(criteria);
+            DefaultSchedule defaultSchedule = baseService.GetDataEntity<DefaultSchedule>(criteria);
             return defaultSchedule;
         }
 
@@ -88,7 +89,7 @@
             MySpaceViewModel space = new MySpaceViewModel();
             if (criteria != null && criteria.IsValid())
             {
-                space = GetDataEntity<MySpaceViewModel>(criteria);
+                space = baseService.GetDataEntity<MySpaceViewModel>(criteria);
                 space.DashboardCompanySpace = GetDashBoardCompanySpace(criteria.EmpId);
                 space.DashboardEmployeeSpace = GetDashBoardPersonalSpace(criteria.EmpId);
                 if (space.DashboardCompanySpace.Any())
@@ -102,7 +103,7 @@
 
         public HRLeaderDashboardModel GetHRLeaderDashboard(GetHRLeaderDashboardCriteria criteria)
         {
-            HRLeaderDashboardModel dashboard = GetDataEntity<HRLeaderDashboardModel>(criteria);
+            HRLeaderDashboardModel dashboard = baseService.GetDataEntity<HRLeaderDashboardModel>(criteria);
             return dashboard;
         }
 
@@ -130,19 +131,19 @@
 
         public IList<Employee> GetUpdatingScoreRelatedPeople(GetUpdatingScoreRelatedPeopleCriteria criteria)
         {
-            IList<Employee> employees = GetData<Employee>(criteria);
+            IList<Employee> employees = baseService.GetData<Employee>(criteria);
             return employees;
         }
 
         public IList<MissingCheckInOutModel> GetMissingCheckInOutByEmpId(GetMissingCheckInOutEmployeesCriteria criteria)
         {
-            IList<MissingCheckInOutModel> missingCheckInOuts = GetData<MissingCheckInOutModel>(criteria);
+            IList<MissingCheckInOutModel> missingCheckInOuts = baseService.GetData<MissingCheckInOutModel>(criteria);
             return missingCheckInOuts;
         }
 
         public IList<EmployeeLateInEarlyOut> GetEmployeeLateInEarlyOut(GetEmployeeAttendanceLateInEarlyOutCriteria criteria)
         {
-            IList<EmployeeLateInEarlyOut> employees = GetData<EmployeeLateInEarlyOut>(criteria);
+            IList<EmployeeLateInEarlyOut> employees = baseService.GetData<EmployeeLateInEarlyOut>(criteria);
             return employees;
         }
 
@@ -173,19 +174,19 @@
 
         public async Task<IEnumerable<MissingCheckInOutEmployee>> GetMissingCheckInOutEmployeeAsync()
         {
-            var missingCheckInOuts = await GetDataAsync<MissingCheckInOutEmployee>(new GetMissingCheckInCheckOutCriteria()).ConfigureAwait(false);
+            var missingCheckInOuts = await baseService.GetDataAsync<MissingCheckInOutEmployee>(new GetMissingCheckInCheckOutCriteria()).ConfigureAwait(false);
 
             return missingCheckInOuts;
         }
 
         public IList<LuminetGroup> GetLuminetGroups()
         {
-            return GetData<LuminetGroup>(new GetLuminetGroupCriteria());
+            return baseService.GetData<LuminetGroup>(new GetLuminetGroupCriteria());
         }
 
         public IList<LuminetShift> GetLuminetShifts()
         {
-            return GetData<LuminetShift>(new GetLuminetShiftCriteria());
+            return baseService.GetData<LuminetShift>(new GetLuminetShiftCriteria());
         }
 
         private static string getCompanyWorkFromHome(IList<DashBoardCompanySpace> dashBoard)
@@ -197,7 +198,6 @@
                 .Where(t => t.IsWorkFromHome && t.IsCurrent && t.TypeId == (int)DashBoardType.None)
                 .OrderBy(t => t.Employee.NickName)
                 .ToList();
-
 
             IList<DashBoardCompanySpace> leaveDay = dashBoard
                 .Where(t => t.IsCurrent && t.TypeId == (int)DashBoardType.Leave)

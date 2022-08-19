@@ -14,20 +14,22 @@
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
 
-    public class BioTasksService : BaseService, IBotBioTasksService
+    public class BioTasksService : IBotBioTasksService
     {
         private static readonly string BaseUrl = ConfigurationManager.AppSettings["BaseUrl"] + "/bio/fingerprint";
         private readonly INexbotService nexbotService;
+        private readonly IBaseService baseService;
 
-        public BioTasksService(INexbotService nexbotService)
+        public BioTasksService(INexbotService nexbotService, IBaseService baseService)
         {
             this.nexbotService = nexbotService;
+            this.baseService = baseService;
         }
 
         public async Task<CommandResult> SendMessageBioDeviceAsync()
         {
             var result = new CommandResult { Code = 0 };
-            var pendingDevices = await GetDataAsync<BioDevice>(new GetPendingBioDevicesCriteria()).ConfigureAwait(false);
+            var pendingDevices = await baseService.GetDataAsync<BioDevice>(new GetPendingBioDevicesCriteria()).ConfigureAwait(false);
             if (pendingDevices.Any())
             {
                 var conversations = await nexbotService.GetRegisteredConversationAsync(MessageCategory.BioDevice);
@@ -54,7 +56,7 @@
                 FromDate = DateTime.Now.Date.AddDays(-1),
                 ToDate = DateTime.Now.Date.AddDays(1)
             };
-            var warningTimeChanges = await GetDataAsync<BioTimeChange>(criteria).ConfigureAwait(false);
+            var warningTimeChanges = await baseService.GetDataAsync<BioTimeChange>(criteria).ConfigureAwait(false);
 
             if (warningTimeChanges.Any())
             {
@@ -77,7 +79,7 @@
         public async Task<CommandResult> SendMessageBioFingerprintAndCardAynsc()
         {
             var result = new CommandResult { Code = 0 };
-            var members = await GetDataAsync<FingerprintAndCardSummary>(
+            var members = await baseService.GetDataAsync<FingerprintAndCardSummary>(
                 new GetPendingFingerprintAndCardCriteria()
                 );
 

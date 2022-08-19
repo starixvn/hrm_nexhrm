@@ -12,23 +12,25 @@
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services.Interfaces;
 
-    public class TimeSheetService : BaseService, ITimeSheetService
+    public class TimeSheetService : ITimeSheetService
     {
         private const string CacheKeyIgnoredReminder = "UserIgnoredReminderReachedWorkingTime";
 
         private readonly INexbotService nexbotService;
         private readonly IBaseRepository respository;
+        private readonly IBaseService baseService;
 
-        public TimeSheetService(INexbotService nexbotService, IBaseRepository respository)
+        public TimeSheetService(INexbotService nexbotService, IBaseRepository respository, IBaseService baseService)
         {
             this.nexbotService = nexbotService;
             this.respository = respository;
+            this.baseService = baseService;
         }
 
         public async Task SendReminderReachedWorkingTime()
         {
             var criteria = new GetEmployeeReachedWorkingTimeCriteria();
-            var workinghours = GetData<WorkingHour>(criteria);
+            var workinghours = await baseService.GetDataAsync<WorkingHour>(criteria);
             var today = DateTime.Now.Date;
 
             if (workinghours != null && workinghours.Any())
@@ -44,12 +46,12 @@
                     }
 
                     var employeeIds = string.Join(",", workinghours.Select(t => t.EmployeeId));
-                    WriteLogForSentSuccessful(employeeIds, today);
+                    await WriteLogForSentSuccessful(employeeIds, today);
                 }
             }
         }
 
-        private void WriteLogForSentSuccessful(string employeeIds, DateTime workDate)
+        private async Task WriteLogForSentSuccessful(string employeeIds, DateTime workDate)
         {
             var criteria = new InsertLogReachedWorkingTimeCriteria
             {
@@ -57,7 +59,7 @@
                 WorkDate = workDate
             };
 
-            respository.ExecuteNonQuery(criteria);
+            await baseService.ExecuteNonQueryAsync(criteria);
         }
 
         private async Task<IList<ConversationUser>> GetUserIgnoreReminderReachedWorkingTime()

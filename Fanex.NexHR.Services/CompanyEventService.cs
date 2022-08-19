@@ -5,16 +5,23 @@
     using Interfaces;
     using Models.CompanyEvent;
 
-    public class CompanyEventService : BaseService, ICompanyEventService
+    public class CompanyEventService : ICompanyEventService
     {
+        private readonly IBaseService baseService;
+
+        public CompanyEventService(IBaseService baseService)
+        {
+            this.baseService = baseService;
+        }
+
         public IList<CompanyEvent> GetAll(GetAllEventCriteria criteria)
         {
-            return GetData<CompanyEvent>(criteria);
+            return baseService.GetData<CompanyEvent>(criteria);
         }
 
         public CompanyEvent GetById(GetEventByIdCriteria criteria)
         {
-            return GetDataEntity<CompanyEvent>(criteria);
+            return baseService.GetDataEntity<CompanyEvent>(criteria);
         }
     }
 }

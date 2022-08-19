@@ -1,9 +1,8 @@
 ﻿namespace Fanex.NexHR.Criteria.TimeSheet
 {
     using System;
-    using Fanex.Data.Repository;
 
-    public class InsertLogReachedWorkingTimeCriteria : CriteriaBase
+    public class InsertLogReachedWorkingTimeCriteria : BaseCommand
     {
         public string EmployeeIds { get; set; }
 

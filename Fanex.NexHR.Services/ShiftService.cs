@@ -8,9 +8,15 @@
     using Interfaces;
     using Models;
 
-    public class ShiftService : BaseService, IShiftService
+    public class ShiftService : IShiftService
     {
         private const string CacheKeyAllShift = "ShiftService_AllShift";
+        private readonly IBaseService baseService;
+
+        public ShiftService(IBaseService baseService)
+        {
+            this.baseService = baseService;
+        }
 
         public IList<Shift> GetAll()
         {
@@ -18,7 +24,7 @@
             if (shifts == null || !shifts.Any())
             {
                 var criteria = new GetShiftCriteria();
-                shifts = GetData<Shift>(criteria);
+                shifts = baseService.GetData<Shift>(criteria);
 
                 if (shifts != null && shifts.Any())
                 {
@@ -32,7 +38,7 @@
 
         public Shift GetByDate(GetShiftByDateCriteria criteria)
         {
-            Shift shift = GetDataEntity<Shift>(criteria);
+            Shift shift = baseService.GetDataEntity<Shift>(criteria);
             return shift;
         }
     }

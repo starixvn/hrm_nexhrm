@@ -1,12 +1,12 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
+    using System.Threading.Tasks;
     using Criteria.Employee;
     using Fanex.NexHR.Core;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Newtonsoft.Json;
-    using Services;
     using Services.Interfaces;
 
     [Authorize]
@@ -24,7 +24,7 @@
         }
 
         [HttpPost]
-        public IActionResult ProcessRequest(long requestId, string command, string nickName)
+        public async Task<IActionResult> ProcessRequest(long requestId, string command, string nickName)
         {
             LogFileHelper.WriteInfo(JsonConvert.SerializeObject(new { RequestId = requestId, Command = command, Nickname = nickName }));
             var criteria = new GetEmployeeByNickNameCriteria
@@ -34,7 +34,7 @@
 
             var approver = employeeService.GetEmployeeByNickName(criteria);
 
-            CommandResult result = requestService.Process(command, requestId, approver.Id);
+            CommandResult result = await requestService.Process(command, requestId, approver.Id);
             return Ok(result);
         }
 

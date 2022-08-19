@@ -8,9 +8,9 @@
 
     public class WorkFromHomeRequestService : IWorkFromHomeRequest
     {
-        private readonly BaseService baseService;
+        private readonly IBaseService baseService;
 
-        public WorkFromHomeRequestService(BaseService baseService)
+        public WorkFromHomeRequestService(IBaseService baseService)
         {
             this.baseService = baseService;
         }

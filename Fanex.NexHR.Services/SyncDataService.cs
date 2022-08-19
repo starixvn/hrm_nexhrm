@@ -10,15 +10,17 @@
     using Fanex.NexHR.Services.Interfaces;
     using Newtonsoft.Json;
 
-    public class SyncDataService : BaseService, ISyncDataService
+    public class SyncDataService : ISyncDataService
     {
         private readonly HttpClient httpClient;
         private readonly SyncDataSettings settings;
+        private readonly IBaseService baseService;
 
-        public SyncDataService(IHttpClientFactory httpClientFactory, SyncDataSettings settings)
+        public SyncDataService(IHttpClientFactory httpClientFactory, SyncDataSettings settings, IBaseService baseService)
         {
             httpClient = httpClientFactory.CreateClient();
             this.settings = settings;
+            this.baseService = baseService;
         }
 
         public async Task<IEnumerable<SyncEmployeeModel>> GetEmployeeAsync(bool isNexcel, DateTime modifiedDate)
@@ -29,7 +31,7 @@
                 LastModifiedDate = modifiedDate
             };
 
-            var employees = await GetDataAsync<SyncEmployeeModel>(criteria);
+            var employees = await baseService.GetDataAsync<SyncEmployeeModel>(criteria);
 
             return employees;
         }
@@ -42,7 +44,7 @@
                 LastModifiedDate = modifiedDate
             };
 
-            var departments = await GetDataAsync<SyncDepartmentModel>(criteria);
+            var departments = await baseService.GetDataAsync<SyncDepartmentModel>(criteria);
 
             return departments;
         }
@@ -55,7 +57,7 @@
                 LastModifiedDate = modifiedDate
             };
 
-            var groups = await GetDataAsync<SyncGroupModel>(criteria);
+            var groups = await baseService.GetDataAsync<SyncGroupModel>(criteria);
 
             return groups;
         }
@@ -64,7 +66,7 @@
         {
             var criteria = new SyncDataGetJobTitleCriteria { IsNexHRM = isNexcel };
 
-            var jobTitles = await GetDataAsync<SyncJobTitleModel>(criteria);
+            var jobTitles = await baseService.GetDataAsync<SyncJobTitleModel>(criteria);
 
             return jobTitles;
         }

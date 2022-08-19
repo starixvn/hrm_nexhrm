@@ -22,19 +22,25 @@
     using ViewModels;
     using ViewModels.CheckInOutRequest;
 
-    public class NexbotService : BaseService, INexbotService
+    public class NexbotService : INexbotService
     {
         private const string ContentType = "application/json";
         private readonly HttpClient httpClient;
         private readonly INexbotRepository nexbotRepository;
+        private readonly IBaseService baseService;
         private readonly NexBotSettings nexBotSettings;
         private readonly string BaseUrl;
 
-        public NexbotService(IHttpClientFactory httpClientFactory, INexbotRepository nexbotRepository, AppSetting appSetting, NexBotSettings nexBotSettings)
+        public NexbotService(IHttpClientFactory httpClientFactory,
+            INexbotRepository nexbotRepository,
+            IBaseService baseService,
+            AppSetting appSetting,
+            NexBotSettings nexBotSettings)
         {
             httpClient = httpClientFactory.CreateClient();
             this.nexbotRepository = nexbotRepository;
             this.nexBotSettings = nexBotSettings;
+            this.baseService = baseService;
             BaseUrl = appSetting.BaseUrl;
         }
 
@@ -160,7 +166,7 @@
                 IEnumerable<Employee> leaders;
                 if (request.IsAnnualLeaveOver5Day || request.IsUnpaidLeave)
                 {
-                    leaders = GetData<Employee>(new GetManagementsCriteria());
+                    leaders = await baseService.GetDataAsync<Employee>(new GetManagementsCriteria());
                 }
                 else
                 {
@@ -168,7 +174,7 @@
                     {
                         EmployeeId = request.EmployeeId
                     };
-                    leaders = GetData<Employee>(criteria);
+                    leaders = await baseService.GetDataAsync<Employee>(criteria);
                 }
                 await SendMessageToHandleLeaveRequestMembers(leaders, request);
             }
@@ -226,7 +232,7 @@
 
         public async Task SendMessageProcessRequest(RequestEntity request, string command)
         {
-            var employeee = GetDataEntity<Employee>(new GetEmployeeSkypeAccountCriteria { EmployeeId = request.Requester.Id });
+            var employeee = await baseService.GetDataEntityAsync<Employee>(new GetEmployeeSkypeAccountCriteria { EmployeeId = request.Requester.Id });
             if (employeee != null)
             {
                 var message = GenerateProcessRequestMessage(request, command);

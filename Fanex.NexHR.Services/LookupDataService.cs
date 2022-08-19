@@ -5,11 +5,18 @@
     using Interfaces;
     using Models;
 
-    public class LookupDataService : BaseService, ILookupDataService
+    public class LookupDataService : ILookupDataService
     {
+        private readonly IBaseService baseService;
+
+        public LookupDataService(IBaseService baseService)
+        {
+            this.baseService = baseService;
+        }
+
         public IList<LookupData> GetAll(GetAllLookupDataCriteria criteria)
         {
-            IList<LookupData> lookupDatas = GetData<LookupData>(criteria);
+            IList<LookupData> lookupDatas = baseService.GetData<LookupData>(criteria);
             return lookupDatas;
         }
     }

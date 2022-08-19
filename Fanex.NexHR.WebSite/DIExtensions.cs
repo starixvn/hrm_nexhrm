@@ -83,7 +83,7 @@
             services.AddScoped<ISessionService, SessionService>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
-            services.AddSingleton<BaseService>();
+            services.AddSingleton<IBaseService, BaseService>();
 
             services.AddSingleton<IAuthService, AuthService>();
             services.AddSingleton<ILogServiceProvider, LogServiceProvider>();
@@ -117,7 +117,7 @@
             services.AddSingleton<ILookupDataService, LookupDataService>();
             services.AddSingleton<IMemoService, MemoService>();
             services.AddSingleton<ICompanyEventService, CompanyEventService>();
-            
+
             // services.AddSingleton<ILateInEarlyOutRepository, LateInEarlyOutRepository>();
         }
 
@@ -133,9 +133,9 @@
             services.AddSingleton<IReportRepository, ReportRepository>();
             services.AddSingleton<INexbotRepository, NexbotRepository>();
             services.AddSingleton<ICalendarRepository, CalendarRepository>();
-            services.AddSingleton<IOvertimeRepository, OvertimeRepository>();        
-            services.AddSingleton<IScheduledMessageRepository, ScheduledMessageRepository>();        
-            services.AddSingleton<IAnnualLeaveRepository, AnnualLeaveRepository>();     
+            services.AddSingleton<IOvertimeRepository, OvertimeRepository>();
+            services.AddSingleton<IScheduledMessageRepository, ScheduledMessageRepository>();
+            services.AddSingleton<IAnnualLeaveRepository, AnnualLeaveRepository>();
             services.AddSingleton<IBioRepository, BioRepository>();
         }
     }

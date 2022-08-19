@@ -1,20 +1,15 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System.Collections.Generic;
     using Criteria.Department;
     using Interfaces;
     using Models;
     using Repositories;
     using Repositories.Interfaces;
-    using System.Collections.Generic;
 
-    public class DepartmentService : BaseService, IDepartmentService
+    public class DepartmentService : IDepartmentService
     {
         private readonly IDepartmentRepository departmentRepository;
-
-        public DepartmentService()
-            : this(null)
-        {
-        }
 
         public DepartmentService(IDepartmentRepository departmentRepository)
         {

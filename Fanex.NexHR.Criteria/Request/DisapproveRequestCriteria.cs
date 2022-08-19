@@ -10,12 +10,11 @@
 namespace Fanex.NexHR.Criteria.Request
 {
     using System;
-    using Data.Repository;
 
     /// <summary>
     /// Disapprove Request Criteria.
     /// </summary>
-    public class DisapproveRequestCriteria : CriteriaBase
+    public class DisapproveRequestCriteria : BaseCommand
     {
         public long RequestId { get; set; }
 

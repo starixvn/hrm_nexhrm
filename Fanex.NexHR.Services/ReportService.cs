@@ -1,19 +1,19 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using Criteria.Report;
     using Interfaces;
     using Models;
     using Models.Report;
     using Repositories.Interfaces;
-    using System.Collections.Generic;
-    using System.Linq;
 
-    public class ReportService : BaseService, IReportService
+    public class ReportService : IReportService
     {
         private readonly IReportRepository reportRepository;
-        private readonly BaseService baseService;
+        private readonly IBaseService baseService;
 
-        public ReportService(IReportRepository reportRepository, BaseService baseService)
+        public ReportService(IReportRepository reportRepository, IBaseService baseService)
         {
             this.reportRepository = reportRepository;
             this.baseService = baseService;
@@ -114,7 +114,7 @@
 
         public IList<HeadCount> GetTeamHeadCountInYear(GetHeadCountByYearCriteria criteria)
         {
-            IList<HeadCount> headCount = GetData<HeadCount>(criteria);
+            IList<HeadCount> headCount = baseService.GetData<HeadCount>(criteria);
             return headCount;
         }
 

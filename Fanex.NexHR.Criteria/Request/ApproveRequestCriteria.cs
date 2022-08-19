@@ -1,9 +1,8 @@
 ﻿namespace Fanex.NexHR.Criteria.Request
 {
     using System;
-    using Data.Repository;
 
-    public class ApproveRequestCriteria : CriteriaBase
+    public class ApproveRequestCriteria : BaseCommand
     {
         public long RequestId { get; set; }
 

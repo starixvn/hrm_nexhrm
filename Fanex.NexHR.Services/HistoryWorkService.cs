@@ -1,20 +1,21 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System.Collections.Generic;
     using Fanex.NexHR.Criteria.HistoryWork;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels.Employee;
-    using System.Collections.Generic;
 
-    public class HistoryWorkService : BaseService, IHistoryWorkService
+    public class HistoryWorkService : IHistoryWorkService
     {
         private readonly IHistoryWorkRepository historyWorkRepository;
+        private readonly IBaseService baseService;
 
-        public HistoryWorkService(IHistoryWorkRepository historyWorkRepository = null)
+        public HistoryWorkService(IHistoryWorkRepository historyWorkRepository, IBaseService baseService = null)
         {
-            this.historyWorkRepository = historyWorkRepository ?? new HistoryWorkRepository();
+            this.historyWorkRepository = historyWorkRepository;
+            this.baseService = baseService;
         }
 
         public IList<HistoryWork> GetHistoryWorkByEmpId(GetHistoryWorkByEmpIdCriteria criteria)
@@ -30,7 +31,7 @@
 
         public WorkingHistoryViewModel GetHistoryWorkInfo(EditHistoryWorkCriteria criteria)
         {
-            WorkingHistoryViewModel historyWork = GetDataEntity<WorkingHistoryViewModel>(criteria);
+            WorkingHistoryViewModel historyWork = baseService.GetDataEntity<WorkingHistoryViewModel>(criteria);
             return historyWork;
         }
 

@@ -6,7 +6,6 @@
     using Core.Enums;
     using Criteria.Bio;
     using Criteria.LookupData;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Models;
@@ -20,19 +19,18 @@
     public class BioController : BaseController
     {
         private readonly ICommandService commandService;
-        private readonly IBioService bioService;
+
         private readonly ITeamService teamService;
-        private readonly BaseService baseService;
+        private readonly IBaseService baseService;
 
         public BioController(ISessionService sessionService,
             ICommandService commandService,
-            IBioService bioService,
+
             ITeamService teamService,
-            BaseService baseService
+            IBaseService baseService
             ) : base(sessionService)
         {
             this.commandService = commandService;
-            this.bioService = bioService;
             this.teamService = teamService;
             this.baseService = baseService;
         }
@@ -167,7 +165,6 @@
                     TimeChange = new DateTime(),
                     PreviousLogTime = new DateTime(),
                     NextLogTime = new DateTime(),
-
                 }
             };
             return PartialView("_ListBioTimeChanges", timeChanges);

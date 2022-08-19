@@ -5,12 +5,19 @@
     using Interfaces;
     using Models;
 
-    public class LeaveTypeService : BaseService, ILeaveTypeService
+    public class LeaveTypeService : ILeaveTypeService
     {
+        private readonly IBaseService baseService;
+
+        public LeaveTypeService(IBaseService baseService)
+        {
+            this.baseService = baseService;
+        }
+
         public IList<LeaveType> GetAll()
         {
             var criteria = new GetLeaveTypeCriteria();
-            IList<LeaveType> leaveTypes = GetData<LeaveType>(criteria);
+            IList<LeaveType> leaveTypes = baseService.GetData<LeaveType>(criteria);
             return leaveTypes;
         }
     }

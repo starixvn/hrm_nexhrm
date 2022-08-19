@@ -5,7 +5,7 @@
     using Models.Notification;
     using Repositories.Interfaces;
 
-    public class NotificationService : BaseService, INotificationService
+    public class NotificationService : INotificationService
     {
         private readonly INotificationRepository repositoty;
 

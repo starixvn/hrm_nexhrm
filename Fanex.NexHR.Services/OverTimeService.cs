@@ -1,5 +1,9 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.IO;
+    using System.Linq;
     using Core;
     using Criteria.Employee;
     using Criteria.Overtime;
@@ -8,27 +12,25 @@
     using Models;
     using Models.Overtime;
     using Repositories.Interfaces;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.IO;
-    using System.Linq;
     using ViewModels.Overtime;
 
-    public class OvertimeService : BaseService, IOvertimeService
+    public class OvertimeService : IOvertimeService
     {
         private readonly IOvertimeRepository overtimeRepository;
         private readonly IEmailService emailService;
         private readonly IWebHostEnvironment environment;
+        private readonly IBaseService baseService;
         private const string FormatDate = "dd MMM, yyyy";
         private readonly string SenderEmail = ConfigurationManager.AppSettings["Email"];
         private readonly string BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
         private readonly string CompanyMailSign = ConfigurationManager.AppSettings["CompanyMailSign"];
 
-        public OvertimeService(IOvertimeRepository overtimeRepository, IEmailService emailService, IWebHostEnvironment environment)
+        public OvertimeService(IOvertimeRepository overtimeRepository, IEmailService emailService, IWebHostEnvironment environment, IBaseService baseService)
         {
             this.overtimeRepository = overtimeRepository;
             this.emailService = emailService;
             this.environment = environment;
+            this.baseService = baseService;
         }
 
         public IList<Overtime> GetOvertime(GetOvertimeCriteria criteria)
@@ -99,7 +101,7 @@
 
         public NexHour GetNexHour(GetNexHourCriteria criteria)
         {
-            return GetDataEntity<NexHour>(criteria);
+            return baseService.GetDataEntity<NexHour>(criteria);
         }
 
         public IList<Overtime> GetReportOvertimeHR(ReportOvertimeHRCriteria criteria)
@@ -130,8 +132,8 @@
             {
                 EmployeeId = model.EmpId
             };
-            var receiver = GetDataEntity<Employee>(getEmployeeCriteria);
-            
+            var receiver = baseService.GetDataEntity<Employee>(getEmployeeCriteria);
+
             var templatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForOvertimeConversion);
             var bodyTemplate = Utilities.ReadTextFile(templatePath);
             var body = string.Format(
@@ -155,17 +157,17 @@
         {
             if (model != null)
             {
-                IList<Employee> managers = GetData<Employee>(new GetManagementsCriteria()).ToList();
+                IList<Employee> managers = baseService.GetData<Employee>(new GetManagementsCriteria()).ToList();
                 var templatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForOvertimeRequest);
                 var bodyTemplate = Utilities.ReadTextFile(templatePath);
                 var emloyees = string.Join(
                                                Constants.BrTag,
-                                               model.TimeSheets.Select(t => 
+                                               model.TimeSheets.Select(t =>
                                                                 string.Format(
-                                                                    Constants.ContentEmployeeOvertime, 
-                                                                    t.Employee.NickName, 
+                                                                    Constants.ContentEmployeeOvertime,
+                                                                    t.Employee.NickName,
                                                                     t.Employee.FullName,
-                                                                    t.Date.ToString(FormatDate), 
+                                                                    t.Date.ToString(FormatDate),
                                                                     t.Hour)));
                 if (managers.Any())
                 {
@@ -193,7 +195,7 @@
             {
                 EmployeeId = approvedBy
             };
-            var manager = GetDataEntity<Employee>(getEmployeeCriteria);
+            var manager = baseService.GetDataEntity<Employee>(getEmployeeCriteria);
             var templatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForOvertimeApprovalNotification);
             var bodyTemplate = Utilities.ReadTextFile(templatePath);
 
@@ -221,7 +223,7 @@
             {
                 EmployeeId = createdBy
             };
-            var receiver = GetDataEntity<Employee>(getEmployeeCriteria);
+            var receiver = baseService.GetDataEntity<Employee>(getEmployeeCriteria);
             var body = string.Format(
                     bodyTemplate,
                     receiver.NickName,
@@ -242,12 +244,12 @@
 
         private void SendMailForHR(string subject, int createdBy, string managerNickName, string bodyTemplate, string employees, string project)
         {
-            IList<Employee> HRs = GetData<Employee>(new GetHRCriteria()).ToList();
+            IList<Employee> HRs = baseService.GetData<Employee>(new GetHRCriteria()).ToList();
             GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria
             {
                 EmployeeId = createdBy
             };
-            var creator = GetDataEntity<Employee>(getEmployeeCriteria);
+            var creator = baseService.GetDataEntity<Employee>(getEmployeeCriteria);
             var body = string.Format(
                     bodyTemplate,
                     "all",
@@ -273,7 +275,8 @@
 
             foreach (var item in model.TimeSheets)
             {
-                var employee = GetDataEntity<Employee>(new GetEmployeeByIdCriteria{
+                var employee = baseService.GetDataEntity<Employee>(new GetEmployeeByIdCriteria
+                {
                     EmployeeId = item.Employee.Id
                 });
 
@@ -295,6 +298,5 @@
                     body);
             }
         }
-
     }
 }

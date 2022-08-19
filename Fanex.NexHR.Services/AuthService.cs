@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System.Threading.Tasks;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services.Interfaces;
@@ -7,10 +8,12 @@
     public class AuthService : IAuthService
     {
         private readonly IEmployeeService employeeService;
+        private readonly IBaseService baseService;
 
-        public AuthService(IEmployeeService employeeService)
+        public AuthService(IEmployeeService employeeService, IBaseService baseService)
         {
             this.employeeService = employeeService;
+            this.baseService = baseService;
         }
 
         public Employee GetEmployeeByDomain(string domainUserName)
@@ -20,11 +23,13 @@
             return employee;
         }
 
-        public EmployeeSetting GetEmployeeSetting(int employeeId)
+        public async Task<EmployeeSetting> GetEmployeeSetting(int employeeId)
         {
-            var employeeSettingCriteria = new GetCurrentUserSettingCriteria { EmployeeId = employeeId };
-            var baseService = new BaseService();
-            var employeeSetting = baseService.GetDataEntity<EmployeeSetting>(employeeSettingCriteria);
+            var employeeSettingCriteria = new GetCurrentUserSettingCriteria
+            {
+                EmployeeId = employeeId
+            };
+            var employeeSetting = await baseService.GetDataEntityAsync<EmployeeSetting>(employeeSettingCriteria);
             return employeeSetting;
         }
     }

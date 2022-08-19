@@ -3,12 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core;
     using Core.Enums;
     using Criteria.Request;
     using Criteria.Team;
     using Fanex.NexHR.Models.Attributes;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.Request;
@@ -36,33 +36,34 @@
             this.leaveTypeService = leaveTypeService;
             this.commandService = commandService;
         }
+
         private const int months = 2;
         private const int numberId = 2;
 
         [HrmAuthorize(Roles = "AssistantLeader,HR")]
         [HttpPost("request/process-request")]
-        public JsonResult ProcessRequest(string command, long id)
+        public async Task<IActionResult> ProcessRequest(string command, long id)
         {
-            CommandResult result = requestService.Process(command, id, CurrentUser.Id);
+            CommandResult result = await requestService.Process(command, id, CurrentUser.Id);
             return Json(result);
         }
 
         [HrmAuthorize(Roles = "AssistantLeader,HR")]
         [HttpPost]
-        public JsonResult ApproveMultiple(int[] requestIds)
+        public async Task<IActionResult> ApproveMultiple(int[] requestIds)
         {
             var commandResult = new CommandResult();
             if (requestIds.Length > 0)
             {
-                foreach(var requestId in requestIds)
+                foreach (var requestId in requestIds)
                 {
-                    var result = requestService.Process(Command.Approve.ToString(), requestId, CurrentUser.Id);
+                    var result = await requestService.Process(Command.Approve.ToString(), requestId, CurrentUser.Id);
                     if (!result.IsSuccessful)
                     {
                         commandResult.Code = result.Code;
                         commandResult.Message = result.Message;
                     }
-                }    
+                }
             }
 
             return Json(commandResult);
@@ -70,14 +71,14 @@
 
         [HrmAuthorize(Roles = "AssistantLeader,HR")]
         [HttpPost]
-        public JsonResult RejectMultiple(int[] requestIds)
+        public async Task<IActionResult> RejectMultiple(int[] requestIds)
         {
             var commandResult = new CommandResult();
             if (requestIds.Length > 0)
             {
                 foreach (var requestId in requestIds)
                 {
-                    var result = requestService.Process(Command.Reject.ToString(), requestId, CurrentUser.Id);
+                    var result = await requestService.Process(Command.Reject.ToString(), requestId, CurrentUser.Id);
                     if (!result.IsSuccessful)
                     {
                         commandResult.Code = result.Code;
@@ -327,8 +328,8 @@
                 return Convert.ToString((int)RequestType.Leave);
             }
 
-            return requestType == (int)RequestTypeFilterForRequest.CheckInOut 
-                ? (Convert.ToString((int)RequestType.CheckIn) + "," + Convert.ToString((int)RequestType.CheckOut)) 
+            return requestType == (int)RequestTypeFilterForRequest.CheckInOut
+                ? (Convert.ToString((int)RequestType.CheckIn) + "," + Convert.ToString((int)RequestType.CheckOut))
                 : string.Empty;
         }
 

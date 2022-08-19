@@ -7,8 +7,15 @@
     using Fanex.NexHR.Services.Interfaces;
     using Newtonsoft.Json;
 
-    public class MessageCategoryLogService : BaseService, IMessageCategoryLogService
-    { 
+    public class MessageCategoryLogService : IMessageCategoryLogService
+    {
+        private readonly IBaseService baseService;
+
+        public MessageCategoryLogService(IBaseService baseService)
+        {
+            this.baseService = baseService;
+        }
+
         public async Task<bool> ObjectIsChangedOrNotExists(MessageCategory categoryId, object value)
         {
             string jsonObject = JsonConvert.SerializeObject(value);
@@ -18,7 +25,7 @@
                 CategoryId = categoryId,
                 JsonObject = jsonObject
             };
-            return !await GetDataEntityAsync<bool>(criteria).ConfigureAwait(false);
+            return !await baseService.GetDataEntityAsync<bool>(criteria).ConfigureAwait(false);
         }
 
         public async Task<string> GetJsonObject(MessageCategory categoryId)
@@ -28,7 +35,7 @@
                 CategoryId = categoryId
             };
 
-            return await GetDataEntityAsync<string>(criteria).ConfigureAwait(false);
+            return await baseService.GetDataEntityAsync<string>(criteria).ConfigureAwait(false);
         }
 
         public async Task<CommandResult> UpdateJsonObject(MessageCategory categoryId, object value)
@@ -40,7 +47,7 @@
                 JsonObject = jsonObject
             };
 
-            return await ExecuteNonQueryAsync(criteria).ConfigureAwait(false);
+            return await baseService.ExecuteNonQueryAsync(criteria).ConfigureAwait(false);
         }
     }
 }

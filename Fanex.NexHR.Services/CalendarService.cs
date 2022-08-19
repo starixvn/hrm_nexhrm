@@ -6,10 +6,9 @@
     using Criteria.Calendar;
     using Interfaces;
     using Models.Calendar;
-    using Repositories;
     using Repositories.Interfaces;
 
-    public class CalendarService : BaseService, ICalendarService
+    public class CalendarService : ICalendarService
     {
         private readonly ICalendarRepository calendarRepository;
 

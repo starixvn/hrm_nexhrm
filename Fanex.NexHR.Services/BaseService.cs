@@ -1,23 +1,19 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using Data.Repository;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Repositories;
-    using Fanex.NexHR.Repositories.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Data.Repository;
+    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Repositories;
+    using Fanex.NexHR.Repositories.Interfaces;
+    using Fanex.NexHR.Services.Interfaces;
 
-    public class BaseService
+    public class BaseService : IBaseService
     {
         private readonly IDynamicRepository dynamicRepository;
         private readonly IBaseRepository baseRepository;
-
-        public BaseService()
-            : this(null, null)
-        {
-        }
 
         public BaseService(
             IDynamicRepository dynamicRepository,
@@ -87,18 +83,6 @@
             return default(T);
         }
 
-        public async Task<CommandResult> ExecuteNonQueryAsync(INonQueryCommand command)
-        {
-            var commandResult = new CommandResult();
-
-            if (command != null && command.IsValid())
-            {
-                commandResult = await baseRepository.ExecuteNonQueryAsync(command);
-            }
-
-            return commandResult;
-        }
-
         public async Task<CommandResult> ExecuteNonQueryAsync(ICriteria criteria)
         {
             var commandResult = new CommandResult();
@@ -109,6 +93,11 @@
             }
 
             return commandResult;
+        }
+
+        public Task<CommandResult> ExecuteNonQueryAsync(INonQueryCommand criteria)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -6,17 +6,24 @@
     using Interfaces;
     using ViewModels.Postnatal;
 
-    public class PostnatalService : BaseService, IPostnatalService
+    public class PostnatalService : IPostnatalService
     {
+        private readonly IBaseService baseService;
+
+        public PostnatalService(IBaseService baseService)
+        {
+            this.baseService = baseService;
+        }
+
         public IList<PostnatalViewModel> GetAll(GetAllPostnatalCriteria criteria)
         {
-            List<PostnatalViewModel> listPostanal = GetData<PostnatalViewModel>(criteria).ToList();
+            List<PostnatalViewModel> listPostanal = baseService.GetData<PostnatalViewModel>(criteria).ToList();
             return listPostanal;
         }
 
         public PostnatalViewModel GetById(GetByIdPostnatalCriteria criteria)
         {
-            PostnatalViewModel detailPostanal = GetDataEntity<PostnatalViewModel>(criteria);
+            PostnatalViewModel detailPostanal = baseService.GetDataEntity<PostnatalViewModel>(criteria);
             return detailPostanal;
         }
     }

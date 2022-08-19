@@ -9,9 +9,10 @@
     using Models.Bio;
     using Repositories.Interfaces;
 
-    public class BioService : BaseService, IBioService
+    public class BioService : IBioService
     {
         private readonly IBioRepository bioRepository;
+
         public BioService(IBioRepository bioRepository)
         {
             this.bioRepository = bioRepository;
