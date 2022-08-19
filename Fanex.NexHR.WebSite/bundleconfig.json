@@ -870,5 +870,16 @@
             "renameLocals": true
         },
         "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/biostationtimechange.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Bio/biostationtimechange.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
     }
 ]

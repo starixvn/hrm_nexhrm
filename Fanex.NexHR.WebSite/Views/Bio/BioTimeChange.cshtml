@@ -1,0 +1,67 @@
+﻿@model Fanex.NexHR.ViewModels.Bio.BioStationTimeChangeViewModel
+@using Fanex.NexHR.Resources
+@{
+    ViewBag.Title = Labels.BioStationTimeChanges;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+    @section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/Bio/biostationtimechange.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/biostationtimechange.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form form-stl-table">
+                    @using (Html.BeginForm("GetBioStationTimeChange", "Bio", FormMethod.Post, new { @class = "form-filter" }))
+                    {
+                        <div class="row form-input">
+                            <div class="col m-r--l">
+                                <div class="left label--m">
+                                    <label>@Labels.FromDate</label>
+                                </div>
+                                <div class="left datepicker-button select--s">
+                                    <date-picker name="From"
+                                                min-date="new DateTime(2016, 01, 01)"
+                                                max-date="DateTime.Now"
+                                                value="Model.From">
+                                    </date-picker>
+                                    <i class="mdi-action-event calendar-icon from-date left"></i>
+                                </div>
+                            </div>
+                            <div class="col m-r--l">
+                                <div class="left label--s m-r--s">
+                                    <label>@Labels.ToDate</label>
+                                </div>
+                                <div class="left datepicker-button select--s">
+                                    <date-picker name="To"
+                                                min-date="new DateTime(2016, 01, 01)"
+                                                max-date="DateTime.Now"
+                                                value="Model.To">
+                                    </date-picker>
+                                    <i class="mdi-action-event calendar-icon from-date left"></i>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <input type="submit" class="btn-submit waves-effect waves-light" value="@Labels.Submit" />
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div id="table-list" class="over-auto table-resize table-large"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

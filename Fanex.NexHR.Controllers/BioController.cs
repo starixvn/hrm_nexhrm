@@ -136,9 +136,7 @@
                 FromDate = viewModel.From,
                 ToDate = viewModel.To
             };
-
             var timeChanges = bioService.GetBioTimeChanges(criteria);
-
             return PartialView("_ListBioTimeChanges", timeChanges);
         }
 
