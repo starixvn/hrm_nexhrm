@@ -39,7 +39,19 @@
 
         public ActionResult BioDevice()
         {
-            var bioDevices = baseService.GetData<BioDevice>(new GetBioDevicesCriteria());
+            //var bioDevices = baseService.GetData<BioDevice>(new GetBioDevicesCriteria());
+            var bioDevices = new List<BioDevice>
+            {
+                new BioDevice
+                {
+                    DeviceId = 1,
+                    DeviceName= "DeviceName",
+                    DisplayName = "DisplayName",
+                    StatusId = "StatusId",
+                    Status = "Status",
+                    Active = true
+                }
+            };
             var viewModel = bioDevices.Select(x => new BioDeviceViewModel
             {
                 DeviceId = x.DeviceId,
@@ -55,8 +67,16 @@
 
         public ActionResult EditBioDevice(int id)
         {
-            var bioDevice = baseService.GetDataEntity<BioDevice>(new GetBioDeviceCriteria { DeviceId = id });
-
+            //var bioDevice = baseService.GetDataEntity<BioDevice>(new GetBioDeviceCriteria { DeviceId = id });
+            var bioDevice = new BioDevice
+            {
+                DeviceId = 1,
+                DeviceName = "DeviceName",
+                DisplayName = "DisplayName",
+                StatusId = "StatusId",
+                Status = "Status",
+                Active = true
+            };
             var viewModel = new EditBioDeviceViewModel
             {
                 DeviceId = bioDevice.DeviceId,
@@ -136,7 +156,20 @@
                 FromDate = viewModel.From,
                 ToDate = viewModel.To
             };
-            var timeChanges = bioService.GetBioTimeChanges(criteria);
+            //var timeChanges = bioService.GetBioTimeChanges(criteria);
+            var timeChanges = new List<BioTimeChange>
+            {
+                new BioTimeChange
+                {
+                    DeviceId = 1,
+                    DeviceName = "DeviceName",
+                    DisplayName ="DisplayName",
+                    TimeChange = new DateTime(),
+                    PreviousLogTime = new DateTime(),
+                    NextLogTime = new DateTime(),
+
+                }
+            };
             return PartialView("_ListBioTimeChanges", timeChanges);
         }
 
@@ -159,8 +192,32 @@
                 Status = viewModel.Status
             };
 
+            var listFingerprintData = new List<FingerprintAndCardSummary>
+            {
+                new FingerprintAndCardSummary
+                {
+                    Employee = new Employee
+                    {
+                        Id = 1,
+                        Name = "test",
+                        NickName = "test",
+                        FullName="test",
+                        Team = new Team
+                        {
+                            Name = "team name"
+                        }
+                    },
+                    BioUserId = 1,
+                    TotalFingerprint = 1,
+                    CardNo = "CardNo",
+                    IsFingerprintWarning = false,
+                    IsCardWarning = false,
+                    FullName ="FullName",
+                    NickName = "NickName"
+                }
+            };
 
-            var listFingerprintData = bioService.GetFingerprintAndCardSummary(criteria);
+            //var listFingerprintData = bioService.GetFingerprintAndCardSummary(criteria);
 
             return PartialView("_ListFingerprint", listFingerprintData);
         }
