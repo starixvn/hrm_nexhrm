@@ -1,0 +1,146 @@
+@using Fanex.NexHR.Core
+@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.Memo
+@using Fanex.NexHR.Services.Interfaces
+@inject ISessionService sessionService;
+
+@model MemoViewModel
+@{
+    ViewBag.Title = Labels.CompanyMemo;
+    var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+    var categories = new SelectList(Model.MemoCategories, "Id", "Name");
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/Memo/memo.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Memo/memo.index.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/memoindex.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <form action="/memo" method="post" novalidate="novalidate">
+                        <div class="form form-stl-table">
+                            <div class='row form-input'>
+                                <div class="col" style="display: none;">
+                                    <div class='left label--m'>
+                                        <label asp-for="@Model.Content">@Labels.Content</label>
+                                    </div>
+                                    <div class='left input--l'>
+                                        <input asp-for="@Model.Content"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class='col m-r--m'>
+                                    <div class='left label--s'>
+                                        <label asp-for="@Model.Year">@Labels.Year</label>
+                                    </div>
+                                    <div class="left select--xs">
+                                        <select id="Year" name="Year" asp-items="@Extensions.YearPicker(2010, DateTime.Now.Year, true)"></select>
+                                    </div>
+                                </div>
+                                <div class='col'>
+                                    <div class='left label--m'>
+                                        <label asp-for="@Model.Category">@Labels.Category</label>
+                                    </div>
+                                    <div class="left select--s">
+                                        <select asp-for="@Model.Category" asp-items="@categories">
+                                            <option value="">@Labels.AllTeams</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                @if (@isHRRole)
+                                {
+                                    <div class='col m-l--m'>
+                                        <div class='left label--s'>
+                                            <label asp-for="@Model.Status">@Labels.Status</label>
+                                        </div>
+                                        <div class="left select--s">
+                                            <select asp-for="@Model.Status" asp-items="@Model.StatusTypes">
+                                                <option value="">@Labels.AllTeams</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                }
+                                <div class='col col-btn'>
+                                    <a href="javascript:;" id="submit" class="btn-submit waves-effect waves-light m-r--b">@Labels.Submit</a>
+                                    @if (@isHRRole)
+                                    {
+                                        <a href="/Memo/Create" class="btn-request waves-effect waves-light">New Memo</a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class='p-x--s over-auto'>
+                            <table id="memo" class="data table bordered striped highlight table-custom centered">
+                                <thead>
+                                    <tr>
+                                        <th>@Labels.SymbolCount</th>
+                                        <th>@Labels.RefNo</th>
+                                        <th>@Labels.Subject</th>
+                                        <th>@Labels.Category</th>
+                                        <th>@Labels.Date</th>
+                                        @if (@isHRRole)
+                                        {
+                                            <th>@Labels.Status</th>
+                                            <th>@Labels.Edit</th>
+                                            <th>@Labels.Delete</th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="template" type="text/x-jsrender">
+    <tr id="row_{{:Id}}">
+        <td>{{:~index()}}</td>
+        <td class="align-left">{{:RefNo}}</td>
+        <td class="align-left">
+            <a href="/memo/detail/{{:Id}}">{{:Subject}}</a>
+        </td>
+        <td>{{:CategoryName}}</td>
+        <td>
+            {{:~formatDate(SentDate, 'dd MMM, yyyy')}}
+        </td>
+        {{if ~isHRRole}}
+        <td>{{:Status==1?"Active":"Deactive"}}</td>
+        <td title="Edit">
+            <a href="/memo/edit/{{:Id}}">
+                <i class='mdi mdi-border-color mdi-dark'></i>
+            </a>
+        </td>
+        <td title="Delete">
+            {{if MemoType == 1}}
+            <a href="javascript:;" onclick="deleteMemo('{{:Id}}');">
+                <i class='mdi mdi-delete mdi-dark'></i>
+            </a>
+            {{else}}
+            <a href="javascript:;" onclick="deleteMemo('{{:Id}}');">
+                <i class='mdi mdi-delete mdi-dark'></i>
+            </a>
+            {{/if}}
+        </td>
+        {{/if}}
+    </tr>
+</script>

@@ -1,0 +1,238 @@
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.Models.Memo
+@model Memo
+@{
+    ViewBag.Title = Labels.CompanyMemo;
+    var memoCategories = new SelectList(Model.MemoCategories, "Id", "Name");
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/Memo/memo.js" asp-append-version="true"></script>
+        <script src="~/js/tinymce/tinymce.min.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Memo/memo.edit.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/memoedit.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@Labels.CreateMemo</span>
+                </div>
+                <div class="card-body">
+                    <div class="form form-memo">
+                        <form action="/memo/Create" method="post" novalidate="novalidate">
+                            <div class="container_24 bunhat">
+                                @Html.ValidationSummary()
+                                @if (ViewBag.Updated)
+                                {
+                                    <div class="row validation-summary-success">
+                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Your memo has created successfully !
+                                        <input type="hidden" id="successed" value="true" />
+                                    </div>
+                                }
+                                <input type="hidden" asp-for="@Model.Id"/>
+                                <input type="hidden" asp-for="@Model.AttachFile"/>
+                                <input type="hidden" asp-for="@Model.MemoType"/>
+                                <div class="row form-input">
+                                    <div class="col">
+                                        <div class="left label--m">
+                                            <label asp-for="@Model.Subject">@Labels.Subject</label>
+                                        </div>
+                                        <div class="left input-subject">
+                                            <input asp-for="@Model.Subject" class="text-box single-line"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-input">
+                                    <div class="col m-r--m">
+                                        <div class="left label--m">
+                                            <label asp-for="@Model.RefNo">@Labels.RefNo</label>
+                                        </div>
+                                        <div class="left input--m">
+                                            <input asp-for="@Model.RefNo" class="text-box single-line"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="left label--m">
+                                            <label asp-for="@Model.Category">@Labels.Category</label>
+                                        </div>
+                                        <div class="left select--s">
+                                            <select asp-for="@Model.Category" asp-items="@memoCategories">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-input">
+                                    <div class="col m-r--m">
+                                        <div class="left label--m">
+                                            <label asp-for="@Model.ForInfo">@Labels.ForInfo</label>
+                                        </div>
+                                        <div class="left input--m">
+                                            <input asp-for="@Model.ForInfo" class="text-box single-line"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="left label--m">
+                                            <label asp-for="@Model.SentDate">@Labels.SentDate</label>
+                                        </div>
+                                        <div class="datepicker-button left select--s">
+                                            <date-picker
+                                                name="SentDate"
+                                                value="Model.SentDate"
+                                            >
+                                            </date-picker>
+                                            <i class="mdi-action-event calendar-icon left"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-input">
+                                    <div class="col m-r--m">
+                                        <div class="left label--m">
+                                            <label asp-for="@Model.SentTo">@Labels.SentTo</label>
+                                        </div>
+                                        <div class="left input--m">
+                                            <input asp-for="@Model.SentTo" class="text-box single-line"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="left label--m">
+                                            <label asp-for="@Model.SentFrom">@Labels.SentFrom</label>
+                                        </div>
+                                        <div class="left input--m">
+                                            <input asp-for="@Model.SentFrom" class="text-box single-line"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-input">
+                                    <div class="col m-r--m">
+                                        <div class="left label--m">
+                                            <label asp-for="@Model.TotalPages">@Labels.TotalPages</label>
+                                        </div>
+                                        <div class="left input--m">
+                                            <input asp-for="@Model.TotalPages" class="text-box single-line"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-input">
+                                    <div class="col m-r--m checkBox">
+                                        <div class="left label--m">
+                                            <label asp-for="@Model.SendMail">@Labels.SendMail</label>
+                                        </div>
+                                        <div class="left input--m">
+                                            <div class="left">
+                                                <input class="filled-in" id="SendMail" name="SendMail" type="checkbox" value="true">
+                                                <label for="SendMail"></label>
+                                                <input name="SendMail" type="hidden" value="false">
+
+                                                <span class="field-validation-valid" data-valmsg-for="SendMail" data-valmsg-replace="@Model.SendMail"></span>
+                                            </div>
+                                            <div class="left label--xl">
+                                                <label for="SendMail">@Labels.SendToAllEmployee</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="left label--m">
+                                            <label asp-for="@Model.Status">@Labels.Status</label>
+                                        </div>
+                                        <div class="left input--m">
+                                            @{
+                                                var status = new List<SelectListItem>
+                                                {
+                                                    new SelectListItem {Text = "Active", Value = "1", Selected = true},
+                                                    new SelectListItem {Text = "Deactive", Value = "0"},
+                                                };
+                                                foreach (var item in status)
+                                                {
+                                                    <div class="radioButton">
+                                                        <input class="with-gap" type="radio" name="Status" id="Status_@item.Value" value="@item.Value" checked="@item.Selected"/>
+                                                        <label for="Status_@item.Value">@item.Text</label>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-input">
+                                    <div class="col">
+                                        <div class="left label--m">&nbsp;</div>
+                                        <div class="left">
+                                            @{
+                                                var types = new List<SelectListItem>
+                                                {
+                                                    new SelectListItem {Text = "Upload", Value = "1", Selected = true},
+                                                    new SelectListItem {Text = "FCK Editor", Value = "0"},
+                                                };
+                                                foreach (var item in types)
+                                                {
+                                                    <div class="radioButton">
+                                                        <input class="with-gap" type="radio" name="MemoType" id="MemoType_@item.Value" value="@item.Value" checked="@item.Selected"/>
+                                                        <label for="MemoType_@item.Value">@item.Text</label>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="upload" class="row form-input m-t--m">
+                                    <div class="col">
+                                        <div class="left label--m">
+                                            &nbsp;
+                                        </div>
+                                        <div class="left">
+                                            <input type="file" id="fileName" size="55" multiple />
+                                        </div>
+                                        <div class="left">
+                                            <input class="filled-in" id="override" name="override" type="checkbox" value="true">
+                                            <label for="override"></label>
+                                            <input name="override" type="hidden" value="false">
+                                        </div>
+                                        <div class="left label--m">
+                                            <label for="override">@Labels.Override</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="content" class="row form-input m-t--m">
+                                    <div class="col">
+                                        <div class="left label--m">
+                                            <label asp-for="@Model.Contents">@Model.Contents</label>
+                                        </div>
+                                        <div class="left input--l">
+                                            <textarea asp-for="Contents" class="materialize-textarea"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row m-t--m">
+                                    <div class="col col-btn">
+                                        <div class="left label--m">
+                                            &nbsp;
+                                        </div>
+                                        <div class="left">
+                                            @Html.AntiForgeryToken()
+                                            <a href="@Url.Action("index", "memo")" class="btn-back waves-effect waves-light">
+                                                @Labels.Cancel
+                                            </a>
+                                            <input type="submit" class="submit btn-submit waves-effect waves-light right" value="@Labels.Submit" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var RootUrlTinyMCE = "@Url.Content("~/js/tinymce")";
+</script>

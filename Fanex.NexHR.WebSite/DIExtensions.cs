@@ -114,6 +114,8 @@
             services.AddSingleton<IDepartmentService, DepartmentService>();
             services.AddSingleton<IExtensionNoService, ExtensionNoService>();
             services.AddSingleton<IBioService, BioService>();
+            services.AddSingleton<ILookupDataService, LookupDataService>();
+            services.AddSingleton<IMemoService, MemoService>();
             
             // services.AddSingleton<ILateInEarlyOutRepository, LateInEarlyOutRepository>();
         }

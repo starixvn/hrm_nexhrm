@@ -7,7 +7,7 @@
     using Criteria.LookupData;
     using Criteria.Memo;
     using Fanex.NexHR.Core.Enums;
-    using Microsoft.AspNetCore.Authorization;
+    using Fanex.NexHR.Models.Attributes;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using Models;
@@ -76,7 +76,7 @@
             return View(memo);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Edit(Memo model)
         {
@@ -126,7 +126,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         public ActionResult Create()
         {
             var model = new Memo
@@ -147,7 +147,7 @@
             return View(model);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public ActionResult Create(Memo model)
         {
@@ -203,7 +203,7 @@
             return View(memo);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult DeleteMemo(int id)
         {
@@ -221,7 +221,7 @@
                 {
                     if (!string.IsNullOrEmpty(file))
                     {
-                        var path = Path.Combine(environment.WebRootPath, "~" + file);
+                        var path = Path.Combine(environment.WebRootPath, file);
                         System.IO.File.Delete(path);
                     }
                 }

@@ -881,5 +881,30 @@
             "renameLocals": true
         },
         "sourceMap": false
+    },
+    {
+    	"outputFileName": "wwwroot/minify/js/memoindex.min.js",
+    	"inputFiles": [
+      	    "wwwroot/js/Views/Memo/memo.js",
+            "wwwroot/js/Views/Memo/memo.index.js"
+        ],
+    	"minify": {
+            "enabled": true,
+            "renameLocals": true
+    	},
+        "sourceMap": false
+    },
+    {
+    	"outputFileName": "wwwroot/minify/js/memoedit.min.js",
+    	"inputFiles": [
+      	    "wwwroot/js/Views/Memo/memo.js",
+            "wwwroot/js/tinymce/tinymce.min.js",
+            "wwwroot/js/Views/Memo/memo.edit.js"
+        ],
+        "minify": {
+        "enabled": true,
+        "renameLocals": true
+    },
+        "sourceMap": false
     }
 ]

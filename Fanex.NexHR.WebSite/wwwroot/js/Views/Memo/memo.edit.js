@@ -115,7 +115,7 @@ function upload() {
             return;
         }
 
-        fd.append('files[' + i + ']', file);
+        fd.append('files', file);
     }
 
     fd.append('categoryID', $("#Category").val());
