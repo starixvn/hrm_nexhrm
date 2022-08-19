@@ -861,7 +861,7 @@
   {
     "outputFileName": "wwwroot/minify/js/biostationmanagement.min.js",
     "inputFiles": [
-            "wwwroot/js/Libs/jquery.validate.unobtrusive.js",
+      "wwwroot/js/Libs/jquery.validate.unobtrusive.js",
             "wwwroot/js/Libs/jquery.unobtrusive-ajax.js",
             "wwwroot/js/Views/Bio/bio-management.js"
         ],
@@ -869,54 +869,54 @@
             "enabled": true,
             "renameLocals": true
         },
-        "sourceMap": false
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/biostationtimechange.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Bio/biostationtimechange.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
     },
-    {
-        "outputFileName": "wwwroot/minify/js/biostationtimechange.min.js",
-        "inputFiles": [
-            "wwwroot/js/Views/Bio/biostationtimechange.js"
-        ],
-        "minify": {
-            "enabled": true,
-            "renameLocals": true
-        },
-        "sourceMap": false
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/fingerprintscanner.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Bio/fingerprint-scanner.js",
+      "wwwroot/js/Views/Employee/_employee.search.in.company.js",
+      "wwwroot/js/Views/fixtable.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
     },
-    {
-        "outputFileName": "wwwroot/minify/js/fingerprintscanner.min.js",
-        "inputFiles": [
-            "wwwroot/js/Views/Bio/fingerprint-scanner.js",
-            "wwwroot/js/Views/Employee/_employee.search.in.company.js",
-            "wwwroot/js/Views/fixtable.js"
-        ],
-        "minify": {
-            "enabled": true,
-            "renameLocals": true
-        },
-        "sourceMap": false
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/memoindex.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Memo/memo.js",
+      "wwwroot/js/Views/Memo/memo.index.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
     },
-    {
-        "outputFileName": "wwwroot/minify/js/memoindex.min.js",
-        "inputFiles": [
-            "wwwroot/js/Views/Memo/memo.js",
-            "wwwroot/js/Views/Memo/memo.index.js"
-        ],
-        "minify": {
-            "enabled": true,
-            "renameLocals": true
-        },
-        "sourceMap": false
-    },
-    {
-    	"outputFileName": "wwwroot/minify/js/memoedit.min.js",
-    	"inputFiles": [
-      	    "wwwroot/js/Views/Memo/memo.js",
-            "wwwroot/js/tinymce/tinymce.min.js",
-            "wwwroot/js/Views/Memo/memo.edit.js"
-        ],
-        "minify": {
-        "enabled": true,
-        "renameLocals": true
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/memoedit.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Memo/memo.js",
+      "wwwroot/js/tinymce/tinymce.min.js",
+      "wwwroot/js/Views/Memo/memo.edit.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
     },
     "sourceMap": false
   },
