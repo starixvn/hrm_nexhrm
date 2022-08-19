@@ -39,19 +39,7 @@
 
         public ActionResult BioDevice()
         {
-            //var bioDevices = baseService.GetData<BioDevice>(new GetBioDevicesCriteria());
-            var bioDevices = new List<BioDevice>
-            {
-                new BioDevice
-                {
-                    DeviceId = 1,
-                    DeviceName= "DeviceName",
-                    DisplayName = "DisplayName",
-                    StatusId = "StatusId",
-                    Status = "Status",
-                    Active = true
-                }
-            };
+            var bioDevices = baseService.GetData<BioDevice>(new GetBioDevicesCriteria());
             var viewModel = bioDevices.Select(x => new BioDeviceViewModel
             {
                 DeviceId = x.DeviceId,
@@ -67,16 +55,7 @@
 
         public ActionResult EditBioDevice(int id)
         {
-            //var bioDevice = baseService.GetDataEntity<BioDevice>(new GetBioDeviceCriteria { DeviceId = id });
-            var bioDevice = new BioDevice
-            {
-                DeviceId = 1,
-                DeviceName = "DeviceName",
-                DisplayName = "DisplayName",
-                StatusId = "StatusId",
-                Status = "Status",
-                Active = true
-            };
+            var bioDevice = baseService.GetDataEntity<BioDevice>(new GetBioDeviceCriteria { DeviceId = id });
 
             var viewModel = new EditBioDeviceViewModel
             {

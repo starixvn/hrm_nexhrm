@@ -21,10 +21,10 @@
 
     <div class="row form-input">
         <div class="left label--l">
-            <label asp-for="@Model.StatusId">@Labels.StatusId</label>
+            <label asp-for="@Model.StatusId">@Labels.Status</label>
         </div>
         <div class="left select--m">
-            <select id="StatusId" name="StatusId" asp-items="@(new SelectList(Model.BioDeviceStatuses, ""))">
+            <select id="StatusId" asp-for="StatusId" asp-items="@(new SelectList(Model.BioDeviceStatuses,"Value", "Text"))">
                 <option></option>
             </select>
             <span asp-validation-for="StatusId" class="textdanger"></span>
