@@ -31,8 +31,8 @@
                     <td>@index</td>
                     <td>@item.Employee.Code</td>
                     <td>@item.Employee.NickName</td>
-                    <td class="align-left">FullName</td>
-                    <td class="tooltip" title="@item.Employee.Team.Name">Team</td>
+                    <td class="align-left">@item.Employee.FullName</td>
+                    <td class="tooltip" title="@item.Employee.Team.Name">@item.Employee.Team.Code</td>
                     <td>
                         @if (@item.TotalFingerprint > 0)
                         {
