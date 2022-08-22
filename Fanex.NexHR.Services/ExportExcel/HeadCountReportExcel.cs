@@ -117,7 +117,6 @@ namespace Fanex.NexHR.Services.ExportExcel
 
             worksheet.Row(1).Height = RowHeightTitle;
             worksheet.DefaultColWidth = WidthNormal;
-            worksheet.Cells.AutoFitColumns();
 
             worksheet.Column(colIndex).Width = WidthSmall;
             worksheet.Column(colTeam).Width = WidthFull;
