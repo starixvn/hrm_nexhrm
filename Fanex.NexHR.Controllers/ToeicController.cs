@@ -6,12 +6,12 @@
     using System.IO;
     using System.Linq;
     using System.Text;
+    using System.Threading.Tasks;
     using Core;
     using Criteria.Employee;
     using Criteria.Toeic;
     using Fanex.NexHR.Core.Model;
     using Fanex.NexHR.Models.Attributes;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using Models;
@@ -65,7 +65,7 @@
             return View(model);
         }
 
-        public ActionResult ToeicManagementDetail(ToeicManagementViewModel model)
+        public async Task<IActionResult> ToeicManagementDetail(ToeicManagementViewModel model)
         {
             IList<Employee> employees = new List<Employee>();
             if (model != null)
@@ -81,7 +81,7 @@
                     GroupId = model.TeamId
                 };
 
-                employees = employeeService.GetEmployeeToeicScore(getToeicScoreCriteria);
+                employees = await employeeService.GetEmployeeToeicScore(getToeicScoreCriteria);
                 employees = SortToeic(model.Sort, employees);
             }
             var userRoles = employeeService.UserRoles(CurrentUser);
@@ -196,7 +196,7 @@
                         SendUpdatedScoreEmailToRelatedPeople(model.EmpId, toeic, oldScore);
                     }
 
-                    if(!result.IsSuccessful)
+                    if (!result.IsSuccessful)
                     {
                         ModelState.AddModelError(string.Empty, result.Message);
                     }

@@ -168,18 +168,18 @@
                 string templateLeaveEmailToHR = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForLeaveDisApproved);
                 string templateInOutEmailToRelated = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForCheckInOutApproved);
 
-                Task.Run(async () =>
-                {
-                    SendMailForProcessRequest(
-                        id,
-                        command,
-                        templateEmailToRequester,
-                        templateLeaveEmailToRelated,
-                        templateInOutEmailToRelated,
-                        templateLeaveEmailToHR);
+                RunBackgroundJobs(
+                    new[] {
+                        SendMailForProcessRequest(
+                                id,
+                                command,
+                                templateEmailToRequester,
+                                templateLeaveEmailToRelated,
+                                templateInOutEmailToRelated,
+                                templateLeaveEmailToHR),
 
-                    nexbotService.SendMessageProcessRequest(await GetRequestEntity(id), command);
-                });
+                        nexbotService.SendMessageProcessRequest(await GetRequestEntity(id), command)
+            });
             }
 
             return result;
@@ -492,7 +492,7 @@
             return request;
         }
 
-        private async void SendMailForProcessRequest(
+        private async Task SendMailForProcessRequest(
             long id,
             string command,
             string templateEmailToRequesterPath,
@@ -682,6 +682,11 @@
                      subject,
                      body);
             }
+        }
+
+        private static void RunBackgroundJobs(Task[] tasks)
+        {
+            Task.Run(() => tasks);
         }
     }
 }

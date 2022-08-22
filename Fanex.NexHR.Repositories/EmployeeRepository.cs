@@ -46,11 +46,11 @@
             }
         }
 
-        public IList<DashBoardPersonalSpace> GetDashBoardPersonalSpace(ICriteria criteria)
+        public async Task<IList<DashBoardPersonalSpace>> GetDashBoardPersonalSpace(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var entityList = db.Query<DashBoardPersonalSpace, Employee, DashBoardPersonalSpace>(
+                var entityList = await db.QueryAsync<DashBoardPersonalSpace, Employee, DashBoardPersonalSpace>(
                     (pe, e) =>
                     {
                         pe.Employee = e;
@@ -63,11 +63,11 @@
             }
         }
 
-        public IList<DashBoardCompanySpace> GetDashBoardCompanySpace(ICriteria criteria)
+        public async Task<IList<DashBoardCompanySpace>> GetDashBoardCompanySpace(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var entityList = db.Query<DashBoardCompanySpace, Employee, DashBoardCompanySpace>(
+                var entityList = await db.QueryAsync<DashBoardCompanySpace, Employee, DashBoardCompanySpace>(
                     (pe, e) =>
                     {
                         pe.Employee = e;
@@ -80,11 +80,11 @@
             }
         }
 
-        public IList<Employee> GetEmployeeToeicScore(ICriteria criteria)
+        public async Task<IList<Employee>> GetEmployeeToeicScore(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var entityList = db.Query<Employee, Team, JobTitle, Toeic, Employee>(
+                var entityList = await db.QueryAsync<Employee, Team, JobTitle, Toeic, Employee>(
                      (e, t, job, to) =>
                      {
                          e.JobTitle = job;
@@ -115,11 +115,11 @@
             return model;
         }
 
-        public List<Workload> GetWorkloadByTeam(ICriteria criteria)
+        public async Task<List<Workload>> GetWorkloadByTeam(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var entityList = db.Query<Workload, Employee, Workload>(
+                var entityList = await db.QueryAsync<Workload, Employee, Workload>(
                      (w, e) =>
                      {
                          w.Employee = e;

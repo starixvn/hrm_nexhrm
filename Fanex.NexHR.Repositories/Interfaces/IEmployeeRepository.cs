@@ -16,14 +16,14 @@
 
         IList<Employee> Query(ICriteria criteria);
 
-        IList<DashBoardPersonalSpace> GetDashBoardPersonalSpace(ICriteria criteria);
+        Task<IList<DashBoardPersonalSpace>> GetDashBoardPersonalSpace(ICriteria criteria);
 
-        IList<DashBoardCompanySpace> GetDashBoardCompanySpace(ICriteria criteria);
+        Task<IList<DashBoardCompanySpace>> GetDashBoardCompanySpace(ICriteria criteria);
 
-        IList<Employee> GetEmployeeToeicScore(ICriteria criteria);
+        Task<IList<Employee>> GetEmployeeToeicScore(ICriteria criteria);
 
         Task<SystemReminderModel> GetEmpployeeHasBirthdayAndFirstWorkingday(ICriteria criteria);
 
-        List<Workload> GetWorkloadByTeam(ICriteria criteria);
+        Task<List<Workload>> GetWorkloadByTeam(ICriteria criteria);
     }
 }

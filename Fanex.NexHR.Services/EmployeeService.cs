@@ -84,14 +84,14 @@
             return defaultSchedule;
         }
 
-        public MySpaceViewModel GetMySpace(GetMySpaceCriteria criteria)
+        public async Task<MySpaceViewModel> GetMySpace(GetMySpaceCriteria criteria)
         {
             MySpaceViewModel space = new MySpaceViewModel();
             if (criteria != null && criteria.IsValid())
             {
-                space = baseService.GetDataEntity<MySpaceViewModel>(criteria);
-                space.DashboardCompanySpace = GetDashBoardCompanySpace(criteria.EmpId);
-                space.DashboardEmployeeSpace = GetDashBoardPersonalSpace(criteria.EmpId);
+                space = await baseService.GetDataEntityAsync<MySpaceViewModel>(criteria);
+                space.DashboardCompanySpace = await GetDashBoardCompanySpace(criteria.EmpId);
+                space.DashboardEmployeeSpace = await GetDashBoardPersonalSpace(criteria.EmpId);
                 if (space.DashboardCompanySpace.Any())
                 {
                     space.CompanyWorkFromHome = getCompanyWorkFromHome(space.DashboardCompanySpace);
@@ -107,12 +107,12 @@
             return dashboard;
         }
 
-        public IList<Employee> GetEmployeeToeicScore(GetEmployeeToeicScoreCriteria criteria)
+        public async Task<IList<Employee>> GetEmployeeToeicScore(GetEmployeeToeicScoreCriteria criteria)
         {
             IList<Employee> employees = null;
             if (criteria != null && criteria.IsValid())
             {
-                employees = employeeRepository.GetEmployeeToeicScore(criteria);
+                employees = await employeeRepository.GetEmployeeToeicScore(criteria);
             }
 
             return employees ?? new List<Employee>();
@@ -147,29 +147,29 @@
             return employees;
         }
 
-        private IList<DashBoardPersonalSpace> GetDashBoardPersonalSpace(int employeeId)
+        private async Task<IList<DashBoardPersonalSpace>> GetDashBoardPersonalSpace(int employeeId)
         {
             var criteria = new GetDashBoardPersonalSpaceCriteria
             {
                 EmpId = employeeId
             };
 
-            return employeeRepository.GetDashBoardPersonalSpace(criteria);
+            return await employeeRepository.GetDashBoardPersonalSpace(criteria);
         }
 
-        private IList<DashBoardCompanySpace> GetDashBoardCompanySpace(int employeeId)
+        private async Task<IList<DashBoardCompanySpace>> GetDashBoardCompanySpace(int employeeId)
         {
             var criteria = new GetDashBoardCompanySpaceCriteria
             {
                 EmpId = employeeId
             };
 
-            return employeeRepository.GetDashBoardCompanySpace(criteria);
+            return await employeeRepository.GetDashBoardCompanySpace(criteria);
         }
 
-        public IList<Workload> GetWorkloadByTeam(GetEmployeeWorkloadCriteria criteria)
+        public async Task<IList<Workload>> GetWorkloadByTeam(GetEmployeeWorkloadCriteria criteria)
         {
-            return employeeRepository.GetWorkloadByTeam(criteria);
+            return await employeeRepository.GetWorkloadByTeam(criteria);
         }
 
         public async Task<IEnumerable<MissingCheckInOutEmployee>> GetMissingCheckInOutEmployeeAsync()

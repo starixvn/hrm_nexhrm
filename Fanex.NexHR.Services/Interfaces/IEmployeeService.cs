@@ -24,11 +24,11 @@
 
         DefaultSchedule GetEmployeeShift(GetEmployeeShiftCriteria criteria);
 
-        MySpaceViewModel GetMySpace(GetMySpaceCriteria criteria);
+        Task<MySpaceViewModel> GetMySpace(GetMySpaceCriteria criteria);
 
         HRLeaderDashboardModel GetHRLeaderDashboard(GetHRLeaderDashboardCriteria criteria);
 
-        IList<Employee> GetEmployeeToeicScore(GetEmployeeToeicScoreCriteria criteria);
+        Task<IList<Employee>> GetEmployeeToeicScore(GetEmployeeToeicScoreCriteria criteria);
 
         Task<SystemReminderModel> GetEmpployeeHasBirthdayAndFirstWorkingday(GetBirthdayAndFirstWorkingdayCriteria criteria);
 
@@ -38,7 +38,7 @@
 
         IList<EmployeeLateInEarlyOut> GetEmployeeLateInEarlyOut(GetEmployeeAttendanceLateInEarlyOutCriteria criteria);
 
-        IList<Workload> GetWorkloadByTeam(GetEmployeeWorkloadCriteria criteria);
+        Task<IList<Workload>> GetWorkloadByTeam(GetEmployeeWorkloadCriteria criteria);
 
         Task<IEnumerable<MissingCheckInOutEmployee>> GetMissingCheckInOutEmployeeAsync();
 

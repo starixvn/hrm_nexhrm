@@ -70,7 +70,7 @@
                 EmpId = CurrentUser.Id
             };
 
-            MySpaceViewModel model = employeeService.GetMySpace(getMySpaceCriteria);
+            MySpaceViewModel model = await employeeService.GetMySpace(getMySpaceCriteria);
             model.SystemReminder = await GetRemind();
 
             EmployeeAttendanceViewModel empAttendance = new EmployeeAttendanceViewModel
@@ -260,7 +260,7 @@
             return PartialView("_Notification", noti);
         }
 
-        public ActionResult GetTeamWorkload()
+        public async Task<IActionResult> GetTeamWorkload()
         {
             GetEmployeeWorkloadCriteria criteria = new GetEmployeeWorkloadCriteria
             {
@@ -268,7 +268,7 @@
                 FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1),
                 ToDate = DateTime.Today
             };
-            IList<Workload> listWorkload = employeeService.GetWorkloadByTeam(criteria);
+            IList<Workload> listWorkload = await employeeService.GetWorkloadByTeam(criteria);
 
             return PartialView("_ListTeamWorkload", listWorkload);
         }

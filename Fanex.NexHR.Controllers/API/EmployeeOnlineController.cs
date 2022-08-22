@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
+    using System.Threading.Tasks;
     using Fanex.NexHR.Services.Interfaces;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -15,10 +16,10 @@
         }
 
         [HttpGet]
-        public IActionResult CheckOnline()
+        public async Task<IActionResult> CheckOnline()
         {
-            employeeOnlineService.RunCheckOnline();
+            await employeeOnlineService.RunCheckOnline();
             return Ok();
         }
-    } 
+    }
 }
