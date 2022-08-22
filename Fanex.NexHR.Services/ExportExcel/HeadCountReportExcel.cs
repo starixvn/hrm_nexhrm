@@ -107,19 +107,14 @@ namespace Fanex.NexHR.Services.ExportExcel
 
         protected internal virtual void SetWidthColumn(ExcelWorksheet worksheet)
         {
-            const int WidthSmall = 5;
-            const int WidthNormal = 12;
             const int RowHeightTitle = 25;
-            const int WidthFull = 30;
-
-            const int colIndex = 1;
-            const int colTeam = 2;
-
             worksheet.Row(1).Height = RowHeightTitle;
-            worksheet.DefaultColWidth = WidthNormal;
 
-            worksheet.Column(colIndex).Width = WidthSmall;
-            worksheet.Column(colTeam).Width = WidthFull;
+            int[] widthCol = new[] { 5, 30, 15, 20, 10, 10, 15, 15, 20, 15 };
+            for (int i = 0; i < widthCol.Length; i++)
+            {
+                worksheet.Column(i + 1).Width = widthCol[i];
+            }
         }
     }
 }
