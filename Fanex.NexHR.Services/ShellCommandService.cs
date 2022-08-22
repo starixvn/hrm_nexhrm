@@ -1,11 +1,12 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Diagnostics;
+    using System.Threading.Tasks;
     using Fanex.NexHR.Services.Interfaces;
 
     public class ShellCommandService : IShellCommandService
     {
-        public string ExcuteCommand(string command)
+        public async Task<string> ExcuteCommand(string command)
         {
             string result;
             var escapedArgs = command.Replace("\"", "\\\"");
@@ -20,9 +21,9 @@
                 RedirectStandardError = false
             };
 
-            var proc = Process.Start(startInfo);
-            result = proc.StandardOutput.ReadToEnd();
-            proc.WaitForExit();
+            using var proc = Process.Start(startInfo);
+            result = await proc.StandardOutput.ReadToEndAsync();
+            await proc.WaitForExitAsync();
 
             return result;
         }

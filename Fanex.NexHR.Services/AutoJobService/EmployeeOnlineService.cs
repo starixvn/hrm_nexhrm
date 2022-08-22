@@ -28,21 +28,21 @@
         {
             var criteria = new GetEmployeeOnlineStatusCriteria();
 
-            var employees = baseService.GetData<Employee>(criteria);
+            var employees = await baseService.GetDataAsync<Employee>(criteria);
 
-            var computers = GetComputerNames();
+            var computers = await GetComputerNames();
 
             var employeeOnlines = new List<EmployeeOnline>();
 
             foreach (var computer in computers)
             {
                 var computerArr = computer.Split('-');
-                if (computerArr.Count() > 1)
+                if (computerArr.Length > 1)
                 {
                     var nick = computerArr[1];
                     if (!employeeOnlines.Any(t => t.NickName.Equals(nick)) && employees.Any(t => t.NickName.Equals(nick, StringComparison.OrdinalIgnoreCase)))
                     {
-                        var isOnline = CheckIsOnline(computer);
+                        var isOnline = await CheckIsOnline(computer);
                         var employee = employees.FirstOrDefault(t => t.NickName.Equals(nick, StringComparison.OrdinalIgnoreCase));
 
                         employeeOnlines.Add(
@@ -72,18 +72,18 @@
             await baseService.ExecuteNonQueryAsync(criteria);
         }
 
-        private string[] GetComputerNames()
+        private async Task<string[]> GetComputerNames()
         {
-            var computerText = shellCommandService.ExcuteCommand(getallComputerNameCommand);
+            var computerText = await shellCommandService.ExcuteCommand(getallComputerNameCommand);
 
             var computers = computerText.Split(new[] { "\r\n" }, StringSplitOptions.None);
 
             return computers;
         }
 
-        private bool CheckIsOnline(string pcName)
+        private async Task<bool> CheckIsOnline(string pcName)
         {
-            var output = shellCommandService.ExcuteCommand(string.Format(checkConnectionCommand, pcName));
+            var output = await shellCommandService.ExcuteCommand(string.Format(checkConnectionCommand, pcName));
             return output.Contains("True");
         }
     }

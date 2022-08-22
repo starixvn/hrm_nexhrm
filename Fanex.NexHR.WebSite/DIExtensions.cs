@@ -117,8 +117,6 @@
             services.AddSingleton<ILookupDataService, LookupDataService>();
             services.AddSingleton<IMemoService, MemoService>();
             services.AddSingleton<ICompanyEventService, CompanyEventService>();
-
-            // services.AddSingleton<ILateInEarlyOutRepository, LateInEarlyOutRepository>();
         }
 
         private static void InjectRepository(IServiceCollection services)
@@ -141,5 +139,4 @@
             services.AddSingleton<IDepartmentRepository, DepartmentRepository>();
         }
     }
-    
 }
