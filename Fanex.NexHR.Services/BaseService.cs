@@ -6,7 +6,6 @@
     using System.Threading.Tasks;
     using Data.Repository;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services.Interfaces;
 
@@ -19,8 +18,8 @@
             IDynamicRepository dynamicRepository,
             IBaseRepository baseRepository)
         {
-            this.dynamicRepository = dynamicRepository ?? new DynamicRepository();
-            this.baseRepository = baseRepository ?? new BaseRepository();
+            this.dynamicRepository = dynamicRepository;
+            this.baseRepository = baseRepository;
         }
 
         public IList<T> GetData<T>(ICriteria criteria)
@@ -83,7 +82,7 @@
             return default(T);
         }
 
-        public async Task<CommandResult> ExecuteNonQueryAsync(ICriteria criteria)
+        public async Task<CommandResult> ExecuteNonQueryAsync(INonQueryCommand criteria)
         {
             var commandResult = new CommandResult();
 
@@ -93,11 +92,6 @@
             }
 
             return commandResult;
-        }
-
-        public Task<CommandResult> ExecuteNonQueryAsync(INonQueryCommand criteria)
-        {
-            throw new NotImplementedException();
         }
     }
 }
