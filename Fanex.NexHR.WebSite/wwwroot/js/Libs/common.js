@@ -653,9 +653,10 @@ function initAutocomplete(selectorName, selectorId, isSpecial, isDisable = null)
                     var listEmployee = data.Employees;
                     if (listEmployee && listEmployee.length > 0) {
                         response($.map(listEmployee, function (item) {
+                            console.log(item)
                             return {
                                 label: item.NickName + ' (' + item.FullName + ')',
-                                value: item.UserId
+                                value: item.Id
                             };
                         }));
                     }
