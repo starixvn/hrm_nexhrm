@@ -43,19 +43,7 @@
 
         public async Task<ActionResult> BioDevice()
         {
-            //var bioDevices = await baseService.GetDataAsync<BioDevice>(new GetBioDevicesCriteria());
-            var bioDevices = new List<BioDevice>
-            {
-                new BioDevice
-                {
-                    DeviceId = 1,
-                    DeviceName= "DeviceName",
-                    DisplayName = "DisplayName",
-                    StatusId = "StatusId",
-                    Status = "Status",
-                    Active = true
-                }
-            };
+            var bioDevices = await baseService.GetDataAsync<BioDevice>(new GetBioDevicesCriteria());
             var viewModel = bioDevices.Select(x => new BioDeviceViewModel
             {
                 DeviceId = x.DeviceId,
@@ -71,16 +59,7 @@
 
         public async Task<ActionResult> EditBioDevice(int id)
         {
-            //var bioDevice = await baseService.GetDataEntityAsync<BioDevice>(new GetBioDeviceCriteria { DeviceId = id });
-            var bioDevice = new BioDevice
-            {
-                DeviceId = 1,
-                DeviceName = "DeviceName",
-                DisplayName = "DisplayName",
-                StatusId = "StatusId",
-                Status = "Status",
-                Active = true
-            };
+            var bioDevice = await baseService.GetDataEntityAsync<BioDevice>(new GetBioDeviceCriteria { DeviceId = id });
             var bioDeviceStatuses = await baseService.GetDataAsync<LookupData>(new GetAllLookupDataCriteria { LookupCode = LookupCodeName.BioDeviceStatus });
             var viewModel = new EditBioDeviceViewModel
             {
@@ -129,7 +108,6 @@
         public async Task<ActionResult> ReloadBioDevice(int id)
         {
             var bioDevice = await baseService.GetDataEntityAsync<BioDevice>(new GetBioDeviceCriteria { DeviceId = id });
-
             var viewModel = new BioDeviceViewModel
             {
                 DeviceId = bioDevice.DeviceId,
@@ -161,19 +139,7 @@
                 FromDate = viewModel.From,
                 ToDate = viewModel.To
             };
-            //var timeChanges = await bioService.GetBioTimeChanges(criteria);
-            var timeChanges = new List<BioTimeChange>
-            {
-                new BioTimeChange
-                {
-                    DeviceId = 1,
-                    DeviceName = "DeviceName",
-                    DisplayName ="DisplayName",
-                    TimeChange = new DateTime(),
-                    PreviousLogTime = new DateTime(),
-                    NextLogTime = new DateTime(),
-                }
-            };
+            var timeChanges = await bioService.GetBioTimeChanges(criteria);
             return PartialView("_ListBioTimeChanges", timeChanges);
         }
 
@@ -196,32 +162,7 @@
                 Status = viewModel.Status
             };
 
-            //var listFingerprintData = await bioService.GetFingerprintAndCardSummary(criteria);
-
-            var listFingerprintData = new List<FingerprintAndCardSummary>
-            {
-                new FingerprintAndCardSummary
-                {
-                    Employee = new Employee
-                    {
-                        Id = 1,
-                        Name = "test",
-                        NickName = "test",
-                        FullName="test",
-                        Team = new Team
-                        {
-                            Name = "team name"
-                        }
-                    },
-                    BioUserId = 1,
-                    TotalFingerprint = 1,
-                    CardNo = "CardNo",
-                    IsFingerprintWarning = false,
-                    IsCardWarning = false,
-                    FullName ="FullName",
-                    NickName = "NickName"
-                }
-            };
+            var listFingerprintData = await bioService.GetFingerprintAndCardSummary(criteria);
             return PartialView("_ListFingerprint", listFingerprintData);
         }
 
