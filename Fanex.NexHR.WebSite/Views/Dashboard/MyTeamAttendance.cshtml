@@ -14,10 +14,9 @@
                         <span class="card-title txt-uppercase left">MY TEAM ATTENDANCE</span>
                     </div>
                     <div class="card-body">
-                        @using (Html.BeginForm("", "", FormMethod.Get, new { id = "team-attendance", style = "display: none;" }))
-                        {
-                            @Html.Hidden("DateTime-Now", DateTime.Now.ToString("MMMM dd, yyyy"))
-                        <div class="form">
+                        <form method="get" id="team-attendance" style="display: none;">
+                            <input type="hidden" id="DateTime-Now" name="DateTime-Now" value="@DateTime.Now.ToString("MMMM dd, yyyy")"/>
+                            <div class="form">
                             <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--m">
@@ -26,12 +25,15 @@
                                         </label>
                                     </div>
                                     <div class="left select--s">
-                                            @(await Html.PartialAsync("Partial/_DateRangeDropdownList", new DropdownRenderViewModel 
-                                            {
-                                                Name = "Date", 
-                                                SelectedValue = (int)DateRangeFilter.DateRange
-                                            }))
-                                            @Html.Hidden("DateOption", Model.DateOption)
+                                            @{
+                                                var model = new DropdownRenderViewModel 
+                                                {
+                                                    Name = "Date", 
+                                                    SelectedValue = (int)DateRangeFilter.DateRange
+                                                };
+                                            }
+                                            <partial name="Partial/_DateRangeDropdownList" model="model"/>
+                                            <input type="hidden" asp-for="DateOption"/>
                                         </div>
                                     </div>
                                     <div class="col m-r--l">
@@ -60,14 +62,17 @@
                                 <div class="row form-input">
                                     <div class="col m-r--l">
                                         <div class="left label--m">
-                                            @Html.LabelFor(model => model.AttendanceType, "Request")
+                                            <label>Request</label>
                                         </div>
                                         <div class="left select--s">
-                                            @(await Html.PartialAsync("Partial/_RequestTypeFilterDopdownlist", new DropdownRenderViewModel 
-                                            {
-                                                Name = "AttendanceType", 
-                                                SelectedValue = Model.AttendanceType
-                                            }))
+                                                @{
+                                                var modelAttendanceType = new DropdownRenderViewModel 
+                                                {
+                                                    Name = "AttendanceType", 
+                                                    SelectedValue = Model.AttendanceType
+                                                };
+                                            }
+                                            <partial name="Partial/_DateRangeDropdownList" model="modelAttendanceType"/>
 
                                         </div>
                                     </div>
@@ -90,8 +95,8 @@
                                             </label>
                                         </div>
                                         <div class="left input--s">
-                                            @Html.TextBox("Employee", Model.Employee, new { placeholder = Messages.SearchEmployeeWatermark })
-                                            @Html.HiddenFor(model => model.EmployeeId)
+                                            <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark"/>
+                                            <input type="hidden" asp-for="EmployeeId"/>
                                         </div>
                                     </div>
                                     <div class="col">
@@ -107,59 +112,59 @@
                                     </div>
                                 </div>
                             </div>
-                        }
-                            <div class="p-x--s cover-table-team-attendance">
+                        </form>
+                        <div class="p-x--s cover-table-team-attendance">
                                 
-                                    <table id="attendance" class="table bordered striped highlight centered table-custom">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    @Labels.SymbolCount
-                                                </th>
-                                                <th>
-                                                    @Labels.Date
-                                                </th>
-                                                <th>
-                                                    @Labels.Nick
-                                                </th>
-                                                <th>
-                                                    @Labels.Code
-                                                </th>
-                                                <th>
-                                                    @Labels.Team
-                                                </th>
-                                                <th>
-                                                    @Labels.Shift
-                                                </th>
-                                                <th>
-                                                    @Labels.CheckIn
-                                                </th>
-                                                <th>
-                                                    @Labels.CheckOut
-                                                </th>
-                                                <th>
-                                                    @Labels.TotalHours
-                                                </th>
-                                                <th>
-                                                    @Labels.LateIn
-                                                </th>
-                                                <th>
-                                                    @Labels.EarlyOut
-                                                </th>
-                                                <th>
-                                                    @Labels.Request
-                                                </th>
-                                                <th style="width: 5%;">
-                                                    @Labels.WorkFromHome
-                                                </th>
-                                                <th>
-                                                    @Labels.Note
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
-                            </div>
+                                <table id="attendance" class="table bordered striped highlight centered table-custom">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Labels.SymbolCount
+                                            </th>
+                                            <th>
+                                                @Labels.Date
+                                            </th>
+                                            <th>
+                                                @Labels.Nick
+                                            </th>
+                                            <th>
+                                                @Labels.Code
+                                            </th>
+                                            <th>
+                                                @Labels.Team
+                                            </th>
+                                            <th>
+                                                @Labels.Shift
+                                            </th>
+                                            <th>
+                                                @Labels.CheckIn
+                                            </th>
+                                            <th>
+                                                @Labels.CheckOut
+                                            </th>
+                                            <th>
+                                                @Labels.TotalHours
+                                            </th>
+                                            <th>
+                                                @Labels.LateIn
+                                            </th>
+                                            <th>
+                                                @Labels.EarlyOut
+                                            </th>
+                                            <th>
+                                                @Labels.Request
+                                            </th>
+                                            <th style="width: 5%;">
+                                                @Labels.WorkFromHome
+                                            </th>
+                                            <th>
+                                                @Labels.Note
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                        </div>
                     </div>
                 </div>
             </div>

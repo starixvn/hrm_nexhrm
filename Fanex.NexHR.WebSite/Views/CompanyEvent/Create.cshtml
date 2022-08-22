@@ -27,7 +27,7 @@
                 <div class="card-body">
                     <div class="form form-stl-table">
                         <form action="/CompanyEvent/Create?from=@Model.FromDate&to=@Model.ToDate" method="post" novalidate="novalidate">
-                            @Html.ValidationSummary()
+                            <div asp-validation-summary="All"></div>
 
                             @if (ViewBag.Insert == true)
                             {

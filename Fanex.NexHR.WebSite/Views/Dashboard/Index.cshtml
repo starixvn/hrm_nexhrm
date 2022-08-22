@@ -84,7 +84,7 @@
                         </div>
                         <div class="col s9 m9 center check-out-column">
                             <p class="txt-tittle check-time" id="displayWorkingHour">@displayTotalWorkingHoursToday</p>
-                            @Html.Hidden("workinghour", Model.TotalWorkingHoursToday)
+                            <input id="workinghour" name="workinghour" type="hidden" value="@Model.TotalWorkingHoursToday">
                             <span class="txt-uppercase txt-12px">Working hours today</span>
                             <div class="check-in-out">
                                 <a href="javascript:;"
@@ -103,7 +103,7 @@
                         </div>
                         <div class="col s9 center">
                             <p class="txt-tittle" id="displayWorkingHour">@displayTotalWorkingHoursToday</p>
-                            @Html.Hidden("workinghour", Model.TotalWorkingHoursToday)
+                            <input id="workinghour" name="workinghour" type="hidden" value="@Model.TotalWorkingHoursToday">
                             <span class="txt-uppercase txt-12px">Working hours today</span>
                         </div>
                     }

@@ -198,6 +198,12 @@
       "wwwroot/css/vendors/jquery.timepicker.css"
     ]
   },
+  {
+    "outputFileName": "wwwroot/minify/css/yearlynexrequest.min.css",
+    "inputFiles": [
+      "wwwroot/css/Views/yearlynexrequest.css"
+    ]
+  },
   // ----------------------- Javascript ------------------------------
   {
     "outputFileName": "wwwroot/minify/js/site.min.js",
@@ -874,13 +880,13 @@
     "outputFileName": "wwwroot/minify/js/biostationmanagement.min.js",
     "inputFiles": [
       "wwwroot/js/Libs/jquery.validate.unobtrusive.js",
-            "wwwroot/js/Libs/jquery.unobtrusive-ajax.js",
-            "wwwroot/js/Views/Bio/bio-management.js"
-        ],
-        "minify": {
-            "enabled": true,
-            "renameLocals": true
-        },
+      "wwwroot/js/Libs/jquery.unobtrusive-ajax.js",
+      "wwwroot/js/Views/Bio/bio-management.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
     "sourceMap": false
   },
   {
@@ -929,7 +935,7 @@
     "minify": {
       "enabled": true,
       "renameLocals": true
-      },
+    },
     "sourceMap": false
   },
   {
@@ -943,28 +949,40 @@
       "renameLocals": true
     },
     "sourceMap": false
-    },
+  },
   {
     "outputFileName": "wwwroot/minify/js/companyevent.min.js",
     "inputFiles": [
-       "wwwroot/js/Libs/jquery.contextMenu.min.js",
-       "wwwroot/js/Views/CompanyEvent/event.js"
+      "wwwroot/js/Libs/jquery.contextMenu.min.js",
+      "wwwroot/js/Views/CompanyEvent/event.js"
     ],
     "minify": {
-    "enabled": true,
-    "renameLocals": true
+      "enabled": true,
+      "renameLocals": true
     },
     "sourceMap": false
-    },
+  },
   {
     "outputFileName": "wwwroot/minify/js/companyeventedit.min.js",
     "inputFiles": [
-        "wwwroot/js/Libs/jquery.timepicker.js",
-        "wwwroot/js/Views/CompanyEvent/event-edit.js"
+      "wwwroot/js/Libs/jquery.timepicker.js",
+      "wwwroot/js/Views/CompanyEvent/event-edit.js"
     ],
     "minify": {
-    "enabled": true,
-    "renameLocals": true
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/yearlynexrequest.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/Report/report.yearlynexrequest.js",
+      "wwwroot/js/Views/Employee/_employee.search.in.company.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
     },
     "sourceMap": false
   }

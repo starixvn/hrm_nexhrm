@@ -27,7 +27,7 @@
                 <div class="card-body">
                     <div class="form form-stl-table">
                         <form action="/CompanyEvent/Edit/@Model.Id" method="post">
-                            @Html.ValidationSummary()
+                            <div asp-validation-summary="All"></div>
 
                             @if (ViewBag.Updated == true)
                             {

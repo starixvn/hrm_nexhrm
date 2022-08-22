@@ -3,33 +3,33 @@
 
 <form id="formLogtime" class="form">
 
-    @Html.HiddenFor(model => model.IssueId)
+    <input type="hidden" asp-for="IssueId"/>
 
     <div class="row form-input">
         <div class="left label--m">
-            @Html.LabelFor(model => model.SpentOn)
+            <label>Spent On</label>
         </div>
         <div class="left datepicker-button select--m">
             <date-picker name="SpentOn" max-date="DateTime.Now" value="DateTime.Now"></date-picker>
             <i class="mdi-action-event calendar-icon left"></i>
             <p class="bold total-hour-message"></p>
-            @Html.ValidationMessageFor(model => model.SpentOn)
+            <span asp-validation-for="SpentOn"></span>
         </div>
     </div>
 
     <div class="row form-input">
         <div class="left label--m">
-            @Html.LabelFor(model => model.Hours)
+            <label>Hours</label>
         </div>
         <div class="left select--m">
-            @Html.TextBoxFor(model => model.Hours)
-            @Html.ValidationMessageFor(model => model.Hours)
+            <input asp-for="Hours"/>
+            <span asp-validation-for="Hours"></span>
         </div>
     </div>
 
     <div class="row form-input">
         <div class="left label--m">
-            @Html.LabelFor(model => model.Activity)
+            <label>Activity</label>
         </div>
         <div class="left select--m">
             <select asp-for="Activity" Id="Activity" name="Activity" asp-items="Html.GetEnumSelectList<RedmineLogTimeActivity>()"></select>
@@ -38,11 +38,11 @@
 
     <div class="row form-input">
         <div class="left label--m">
-            @Html.LabelFor(model => model.Comments)
+            <label>Comments</label>
         </div>
         <div class="left select--m">
-            @Html.TextArea("Comments", new { @class = "comment", rows = 3 })
-            @Html.ValidationMessageFor(model => model.Comments)
+            <textarea asp-for="Comments" class="comment" rows="3"></textarea>
+            <span asp-validation-for="Comments"></span>
         </div>
     </div>
 </form>
