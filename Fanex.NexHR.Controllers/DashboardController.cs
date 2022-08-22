@@ -120,7 +120,7 @@
             if (CurrentUserSetting.DisplayInfoAndTodoList)
             {
                 model.MissingCheckInOutList = GetMissingCheckInOut(employeeId);
-                model.PendingRequestsList = GetPendingRequest();
+                model.PendingRequestsList = await GetPendingRequest();
                 model.IsAllowInputSpendTime = CurrentUserSetting.DisplayRedmineInputSpendTime;
                 model.EmployeeLatetInEarlyOuts = GetEmployeeLateInEarlyOut();
 
@@ -218,7 +218,7 @@
             return employeeService.GetMissingCheckInOutByEmpId(criteria);
         }
 
-        private IList<RequestEntity> GetPendingRequest()
+        private async Task<IList<RequestEntity>> GetPendingRequest()
         {
             var criteria = new GetRequestCriteria
             {
@@ -234,7 +234,7 @@
                 ItemsPerPage = 100
             };
 
-            IList<RequestEntity> entityList = requestService.GetRequest(criteria);
+            IList<RequestEntity> entityList = await requestService.GetRequest(criteria);
 
             return entityList;
         }

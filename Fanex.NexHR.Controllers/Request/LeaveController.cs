@@ -47,7 +47,7 @@
             return View();
         }
 
-        public ActionResult ListLeaveRequest(int year)
+        public async Task<ActionResult> ListLeaveRequest(int year)
         {
             var criteria = new GetRequestCriteria
             {
@@ -62,7 +62,7 @@
                 IsFilterByEffectedDate = true
             };
 
-            IList<RequestEntity> leaveRequests = requestService.GetRequest(criteria);
+            IList<RequestEntity> leaveRequests = await requestService.GetRequest(criteria);
 
             return PartialView(leaveRequests);
         }
@@ -157,10 +157,10 @@
             });
         }
 
-        public ActionResult Update(int id)
+        public async Task<ActionResult> Update(int id)
         {
             var criteria = new GetRequestByIdCriteria { Id = id };
-            RequestEntity request = requestService.GetRequestEntity(criteria);
+            RequestEntity request = await requestService.GetRequestEntity(criteria);
             var fromHourSub = request.FromDate.Hour;
             var toHourSub = request.ToDate.Hour;
             var fromMinutesSub = request.FromDate.Minute;

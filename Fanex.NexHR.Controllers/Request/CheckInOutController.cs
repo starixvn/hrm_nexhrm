@@ -44,7 +44,7 @@
             return View();
         }
 
-        public ActionResult ListCheckInOutRequest(int year)
+        public async Task<ActionResult> ListCheckInOutRequest(int year)
         {
             ViewBag.Year = year;
 
@@ -62,7 +62,7 @@
                 IsFilterByEffectedDate = true
             };
 
-            IList<RequestEntity> checkInOutRequests = requestService.GetRequest(criteria);
+            IList<RequestEntity> checkInOutRequests =await requestService.GetRequest(criteria);
 
             return PartialView(checkInOutRequests);
         }
@@ -154,10 +154,10 @@
             });
         }
 
-        public ActionResult Update(int id)
+        public async Task<ActionResult> Update(int id)
         {
             var criteria = new GetRequestByIdCriteria { Id = id };
-            RequestEntity request = requestService.GetRequestEntity(criteria);
+            RequestEntity request = await requestService.GetRequestEntity(criteria);
 
             if (!Editable(request.Status.Id, request.Requester.Id))
             {

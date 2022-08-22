@@ -126,9 +126,9 @@
         }
 
         [HrmAuthorize(Roles = "AssistantLeader")]
-        public ActionResult GetAllRequestByAssistantLeader(RequestViewModel model)
+        public async Task<ActionResult> GetAllRequestByAssistantLeader(RequestViewModel model)
         {
-            model.Requests = GetRequest(model, (short)Role.AssistantLeader);
+            model.Requests = await GetRequest(model, (short)Role.AssistantLeader);
             return PartialView("AllRequest", model);
         }
 
@@ -139,11 +139,11 @@
             return View("HRView", newModel);
         }
 
-        public ActionResult GetAllRequestByEmployee(RequestViewModel model)
+        public async Task<ActionResult> GetAllRequestByEmployee(RequestViewModel model)
         {
             if (model != null)
             {
-                model.Requests = GetRequest(model, (short)Role.HR);
+                model.Requests = await GetRequest(model, (short)Role.HR);
             }
 
             return PartialView("AllRequest", model);
@@ -158,11 +158,11 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult GetAllRequestByHR(RequestViewModel model)
+        public async Task<ActionResult> GetAllRequestByHR(RequestViewModel model)
         {
             if (model != null)
             {
-                model.Requests = GetRequest(model, (short)Role.HR);
+                model.Requests = await GetRequest(model, (short)Role.HR);
 
                 ViewBag.Status = model.StatusId;
                 ViewBag.IsAllowChangeStatus = true;
@@ -173,14 +173,14 @@
             return PartialView("AllRequest", model);
         }
 
-        public ActionResult ViewHistory(long requestId, int requestType)
+        public async Task<ActionResult> ViewHistory(long requestId, int requestType)
         {
             var criteria = new GetRequestHistoryCriteria
             {
                 RequestId = requestId
             };
 
-            IList<RequestEntity> requests = requestService.GetRequestHistory(criteria);
+            IList<RequestEntity> requests = await requestService.GetRequestHistory(criteria);
 
             ViewBag.requestType = requestType;
 
@@ -284,7 +284,7 @@
             return model;
         }
 
-        private IList<RequestEntity> GetRequest(RequestViewModel request, short role)
+        private async Task<IList<RequestEntity>> GetRequest(RequestViewModel request, short role)
         {
             var criteria = new GetRequestCriteria
             {
@@ -303,7 +303,7 @@
                 ItemsPerPage = request.ItemsPerPage
             };
 
-            IList<RequestEntity> entityList = requestService.GetRequest(criteria);
+            IList<RequestEntity> entityList = await requestService.GetRequest(criteria);
 
             if (criteria.TotalItem != null)
             {

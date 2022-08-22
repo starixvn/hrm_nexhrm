@@ -14,11 +14,11 @@
     {
         Task<CommandResult> Process(string command, long id, int processBy);
 
-        IList<RequestEntity> GetRequest(GetRequestCriteria criteria);
+        Task<IList<RequestEntity>> GetRequest(GetRequestCriteria criteria);
 
-        RequestEntity GetRequestEntity(GetRequestByIdCriteria criteria);
+        Task<RequestEntity> GetRequestEntity(GetRequestByIdCriteria criteria);
 
-        IList<RequestEntity> GetRequestHistory(GetRequestHistoryCriteria criteria);
+        Task<IList<RequestEntity>> GetRequestHistory(GetRequestHistoryCriteria criteria);
 
         decimal GetNumberRequestInMonth(int employeeId, RequestType requestType);
 

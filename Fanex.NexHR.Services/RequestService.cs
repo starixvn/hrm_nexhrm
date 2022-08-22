@@ -168,7 +168,7 @@
                 string templateLeaveEmailToHR = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForLeaveDisApproved);
                 string templateInOutEmailToRelated = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForCheckInOutApproved);
 
-                Task.Run(() =>
+                Task.Run(async () =>
                 {
                     SendMailForProcessRequest(
                         id,
@@ -178,7 +178,7 @@
                         templateInOutEmailToRelated,
                         templateLeaveEmailToHR);
 
-                    nexbotService.SendMessageProcessRequest(GetRequestEntity(id), command);
+                    nexbotService.SendMessageProcessRequest(await GetRequestEntity(id), command);
                 });
             }
 
@@ -221,35 +221,35 @@
             return processRequestCriteria;
         }
 
-        public IList<RequestEntity> GetRequest(GetRequestCriteria criteria)
+        public async Task<IList<RequestEntity>> GetRequest(GetRequestCriteria criteria)
         {
             IList<RequestEntity> entityList = new List<RequestEntity>();
 
             if (criteria != null && criteria.IsValid())
             {
-                entityList = requestRepository.GetRequest(criteria);
+                entityList = await requestRepository.GetRequest(criteria);
             }
 
             return entityList ?? new List<RequestEntity>();
         }
 
-        public RequestEntity GetRequestEntity(GetRequestByIdCriteria criteria)
+        public async Task<RequestEntity> GetRequestEntity(GetRequestByIdCriteria criteria)
         {
             RequestEntity request = new RequestEntity();
             if (criteria != null && criteria.IsValid())
             {
-                request = requestRepository.GetRequestEntity(criteria);
+                request = await requestRepository.GetRequestEntity(criteria);
             }
 
             return request;
         }
 
-        public IList<RequestEntity> GetRequestHistory(GetRequestHistoryCriteria criteria)
+        public async Task<IList<RequestEntity>> GetRequestHistory(GetRequestHistoryCriteria criteria)
         {
             IList<RequestEntity> requests = null;
             if (criteria != null && criteria.IsValid())
             {
-                requests = requestRepository.GetRequest(criteria);
+                requests = await requestRepository.GetRequest(criteria);
             }
 
             return requests ?? new List<RequestEntity>();
@@ -482,17 +482,17 @@
             return results;
         }
 
-        private RequestEntity GetRequestEntity(long requestId)
+        private async Task<RequestEntity> GetRequestEntity(long requestId)
         {
             var getRequestByIdCriteria = new GetRequestByIdCriteria
             {
                 Id = requestId
             };
-            var request = requestRepository.GetRequestEntity(getRequestByIdCriteria);
+            var request = await requestRepository.GetRequestEntity(getRequestByIdCriteria);
             return request;
         }
 
-        private void SendMailForProcessRequest(
+        private async void SendMailForProcessRequest(
             long id,
             string command,
             string templateEmailToRequesterPath,
@@ -500,7 +500,7 @@
             string templateInOutEmailToRelatedPath,
             string templateLeaveEmailToHR)
         {
-            var request = GetRequestEntity(id);
+            var request = await GetRequestEntity(id);
 
             SendMailToRequester(request, command, templateEmailToRequesterPath);
 

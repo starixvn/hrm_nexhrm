@@ -1,26 +1,27 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Globalization;
-    using System.Linq;
-    using System.Reflection;
     using Core.Attributes;
     using Data;
     using Data.Repository;
     using Interfaces;
     using Models;
     using Models.Request;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Globalization;
+    using System.Linq;
+    using System.Reflection;
+    using System.Threading.Tasks;
 
     public class RequestRepository : BaseRepository, IRequestRepository
     {
-        public IList<RequestEntity> GetRequest(ICriteria criteria)
+        public async Task<IList<RequestEntity>> GetRequest(ICriteria criteria)
         {
             IList<RequestEntity> entityList = new List<RequestEntity>();
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                using (IDataReader reader = db.ExecuteReader(criteria))
+                using (IDataReader reader = await db.ExecuteReaderAsync(criteria))
                 {
                     if (reader != null)
                     {
@@ -46,12 +47,12 @@
             return entityList;
         }
 
-        public RequestEntity GetRequestEntity(ICriteria criteria)
+        public async Task<RequestEntity> GetRequestEntity(ICriteria criteria)
         {
             RequestEntity request = new RequestEntity();
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                using (IDataReader reader = db.ExecuteReader(criteria))
+                using (IDataReader reader =await db.ExecuteReaderAsync(criteria))
                 {
                     if (reader != null)
                     {
