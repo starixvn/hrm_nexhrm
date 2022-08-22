@@ -5,6 +5,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Reflection;
+    using System.Threading.Tasks;
     using Core.Attributes;
     using Data;
     using Data.Repository;
@@ -130,11 +131,11 @@
             }
         }
 
-        public IList<TimeRecord> GetTimeRecords(ICriteria criteria)
+        public async Task<IList<TimeRecord>> GetTimeRecords(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var timeRecords = db.Query<TimeRecord, Employee, Team, TimeRecord>(
+                var timeRecords = await db.QueryAsync<TimeRecord, Employee, Team, TimeRecord>(
                         (t, e, g) =>
                         {
                             t.Employee = e;
@@ -142,8 +143,7 @@
                             return t;
                         },
                         splitOn: stringSplitOn,
-                        parameterSet: criteria)
-                    .ToList();
+                        parameterSet: criteria);
 
                 PropertyInfo totalitem = criteria.GetType()
                     .GetProperties()
@@ -156,7 +156,7 @@
                     totalitem.SetValue(criteria, (int)hashParam[totalItem], null);
                 }
 
-                return timeRecords;
+                return timeRecords.ToList();
             }
         }
 

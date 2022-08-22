@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Configuration;
     using System.Globalization;
+    using System.Threading.Tasks;
     using Core;
     using Core.Enums;
     using Criteria.Employee;
@@ -563,7 +564,7 @@
             return View(model);
         }
 
-        public ActionResult ListMyTimeRecord(TimeRecordViewModel model)
+        public async Task<ActionResult> ListMyTimeRecord(TimeRecordViewModel model)
         {
             IList<TimeRecord> timeRecords = new List<TimeRecord>();
             if (model != null)
@@ -576,7 +577,7 @@
                     PageIndex = model.CurrentPage - 1,
                     ItemsPerPage = model.ItemsPerPage
                 };
-                timeRecords = reportService.GetTimeRecords(criteria);
+                timeRecords = await reportService.GetTimeRecords(criteria);
 
                 if (criteria.TotalItem != null)
                 {
@@ -626,7 +627,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult ListTimeRecord(TimeRecordViewModel model)
+        public async Task<ActionResult> ListTimeRecord(TimeRecordViewModel model)
         {
             IList<TimeRecord> timeRecords = new List<TimeRecord>();
             if (model != null)
@@ -641,7 +642,7 @@
                     ItemsPerPage = model.ItemsPerPage
                 };
 
-                timeRecords = reportService.GetTimeRecords(criteria);
+                timeRecords = await reportService.GetTimeRecords(criteria);
 
                 if (criteria.TotalItem != null)
                 {

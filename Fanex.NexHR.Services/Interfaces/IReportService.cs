@@ -1,13 +1,14 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.Report;
     using Models;
     using Models.Report;
 
     public interface IReportService
     {
-        IList<TimeRecord> GetTimeRecords(GetTimeRecordCriteria criteria);
+        Task<IList<TimeRecord>> GetTimeRecords(GetTimeRecordCriteria criteria);
 
         bool GetIsPrivilegeCreateCheckInOut(GetPrivilegeCreateCheckInOutRecordCriteria criteria);
 

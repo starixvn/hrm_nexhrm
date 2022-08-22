@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Repositories.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Data.Repository;
     using Models;
     using Models.Report;
@@ -13,7 +14,7 @@
 
         IList<TotalWorkingHours> GetTotalWorkingHours(ICriteria criteria);
 
-        IList<TimeRecord> GetTimeRecords(ICriteria criteria);
+        Task<IList<TimeRecord>> GetTimeRecords(ICriteria criteria);
 
         IList<LateInEarlyOutModel> GetLateInEarlyOut(ICriteria criteria);
 

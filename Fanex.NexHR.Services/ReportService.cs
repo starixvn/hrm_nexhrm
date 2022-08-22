@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Criteria.Report;
     using Interfaces;
     using Models;
@@ -19,12 +20,12 @@
             this.baseService = baseService;
         }
 
-        public IList<TimeRecord> GetTimeRecords(GetTimeRecordCriteria criteria)
+        public async Task<IList<TimeRecord>> GetTimeRecords(GetTimeRecordCriteria criteria)
         {
             IList<TimeRecord> timeRecords = null;
             if (criteria != null && criteria.IsValid())
             {
-                timeRecords = reportRepository.GetTimeRecords(criteria);
+                timeRecords = await reportRepository.GetTimeRecords(criteria);
             }
 
             return timeRecords ?? new List<TimeRecord>();
