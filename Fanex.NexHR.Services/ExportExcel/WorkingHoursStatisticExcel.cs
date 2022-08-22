@@ -57,65 +57,26 @@ namespace Fanex.NexHR.Services.ExportExcel
         protected internal virtual void RenderRow(WorkingHoursStatistic workingHoursStatistic, ExcelWorksheet worksheet)
         {
             int colIndex = 1;
-            worksheet.Cells[rowIndex, colIndex].Value = rowNumber;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = workingHoursStatistic.Employee.Code.Trim();
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = workingHoursStatistic.Employee.FullName;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-
-            worksheet.Cells[rowIndex, colIndex].Value = workingHoursStatistic.Employee.NickName;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = workingHoursStatistic.Employee.Team.Code;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = workingHoursStatistic.ActualWorkingDay;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = workingHoursStatistic.AnnualLeave;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = workingHoursStatistic.PaidLeave;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = workingHoursStatistic.SickLeave;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = workingHoursStatistic.InsuranceLeave;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = workingHoursStatistic.UnpaidLeave;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = workingHoursStatistic.BusinessLeave;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = workingHoursStatistic.WorkFromHome;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = workingHoursStatistic.TotalWorkingDay;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = 0;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = workingHoursStatistic.PreAnnualLeave;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = workingHoursStatistic.PreMonthSickLeave;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = workingHoursStatistic.PreMonthUnpaidLeave;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = workingHoursStatistic.PreMonthBusinessLeave;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = workingHoursStatistic.PreWorkFromHome;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            worksheet.Cells[rowIndex, colIndex++].Value = rowNumber;
+            worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.Employee.Code.Trim();
+            worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.Employee.FullName;
+            worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.Employee.NickName;
+            worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.Employee.Team.Code;
+            worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.ActualWorkingDay;
+            worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.AnnualLeave;
+            worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.PaidLeave;
+            worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.SickLeave;
+            worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.InsuranceLeave;
+            worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.UnpaidLeave;
+            worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.BusinessLeave;
+            worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.WorkFromHome;
+            worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.TotalWorkingDay;
+            worksheet.Cells[rowIndex, colIndex++].Value = 0;
+            worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.PreAnnualLeave;
+            worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.PreMonthSickLeave;
+            worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.PreMonthUnpaidLeave;
+            worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.PreMonthBusinessLeave;
+            worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.PreWorkFromHome;
 
             if ((rowIndex & 1) != 0)
             {
@@ -125,7 +86,24 @@ namespace Fanex.NexHR.Services.ExportExcel
 
         protected internal override void ProcessUI(ExcelWorksheet worksheet)
         {
+            SetStyle(worksheet);
             SetWidthColumn(worksheet);
+        }
+
+        protected internal virtual void SetStyle(ExcelWorksheet worksheet)
+        {
+            worksheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            worksheet.Column(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            worksheet.Column(3).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+            worksheet.Cells[RowStartHeader, 3].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            for (int index = 4; index <= TotalCols; index++)
+            {
+                worksheet.Column(index).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            }
+            for (var index = 0; index < workingHoursStatistics.Count; index++)
+            {
+                DrawBorderCell(worksheet.Cells[RowStartBody + index, 1, RowStartBody + index, TotalCols]);
+            }
         }
 
         protected internal virtual void SetWidthColumn(ExcelWorksheet worksheet)

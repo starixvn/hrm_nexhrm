@@ -46,92 +46,35 @@ namespace Fanex.NexHR.Services.ExportExcel
         protected internal virtual void RenderRow(Employee employee, ExcelWorksheet worksheet)
         {
             int colIndex = 1;
-            worksheet.Cells[rowIndex, colIndex].Value = rowNumber;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = employee.Code;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = employee.FullName;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-
-            worksheet.Cells[rowIndex, colIndex].Value = employee.NickName;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = employee.DateOfBirth.ToString("MM/dd/yyyy");
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-
-            worksheet.Cells[rowIndex, colIndex].Value = employee.PlaceOfBirth;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = employee.Email;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-
-            worksheet.Cells[rowIndex, colIndex].Value = JobTitle(employee);
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-
-            worksheet.Cells[rowIndex, colIndex].Value = FormatString(employee.Team.Name);
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-
-            worksheet.Cells[rowIndex, colIndex].Value = employee.JoinedDate?.ToString("MM/dd/yyyy");
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = employee.ConfirmedDate?.ToString("MM/dd/yyyy");
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = employee.ResignedDate?.ToString("MM/dd/yyyy");
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = FormatString(employee.Phone);
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = Gender(employee);
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = FormatString(employee.CardNo);
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = employee.IssuedDate?.ToString("MM/dd/yyyy");
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = FormatString(employee.IssuedPlace);
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = FormatString(employee.CurrentAddress);
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-
-            worksheet.Cells[rowIndex, colIndex].Value = FormatString(employee.PermanentAddress);
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-
-            worksheet.Cells[rowIndex, colIndex].Value = FormatString(employee.PassportNo);
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = employee.PassportExp?.ToString("MM/dd/yyyy");
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = FormatToeicScore(employee.ToeicScore?.Listening);
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = FormatToeicScore(employee.ToeicScore?.Reading);
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = FormatToeicScore(employee.ToeicScore?.Speaking);
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = FormatToeicScore(employee.ToeicScore?.Writing);
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = employee.ContactName;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-
-            worksheet.Cells[rowIndex, colIndex].Value = employee.UserRelationship;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = employee.ContactPhone;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
+            worksheet.Cells[rowIndex, colIndex++].Value = rowNumber;
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.Code;
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.FullName;
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.NickName;
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.DateOfBirth.ToString("MM/dd/yyyy");
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.PlaceOfBirth;
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.Email;
+            worksheet.Cells[rowIndex, colIndex++].Value = JobTitle(employee);
+            worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.Team.Name);
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.JoinedDate?.ToString("MM/dd/yyyy");
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.ConfirmedDate?.ToString("MM/dd/yyyy");
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.ResignedDate?.ToString("MM/dd/yyyy");
+            worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.Phone);
+            worksheet.Cells[rowIndex, colIndex++].Value = Gender(employee);
+            worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.CardNo);
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.IssuedDate?.ToString("MM/dd/yyyy");
+            worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.IssuedPlace);
+            worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.CurrentAddress);
+            worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.PermanentAddress);
+            worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.PassportNo);
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.PassportExp?.ToString("MM/dd/yyyy");
+            worksheet.Cells[rowIndex, colIndex++].Value = FormatToeicScore(employee.ToeicScore?.Listening);
+            worksheet.Cells[rowIndex, colIndex++].Value = FormatToeicScore(employee.ToeicScore?.Reading);
+            worksheet.Cells[rowIndex, colIndex++].Value = FormatToeicScore(employee.ToeicScore?.Speaking);
+            worksheet.Cells[rowIndex, colIndex++].Value = FormatToeicScore(employee.ToeicScore?.Writing);
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.ContactName;
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.UserRelationship;
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.ContactPhone;
             worksheet.Cells[rowIndex, colIndex].Value = employee.ContactAddress;
-            worksheet.Cells[rowIndex, colIndex].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
 
             if ((rowIndex & 1) == 0)
             {
@@ -166,7 +109,26 @@ namespace Fanex.NexHR.Services.ExportExcel
 
         protected internal override void ProcessUI(ExcelWorksheet worksheet)
         {
+            SetStyle(worksheet);
             SetWidthColumn(worksheet);
+        }
+
+        protected internal virtual void SetStyle(ExcelWorksheet worksheet)
+        {
+            int[] colWithCenter = new[] { 1, 2, 4, 6, 10, 11, 12, 13, 14, 15 , 16, 17, 20, 21, 22, 23, 24, 25, 27, 28 };
+            int[] colWithLeft = new[] { 3, 5, 7, 8, 9, 18, 19, 26, 29 };
+            foreach(int index in colWithCenter) {
+                worksheet.Column(index).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            }
+            foreach(int index in colWithLeft) {
+                worksheet.Column(index).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                worksheet.Cells[RowStartHeader, index].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            }
+
+            for (var index = 0; index < employee.Count; index++)
+            {
+                DrawBorderCell(worksheet.Cells[RowStartBody + index, 1, RowStartBody + index, TotalCols]);
+            }
         }
 
         protected internal virtual void SetWidthColumn(ExcelWorksheet worksheet)

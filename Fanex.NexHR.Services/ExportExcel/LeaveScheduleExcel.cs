@@ -78,17 +78,10 @@ namespace Fanex.NexHR.Services.ExportExcel
         protected internal virtual void RenderRow(EmployeeLeaveSchedule empSchedule, ExcelWorksheet worksheet)
         {
             int colIndex = 1;
-            worksheet.Cells[rowIndex, colIndex].Value = rowNumber;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = empSchedule.Employee.FullName;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-
-            worksheet.Cells[rowIndex, colIndex].Value = empSchedule.Employee.NickName;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = empSchedule.Employee.CodeOfTeam;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            worksheet.Cells[rowIndex, colIndex++].Value = rowNumber;
+            worksheet.Cells[rowIndex, colIndex++].Value = empSchedule.Employee.FullName;
+            worksheet.Cells[rowIndex, colIndex++].Value = empSchedule.Employee.NickName;
+            worksheet.Cells[rowIndex, colIndex++].Value = empSchedule.Employee.CodeOfTeam;
 
             foreach (var leaveSchedule in empSchedule.LeaveSchedules)
             {
@@ -111,7 +104,23 @@ namespace Fanex.NexHR.Services.ExportExcel
 
         protected internal override void ProcessUI(ExcelWorksheet worksheet)
         {
+            SetStyle(worksheet);
             SetWidthColumn(worksheet);
+        }
+
+        protected internal virtual void SetStyle(ExcelWorksheet worksheet)
+        {
+            worksheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            worksheet.Column(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+            worksheet.Cells[RowStartHeader, 2].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            for (int index = 3; index <= TotalCols; index++)
+            {
+                worksheet.Column(index).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            }
+            for (var index = 0; index < schedules.EmployeeLeaveShedules.Count; index++)
+            {
+                DrawBorderCell(worksheet.Cells[RowStartBody + index, 1, RowStartBody + index, TotalCols]);
+            }
         }
 
         protected internal virtual void SetWidthColumn(ExcelWorksheet worksheet)

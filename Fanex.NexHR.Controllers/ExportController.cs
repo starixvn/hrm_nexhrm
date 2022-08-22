@@ -27,7 +27,7 @@
         private const string TotalWorkingHoursTemplatePath = "ExcelTemplates/TotalWorkingHours.xlsx";
         private const string WorkingHoursStatisticTemplatePath = "ExcelTemplates/WorkingHoursStatistic.xlsx";
         private const string DayOffScheduleTemplatePath = "ExcelTemplates/DayOffSchedule.xlsx";
-        private const string HeadCountReportTemplatePath = @"~\App_Data\ExcelTemplates\HeadCountReport.xls";
+        private const string HeadCountReportTemplatePath = "ExcelTemplates/HeadCountReport.xlsx";
 
         private readonly IEmployeeService employeeService;
         private readonly IReportService reportService;
@@ -204,7 +204,6 @@
 
         public ActionResult HeadCountExport(int year)
         {
-            string templatePath = Path.Combine(environment.WebRootPath, HeadCountReportTemplatePath);
             var criteria = new GetHeadCountByYearCriteria
             {
                 StartDateOfYear = new DateTime(year, 1, 1),
@@ -218,8 +217,11 @@
                 EndDate = criteria.EndDateOfYear,
                 HeadCount = headCount
             };
-            ExportService.ExportHeadCountReport(report, templatePath);
-            return new EmptyResult();
+            string fileName = string.Format("{0}{1}{2}", "HeadCount", report.StartDate.Year, ".xlsx");
+            string templatePath = Path.Combine(environment.ContentRootPath, HeadCountReportTemplatePath);
+            var bytes = ExportService.ExportHeadCountReport(report, templatePath);
+
+            return File(bytes, "application/xlsx", fileName);
         }
     }
 }

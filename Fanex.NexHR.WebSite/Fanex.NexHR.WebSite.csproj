@@ -13,12 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="ExcelTemplates\HeadCountReport.xls">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="compilerconfig.json" />
     <None Include="wwwroot\avatars\avatar.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -530,6 +524,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="ExcelTemplates\EmployeeProfile.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ExcelTemplates\HeadCountReport.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="ExcelTemplates\TotalWorkingHours.xlsx">

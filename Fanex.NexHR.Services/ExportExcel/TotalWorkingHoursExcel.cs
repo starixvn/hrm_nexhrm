@@ -60,53 +60,22 @@ namespace Fanex.NexHR.Services.ExportExcel
         protected internal virtual void RenderRow(TotalWorkingHours totalWorking, ExcelWorksheet worksheet)
         {
             int colIndex = 1;
-            worksheet.Cells[rowIndex, colIndex].Value = rowNumber;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = totalWorking.Employee.Code.Trim();
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = totalWorking.Employee.FullName;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-
-            worksheet.Cells[rowIndex, colIndex].Value = totalWorking.Employee.NickName;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = totalWorking.Employee.Team.Code;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = totalWorking.WorkingDay;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = totalWorking.ActualWorkingDay;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = totalWorking.AnnualLeave;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = totalWorking.PaidLeave;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = totalWorking.SickLeave;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = totalWorking.InsuranceLeave;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = totalWorking.UnpaidLeave;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = totalWorking.LateIn;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = totalWorking.EarlyOut;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = totalWorking.TotalHours;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-            worksheet.Cells[rowIndex, colIndex].Value = totalWorking.AverageHours;
-            worksheet.Cells[rowIndex, colIndex++].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            worksheet.Cells[rowIndex, colIndex++].Value = rowNumber;
+            worksheet.Cells[rowIndex, colIndex++].Value = totalWorking.Employee.Code.Trim();
+            worksheet.Cells[rowIndex, colIndex++].Value = totalWorking.Employee.FullName;
+            worksheet.Cells[rowIndex, colIndex++].Value = totalWorking.Employee.NickName;
+            worksheet.Cells[rowIndex, colIndex++].Value = totalWorking.Employee.Team.Code;
+            worksheet.Cells[rowIndex, colIndex++].Value = totalWorking.WorkingDay;
+            worksheet.Cells[rowIndex, colIndex++].Value = totalWorking.ActualWorkingDay;
+            worksheet.Cells[rowIndex, colIndex++].Value = totalWorking.AnnualLeave;
+            worksheet.Cells[rowIndex, colIndex++].Value = totalWorking.PaidLeave;
+            worksheet.Cells[rowIndex, colIndex++].Value = totalWorking.SickLeave;
+            worksheet.Cells[rowIndex, colIndex++].Value = totalWorking.InsuranceLeave;
+            worksheet.Cells[rowIndex, colIndex++].Value = totalWorking.UnpaidLeave;
+            worksheet.Cells[rowIndex, colIndex++].Value = totalWorking.LateIn;
+            worksheet.Cells[rowIndex, colIndex++].Value = totalWorking.EarlyOut;
+            worksheet.Cells[rowIndex, colIndex++].Value = totalWorking.TotalHours;
+            worksheet.Cells[rowIndex, colIndex++].Value = totalWorking.AverageHours;
 
             if ((rowIndex & 1) == 0)
             {
@@ -116,7 +85,24 @@ namespace Fanex.NexHR.Services.ExportExcel
 
         protected internal override void ProcessUI(ExcelWorksheet worksheet)
         {
+            SetStyle(worksheet);
             SetWidthColumn(worksheet);
+        }
+
+        protected internal virtual void SetStyle(ExcelWorksheet worksheet)
+        {
+            worksheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            worksheet.Column(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            worksheet.Column(3).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+            worksheet.Cells[RowStartHeader, 3].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            for (int index = 4; index <= TotalCols; index++)
+            {
+                worksheet.Column(index).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            }
+            for (var index = 0; index < totalWorkingHours.Count; index++)
+            {
+                DrawBorderCell(worksheet.Cells[RowStartBody + index, 1, RowStartBody + index, TotalCols]);
+            }
         }
 
         protected internal virtual void SetWidthColumn(ExcelWorksheet worksheet)
