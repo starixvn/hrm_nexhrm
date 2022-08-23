@@ -2,7 +2,7 @@
 {
     public class AppSetting
     {
-        public string LoginLogo { get; set; }
+        public string LoginView { get; set; } = "NexcelLogin";
         public bool IsShowCloseBalance { get; set; }
         public string ProjectManagerTeams { get; set; }
         public string IgnoreTeams { get; set; }

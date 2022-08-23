@@ -3,7 +3,6 @@
     using AspNetCore.Unobtrusive.Ajax;
     using Fanex.Data;
     using Fanex.Data.SqlServer;
-    using Fanex.NexHR.Services.Interfaces;
     using StackExchange.Redis;
 
     public class Startup
@@ -42,14 +41,6 @@
             services.RegisterServices();
             services.InjectConfiguration(Configuration);
             services.AddUnobtrusiveAjax();
-
-            TestSendEmail(services);
-        }
-
-        private void TestSendEmail(IServiceCollection services)
-        {
-            var emailService = services.BuildServiceProvider().GetService<IEmailService>();
-            emailService.SendEmail("nexhr@nexcel.com", "oliver.dang@nexcel.com", "", "Test", "Oliver test");
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

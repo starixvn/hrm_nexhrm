@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using Core;
+    using Fanex.MailDeliver.MailClient;
     using Fanex.NexHR.Models.Core;
     using Interfaces;
     using MailDeliver.MailClient.API;
@@ -15,8 +16,8 @@
         {
             this.emailSettings = emailSettings;
             this.appSetting = appSetting;
-            Fanex.MailDeliver.MailClient.AppSettings.AppMailAddress = emailSettings.AppMailAddress;
-            Fanex.MailDeliver.MailClient.AppSettings.AppMailId = emailSettings.AppMailId;
+            AppSettings.AppMailAddress = emailSettings.AppMailAddress;
+            AppSettings.AppMailId = emailSettings.AppMailId;
         }
 
         public void SendEmail(string senderEmail, string receiverEmail, string mailCC, string subject, string body)

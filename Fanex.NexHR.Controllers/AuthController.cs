@@ -39,9 +39,14 @@
             {
                 string domainUsername = HttpContext.User.Identity.Name;
                 var employee = authService.GetEmployeeByDomain(domainUsername);
-                return !employee.Enabled || employee.IsDeleted ? View() : RedirectToAction("Index", "Dashboard");
+
+                if (employee.Enabled && !employee.IsDeleted)
+                {
+                    RedirectToAction("Index", "Dashboard");
+                }
             }
-            return View();
+
+            return View(appSetting.LoginView);
         }
 
         [HttpPost]
@@ -88,7 +93,7 @@
                     ModelState.AddModelError("Username", Messages.IncorrectUsernameOrPassword);
                 }
             }
-            return View(model);
+            return View(appSetting.LoginView, model);
         }
 
         private bool IsValidAccount(LoginModel model)

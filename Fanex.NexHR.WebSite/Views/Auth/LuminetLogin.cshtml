@@ -26,7 +26,7 @@
                         <form method="post" asp-controller="Auth" asp-action="Login" asp-route-returnUrl="@ViewBag.ReturnUrl">
                             @Html.AntiForgeryToken()
                             <div class="login__logo">
-                                <img src="~/css/Images/@appSetting.LoginLogo" alt="logo" class="img-res" />
+                                <img src="~/css/Images/LogoLuminet.svg" alt="logo" class="img-res" />
                             </div>
                             <div class="material-textfield">
                                 <input type="text" asp-for="Username" class="custom-input" , placeholder=" ">
