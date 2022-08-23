@@ -2,20 +2,18 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Threading.Tasks;
     using Core;
     using Core.Enums;
     using Criteria.Request;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.Request;
-    using Services;
+    using Resources;
     using Services.Interfaces;
     using ViewModels;
-    using Resources;
-    using System.Globalization;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Hosting;
-    using System.IO;
 
     public class LeaveController : BaseController
     {
@@ -40,6 +38,7 @@
             this.nexbotService = nexbotService;
             this.environment = environment;
         }
+
         private const double day = 0.5;
 
         public ActionResult EmployeeView()
@@ -67,7 +66,7 @@
             return PartialView(leaveRequests);
         }
 
-        public ActionResult Create(DateTime? fromDate, DateTime? toDate)
+        public async Task<IActionResult> Create(DateTime? fromDate, DateTime? toDate)
         {
             var model = new LeaveRequestViewModel
             {
@@ -78,7 +77,7 @@
                 TotalDays = 1,
                 LeaveTypes = leaveTypeService.GetAll(),
                 UnavailDates = requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null),
-                TotalRequest = requestService.GetNumberRequestInMonth(CurrentUser.Id, RequestType.Leave)
+                TotalRequest = await requestService.GetNumberRequestInMonth(CurrentUser.Id, RequestType.Leave)
             };
 
             return View(model);
@@ -234,7 +233,6 @@
                 }
                 return View(model);
             }
-
         }
 
         [HttpPost]

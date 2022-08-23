@@ -255,7 +255,7 @@
             return requests ?? new List<RequestEntity>();
         }
 
-        public decimal GetNumberRequestInMonth(int employeeId, RequestType requestType)
+        public async Task<decimal> GetNumberRequestInMonth(int employeeId, RequestType requestType)
         {
             int year = DateTime.Now.Year;
             int month = DateTime.Now.Month;
@@ -268,7 +268,7 @@
                 RequestType = (int)requestType
             };
 
-            NumberRequestInMonth numberRequest = baseService.GetDataEntity<NumberRequestInMonth>(criteria);
+            NumberRequestInMonth numberRequest = await baseService.GetDataEntityAsync<NumberRequestInMonth>(criteria);
 
             return numberRequest?.NumberRequest ?? 0;
         }

@@ -1,5 +1,10 @@
 ﻿namespace Fanex.NexHR.Controllers.Request
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Core.Enums;
     using Criteria.Request;
     using Criteria.Shift;
@@ -10,11 +15,6 @@
     using Models.Request;
     using Resources;
     using Services.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Threading.Tasks;
     using ViewModels.CheckInOutRequest;
 
     public class CheckInOutController : BaseController
@@ -62,12 +62,12 @@
                 IsFilterByEffectedDate = true
             };
 
-            IList<RequestEntity> checkInOutRequests =await requestService.GetRequest(criteria);
+            IList<RequestEntity> checkInOutRequests = await requestService.GetRequest(criteria);
 
             return PartialView(checkInOutRequests);
         }
 
-        public ActionResult Create(short? type = 1, DateTime? date = null, bool isCrossDate = false)
+        public async Task<IActionResult> Create(short? type = 1, DateTime? date = null, bool isCrossDate = false)
         {
             CheckInOutRequestViewModel viewModel = new CheckInOutRequestViewModel
             {
@@ -76,7 +76,7 @@
                 WorkDate = date ?? DateTime.Today,
                 CheckInOutType = type ?? (short)RequestType.CheckIn,
                 UnavailDates = requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null),
-                TotalRequest = requestService.GetNumberRequestInMonth(CurrentUser.Id, RequestType.CheckIn),
+                TotalRequest = await requestService.GetNumberRequestInMonth(CurrentUser.Id, RequestType.CheckIn),
                 IsCrossDate = isCrossDate
             };
 

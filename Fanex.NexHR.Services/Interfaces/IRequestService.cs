@@ -20,7 +20,7 @@
 
         Task<IList<RequestEntity>> GetRequestHistory(GetRequestHistoryCriteria criteria);
 
-        decimal GetNumberRequestInMonth(int employeeId, RequestType requestType);
+        Task<decimal> GetNumberRequestInMonth(int employeeId, RequestType requestType);
 
         IList<DateTime> GetDisableRequestDate(int employeeId, long? requestId);
 
