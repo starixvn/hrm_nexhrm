@@ -135,8 +135,8 @@ function query(isFirstLoad) {   // jshint ignore:line
     var selectedTeam = $(".select-teamIds .select-dropdown").val();
     var selectedDateOption = $(".select--daterange .select-dropdown").val();
     var url = _global.root + 'Report/ListTimeRecord?' + data;
-    var orgUrl = _global.root + 'Report/TimeRecord?' + data + '&Team=' + selectedTeam + '&DateOptionValue=' + selectedDateOption;
     if (!isFirstLoad) {
+        var orgUrl = _global.root + 'Report/TimeRecord?' + data + '&Team=' + selectedTeam + '&DateOptionValue=' + selectedDateOption;
         window.history.replaceState(null, null, orgUrl);
     }
 
@@ -181,6 +181,8 @@ function initDataFirstQuery(queryString) {
     var teamParam = urlParams.get('Team');
     var fromDateParam = urlParams.get('FromDate');
     var toDateParam = urlParams.get('ToDate');
+    var currentPageParam = urlParams.get('CurrentPage');
+    var itemsPerPageParam = urlParams.get('ItemsPerPage');
 
     var teamParam = teamParam;
     $("#Employee").val(employeeParam);
@@ -191,6 +193,8 @@ function initDataFirstQuery(queryString) {
     $(".select--daterange .select-dropdown").val(dateOptionValueParam);
     $("#FromDate").val(fromDateParam);
     $("#ToDate").val(toDateParam);
+    $("#CurrentPage").val(currentPageParam);
+    $("#ItemsPerPage").val(itemsPerPageParam);
 }
 
 function initPagination() { // jshint ignore:line
