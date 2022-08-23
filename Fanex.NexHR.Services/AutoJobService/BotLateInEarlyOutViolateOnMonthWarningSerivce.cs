@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Configuration;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -20,7 +19,7 @@
         private const int ViolatedTime = 4;
         private const string FormatShortDate = "MMM, yyyy";
         private const string FormatLongDate = "dd MMM, yyyy";
-        private static readonly string BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+        private readonly string BaseUrl;
         private readonly IMessageCategoryLogService messageCategoryLog;
         private readonly INexbotService nexbotService;
         private readonly ILateInEarlyOutService lateInEarlyOutService;
@@ -28,12 +27,14 @@
         public BotLateInEarlyOutViolateOnMonthWarningSerivce(
             IMessageCategoryLogService messageCategoryLog,
             INexbotService nexbotService,
-            ILateInEarlyOutService lateInEarlyOutService
+            ILateInEarlyOutService lateInEarlyOutService,
+            AppSetting appSetting
         )
         {
             this.messageCategoryLog = messageCategoryLog;
             this.nexbotService = nexbotService;
             this.lateInEarlyOutService = lateInEarlyOutService;
+            BaseUrl = appSetting.BaseUrl;
         }
 
         public async Task<CommandResult> SendMessageViolateOnMonthAsync()
@@ -178,7 +179,7 @@
             }
         }
 
-        private static string GenerateViolateOnMonthGroupMessage(IEnumerable<LateInEarlyOutViolateModel> violaters)
+        private string GenerateViolateOnMonthGroupMessage(IEnumerable<LateInEarlyOutViolateModel> violaters)
         {
             StringBuilder message = new StringBuilder();
             message.Append(string.Format(
@@ -218,7 +219,7 @@
             }
         }
 
-        private static string GenerateViolateDisciplineGroupMessage(IEnumerable<LateInEarlyOutDiscipline> violaters, DateTime fromDate, DateTime toDate)
+        private string GenerateViolateDisciplineGroupMessage(IEnumerable<LateInEarlyOutDiscipline> violaters, DateTime fromDate, DateTime toDate)
         {
             StringBuilder message = new StringBuilder();
             message.Append(string.Format(
@@ -256,7 +257,7 @@
             return new CommandResult { Code = result ? 0 : 1 };
         }
 
-        private static string GenerateMessageDeduct(IEnumerable<LateInEarlyOutModel> deductedEmployees)
+        private string GenerateMessageDeduct(IEnumerable<LateInEarlyOutModel> deductedEmployees)
         {
             StringBuilder message = new StringBuilder();
             message.Append(string.Format(

@@ -2,13 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Configuration;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Core;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
     using Microsoft.AspNetCore.Hosting;
@@ -16,12 +16,12 @@
     public class MailBirthdayAndFirstWorkingdayReminderService : IMailBirthdayAndFirstWorkingdayReminderService
     {
         private const string FormatDate = "dd MMM, yyyy";
-        private readonly string SenderEmail = ConfigurationManager.AppSettings["Email"];
-        private readonly string EmailSd = ConfigurationManager.AppSettings["EmailSD"];
-        private readonly string EmailGo = ConfigurationManager.AppSettings["EmailGo"];
-        private readonly string EmailNetwork = ConfigurationManager.AppSettings["EmailNetwork"];
-        private readonly string AllowSendMailReminderBirthday = ConfigurationManager.AppSettings["AllowSendMailReminderBirthday"];
-        private readonly string CompanyMailSign = ConfigurationManager.AppSettings["CompanyMailSign"];
+        private readonly string SenderEmail;
+        private readonly string EmailSd;
+        private readonly string EmailGo;
+        private readonly string EmailNetwork;
+        private readonly bool AllowSendMailReminderBirthday;
+        private readonly string CompanyMailSign;
         private readonly IEmailService emailService;
         private readonly IEmployeeService employeeService;
         private readonly IWebHostEnvironment environment;
@@ -31,11 +31,18 @@
         public MailBirthdayAndFirstWorkingdayReminderService(
             IEmailService emailService,
             IEmployeeService employeeService,
-            IWebHostEnvironment environment)
+            IWebHostEnvironment environment,
+            EmailSettings emailSettings)
         {
             this.emailService = emailService;
             this.employeeService = employeeService;
             this.environment = environment;
+            SenderEmail = emailSettings.Email;
+            EmailSd = emailSettings.EmailSD;
+            EmailGo = emailSettings.EmailGo;
+            EmailNetwork = emailSettings.EmailNetwork;
+            AllowSendMailReminderBirthday = emailSettings.AllowSendMailReminderBirthday;
+            CompanyMailSign = emailSettings.CompanyMailSign;
         }
 
         public async Task<CommandResult> ReminderBirthdayAndFirstWorkingday()
@@ -43,7 +50,7 @@
             var today = DateTime.Now;
             const int secondDay = 2;
 
-            if (!bool.Parse(AllowSendMailReminderBirthday) || today.DayOfWeek == DayOfWeek.Saturday)
+            if (!AllowSendMailReminderBirthday || today.DayOfWeek == DayOfWeek.Saturday)
             {
                 return new CommandResult { Code = 0 };
             }

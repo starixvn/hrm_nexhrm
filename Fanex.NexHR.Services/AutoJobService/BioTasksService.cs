@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Configuration;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -16,14 +15,15 @@
 
     public class BioTasksService : IBotBioTasksService
     {
-        private static readonly string BaseUrl = ConfigurationManager.AppSettings["BaseUrl"] + "/bio/fingerprint";
+        private readonly string BaseUrl;
         private readonly INexbotService nexbotService;
         private readonly IBaseService baseService;
 
-        public BioTasksService(INexbotService nexbotService, IBaseService baseService)
+        public BioTasksService(INexbotService nexbotService, IBaseService baseService, AppSetting appSetting)
         {
             this.nexbotService = nexbotService;
             this.baseService = baseService;
+            BaseUrl = appSetting.BaseUrl + "/bio/fingerprint";
         }
 
         public async Task<CommandResult> SendMessageBioDeviceAsync()
@@ -127,7 +127,7 @@
             return message.ToString();
         }
 
-        private static string GenerateMesssageBioFingerprintAndCard(IEnumerable<FingerprintAndCardSummary> members)
+        private string GenerateMesssageBioFingerprintAndCard(IEnumerable<FingerprintAndCardSummary> members)
         {
             StringBuilder message = new StringBuilder();
             message.Append(string.Format(Messages.AnounceNewBioFingerprintAndCard, members.Count(), Constants.NewLine));

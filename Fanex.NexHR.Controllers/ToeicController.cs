@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Configuration;
     using System.IO;
     using System.Linq;
     using System.Text;
@@ -12,6 +11,7 @@
     using Criteria.Toeic;
     using Fanex.NexHR.Core.Model;
     using Fanex.NexHR.Models.Attributes;
+    using Fanex.NexHR.Models.Core;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using Models;
@@ -29,6 +29,7 @@
         private readonly IToeicService toeicService;
         private readonly ICommandService commandService;
         private readonly IWebHostEnvironment environment;
+        private readonly EmailSettings emailSettings;
 
         public ToeicController(
             ISessionService sessionService,
@@ -38,7 +39,8 @@
             ITeamService teamService,
             IToeicService toeicService,
             ICommandService commandService,
-            IWebHostEnvironment environment) : base(sessionService)
+            IWebHostEnvironment environment,
+            EmailSettings emailSettings) : base(sessionService)
         {
             this.employeeService = employeeService;
             this.emailService = emailService;
@@ -47,6 +49,7 @@
             this.toeicService = toeicService;
             this.commandService = commandService;
             this.environment = environment;
+            this.emailSettings = emailSettings;
         }
 
         public ActionResult ToeicManagement(int? jobTitleId = null)
@@ -325,7 +328,7 @@
             var body = GetToeicNotificationEmailBody(nickName, newScore, oldScore);
 
             emailService.SendEmail(
-                ConfigurationManager.AppSettings["Email"],
+                emailSettings.Email,
                 receiverEmail,
                 mailCC.ToString(),
                 subject,
@@ -363,7 +366,7 @@
                 bodyContent.OldReading,
                 bodyContent.NewTotal,
                 bodyContent.OldTotal,
-                ConfigurationManager.AppSettings["CompanyMailSign"]);
+                emailSettings.CompanyMailSign);
 
             return body;
         }

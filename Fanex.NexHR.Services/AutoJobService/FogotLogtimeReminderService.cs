@@ -1,7 +1,6 @@
 ﻿namespace Fanex.NexHR.Services.AutoJobService
 {
     using System.Collections.Generic;
-    using System.Configuration;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -15,15 +14,19 @@
     public class FogotLogtimeReminderService : IBotFogotLogtimeReminderService
     {
         private const string formatDate = "dd MMM, yyyy";
-        private static readonly string BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-        private static readonly string Redmine_API_Address = ConfigurationManager.AppSettings["Redmine_API_Address"];
+        private readonly string BaseUrl;
+        private readonly string Redmine_API_Address;
         private readonly IRedmineService redmineService;
         private readonly INexbotService nexbotService;
 
-        public FogotLogtimeReminderService(IRedmineService redmineService, INexbotService nexbotService)
+        public FogotLogtimeReminderService(IRedmineService redmineService,
+            INexbotService nexbotService,
+            AppSetting appSetting)
         {
             this.redmineService = redmineService;
             this.nexbotService = nexbotService;
+            BaseUrl = appSetting.BaseUrl;
+            Redmine_API_Address = appSetting.RedmineBaseUrl;
         }
 
         public async Task<CommandResult> SendMessageForgotLogtimeAsync()
@@ -82,7 +85,7 @@
             }
         }
 
-        private static string GenerateMessage(RedmineUser employee)
+        private string GenerateMessage(RedmineUser employee)
         {
             StringBuilder message = new StringBuilder();
             message.Append(string.Format(Messages.DearSkypeMessage, employee.NickName, Constants.NewLine));

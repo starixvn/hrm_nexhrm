@@ -1,7 +1,6 @@
 ﻿namespace Fanex.NexHR.Services.AutoJobService
 {
     using System.Collections.Generic;
-    using System.Configuration;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -16,18 +15,20 @@
         private const string FormatDate = "dd MMM, yyyy";
         private const string CheckIn = "Check In";
         private const string CheckOut = "Check Out";
-        private static readonly string BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+        private readonly string BaseUrl;
         private readonly IEmployeeService employeeService;
         private readonly INexbotService nexbotService;
         private readonly CommandResult Result = new CommandResult { Code = 0 };
 
         public BotMissingCheckInCheckOutReminderSerivce(
             IEmployeeService employeeService,
-            INexbotService nexbotService
+            INexbotService nexbotService,
+            AppSetting appSetting
         )
         {
             this.employeeService = employeeService;
             this.nexbotService = nexbotService;
+            BaseUrl = appSetting.BaseUrl;
         }
 
         public async Task<CommandResult> SendMessageAsync()
@@ -60,7 +61,7 @@
             }
         }
 
-        private static string GenerateGroupMessage(IEnumerable<MissingCheckInOutEmployee> missingCheckInOuts)
+        private string GenerateGroupMessage(IEnumerable<MissingCheckInOutEmployee> missingCheckInOuts)
         {
             StringBuilder message = new StringBuilder();
             message.Append(string.Format(
@@ -100,7 +101,7 @@
             }
         }
 
-        private static string GenerateMessageForEmployee(MissingCheckInOutEmployee employee)
+        private string GenerateMessageForEmployee(MissingCheckInOutEmployee employee)
         {
             var message = string.Format(Messages.DearSkypeMessage, employee.NickName, Constants.NewLine);
             message += string.Format(

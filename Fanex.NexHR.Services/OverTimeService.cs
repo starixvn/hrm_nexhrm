@@ -1,12 +1,12 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
-    using System.Configuration;
     using System.IO;
     using System.Linq;
     using Core;
     using Criteria.Employee;
     using Criteria.Overtime;
+    using Fanex.NexHR.Models.Core;
     using Interfaces;
     using Microsoft.AspNetCore.Hosting;
     using Models;
@@ -21,16 +21,24 @@
         private readonly IWebHostEnvironment environment;
         private readonly IBaseService baseService;
         private const string FormatDate = "dd MMM, yyyy";
-        private readonly string SenderEmail = ConfigurationManager.AppSettings["Email"];
-        private readonly string BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-        private readonly string CompanyMailSign = ConfigurationManager.AppSettings["CompanyMailSign"];
+        private readonly string SenderEmail;
+        private readonly string BaseUrl;
+        private readonly string CompanyMailSign;
 
-        public OvertimeService(IOvertimeRepository overtimeRepository, IEmailService emailService, IWebHostEnvironment environment, IBaseService baseService)
+        public OvertimeService(IOvertimeRepository overtimeRepository,
+            IEmailService emailService,
+            IWebHostEnvironment environment,
+            IBaseService baseService,
+            EmailSettings emailSettings,
+            AppSetting appSetting)
         {
             this.overtimeRepository = overtimeRepository;
             this.emailService = emailService;
             this.environment = environment;
             this.baseService = baseService;
+            SenderEmail = emailSettings.Email;
+            BaseUrl = appSetting.BaseUrl;
+            CompanyMailSign = emailSettings.CompanyMailSign;
         }
 
         public IList<Overtime> GetOvertime(GetOvertimeCriteria criteria)

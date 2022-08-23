@@ -8,5 +8,6 @@
         public string EmailSD { get; set; }
         public string EmailGo { get; set; }
         public string EmailNetwork { get; set; }
+        public bool AllowSendMailReminderBirthday { get; set; }
     }
 }
