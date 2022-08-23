@@ -74,7 +74,7 @@
             var authSettings = configuration.GetSection("AuthorizedSettings").Get<AuthorizedSettings>();
             services.AddSingleton(authSettings);
 
-            var emailSettings = configuration.GetSection("AuthorizedSettings").Get<EmailSettings>();
+            var emailSettings = configuration.GetSection("EmailSettings").Get<EmailSettings>();
             services.AddSingleton(emailSettings);
         }
 

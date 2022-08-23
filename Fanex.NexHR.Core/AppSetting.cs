@@ -14,5 +14,7 @@
         public string HRMName { get; set; }
         public string LdapUrl { get; set; }
         public string BaseUrl { get; set; }
+        public string AppMailAddress { get; set; }
+        public string AppMailId { get; set; }
     }
 }
