@@ -126,11 +126,9 @@ function bindMenuInOut() {
 
 function query(isFirstLoad) {   // jshint ignore:line
     const queryString = window.location.search;
-
     if (queryString && isFirstLoad) {
         initDataFirstQuery(queryString);
     }
-
     var data = $('.card-container-base form.form-filter').serialize();
     var selectedTeam = $(".select-teamIds .select-dropdown").val();
     var selectedDateOption = $(".select--daterange .select-dropdown").val();
@@ -184,17 +182,18 @@ function initDataFirstQuery(queryString) {
     var currentPageParam = urlParams.get('CurrentPage');
     var itemsPerPageParam = urlParams.get('ItemsPerPage');
 
-    var teamParam = teamParam;
     $("#Employee").val(employeeParam);
     $("#TeamIds").val(teamIdsParam);
-    $(".select-teamIds .select-dropdown").val(teamParam);
     $("#EmployeeId").val(employeeIdParam);
     $("#DateOption").val(dateOptionParam);
-    $(".select--daterange .select-dropdown").val(dateOptionValueParam);
     $("#FromDate").val(fromDateParam);
     $("#ToDate").val(toDateParam);
     $("#CurrentPage").val(currentPageParam);
     $("#ItemsPerPage").val(itemsPerPageParam);
+
+    $(".select-teamIds .select-dropdown").val(teamParam);
+    $(".select--daterange .select-dropdown").val(dateOptionValueParam);
+
 }
 
 function initPagination() { // jshint ignore:line
