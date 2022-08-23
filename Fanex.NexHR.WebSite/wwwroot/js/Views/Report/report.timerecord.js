@@ -136,7 +136,9 @@ function query(isFirstLoad) {   // jshint ignore:line
     var selectedDateOption = $(".select--daterange .select-dropdown").val();
     var url = _global.root + 'Report/ListTimeRecord?' + data;
     var orgUrl = _global.root + 'Report/TimeRecord?' + data + '&Team=' + selectedTeam + '&DateOptionValue=' + selectedDateOption;
-    window.history.replaceState(null, null, orgUrl);
+    if (!isFirstLoad) {
+        window.history.replaceState(null, null, orgUrl);
+    }
 
     $.ajax({
         url: url,
