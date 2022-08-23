@@ -125,11 +125,23 @@ function bindMenuInOut() {
 }
 
 function query(isFirstLoad) {   // jshint ignore:line
+    const queryString = window.location.search;
+
+    if (queryString && isFirstLoad) {
+        initDataFirstQuery(queryString);
+    }
+
+    var data = $('.card-container-base form.form-filter').serialize();
+    var selectedTeam = $(".select-teamIds .select-dropdown").val();
+    var selectedDateOption = $(".select--daterange .select-dropdown").val();
+    var url = _global.root + 'Report/ListTimeRecord?' + data;
+    var orgUrl = _global.root + 'Report/TimeRecord?' + data + '&Team=' + selectedTeam + '&DateOptionValue=' + selectedDateOption;
+    window.history.replaceState(null, null, orgUrl);
+
     $.ajax({
-        url: _global.root + 'Report/ListTimeRecord',
+        url: url,
         type: 'POST',
         dataType: 'html',
-        data: $('.card-container-base form.form-filter').serialize(),
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
@@ -155,6 +167,28 @@ function query(isFirstLoad) {   // jshint ignore:line
             }
         }
     });
+}
+
+function initDataFirstQuery(queryString) {
+    var urlParams = new URLSearchParams(queryString);
+    var employeeParam = urlParams.get('Employee');
+    var employeeIdParam = urlParams.get('EmployeeId');
+    var dateOptionParam = urlParams.get('DateOption');
+    var dateOptionValueParam = urlParams.get('DateOptionValue');
+    var teamIdsParam = urlParams.get('TeamIds');
+    var teamParam = urlParams.get('Team');
+    var fromDateParam = urlParams.get('FromDate');
+    var toDateParam = urlParams.get('ToDate');
+
+    var teamParam = teamParam;
+    $("#Employee").val(employeeParam);
+    $("#TeamIds").val(teamIdsParam);
+    $(".select-teamIds .select-dropdown").val(teamParam);
+    $("#EmployeeId").val(employeeIdParam);
+    $("#DateOption").val(dateOptionParam);
+    $(".select--daterange .select-dropdown").val(dateOptionValueParam);
+    $("#FromDate").val(fromDateParam);
+    $("#ToDate").val(toDateParam);
 }
 
 function initPagination() { // jshint ignore:line
