@@ -14,7 +14,7 @@ function initEditLeaveDeduction() {
         var leaveDeductionId = $(this).attr('data-id'),
             leaveDays = $(this).attr('data-leavedays'),
             deductDate = $(this).attr('data-deductdate'),
-            isAnnual = $(this).attr('data-isannual') === 'True',
+            isAnnual = $(this).attr('data-isannual') === 'true',
             description = $(this).closest('tr').find('.description').html();
 
         $('#updateform').dialog({

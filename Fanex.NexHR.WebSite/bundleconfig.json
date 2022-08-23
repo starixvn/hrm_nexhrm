@@ -692,7 +692,7 @@
     "sourceMap": false
   },
   {
-    "outputFileName": "wwwroot/minify/js/lateinearlyoutjs.min.js",
+    "outputFileName": "wwwroot/minify/js/lateinearlyout.min.js",
     "inputFiles": [
       "wwwroot/js/Views/Report/report.latein.earlyout.js",
       "wwwroot/js/Views/Employee/_employee.search.in.company.js"
@@ -704,7 +704,7 @@
     "sourceMap": false
   },
   {
-    "outputFileName": "wwwroot/minify/js/lateinearlyoutdetailjs.min.js",
+    "outputFileName": "wwwroot/minify/js/lateinearlyoutdetail.min.js",
     "inputFiles": [
       "wwwroot/js/Views/Employee/_employee.search.in.company.js",
       "wwwroot/js/Views/Report/report.latein.earlyout.detail.js"
@@ -716,7 +716,7 @@
     "sourceMap": false
   },
   {
-    "outputFileName": "wwwroot/minify/js/leavedeductiondetailjs.min.js",
+    "outputFileName": "wwwroot/minify/js/leavedeductiondetail.min.js",
     "inputFiles": [
       "wwwroot/js/Views/AnnualLeave/leave.deduction.detail.js",
       "wwwroot/js/Views/Employee/_employee.search.in.company.js"
