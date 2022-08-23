@@ -78,7 +78,7 @@
             }
             else
             {
-                <a href="javascript:;" onclick="editTOEIC(@employee.Id);">
+                <a href="javascript:;" data-nickname="@employee.NickName.ToString()" id="@employee.Id" onclick="editTOEIC(@employee.Id);">
                     <i class="mdi mdi-border-color mdi-dark"></i>
                 </a>
             }

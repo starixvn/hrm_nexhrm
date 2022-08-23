@@ -66,10 +66,11 @@ function query(isFirstLoad) {
 }
 
 function editTOEIC(id) {
+    var name = $("#"+id).data('nickname');
     if (id > 0) {
         $.ajax({
             type: 'GET',
-            url: _global.root + 'toeic/updatetoeic?id=' + id + '&name=' + $('#NickName').val(),
+            url: _global.root + 'toeic/updatetoeic?id=' + id + '&name=' + name, 
             dataType: 'html',
             success: function (data) {
                 $('#dialog-toeic').html(data);
