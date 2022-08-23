@@ -483,7 +483,6 @@
     "outputFileName": "wwwroot/minify/js/scheduledmessage.min.js",
     "inputFiles": [
       "wwwroot/js/Libs/jquery.validate.unobtrusive.js",
-      "wwwroot/js/Libs/jquery.unobtrusive-ajax.js",
       "wwwroot/js/Views/ScheduledMessage/scheduled-message.js"
     ],
     "minify": {
@@ -496,7 +495,6 @@
     "outputFileName": "wwwroot/minify/js/conversationmanagement.min.js",
     "inputFiles": [
       "wwwroot/js/Libs/jquery.validate.unobtrusive.js",
-      "wwwroot/js/Libs/jquery.unobtrusive-ajax.js",
       "wwwroot/js/Libs/select2.js",
       "wwwroot/js/Views/ScheduledMessage/conversation-management.js"
     ],
