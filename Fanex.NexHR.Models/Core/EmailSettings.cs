@@ -9,5 +9,7 @@
         public string EmailGo { get; set; }
         public string EmailNetwork { get; set; }
         public bool AllowSendMailReminderBirthday { get; set; }
+        public string AppMailAddress { get; set; }
+        public string AppMailId { get; set; }
     }
 }

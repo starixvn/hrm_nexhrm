@@ -15,8 +15,8 @@
         {
             this.emailSettings = emailSettings;
             this.appSetting = appSetting;
-            Fanex.MailDeliver.MailClient.AppSettings.AppMailAddress = appSetting.AppMailAddress;
-            Fanex.MailDeliver.MailClient.AppSettings.AppMailId = appSetting.AppMailId;
+            Fanex.MailDeliver.MailClient.AppSettings.AppMailAddress = emailSettings.AppMailAddress;
+            Fanex.MailDeliver.MailClient.AppSettings.AppMailId = emailSettings.AppMailId;
         }
 
         public void SendEmail(string senderEmail, string receiverEmail, string mailCC, string subject, string body)
