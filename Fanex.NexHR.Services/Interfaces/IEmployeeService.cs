@@ -12,39 +12,39 @@
 
     public interface IEmployeeService
     {
-        Employee GetEmployeeById(GetEmployeeByIdCriteria criteria);
+        Task<Employee> GetEmployeeById(GetEmployeeByIdCriteria criteria);
 
-        Employee GetEmployeeByDomainName(GetEmployeeByDomainNameCriteria criteria);
+        Task<Employee> GetEmployeeByDomainName(GetEmployeeByDomainNameCriteria criteria);
 
-        Employee GetEmployeeByNickName(GetEmployeeByNickNameCriteria criteria);
+        Task<Employee> GetEmployeeByNickName(GetEmployeeByNickNameCriteria criteria);
 
-        IList<Employee> Query(GetEmployeeCriteria criteria);
+        Task<IList<Employee>> Query(GetEmployeeCriteria criteria);
 
-        IList<Employee> GetMembersByManager(GetMemberByManagerCriteria criteria);
+        Task<IEnumerable<Employee>> GetMembersByManager(GetMemberByManagerCriteria criteria);
 
-        DefaultSchedule GetEmployeeShift(GetEmployeeShiftCriteria criteria);
+        Task<DefaultSchedule> GetEmployeeShift(GetEmployeeShiftCriteria criteria);
 
         Task<MySpaceViewModel> GetMySpace(GetMySpaceCriteria criteria);
 
-        HRLeaderDashboardModel GetHRLeaderDashboard(GetHRLeaderDashboardCriteria criteria);
+        Task<HRLeaderDashboardModel> GetHRLeaderDashboard(GetHRLeaderDashboardCriteria criteria);
 
         Task<IList<Employee>> GetEmployeeToeicScore(GetEmployeeToeicScoreCriteria criteria);
 
         Task<SystemReminderModel> GetEmpployeeHasBirthdayAndFirstWorkingday(GetBirthdayAndFirstWorkingdayCriteria criteria);
 
-        IList<Employee> GetUpdatingScoreRelatedPeople(GetUpdatingScoreRelatedPeopleCriteria criteria);
+        Task<IEnumerable<Employee>> GetUpdatingScoreRelatedPeople(GetUpdatingScoreRelatedPeopleCriteria criteria);
 
-        IList<MissingCheckInOutModel> GetMissingCheckInOutByEmpId(GetMissingCheckInOutEmployeesCriteria criteria);
+        Task<IEnumerable<MissingCheckInOutModel>> GetMissingCheckInOutByEmpId(GetMissingCheckInOutEmployeesCriteria criteria);
 
-        IList<EmployeeLateInEarlyOut> GetEmployeeLateInEarlyOut(GetEmployeeAttendanceLateInEarlyOutCriteria criteria);
+        Task<IEnumerable<EmployeeLateInEarlyOut>> GetEmployeeLateInEarlyOut(GetEmployeeAttendanceLateInEarlyOutCriteria criteria);
 
         Task<IList<Workload>> GetWorkloadByTeam(GetEmployeeWorkloadCriteria criteria);
 
         Task<IEnumerable<MissingCheckInOutEmployee>> GetMissingCheckInOutEmployeeAsync();
 
-        IList<LuminetGroup> GetLuminetGroups();
+        Task<IEnumerable<LuminetGroup>> GetLuminetGroups();
 
-        IList<LuminetShift> GetLuminetShifts();
+        Task<IEnumerable<LuminetShift>> GetLuminetShifts();
 
         IList<string> UserRoles(Employee currentUser);
     }

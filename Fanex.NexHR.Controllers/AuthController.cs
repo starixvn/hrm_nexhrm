@@ -33,12 +33,12 @@
         }
 
         [HttpGet]
-        public ActionResult Login()
+        public async Task<ActionResult> Login()
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 string domainUsername = HttpContext.User.Identity.Name;
-                var employee = authService.GetEmployeeByDomain(domainUsername);
+                var employee = await authService.GetEmployeeByDomain(domainUsername);
 
                 if (employee.Enabled && !employee.IsDeleted)
                 {
@@ -57,7 +57,7 @@
                 if (IsValidAccount(model))
                 {
                     string domainUsername = appSetting.DomainName + model.Username;
-                    var employee = authService.GetEmployeeByDomain(domainUsername);
+                    var employee = await authService.GetEmployeeByDomain(domainUsername);
                     if (employee != null)
                     {
                         var employeeSetting = await authService.GetEmployeeSetting(employee.Id);

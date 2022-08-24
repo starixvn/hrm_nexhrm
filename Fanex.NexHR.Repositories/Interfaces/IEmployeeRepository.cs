@@ -8,13 +8,13 @@
 
     public interface IEmployeeRepository
     {
-        Employee GetById(ICriteria criteria);
+        Task<Employee> GetById(ICriteria criteria);
 
-        Employee GetByDomainName(ICriteria criteria);
+        Task<Employee> GetByDomainName(ICriteria criteria);
 
-        Employee GetByNickName(ICriteria criteria);
+        Task<Employee> GetByNickName(ICriteria criteria);
 
-        IList<Employee> Query(ICriteria criteria);
+        Task<IList<Employee>> Query(ICriteria criteria);
 
         Task<IList<DashBoardPersonalSpace>> GetDashBoardPersonalSpace(ICriteria criteria);
 

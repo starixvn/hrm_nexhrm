@@ -287,7 +287,7 @@
             return false;
         }
 
-        private void SendUpdatedScoreEmailToRelatedPeople(int empId, Toeic newScore, Toeic oldScore)
+        private async void SendUpdatedScoreEmailToRelatedPeople(int empId, Toeic newScore, Toeic oldScore)
         {
             var receiverEmail = string.Empty;
             var mailCC = new StringBuilder();
@@ -300,7 +300,7 @@
             }
 
             var criteria = new GetUpdatingScoreRelatedPeopleCriteria { Id = empId };
-            var employees = employeeService.GetUpdatingScoreRelatedPeople(criteria);
+            var employees = await employeeService.GetUpdatingScoreRelatedPeople(criteria);
 
             if (!employees.Any())
             {

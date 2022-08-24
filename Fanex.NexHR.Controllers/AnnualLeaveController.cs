@@ -1,9 +1,6 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
+
     using Core.Enums;
     using Criteria.AnnualLeave;
     using Criteria.Employee;
@@ -13,6 +10,10 @@
     using Models.AnnualLeave;
     using Resources;
     using Services.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using ViewModels.AnnualLeave;
 
     public class AnnualLeaveController : BaseController
@@ -376,7 +377,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult Employee(int employeeId, int year)
+        public async Task<ActionResult> Employee(int employeeId, int year)
         {
             var model = new AnnualLeaveBalanceViewModel
             {
@@ -386,7 +387,7 @@
             };
 
             var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId };
-            Employee employee = employeeService.GetEmployeeById(getEmployeeCriteria);
+            Employee employee = await employeeService.GetEmployeeById(getEmployeeCriteria);
 
             if (employee == null || employee.Id == 0)
             {
@@ -467,13 +468,13 @@
             return Json(leaveConversions);
         }
 
-        public ActionResult LeaveConversionDetail(
+        public async Task<ActionResult> LeaveConversionDetail(
             DateTime fromDate,
             DateTime toDate,
             int? employeeId = null,
             int? teamId = null)
         {
-            return View(GetLeaveDetailModel(fromDate, toDate, employeeId, teamId));
+            return View(await GetLeaveDetailModel(fromDate, toDate, employeeId, teamId));
         }
 
         [HttpPost]
@@ -497,13 +498,13 @@
             return Json(new { data = leaveDeductions });
         }
 
-        public ActionResult LeaveDeductionDetail(
+        public async Task<ActionResult> LeaveDeductionDetail(
             DateTime fromDate,
             DateTime toDate,
             int? employeeId = null,
             int? teamId = null)
         {
-            return View(GetLeaveDetailModel(fromDate, toDate, employeeId, teamId));
+            return View(await GetLeaveDetailModel(fromDate, toDate, employeeId, teamId));
         }
 
         [HrmAuthorize(Roles = "HR")]
@@ -564,7 +565,7 @@
             return Json(result);
         }
 
-        private LeaveConversionDetailViewModel GetLeaveDetailModel(DateTime fromDate, DateTime toDate, int? employeeId, int? teamId)
+        private async Task<LeaveConversionDetailViewModel> GetLeaveDetailModel(DateTime fromDate, DateTime toDate, int? employeeId, int? teamId)
         {
             IList<Team> teams = teamService.GetTeam();
 
@@ -580,7 +581,7 @@
             if (employeeId.HasValue)
             {
                 var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId.Value };
-                Employee employee = employeeService.GetEmployeeById(getEmployeeCriteria);
+                Employee employee = await employeeService.GetEmployeeById(getEmployeeCriteria);
 
                 model.Employee = employee.DisplayName;
             }

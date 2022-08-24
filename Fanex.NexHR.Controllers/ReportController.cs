@@ -426,7 +426,7 @@
         }
 
         [HttpPost]
-        public ActionResult ListLateInEarlyOut(LateInEarlyOutViewModel model)
+        public async Task<ActionResult> ListLateInEarlyOut(LateInEarlyOutViewModel model)
         {
             IList<LateInEarlyOutModel> lateInEarlyOuts = new List<LateInEarlyOutModel>();
             if (model != null)
@@ -438,7 +438,7 @@
                     Year = model.Year
                 };
 
-                lateInEarlyOuts = reportService.GetLateInEarlyOut(criteria);
+                lateInEarlyOuts = await reportService.GetLateInEarlyOut(criteria);
 
                 ViewBag.Year = model.Year;
             }
@@ -447,7 +447,7 @@
         }
 
         [HttpGet]
-        public ActionResult LateInEarlyOutDetail(
+        public async Task<ActionResult> LateInEarlyOutDetail(
             DateTime fromDate,
             DateTime toDate,
             int? employeeId = null,
@@ -468,7 +468,7 @@
             if (employeeId.HasValue)
             {
                 var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId.Value };
-                Employee employee = employeeService.GetEmployeeById(getEmployeeCriteria);
+                Employee employee = await employeeService.GetEmployeeById(getEmployeeCriteria);
                 model.Employee = employee.DisplayName;
             }
 
@@ -476,7 +476,7 @@
         }
 
         [HttpPost]
-        public JsonResult GetLateInEarlyOutDetail(LateInEarlyOutDetailViewModel model)
+        public async Task<JsonResult> GetLateInEarlyOutDetail(LateInEarlyOutDetailViewModel model)
         {
             IList<LateInEarlyOutDetail> lateInEarlyOuts = new List<LateInEarlyOutDetail>();
             if (model != null)
@@ -490,7 +490,7 @@
                     ToDate = model.ToDate
                 };
 
-                lateInEarlyOuts = reportService.GetLateInEarlyOutDetail(criteria);
+                lateInEarlyOuts = await reportService.GetLateInEarlyOutDetail(criteria);
             }
 
             return Json(lateInEarlyOuts);

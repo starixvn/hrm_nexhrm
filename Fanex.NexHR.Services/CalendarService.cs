@@ -1,12 +1,13 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Criteria.Calendar;
     using Interfaces;
     using Models.Calendar;
     using Repositories.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     public class CalendarService : ICalendarService
     {
@@ -17,35 +18,35 @@
             this.calendarRepository = calendarRepository;
         }
 
-        public IList<WorkingSchedule> GetWorkingSchedule(GetWorkingScheduleCriteria criteria)
+        public async Task<IList<WorkingSchedule>> GetWorkingSchedule(GetWorkingScheduleCriteria criteria)
         {
             IList<WorkingSchedule> workingSchedules = null;
             if (criteria != null && criteria.IsValid())
             {
-                workingSchedules = calendarRepository.GetWorkingSchedule(criteria);
+                workingSchedules = await calendarRepository.GetWorkingSchedule(criteria);
             }
 
             return workingSchedules ?? new List<WorkingSchedule>();
         }
 
-        private IList<LeaveSchedule> GetLeavingSchedule(GetLeaveScheduleCriteria criteria)
+        private async Task<IList<LeaveSchedule>> GetLeavingSchedule(GetLeaveScheduleCriteria criteria)
         {
             IList<LeaveSchedule> leaveSchedules = null;
             if (criteria != null && criteria.IsValid())
             {
-                leaveSchedules = calendarRepository.GetLeaveSchedule(criteria);
+                leaveSchedules = await calendarRepository.GetLeaveSchedule(criteria);
             }
 
             return leaveSchedules ?? new List<LeaveSchedule>();
         }
 
-        public LeaveDaySummarySchedule GetLeaveSchedule(GetLeaveScheduleCriteria criteria)
+        public async Task<LeaveDaySummarySchedule> GetLeaveSchedule(GetLeaveScheduleCriteria criteria)
         {
             var leaveSummarySchedule = new LeaveDaySummarySchedule();
 
             if (criteria != null && criteria.IsValid())
             {
-                var leaveSchedules = GetLeavingSchedule(criteria);
+                var leaveSchedules = await GetLeavingSchedule(criteria);
 
                 leaveSummarySchedule.TotalLeaves = CalculateTotalLeavesTaken(leaveSchedules);
 

@@ -4,7 +4,7 @@
 @using Fanex.NexHR.ViewModels
 @model ToDoViewModel
 @inject AppSetting settings;
-@if ((Model.MissingCheckInOutList.Count == 0) && (Model.PendingRequestsList.Count == 0) && (Model.InProgressTasks.Count == 0) && Model.ForgotLogtimeDates.Count == 0)
+@if ((Model.MissingCheckInOutList.Count() == 0) && (Model.PendingRequestsList.Count() == 0) && (Model.InProgressTasks.Count() == 0) && Model.ForgotLogtimeDates.Count() == 0)
 {
     <p class="green-border">
         <span class="left-align">
@@ -89,7 +89,7 @@
     }
 }
 
-@if (Model.InProgressTasks.Count > 0)
+@if (Model.InProgressTasks.Count() > 0)
 {
     foreach (var issue in Model.InProgressTasks)
     {
@@ -126,7 +126,7 @@
 
                 }
 
-@if (Model.ForgotLogtimeDates.Count > 0)
+@if (Model.ForgotLogtimeDates.Count() > 0)
 {
     <p class="yellow-border">
         <span class="text-left">

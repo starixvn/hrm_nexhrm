@@ -1,13 +1,14 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Collections.Generic;
     using Criteria.Calendar;
     using Fanex.NexHR.Models.Attributes;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.Calendar;
     using Services.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using ViewModels;
     using ViewModels.Calendar;
 
@@ -63,7 +64,7 @@
             return Json(result);
         }
 
-        public JsonResult GetWorkingSchedule(int employeeId, DateTime date)
+        public async Task<JsonResult> GetWorkingSchedule(int employeeId, DateTime date)
         {
             var fromdate = new DateTime(date.Year, date.Month, 1);
             var criteria = new GetWorkingScheduleCriteria
@@ -73,7 +74,7 @@
                 EmployeeId = employeeId
             };
 
-            IList<WorkingSchedule> schedules = calendarService.GetWorkingSchedule(criteria);
+            IList<WorkingSchedule> schedules = await calendarService.GetWorkingSchedule(criteria);
             return Json(schedules);
         }
 
@@ -82,7 +83,7 @@
             return View();
         }
 
-        public ActionResult WorkingCalendars(WorkingCalendarViewModel model)
+        public async Task<ActionResult> WorkingCalendars(WorkingCalendarViewModel model)
         {
             if (model != null)
             {
@@ -103,7 +104,7 @@
                     TeamId = model.TeamId
                 };
 
-                IList<WorkingSchedule> schedules = calendarService.GetWorkingSchedule(criteria);
+                IList<WorkingSchedule> schedules = await calendarService.GetWorkingSchedule(criteria);
                 model.WorkingSchedules = schedules;
             }
 
@@ -127,7 +128,7 @@
             return View(model);
         }
 
-        public ActionResult GetEmployeeLeaveSchedule(WorkingCalendarViewModel model)
+        public async Task<ActionResult> GetEmployeeLeaveSchedule(WorkingCalendarViewModel model)
         {
             DateTime date = new DateTime(model.Year, model.Month, 1);
             var criteria = new GetLeaveScheduleCriteria
@@ -138,7 +139,7 @@
                 TeamId = model.TeamId
             };
 
-            var schedules = calendarService.GetLeaveSchedule(criteria);
+            var schedules = await calendarService.GetLeaveSchedule(criteria);
 
             return PartialView("_LeaveDaySummarySchedule", schedules);
         }

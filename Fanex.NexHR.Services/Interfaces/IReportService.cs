@@ -1,10 +1,10 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
     using Criteria.Report;
     using Models;
     using Models.Report;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public interface IReportService
     {
@@ -12,9 +12,9 @@
 
         bool GetIsPrivilegeCreateCheckInOut(GetPrivilegeCreateCheckInOutRecordCriteria criteria);
 
-        IList<LateInEarlyOutModel> GetLateInEarlyOut(GetLateInEarlyOutReportCriteria criteria);
+        Task<IList<LateInEarlyOutModel>> GetLateInEarlyOut(GetLateInEarlyOutReportCriteria criteria);
 
-        IList<LateInEarlyOutDetail> GetLateInEarlyOutDetail(GetLateInEarlyOutDetailReportCriteria criteria);
+        Task<IList<LateInEarlyOutDetail>> GetLateInEarlyOutDetail(GetLateInEarlyOutDetailReportCriteria criteria);
 
         IList<RequestsMonitoring> GetRequestMonitoring(GetRequestMonitorReportCriteria criteria);
 

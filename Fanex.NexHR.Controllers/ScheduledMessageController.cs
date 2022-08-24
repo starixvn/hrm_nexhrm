@@ -214,7 +214,7 @@
         }
 
         [HttpGet]
-        public ActionResult CreateConversation()
+        public async Task<ActionResult> CreateConversation()
         {
             var userRoles = employeeService.UserRoles(CurrentUser);
             var hasHRRole = userRoles.Any(item => item == "HR");
@@ -226,7 +226,7 @@
 
             if (hasHRRole)
             {
-                var employees = employeeService.Query(new GetEmployeeCriteria
+                var employees = await employeeService.Query(new GetEmployeeCriteria
                 {
                     Query = string.Empty,
                     IsDelete = false,
@@ -310,7 +310,7 @@
 
             if (viewModel.HasHRRole)
             {
-                var employees = employeeService.Query(new GetEmployeeCriteria
+                var employees = await employeeService.Query(new GetEmployeeCriteria
                 {
                     Query = string.Empty,
                     IsDelete = false,

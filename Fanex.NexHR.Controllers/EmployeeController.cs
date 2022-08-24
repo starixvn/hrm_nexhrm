@@ -90,7 +90,7 @@
             return View(model);
         }
 
-        public JsonResult GetEmployees(
+        public async Task<JsonResult> GetEmployees(
             string query,
             int? teamId = null,
             bool? isDisable = null,
@@ -117,7 +117,7 @@
                 IsSpecial = isSpecial ?? false
             };
 
-            listEmployee.Employees = employeeService.Query(criteria);
+            listEmployee.Employees = await employeeService.Query(criteria);
 
             listEmployee.Employees = SortEmployee(sort, listEmployee.Employees);
 
@@ -125,12 +125,12 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult WorkingHistory(int employeeId)
+        public async Task<ActionResult> WorkingHistory(int employeeId)
         {
             const int startYear = 2011;
             var history = new WorkingHistoryViewModel { EmpId = employeeId };
             var criteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId };
-            history.Employee = employeeService.GetEmployeeById(criteria);
+            history.Employee = await employeeService.GetEmployeeById(criteria);
             history.FromDate = new DateTime(startYear, 1, 1);
 
             return View(history);
@@ -161,11 +161,11 @@
 
         [HttpGet]
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult InsertHistoryWork(int employeeId)
+        public async Task<ActionResult> InsertHistoryWork(int employeeId)
         {
             var history = new WorkingHistoryViewModel { EmpId = employeeId };
             history.Teams = teamService.GetTeam();
-            history.Employee = GetEmployeeById(employeeId);
+            history.Employee = await GetEmployeeById(employeeId);
             var lookupDataJobTitleCriteria = new GetJobTitleCriteria { JobTitle = "" };
             history.JobTitles = jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
 
@@ -266,9 +266,9 @@
             return Json(result);
         }
 
-        public ActionResult Detail(int employeeId)
+        public async Task<ActionResult> Detail(int employeeId)
         {
-            Employee employee = GetEmployeeById(employeeId);
+            Employee employee = await GetEmployeeById(employeeId);
             return View(employee);
         }
 
@@ -332,9 +332,9 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            Employee employee = GetEmployeeById(id);
+            Employee employee = await GetEmployeeById(id);
 
             EditEmployeeViewModel model = new EditEmployeeViewModel(employee)
             {
@@ -349,7 +349,7 @@
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(EditEmployeeViewModel model)
+        public async Task<ActionResult> Edit(EditEmployeeViewModel model)
         {
             if (model == null || !ModelState.IsValid)
             {
@@ -365,16 +365,16 @@
                 if (CurrentUser.Id == model.Id)
                 {
                     var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = model.Id };
-                    Employee currentUser = employeeService.GetEmployeeById(getEmployeeCriteria);
+                    Employee currentUser = await employeeService.GetEmployeeById(getEmployeeCriteria);
                     if (HttpContext.Session != null)
                     {
                         HttpContext.Session.Set("CurrentUser", currentUser);
                     }
                 }
 
-                Task.Factory.StartNew(() =>
+                Task.Factory.StartNew(async () =>
                 {
-                    var employee = GetEmployeeById(criteria.EmployeeId);
+                    var employee = await GetEmployeeById(criteria.EmployeeId);
                     mailEmployeeService.SendMailUpdateSuccess(employee);
                 });
             }
@@ -404,9 +404,9 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult DefaultSchedule(int employeeId)
+        public async Task<ActionResult> DefaultSchedule(int employeeId)
         {
-            Employee employee = GetEmployeeById(employeeId);
+            Employee employee = await GetEmployeeById(employeeId);
             DefaultScheduleViewModel model = GetDefaultScheduleFromEmployee(employee);
             model.Shifts = shiftService.GetAll();
 
@@ -447,9 +447,9 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult MonthSchedule(int employeeId)
+        public async Task<ActionResult> MonthSchedule(int employeeId)
         {
-            Employee employee = GetEmployeeById(employeeId);
+            Employee employee = await GetEmployeeById(employeeId);
             MonthlyScheduleViewModel model = new MonthlyScheduleViewModel();
             if (employee != null)
             {
@@ -508,9 +508,9 @@
             await file.CopyToAsync(stream);
         }
 
-        public ActionResult Birthday(int month = 0)
+        public async Task<ActionResult> Birthday(int month = 0)
         {
-            IEnumerable<Employee> employees = GetEmployees();
+            IEnumerable<Employee> employees = await GetEmployees();
             IList<EmployeeBirthdayViewModel> sortedEmployees;
             if (month != 0)
             {
@@ -526,18 +526,18 @@
             return View(sortedEmployees);
         }
 
-        public ActionResult MyProfile()
+        public async Task<ActionResult> MyProfile()
         {
             var criteria = new GetEmployeeByIdCriteria
             {
                 EmployeeId = CurrentUser.Id
             };
-            Employee employee = employeeService.GetEmployeeById(criteria);
+            Employee employee = await employeeService.GetEmployeeById(criteria);
             return View(employee);
         }
 
         [HrmAuthorize(Roles = "AssistantLeader,HR")]
-        public JsonResult GetMembersByManager(string keyword, int? groupId = null)
+        public async Task<JsonResult> GetMembersByManager(string keyword, int? groupId = null)
         {
             const int Records = 10;
             var role = CurrentUser.IsInRoles(Role.HR) ? Role.HR : Role.AssistantLeader;
@@ -549,17 +549,20 @@
                 GroupId = groupId,
                 ExcludedManager = false
             };
+            var membersByManager = await employeeService.GetMembersByManager(getMemberByManager);
 
-            return Json(employeeService.GetMembersByManager(getMemberByManager).Take(Records));
+            return Json(membersByManager.Take(Records));
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult Transfer()
+        public async Task<ActionResult> Transfer()
         {
+            var luminetGroups = await employeeService.GetLuminetGroups();
+            var luminetShifts = await employeeService.GetLuminetShifts();
             var model = new TransferEmployeeViewModel
             {
-                LumiGroups = employeeService.GetLuminetGroups(),
-                LumiShifts = employeeService.GetLuminetShifts(),
+                LumiGroups = luminetGroups.ToList(),
+                LumiShifts = luminetShifts.ToList(),
                 LastWorkingDate = DateTime.Now,
                 AffectedDate = DateTime.Now
             };
@@ -569,15 +572,17 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public ActionResult Transfer(TransferEmployeeViewModel model)
+        public async Task<ActionResult> Transfer(TransferEmployeeViewModel model)
         {
             if (model == null)
             {
                 return View((TransferEmployeeViewModel)null);
             }
-            model.LumiGroups = employeeService.GetLuminetGroups();
-            model.LumiShifts = employeeService.GetLuminetShifts();
-            var employee = employeeService.GetEmployeeById(new GetEmployeeByIdCriteria { EmployeeId = model.EmployeeId });
+            var luminetGroups = await employeeService.GetLuminetGroups();
+            var luminetShifts = await employeeService.GetLuminetShifts();
+            model.LumiGroups = luminetGroups.ToList();
+            model.LumiShifts = luminetShifts.ToList();
+            var employee = await employeeService.GetEmployeeById(new GetEmployeeByIdCriteria { EmployeeId = model.EmployeeId });
             if (model.EmployeeId <= 0)
             {
                 ModelState.AddModelError(string.Empty, Messages.NexEmployeeRequireError);
@@ -681,7 +686,7 @@
             return sortedEmployees;
         }
 
-        private IEnumerable<Employee> GetEmployees()
+        private async Task<IEnumerable<Employee>> GetEmployees()
         {
             var getAllEmployeeCriteria = new GetEmployeeCriteria
             {
@@ -695,17 +700,17 @@
                 TotalRow = 2000
             };
 
-            return employeeService.Query(getAllEmployeeCriteria);
+            return await employeeService.Query(getAllEmployeeCriteria);
         }
 
-        private Employee GetEmployeeById(int employeeId)
+        private async Task<Employee> GetEmployeeById(int employeeId)
         {
             var criteria = new GetEmployeeByIdCriteria
             {
                 EmployeeId = employeeId
             };
 
-            return employeeService.GetEmployeeById(criteria);
+            return await employeeService.GetEmployeeById(criteria);
         }
 
         private static DefaultScheduleViewModel GetDefaultScheduleFromEmployee(Employee employee)

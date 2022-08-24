@@ -1,13 +1,14 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
-    using System.Collections.Generic;
     using Criteria.Calendar;
     using Models.Calendar;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public interface ICalendarService
     {
-        IList<WorkingSchedule> GetWorkingSchedule(GetWorkingScheduleCriteria criteria);
+        Task<IList<WorkingSchedule>> GetWorkingSchedule(GetWorkingScheduleCriteria criteria);
 
-        LeaveDaySummarySchedule GetLeaveSchedule(GetLeaveScheduleCriteria criteria);
+        Task<LeaveDaySummarySchedule> GetLeaveSchedule(GetLeaveScheduleCriteria criteria);
     }
 }

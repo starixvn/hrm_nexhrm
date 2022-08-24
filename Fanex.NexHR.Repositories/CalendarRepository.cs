@@ -1,20 +1,21 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using Data;
     using Data.Repository;
     using Interfaces;
     using Models;
     using Models.Calendar;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     public class CalendarRepository : ICalendarRepository
     {
-        public IList<WorkingSchedule> GetWorkingSchedule(ICriteria criteria)
+        public async Task<IList<WorkingSchedule>> GetWorkingSchedule(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var workingSchedules = db.Query<WorkingSchedule, Employee, Team, WorkingSchedule>(
+                var workingSchedules = await db.QueryAsync<WorkingSchedule, Employee, Team, WorkingSchedule>(
                      (schedule, employee, team) =>
                      {
                          employee.Team = team;
@@ -28,11 +29,11 @@
             }
         }
 
-        public IList<LeaveSchedule> GetLeaveSchedule(ICriteria criteria)
+        public async Task<IList<LeaveSchedule>> GetLeaveSchedule(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var leaveSchedules = db.Query<LeaveSchedule, Employee, Team, LeaveSchedule>(
+                var leaveSchedules = await db.QueryAsync<LeaveSchedule, Employee, Team, LeaveSchedule>(
                      (schedule, employee, team) =>
                      {
                          employee.Team = team;

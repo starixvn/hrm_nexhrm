@@ -16,6 +16,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using ViewModels.Overtime;
 
     public class OvertimeController : BaseController
@@ -285,20 +286,22 @@
             return PartialView("_ListMyOvertime", employeeOvertimes);
         }
 
-        public ActionResult OvertimeRequest(MemberOvertimeViewModel model)
+        public async Task<ActionResult> OvertimeRequest(MemberOvertimeViewModel model)
         {
             if (model != null)
             {
                 if (model.EmployeeId.HasValue)
                 {
                     var criteria = new GetEmployeeByIdCriteria { EmployeeId = model.EmployeeId.Value };
-                    model.Employee = employeeService.GetEmployeeById(criteria).DisplayName;
+                    var employee = await employeeService.GetEmployeeById(criteria);
+                    model.Employee = employee.DisplayName;
                 }
 
                 if (model.CreatedBy.HasValue)
                 {
                     var criteria = new GetEmployeeByIdCriteria { EmployeeId = model.CreatedBy.Value };
-                    model.CreatedName = employeeService.GetEmployeeById(criteria).DisplayName;
+                    var employee = await employeeService.GetEmployeeById(criteria);
+                    model.CreatedName = employee.DisplayName;
                 }
             }
 
@@ -472,7 +475,7 @@
             return Json(result);
         }
 
-        private OvertimeConversionDetailViewModel GetOTConversionDetailModel(
+        private async Task<OvertimeConversionDetailViewModel> GetOTConversionDetailModel(
             DateTime fromDate, 
             DateTime toDate, 
             int? employeeId, 
@@ -492,7 +495,7 @@
             if (employeeId.HasValue)
             {
                 var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId.Value };
-                Employee employee = employeeService.GetEmployeeById(getEmployeeCriteria);
+                Employee employee = await employeeService.GetEmployeeById(getEmployeeCriteria);
 
                 model.Employee = employee.DisplayName;
             }
@@ -608,7 +611,7 @@
             return Json(result);
         }
 
-        public ActionResult OvertimeNexDetail(DateTime fromDate, DateTime toDate, int? employeeId)
+        public async Task<ActionResult> OvertimeNexDetail(DateTime fromDate, DateTime toDate, int? employeeId)
         {
             var model = new MemberOvertimeViewModel
             {
@@ -620,7 +623,8 @@
             if (employeeId.HasValue)
             {
                 var criteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId.Value };
-                model.Employee = employeeService.GetEmployeeById(criteria).DisplayName;
+                var employee = await employeeService.GetEmployeeById(criteria);
+                model.Employee = employee.DisplayName;
             }
 
             return View("OvertimeRequestDetail", model);

@@ -17,16 +17,16 @@
             EmployeeLatetInEarlyOuts = new List<EmployeeLateInEarlyOut>();
         }
 
-        public IList<MissingCheckInOutModel> MissingCheckInOutList { get; set; }
+        public IEnumerable<MissingCheckInOutModel> MissingCheckInOutList { get; set; }
 
-        public IList<RequestEntity> PendingRequestsList { get; set; }
+        public IEnumerable<RequestEntity> PendingRequestsList { get; set; }
 
-        public IList<RedmineIssue> InProgressTasks { get; set; }
+        public IEnumerable<RedmineIssue> InProgressTasks { get; set; }
 
-        public IList<DateTime> ForgotLogtimeDates { get; set; }
+        public IEnumerable<DateTime> ForgotLogtimeDates { get; set; }
 
         public bool IsAllowInputSpendTime { get; set; }
 
-        public IList<EmployeeLateInEarlyOut> EmployeeLatetInEarlyOuts { get; set; }
+        public IEnumerable<EmployeeLateInEarlyOut> EmployeeLatetInEarlyOuts { get; set; }
     }
 }

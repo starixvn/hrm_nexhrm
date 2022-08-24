@@ -16,6 +16,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Threading.Tasks;
     using ViewModels.Calendar;
     using ViewModels.Report;
     using ViewModels.TotalWorkingHours;
@@ -89,7 +90,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpGet]
-        public ActionResult EmployeeProfile(
+        public async Task<ActionResult> EmployeeProfileAsync(
             string query = null,
             int? teamId = null,
             bool? isDisable = null,
@@ -109,7 +110,7 @@
                 TotalRow = 2000
             };
 
-            IList<Employee> listEmployees = employeeService.Query(getAllEmployeeCriteria);
+            IList<Employee> listEmployees = await employeeService.Query(getAllEmployeeCriteria);
 
             const string fileName = "EmployeeProfile.xlsx";
 
@@ -182,7 +183,7 @@
             return File(bytes, "application/xlsx", fileName);
         }
 
-        public ActionResult LeaveScheduleReport(WorkingCalendarViewModel model)
+        public async Task<ActionResult> LeaveScheduleReport(WorkingCalendarViewModel model)
         {
             DateTime date = new DateTime(model.Year, model.Month, 1);
             var criteria = new GetLeaveScheduleCriteria
@@ -193,7 +194,7 @@
                 TeamId = model.TeamId
             };
 
-            var schedules = calendarService.GetLeaveSchedule(criteria);
+            var schedules = await calendarService.GetLeaveSchedule(criteria);
 
             const string fileName = "DayOffSchedule.xlsx";
             string templatePath = Path.Combine(environment.ContentRootPath, DayOffScheduleTemplatePath);

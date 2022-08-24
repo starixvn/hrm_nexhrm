@@ -28,59 +28,59 @@
             this.baseService = baseService;
         }
 
-        public Employee GetEmployeeById(GetEmployeeByIdCriteria criteria)
+        public async Task<Employee> GetEmployeeById(GetEmployeeByIdCriteria criteria)
         {
             Employee employee = null;
             if (criteria != null && criteria.IsValid())
             {
-                employee = employeeRepository.GetById(criteria);
+                employee = await employeeRepository.GetById(criteria);
             }
 
             return employee;
         }
 
-        public Employee GetEmployeeByDomainName(GetEmployeeByDomainNameCriteria criteria)
+        public async Task<Employee> GetEmployeeByDomainName(GetEmployeeByDomainNameCriteria criteria)
         {
             Employee employee = null;
             if (criteria != null && criteria.IsValid())
             {
-                employee = employeeRepository.GetByDomainName(criteria);
+                employee = await employeeRepository.GetByDomainName(criteria);
             }
 
             return employee;
         }
 
-        public Employee GetEmployeeByNickName(GetEmployeeByNickNameCriteria criteria)
+        public async Task<Employee> GetEmployeeByNickName(GetEmployeeByNickNameCriteria criteria)
         {
             Employee employee = null;
             if (criteria != null && criteria.IsValid())
             {
-                employee = employeeRepository.GetByNickName(criteria);
+                employee = await employeeRepository.GetByNickName(criteria);
             }
 
             return employee;
         }
 
-        public IList<Employee> Query(GetEmployeeCriteria criteria)
+        public async Task<IList<Employee>> Query(GetEmployeeCriteria criteria)
         {
             IList<Employee> employees = null;
             if (criteria != null && criteria.IsValid())
             {
-                employees = employeeRepository.Query(criteria);
+                employees = await employeeRepository.Query(criteria);
             }
 
             return employees ?? new List<Employee>();
         }
 
-        public IList<Employee> GetMembersByManager(GetMemberByManagerCriteria criteria)
+        public async Task<IEnumerable<Employee>> GetMembersByManager(GetMemberByManagerCriteria criteria)
         {
-            IList<Employee> employees = baseService.GetData<Employee>(criteria);
+            IEnumerable<Employee> employees = await baseService.GetDataAsync<Employee>(criteria);
             return employees;
         }
 
-        public DefaultSchedule GetEmployeeShift(GetEmployeeShiftCriteria criteria)
+        public async Task<DefaultSchedule> GetEmployeeShift(GetEmployeeShiftCriteria criteria)
         {
-            DefaultSchedule defaultSchedule = baseService.GetDataEntity<DefaultSchedule>(criteria);
+            DefaultSchedule defaultSchedule = await baseService.GetDataEntityAsync<DefaultSchedule>(criteria);
             return defaultSchedule;
         }
 
@@ -101,9 +101,9 @@
             return space;
         }
 
-        public HRLeaderDashboardModel GetHRLeaderDashboard(GetHRLeaderDashboardCriteria criteria)
+        public async Task<HRLeaderDashboardModel> GetHRLeaderDashboard(GetHRLeaderDashboardCriteria criteria)
         {
-            HRLeaderDashboardModel dashboard = baseService.GetDataEntity<HRLeaderDashboardModel>(criteria);
+            HRLeaderDashboardModel dashboard = await baseService.GetDataEntityAsync<HRLeaderDashboardModel>(criteria);
             return dashboard;
         }
 
@@ -129,21 +129,21 @@
             return employees;
         }
 
-        public IList<Employee> GetUpdatingScoreRelatedPeople(GetUpdatingScoreRelatedPeopleCriteria criteria)
+        public async Task<IEnumerable<Employee>> GetUpdatingScoreRelatedPeople(GetUpdatingScoreRelatedPeopleCriteria criteria)
         {
-            IList<Employee> employees = baseService.GetData<Employee>(criteria);
+            IEnumerable<Employee> employees = await baseService.GetDataAsync<Employee>(criteria);
             return employees;
         }
 
-        public IList<MissingCheckInOutModel> GetMissingCheckInOutByEmpId(GetMissingCheckInOutEmployeesCriteria criteria)
+        public async Task<IEnumerable<MissingCheckInOutModel>> GetMissingCheckInOutByEmpId(GetMissingCheckInOutEmployeesCriteria criteria)
         {
-            IList<MissingCheckInOutModel> missingCheckInOuts = baseService.GetData<MissingCheckInOutModel>(criteria);
+            IEnumerable<MissingCheckInOutModel> missingCheckInOuts = await baseService.GetDataAsync<MissingCheckInOutModel>(criteria);
             return missingCheckInOuts;
         }
 
-        public IList<EmployeeLateInEarlyOut> GetEmployeeLateInEarlyOut(GetEmployeeAttendanceLateInEarlyOutCriteria criteria)
+        public async Task<IEnumerable<EmployeeLateInEarlyOut>> GetEmployeeLateInEarlyOut(GetEmployeeAttendanceLateInEarlyOutCriteria criteria)
         {
-            IList<EmployeeLateInEarlyOut> employees = baseService.GetData<EmployeeLateInEarlyOut>(criteria);
+            IEnumerable<EmployeeLateInEarlyOut> employees = await baseService.GetDataAsync<EmployeeLateInEarlyOut>(criteria);
             return employees;
         }
 
@@ -179,14 +179,14 @@
             return missingCheckInOuts;
         }
 
-        public IList<LuminetGroup> GetLuminetGroups()
+        public async Task<IEnumerable<LuminetGroup>> GetLuminetGroups()
         {
-            return baseService.GetData<LuminetGroup>(new GetLuminetGroupCriteria());
+            return await baseService.GetDataAsync<LuminetGroup>(new GetLuminetGroupCriteria());
         }
 
-        public IList<LuminetShift> GetLuminetShifts()
+        public async Task<IEnumerable<LuminetShift>> GetLuminetShifts()
         {
-            return baseService.GetData<LuminetShift>(new GetLuminetShiftCriteria());
+            return await baseService.GetDataAsync<LuminetShift>(new GetLuminetShiftCriteria());
         }
 
         private static string getCompanyWorkFromHome(IList<DashBoardCompanySpace> dashBoard)

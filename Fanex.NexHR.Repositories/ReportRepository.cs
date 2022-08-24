@@ -160,11 +160,11 @@
             }
         }
 
-        public IList<LateInEarlyOutModel> GetLateInEarlyOut(ICriteria criteria)
+        public async Task<IList<LateInEarlyOutModel>> GetLateInEarlyOut(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var lateinEarlyOuts = db.Query<LateInEarlyOutModel, Employee, Team, LateInEarlyOutModel>(
+                var lateinEarlyOuts = await db.QueryAsync<LateInEarlyOutModel, Employee, Team, LateInEarlyOutModel>(
                         (la, e, g) =>
                         {
                             la.Employee = e;
@@ -172,18 +172,17 @@
                             return la;
                         },
                         splitOn: stringSplitOn,
-                        parameterSet: criteria)
-                    .ToList();
+                        parameterSet: criteria);
 
-                return lateinEarlyOuts;
+                return lateinEarlyOuts.ToList();
             }
         }
 
-        public IList<LateInEarlyOutDetail> GetLateInEarlyOutDetail(ICriteria criteria)
+        public async Task<IList<LateInEarlyOutDetail>> GetLateInEarlyOutDetail(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var lateInEarlyOuts = db.Query<LateInEarlyOutDetail, Employee, Team, LateInEarlyOutDetail>(
+                var lateInEarlyOuts = await db.QueryAsync<LateInEarlyOutDetail, Employee, Team, LateInEarlyOutDetail>(
                         (la, e, g) =>
                         {
                             la.Employee = e;
@@ -191,10 +190,9 @@
                             return la;
                         },
                         splitOn: stringSplitOn,
-                        parameterSet: criteria)
-                    .ToList();
+                        parameterSet: criteria);
 
-                return lateInEarlyOuts;
+                return lateInEarlyOuts.ToList();
             }
         }
 

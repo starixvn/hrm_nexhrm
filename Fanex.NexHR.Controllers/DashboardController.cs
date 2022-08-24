@@ -119,10 +119,10 @@
 
             if (CurrentUserSetting.DisplayInfoAndTodoList)
             {
-                model.MissingCheckInOutList = GetMissingCheckInOut(employeeId);
+                model.MissingCheckInOutList = await GetMissingCheckInOut(employeeId);
                 model.PendingRequestsList = await GetPendingRequest();
                 model.IsAllowInputSpendTime = CurrentUserSetting.DisplayRedmineInputSpendTime;
-                model.EmployeeLatetInEarlyOuts = GetEmployeeLateInEarlyOut();
+                model.EmployeeLatetInEarlyOuts = await GetEmployeeLateInEarlyOut();
 
                 if (CurrentUserSetting.DisplayRedmineTask)
                 {
@@ -209,13 +209,13 @@
             commandService.ExecuteNonQuery(criteria);
         }
 
-        private IList<MissingCheckInOutModel> GetMissingCheckInOut(int? employeeId)
+        private async Task<IEnumerable<MissingCheckInOutModel>> GetMissingCheckInOut(int? employeeId)
         {
             GetMissingCheckInOutEmployeesCriteria criteria = new GetMissingCheckInOutEmployeesCriteria
             {
                 EmpId = employeeId
             };
-            return employeeService.GetMissingCheckInOutByEmpId(criteria);
+            return await employeeService.GetMissingCheckInOutByEmpId(criteria);
         }
 
         private async Task<IList<RequestEntity>> GetPendingRequest()
@@ -239,14 +239,14 @@
             return entityList;
         }
 
-        private IList<EmployeeLateInEarlyOut> GetEmployeeLateInEarlyOut()
+        private async Task<IEnumerable<EmployeeLateInEarlyOut>> GetEmployeeLateInEarlyOut()
         {
             var criteria = new GetEmployeeAttendanceLateInEarlyOutCriteria
             {
                 EmpId = CurrentUser.Id
             };
 
-            IList<EmployeeLateInEarlyOut> employees = employeeService.GetEmployeeLateInEarlyOut(criteria);
+            IEnumerable<EmployeeLateInEarlyOut> employees = await employeeService.GetEmployeeLateInEarlyOut(criteria);
 
             return employees;
         }

@@ -12,26 +12,26 @@
 
     public class EmployeeRepository : IEmployeeRepository
     {
-        public Employee GetById(ICriteria criteria)
+        public async Task<Employee> GetById(ICriteria criteria)
         {
-            return GetEmployeeEntity(criteria);
+            return await GetEmployeeEntity(criteria);
         }
 
-        public Employee GetByDomainName(ICriteria criteria)
+        public async Task<Employee> GetByDomainName(ICriteria criteria)
         {
-            return GetEmployeeEntity(criteria);
+            return await GetEmployeeEntity(criteria);
         }
 
-        public Employee GetByNickName(ICriteria criteria)
+        public async Task<Employee> GetByNickName(ICriteria criteria)
         {
-            return GetEmployeeEntity(criteria);
+            return await GetEmployeeEntity(criteria);
         }
 
-        public IList<Employee> Query(ICriteria criteria)
+        public async Task<IList<Employee>> Query(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var entityList = db.Query<Employee, Toeic, Team, JobTitle, Employee>(
+                var entityList = await db.QueryAsync<Employee, Toeic, Team, JobTitle, Employee>(
                      (employee, toeic, team, jobTitle) =>
                      {
                          employee.Team = team;
@@ -132,11 +132,11 @@
             }
         }
 
-        private static Employee GetEmployeeEntity(ICriteria criteria)
+        private static async Task<Employee> GetEmployeeEntity(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var employee = db.QueryEntity<Employee, dynamic, Toeic, Team, JobTitle, Employee>(
+                var employee = await db.QueryEntityAsync<Employee, dynamic, Toeic, Team, JobTitle, Employee>(
                     (e, def, to, te, job) =>
                     {
                         e.DefaultSchedule = GetDefaultSchedule(def);
