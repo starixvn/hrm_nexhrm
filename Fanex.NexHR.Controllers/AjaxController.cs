@@ -2,6 +2,7 @@
 {
     using System;
     using Criteria.Report;
+    using Fanex.NexHR.Models.Attributes;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
@@ -16,7 +17,7 @@
             this.commandService = commandService;
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public JsonResult ProcessInOut(TimeRecordUpdateTypeCriteria criteria)
         {

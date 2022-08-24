@@ -48,11 +48,21 @@ function getShiftByDate() {
 }
 
 function query(isFirstLoad) {
+    const queryString = window.location.search;
+    if (queryString && isFirstLoad) {
+        initDataFirstQuery(queryString);
+    }
+    var year = $('.year .select-dropdown').val();
+    var url = _global.root + 'CheckInOut/ListCheckInOutRequest?' + 'Year=' + year;
+    if (!isFirstLoad) {
+        var orgUrl = _global.root + 'checkInOut/employeeview?' + 'Year=' + year;
+        window.history.replaceState(null, null, orgUrl);
+    }
+
     $.ajax({
-        url: _global.root + 'CheckInOut/ListCheckInOutRequest',
+        url: url,
         type: 'GET',
         dataType: 'html',
-        data: { year: $('#Year').val() },
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
@@ -72,6 +82,14 @@ function query(isFirstLoad) {
             }
         }
     });
+}
+
+function initDataFirstQuery(queryString) {
+    var urlParams = new URLSearchParams(queryString);
+    var year = urlParams.get('Year');
+
+    $(".year .select-dropdown").val(year);
+
 }
 
 function initEventPickerDate() {

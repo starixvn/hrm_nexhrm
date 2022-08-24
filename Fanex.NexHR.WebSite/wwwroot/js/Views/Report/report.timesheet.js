@@ -8,11 +8,17 @@ function index() {
     return rowIndex++;
 }
 
-function initMonthPicker() {
+function initMonthPicker(year, month) {
+    if (year > -1 && month > -1) {
+        var time = new Date(year, month - 1, 1);
+    } else {
+        var time = new Date();
+    }
+    $('#monthPickr').html("")
     $('#monthPickr').monPickr({
         showDateRange: false,
         sortDesc: true,
-        today: new Date(),
+        today: time,
         minDate: '2010/1/1',
         maxDate: $('#maxDate').val(),
         afterChangeMonth: function () {
@@ -82,11 +88,22 @@ function query(isFirstLoad) {
         return;
     }
 
+    const queryString = window.location.search;
+    if (queryString && isFirstLoad) {
+        initDataFirstQuery(queryString);
+    }
+    var data = $('.card-container-base .form-filter').serialize();
+    var url = _global.root + 'report/listtimesheet?' + data;
+    if (!isFirstLoad) {
+        var orgUrl = _global.root + 'report/timesheet?' + data;
+        window.history.replaceState(null, null, orgUrl);
+    }
+    initMonthPicker($("#Year").val(), $("#Month").val());
+
     $.ajax({
-        url: _global.root + 'report/listtimesheet',
+        url: url,
         type: 'POST',
         dataType: 'html',
-        data: $('.card-container-base .form-filter').serialize(),
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
@@ -108,6 +125,17 @@ function query(isFirstLoad) {
             }
         }
     });
+}
+
+function initDataFirstQuery(queryString) {
+    var urlParams = new URLSearchParams(queryString);
+    var year = urlParams.get('Year');
+    var month = urlParams.get('Month');
+    var empId = urlParams.get('EmpId');
+
+    $("#Year").val(year);
+    $("#Month").val(month);
+    $("#EmpId").val(empId);
 }
 
 function checkInCheckOut() {
@@ -270,7 +298,7 @@ function editCheckOutAction(id, attendanceDate) {
 
 
 $(document).ready(function () {
-    initMonthPicker();
+    //initMonthPicker(-1,-1);
 
     query(true);
 
