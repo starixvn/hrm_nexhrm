@@ -29,7 +29,7 @@
                         <div class="form form-stl-table">
                             <form action="/AnnualLeave/Create?employeeId=@Model.EmployeeId" method="post" novalidate="novalidate">
                                 <input type="hidden" asp-for="@Model.EmployeeId"/>
-                                <input type="hidden" asp-for="@Model.AffectedFrom.Year"/>
+                                <input type="hidden" id="year" name="year" value="@Model.AffectedFrom.Year"/>
 
                                 <div asp-validation-summary="All"></div>
                                 @if (ViewBag.Inserted == true)
