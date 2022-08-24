@@ -188,6 +188,10 @@
             var formId = $(this).data('form-target-id');
             initConfirmationDialog($(formId));
         });
+
+        $("#btnNewMessage_Fail").click(function () {
+            alert("You don't have any conversations to create message")
+        });
     }
 
     return {

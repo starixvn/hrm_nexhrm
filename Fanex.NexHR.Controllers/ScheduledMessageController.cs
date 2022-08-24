@@ -30,8 +30,10 @@
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
+            var conversations = await scheduledMessageService.GetConversationsByCreatorAsync(CurrentUser.Id).ConfigureAwait(false);
+            ViewBag.NumberOfConversations = conversations.Count();
             return View();
         }
 

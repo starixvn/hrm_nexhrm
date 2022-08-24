@@ -51,11 +51,18 @@
                                     </i>
                                 </div>
                                 <div class="col">
-                                    @Html.AjaxActionLink("New Message", "Create", null, new AjaxOptions {
-                                        InsertionMode = InsertionMode.Replace,
-                                        UpdateTargetId = "dialog",
-                                        OnSuccess = "scheduledMessage.onLoadingCreateFormSuccess"
-                                    }, new { @class= "btn-request waves-effect waves-light m-r--s" })
+                                    @if(@ViewBag.NumberOfConversations > 0)
+                                    {
+                                        @Html.AjaxActionLink("New Message", "Create", null, new AjaxOptions {
+                                            InsertionMode = InsertionMode.Replace,
+                                            UpdateTargetId = "dialog",
+                                            OnSuccess = "scheduledMessage.onLoadingCreateFormSuccess"
+                                        }, new { @class= "btn-request waves-effect waves-light m-r--s" })
+                                    }
+                                    else
+                                    {
+                                        <input id="btnNewMessage_Fail" type="button" class="btn-request waves-effect waves-light m-r--s" value="New Message"/>
+                                    }
                                     <a asp-controller="ScheduledMessage" asp-action="ManageConversations" class="btn-request waves-effect waves-light m-r--s">@Labels.ManageConversations</a>
                                 </div>
                             </div>
