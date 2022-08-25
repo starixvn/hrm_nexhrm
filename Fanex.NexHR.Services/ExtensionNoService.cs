@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Criteria.ExtensionNo;
     using Interfaces;
     using Models;
@@ -15,21 +16,21 @@
             this.baseService = baseService;
         }
 
-        public IList<ExtensionNoModel> GetAllExtensionNo(GetAllExtensionNoCriteria criteria)
+        public async Task<IEnumerable<ExtensionNoModel>> GetAllExtensionNo(GetAllExtensionNoCriteria criteria)
         {
-            List<ExtensionNoModel> result = baseService.GetData<ExtensionNoModel>(criteria).ToList();
-            return result;
+            IEnumerable<ExtensionNoModel> result = await baseService.GetDataAsync<ExtensionNoModel>(criteria);
+            return result.ToList();
         }
 
-        public IList<ExtensionNoModel> GetAllExtensionGroupInfo(GetAllExtensionGroupInfoCriteria criteria)
+        public async Task<IEnumerable<ExtensionNoModel>> GetAllExtensionGroupInfo(GetAllExtensionGroupInfoCriteria criteria)
         {
-            List<ExtensionNoModel> result = baseService.GetData<ExtensionNoModel>(criteria).ToList();
-            return result;
+            IEnumerable<ExtensionNoModel> result = await baseService.GetDataAsync<ExtensionNoModel>(criteria);
+            return result.ToList();
         }
 
-        public ExtensionNoModel GetEmployeeExtensionNoById(GetEmployeeExtensionNoByIdCriteria criteria)
+        public async Task<ExtensionNoModel> GetEmployeeExtensionNoById(GetEmployeeExtensionNoByIdCriteria criteria)
         {
-            ExtensionNoModel result = baseService.GetDataEntity<ExtensionNoModel>(criteria);
+            ExtensionNoModel result = await baseService.GetDataEntityAsync<ExtensionNoModel>(criteria);
             return result;
         }
     }

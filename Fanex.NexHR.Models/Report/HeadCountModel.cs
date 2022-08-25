@@ -9,6 +9,6 @@
 
         public DateTime EndDate { get; set; }
 
-        public IList<HeadCount> HeadCount { get; set; }
+        public IEnumerable<HeadCount> HeadCount { get; set; }
     }
 }

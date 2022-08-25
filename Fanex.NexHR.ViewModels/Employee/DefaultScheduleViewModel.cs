@@ -23,6 +23,6 @@
 
         public int? SunShiftId { get; set; }
 
-        public IList<Shift> Shifts { get; set; }
+        public IEnumerable<Shift> Shifts { get; set; }
     }
 }

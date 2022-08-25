@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System.Threading.Tasks;
     using Criteria.Toeic;
     using Interfaces;
     using Models;
@@ -13,9 +14,9 @@
             this.baseService = baseService;
         }
 
-        public Toeic GetById(GetToeicScoreByEmployeeIdCriteria criteria)
+        public async Task<Toeic> GetById(GetToeicScoreByEmployeeIdCriteria criteria)
         {
-            Toeic toeic = baseService.GetDataEntity<Toeic>(criteria);
+            Toeic toeic = await baseService.GetDataEntityAsync<Toeic>(criteria);
             return toeic;
         }
     }

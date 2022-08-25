@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Criteria.Postnatal;
     using Fanex.NexHR.Core.Enums;
     using Microsoft.AspNetCore.Mvc;
@@ -73,7 +74,7 @@
             return View(model);
         }
 
-        public ActionResult Edit(int empId, string from, string to)
+        public async Task<ActionResult> Edit(int empId, string from, string to)
         {
             GetByIdPostnatalCriteria criteria = new GetByIdPostnatalCriteria
             {
@@ -81,7 +82,7 @@
                 FromDate = DateTime.Parse(from),
                 ToDate = DateTime.Parse(to)
             };
-            PostnatalViewModel employee = postnatalService.GetById(criteria);
+            PostnatalViewModel employee = await postnatalService.GetById(criteria);
             if (employee != null)
             {
                 employee.OldEmpId = employee.EmpId;
@@ -135,16 +136,16 @@
             return Json(result);
         }
 
-        public ActionResult ListPostnatalEmployee(int empId, int year)
+        public async Task<ActionResult> ListPostnatalEmployee(int empId, int year)
         {
             GetAllPostnatalCriteria criteria = new GetAllPostnatalCriteria
             {
                 EmpId = empId,
                 Year = year
             };
-            List<PostnatalViewModel> listPostnatal = postnatalService.GetAll(criteria).ToList();
+            IEnumerable<PostnatalViewModel> listPostnatal = await postnatalService.GetAll(criteria);
 
-            return PartialView("_ListPostnatalEmployee", listPostnatal);
+            return PartialView("_ListPostnatalEmployee", listPostnatal.ToList());
         }
 
         private static int GetMinuteByType(PostnatalViewModel model)

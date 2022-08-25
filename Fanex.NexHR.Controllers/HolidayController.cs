@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.Holiday;
     using Fanex.NexHR.Models.Attributes;
     using Microsoft.AspNetCore.Mvc;
@@ -30,14 +31,14 @@
             return View();
         }
 
-        public JsonResult GetHoliday(int year)
+        public async Task<JsonResult> GetHoliday(int year)
         {
             var criteria = new GetHolidayByYearCriteria
             {
                 Year = year
             };
 
-            IList<Holiday> holidays = holidayService.GetByYear(criteria);
+            IEnumerable<Holiday> holidays = await holidayService.GetByYear(criteria);
 
             return Json(holidays);
         }
@@ -90,13 +91,13 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
             var criteria = new GetHolidayByIdCriteria
             {
                 Id = id
             };
-            Holiday holiday = holidayService.GetById(criteria);
+            Holiday holiday = await holidayService.GetById(criteria);
 
             var model = new HolidayViewModel
             {

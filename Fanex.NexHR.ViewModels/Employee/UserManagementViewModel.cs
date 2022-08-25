@@ -11,8 +11,8 @@
 
         public int JobTitleId { get; set; }
 
-        public IList<Team> Teams { get; set; }
+        public IEnumerable<Team> Teams { get; set; }
 
-        public IList<JobTitle> JobTitles { get; set; }
+        public IEnumerable<JobTitle> JobTitles { get; set; }
     }
 }

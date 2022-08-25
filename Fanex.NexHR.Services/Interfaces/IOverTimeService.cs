@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.Overtime;
     using Models;
     using Models.Overtime;
@@ -8,30 +9,30 @@
 
     public interface IOvertimeService
     {
-        IList<Overtime> GetOvertime(GetOvertimeCriteria criteria);
+        Task<IList<Overtime>> GetOvertime(GetOvertimeCriteria criteria);
 
-        Overtime GetOvertimeById(GetOvertimeByIdCriteria criteria);
+        Task<Overtime> GetOvertimeById(GetOvertimeByIdCriteria criteria);
 
-        IList<EmployeeOvertime> GetEmployeeOvertime(GetEmployeeOvertimeCriteria criteria);
+        Task<IList<EmployeeOvertime>> GetEmployeeOvertime(GetEmployeeOvertimeCriteria criteria);
 
-        IList<EmployeeOvertime> GetMyOvertime(GetMyOvertimeCriteria criteria);
+        Task<IList<EmployeeOvertime>> GetMyOvertime(GetMyOvertimeCriteria criteria);
 
-        List<OvertimeSummary> GetOvertimeSummary(OvertimeSummaryCriteria criteria);
+        Task<IList<OvertimeSummary>> GetOvertimeSummary(OvertimeSummaryCriteria criteria);
 
-        IList<OvertimeConversion> GetConversions(GetOvertimeConversionsCriteria criteria);
+        Task<IList<OvertimeConversion>> GetConversions(GetOvertimeConversionsCriteria criteria);
 
-        NexHour GetNexHour(GetNexHourCriteria criteria);
+        Task<NexHour> GetNexHour(GetNexHourCriteria criteria);
 
-        IList<Overtime> GetReportOvertimeHR(ReportOvertimeHRCriteria criteria);
+        Task<IList<Overtime>> GetReportOvertimeHR(ReportOvertimeHRCriteria criteria);
 
-        IList<ReportOvertimeHRDetail> GetReportOvertimeHRDetail(ReportOvertimeHRDetailCriteria criteria);
+        Task<IList<ReportOvertimeHRDetail>> GetReportOvertimeHRDetail(ReportOvertimeHRDetailCriteria criteria);
 
-        void SendMailForNEXRequest(string subject, CreateOvertimeViewModel model);
+        Task SendMailForNEXRequest(string subject, CreateOvertimeViewModel model);
 
-        void SendMailForApprovalNotification(string subject, int overtimeId, int createdBy, int approvedBy);
+        Task SendMailForApprovalNotification(string subject, int overtimeId, int createdBy, int approvedBy);
 
-        void SendMailForNotification(string subject, OvertimeVerifyViewModel model);
+        Task SendMailForNotification(string subject, OvertimeVerifyViewModel model);
 
-        void SendMailForTransferNexBalance(string subject, OvertimeConversionCreateViewModel model);
+        Task SendMailForTransferNexBalance(string subject, OvertimeConversionCreateViewModel model);
     }
 }

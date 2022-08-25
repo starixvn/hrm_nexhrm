@@ -1,13 +1,13 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Data;
     using Data.Repository;
     using Interfaces;
     using Models;
     using Models.Calendar;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
 
     public class CalendarRepository : ICalendarRepository
     {

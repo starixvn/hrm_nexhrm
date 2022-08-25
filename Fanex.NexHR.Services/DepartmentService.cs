@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.Department;
     using Interfaces;
     using Models;
@@ -16,25 +17,25 @@
             this.departmentRepository = departmentRepository ?? new DepartmentRepository();
         }
 
-        public IList<Department> GetAll()
+        public async Task<IList<Department>> GetAll()
         {
             var criteria = new GetAllDepartmentCriteria();
             IList<Department> departments = null;
 
             if (criteria.IsValid())
             {
-                departments = departmentRepository.GetAll(criteria);
+                departments = await departmentRepository.GetAll(criteria);
             }
 
             return departments ?? new List<Department>();
         }
 
-        public Department GetDepartmentById(GetDepartmentByIdCriteria criteria)
+        public async Task<Department> GetDepartmentById(GetDepartmentByIdCriteria criteria)
         {
             Department department = null;
             if (criteria != null && criteria.IsValid())
             {
-                department = departmentRepository.GetDepartmentById(criteria);
+                department = await departmentRepository.GetDepartmentById(criteria);
             }
 
             return department;

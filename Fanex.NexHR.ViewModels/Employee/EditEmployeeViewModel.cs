@@ -1,10 +1,10 @@
 ﻿namespace Fanex.NexHR.ViewModels.Employee
 {
-    using Core;
-    using Models;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using Core;
+    using Models;
 
     public class EditEmployeeViewModel
     {
@@ -114,7 +114,7 @@
 
         public IList<Team> Teams { get; set; }
 
-        public IList<JobTitle> JobTitles { get; set; }
+        public IEnumerable<JobTitle> JobTitles { get; set; }
 
         public string[] RoleArray
         {

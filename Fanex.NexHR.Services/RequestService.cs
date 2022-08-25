@@ -273,13 +273,13 @@
             return numberRequest?.NumberRequest ?? 0;
         }
 
-        public LeaveBalanceInMonth GetAnnualLeaveBalanceInMonth(GetLeaveBalanceInMonthCriteria criteria)
+        public async Task<LeaveBalanceInMonth> GetAnnualLeaveBalanceInMonth(GetLeaveBalanceInMonthCriteria criteria)
         {
-            var entityList = baseService.GetDataEntity<LeaveBalanceInMonth>(criteria);
+            var entityList = await baseService.GetDataEntityAsync<LeaveBalanceInMonth>(criteria);
             return entityList;
         }
 
-        public IList<DateTime> GetDisableRequestDate(int employeeId, long? requestId)
+        public async Task<IEnumerable<DateTime>> GetDisableRequestDate(int employeeId, long? requestId)
         {
             var criteria = new GetUnavailableRequestDateCriteria
             {
@@ -289,22 +289,22 @@
                 RequestId = requestId
             };
 
-            IList<DateTime> dates = baseService.GetData<DateTime>(criteria);
+            IEnumerable<DateTime> dates = await baseService.GetDataAsync<DateTime>(criteria);
             return dates;
         }
 
-        public DateRange GetDateRange(GetDateRangeEmployeeCalendarCriteria criteria)
+        public async Task<DateRange> GetDateRange(GetDateRangeEmployeeCalendarCriteria criteria)
         {
-            DateRange dateRange = baseService.GetDataEntity<DateRange>(criteria);
+            DateRange dateRange = await baseService.GetDataEntityAsync<DateRange>(criteria);
             return dateRange ?? new DateRange();
         }
 
-        public void SendMailForLeave(LeaveRequestViewModel model)
+        public async Task SendMailForLeave(LeaveRequestViewModel model)
         {
             if (model != null)
             {
                 var criteria = new GetLeadersOfEmployeeCriteria { EmployeeId = model.EmployeeId };
-                IList<Employee> leaders = baseService.GetData<Employee>(criteria);
+                IEnumerable<Employee> leaders = await baseService.GetDataAsync<Employee>(criteria);
 
                 string forDate = GetDateStringForLeaveRequest(model.FromDate, model.ToDate, model.TotalDays);
 
@@ -312,11 +312,11 @@
                 {
                     IList<Employee> managers = baseService.GetData<Employee>(new GetManagementsCriteria()).ToList();
 
-                    SendMailToManagers(managers, leaders, model, forDate);
+                    SendMailToManagers(managers, leaders.ToList(), model, forDate);
                 }
                 else
                 {
-                    SendMailToLeaders(leaders, model, forDate);
+                    SendMailToLeaders(leaders.ToList(), model, forDate);
                 }
             }
         }
@@ -404,14 +404,14 @@
                 body);
         }
 
-        public IList<Employee> GetLeaderForCheckInOut(CheckInOutRequestViewModel model)
+        public async Task<IEnumerable<Employee>> GetLeaderForCheckInOut(CheckInOutRequestViewModel model)
         {
-            IList<Employee> leaders;
+            IEnumerable<Employee> leaders;
 
             if (model.IsStandbyAtWeekend)
             {
                 var getLeaderCriteria = new GetLeaderForStanbyTeamCriteria();
-                leaders = baseService.GetData<Employee>(getLeaderCriteria);
+                leaders = await baseService.GetDataAsync<Employee>(getLeaderCriteria);
             }
             else
             {
@@ -451,7 +451,7 @@
             }
         }
 
-        private IEnumerable<Employee> AddProjectManagerIntoList(IEnumerable<Employee> employees, int employeeId)
+        private async Task<IEnumerable<Employee>> AddProjectManagerIntoList(IEnumerable<Employee> employees, int employeeId)
         {
             IEnumerable<Employee> results = employees;
 
@@ -462,7 +462,7 @@
                 IgnoreTeams = appSetting.IgnoreTeams
             };
 
-            var projectManagers = baseService.GetData<Employee>(getEmployeeByTeamsCriteria);
+            var projectManagers = await baseService.GetDataAsync<Employee>(getEmployeeByTeamsCriteria);
 
             if (results == null)
             {
@@ -563,18 +563,18 @@
                 body);
         }
 
-        private void SendMailToRelatedPeople(
+        private async Task SendMailToRelatedPeople(
             RequestEntity request,
             string templateLeaveEmailToRelatedPath,
             string templateInOutEmailToRelatedPath)
         {
             var criteria = new GetEmployeeForRelatedTeamCriteria { EmpId = request.Requester.Id };
-            var employees = baseService.GetData<Employee>(criteria)
-                .Where(i => i.Id != request.ModifiedBy.Id && i.Id != request.Requester.Id && i.Email != null && !i.Email.Equals(request.ModifiedBy.Email));
+            var dataEmps = await baseService.GetDataAsync<Employee>(criteria);
+            var employees = dataEmps.Where(i => i.Id != request.ModifiedBy.Id && i.Id != request.Requester.Id && i.Email != null && !i.Email.Equals(request.ModifiedBy.Email));
 
             if (request.RequestType.Id == (int)RequestType.Leave)
             {
-                employees = AddProjectManagerIntoList(employees, request.Requester.Id);
+                employees = await AddProjectManagerIntoList(employees, request.Requester.Id);
             }
 
             var sendCc = string.Join(",", employees.Select(t => t.Email));

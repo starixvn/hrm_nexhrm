@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.Holiday;
     using Interfaces;
     using Models.Holiday;
@@ -14,15 +15,15 @@
             this.baseService = baseService;
         }
 
-        public IList<Holiday> GetByYear(GetHolidayByYearCriteria criteria)
+        public async Task<IEnumerable<Holiday>> GetByYear(GetHolidayByYearCriteria criteria)
         {
-            IList<Holiday> holidays = baseService.GetData<Holiday>(criteria);
+            IEnumerable<Holiday> holidays = await baseService.GetDataAsync<Holiday>(criteria);
             return holidays;
         }
 
-        public Holiday GetById(GetHolidayByIdCriteria criteria)
+        public async Task<Holiday> GetById(GetHolidayByIdCriteria criteria)
         {
-            Holiday holiday = baseService.GetDataEntity<Holiday>(criteria);
+            Holiday holiday = await baseService.GetDataEntityAsync<Holiday>(criteria);
             return holiday;
         }
     }

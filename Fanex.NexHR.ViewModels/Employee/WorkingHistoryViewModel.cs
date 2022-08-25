@@ -51,7 +51,7 @@
 
         public IList<Team> Teams { get; set; }
 
-        public IList<JobTitle> JobTitles { get; set; }
+        public IEnumerable<JobTitle> JobTitles { get; set; }
 
         public IList<SelectListItem> GetSelectListItemTeam(int? teamId)
         {

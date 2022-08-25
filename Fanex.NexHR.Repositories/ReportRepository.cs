@@ -20,13 +20,13 @@
         private const string stringSplitOn = "EmpId, GroupId";
         private const int requestTypeId = 2;
 
-        public IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(ICriteria criteria)
+        public async Task<IList<EmployeeAttendanceModel>> GetEmployeeAttendanceReport(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 IList<EmployeeAttendanceModel> attendances;
 
-                using (var multi = db.QueryMultiple(criteria))
+                using (var multi = await db.QueryMultipleAsync(criteria))
                 {
                     attendances = multi.Read<EmployeeAttendanceModel>().ToList();
 
@@ -93,11 +93,11 @@
                 .ToList();
         }
 
-        public IList<RequestsMonitoring> GetRequestMonitoring(ICriteria criteria)
+        public async Task<IList<RequestsMonitoring>> GetRequestMonitoring(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var entityList = db.Query<RequestsMonitoring, Employee, Team, RequestsMonitoring>(
+                var entityList = await db.QueryAsync<RequestsMonitoring, Employee, Team, RequestsMonitoring>(
                         (rq, e, g) =>
                         {
                             rq.Requester = e;
@@ -105,18 +105,17 @@
                             return rq;
                         },
                         splitOn: stringSplitOn,
-                        parameterSet: criteria)
-                    .ToList();
+                        parameterSet: criteria);
 
-                return entityList;
+                return entityList.ToList();
             }
         }
 
-        public IList<TotalWorkingHours> GetTotalWorkingHours(ICriteria criteria)
+        public async Task<IList<TotalWorkingHours>> GetTotalWorkingHours(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var entityList = db.Query<TotalWorkingHours, Employee, Team, TotalWorkingHours>(
+                var entityList = await db.QueryAsync<TotalWorkingHours, Employee, Team, TotalWorkingHours>(
                         (wkh, e, g) =>
                         {
                             wkh.Employee = e;
@@ -124,10 +123,9 @@
                             return wkh;
                         },
                         splitOn: stringSplitOn,
-                        parameterSet: criteria)
-                    .ToList();
+                        parameterSet: criteria);
 
-                return entityList;
+                return entityList.ToList();
             }
         }
 
@@ -196,13 +194,13 @@
             }
         }
 
-        public IList<LateInEarlyOutDiscipline> GetLateInEarlyOutSummary(ICriteria criteria)
+        public async Task<IList<LateInEarlyOutDiscipline>> GetLateInEarlyOutSummary(ICriteria criteria)
         {
             IList<LateInEarlyOutDiscipline> lateinEarlyOuts;
 
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                using (var multi = db.QueryMultiple(criteria))
+                using (var multi = await db.QueryMultipleAsync(criteria))
                 {
                     lateinEarlyOuts = multi.Read<LateInEarlyOutDiscipline, Employee, Team, LateInEarlyOutDiscipline>(
                             (la, e, g) =>
@@ -241,11 +239,11 @@
             }
         }
 
-        public IList<WorkingHoursStatistic> GetWorkingHoursStatistic(ICriteria criteria)
+        public async Task<IList<WorkingHoursStatistic>> GetWorkingHoursStatistic(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var entityList = db.Query<WorkingHoursStatistic, Employee, Team, WorkingHoursStatistic>(
+                var entityList = await db.QueryAsync<WorkingHoursStatistic, Employee, Team, WorkingHoursStatistic>(
                         (wkh, e, g) =>
                         {
                             wkh.Employee = e;
@@ -253,18 +251,17 @@
                             return wkh;
                         },
                         splitOn: stringSplitOn,
-                        parameterSet: criteria)
-                    .ToList();
+                        parameterSet: criteria);
 
-                return entityList;
+                return entityList.ToList();
             }
         }
 
-        public IList<YearlyNexRequest> GetYearlyNexRequest(ICriteria criteria)
+        public async Task<IList<YearlyNexRequest>> GetYearlyNexRequest(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var yearlyNexRequest = db.Query<YearlyNexRequest, Employee, Team, YearlyNexRequest>(
+                var yearlyNexRequest = await db.QueryAsync<YearlyNexRequest, Employee, Team, YearlyNexRequest>(
                      (yearly, employee, team) =>
                      {
                          employee.Team = team;
@@ -272,9 +269,9 @@
                          return yearly;
                      },
                      "EmpId, GroupId",
-                     criteria).ToList();
+                     criteria);
 
-                return yearlyNexRequest;
+                return yearlyNexRequest.ToList();
             }
         }
     }

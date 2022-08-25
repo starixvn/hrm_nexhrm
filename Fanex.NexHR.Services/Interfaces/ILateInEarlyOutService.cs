@@ -8,11 +8,11 @@
 
     public interface ILateInEarlyOutService
     {
-        IList<LateInEarlyOutViewModel> GetAllByEmpId(GetLateInEarlyOutByEmpIdCriteria criteria);
+        Task<IEnumerable<LateInEarlyOutViewModel>> GetAllByEmpId(GetLateInEarlyOutByEmpIdCriteria criteria);
 
-        LateInEarlyOutViewModel GetById(GetLateInEarlyOutByIdCriteria criteria);
+        Task<LateInEarlyOutViewModel> GetById(GetLateInEarlyOutByIdCriteria criteria);
 
-        IList<LateInEarlyOutViewModel> GetAllEmployee(GetAllEmployeeCriteria criteria);
+        Task<IEnumerable<LateInEarlyOutViewModel>> GetAllEmployee(GetAllEmployeeCriteria criteria);
 
         Task<IEnumerable<LateInEarlyOutViolateModel>> GetLateInEarlyOutViolateOnMonth(GetLateInEarlyOutViolaterOnCurrentMonthCriteria criteria);
 

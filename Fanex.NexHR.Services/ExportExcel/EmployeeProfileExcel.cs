@@ -1,11 +1,11 @@
-using Fanex.NexHR.Models;
-using OfficeOpenXml;
-using OfficeOpenXml.Style;
-using System.Collections.Generic;
-using System.Drawing;
-
 namespace Fanex.NexHR.Services.ExportExcel
 {
+    using System.Collections.Generic;
+    using System.Drawing;
+    using Fanex.NexHR.Models;
+    using OfficeOpenXml;
+    using OfficeOpenXml.Style;
+
     public class EmployeeProfileExcel : ExcelBase
     {
         private readonly IList<Employee> employee;

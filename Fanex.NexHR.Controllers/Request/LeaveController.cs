@@ -75,8 +75,8 @@
                 FromDate = fromDate ?? DateTime.Now.Date,
                 ToDate = toDate ?? DateTime.Now.Date,
                 TotalDays = 1,
-                LeaveTypes = leaveTypeService.GetAll(),
-                UnavailDates = requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null),
+                LeaveTypes = await leaveTypeService.GetAll(),
+                UnavailDates = await requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null),
                 TotalRequest = await requestService.GetNumberRequestInMonth(CurrentUser.Id, RequestType.Leave)
             };
 
@@ -84,7 +84,7 @@
         }
 
         [HttpPost]
-        public ActionResult Create(LeaveRequestViewModel model)
+        public async Task<ActionResult> Create(LeaveRequestViewModel model)
         {
             var leaveRequestViewModel = model;
             if (leaveRequestViewModel == null)
@@ -92,7 +92,7 @@
                 return View((LeaveRequestViewModel)null);
             }
 
-            leaveRequestViewModel = PrepareModelCreate(leaveRequestViewModel);
+            leaveRequestViewModel = await PrepareModelCreate(leaveRequestViewModel);
 
             if (!ModelState.IsValid || leaveRequestViewModel.EmployeeId == 0)
             {
@@ -149,9 +149,9 @@
             model.EmailTemplatePath = Path.Combine(environment.WebRootPath, templatePath);
 
             model.CurrentUserEmail = CurrentUser.Email;
-            Task.Factory.StartNew(() =>
+            Task.Factory.StartNew(async () =>
             {
-                requestService.SendMailForLeave(model);
+                await requestService.SendMailForLeave(model);
                 nexbotService.SendMessageForLeaveRequest(model);
             });
         }
@@ -179,8 +179,8 @@
                 IsPlanned = request.IsPlanned,
                 Remark = request.Remark,
                 HalfDayOff = request.TotalDays == (decimal)0.5,
-                LeaveTypes = leaveTypeService.GetAll(),
-                UnavailDates = requestService.GetDisableRequestDate(CurrentUser.Id, requestId: id),
+                LeaveTypes = await leaveTypeService.GetAll(),
+                UnavailDates = await requestService.GetDisableRequestDate(CurrentUser.Id, requestId: id),
                 FromHour = request.LeaveType.Id == BusinessTripLeaveType && request.TotalDays == (decimal)0.5 ? fromHourSub : 0,
                 ToHour = request.LeaveType.Id == BusinessTripLeaveType && request.TotalDays == (decimal)0.5 ? toHourSub : 0,
                 FromMinute = request.LeaveType.Id == BusinessTripLeaveType && request.TotalDays == (decimal)0.5 ? fromMinutesSub : 0,
@@ -191,11 +191,11 @@
         }
 
         [HttpPost]
-        public ActionResult Update(LeaveRequestViewModel model)
+        public async Task<ActionResult> Update(LeaveRequestViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
-                var viewModel = PrepareModel(model);
+                var viewModel = await PrepareModel(model);
                 var criteria = new UpdateRequestCriteria
                 {
                     Id = viewModel.Id,
@@ -229,14 +229,14 @@
             {
                 if (model != null)
                 {
-                    model.LeaveTypes = leaveTypeService.GetAll();
+                    model.LeaveTypes = await leaveTypeService.GetAll();
                 }
                 return View(model);
             }
         }
 
         [HttpPost]
-        public ActionResult GetAnnualLeaveBalanceInMonth(int empId, DateTime effectedDate, long? requestId)
+        public async Task<ActionResult> GetAnnualLeaveBalanceInMonth(int empId, DateTime effectedDate, long? requestId)
         {
             var criteria = new GetLeaveBalanceInMonthCriteria
             {
@@ -245,22 +245,22 @@
                 RequestId = requestId
             };
 
-            var leaveBalanceInMonth = requestService.GetAnnualLeaveBalanceInMonth(criteria);
+            var leaveBalanceInMonth = await requestService.GetAnnualLeaveBalanceInMonth(criteria);
 
             return Json(leaveBalanceInMonth);
         }
 
-        private LeaveRequestViewModel PrepareModelCreate(LeaveRequestViewModel model)
+        private async Task<LeaveRequestViewModel> PrepareModelCreate(LeaveRequestViewModel model)
         {
-            var viewModel = PrepareModel(model);
-            viewModel.UnavailDates = requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null);
+            var viewModel = await PrepareModel(model);
+            viewModel.UnavailDates = await requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null);
             ViewBag.Year = model.FromDate.Year;
             return viewModel;
         }
 
-        private LeaveRequestViewModel PrepareModel(LeaveRequestViewModel model)
+        private async Task<LeaveRequestViewModel> PrepareModel(LeaveRequestViewModel model)
         {
-            model.LeaveTypes = leaveTypeService.GetAll();
+            model.LeaveTypes = await leaveTypeService.GetAll();
             var fromTimeLeaveBusiness = string.Concat(model.FromHour, ":", model.FromMinute);
             var toTimeLeaveBusiness = string.Concat(model.ToHour, ":", model.ToMinute);
             var fromDate = model.LeaveTypeId == BusinessTripLeaveType ? Utilities.AddTimeToDate(model.FromDate, fromTimeLeaveBusiness) : Utilities.AddTimeToDate(model.FromDate, model.FromTime);

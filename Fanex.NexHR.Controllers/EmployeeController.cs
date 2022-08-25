@@ -57,34 +57,34 @@
             this.appSetting = appSetting;
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var model = new StaffInfoViewModel { Teams = teamService.GetTeam() };
+            var model = new StaffInfoViewModel { Teams = await teamService.GetTeam() };
 
             return View(model);
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult UserManagement(int jobTitleId = 0)
+        public async Task<ActionResult> UserManagement(int jobTitleId = 0)
         {
             var model = new UserManagementViewModel
             {
                 JobTitleId = jobTitleId,
-                Teams = teamService.GetTeam(),
-                JobTitles = jobTitleService.GetAll()
+                Teams = await teamService.GetTeam(),
+                JobTitles = await jobTitleService.GetAll()
             };
 
             return View(model);
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult SpecialUserManagement(int jobTitleId = 0)
+        public async Task<ActionResult> SpecialUserManagement(int jobTitleId = 0)
         {
             var model = new UserManagementViewModel
             {
                 JobTitleId = jobTitleId,
-                Teams = teamService.GetTeam(),
-                JobTitles = jobTitleService.GetAll(),
+                Teams = await teamService.GetTeam(),
+                JobTitles = await jobTitleService.GetAll(),
             };
 
             return View(model);
@@ -137,14 +137,14 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult HistoryWorkDetail(WorkingHistoryViewModel model)
+        public async Task<ActionResult> HistoryWorkDetail(WorkingHistoryViewModel model)
         {
-            IList<HistoryWork> filterHistory = GetFilterHistoryWork(model);
+            IList<HistoryWork> filterHistory = await GetFilterHistoryWork(model);
 
             return PartialView("_HistoryWorkDetail", filterHistory);
         }
 
-        private IList<HistoryWork> GetFilterHistoryWork(WorkingHistoryViewModel model)
+        private async Task<IList<HistoryWork>> GetFilterHistoryWork(WorkingHistoryViewModel model)
         {
             var criteria = new FilterHistoryWorkCriteria
             {
@@ -153,7 +153,7 @@
                 ToDate = model.ToDate,
             };
 
-            IList<HistoryWork> filterHistoryWork = historyWorkService.GetFilterHistoryWork(criteria);
+            IList<HistoryWork> filterHistoryWork = await historyWorkService.GetFilterHistoryWork(criteria);
 
             ViewBag.empid = model.EmpId;
             return filterHistoryWork;
@@ -164,10 +164,10 @@
         public async Task<ActionResult> InsertHistoryWork(int employeeId)
         {
             var history = new WorkingHistoryViewModel { EmpId = employeeId };
-            history.Teams = teamService.GetTeam();
+            history.Teams = await teamService.GetTeam();
             history.Employee = await GetEmployeeById(employeeId);
             var lookupDataJobTitleCriteria = new GetJobTitleCriteria { JobTitle = "" };
-            history.JobTitles = jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
+            history.JobTitles = await jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
 
             return View(history);
         }
@@ -202,7 +202,7 @@
 
         [HttpGet]
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult EditHistoryWork(int? id)
+        public async Task<ActionResult> EditHistoryWork(int? id)
         {
             var history = new WorkingHistoryViewModel { };
 
@@ -213,10 +213,10 @@
                     Id = id.Value
                 };
 
-                history = historyWorkService.GetHistoryWorkInfo(criteria);
-                history.Teams = teamService.GetTeam();
+                history = await historyWorkService.GetHistoryWorkInfo(criteria);
+                history.Teams = await teamService.GetTeam();
                 var lookupDataJobTitleCriteria = new GetJobTitleCriteria { JobTitle = "" };
-                history.JobTitles = jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
+                history.JobTitles = await jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
                 history.Id = id;
             }
 
@@ -273,7 +273,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
             ViewBag.DomainName = appSetting.DomainName;
             var model = new CreateEmployeeViewModel
@@ -283,8 +283,8 @@
                 WedShift = 1,
                 ThuShift = 1,
                 FriShift = 1,
-                Teams = teamService.GetAll(),
-                Shifts = shiftService.GetAll()
+                Teams = await teamService.GetAll(),
+                Shifts = await shiftService.GetAll()
             };
 
             return View(model);
@@ -292,7 +292,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public ActionResult Create(CreateEmployeeViewModel model)
+        public async Task<ActionResult> Create(CreateEmployeeViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -324,8 +324,8 @@
                     ModelState.AddModelError(string.Empty, result.Message);
                 }
 
-                model.Teams = teamService.GetAll();
-                model.Shifts = shiftService.GetAll();
+                model.Teams = await teamService.GetAll();
+                model.Shifts = await shiftService.GetAll();
             }
 
             return View(model);
@@ -338,8 +338,8 @@
 
             EditEmployeeViewModel model = new EditEmployeeViewModel(employee)
             {
-                Teams = teamService.GetAll(),
-                JobTitles = jobTitleService.GetAll(),
+                Teams = await teamService.GetAll(),
+                JobTitles = await jobTitleService.GetAll(),
                 LastUrl = employee.IsSpecialUser ? "Employee/SpecialUserManagement" : "Employee/Usermanagement"
             };
 
@@ -383,8 +383,8 @@
                 ModelState.AddModelError(string.Empty, result.Message);
             }
 
-            model.Teams = teamService.GetAll();
-            model.JobTitles = jobTitleService.GetAll();
+            model.Teams = await teamService.GetAll();
+            model.JobTitles = await jobTitleService.GetAll();
 
             return View(model);
         }
@@ -408,14 +408,14 @@
         {
             Employee employee = await GetEmployeeById(employeeId);
             DefaultScheduleViewModel model = GetDefaultScheduleFromEmployee(employee);
-            model.Shifts = shiftService.GetAll();
+            model.Shifts = await shiftService.GetAll();
 
             return View(model);
         }
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public ActionResult DefaultSchedule(DefaultScheduleViewModel model)
+        public async Task<ActionResult> DefaultSchedule(DefaultScheduleViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -440,7 +440,7 @@
                     ModelState.AddModelError(string.Empty, result.Message);
                 }
 
-                model.Shifts = shiftService.GetAll();
+                model.Shifts = await shiftService.GetAll();
             }
 
             return View(model);
@@ -457,7 +457,7 @@
                 model.EmployeeNickName = employee.NickName;
             }
 
-            model.Shifts = shiftService.GetAll();
+            model.Shifts = await shiftService.GetAll();
             return View(model);
         }
 

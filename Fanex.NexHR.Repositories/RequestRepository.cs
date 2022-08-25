@@ -1,11 +1,5 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
-    using Core.Attributes;
-    using Data;
-    using Data.Repository;
-    using Interfaces;
-    using Models;
-    using Models.Request;
     using System;
     using System.Collections.Generic;
     using System.Data;
@@ -13,6 +7,12 @@
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
+    using Core.Attributes;
+    using Data;
+    using Data.Repository;
+    using Interfaces;
+    using Models;
+    using Models.Request;
 
     public class RequestRepository : BaseRepository, IRequestRepository
     {

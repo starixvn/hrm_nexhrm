@@ -1,22 +1,23 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Data;
     using Data.Repository;
     using Interfaces;
     using Models;
     using Models.Overtime;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public class OvertimeRepository : IOvertimeRepository
     {
         private const string stringSplitOnEmployeeId = "EmployeeId";
 
-        public IList<Overtime> GetOvertime(ICriteria criteria)
+        public async Task<IList<Overtime>> GetOvertime(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                using (var multi = db.QueryMultiple(criteria))
+                using (var multi = await db.QueryMultipleAsync(criteria))
                 {
                     IList<Overtime> overtimes = multi.Read<Overtime, Employee, Overtime>(
                         (ot, cre) =>
@@ -45,11 +46,11 @@
             }
         }
 
-        public Overtime GetOvertimeById(ICriteria criteria)
+        public async Task<Overtime> GetOvertimeById(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                using (var multi = db.QueryMultiple(criteria))
+                using (var multi = await db.QueryMultipleAsync(criteria))
                 {
                     Overtime overtimeRequest = multi.Read<Overtime, Employee, Overtime>(
                         (ot, cre) =>
@@ -78,11 +79,11 @@
             }
         }
 
-        public IList<EmployeeOvertime> GetEmployeeOvertime(ICriteria criteria)
+        public async Task<IList<EmployeeOvertime>> GetEmployeeOvertime(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var employeeOvertimes = db.Query<EmployeeOvertime, Employee, Employee, EmployeeOvertime>(
+                var employeeOvertimes = await db.QueryAsync<EmployeeOvertime, Employee, Employee, EmployeeOvertime>(
                     (o, e, cr) =>
                     {
                         o.Employee = e;
@@ -90,17 +91,17 @@
                         return o;
                     },
                     "EmployeeId, CreatedId",
-                    criteria).ToList();
+                    criteria);
 
-                return employeeOvertimes;
+                return employeeOvertimes.ToList();
             }
         }
 
-        public IList<OvertimeSummary> GetOvertimeSummary(ICriteria criteria)
+        public async Task<IList<OvertimeSummary>> GetOvertimeSummary(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var overtimeSummmary = db.Query<OvertimeSummary, Employee, Team, OvertimeSummary>(
+                var overtimeSummmary = await db.QueryAsync<OvertimeSummary, Employee, Team, OvertimeSummary>(
                      (overtime, employee, team) =>
                      {
                          employee.Team = team;
@@ -108,17 +109,17 @@
                          return overtime;
                      },
                      "EmpId, GroupId",
-                     criteria).ToList();
+                     criteria);
 
-                return overtimeSummmary;
+                return overtimeSummmary.ToList();
             }
         }
 
-        public IList<OvertimeConversion> GetConversions(ICriteria criteria)
+        public async Task<IList<OvertimeConversion>> GetConversions(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var conversions = db.Query<OvertimeConversion, Employee, Team, Employee, OvertimeConversion>(
+                var conversions = await db.QueryAsync<OvertimeConversion, Employee, Team, Employee, OvertimeConversion>(
                     (otc, e1, t, e2) =>
                     {
                         e1.Team = t;
@@ -127,26 +128,26 @@
                         return otc;
                     },
                     "EmpId, GroupId, ModifiedById",
-                    criteria).ToList();
+                    criteria);
 
-                return conversions;
+                return conversions.ToList();
             }
         }
 
-        public IList<ReportOvertimeHRDetail> GetReportOvertimeHRDetail(ICriteria criteria)
+        public async Task<IList<ReportOvertimeHRDetail>> GetReportOvertimeHRDetail(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var report = db.Query<ReportOvertimeHRDetail, Employee, ReportOvertimeHRDetail>(
+                var report = await db.QueryAsync<ReportOvertimeHRDetail, Employee, ReportOvertimeHRDetail>(
                     (rp, e1) =>
                     {
                         rp.Employee = e1;
                         return rp;
                     },
                     stringSplitOnEmployeeId,
-                    criteria).ToList();
+                    criteria);
 
-                return report;
+                return report.ToList();
             }
         }
     }

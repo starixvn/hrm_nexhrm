@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Fanex.NexHR.Criteria.EmployeeWorkFromHome;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services.Interfaces;
@@ -15,15 +16,16 @@
             this.baseService = baseService;
         }
 
-        public IList<EmployeeWorkFromHome> GetAll(GetEmployeeWorkFromHomeCriteria criteria)
+        public async Task<IEnumerable<EmployeeWorkFromHome>> GetAll(GetEmployeeWorkFromHomeCriteria criteria)
         {
-            return baseService.GetData<EmployeeWorkFromHome>(criteria).ToList();
+            var employees = await baseService.GetDataAsync<EmployeeWorkFromHome>(criteria);
+            return employees.ToList();
         }
 
-        public EmployeeWorkFromHome GetById(int id)
+        public async Task<EmployeeWorkFromHome> GetById(int id)
         {
             var criteria = new GetEmployeeWorkFromHomeByIdCriteria { EmployeeWorkFromHomeId = id };
-            return baseService.GetDataEntity<EmployeeWorkFromHome>(criteria);
+            return await baseService.GetDataEntityAsync<EmployeeWorkFromHome>(criteria);
         }
     }
 }

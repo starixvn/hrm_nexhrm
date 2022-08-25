@@ -1,9 +1,9 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.LookupData;
     using Fanex.NexHR.Models.Attributes;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Services;
@@ -30,10 +30,10 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public ActionResult Index(string jobTitle)
+        public async Task<ActionResult> Index(string jobTitle)
         {
             var lookupDataJobTitleCriteria = new GetJobTitleCriteria { JobTitle = jobTitle };
-            IList<JobTitle> jobTitles = jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
+            IEnumerable<JobTitle> jobTitles = await jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
 
             return PartialView("_Index", jobTitles);
         }

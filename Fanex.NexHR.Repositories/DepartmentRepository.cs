@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Data;
     using Data.Repository;
     using Interfaces;
@@ -9,11 +10,11 @@
 
     public class DepartmentRepository : IDepartmentRepository
     {
-        public IList<Department> GetAll(ICriteria criteria)
+        public async Task<IList<Department>> GetAll(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                return db.Query<Department, Employee, Employee, Employee, Department>(
+                var departments = await db.QueryAsync<Department, Employee, Employee, Employee, Department>(
                     (de, cre, man, modi) =>
                     {
                         de.Creator = cre;
@@ -21,16 +22,17 @@
                         de.Modifier = modi;
                         return de;
                     },
-                    "CreatedBy, ManagerId, ModifiedBy",
-                    criteria).ToList();
+                    "CreatedBy, ManagerId, ModifiedBy", criteria);
+
+                return departments.ToList();
             }
         }
 
-        public Department GetDepartmentById(ICriteria criteria)
+        public async Task<Department> GetDepartmentById(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                return db.QueryEntity<Department, Employee, Employee, Employee, Department>(
+                return await db.QueryEntityAsync<Department, Employee, Employee, Employee, Department>(
                     (dep, cre, mag, modi) =>
                     {
                         dep.Creator = cre;
@@ -38,8 +40,7 @@
                         dep.Modifier = modi;
                         return dep;
                     },
-                    "CreatedBy, ManagerId, ModifedBy",
-                    criteria);
+                    "CreatedBy, ManagerId, ModifedBy", criteria);
             }
         }
     }

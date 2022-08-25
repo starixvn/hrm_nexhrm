@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System.Threading.Tasks;
     using Data.Repository;
     using Interfaces;
     using Models.Notification;
@@ -14,9 +15,9 @@
             this.repositoty = repositoty;
         }
 
-        public Notification GetViolationByEmpId(ICriteria criteria)
+        public async Task<Notification> GetViolationByEmpId(ICriteria criteria)
         {
-            return repositoty.GetViolationByEmpId(criteria);
+            return await repositoty.GetViolationByEmpId(criteria);
         }
     }
 }

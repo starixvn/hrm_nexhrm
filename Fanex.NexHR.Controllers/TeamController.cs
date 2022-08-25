@@ -2,9 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Criteria.Team;
     using Fanex.NexHR.Models.Attributes;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Resources;
@@ -27,20 +27,20 @@
             this.commandService = commandService;
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            IList<Team> teams = teamService.GetTeam();
+            IList<Team> teams = await teamService.GetTeam();
 
             return View(teams);
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
             var model = new TeamViewModel
             {
-                Departments = departmentService.GetAll(),
-                Teams = teamService.GetTeam()
+                Departments = await departmentService.GetAll(),
+                Teams = await teamService.GetTeam()
             };
 
             return View(model);
@@ -48,7 +48,7 @@
 
         [HttpPost]
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult Create(TeamViewModel model)
+        public async Task<ActionResult> Create(TeamViewModel model)
         {
             if (model != null)
             {
@@ -77,21 +77,21 @@
                     }
                 }
 
-                model.Departments = departmentService.GetAll();
-                model.Teams = teamService.GetTeam();
+                model.Departments = await departmentService.GetAll();
+                model.Teams = await teamService.GetTeam();
             }
 
             return View(model);
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
             var criteria = new GetTeamByIdCriteria
             {
                 Id = id
             };
-            Team team = teamService.GetById(criteria);
+            Team team = await teamService.GetById(criteria);
 
             TeamViewModel model = null;
             if (team != null)
@@ -111,8 +111,9 @@
 
             if (model != null)
             {
-                model.Departments = departmentService.GetAll();
-                model.Teams = teamService.GetTeam().Where(p => p.Id != id).ToList();
+                var teams = await teamService.GetTeam();
+                model.Departments = await departmentService.GetAll();
+                model.Teams = teams.Where(p => p.Id != id).ToList();
             }
 
             return View(model);
@@ -120,7 +121,7 @@
 
         [HttpPost]
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult Edit(TeamViewModel model)
+        public async Task<ActionResult> Edit(TeamViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -157,8 +158,9 @@
                 ModelState.AddModelError(string.Empty, Messages.InvalidInputData);
             }
 
-            model.Departments = departmentService.GetAll();
-            model.Teams = teamService.GetTeam().Where(p => p.Id != model.Id).ToList();
+            var teams = await teamService.GetTeam();
+            model.Departments = await departmentService.GetAll();
+            model.Teams = teams.Where(p => p.Id != model.Id).ToList();
 
             return View(model);
         }

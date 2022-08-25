@@ -19,24 +19,24 @@
             this.baseService = baseService;
         }
 
-        public IList<LateInEarlyOutViewModel> GetAllByEmpId(GetLateInEarlyOutByEmpIdCriteria criteria)
+        public async Task<IEnumerable<LateInEarlyOutViewModel>> GetAllByEmpId(GetLateInEarlyOutByEmpIdCriteria criteria)
         {
-            IList<LateInEarlyOutViewModel> lateInEarlyOuts = baseService.GetData<LateInEarlyOutViewModel>(criteria);
+            IEnumerable<LateInEarlyOutViewModel> lateInEarlyOuts = await baseService.GetDataAsync<LateInEarlyOutViewModel>(criteria);
             return lateInEarlyOuts;
         }
 
-        public LateInEarlyOutViewModel GetById(GetLateInEarlyOutByIdCriteria criteria)
+        public async Task<LateInEarlyOutViewModel> GetById(GetLateInEarlyOutByIdCriteria criteria)
         {
-            LateInEarlyOutViewModel lateInEarlyOut = baseService.GetDataEntity<LateInEarlyOutViewModel>(criteria);
+            LateInEarlyOutViewModel lateInEarlyOut = await baseService.GetDataEntityAsync<LateInEarlyOutViewModel>(criteria);
             return lateInEarlyOut;
         }
 
-        public IList<LateInEarlyOutViewModel> GetAllEmployee(GetAllEmployeeCriteria criteria)
+        public async Task<IEnumerable<LateInEarlyOutViewModel>> GetAllEmployee(GetAllEmployeeCriteria criteria)
         {
-            IList<LateInEarlyOutViewModel> employeeList = baseService.GetData<LateInEarlyOutViewModel>(criteria);
+            IEnumerable<LateInEarlyOutViewModel> employeeList = await baseService.GetDataAsync<LateInEarlyOutViewModel>(criteria);
             return employeeList;
         }
-
+        
         public async Task<IEnumerable<LateInEarlyOutViolateModel>> GetLateInEarlyOutViolateOnMonth(GetLateInEarlyOutViolaterOnCurrentMonthCriteria criteria)
         {
             return await baseService.GetDataAsync<LateInEarlyOutViolateModel>(criteria).ConfigureAwait(false);

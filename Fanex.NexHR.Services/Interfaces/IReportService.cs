@@ -1,10 +1,10 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.Report;
     using Models;
     using Models.Report;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     public interface IReportService
     {
@@ -16,18 +16,18 @@
 
         Task<IList<LateInEarlyOutDetail>> GetLateInEarlyOutDetail(GetLateInEarlyOutDetailReportCriteria criteria);
 
-        IList<RequestsMonitoring> GetRequestMonitoring(GetRequestMonitorReportCriteria criteria);
+        Task<IList<RequestsMonitoring>> GetRequestMonitoring(GetRequestMonitorReportCriteria criteria);
 
-        IList<TotalWorkingHours> GetTotalWorkingHours(GetTotalWorkingHoursSummaryCriteria criteria);
+        Task<IList<TotalWorkingHours>> GetTotalWorkingHours(GetTotalWorkingHoursSummaryCriteria criteria);
 
-        IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(GetEmployeeAttendanceReportByTypeCriteria criteria);
+        Task<IList<EmployeeAttendanceModel>> GetEmployeeAttendanceReport(GetEmployeeAttendanceReportByTypeCriteria criteria);
 
-        IList<LateInEarlyOutDiscipline> GetLateInEarlyOutDiscipline(GetLateInEarlyOutSummaryCriteria criteria);
+        Task<IList<LateInEarlyOutDiscipline>> GetLateInEarlyOutDiscipline(GetLateInEarlyOutSummaryCriteria criteria);
 
-        IList<WorkingHoursStatistic> GetWorkingHoursStatistic(GetWorkingHoursStatisticCriteria criteria);
+        Task<IList<WorkingHoursStatistic>> GetWorkingHoursStatistic(GetWorkingHoursStatisticCriteria criteria);
 
-        IList<HeadCount> GetTeamHeadCountInYear(GetHeadCountByYearCriteria criteria);
+        Task<IEnumerable<HeadCount>> GetTeamHeadCountInYear(GetHeadCountByYearCriteria criteria);
 
-        IList<YearlyNexRequest> GetYearlyNexRequest(GetYearlyNexRequestCriteria criteria);
+        Task<IList<YearlyNexRequest>> GetYearlyNexRequest(GetYearlyNexRequestCriteria criteria);
     }
 }

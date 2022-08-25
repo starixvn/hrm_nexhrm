@@ -11,12 +11,12 @@
 
         Task<IList<AnnualLeaveTransaction>> GetAnnualLeaveTransactionsByYear(GetAnnualLeaveTransactionByYearCriteria criteria);
 
-        ShowOpenAndCloseAnnualBalance GetOpenAndCloseAnnualBalance(GetOpenAndCloseAnnualBalanceCriteria criteria);
+        Task<ShowOpenAndCloseAnnualBalance> GetOpenAndCloseAnnualBalance(GetOpenAndCloseAnnualBalanceCriteria criteria);
 
         Task<IList<AnnualLeaveTransaction>> GetAnnualLeaveTransactions(GetAnnualLeaveTransactionCriteria criteria);
 
-        AnnualLeaveTransaction GetAnnualLeaveTransactionById(GetAnnualLeaveByIdCriteria criteria);
+        Task<AnnualLeaveTransaction> GetAnnualLeaveTransactionById(GetAnnualLeaveByIdCriteria criteria);
 
-        IList<LeaveConversionDetail> GetLeaveConversionDetail(GetLeaveConversionDetailCriteria criteria);
+        Task<IList<LeaveConversionDetail>> GetLeaveConversionDetail(GetLeaveConversionDetailCriteria criteria);
     }
 }

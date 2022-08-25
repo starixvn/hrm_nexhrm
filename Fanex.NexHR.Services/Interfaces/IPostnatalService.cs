@@ -1,13 +1,14 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.Postnatal;
     using ViewModels.Postnatal;
 
     public interface IPostnatalService
     {
-        IList<PostnatalViewModel> GetAll(GetAllPostnatalCriteria criteria);
+        Task<IEnumerable<PostnatalViewModel>> GetAll(GetAllPostnatalCriteria criteria);
 
-        PostnatalViewModel GetById(GetByIdPostnatalCriteria criteria);
+        Task<PostnatalViewModel> GetById(GetByIdPostnatalCriteria criteria);
     }
 }

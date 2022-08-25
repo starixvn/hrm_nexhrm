@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.CompanyEvent;
     using Interfaces;
     using Models.CompanyEvent;
@@ -14,14 +15,14 @@
             this.baseService = baseService;
         }
 
-        public IList<CompanyEvent> GetAll(GetAllEventCriteria criteria)
+        public async Task<IEnumerable<CompanyEvent>> GetAll(GetAllEventCriteria criteria)
         {
-            return baseService.GetData<CompanyEvent>(criteria);
+            return await baseService.GetDataAsync<CompanyEvent>(criteria);
         }
 
-        public CompanyEvent GetById(GetEventByIdCriteria criteria)
+        public async Task<CompanyEvent> GetById(GetEventByIdCriteria criteria)
         {
-            return baseService.GetDataEntity<CompanyEvent>(criteria);
+            return await baseService.GetDataEntityAsync<CompanyEvent>(criteria);
         }
     }
 }

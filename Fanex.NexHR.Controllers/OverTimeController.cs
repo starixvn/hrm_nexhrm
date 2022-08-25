@@ -1,22 +1,20 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Criteria.Employee;
     using Criteria.Overtime;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models.Attributes;
     using Fanex.NexHR.Resources;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.Overtime;
     using Newtonsoft.Json;
-    using Services;
     using Services.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using ViewModels.Overtime;
 
     public class OvertimeController : BaseController
@@ -71,7 +69,7 @@
 
         [HrmAuthorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
-        public ActionResult MemberOvertimeData(MemberOvertimeViewModel model)
+        public async Task<ActionResult> MemberOvertimeData(MemberOvertimeViewModel model)
         {
             IList<Overtime> result = new List<Overtime>();
             if (model != null)
@@ -83,7 +81,7 @@
                     CreatedBy = model.CreatedBy,
                     Status = model.Status
                 };
-                result = overtimeService.GetOvertime(criteria);
+                result = await overtimeService.GetOvertime(criteria);
                 foreach(var item in result)
                 {
                     item.Own = CurrentUser.Id == item.CreatedBy.Id;
@@ -104,7 +102,7 @@
         [HrmAuthorize(Roles = "AssistantLeader,PM")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateOvertimeViewModel model)
+        public async Task<ActionResult> Create(CreateOvertimeViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -120,7 +118,7 @@
                 if (result.IsSuccessful)
                 {
                     model.CreatedByName = CurrentUser.DisplayName;
-                    overtimeService.SendMailForNEXRequest("NEX request Notification", model);
+                    await overtimeService.SendMailForNEXRequest("NEX request Notification", model);
                     ViewBag.Inserted = true;
                 }
                 else
@@ -133,10 +131,10 @@
         }
 
         [HrmAuthorize(Roles = "AssistantLeader,PM")]
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
             var criteria = new GetOvertimeByIdCriteria { Id = id };
-            Overtime overtime = overtimeService.GetOvertimeById(criteria);
+            Overtime overtime = await overtimeService.GetOvertimeById(criteria);
             var model = new CreateOvertimeViewModel
             {
                 Id = overtime.Id,
@@ -161,7 +159,7 @@
 
         [HrmAuthorize(Roles = "AssistantLeader,PM")]
         [HttpPost]
-        public ActionResult Edit(CreateOvertimeViewModel model)
+        public async Task<ActionResult> Edit(CreateOvertimeViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -178,7 +176,7 @@
                 if (result.IsSuccessful)
                 {
                     model.CreatedByName = CurrentUser.DisplayName;
-                    overtimeService.SendMailForNEXRequest("NEX request Notification - Edit", model);
+                    await overtimeService.SendMailForNEXRequest("NEX request Notification - Edit", model);
                     ViewBag.Updated = true;
                 }
                 else
@@ -206,7 +204,7 @@
 
         [HrmAuthorize(Roles = "AssistantLeader,HR,PM")]
         [HttpPost]
-        public ActionResult ApproveRequest(int id, int createdBy)
+        public async Task<ActionResult> ApproveRequest(int id, int createdBy)
         {
             var criteria = new ApproveOvertimeRequestCriteria
             {
@@ -217,7 +215,7 @@
             CommandResult result = commandService.ExecuteNonQuery(criteria);
             if (result.IsSuccessful)
             {
-                overtimeService.SendMailForApprovalNotification("NEX request Notification", id, createdBy, CurrentUser.Id);
+                await overtimeService.SendMailForApprovalNotification("NEX request Notification", id, createdBy, CurrentUser.Id);
             }
             return Json(result);
         }
@@ -273,7 +271,7 @@
         }
 
         [HttpPost]
-        public ActionResult MyOvertimeData(int year)
+        public async Task<ActionResult> MyOvertimeData(int year)
         {
             var criteria = new GetMyOvertimeCriteria
             {
@@ -281,7 +279,7 @@
                 FromDate = new DateTime(year, 1, 1),
                 ToDate = new DateTime(year, 12, 31)
             };
-            IList<EmployeeOvertime> employeeOvertimes = overtimeService.GetMyOvertime(criteria);
+            IList<EmployeeOvertime> employeeOvertimes = await overtimeService.GetMyOvertime(criteria);
 
             return PartialView("_ListMyOvertime", employeeOvertimes);
         }
@@ -309,7 +307,7 @@
         }
 
         [HttpPost]
-        public ActionResult OvertimeRequestDetail(MemberOvertimeViewModel model)
+        public async Task<ActionResult> OvertimeRequestDetail(MemberOvertimeViewModel model)
         {
             IList<EmployeeOvertime> result = new List<EmployeeOvertime>();
             if (model != null)
@@ -323,17 +321,17 @@
                     EmployeeId = model.EmployeeId,
                     OvertimeId = model.OvertimeId
                 };
-                result = overtimeService.GetEmployeeOvertime(criteria);
+                result = await overtimeService.GetEmployeeOvertime(criteria);
             }
 
             return PartialView("_ListOvertimeRequest", result);
         }
 
-        public ActionResult OvertimeSummary()
+        public async Task<ActionResult> OvertimeSummary()
         {
             OvertimeSummaryViewModel summary = new OvertimeSummaryViewModel
             {
-                Teams = teamService.GetTeam(),
+                Teams = await teamService.GetTeam(),
                 Year = DateTime.Now.Year
             };
 
@@ -341,7 +339,7 @@
         }
 
         [HttpPost]
-        public ActionResult OvertimeSummary(int? empId, int? teamId, int year)
+        public async Task<ActionResult> OvertimeSummary(int? empId, int? teamId, int year)
         {
             int? employeeId = null;
             if (empId.HasValue && empId.Value >= 0)
@@ -356,7 +354,7 @@
                 Year = year
             };
 
-            List<OvertimeSummary> listSummary = overtimeService.GetOvertimeSummary(criteria);
+            IList<OvertimeSummary> listSummary = await overtimeService.GetOvertimeSummary(criteria);
             ViewBag.Year = year;
             return PartialView("_ListOvertimeSummary", listSummary);
         }
@@ -371,7 +369,7 @@
         }
 
         [HttpPost]
-        public ActionResult OvertimeConversionDetail(OvertimeConversionDetailViewModel model)
+        public async Task<ActionResult> OvertimeConversionDetail(OvertimeConversionDetailViewModel model)
         {
             IList<OvertimeConversion> conversions = new List<OvertimeConversion>();
             if (model != null)
@@ -384,7 +382,7 @@
                     GroupId = model.TeamId
                 };
 
-                conversions = overtimeService.GetConversions(criteria);
+                conversions = await overtimeService.GetConversions(criteria);
             }
             return PartialView("_ListOvertimeConversion", conversions);
         }
@@ -397,7 +395,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult CreateOvertimeConversion(OvertimeConversionCreateViewModel model)
+        public async Task<JsonResult> CreateOvertimeConversion(OvertimeConversionCreateViewModel model)
         {
             CommandResult result;
             if (model != null && ModelState.IsValid)
@@ -413,7 +411,7 @@
                 result = commandService.ExecuteNonQuery(criteria);
                 if (result.IsSuccessful)
                 {
-                    overtimeService.SendMailForTransferNexBalance("NEX balance Notification", model);
+                    await overtimeService.SendMailForTransferNexBalance("NEX balance Notification", model);
                 }
             }
             else
@@ -481,7 +479,7 @@
             int? employeeId, 
             int? teamId)
         {
-            IList<Team> teams = teamService.GetTeam();
+            IList<Team> teams = await teamService.GetTeam();
 
             var model = new OvertimeConversionDetailViewModel
             {
@@ -505,7 +503,7 @@
 
         [HrmAuthorize(Roles = "AssistantLeader,PM")]
         [HttpPost]
-        public ActionResult CreateEmployeeRecord(OvertimeRecord model, int index)
+        public async Task<ActionResult> CreateEmployeeRecord(OvertimeRecord model, int index)
         {
             ViewData["index"] = index;
             var criteria = new GetNexHourCriteria
@@ -514,14 +512,14 @@
                 Date = model.Date,
                 Hour = model.Hour
             };
-            var nexHour = overtimeService.GetNexHour(criteria);
+            var nexHour = await overtimeService.GetNexHour(criteria);
             model.NexHour = nexHour.Value;
             return PartialView("_CreateEmployeeRecord", model);
         }
 
 
         [HrmAuthorize(Roles = "AssistantLeader,HR,PM")]
-        public JsonResult GetNexHour(int employeeId, DateTime date, float hour)
+        public async Task<JsonResult> GetNexHour(int employeeId, DateTime date, float hour)
         {
             var criteria = new GetNexHourCriteria
             {
@@ -529,7 +527,7 @@
                 Date = date,
                 Hour = hour
             };
-            var nexHour = overtimeService.GetNexHour(criteria);
+            var nexHour = await overtimeService.GetNexHour(criteria);
             return Json(nexHour);
         }
 
@@ -542,7 +540,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public ActionResult HRView(HROvertimeViewModel model)
+        public async Task<ActionResult> HRView(HROvertimeViewModel model)
         {
             IList<Overtime> result = new List<Overtime>();
             if (model != null)
@@ -554,7 +552,7 @@
                     CreatedBy = model.CreatedBy,
                     Status = model.Status
                 };
-                result = overtimeService.GetReportOvertimeHR(criteria);
+                result = await overtimeService.GetReportOvertimeHR(criteria);
                 foreach (var item in result)
                 {
                     item.Own = CurrentUser.Id == item.CreatedBy.Id;
@@ -566,13 +564,13 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public ActionResult HRViewDetail(int id)
+        public async Task<ActionResult> HRViewDetail(int id)
         {
             var criteria = new ReportOvertimeHRDetailCriteria
             {
                 Id = id
             };
-            var result = overtimeService.GetReportOvertimeHRDetail(criteria);
+            var result = await overtimeService.GetReportOvertimeHRDetail(criteria);
             return PartialView("_ListHRViewOvertimeDetail", result);
         }
 
@@ -593,7 +591,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public ActionResult VerifyRequest(OvertimeVerifyViewModel model)
+        public async Task<ActionResult> VerifyRequest(OvertimeVerifyViewModel model)
         {
             model.TimeSheets = JsonConvert.DeserializeObject<IList<OvertimeRecord>>(model.TimeSheetData);
             var criteria = new VerifyOvertimeCriteria
@@ -606,7 +604,7 @@
             CommandResult result = commandService.ExecuteNonQuery(criteria);
             if (result.IsSuccessful)
             {
-                overtimeService.SendMailForNotification("NEX request Notification", model);
+                await overtimeService.SendMailForNotification("NEX request Notification", model);
             }
             return Json(result);
         }

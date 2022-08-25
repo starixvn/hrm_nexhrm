@@ -3,7 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Net;
+    using System.Threading.Tasks;
     using Criteria.LookupData;
     using Criteria.Memo;
     using Fanex.NexHR.Core.Enums;
@@ -35,14 +37,14 @@
             this.environment = environment; 
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var getAllLookupDataCriteria = new GetAllLookupDataCriteria
             {
                 LookupCode = LookupCodeName.MemoCategory
             };
-            IList<LookupData> memoCategories = lookupDataService.GetAll(getAllLookupDataCriteria);
-            memoCategories.Insert(0, new LookupData { Name = "All", Id = -1 });
+            IEnumerable<LookupData> memoCategories = await lookupDataService.GetAll(getAllLookupDataCriteria);
+            memoCategories.ToList().Insert(0, new LookupData { Name = "All", Id = -1 });
             var model = new MemoViewModel
             {
                 Content = string.Empty,
@@ -55,21 +57,21 @@
             return View(model);
         }
 
-        public ActionResult Edit(int id = -1)
+        public async Task<ActionResult> Edit(int id = -1)
         {
             GetMemoByIdCriteria getMemoByIdCriteria = new GetMemoByIdCriteria
             {
                 Id = id
             };
 
-            Memo memo = memoService.GetById(getMemoByIdCriteria);
+            Memo memo = await memoService.GetById(getMemoByIdCriteria);
 
             var getAllLookupDataCriteria = new GetAllLookupDataCriteria
             {
                 LookupCode = LookupCodeName.MemoCategory
             };
 
-            memo.MemoCategories = lookupDataService.GetAll(getAllLookupDataCriteria);
+            memo.MemoCategories = await lookupDataService.GetAll(getAllLookupDataCriteria);
 
             ViewBag.Updated = false;
 
@@ -78,12 +80,12 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public ActionResult Edit(Memo model)
+        public async Task<ActionResult> Edit(Memo model)
         {
             if (model != null && ModelState.IsValid)
             {
                 var getAllLookupDataCriteria = new GetAllLookupDataCriteria { LookupCode = LookupCodeName.MemoCategory };
-                model.MemoCategories = lookupDataService.GetAll(getAllLookupDataCriteria);
+                model.MemoCategories = await lookupDataService.GetAll(getAllLookupDataCriteria);
                 if (model.MemoType == 1)
                 {
                     model.Contents = model.AttachFile;
@@ -127,7 +129,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
             var model = new Memo
             {
@@ -140,7 +142,7 @@
             };
 
             var getAllLookupDataCriteria = new GetAllLookupDataCriteria { LookupCode = LookupCodeName.MemoCategory };
-            model.MemoCategories = lookupDataService.GetAll(getAllLookupDataCriteria);
+            model.MemoCategories = await lookupDataService.GetAll(getAllLookupDataCriteria);
 
             ViewBag.Updated = false;
 
@@ -149,12 +151,12 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public ActionResult Create(Memo model)
+        public async Task<ActionResult> Create(Memo model)
         {
             if (model != null && ModelState.IsValid)
             {
                 var getAllLookupDataCriteria = new GetAllLookupDataCriteria { LookupCode = LookupCodeName.MemoCategory };
-                model.MemoCategories = lookupDataService.GetAll(getAllLookupDataCriteria);
+                model.MemoCategories = await lookupDataService.GetAll(getAllLookupDataCriteria);
                 if (model.MemoType == 1)
                 {
                     model.Contents = model.AttachFile;
@@ -195,20 +197,20 @@
             return View(model);
         }
 
-        public ActionResult Detail(int id = -1)
+        public async Task<ActionResult> Detail(int id = -1)
         {
             GetMemoByIdCriteria getMemoByIdCriteria = new GetMemoByIdCriteria { Id = id };
-            Memo memo = memoService.GetById(getMemoByIdCriteria);
+            Memo memo = await memoService.GetById(getMemoByIdCriteria);
 
             return View(memo);
         }
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult DeleteMemo(int id)
+        public async Task<JsonResult> DeleteMemo(int id)
         {
             GetMemoByIdCriteria getMemoByIdCriteria = new GetMemoByIdCriteria { Id = id };
-            Memo memo = memoService.GetById(getMemoByIdCriteria);
+            Memo memo = await memoService.GetById(getMemoByIdCriteria);
 
             var deleteMemoCriteria = new DeleteMemoCriteria { Id = id };
             CommandResult result = commandService.ExecuteNonQuery(deleteMemoCriteria);
@@ -230,7 +232,7 @@
             return Json(result);
         }
 
-        public JsonResult GetMemos(int category, int year, int status)
+        public async Task<JsonResult> GetMemos(int category, int year, int status)
         {
             GetAllMemoCriteria criteria = new GetAllMemoCriteria
             {
@@ -239,7 +241,7 @@
                 Status = CurrentUser.IsInRole(Role.HR) ? status : 1
             };
 
-            IList<Memo> memos = memoService.GetAll(criteria);
+            IEnumerable<Memo> memos = await memoService.GetAll(criteria);
 
             return Json(memos);
         }

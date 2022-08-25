@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.Shift;
     using Microsoft.AspNetCore.Mvc;
     using Models;
@@ -16,21 +17,21 @@
             this.shiftService = shiftService;
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            IList<Shift> shifts = shiftService.GetAll();
+            IEnumerable<Shift> shifts = await shiftService.GetAll();
 
             return View(shifts);
         }
 
-        public JsonResult GetShiftByDate(int employeeId, DateTime date)
+        public async Task<JsonResult> GetShiftByDate(int employeeId, DateTime date)
         {
             var getShiftByDateCriteria = new GetShiftByDateCriteria
             {
                 EmployeeId = employeeId,
                 Date = date
             };
-            Shift shift = shiftService.GetByDate(getShiftByDateCriteria);
+            Shift shift = await shiftService.GetByDate(getShiftByDateCriteria);
 
             return Json(shift);
         }

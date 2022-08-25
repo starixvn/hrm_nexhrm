@@ -1,11 +1,12 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.LookupData;
     using Models;
 
     public interface ILookupDataService
     {
-        IList<LookupData> GetAll(GetAllLookupDataCriteria criteria);
+        Task<IEnumerable<LookupData>> GetAll(GetAllLookupDataCriteria criteria);
     }
 }

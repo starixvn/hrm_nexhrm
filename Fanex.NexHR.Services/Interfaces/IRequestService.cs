@@ -22,16 +22,16 @@
 
         Task<decimal> GetNumberRequestInMonth(int employeeId, RequestType requestType);
 
-        IList<DateTime> GetDisableRequestDate(int employeeId, long? requestId);
+        Task<IEnumerable<DateTime>> GetDisableRequestDate(int employeeId, long? requestId);
 
-        DateRange GetDateRange(GetDateRangeEmployeeCalendarCriteria criteria);
+        Task<DateRange> GetDateRange(GetDateRangeEmployeeCalendarCriteria criteria);
 
         void SendMailForCheckInOut(CheckInOutRequestViewModel model, IList<Employee> leaders);
 
-        IList<Employee> GetLeaderForCheckInOut(CheckInOutRequestViewModel model);
+        Task<IEnumerable<Employee>> GetLeaderForCheckInOut(CheckInOutRequestViewModel model);
 
-        void SendMailForLeave(LeaveRequestViewModel model);
+        Task SendMailForLeave(LeaveRequestViewModel model);
 
-        LeaveBalanceInMonth GetAnnualLeaveBalanceInMonth(GetLeaveBalanceInMonthCriteria criteria);
+        Task<LeaveBalanceInMonth> GetAnnualLeaveBalanceInMonth(GetLeaveBalanceInMonthCriteria criteria);
     }
 }

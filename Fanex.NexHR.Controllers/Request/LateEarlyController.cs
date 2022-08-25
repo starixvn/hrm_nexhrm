@@ -1,12 +1,13 @@
 ﻿namespace Fanex.NexHR.Controllers.Request
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using Criteria.LateInEarlyOut;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Resources;
     using Services.Interfaces;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using ViewModels.LateInEarlyOut;
 
     public class LateEarlyController : BaseController
@@ -66,7 +67,7 @@
             return View(model);
         }
 
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
             LateInEarlyOutViewModel model = new LateInEarlyOutViewModel();
             GetLateInEarlyOutByIdCriteria criteria = new GetLateInEarlyOutByIdCriteria
@@ -76,7 +77,7 @@
 
             if (id > 0)
             {
-                model = lateInEarlyOutService.GetById(criteria);
+                model = await lateInEarlyOutService.GetById(criteria);
             }
 
             return View(model);
@@ -125,20 +126,20 @@
             return Json(result);
         }
 
-        public ActionResult ListLateEarly(int empId, int year)
+        public async Task<ActionResult> ListLateEarly(int empId, int year)
         {
-            List<LateInEarlyOutViewModel> model = GetLateEarlyByEmpId(empId, year).ToList();
-            return PartialView("_ListLateEarly", model);
+            IEnumerable<LateInEarlyOutViewModel> model = await GetLateEarlyByEmpId(empId, year);
+            return PartialView("_ListLateEarly", model.ToList());
         }
 
-        private IList<LateInEarlyOutViewModel> GetLateEarlyByEmpId(int empId, int year)
+        private async Task<IEnumerable<LateInEarlyOutViewModel>> GetLateEarlyByEmpId(int empId, int year)
         {
             var criteria = new GetLateInEarlyOutByEmpIdCriteria
             {
                 EmpId = empId,
                 Year = year
             };
-            IList<LateInEarlyOutViewModel> list = lateInEarlyOutService.GetAllByEmpId(criteria);
+            IEnumerable<LateInEarlyOutViewModel> list = await lateInEarlyOutService.GetAllByEmpId(criteria);
 
             return list;
         }

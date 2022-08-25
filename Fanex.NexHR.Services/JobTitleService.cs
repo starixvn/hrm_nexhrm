@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.LookupData;
     using Interfaces;
     using Models;
@@ -14,16 +15,16 @@
             this.baseService = baseService;
         }
 
-        public IList<JobTitle> GetAll()
+        public async Task<IEnumerable<JobTitle>> GetAll()
         {
             var criteria = new GetAllLookupDataCriteria { LookupCode = "JT" };
-            IList<JobTitle> jobTitles = baseService.GetData<JobTitle>(criteria);
+            IEnumerable<JobTitle> jobTitles = await baseService.GetDataAsync<JobTitle>(criteria);
             return jobTitles;
         }
 
-        public IList<JobTitle> GetJobTitle(GetJobTitleCriteria criteria)
+        public async Task<IEnumerable<JobTitle>> GetJobTitle(GetJobTitleCriteria criteria)
         {
-            IList<JobTitle> jobTitles = baseService.GetData<JobTitle>(criteria);
+            IEnumerable<JobTitle> jobTitles = await baseService.GetDataAsync<JobTitle>(criteria);
             return jobTitles;
         }
     }

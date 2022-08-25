@@ -80,26 +80,26 @@
                 GroupId = CurrentUser.Team.Id,
                 DateOption = 0,
                 ExcludeUserDelete = true,
-                Teams = teamService.GetTeam(),
+                Teams = await teamService.GetTeam(),
                 IsDisplayTeamAttendence = CurrentUserSetting.DisplayTeamAttendence
             };
 
             model.EmployeeAttendanceModel = empAttendance;
-            model.NotificationLateInEarlyOutToDay = GetLateInEarlyOutNotification();
+            model.NotificationLateInEarlyOutToDay = await GetLateInEarlyOutNotification();
             model.IsLoadTeamWorkload = IsLoadTeamWorkload();
             model.IsHavePrivilegeCreateCheckInOutRecord = IsPrivilegeCreateCheckInOut();
 
             return View(model);
         }
 
-        private IList<ViewModels.LateInEarlyOut.LateInEarlyOutViewModel> GetLateInEarlyOutNotification()
+        private async Task<IEnumerable<ViewModels.LateInEarlyOut.LateInEarlyOutViewModel>> GetLateInEarlyOutNotification()
         {
             GetAllEmployeeCriteria criteria = new GetAllEmployeeCriteria
             {
                 Date = DateTime.Now.Date
             };
 
-            return lateinearlyoutService.GetAllEmployee(criteria);
+            return await lateinearlyoutService.GetAllEmployee(criteria);
         }
 
         private async Task<SystemReminderModel> GetRemind()
@@ -251,11 +251,11 @@
             return employees;
         }
 
-        public ActionResult GetNotification(int employeeId)
+        public async Task<ActionResult> GetNotification(int employeeId)
         {
             GetAllNotificationCriteria criteria = new GetAllNotificationCriteria { EmpId = employeeId };
 
-            var noti = notificationService.GetViolationByEmpId(criteria);
+            var noti = await notificationService.GetViolationByEmpId(criteria);
 
             return PartialView("_Notification", noti);
         }

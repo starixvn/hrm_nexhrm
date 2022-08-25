@@ -1,5 +1,9 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Threading.Tasks;
     using Core;
     using Core.Model;
     using Criteria.Calendar;
@@ -13,10 +17,6 @@
     using Newtonsoft.Json;
     using Services;
     using Services.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Threading.Tasks;
     using ViewModels.Calendar;
     using ViewModels.Report;
     using ViewModels.TotalWorkingHours;
@@ -47,7 +47,7 @@
             this.environment = environment;
         }
 
-        public ActionResult TotalWorkingHours(TotalWorkingHoursViewModel model)
+        public async Task<ActionResult> TotalWorkingHours(TotalWorkingHoursViewModel model)
         {
             const int dateOption = 5;
             var year = DateTime.Now.Year;
@@ -72,7 +72,7 @@
                 GroupId = totalWorkingHoursViewModel.TeamId
             };
 
-            IList<TotalWorkingHours> listTotalWorkingHours = reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
+            IList<TotalWorkingHours> listTotalWorkingHours = await reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
 
             if (model != null && model.Sort != null)
             {
@@ -128,7 +128,7 @@
         }
 
         [HttpGet]
-        public ActionResult Attendance(
+        public async Task<ActionResult> Attendance(
             DateTime fromDate,
             DateTime toDate,
             int? empId,
@@ -148,7 +148,7 @@
                 ExcludeUserDelete = excludeUserDelete
             };
 
-            IList<EmployeeAttendanceModel> employeeAttendances = reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
+            IList<EmployeeAttendanceModel> employeeAttendances = await reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
 
             if (sort != null)
             {
@@ -163,7 +163,7 @@
             return File(bytes, "application/xlsx", fileName);
         }
 
-        public ActionResult WorkingHoursStatistic(WorkingHoursStatisticViewModel model)
+        public async Task<ActionResult> WorkingHoursStatistic(WorkingHoursStatisticViewModel model)
         {
             var getWorkingHoursCriteria = new GetWorkingHoursStatisticCriteria
             {
@@ -176,7 +176,7 @@
             };
 
             string fileName = "WorkingHoursStatistic_" + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year + ".xlsx";
-            IList<WorkingHoursStatistic> listTotalWorkingHours = reportService.GetWorkingHoursStatistic(getWorkingHoursCriteria);
+            IList<WorkingHoursStatistic> listTotalWorkingHours = await reportService.GetWorkingHoursStatistic(getWorkingHoursCriteria);
             string templatePath = Path.Combine(environment.ContentRootPath, WorkingHoursStatisticTemplatePath);
             var bytes = ExportService.ExportWorkingHoursStatistic(listTotalWorkingHours, getWorkingHoursCriteria.FromDateLastMonth, getWorkingHoursCriteria.ToDate, templatePath);
 
@@ -203,7 +203,7 @@
             return File(bytes, "application/xlsx", fileName);
         }
 
-        public ActionResult HeadCountExport(int year)
+        public async Task<ActionResult> HeadCountExport(int year)
         {
             var criteria = new GetHeadCountByYearCriteria
             {
@@ -211,7 +211,7 @@
                 EndDateOfYear = new DateTime(year, 12, 31)
             };
 
-            var headCount = reportService.GetTeamHeadCountInYear(criteria);
+            var headCount = await reportService.GetTeamHeadCountInYear(criteria);
             var report = new HeadCountModel
             {
                 StartDate = criteria.StartDateOfYear,

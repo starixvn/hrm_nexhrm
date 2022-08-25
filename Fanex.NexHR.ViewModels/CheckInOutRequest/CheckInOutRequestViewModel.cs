@@ -38,7 +38,7 @@
 
         public int ForRequest { get; set; } = (int)GeneralRequestType.CheckInOut;
 
-        public IList<DateTime> UnavailDates { get; set; }
+        public IEnumerable<DateTime> UnavailDates { get; set; }
 
         public string InTime { get; set; }
 

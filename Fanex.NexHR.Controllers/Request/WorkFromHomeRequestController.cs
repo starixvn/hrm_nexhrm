@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Controllers.Request
 {
     using System;
+    using System.Threading.Tasks;
     using Fanex.NexHR.Criteria.WorkFromHomeRequest;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
@@ -27,7 +28,7 @@
             return View();
         }
 
-        public ActionResult GetWorkFromHomeRequestGrid(int year)
+        public async Task<ActionResult> GetWorkFromHomeRequestGrid(int year)
         {
             var criteria = new GetWorkFromHomeRequestCriteria
             {
@@ -36,7 +37,7 @@
                 EmpId = CurrentUser.Id,
             };
 
-            var requests = workFromHomeRequest.GetAll(criteria);
+            var requests = await workFromHomeRequest.GetAll(criteria);
 
             foreach(var request in requests)
             {
@@ -82,9 +83,9 @@
             return View(model);
         }
 
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            var request = workFromHomeRequest.GetById(id);
+            var request = await workFromHomeRequest.GetById(id);
             var model = new WorkFromHomeRequestViewModel
             {
                 Id = request.Id,

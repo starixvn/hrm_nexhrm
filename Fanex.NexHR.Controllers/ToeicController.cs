@@ -52,17 +52,17 @@
             this.emailSettings = emailSettings;
         }
 
-        public ActionResult ToeicManagement(int? jobTitleId = null)
+        public async Task<ActionResult> ToeicManagement(int? jobTitleId = null)
         {
             var model = new ToeicManagementViewModel
             {
                 JobTitleId = jobTitleId,
-                JobTitles = jobTitleService.GetAll(),
-                Teams = teamService.GetTeam()
+                JobTitles = await jobTitleService.GetAll(),
+                Teams = await teamService.GetTeam()
             };
 
-            model.JobTitles = jobTitleService.GetAll();
-            model.Teams = teamService.GetTeam();
+            model.JobTitles = await jobTitleService.GetAll();
+            model.Teams = await teamService.GetTeam();
             var userRoles = employeeService.UserRoles(CurrentUser);
             ViewBag.HasHRRole = userRoles.Any(item => item == "HR");
             return View(model);
@@ -110,20 +110,20 @@
         }
 
         [HttpPost]
-        public ActionResult GetToeicScoreByEmpId(int empId)
+        public async Task<ActionResult> GetToeicScoreByEmpId(int empId)
         {
             var criteria = new GetToeicScoreByEmployeeIdCriteria
             {
                 EmpId = empId
             };
-            var toeic = toeicService.GetById(criteria) ?? new Toeic();
+            var toeic = await toeicService.GetById(criteria) ?? new Toeic();
 
             return Json(toeic);
         }
 
         [HttpGet]
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult UpdateToeic(int? id, string name)
+        public async Task<ActionResult> UpdateToeic(int? id, string name)
         {
             Toeic toeic = null;
 
@@ -133,7 +133,7 @@
                 {
                     EmpId = id.Value
                 };
-                toeic = toeicService.GetById(criteria);
+                toeic = await toeicService.GetById(criteria);
                 toeic ??= new Toeic { EmpId = id.Value };
                 toeic.Employee ??= name;
             }
@@ -143,7 +143,7 @@
 
         [HttpPost]
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult UpdateToeic(Toeic model)
+        public async Task<ActionResult> UpdateToeic(Toeic model)
         {
             var result = new CommandResult
             {
@@ -171,7 +171,7 @@
 
                 if (ModelState.IsValid)
                 {
-                    var oldScore = GetToeicScore(model.EmpId);
+                    var oldScore = await GetToeicScore(model.EmpId);
                     var toeicScoreCriteria = new UpdateToeicScoreCriteria
                     {
                         CreatedBy = CurrentUser.Id,
@@ -196,7 +196,7 @@
 
                     if (result.IsSuccessful && model.SendMail)
                     {
-                        SendUpdatedScoreEmailToRelatedPeople(model.EmpId, toeic, oldScore);
+                        await SendUpdatedScoreEmailToRelatedPeople(model.EmpId, toeic, oldScore);
                     }
 
                     if (!result.IsSuccessful)
@@ -287,7 +287,7 @@
             return false;
         }
 
-        private async void SendUpdatedScoreEmailToRelatedPeople(int empId, Toeic newScore, Toeic oldScore)
+        private async Task SendUpdatedScoreEmailToRelatedPeople(int empId, Toeic newScore, Toeic oldScore)
         {
             var receiverEmail = string.Empty;
             var mailCC = new StringBuilder();
@@ -371,10 +371,10 @@
             return body;
         }
 
-        private Toeic GetToeicScore(int empid)
+        private async Task<Toeic> GetToeicScore(int empid)
         {
             var criteria = new GetToeicScoreByEmployeeIdCriteria { EmpId = empid };
-            var score = toeicService.GetById(criteria) ?? new Toeic();
+            var score = await toeicService.GetById(criteria) ?? new Toeic();
 
             return score;
         }

@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core;
     using Criteria.Employee;
     using Criteria.Overtime;
@@ -41,106 +42,106 @@
             CompanyMailSign = emailSettings.CompanyMailSign;
         }
 
-        public IList<Overtime> GetOvertime(GetOvertimeCriteria criteria)
+        public async Task<IList<Overtime>> GetOvertime(GetOvertimeCriteria criteria)
         {
             IList<Overtime> overtimes = null;
             if (criteria != null && criteria.IsValid())
             {
-                overtimes = overtimeRepository.GetOvertime(criteria);
+                overtimes = await overtimeRepository.GetOvertime(criteria);
             }
 
             return overtimes ?? new List<Overtime>();
         }
 
-        public Overtime GetOvertimeById(GetOvertimeByIdCriteria criteria)
+        public async Task<Overtime> GetOvertimeById(GetOvertimeByIdCriteria criteria)
         {
             Overtime overtime = null;
             if (criteria != null && criteria.IsValid())
             {
-                overtime = overtimeRepository.GetOvertimeById(criteria);
+                overtime = await overtimeRepository.GetOvertimeById(criteria);
             }
 
             return overtime;
         }
 
-        public IList<EmployeeOvertime> GetEmployeeOvertime(GetEmployeeOvertimeCriteria criteria)
+        public async Task<IList<EmployeeOvertime>> GetEmployeeOvertime(GetEmployeeOvertimeCriteria criteria)
         {
             IList<EmployeeOvertime> overtimes = null;
             if (criteria != null && criteria.IsValid())
             {
-                overtimes = overtimeRepository.GetEmployeeOvertime(criteria);
+                overtimes = await overtimeRepository.GetEmployeeOvertime(criteria);
             }
 
             return overtimes ?? new List<EmployeeOvertime>();
         }
 
-        public IList<EmployeeOvertime> GetMyOvertime(GetMyOvertimeCriteria criteria)
+        public async Task<IList<EmployeeOvertime>> GetMyOvertime(GetMyOvertimeCriteria criteria)
         {
             IList<EmployeeOvertime> overtimes = null;
             if (criteria != null && criteria.IsValid())
             {
-                overtimes = overtimeRepository.GetEmployeeOvertime(criteria);
+                overtimes = await overtimeRepository.GetEmployeeOvertime(criteria);
             }
 
             return overtimes ?? new List<EmployeeOvertime>();
         }
 
-        public List<OvertimeSummary> GetOvertimeSummary(OvertimeSummaryCriteria criteria)
+        public async Task<IList<OvertimeSummary>> GetOvertimeSummary(OvertimeSummaryCriteria criteria)
         {
-            List<OvertimeSummary> listSummary = new List<OvertimeSummary>();
+            IList<OvertimeSummary> listSummary = new List<OvertimeSummary>();
             if (criteria != null && criteria.IsValid())
             {
-                listSummary = overtimeRepository.GetOvertimeSummary(criteria).ToList();
+                listSummary = await overtimeRepository.GetOvertimeSummary(criteria);
             }
 
-            return listSummary;
+            return listSummary.ToList();
         }
 
-        public IList<OvertimeConversion> GetConversions(GetOvertimeConversionsCriteria criteria)
+        public async Task<IList<OvertimeConversion>> GetConversions(GetOvertimeConversionsCriteria criteria)
         {
             IList<OvertimeConversion> conversions = null;
             if (criteria != null && criteria.IsValid())
             {
-                conversions = overtimeRepository.GetConversions(criteria);
+                conversions = await overtimeRepository.GetConversions(criteria);
             }
 
             return conversions ?? new List<OvertimeConversion>();
         }
 
-        public NexHour GetNexHour(GetNexHourCriteria criteria)
+        public async Task<NexHour> GetNexHour(GetNexHourCriteria criteria)
         {
-            return baseService.GetDataEntity<NexHour>(criteria);
+            return await baseService.GetDataEntityAsync<NexHour>(criteria);
         }
 
-        public IList<Overtime> GetReportOvertimeHR(ReportOvertimeHRCriteria criteria)
+        public async Task<IList<Overtime>> GetReportOvertimeHR(ReportOvertimeHRCriteria criteria)
         {
             IList<Overtime> overtimes = null;
             if (criteria != null && criteria.IsValid())
             {
-                overtimes = overtimeRepository.GetOvertime(criteria);
+                overtimes = await overtimeRepository.GetOvertime(criteria);
             }
 
             return overtimes ?? new List<Overtime>();
         }
 
-        public IList<ReportOvertimeHRDetail> GetReportOvertimeHRDetail(ReportOvertimeHRDetailCriteria criteria)
+        public async Task<IList<ReportOvertimeHRDetail>> GetReportOvertimeHRDetail(ReportOvertimeHRDetailCriteria criteria)
         {
             IList<ReportOvertimeHRDetail> report = null;
             if (criteria != null && criteria.IsValid())
             {
-                report = overtimeRepository.GetReportOvertimeHRDetail(criteria);
+                report = await overtimeRepository.GetReportOvertimeHRDetail(criteria);
             }
 
             return report ?? new List<ReportOvertimeHRDetail>();
         }
 
-        public void SendMailForTransferNexBalance(string subject, OvertimeConversionCreateViewModel model)
+        public async Task SendMailForTransferNexBalance(string subject, OvertimeConversionCreateViewModel model)
         {
             GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria
             {
                 EmployeeId = model.EmpId
             };
-            var receiver = baseService.GetDataEntity<Employee>(getEmployeeCriteria);
+            var receiver = await baseService.GetDataEntityAsync<Employee>(getEmployeeCriteria);
 
             var templatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForOvertimeConversion);
             var bodyTemplate = Utilities.ReadTextFile(templatePath);
@@ -161,11 +162,12 @@
                     body);
         }
 
-        public void SendMailForNEXRequest(string subject, CreateOvertimeViewModel model)
+        public async Task SendMailForNEXRequest(string subject, CreateOvertimeViewModel model)
         {
             if (model != null)
             {
-                IList<Employee> managers = baseService.GetData<Employee>(new GetManagementsCriteria()).ToList();
+                IEnumerable<Employee> managers = await baseService.GetDataAsync<Employee>(new GetManagementsCriteria());
+                managers = managers.ToList();
                 var templatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForOvertimeRequest);
                 var bodyTemplate = Utilities.ReadTextFile(templatePath);
                 var emloyees = string.Join(
@@ -197,13 +199,13 @@
             }
         }
 
-        public void SendMailForApprovalNotification(string subject, int overtimeId, int createdBy, int approvedBy)
+        public async Task SendMailForApprovalNotification(string subject, int overtimeId, int createdBy, int approvedBy)
         {
             GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria
             {
                 EmployeeId = approvedBy
             };
-            var manager = baseService.GetDataEntity<Employee>(getEmployeeCriteria);
+            var manager = await baseService.GetDataEntityAsync<Employee>(getEmployeeCriteria);
             var templatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForOvertimeApprovalNotification);
             var bodyTemplate = Utilities.ReadTextFile(templatePath);
 
@@ -211,7 +213,7 @@
             {
                 Id = overtimeId
             };
-            var overtime = overtimeRepository.GetOvertimeById(criteria);
+            var overtime = await overtimeRepository.GetOvertimeById(criteria);
             var emloyees = string.Join(
                                                Constants.BrTag,
                                                overtime.OvertimeRecords.Select(t =>
@@ -225,13 +227,13 @@
             SendMailForHR(subject, createdBy, manager.NickName, bodyTemplate, emloyees, overtime.Description);
         }
 
-        private void SendMailForCreatedRequest(string subject, int createdBy, string managerNickName, string bodyTemplate, string employees, string project)
+        private async Task SendMailForCreatedRequest(string subject, int createdBy, string managerNickName, string bodyTemplate, string employees, string project)
         {
             GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria
             {
                 EmployeeId = createdBy
             };
-            var receiver = baseService.GetDataEntity<Employee>(getEmployeeCriteria);
+            var receiver = await baseService.GetDataEntityAsync<Employee>(getEmployeeCriteria);
             var body = string.Format(
                     bodyTemplate,
                     receiver.NickName,
@@ -250,9 +252,10 @@
                     body);
         }
 
-        private void SendMailForHR(string subject, int createdBy, string managerNickName, string bodyTemplate, string employees, string project)
+        private async Task SendMailForHR(string subject, int createdBy, string managerNickName, string bodyTemplate, string employees, string project)
         {
-            IList<Employee> HRs = baseService.GetData<Employee>(new GetHRCriteria()).ToList();
+            IEnumerable<Employee> HRs = await baseService.GetDataAsync<Employee>(new GetHRCriteria());
+            HRs = HRs.ToList();
             GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria
             {
                 EmployeeId = createdBy
@@ -276,14 +279,14 @@
                     body);
         }
 
-        public void SendMailForNotification(string subject, OvertimeVerifyViewModel model)
+        public async Task SendMailForNotification(string subject, OvertimeVerifyViewModel model)
         {
             var templatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForOvertimeNotification);
             var bodyTemplate = Utilities.ReadTextFile(templatePath);
 
             foreach (var item in model.TimeSheets)
             {
-                var employee = baseService.GetDataEntity<Employee>(new GetEmployeeByIdCriteria
+                var employee = await baseService.GetDataEntityAsync<Employee>(new GetEmployeeByIdCriteria
                 {
                     EmployeeId = item.Employee.Id
                 });

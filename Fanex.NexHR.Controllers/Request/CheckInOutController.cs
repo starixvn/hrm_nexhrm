@@ -75,12 +75,12 @@
                 EmployeeId = CurrentUser.Id,
                 WorkDate = date ?? DateTime.Today,
                 CheckInOutType = type ?? (short)RequestType.CheckIn,
-                UnavailDates = requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null),
+                UnavailDates = await requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null),
                 TotalRequest = await requestService.GetNumberRequestInMonth(CurrentUser.Id, RequestType.CheckIn),
                 IsCrossDate = isCrossDate
             };
 
-            Shift shift = GetShiftByDate(date);
+            Shift shift = await GetShiftByDate(date);
             if (shift != null)
             {
                 viewModel.SetShiftIntoModel(shift);
@@ -143,13 +143,13 @@
         private void SendEmailAndSkype(CheckInOutRequestViewModel model)
         {
             model.EmailTemplatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForCheckInOut);
-            Task.Factory.StartNew(() =>
+            Task.Factory.StartNew(async () =>
             {
-                var leaders = requestService.GetLeaderForCheckInOut(model);
+                var leaders = await requestService.GetLeaderForCheckInOut(model);
                 if (leaders != null && leaders.Any())
                 {
-                    requestService.SendMailForCheckInOut(model, leaders);
-                    nexbotService.SendMessageForCheckInOutRequest(model, leaders);
+                    requestService.SendMailForCheckInOut(model, leaders.ToList());
+                    await nexbotService.SendMessageForCheckInOutRequest(model, leaders.ToList());
                 }
             });
         }
@@ -173,11 +173,11 @@
                 Hour = request.FromDate.Hour,
                 Minute = request.FromDate.Minute,
                 CheckInOutType = request.RequestType.Id,
-                UnavailDates = requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null),
+                UnavailDates = await requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null),
                 IsCrossDate = request.IsCrossDate
             };
 
-            Shift shift = GetShiftByDate(request.FromDate.Date);
+            Shift shift = await GetShiftByDate(request.FromDate.Date);
             model.Shift = shift != null ? shift.DisplayName : string.Empty;
 
             return View(model);
@@ -238,7 +238,7 @@
             return result;
         }
 
-        private Shift GetShiftByDate(DateTime? date = null)
+        private async Task<Shift> GetShiftByDate(DateTime? date = null)
         {
             var getShiftByDateCriteria = new GetShiftByDateCriteria
             {
@@ -246,7 +246,7 @@
                 Date = date ?? DateTime.Now
             };
 
-            Shift shift = shiftService.GetByDate(getShiftByDateCriteria);
+            Shift shift = await shiftService.GetByDate(getShiftByDateCriteria);
             return shift;
         }
     }

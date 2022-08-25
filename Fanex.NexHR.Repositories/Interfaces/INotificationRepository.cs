@@ -2,9 +2,10 @@
 {
     using Data.Repository;
     using Models.Notification;
+    using System.Threading.Tasks;
 
     public interface INotificationRepository
     {
-        Notification GetViolationByEmpId(ICriteria criteria);
+        Task<Notification> GetViolationByEmpId(ICriteria criteria);
     }
 }

@@ -1,13 +1,14 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.Department;
     using Models;
 
     public interface IDepartmentService
     {
-        IList<Department> GetAll();
+        Task<IList<Department>> GetAll();
 
-        Department GetDepartmentById(GetDepartmentByIdCriteria criteria);
+        Task<Department> GetDepartmentById(GetDepartmentByIdCriteria criteria);
     }
 }

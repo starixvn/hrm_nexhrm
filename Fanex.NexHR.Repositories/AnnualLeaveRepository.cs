@@ -46,11 +46,11 @@
             }
         }
 
-        public AnnualLeaveTransaction GetAnnualLeaveTransactionById(ICriteria criteria)
+        public async Task<AnnualLeaveTransaction> GetAnnualLeaveTransactionById(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var leaveTransaction = db.QueryEntity<AnnualLeaveTransaction, Employee, AnnualLeaveTransaction>(
+                var leaveTransaction = await db.QueryEntityAsync<AnnualLeaveTransaction, Employee, AnnualLeaveTransaction>(
                      (leaveTrans, employee) =>
                      {
                          leaveTrans.Employee = employee;
@@ -63,11 +63,11 @@
             }
         }
 
-        public IList<LeaveConversionDetail> GetLeaveConversionDetail(ICriteria criteria)
+        public async Task<IList<LeaveConversionDetail>> GetLeaveConversionDetail(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var leaveDeductions = db.Query<LeaveConversionDetail, Employee, Team, Employee, LeaveConversionDetail>(
+                var leaveDeductions = await db.QueryAsync<LeaveConversionDetail, Employee, Team, Employee, LeaveConversionDetail>(
                     (le, e, g, modi) =>
                     {
                         le.Employee = e;
@@ -76,9 +76,9 @@
                         return le;
                     },
                     splitOn: "EmpId, GroupId, ModifiedById",
-                    parameterSet: criteria).ToList();
+                    parameterSet: criteria);
 
-                return leaveDeductions;
+                return leaveDeductions.ToList();
             }
         }
     }

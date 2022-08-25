@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Caching;
     using Criteria.Shift;
     using Interfaces;
@@ -18,13 +19,13 @@
             this.baseService = baseService;
         }
 
-        public IList<Shift> GetAll()
+        public async Task<IEnumerable<Shift>> GetAll()
         {
-            var shifts = ConfiguredCacheService.Get<IList<Shift>>(CacheKeyAllShift);
+            var shifts = ConfiguredCacheService.Get<IEnumerable<Shift>>(CacheKeyAllShift);
             if (shifts == null || !shifts.Any())
             {
                 var criteria = new GetShiftCriteria();
-                shifts = baseService.GetData<Shift>(criteria);
+                shifts = await baseService.GetDataAsync<Shift>(criteria);
 
                 if (shifts != null && shifts.Any())
                 {
@@ -36,9 +37,9 @@
             return shifts;
         }
 
-        public Shift GetByDate(GetShiftByDateCriteria criteria)
+        public async Task<Shift> GetByDate(GetShiftByDateCriteria criteria)
         {
-            Shift shift = baseService.GetDataEntity<Shift>(criteria);
+            Shift shift = await baseService.GetDataEntityAsync<Shift>(criteria);
             return shift;
         }
     }

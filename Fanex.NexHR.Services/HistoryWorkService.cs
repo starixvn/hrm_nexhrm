@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.NexHR.Criteria.HistoryWork;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
@@ -18,29 +19,29 @@
             this.baseService = baseService;
         }
 
-        public IList<HistoryWork> GetHistoryWorkByEmpId(GetHistoryWorkByEmpIdCriteria criteria)
+        public async Task<IList<HistoryWork>> GetHistoryWorkByEmpId(GetHistoryWorkByEmpIdCriteria criteria)
         {
             IList<HistoryWork> historyWork = null;
             if (criteria != null && criteria.IsValid())
             {
-                historyWork = historyWorkRepository.GetHistoryWorkByEmpId(criteria);
+                historyWork = await historyWorkRepository.GetHistoryWorkByEmpId(criteria);
             }
 
             return historyWork ?? new List<HistoryWork>();
         }
 
-        public WorkingHistoryViewModel GetHistoryWorkInfo(EditHistoryWorkCriteria criteria)
+        public async Task<WorkingHistoryViewModel> GetHistoryWorkInfo(EditHistoryWorkCriteria criteria)
         {
-            WorkingHistoryViewModel historyWork = baseService.GetDataEntity<WorkingHistoryViewModel>(criteria);
+            WorkingHistoryViewModel historyWork = await baseService.GetDataEntityAsync<WorkingHistoryViewModel>(criteria);
             return historyWork;
         }
 
-        public IList<HistoryWork> GetFilterHistoryWork(FilterHistoryWorkCriteria criteria)
+        public async Task<IList<HistoryWork>> GetFilterHistoryWork(FilterHistoryWorkCriteria criteria)
         {
             IList<HistoryWork> filterHistory = null;
             if (criteria != null && criteria.IsValid())
             {
-                filterHistory = historyWorkRepository.GetFilterHistoryWork(criteria);
+                filterHistory = await historyWorkRepository.GetFilterHistoryWork(criteria);
             }
 
             return filterHistory ?? new List<HistoryWork>();

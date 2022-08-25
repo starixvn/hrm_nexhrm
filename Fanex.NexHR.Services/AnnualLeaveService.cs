@@ -29,12 +29,12 @@
             return leaveSummary ?? new List<LeaveSummary>();
         }
 
-        public ShowOpenAndCloseAnnualBalance GetOpenAndCloseAnnualBalance(GetOpenAndCloseAnnualBalanceCriteria criteria)
+        public async Task<ShowOpenAndCloseAnnualBalance> GetOpenAndCloseAnnualBalance(GetOpenAndCloseAnnualBalanceCriteria criteria)
         {
             ShowOpenAndCloseAnnualBalance showOpenAndCloseAnnualBalance = null;
             if (criteria != null && criteria.IsValid())
             {
-                showOpenAndCloseAnnualBalance = baseService.GetDataEntity<ShowOpenAndCloseAnnualBalance>(criteria);
+                showOpenAndCloseAnnualBalance = await baseService.GetDataEntityAsync<ShowOpenAndCloseAnnualBalance>(criteria);
             }
 
             return showOpenAndCloseAnnualBalance;
@@ -65,23 +65,23 @@
 
         
 
-        public AnnualLeaveTransaction GetAnnualLeaveTransactionById(GetAnnualLeaveByIdCriteria criteria)
+        public async Task<AnnualLeaveTransaction> GetAnnualLeaveTransactionById(GetAnnualLeaveByIdCriteria criteria)
         {
             AnnualLeaveTransaction annualLeave = null;
             if (criteria != null && criteria.IsValid())
             {
-                annualLeave = annualLeaveRepository.GetAnnualLeaveTransactionById(criteria);
+                annualLeave = await annualLeaveRepository.GetAnnualLeaveTransactionById(criteria);
             }
 
             return annualLeave;
         }
 
-        public IList<LeaveConversionDetail> GetLeaveConversionDetail(GetLeaveConversionDetailCriteria criteria)
+        public async Task<IList<LeaveConversionDetail>> GetLeaveConversionDetail(GetLeaveConversionDetailCriteria criteria)
         {
             IList<LeaveConversionDetail> leaveDeductions = null;
             if (criteria != null && criteria.IsValid())
             {
-                leaveDeductions = annualLeaveRepository.GetLeaveConversionDetail(criteria);
+                leaveDeductions = await annualLeaveRepository.GetLeaveConversionDetail(criteria);
             }
 
             return leaveDeductions ?? new List<LeaveConversionDetail>();

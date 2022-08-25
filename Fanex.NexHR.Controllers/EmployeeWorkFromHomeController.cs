@@ -1,15 +1,14 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
     using System;
+    using System.Threading.Tasks;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.EmployeeWorkFromHome;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Attributes;
     using Fanex.NexHR.Resources;
-    using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels.EmployeeWorkFromHome;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class EmployeeWorkFromHomeController : BaseController
@@ -28,19 +27,19 @@
             this.commandService = commandService;
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var model = new EmployeeWorkFromHomeFilterViewModel
             {
                 FromDate = DateTime.Now,
                 ToDate = DateTime.Now,
-                Teams = teamService.GetTeam(),
+                Teams = await teamService.GetTeam(),
                 StatusId = (byte)RequestStatuse.All
             };
             return View(model);
         }
 
-        public ActionResult GetEmployeeWorkFromHomeGrid(EmployeeWorkFromHomeFilterViewModel model)
+        public async Task<ActionResult> GetEmployeeWorkFromHomeGrid(EmployeeWorkFromHomeFilterViewModel model)
         {
             int? statusNullable = null;
             var criteria = new GetEmployeeWorkFromHomeCriteria
@@ -51,7 +50,7 @@
                 EmpId = model.EmployeeId,
                 StatusId = model.StatusId == 0 ? statusNullable : model.StatusId
             };
-            var employees = employeeWorkFromHomeService.GetAll(criteria);
+            var employees = await employeeWorkFromHomeService.GetAll(criteria);
             foreach(var employee in employees)
             {
                 employee.Status = GetStatusName(employee.StatusId);
@@ -101,9 +100,9 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            var employeeWorkFromHome = employeeWorkFromHomeService.GetById(id);
+            var employeeWorkFromHome = await employeeWorkFromHomeService.GetById(id);
             var model = new EmployeeWorkFromHomeViewModel
             {
                 EmployeeWorkFromHomeId = employeeWorkFromHome.EmployeeWorkFromHomeId,

@@ -1,12 +1,12 @@
-using Fanex.NexHR.Models.Report;
-using OfficeOpenXml;
-using OfficeOpenXml.Style;
-using System.Collections.Generic;
-using System.Linq;
-using Fanex.NexHR.Resources;
-
 namespace Fanex.NexHR.Services.ExportExcel
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Fanex.NexHR.Models.Report;
+    using Fanex.NexHR.Resources;
+    using OfficeOpenXml;
+    using OfficeOpenXml.Style;
+
     public class HeadCountReportExcel : ExcelBase
     {
         private readonly HeadCountModel headCountModel;
@@ -67,7 +67,7 @@ namespace Fanex.NexHR.Services.ExportExcel
             worksheet.Cells[rowIndex, colIndex].Value = headCount.Variance;
         }
 
-        private static void RenderSumRow(IList<HeadCount> headCount, ExcelWorksheet templateWorksheet, ExcelWorksheet worksheet, int rowIndex)
+        private static void RenderSumRow(IEnumerable<HeadCount> headCount, ExcelWorksheet templateWorksheet, ExcelWorksheet worksheet, int rowIndex)
         {
             var startCol = 4;
 
@@ -99,7 +99,7 @@ namespace Fanex.NexHR.Services.ExportExcel
             {
                 worksheet.Column(index).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             }
-            for (var index = 0; index < headCountModel.HeadCount.Count; index++)
+            for (var index = 0; index < headCountModel.HeadCount.Count(); index++)
             {
                 DrawBorderCell(worksheet.Cells[RowStartBody + index, 1, RowStartBody + index, TotalCols]);
             }

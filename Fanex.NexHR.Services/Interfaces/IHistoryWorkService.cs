@@ -1,16 +1,17 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.HistoryWork;
     using Fanex.NexHR.ViewModels.Employee;
     using Models;
-    using System.Collections.Generic;
 
     public interface IHistoryWorkService
     {
-        IList<HistoryWork> GetHistoryWorkByEmpId(GetHistoryWorkByEmpIdCriteria criteria);
+        Task<IList<HistoryWork>> GetHistoryWorkByEmpId(GetHistoryWorkByEmpIdCriteria criteria);
 
-        WorkingHistoryViewModel GetHistoryWorkInfo(EditHistoryWorkCriteria criteria);
+        Task<WorkingHistoryViewModel> GetHistoryWorkInfo(EditHistoryWorkCriteria criteria);
 
-        IList<HistoryWork> GetFilterHistoryWork(FilterHistoryWorkCriteria criteria);
+        Task<IList<HistoryWork>> GetFilterHistoryWork(FilterHistoryWorkCriteria criteria);
     }
 }

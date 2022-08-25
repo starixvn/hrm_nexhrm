@@ -1,6 +1,9 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Core.Enums;
     using Criteria.AnnualLeave;
     using Criteria.Employee;
@@ -10,10 +13,6 @@
     using Models.AnnualLeave;
     using Resources;
     using Services.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using ViewModels.AnnualLeave;
 
     public class AnnualLeaveController : BaseController
@@ -124,10 +123,10 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult Create(int employeeId)
+        public async Task<ActionResult> Create(int employeeId)
         {
             var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId };
-            ViewBag.Employee = employeeService.GetEmployeeById(getEmployeeCriteria);
+            ViewBag.Employee = await employeeService.GetEmployeeById(getEmployeeCriteria);
 
             return View(new AddAnnualLeaveTransactionViewModel
             {
@@ -228,14 +227,14 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult Edit(int leaveTransactionId)
+        public async Task<ActionResult> Edit(int leaveTransactionId)
         {
             var criteria = new GetAnnualLeaveByIdCriteria
             {
                 LeaveTransactionId = leaveTransactionId
             };
 
-            AnnualLeaveTransaction leaveTransaction = annualLeaveService.GetAnnualLeaveTransactionById(criteria);
+            AnnualLeaveTransaction leaveTransaction = await annualLeaveService.GetAnnualLeaveTransactionById(criteria);
             var model = new EditAnnualLeaveTransactionViewModel
             {
                 LeaveTransactionId = leaveTransaction.LeaveTransactionId,
@@ -401,14 +400,14 @@
             return View("Employee", model);
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var model = new LeaveSummaryViewModel
             {
                 Year = DateTime.Now.Year,
                 EmployeeId = -1,
-                Teams = teamService.GetTeam(),
-                ShowOpenAndCloseAnnualBalance = GetOpenAndCloseAnnualBalance()
+                Teams = await teamService.GetTeam(),
+                ShowOpenAndCloseAnnualBalance = await GetOpenAndCloseAnnualBalance()
             };
 
             return View("Index", model);
@@ -448,7 +447,7 @@
         }
 
         [HttpPost]
-        public JsonResult LeaveConversionDetail(LeaveConversionDetailViewModel model)
+        public async Task<JsonResult> LeaveConversionDetail(LeaveConversionDetailViewModel model)
         {
             IList<LeaveConversionDetail> leaveConversions = new List<LeaveConversionDetail>();
             if (model != null)
@@ -462,7 +461,7 @@
                     ConversionType = (int)LeaveConversionType.OvertimeConversion
                 };
 
-                leaveConversions = annualLeaveService.GetLeaveConversionDetail(criteria);
+                leaveConversions = await annualLeaveService.GetLeaveConversionDetail(criteria);
             }
 
             return Json(leaveConversions);
@@ -478,7 +477,7 @@
         }
 
         [HttpPost]
-        public JsonResult LeaveDeductionDetail(LeaveConversionDetailViewModel model)
+        public async Task<JsonResult> LeaveDeductionDetail(LeaveConversionDetailViewModel model)
         {
             IList<LeaveConversionDetail> leaveDeductions = new List<LeaveConversionDetail>();
             if (model != null)
@@ -492,7 +491,7 @@
                     ConversionType = (int)LeaveConversionType.LateInEarlyOutDeduction
                 };
 
-                leaveDeductions = annualLeaveService.GetLeaveConversionDetail(criteria);
+                leaveDeductions = await annualLeaveService.GetLeaveConversionDetail(criteria);
             }
 
             return Json(new { data = leaveDeductions });
@@ -567,7 +566,7 @@
 
         private async Task<LeaveConversionDetailViewModel> GetLeaveDetailModel(DateTime fromDate, DateTime toDate, int? employeeId, int? teamId)
         {
-            IList<Team> teams = teamService.GetTeam();
+            IList<Team> teams = await teamService.GetTeam();
 
             var model = new LeaveConversionDetailViewModel
             {
@@ -589,7 +588,7 @@
             return model;
         }
 
-        private ShowOpenAndCloseAnnualBalance GetOpenAndCloseAnnualBalance()
+        private async Task<ShowOpenAndCloseAnnualBalance> GetOpenAndCloseAnnualBalance()
         {
             var criteria = new GetOpenAndCloseAnnualBalanceCriteria
             {
@@ -597,7 +596,7 @@
                 CloseDate = new DateTime(ShowOpenAndCloseAnnualBalance.FromDate.Year, 12, 31)
             };
 
-            ShowOpenAndCloseAnnualBalance model = annualLeaveService.GetOpenAndCloseAnnualBalance(criteria);
+            ShowOpenAndCloseAnnualBalance model = await annualLeaveService.GetOpenAndCloseAnnualBalance(criteria);
 
             return model;
         }

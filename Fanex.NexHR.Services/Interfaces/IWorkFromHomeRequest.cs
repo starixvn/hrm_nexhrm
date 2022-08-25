@@ -1,13 +1,14 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Fanex.NexHR.Criteria.WorkFromHomeRequest;
     using Fanex.NexHR.Models;
 
     public interface IWorkFromHomeRequest
     {
-        IList<WorkFromHomeRequest> GetAll(GetWorkFromHomeRequestCriteria criteria);
+        Task<IEnumerable<WorkFromHomeRequest>> GetAll(GetWorkFromHomeRequestCriteria criteria);
 
-        WorkFromHomeRequest GetById(int id);
+        Task<WorkFromHomeRequest> GetById(int id);
     }
 }

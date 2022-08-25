@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Net;
     using System.Text;
+    using System.Threading.Tasks;
     using Core;
     using Criteria.Memo;
     using Fanex.NexHR.Models.Core;
@@ -30,15 +31,15 @@
             this.emailSettings = emailSettings;
         }
 
-        public IList<Memo> GetAll(GetAllMemoCriteria criteria)
+        public async Task<IEnumerable<Memo>> GetAll(GetAllMemoCriteria criteria)
         {
-            IList<Memo> entityList = baseService.GetData<Memo>(criteria).ToList();
-            return entityList;
+            IEnumerable<Memo> entityList = await baseService.GetDataAsync<Memo>(criteria);
+            return entityList.ToList();
         }
 
-        public Memo GetById(GetMemoByIdCriteria criteria)
+        public async Task<Memo> GetById(GetMemoByIdCriteria criteria)
         {
-            var memo = baseService.GetDataEntity<Memo>(criteria);
+            var memo = await baseService.GetDataEntityAsync<Memo>(criteria);
             if (memo != null && memo.MemoType == 1)
             {
                 string attachFile = memo.Contents;

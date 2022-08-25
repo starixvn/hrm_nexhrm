@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.LeaveType;
     using Interfaces;
     using Models;
@@ -14,10 +15,10 @@
             this.baseService = baseService;
         }
 
-        public IList<LeaveType> GetAll()
+        public async Task<IEnumerable<LeaveType>> GetAll()
         {
             var criteria = new GetLeaveTypeCriteria();
-            IList<LeaveType> leaveTypes = baseService.GetData<LeaveType>(criteria);
+            IEnumerable<LeaveType> leaveTypes = await baseService.GetDataAsync<LeaveType>(criteria);
             return leaveTypes;
         }
     }

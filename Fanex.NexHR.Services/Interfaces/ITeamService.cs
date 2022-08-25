@@ -1,17 +1,18 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.Team;
     using Models;
 
     public interface ITeamService
     {
-        Team GetById(GetTeamByIdCriteria criteria);
+        Task<Team> GetById(GetTeamByIdCriteria criteria);
 
-        IList<Team> GetTeam();
+        Task<IList<Team>> GetTeam();
 
-        IList<Team> GetAll();
+        Task<IList<Team>> GetAll();
 
-        IList<Team> GetTeamManagedByEmp(GetTeamByManagerIdCriteria criteria);
+        Task<IEnumerable<Team>> GetTeamManagedByEmp(GetTeamByManagerIdCriteria criteria);
     }
 }

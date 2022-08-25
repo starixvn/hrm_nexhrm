@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
+    using System.Threading.Tasks;
     using Data;
     using Data.Repository;
     using Interfaces;
@@ -8,18 +9,18 @@
 
     public class NotificationRepository : INotificationRepository
     {
-        public Notification GetViolationByEmpId(ICriteria criteria)
+        public async Task<Notification> GetViolationByEmpId(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var noti = db.QueryEntity<Notification, Employee, Notification>(
+                var noti = await db.QueryEntityAsync<Notification, Employee, Notification>(
                     (notification, employee) =>
                     {
                         notification.Employee = employee;
                         return notification;
                     },
-                        "EmpId",
-                        criteria);
+                    "EmpId",
+                    criteria);
                 return noti;
             }
         }

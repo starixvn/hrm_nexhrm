@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.Team;
     using Interfaces;
     using Models;
@@ -17,30 +18,30 @@
             this.baseService = baseService;
         }
 
-        public Team GetById(GetTeamByIdCriteria criteria)
+        public async Task<Team> GetById(GetTeamByIdCriteria criteria)
         {
             Team team = null;
             if (criteria != null && criteria.IsValid())
             {
-                team = teamRepository.GetById(criteria);
+                team = await teamRepository.GetById(criteria);
             }
 
             return team;
         }
 
-        public IList<Team> GetTeam()
+        public async Task<IList<Team>> GetTeam()
         {
             var criteria = new GetTeamCriteria();
             IList<Team> teams = null;
             if (criteria.IsValid())
             {
-                teams = teamRepository.GetAll(criteria);
+                teams = await teamRepository.GetAll(criteria);
             }
 
             return teams ?? new List<Team>();
         }
 
-        public IList<Team> GetAll()
+        public async Task<IList<Team>> GetAll()
         {
             var criteria = new GetAllTeamCriteria
             {
@@ -49,15 +50,15 @@
             IList<Team> teams = null;
             if (criteria.IsValid())
             {
-                teams = teamRepository.GetAll(criteria);
+                teams = await teamRepository.GetAll(criteria);
             }
 
             return teams ?? new List<Team>();
         }
 
-        public IList<Team> GetTeamManagedByEmp(GetTeamByManagerIdCriteria criteria)
+        public async Task<IEnumerable<Team>> GetTeamManagedByEmp(GetTeamByManagerIdCriteria criteria)
         {
-            IList<Team> teams = baseService.GetData<Team>(criteria);
+            IEnumerable<Team> teams = await baseService.GetDataAsync<Team>(criteria);
             return teams;
         }
     }

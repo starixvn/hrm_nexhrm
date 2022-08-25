@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Criteria.Postnatal;
     using Interfaces;
     using ViewModels.Postnatal;
@@ -15,15 +16,15 @@
             this.baseService = baseService;
         }
 
-        public IList<PostnatalViewModel> GetAll(GetAllPostnatalCriteria criteria)
+        public async Task<IEnumerable<PostnatalViewModel>> GetAll(GetAllPostnatalCriteria criteria)
         {
-            List<PostnatalViewModel> listPostanal = baseService.GetData<PostnatalViewModel>(criteria).ToList();
-            return listPostanal;
+            IEnumerable<PostnatalViewModel> listPostanal = await baseService.GetDataAsync<PostnatalViewModel>(criteria);
+            return listPostanal.ToList();
         }
 
-        public PostnatalViewModel GetById(GetByIdPostnatalCriteria criteria)
+        public async Task<PostnatalViewModel> GetById(GetByIdPostnatalCriteria criteria)
         {
-            PostnatalViewModel detailPostanal = baseService.GetDataEntity<PostnatalViewModel>(criteria);
+            PostnatalViewModel detailPostanal = await baseService.GetDataEntityAsync<PostnatalViewModel>(criteria);
             return detailPostanal;
         }
     }

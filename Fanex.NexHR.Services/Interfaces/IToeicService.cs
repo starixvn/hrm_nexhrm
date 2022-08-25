@@ -1,10 +1,11 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
+    using System.Threading.Tasks;
     using Criteria.Toeic;
     using Models;
 
     public interface IToeicService
     {
-        Toeic GetById(GetToeicScoreByEmployeeIdCriteria criteria);
+        Task<Toeic> GetById(GetToeicScoreByEmployeeIdCriteria criteria);
     }
 }

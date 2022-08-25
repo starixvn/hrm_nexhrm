@@ -539,7 +539,7 @@
 
         public EmployeeAttendanceViewModel EmployeeAttendanceModel { get; set; }
 
-        public IList<LateInEarlyOut.LateInEarlyOutViewModel> NotificationLateInEarlyOutToDay { get; set; }
+        public IEnumerable<LateInEarlyOut.LateInEarlyOutViewModel> NotificationLateInEarlyOutToDay { get; set; }
 
         public string DisplayLateInEarlyOutNotification
         {

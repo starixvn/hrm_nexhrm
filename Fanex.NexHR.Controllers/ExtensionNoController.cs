@@ -1,16 +1,16 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using Criteria.ExtensionNo;
-    using Models;
-    using Services;
-    using Services.Interfaces;
-    using ViewModels.ExtensionNo;
     using System.Collections.Generic;
     using System.Linq;
-    using Microsoft.AspNetCore.Mvc;
-    using Fanex.NexHR.Models.Attributes;
     using System.Net;
+    using System.Threading.Tasks;
+    using Criteria.ExtensionNo;
+    using Fanex.NexHR.Models.Attributes;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
+    using Models;
+    using Services.Interfaces;
+    using ViewModels.ExtensionNo;
 
     public class ExtensionNoController : BaseController
     {
@@ -28,11 +28,11 @@
             this.commandService = commandService;
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             GetAllExtensionNoCriteria criteria = new GetAllExtensionNoCriteria();
-            List<ExtensionNoModel> lstEntity = extensionNoService.GetAllExtensionNo(criteria).ToList();
-            var model = (from item in lstEntity
+            IEnumerable<ExtensionNoModel> lstEntity = await extensionNoService.GetAllExtensionNo(criteria);
+            var model = (from item in lstEntity.ToList()
                          group item by item.TeamName into g
                          select new ExtensionNoViewModel { Name = g.Key, ListExt = g.ToList() }).ToList();
 
@@ -77,20 +77,20 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult EditExtensionNumber(bool isInternal, int empExtId)
+        public async Task<ActionResult> EditExtensionNumber(bool isInternal, int empExtId)
         {
             var criteria = new GetEmployeeExtensionNoByIdCriteria
             {
                 IsInternal = isInternal,
                 EmpExtId = empExtId
             };
-            var model = extensionNoService.GetEmployeeExtensionNoById(criteria);
+            var model = await extensionNoService.GetEmployeeExtensionNoById(criteria);
             var groupCriteria = new GetAllExtensionGroupInfoCriteria
             {
                 IsInternal = isInternal,
                 GroupId = null
             };
-            var group = extensionNoService.GetAllExtensionGroupInfo(groupCriteria);
+            var group = await extensionNoService.GetAllExtensionGroupInfo(groupCriteria);
             ViewBag.Group = group.Select(x => new SelectListItem
             {
                 Text = x.TeamName,
@@ -104,7 +104,7 @@
 
         [HttpPost]
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult EditExtensionNumber(ExtensionNoModel model)
+        public async Task<ActionResult> EditExtensionNumber(ExtensionNoModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -114,7 +114,7 @@
                     IsInternal = model.IsInternal,
                     GroupId = null
                 };
-                var group = extensionNoService.GetAllExtensionGroupInfo(criteria);
+                var group = await extensionNoService.GetAllExtensionGroupInfo(criteria);
                 ViewBag.Group = group.Select(x => new SelectListItem
                 {
                     Text = x.TeamName,
@@ -199,24 +199,24 @@
             return Json(result);
         }
 
-        public ActionResult ManageExternalGroup()
+        public async Task<ActionResult> ManageExternalGroup()
         {
             var criteria = new GetAllExtensionGroupInfoCriteria
             {
                 IsInternal = false,
                 GroupId = null
             };
-            var group = extensionNoService.GetAllExtensionGroupInfo(criteria);
+            var group = await extensionNoService.GetAllExtensionGroupInfo(criteria);
 
             return View(group);
         }
 
-        public JsonResult GetGroupExtension(bool isInternal, int? groupId)
+        public async Task<JsonResult> GetGroupExtension(bool isInternal, int? groupId)
         {
             List<SelectListItem> groupExtensions;
             if (isInternal)
             {
-                IList<Team> teams = teamService.GetTeam();
+                IList<Team> teams = await teamService.GetTeam();
                 groupExtensions = teams.Select(x => new SelectListItem
                 {
                     Text = x.Name,
@@ -230,7 +230,7 @@
                     IsInternal = false,
                     GroupId = groupId
                 };
-                IList<ExtensionNoModel> extensions = extensionNoService.GetAllExtensionGroupInfo(criteria);
+                IEnumerable<ExtensionNoModel> extensions = await extensionNoService.GetAllExtensionGroupInfo(criteria);
                 groupExtensions = extensions.Select(x => new SelectListItem
                 {
                     Text = x.TeamName,

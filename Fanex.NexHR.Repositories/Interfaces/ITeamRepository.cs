@@ -1,13 +1,14 @@
 ﻿namespace Fanex.NexHR.Repositories.Interfaces
 {
-    using System.Collections.Generic;
     using Data.Repository;
     using Models;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public interface ITeamRepository
     {
-        Team GetById(ICriteria criteria);
+        Task<Team> GetById(ICriteria criteria);
 
-        IList<Team> GetAll(ICriteria criteria);
+        Task<IList<Team>> GetAll(ICriteria criteria);
     }
 }

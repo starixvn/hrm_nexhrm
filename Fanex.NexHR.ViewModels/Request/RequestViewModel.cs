@@ -74,9 +74,9 @@
         public IList<RequestEntity> Requests { get; set; }
 
         [Display(Name = "Team")]
-        public IList<Team> Teams { get; set; }
+        public IEnumerable<Team> Teams { get; set; }
 
-        public IList<LeaveType> LeaveTypes { get; set; }
+        public IEnumerable<LeaveType> LeaveTypes { get; set; }
 
         public List<SelectListItem> DateTypes => new List<SelectListItem>
         {

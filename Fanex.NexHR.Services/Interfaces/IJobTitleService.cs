@@ -1,13 +1,14 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.LookupData;
     using Models;
 
     public interface IJobTitleService
     {
-        IList<JobTitle> GetAll();
+        Task<IEnumerable<JobTitle>> GetAll();
 
-        IList<JobTitle> GetJobTitle(GetJobTitleCriteria criteria);
+        Task<IEnumerable<JobTitle>> GetJobTitle(GetJobTitleCriteria criteria);
     }
 }

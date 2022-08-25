@@ -1,10 +1,10 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
-    using Fanex.NexHR.Models.SyncData;
-    using Fanex.NexHR.Models.SyncData.Flow;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Fanex.NexHR.Models.SyncData;
+    using Fanex.NexHR.Models.SyncData.Flow;
 
     public interface ISyncDataService
     {

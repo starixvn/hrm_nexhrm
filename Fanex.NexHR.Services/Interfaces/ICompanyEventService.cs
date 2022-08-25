@@ -1,13 +1,14 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.CompanyEvent;
     using Models.CompanyEvent;
 
     public interface ICompanyEventService
     {
-        IList<CompanyEvent> GetAll(GetAllEventCriteria criteria);
+        Task<IEnumerable<CompanyEvent>> GetAll(GetAllEventCriteria criteria);
 
-        CompanyEvent GetById(GetEventByIdCriteria criteria);
+        Task<CompanyEvent> GetById(GetEventByIdCriteria criteria);
     }
 }

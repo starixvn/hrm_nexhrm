@@ -1,14 +1,12 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using Core.Enums;
     using Criteria.Bio;
     using Criteria.LookupData;
     using Fanex.NexHR.Models.Attributes;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Models;
@@ -143,11 +141,11 @@
             return PartialView("_ListBioTimeChanges", timeChanges);
         }
 
-        public ActionResult Fingerprint()
+        public async Task<ActionResult> Fingerprint()
         {
             var viewModel = new FingerprintAndCardViewModel
             {
-                Teams = teamService.GetAll()
+                Teams = await teamService.GetAll()
             };
             return View(viewModel);
         }

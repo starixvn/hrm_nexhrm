@@ -1,9 +1,9 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
-    using Criteria.Calendar;
-    using Models.Calendar;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Criteria.Calendar;
+    using Models.Calendar;
 
     public interface ICalendarService
     {

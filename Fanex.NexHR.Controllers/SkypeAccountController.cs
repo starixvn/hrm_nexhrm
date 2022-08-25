@@ -29,11 +29,11 @@
             this.commandService = commandService;
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var viewModel = new SkypeAccountFilter
             {
-                Teams = teamService.GetTeam()
+                Teams = await teamService.GetTeam()
             };
 
             return View(viewModel);

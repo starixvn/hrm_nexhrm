@@ -65,9 +65,9 @@
 
         public string CurrentUserEmail { get; set; }
 
-        public IList<LeaveType> LeaveTypes { get; set; }
+        public IEnumerable<LeaveType> LeaveTypes { get; set; }
 
-        public IList<DateTime> UnavailDates { get; set; }
+        public IEnumerable<DateTime> UnavailDates { get; set; }
 
         public bool IsUnpaidLeave => LeaveTypeId == Constants.UnpaidLeaveType;
 

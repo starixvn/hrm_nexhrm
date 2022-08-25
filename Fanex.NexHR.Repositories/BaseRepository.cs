@@ -1,12 +1,12 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
+    using System;
+    using System.Collections;
+    using System.Threading.Tasks;
     using Data;
     using Data.Repository;
     using Interfaces;
     using Models;
-    using System;
-    using System.Collections;
-    using System.Threading.Tasks;
 
     public class BaseRepository : IBaseRepository
     {

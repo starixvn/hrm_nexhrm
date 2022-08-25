@@ -58,76 +58,76 @@
             return lateInEarlyOuts ?? new List<LateInEarlyOutDetail>();
         }
 
-        public IList<RequestsMonitoring> GetRequestMonitoring(GetRequestMonitorReportCriteria criteria)
+        public async Task<IList<RequestsMonitoring>> GetRequestMonitoring(GetRequestMonitorReportCriteria criteria)
         {
             IList<RequestsMonitoring> requestsMonitorings = null;
             if (criteria != null && criteria.IsValid())
             {
-                requestsMonitorings = reportRepository.GetRequestMonitoring(criteria);
+                requestsMonitorings = await reportRepository.GetRequestMonitoring(criteria);
             }
 
             return requestsMonitorings ?? new List<RequestsMonitoring>();
         }
 
-        public IList<TotalWorkingHours> GetTotalWorkingHours(GetTotalWorkingHoursSummaryCriteria criteria)
+        public async Task<IList<TotalWorkingHours>> GetTotalWorkingHours(GetTotalWorkingHoursSummaryCriteria criteria)
         {
             IList<TotalWorkingHours> totalWorkingHours = null;
             if (criteria != null && criteria.IsValid())
             {
-                totalWorkingHours = reportRepository.GetTotalWorkingHours(criteria);
+                totalWorkingHours = await reportRepository.GetTotalWorkingHours(criteria);
             }
 
             return totalWorkingHours ?? new List<TotalWorkingHours>();
         }
 
-        public IList<EmployeeAttendanceModel> GetEmployeeAttendanceReport(GetEmployeeAttendanceReportByTypeCriteria criteria)
+        public async Task<IList<EmployeeAttendanceModel>> GetEmployeeAttendanceReport(GetEmployeeAttendanceReportByTypeCriteria criteria)
         {
             IList<EmployeeAttendanceModel> attendances = null;
             if (criteria != null && criteria.IsValid())
             {
-                attendances = reportRepository.GetEmployeeAttendanceReport(criteria);
+                attendances = await reportRepository.GetEmployeeAttendanceReport(criteria);
             }
 
             return attendances ?? new List<EmployeeAttendanceModel>();
         }
 
-        public IList<LateInEarlyOutDiscipline> GetLateInEarlyOutDiscipline(GetLateInEarlyOutSummaryCriteria criteria)
+        public async Task<IList<LateInEarlyOutDiscipline>> GetLateInEarlyOutDiscipline(GetLateInEarlyOutSummaryCriteria criteria)
         {
             IList<LateInEarlyOutDiscipline> lateInEarlyOuts = null;
             if (criteria != null && criteria.IsValid())
             {
-                lateInEarlyOuts = reportRepository.GetLateInEarlyOutSummary(criteria);
+                lateInEarlyOuts = await reportRepository.GetLateInEarlyOutSummary(criteria);
             }
 
             return lateInEarlyOuts ?? new List<LateInEarlyOutDiscipline>();
         }
 
-        public IList<WorkingHoursStatistic> GetWorkingHoursStatistic(GetWorkingHoursStatisticCriteria criteria)
+        public async Task<IList<WorkingHoursStatistic>> GetWorkingHoursStatistic(GetWorkingHoursStatisticCriteria criteria)
         {
             IList<WorkingHoursStatistic> totalWorkingHours = null;
             if (criteria != null && criteria.IsValid())
             {
-                totalWorkingHours = reportRepository.GetWorkingHoursStatistic(criteria);
+                totalWorkingHours = await reportRepository.GetWorkingHoursStatistic(criteria);
             }
 
             return totalWorkingHours ?? new List<WorkingHoursStatistic>();
         }
 
-        public IList<HeadCount> GetTeamHeadCountInYear(GetHeadCountByYearCriteria criteria)
+        public async Task<IEnumerable<HeadCount>> GetTeamHeadCountInYear(GetHeadCountByYearCriteria criteria)
         {
-            IList<HeadCount> headCount = baseService.GetData<HeadCount>(criteria);
+            IEnumerable<HeadCount> headCount = await baseService.GetDataAsync<HeadCount>(criteria);
             return headCount;
         }
 
-        public IList<YearlyNexRequest> GetYearlyNexRequest(GetYearlyNexRequestCriteria criteria)
+        public async Task<IList<YearlyNexRequest>> GetYearlyNexRequest(GetYearlyNexRequestCriteria criteria)
         {
-            List<YearlyNexRequest> listYearlyNexRequest = new List<YearlyNexRequest>();
+            IList<YearlyNexRequest> listYearlyNexRequest = new List<YearlyNexRequest>();
             if (criteria != null && criteria.IsValid())
             {
-                listYearlyNexRequest = reportRepository.GetYearlyNexRequest(criteria).ToList();
+                listYearlyNexRequest = await reportRepository.GetYearlyNexRequest(criteria);
             }
 
-            return listYearlyNexRequest;
+            return listYearlyNexRequest.ToList();
         }
     }
 }

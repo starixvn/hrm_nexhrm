@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.CompanyEvent;
     using Fanex.NexHR.Models.Attributes;
     using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@
             return View(GetDetail(id));
         }
 
-        public JsonResult GetAllEvents()
+        public async Task<JsonResult> GetAllEvents()
         {
             var firstDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(-6);
 
@@ -44,7 +45,7 @@
                 FromDate = firstDay,
                 ToDate = lastDay
             };
-            IList<CompanyEvent> events = eventService.GetAll(criteria);
+            IEnumerable<CompanyEvent> events = await eventService.GetAll(criteria);
             return Json(events);
         }
 
@@ -145,13 +146,13 @@
             return Json(result);
         }
 
-        private CompanyEvent GetDetail(int id)
+        private async Task<CompanyEvent> GetDetail(int id)
         {
             CompanyEvent model = new CompanyEvent();
             if (id > 0)
             {
                 var criteria = new GetEventByIdCriteria { Id = id };
-                model = eventService.GetById(criteria);
+                model = await eventService.GetById(criteria);
             }
 
             return model;

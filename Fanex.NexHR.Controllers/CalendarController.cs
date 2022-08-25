@@ -1,14 +1,14 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.Calendar;
     using Fanex.NexHR.Models.Attributes;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.Calendar;
     using Services.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
     using ViewModels;
     using ViewModels.Calendar;
 
@@ -92,7 +92,7 @@
                     model.EmployeeId = -1;
                 }
 
-                model.Teams = teamService.GetTeam();
+                model.Teams = await teamService.GetTeam();
                 model.Month = model.Month == 0 ? DateTime.Now.Month : model.Month;
                 model.Year = model.Year == 0 ? DateTime.Now.Year : model.Year;
                 DateTime date = new DateTime(model.Year, model.Month, 1);
@@ -111,7 +111,7 @@
             return View(model);
         }
 
-        public ActionResult LeaveSchedule(WorkingCalendarViewModel model)
+        public async Task<ActionResult> LeaveSchedule(WorkingCalendarViewModel model)
         {
             if (model != null)
             {
@@ -120,7 +120,7 @@
                     model.EmployeeId = -1;
                 }
 
-                model.Teams = teamService.GetTeam();
+                model.Teams = await teamService.GetTeam();
                 model.Month = model.Month == 0 ? DateTime.Now.Month : model.Month;
                 model.Year = model.Year == 0 ? DateTime.Now.Year : model.Year;
             }

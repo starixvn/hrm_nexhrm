@@ -1,13 +1,14 @@
 ﻿namespace Fanex.NexHR.Repositories.Interfaces
 {
-    using System.Collections.Generic;
     using Data.Repository;
     using Models;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public interface IDepartmentRepository
     {
-        IList<Department> GetAll(ICriteria criteria);
+        Task<IList<Department>> GetAll(ICriteria criteria);
 
-        Department GetDepartmentById(ICriteria criteria);
+        Task<Department> GetDepartmentById(ICriteria criteria);
     }
 }

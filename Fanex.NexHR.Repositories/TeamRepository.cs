@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Data;
     using Data.Repository;
     using Interfaces;
@@ -9,11 +10,11 @@
 
     public class TeamRepository : ITeamRepository
     {
-        public Team GetById(ICriteria criteria)
+        public async Task<Team> GetById(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var entity = db.QueryEntity<Team, Team, Department, Employee, Employee, Team>(
+                var entity = await db.QueryEntityAsync<Team, Team, Department, Employee, Employee, Team>(
                     (t, t1, dep, x, y) =>
                     {
                         t.Parent = t1;
@@ -28,11 +29,11 @@
             }
         }
 
-        public IList<Team> GetAll(ICriteria criteria)
+        public async Task<IList<Team>> GetAll(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var entity = db.Query<Team, Employee, Employee, Team>(
+                var entity = await db.QueryAsync<Team, Employee, Employee, Team>(
                    (t, x, y) =>
                    {
                        t.Leader = x;

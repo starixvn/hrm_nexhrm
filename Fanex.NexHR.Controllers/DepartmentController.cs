@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Criteria.Department;
     using Microsoft.AspNetCore.Mvc;
     using Models;
@@ -21,17 +22,17 @@
             this.commandService = commandService;
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            IList<Department> departments = departmentService.GetAll();
+            IList<Department> departments = await departmentService.GetAll();
 
             ViewBag.Departments = departments;
             return View();
         }
 
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            IList<Department> departments = departmentService.GetAll();
+            IList<Department> departments = await departmentService.GetAll();
             ViewBag.Departments = departments;
 
             var model = new DepartmentViewModel();
@@ -39,7 +40,7 @@
         }
 
         [HttpPost]
-        public ActionResult Create(DepartmentViewModel model)
+        public async Task<ActionResult> Create(DepartmentViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -63,15 +64,15 @@
                 }
             }
 
-            IEnumerable<Department> departments = departmentService.GetAll();
+            IEnumerable<Department> departments = await departmentService.GetAll();
             ViewBag.Departments = departments;
 
             return View(model);
         }
 
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            IEnumerable<Department> departments = departmentService.GetAll();
+            IEnumerable<Department> departments = await departmentService.GetAll();
 
             Department department = departments.SingleOrDefault(dep => dep.Id == id);
             ViewBag.Departments = departments.Where(dep => dep.Id != id);
@@ -105,7 +106,7 @@
         }
 
         [HttpPost]
-        public ActionResult Edit(DepartmentViewModel model)
+        public async Task<ActionResult> Edit(DepartmentViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -131,7 +132,7 @@
                 }
             }
 
-            IEnumerable<Department> departments = departmentService.GetAll();
+            IEnumerable<Department> departments = await departmentService.GetAll();
             ViewBag.Departments = departments.Where(dep => model != null && dep.Id != model.DepartmentId);
 
             return View(model);

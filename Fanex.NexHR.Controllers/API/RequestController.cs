@@ -32,7 +32,7 @@
                 NickName = nickName
             };
 
-            var approver = employeeService.GetEmployeeByNickName(criteria);
+            var approver = await employeeService.GetEmployeeByNickName(criteria);
 
             CommandResult result = await requestService.Process(command, requestId, approver.Id);
             return Ok(result);

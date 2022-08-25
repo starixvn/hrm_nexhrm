@@ -96,7 +96,7 @@
         }
 
         [HrmAuthorize(Roles = "AssistantLeader")]
-        public ActionResult Member(RequestViewModel model)
+        public async Task<ActionResult> Member(RequestViewModel model)
         {
             if (model.TeamId == -1)
             {
@@ -119,8 +119,8 @@
 
             model.CurrentPage = Constants.CurrentPage;
             model.ItemsPerPage = Constants.ItemsPerPage;
-            model.Teams = GetTeamByLeaders();
-            model.LeaveTypes = GetLeaveTypes();
+            model.Teams = await GetTeamByLeaders();
+            model.LeaveTypes = await GetLeaveTypes();
 
             return View(model);
         }
@@ -132,9 +132,9 @@
             return PartialView("AllRequest", model);
         }
 
-        public ActionResult EmployeeView(RequestViewModel model)
+        public async Task<ActionResult> EmployeeView(RequestViewModel model)
         {
-            var newModel = GetRequestViewModel(model, RequestViewType.StaffView);
+            var newModel = await GetRequestViewModel(model, RequestViewType.StaffView);
 
             return View("HRView", newModel);
         }
@@ -150,9 +150,9 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult HRView(RequestViewModel model)
+        public async Task<ActionResult> HRView(RequestViewModel model)
         {
-            var newModel = GetRequestViewModel(model, RequestViewType.HRView);
+            var newModel = await GetRequestViewModel(model, RequestViewType.HRView);
 
             return View(newModel);
         }
@@ -213,13 +213,13 @@
             return requestDetail;
         }
 
-        public JsonResult GetUnavailDate(int employeeId)
+        public async Task<JsonResult> GetUnavailDate(int employeeId)
         {
-            IList<DateTime> dates = requestService.GetDisableRequestDate(employeeId, requestId: null);
+            IEnumerable<DateTime> dates = await requestService.GetDisableRequestDate(employeeId, requestId: null);
             return Json(dates.Select(t => t.ToString("dd MMM yyyy")));
         }
 
-        public JsonResult GetDateRange(int employeeId, DateTime fromDate, DateTime toDate, long? requestId)
+        public async Task<JsonResult> GetDateRange(int employeeId, DateTime fromDate, DateTime toDate, long? requestId)
         {
             var getDateRangeCriteria = new GetDateRangeEmployeeCalendarCriteria
             {
@@ -229,7 +229,7 @@
                 RequestId = requestId == 0 ? null : requestId
             };
 
-            DateRange totalDays = requestService.GetDateRange(getDateRangeCriteria);
+            DateRange totalDays = await requestService.GetDateRange(getDateRangeCriteria);
 
             return Json(totalDays.TotalDay);
         }
@@ -263,7 +263,7 @@
             return model;
         }
 
-        private RequestViewModel GetRequestViewModel(RequestViewModel model, RequestViewType requestViewType)
+        private async Task<RequestViewModel> GetRequestViewModel(RequestViewModel model, RequestViewType requestViewType)
         {
             if (model.TeamId == -1)
             {
@@ -278,8 +278,8 @@
             model.CurrentPage = Constants.CurrentPage;
             model.ItemsPerPage = Constants.ItemsPerPage;
             model.Teams = requestViewType == RequestViewType.LeaderView
-                ? GetTeamByLeaders() : teamService.GetTeam();
-            model.LeaveTypes = GetLeaveTypes();
+                ? await GetTeamByLeaders() : await teamService.GetTeam();
+            model.LeaveTypes = await GetLeaveTypes();
 
             return model;
         }
@@ -333,21 +333,21 @@
                 : string.Empty;
         }
 
-        private IList<LeaveType> GetLeaveTypes()
+        private async Task<IEnumerable<LeaveType>> GetLeaveTypes()
         {
-            var leaveTypes = leaveTypeService.GetAll();
-            leaveTypes.Insert(0, new LeaveType { Id = 0, Name = Labels.All });
+            var leaveTypes = await leaveTypeService.GetAll();
+            leaveTypes.ToList().Insert(0, new LeaveType { Id = 0, Name = Labels.All });
 
             return leaveTypes;
         }
 
-        private IList<Team> GetTeamByLeaders()
+        private async Task<IEnumerable<Team>> GetTeamByLeaders()
         {
             var criteria = new GetTeamByManagerIdCriteria
             {
                 ManagerId = CurrentUser.Id
             };
-            var teams = teamService.GetTeamManagedByEmp(criteria);
+            var teams = await teamService.GetTeamManagedByEmp(criteria);
 
             return teams;
         }

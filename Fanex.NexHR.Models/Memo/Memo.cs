@@ -44,7 +44,7 @@
 
         public int Status { get; set; }
 
-        public IList<LookupData> MemoCategories { get; set; }
+        public IEnumerable<LookupData> MemoCategories { get; set; }
 
         public List<SelectListItem> StatusTypes => new List<SelectListItem>
         {

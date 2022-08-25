@@ -34,14 +34,14 @@
             this.baseService = baseService;
         }
 
-        private int GetCurrentRedmineId(string loginName)
+        private async Task<int> GetCurrentRedmineId(string loginName)
         {
             int redmineId = 0;
             var criteria = new GetRedmineUserIdCriteria { LoginName = loginName };
 
             if (criteria.IsValid())
             {
-                var userRedmind = baseService.GetDataEntity<RedmineUser>(criteria);
+                var userRedmind = await baseService.GetDataEntityAsync<RedmineUser>(criteria);
                 redmineId = userRedmind != null ? userRedmind.RedmineId : 0;
             }
 
@@ -59,7 +59,7 @@
 
         private async Task<string> GetCurrentRedmineUser(string domainName)
         {
-            int currentId = GetCurrentRedmineId(domainName);
+            int currentId = await GetCurrentRedmineId(domainName);
 
             var request = CreateRequest(string.Format("/users/{0}.json?offset=0&limit=100", currentId), HttpMethod.Get);
 
@@ -80,7 +80,7 @@
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-            int currentId = GetCurrentRedmineId(domainName);
+            int currentId = await GetCurrentRedmineId(domainName);
 
             string endpoint = string.Format("issues.json?assigned_to_id={0}&status_id={1}&offset=0&limit=100",
                             currentId,
@@ -208,7 +208,7 @@
             return listEntries;
         }
 
-        private IList<DateTime> GetWorkedDatesOfUser(DateTime from, DateTime to, int currentUserId)
+        private async Task<IEnumerable<DateTime>> GetWorkedDatesOfUser(DateTime from, DateTime to, int currentUserId)
         {
             var criteria = new GetWorkedDatesByUserCriteria
             {
@@ -216,19 +216,19 @@
                 FromDate = from,
                 ToDate = to
             };
-            return baseService.GetData<DateTime>(criteria);
+            return await baseService.GetDataAsync<DateTime>(criteria);
         }
 
         public async Task<IList<DateTime>> GetHaveNotLogTimeDates(string domainUser, int currentUserId)
         {
             var toDate = DateTime.Now.AddDays(-1);
             var fromDate = toDate.AddDays(-6);
-            var currentUser = GetCurrentRedmineId(domainUser);
+            var currentUser = await GetCurrentRedmineId(domainUser);
 
             var timeEntries = await GetTimeEntries(currentUser, fromDate, toDate);
 
             var hadLogtimeDates = timeEntries.GroupBy(x => x.SpentOn).Select(d => d.Key).ToList();
-            var onWorkedDates = GetWorkedDatesOfUser(fromDate, toDate, currentUserId).ToList();
+            var onWorkedDates = await GetWorkedDatesOfUser(fromDate, toDate, currentUserId);
 
             return onWorkedDates.Except(hadLogtimeDates).OrderBy(x => x).ToList();
         }
@@ -238,7 +238,7 @@
             var toDate = DateTime.Now.AddDays(-1);
             var fromDate = toDate.AddDays(-6);
             var logtimeDates = await GetTimeEntries(employee.RedmineId, fromDate, toDate);
-            var workingDates = GetWorkedDatesOfUser(fromDate, toDate, employee.EmpId);
+            var workingDates = await GetWorkedDatesOfUser(fromDate, toDate, employee.EmpId);
             var hadLogtimeDates = logtimeDates.GroupBy(x => x.SpentOn).Select(d => d.Key).ToList();
             employee.ForgotLogtimeDates = workingDates.Except(hadLogtimeDates).Distinct().OrderBy(x => x).ToList();
         }
@@ -246,7 +246,7 @@
         public async Task<double> GetTotalSpentHoursOnDate(string domainName, DateTime onDate)
         {
             DateTime toDate = onDate;
-            var currentUserId = GetCurrentRedmineId(domainName);
+            var currentUserId = await GetCurrentRedmineId(domainName);
             var timeEntries = await GetTimeEntries(currentUserId, onDate, toDate);
             return timeEntries.Sum(x => x.Hours);
         }

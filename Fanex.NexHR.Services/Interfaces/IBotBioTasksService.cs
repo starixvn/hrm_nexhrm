@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
-    using Fanex.NexHR.Models;
     using System.Threading.Tasks;
+    using Fanex.NexHR.Models;
 
     public interface IBotBioTasksService
     {
