@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Data;
     using Data.Repository;
     using Interfaces;
@@ -10,11 +11,11 @@
 
     public class AnnualLeaveRepository : IAnnualLeaveRepository
     {
-        public IList<LeaveSummary> GetAnnualLeaveBalance(ICriteria criteria)
+        public async Task<IList<LeaveSummary>> GetAnnualLeaveBalance(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var leaveSummmary = db.Query<LeaveSummary, Employee, Team, LeaveSummary>(
+                var leaveSummmary = await db.QueryAsync<LeaveSummary, Employee, Team, LeaveSummary>(
                      (leave, employee, team) =>
                      {
                          employee.Team = team;
@@ -22,26 +23,26 @@
                          return leave;
                      },
                      "EmpId, GroupId",
-                     criteria).ToList();
+                     criteria);
 
-                return leaveSummmary;
+                return leaveSummmary.ToList();
             }
         }
 
-        public IList<AnnualLeaveTransaction> GetAnnualLeaveTransactions(ICriteria criteria)
+        public async Task<IList<AnnualLeaveTransaction>> GetAnnualLeaveTransactions(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var leaveTransactions = db.Query<AnnualLeaveTransaction, Employee, AnnualLeaveTransaction>(
+                var leaveTransactions = await db.QueryAsync<AnnualLeaveTransaction, Employee, AnnualLeaveTransaction>(
                      (leaveTrans, employee) =>
                      {
                          leaveTrans.Employee = employee;
                          return leaveTrans;
                      },
                      "EmpId",
-                     criteria).ToList();
+                     criteria);
 
-                return leaveTransactions;
+                return leaveTransactions.ToList();
             }
         }
 

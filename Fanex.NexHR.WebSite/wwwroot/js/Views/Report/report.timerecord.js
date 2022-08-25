@@ -19,7 +19,6 @@ function processInOut(inoutType, eventElement) {
 
 function bindMenuIn() {
     $('table#data tbody td a.in-action').on('mouseup', function () {
-        //var $this = $(this);
         recordTimeIdToChange = $(this).data("id");
 
         $.contextMenu({
@@ -55,7 +54,6 @@ function bindMenuIn() {
 
 function bindMenuOut() {
     $('table#data tbody td a.out-action').on('mouseup', function () {
-        //var $this = $(this);
         recordTimeIdToChange = $(this).data("id");
 
         $.contextMenu({

@@ -1,8 +1,13 @@
 @using Fanex.NexHR.Core
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.Models.AnnualLeave
+@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Services.Interfaces
+@inject ISessionService sessionService;
 @model IList<AnnualLeaveTransaction>
-
+@{
+    var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+}
 <table id="data" class="table bordered striped highlight centered table-custom">
     <thead>
         <tr>
@@ -11,8 +16,11 @@
             <th>@Labels.TotalDays</th>
             <th>@Labels.Description</th>
             <th>@Labels.CreatedDate</th>
-            <th>@Labels.Edit</th>
-            <th>@Labels.Delete</th>
+            @if (isHRRole){
+                <th>@Labels.Edit</th>
+                <th>@Labels.Delete</th>
+            }
+            
         </tr>
     </thead>
     @if (Model.Any())
@@ -33,21 +41,24 @@
                         @item.Description
                     </td>
                     <td>@item.CreatedDate.ToShortFormatedDate()</td>
-                    @if (item.RequestId == null)
+                    @if (isHRRole)
                     {
-                        <td>
-                            <a href="@Url.Action("Edit","AnnualLeave", new {leavetransactionId = item.LeaveTransactionId})">@Labels.Edit</a>
-                        </td>
-                        <td title="Delete">
-                            <a href="javascript:;" onclick="deleteLeaveTrans(@item.LeaveTransactionId)">
-                                <i class='mdi mdi-delete mdi-dark'></i>
-                            </a>
-                        </td>
-                    }
-                    else
-                    {
-                        <td>-</td>
-                        <td>-</td>
+                        @if (item.RequestId == null)
+                        {
+                            <td>
+                                <a href="@Url.Action("Edit","AnnualLeave", new {leavetransactionId = item.LeaveTransactionId})">@Labels.Edit</a>
+                            </td>
+                            <td title="Delete">
+                                <a href="javascript:;" onclick="deleteLeaveTrans(@item.LeaveTransactionId)">
+                                    <i class='mdi mdi-delete mdi-dark'></i>
+                                </a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>-</td>
+                            <td>-</td>
+                        }
                     }
                 </tr>
             }

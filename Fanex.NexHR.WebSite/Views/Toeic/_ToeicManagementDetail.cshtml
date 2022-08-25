@@ -3,98 +3,99 @@
 @using Fanex.NexHR.Resources
 @model IList<Employee>
 
-        @if (Model.Any())
-        {
-            var index = 0;
-            foreach(Employee employee in Model) {
-                index++;
-                var expiredDate = employee.ToeicScore.InputDate.HasValue
-                    ? @Extensions.ToDateMonthYearFormatedDate(employee.ToeicScore.InputDate) : "-";
-                var totalScore = employee.ToeicScore.LRTotal.HasValue && employee.ToeicScore.LRTotal.Equals(0)
-                    ? "-" : employee.ToeicScore.LRTotal != null ? employee.ToeicScore.LRTotal.Value.ToString() : "-";
-<tr id="row_@employee.Id">
-    <td>@index</td>
-    <td class="tooltip" title="@employee.FullName">
-        @employee.NickName
-        <input type="hidden" id="NickName" value="@employee.NickName" />
-    </td>
-    <td class="tooltip" title="@employee.Team.Name">
-        @employee.Team.Code
-    </td>
-    <td class="align-left">
-        @if (employee.JobTitle != null)
-        {
-            @employee.JobTitle.Name
-        }
-    </td>
-    <td>
-        @if (employee.ToeicScore.Listening.HasValue && employee.ToeicScore.Listening.Equals(0))
-        {
-            <span>-</span>
-        }
-        else
-        {
-            <span>@employee.ToeicScore.Listening</span>
-        }
-    </td>
-    <td>
-        @if (employee.ToeicScore.Reading.HasValue && employee.ToeicScore.Reading.Equals(0))
-        {
-            <span>-</span>
-        }
-        else
-        {
-            <span>@employee.ToeicScore.Reading</span>
-        }
-    </td>
-    <td class=@(employee.ToeicScore.IsWarningMinimumScore ? "expired-date" : string.Empty)>@totalScore</td>
-    <td>
-        @if (employee.ToeicScore.LRExamDate.HasValue)
-        {
-            @employee.ToeicScore.LRExamDate.Value.ToDateMonthYearFormatedDate()
-        }
-        else
-        {
-            <span>-</span>
-        }
-    </td>
-    <td class=@(employee.ToeicScore.IsWarningExpiredDate ? "expired-date" : string.Empty)>@expiredDate</td>
-    @if (ViewBag.HasHRRole)
+@if (Model.Any())
+{
+    var index = 0;
+    foreach (Employee employee in Model)
     {
-        <td>
-            @if (employee.ToeicScore.MinimumScore.HasValue && employee.ToeicScore.MinimumScore.Value != 0)
+        index++;
+        var expiredDate = employee.ToeicScore.InputDate.HasValue
+            ? @Extensions.ToDateMonthYearFormatedDate(employee.ToeicScore.InputDate) : "-";
+        var totalScore = employee.ToeicScore.LRTotal.HasValue && employee.ToeicScore.LRTotal.Equals(0)
+            ? "-" : employee.ToeicScore.LRTotal != null ? employee.ToeicScore.LRTotal.Value.ToString() : "-";
+        <tr id="row_@employee.Id">
+            <td>@index</td>
+            <td class="tooltip" title="@employee.FullName">
+                @employee.NickName
+                <input type="hidden" id="NickName" value="@employee.NickName" />
+            </td>
+            <td class="tooltip" title="@employee.Team.Name">
+                @employee.Team.Code
+            </td>
+            <td class="align-left">
+                @if (employee.JobTitle != null)
+                {
+                    @employee.JobTitle.Name
+                }
+            </td>
+            <td>
+                @if (employee.ToeicScore.Listening.HasValue && employee.ToeicScore.Listening.Equals(0))
+                {
+                    <span>-</span>
+                }
+                else
+                {
+                    <span>@employee.ToeicScore.Listening</span>
+                }
+            </td>
+            <td>
+                @if (employee.ToeicScore.Reading.HasValue && employee.ToeicScore.Reading.Equals(0))
+                {
+                    <span>-</span>
+                }
+                else
+                {
+                    <span>@employee.ToeicScore.Reading</span>
+                }
+            </td>
+            <td class=@(employee.ToeicScore.IsWarningMinimumScore ? "expired-date" : string.Empty)>@totalScore</td>
+            <td>
+                @if (employee.ToeicScore.LRExamDate.HasValue)
+                {
+                    @employee.ToeicScore.LRExamDate.Value.ToDateMonthYearFormatedDate()
+                }
+                else
+                {
+                    <span>-</span>
+                }
+            </td>
+            <td class=@(employee.ToeicScore.IsWarningExpiredDate ? "expired-date" : string.Empty)>@expiredDate</td>
+            @if (ViewBag.HasHRRole)
             {
-                <span>@employee.ToeicScore.MinimumScore</span>
-            }
-            else
-            {
-                <span>-</span>
-            }
-        </td>
-        <td>
-            @if (employee.IsDeleted)
-            {
-                <span>-</span>
-            }
-            else
-            {
-                <a href="javascript:;" data-nickname="@employee.NickName.ToString()" id="@employee.Id" onclick="editTOEIC(@employee.Id);">
-                    <i class="mdi mdi-border-color mdi-dark"></i>
-                </a>
-            }
-        </td>
-    }
-</tr>
-            }
-        }
-        else
-        {
-            <tr>
-                <td colspan="13"></td>
-            </tr>
-            <tr>
-                <td colspan="13" rowspan="2">
-                    @Messages.NoInformation
+                <td>
+                    @if (employee.ToeicScore.MinimumScore.HasValue && employee.ToeicScore.MinimumScore.Value != 0)
+                    {
+                        <span>@employee.ToeicScore.MinimumScore</span>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
                 </td>
-            </tr>
-        }
+                <td>
+                    @if (employee.IsDeleted)
+                    {
+                        <span>-</span>
+                    }
+                    else
+                    {
+                        <a href="javascript:;" data-nickname="@employee.NickName.ToString()" id="@employee.Id" onclick="editTOEIC(@employee.Id);">
+                            <i class="mdi mdi-border-color mdi-dark"></i>
+                        </a>
+                    }
+                </td>
+            }
+        </tr>
+    }
+}
+else
+{
+    <tr>
+        <td colspan="13"></td>
+    </tr>
+    <tr>
+        <td colspan="13" rowspan="2">
+            @Messages.NoInformation
+        </td>
+    </tr>
+}

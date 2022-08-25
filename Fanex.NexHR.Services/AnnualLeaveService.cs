@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.AnnualLeave;
     using Interfaces;
     using Models.AnnualLeave;
@@ -17,12 +18,12 @@
             this.baseService = baseService;
         }
 
-        public IList<LeaveSummary> GetAnnualLeaveBalance(GetAnnualLeaveSummaryCriteria criteria)
+        public async Task<IList<LeaveSummary>> GetAnnualLeaveBalance(GetAnnualLeaveSummaryCriteria criteria)
         {
             IList<LeaveSummary> leaveSummary = null;
             if (criteria != null && criteria.IsValid())
             {
-                leaveSummary = annualLeaveRepository.GetAnnualLeaveBalance(criteria);
+                leaveSummary = await annualLeaveRepository.GetAnnualLeaveBalance(criteria);
             }
 
             return leaveSummary ?? new List<LeaveSummary>();
@@ -39,16 +40,30 @@
             return showOpenAndCloseAnnualBalance;
         }
 
-        public IList<AnnualLeaveTransaction> GetAnnualLeaveTransactions(GetAnnualLeaveTransactionCriteria criteria)
+        public async Task<IList<AnnualLeaveTransaction>> GetAnnualLeaveTransactions(GetAnnualLeaveTransactionCriteria criteria)
         {
             IList<AnnualLeaveTransaction> annualLeaves = null;
             if (criteria != null && criteria.IsValid())
             {
-                annualLeaves = annualLeaveRepository.GetAnnualLeaveTransactions(criteria);
+                annualLeaves = await annualLeaveRepository.GetAnnualLeaveTransactions(criteria);
             }
 
             return annualLeaves ?? new List<AnnualLeaveTransaction>();
         }
+
+        public async Task<IList<AnnualLeaveTransaction>> GetAnnualLeaveTransactionsByYear(GetAnnualLeaveTransactionByYearCriteria criteria)
+        {
+            IList<AnnualLeaveTransaction> annualLeaves = null;
+            if (criteria != null && criteria.IsValid())
+            {
+                annualLeaves = await annualLeaveRepository.GetAnnualLeaveTransactions(criteria);
+            }
+
+            return annualLeaves ?? new List<AnnualLeaveTransaction>();
+        }
+
+
+        
 
         public AnnualLeaveTransaction GetAnnualLeaveTransactionById(GetAnnualLeaveByIdCriteria criteria)
         {

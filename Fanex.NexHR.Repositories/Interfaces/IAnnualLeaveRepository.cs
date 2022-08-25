@@ -1,14 +1,15 @@
 ﻿namespace Fanex.NexHR.Repositories.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Data.Repository;
     using Models.AnnualLeave;
 
     public interface IAnnualLeaveRepository
     {
-        IList<LeaveSummary> GetAnnualLeaveBalance(ICriteria criteria);
+        Task<IList<LeaveSummary>> GetAnnualLeaveBalance(ICriteria criteria);
 
-        IList<AnnualLeaveTransaction> GetAnnualLeaveTransactions(ICriteria criteria);
+        Task<IList<AnnualLeaveTransaction>> GetAnnualLeaveTransactions(ICriteria criteria);
 
         AnnualLeaveTransaction GetAnnualLeaveTransactionById(ICriteria criteria);
 

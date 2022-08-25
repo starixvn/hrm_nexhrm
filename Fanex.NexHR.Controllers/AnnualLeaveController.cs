@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Core.Enums;
     using Criteria.AnnualLeave;
     using Criteria.Employee;
@@ -356,7 +357,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public ActionResult Employee(AnnualLeaveBalanceViewModel model)
+        public async Task<ActionResult> Employee(AnnualLeaveBalanceViewModel model)
         {
             IList<AnnualLeaveTransaction> annualLeaveTransactions = new List<AnnualLeaveTransaction>();
             if (model != null)
@@ -368,7 +369,7 @@
                     ExcludedRequestTransactions = model.ExcludedRequestTrans
                 };
 
-                annualLeaveTransactions = annualLeaveService.GetAnnualLeaveTransactions(criteria);
+                annualLeaveTransactions = await annualLeaveService.GetAnnualLeaveTransactions(criteria);
             }
 
             return PartialView("_Employee", annualLeaveTransactions);
@@ -413,9 +414,10 @@
         }
 
         [HttpPost]
-        public ActionResult Index(LeaveSummaryViewModel model)
+        public async Task<ActionResult> Index(LeaveSummaryViewModel model)
         {
             IList<LeaveSummary> leaveSummary = new List<LeaveSummary>();
+            IList<AnnualLeaveTransaction> annualLeaveTransactions = new List<AnnualLeaveTransaction>();
             if (model != null)
             {
                 var getAnnualLeaveCriteria = new GetAnnualLeaveSummaryCriteria
@@ -425,11 +427,23 @@
                     Year = model.Year,
                     MinAnnualBalance = model.MinAnnualBalance
                 };
-                leaveSummary = annualLeaveService.GetAnnualLeaveBalance(getAnnualLeaveCriteria);
+                leaveSummary = await annualLeaveService.GetAnnualLeaveBalance(getAnnualLeaveCriteria);
+                var criteria = new GetAnnualLeaveTransactionByYearCriteria
+                {
+                    Year = model.Year
+                };
+
+                annualLeaveTransactions = await annualLeaveService.GetAnnualLeaveTransactionsByYear(criteria);
                 ViewBag.Year = model.Year;
             }
 
-            return PartialView("_Index", leaveSummary);
+            var leaveSummaryTransactions = new LeaveSummaryTransactions
+            {
+                leaveSummaries = leaveSummary,
+                annualLeaveTransactions = annualLeaveTransactions
+            };
+
+            return PartialView("_Index", leaveSummaryTransactions);
         }
 
         [HttpPost]
@@ -524,7 +538,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult ResetAnnualLeaves(int minbalance, string descriptionReset)
+        public async Task<JsonResult> ResetAnnualLeaves(int minbalance, string descriptionReset)
         {
             var getAnnualLeaveCriteria = new GetAnnualLeaveSummaryCriteria
             {
@@ -533,7 +547,8 @@
                 Year = ShowOpenAndCloseAnnualBalance.FromDate.Year
             };
 
-            IList<LeaveSummary> leaveSummaries = annualLeaveService.GetAnnualLeaveBalance(getAnnualLeaveCriteria).Where(m => m.LeaveBalance > minbalance).ToList();
+            IList<LeaveSummary> leaveSummaries = await annualLeaveService.GetAnnualLeaveBalance(getAnnualLeaveCriteria);
+            var leaveSummariesFilter = leaveSummaries.Where(m => m.LeaveBalance > minbalance).ToList();
 
             var resetAnnualLeaves = new ResetAnnualLeavesCriteria
             {
@@ -541,7 +556,7 @@
                 FromDate = new DateTime(ShowOpenAndCloseAnnualBalance.FromDate.Year, 12, 31),
                 ResetDays = minbalance,
                 CreatedBy = CurrentUser.Id,
-                LeaveSummaries = leaveSummaries
+                LeaveSummaries = leaveSummariesFilter
             };
 
             CommandResult result = commandService.ExecuteNonQuery(resetAnnualLeaves);
