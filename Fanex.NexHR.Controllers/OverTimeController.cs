@@ -23,17 +23,20 @@
         private readonly IEmployeeService employeeService;
         private readonly ICommandService commandService;
         private readonly ITeamService teamService;
+        private readonly IBaseService baseService;
 
         public OvertimeController(ISessionService sessionService,
             IOvertimeService service,
             IEmployeeService employeeService,
             ICommandService commandService,
-            ITeamService teamService) : base(sessionService)
+            ITeamService teamService,
+            IBaseService baseService) : base(sessionService)
         {
             overtimeService = service;
             this.employeeService = employeeService;
             this.commandService = commandService;
             this.teamService = teamService;
+            this.baseService = baseService;
         }
 
         public ActionResult Index(int chosenTab = 0)
@@ -408,10 +411,10 @@
                     Description = string.IsNullOrEmpty(model.Description) ? string.Empty : model.Description,
                     CreatedBy = CurrentUser.Id
                 };
-                result = commandService.ExecuteNonQuery(criteria);
+                result = await baseService.ExecuteNonQueryAsync(criteria);
                 if (result.IsSuccessful)
                 {
-                    await overtimeService.SendMailForTransferNexBalance("NEX balance Notification", model).ConfigureAwait(false);
+                    await overtimeService.SendMailForTransferNexBalance("NEX balance Notification", model);
                 }
             }
             else

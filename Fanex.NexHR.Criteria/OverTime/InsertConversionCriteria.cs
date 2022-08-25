@@ -3,7 +3,7 @@
     using Data.Repository;
     using System;
 
-    public class InsertConversionCriteria : CriteriaBase
+    public class InsertConversionCriteria : BaseCommand
     {
         public int CreatedBy { get; set; }
 
