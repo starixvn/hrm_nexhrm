@@ -27,7 +27,7 @@
         public const string EmailTemplatePathForOvertimeRequest = "app_data\\emails\\Overtime.Request.cshtml";
         public const string EmailTemplatePathForOvertimeApprovalNotification = "app_data\\emails\\OvertimeApprovalNotification.cshtml";
         public const string EmailTemplatePathForOvertimeNotification = "app_data\\emails\\OvertimeNotification.cshtml";
-        public const string EmailTemplatePathForOvertimeConversion = "app_data\\emails\\Overtime.Conversion.cshtml";
+        public const string EmailTemplatePathForOvertimeConversion = "EmailTemplates\\Overtime.Conversion.txt";
         public const string EmailTemplatePathForTOEICScoreUpdatedNotification = "app_data\\emails\\TOEICScoreUpdatedNotification.cshtml";
         public const string EmailTemplatePathForSuccessUpdateEmployee = "app_data\\emails\\SuccessUpdateEmployee.cshtml";
         public const string EmailTemplatePathForReminderBirthday = "app_data\\emails\\ReminderBirthday.cshtml";

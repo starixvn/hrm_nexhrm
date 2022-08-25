@@ -143,7 +143,7 @@
             };
             var receiver = await baseService.GetDataEntityAsync<Employee>(getEmployeeCriteria);
 
-            var templatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForOvertimeConversion);
+            var templatePath = Path.Combine(environment.ContentRootPath, Constants.EmailTemplatePathForOvertimeConversion);
             var bodyTemplate = Utilities.ReadTextFile(templatePath);
             var body = string.Format(
                     bodyTemplate,

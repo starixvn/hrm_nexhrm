@@ -13,6 +13,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="EmailTemplates\Overtime.Conversion.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="EmailTemplates\Overtime.Conversion.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="compilerconfig.json" />
     <None Include="wwwroot\avatars\avatar.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
