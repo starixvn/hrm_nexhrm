@@ -310,9 +310,9 @@
 
                 if (model.IsUnpaidLeave || model.IsAnnualLeaveOver5Day)
                 {
-                    IList<Employee> managers = baseService.GetData<Employee>(new GetManagementsCriteria()).ToList();
+                    IEnumerable<Employee> managers = await baseService.GetDataAsync<Employee>(new GetManagementsCriteria());
 
-                    SendMailToManagers(managers, leaders.ToList(), model, forDate);
+                    SendMailToManagers(managers.ToList(), leaders.ToList(), model, forDate);
                 }
                 else
                 {
@@ -420,7 +420,7 @@
                     EmployeeId = model.EmployeeId
                 };
 
-                leaders = baseService.GetData<Employee>(criteria);
+                leaders = await baseService.GetDataAsync<Employee>(criteria);
             }
 
             return leaders;
@@ -506,12 +506,12 @@
 
             if (command == Command.Approve.EnumToString())
             {
-                SendMailToRelatedPeople(request, templateLeaveEmailToRelatedPath, templateInOutEmailToRelatedPath);
+                await SendMailToRelatedPeople(request, templateLeaveEmailToRelatedPath, templateInOutEmailToRelatedPath);
             }
 
             if (command == Command.Disapprove.EnumToString())
             {
-                SendMailForHR(request, templateLeaveEmailToHR);
+                await SendMailForHR(request, templateLeaveEmailToHR);
             }
         }
 
@@ -590,10 +590,10 @@
             }
         }
 
-        private void SendMailForHR(RequestEntity request,
+        private async Task SendMailForHR(RequestEntity request,
             string templateLeaveEmailToHR)
         {
-            IList<Employee> HRs = baseService.GetData<Employee>(new GetHRCriteria()).ToList();
+            IEnumerable<Employee> HRs = await baseService.GetDataAsync<Employee>(new GetHRCriteria());
 
             var sendTo = string.Join(";", HRs.Select(t => t.Email));
             var subject = string.Format(

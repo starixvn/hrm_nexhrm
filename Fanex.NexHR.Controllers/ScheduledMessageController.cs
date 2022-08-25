@@ -62,7 +62,7 @@
         public async Task<ActionResult> Create()
         {
             var conversations = await scheduledMessageService.GetConversationsAsync(CurrentUser.Id).ConfigureAwait(false);
-            var repeatTypes = baseService.GetData<CronExpression>(new GetRepeatTypesCriteria());
+            var repeatTypes = await baseService.GetDataAsync<CronExpression>(new GetRepeatTypesCriteria());
 
             var viewModel = new CreateScheduledMessageViewModel
             {
@@ -142,7 +142,7 @@
         {
             var conversations = await scheduledMessageService.GetConversationsAsync(CurrentUser.Id).ConfigureAwait(false);
             var scheduledMessage = await scheduledMessageService.GetScheduledMessageAsync(id).ConfigureAwait(false);
-            var repeatTypes = baseService.GetData<CronExpression>(new GetRepeatTypesCriteria());
+            var repeatTypes = await baseService.GetDataAsync<CronExpression>(new GetRepeatTypesCriteria());
 
             var viewModel = new EditScheduledMessageViewModel
             {

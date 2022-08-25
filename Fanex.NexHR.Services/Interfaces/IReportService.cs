@@ -10,7 +10,7 @@
     {
         Task<IList<TimeRecord>> GetTimeRecords(GetTimeRecordCriteria criteria);
 
-        bool GetIsPrivilegeCreateCheckInOut(GetPrivilegeCreateCheckInOutRecordCriteria criteria);
+        Task<bool> GetIsPrivilegeCreateCheckInOut(GetPrivilegeCreateCheckInOutRecordCriteria criteria);
 
         Task<IList<LateInEarlyOutModel>> GetLateInEarlyOut(GetLateInEarlyOutReportCriteria criteria);
 

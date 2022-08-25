@@ -152,7 +152,7 @@
             Task.Factory.StartNew(async () =>
             {
                 await requestService.SendMailForLeave(model);
-                nexbotService.SendMessageForLeaveRequest(model);
+                await nexbotService.SendMessageForLeaveRequest(model);
             });
         }
 

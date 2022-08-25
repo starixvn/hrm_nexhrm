@@ -87,7 +87,7 @@
             model.EmployeeAttendanceModel = empAttendance;
             model.NotificationLateInEarlyOutToDay = await GetLateInEarlyOutNotification();
             model.IsLoadTeamWorkload = IsLoadTeamWorkload();
-            model.IsHavePrivilegeCreateCheckInOutRecord = IsPrivilegeCreateCheckInOut();
+            model.IsHavePrivilegeCreateCheckInOutRecord = await IsPrivilegeCreateCheckInOut();
 
             return View(model);
         }
@@ -279,14 +279,14 @@
             return Array.IndexOf(appSetting.IgnoreTeamWorkload.Split(','), CurrentUser.Team.Code) < 0 && CurrentUserSetting.DisplayTeamWorkload;
         }
 
-        private bool IsPrivilegeCreateCheckInOut()
+        private async Task<bool> IsPrivilegeCreateCheckInOut()
         {
             var criteria = new GetPrivilegeCreateCheckInOutRecordCriteria
             {
                 EmpId = CurrentUser.Id
             };
 
-            var isPrivilegeCreateCheckInOut = reportService.GetIsPrivilegeCreateCheckInOut(criteria);
+            var isPrivilegeCreateCheckInOut = await reportService.GetIsPrivilegeCreateCheckInOut(criteria);
             return isPrivilegeCreateCheckInOut;
         }
     }

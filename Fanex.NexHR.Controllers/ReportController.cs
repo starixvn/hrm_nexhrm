@@ -149,13 +149,13 @@
             return Json(employeeAttendances);
         }
 
-        public ActionResult Timesheet()
+        public async Task<ActionResult> Timesheet()
         {
             var model = new TimesheetViewModel
             {
                 Year = DateTime.Now.Year,
                 EmpId = CurrentUser.Id,
-                IsHavePrivilegeCreateCheckInOutRecord = IsPrivilegeCreateCheckInOut()
+                IsHavePrivilegeCreateCheckInOutRecord = await IsPrivilegeCreateCheckInOut()
             };
 
             return View(model);
@@ -224,14 +224,14 @@
             return clientIP;
         }
 
-        private bool IsPrivilegeCreateCheckInOut()
+        private async Task<bool> IsPrivilegeCreateCheckInOut()
         {
             var criteria = new GetPrivilegeCreateCheckInOutRecordCriteria
             {
                 EmpId = CurrentUser.Id
             };
 
-            var isPrivilegeCreateCheckInOut = reportService.GetIsPrivilegeCreateCheckInOut(criteria);
+            var isPrivilegeCreateCheckInOut = await reportService.GetIsPrivilegeCreateCheckInOut(criteria);
             return isPrivilegeCreateCheckInOut;
         }
 

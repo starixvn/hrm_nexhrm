@@ -29,9 +29,9 @@
             return View();
         }
 
-        public ActionResult Detail(int id)
+        public async Task<ActionResult> Detail(int id)
         {
-            return View(GetDetail(id));
+            return View(await GetDetail(id));
         }
 
         public async Task<JsonResult> GetAllEvents()
@@ -92,9 +92,9 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View(GetDetail(id));
+            return View(await GetDetail(id));
         }
 
         [HrmAuthorize(Roles = "HR")]

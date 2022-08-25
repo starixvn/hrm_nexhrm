@@ -260,7 +260,7 @@
             {
                 EmployeeId = createdBy
             };
-            var creator = baseService.GetDataEntity<Employee>(getEmployeeCriteria);
+            var creator = await baseService.GetDataEntityAsync<Employee>(getEmployeeCriteria);
             var body = string.Format(
                     bodyTemplate,
                     "all",

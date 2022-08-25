@@ -31,9 +31,9 @@
             return timeRecords ?? new List<TimeRecord>();
         }
 
-        public bool GetIsPrivilegeCreateCheckInOut(GetPrivilegeCreateCheckInOutRecordCriteria criteria)
+        public async Task<bool> GetIsPrivilegeCreateCheckInOut(GetPrivilegeCreateCheckInOutRecordCriteria criteria)
         {
-            return baseService.GetDataEntity<bool>(criteria);
+            return await baseService.GetDataEntityAsync<bool>(criteria);
         }
 
         public async Task<IList<LateInEarlyOutModel>> GetLateInEarlyOut(GetLateInEarlyOutReportCriteria criteria)

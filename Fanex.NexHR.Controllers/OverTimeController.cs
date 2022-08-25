@@ -359,13 +359,13 @@
             return PartialView("_ListOvertimeSummary", listSummary);
         }
 
-        public ActionResult OvertimeConversionDetail(
+        public async Task<ActionResult> OvertimeConversionDetail(
             DateTime fromDate,
             DateTime toDate,
             int? employeeId = null,
             int? teamId = null)
         {
-            return View(GetOTConversionDetailModel(fromDate, toDate, employeeId, teamId));
+            return View(await GetOTConversionDetailModel(fromDate, toDate, employeeId, teamId));
         }
 
         [HttpPost]
