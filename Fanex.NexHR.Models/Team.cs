@@ -13,6 +13,8 @@ namespace Fanex.NexHR.Models
 
     public class Team : EntityBase<int>
     {
+        public int TeamId { get; set; }
+
         public Department Department { get; set; }
 
         public Team Parent { get; set; }

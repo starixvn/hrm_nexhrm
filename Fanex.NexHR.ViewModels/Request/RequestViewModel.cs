@@ -110,9 +110,9 @@
             {
                 var item = new SelectListItem
                 {
-                    Value = team.Id.ToString(),
+                    Value = team.TeamId.ToString(),
                     Text = team.Name,
-                    Selected = teamId == team.Id
+                    Selected = teamId == team.TeamId
                 };
 
                 selecListItemTeam.Add(item);

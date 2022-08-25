@@ -97,11 +97,23 @@ function bindMenuApproved() {
 
 function query(isFirstLoad) {   // jshint ignore:line
     var action = $('.card-container-base .form').find('#ActionName').val();
+
+    const queryString = window.location.search;
+    if (queryString && isFirstLoad) {
+        initDataFirstQuery(queryString);
+    }
+    var data = $('.card-container-base form.form-filter').serialize();
+
+    var url = _global.root + 'request/' + action + "?" + data ;
+    if (!isFirstLoad) {
+        var orgUrl = _global.root + 'request/member?' + data + "&Flag=1";
+        window.history.replaceState(null, null, orgUrl);
+    }
+
     $.ajax({
-        url: _global.root + 'request/' + action,
+        url: url,
         type: 'GET',
         dataType: 'html',
-        data: $('.card-container-base form.form-filter').serialize(),
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
@@ -166,6 +178,40 @@ function query(isFirstLoad) {   // jshint ignore:line
             }
         }
     });
+}
+
+function initDataFirstQuery(queryString) {
+    var urlParams = new URLSearchParams(queryString);
+    var dateOption = urlParams.get('DateOption');
+    var fromDate = urlParams.get('FromDate');
+    var toDate = urlParams.get('ToDate');
+    var isFilterByEffectedDate = urlParams.get('IsFilterByEffectedDate');
+    var teamId = urlParams.get('TeamId');
+    var statusId = urlParams.get('statusId');
+    var employee = urlParams.get('Employee');
+    var employeeId = urlParams.get('EmployeeId');
+    var leaveTypeId = urlParams.get('LeaveTypeId');
+    var requestType = urlParams.get('RequestType');
+    var itemsPerPage = urlParams.get('ItemsPerPage');
+    var currentPage = urlParams.get('CurrentPage');
+    var requestViewType = urlParams.get('RequestViewType');
+    var flag = urlParams.get('Flag');
+
+    if (flag == "1") {
+        $("#DateOption").val(dateOption);
+        $("#FromDate").val(fromDate);
+        $("#ToDate").val(toDate);
+        $("#IsFilterByEffectedDate").val(isFilterByEffectedDate);
+        $("#TeamId").val(teamId);
+        $("#statusId").val(statusId);
+        $("#Employee").val(employee);
+        $("#EmployeeId").val(employeeId);
+        $("#LeaveTypeId").val(leaveTypeId);
+        $("#RequestType").val(requestType);
+        $("#ItemsPerPage").val(itemsPerPage);
+        $("#CurrentPage").val(currentPage);
+        $("#RequestViewType").val(requestViewType);
+    }
 }
 
 function initApproveMultiEvent() {
