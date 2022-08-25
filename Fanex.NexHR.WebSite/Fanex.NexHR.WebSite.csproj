@@ -14,11 +14,6 @@
 
   <ItemGroup>
     <None Remove="EmailTemplates\CheckInOut.Request.txt" />
-    <None Remove="EmailTemplates\Overtime.Conversion.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="EmailTemplates\Overtime.Conversion.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -524,6 +519,9 @@
 
   <ItemGroup>
     <None Update="App_Data\SpNames.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="EmailTemplates\Overtime.Conversion.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="ExcelTemplates\DayOffSchedule.xlsx">
