@@ -70,7 +70,7 @@
             var groupGo = emailSettings.EmailGo;
             var groupNetwork = emailSettings.EmailNetwork;
 
-            var emailTemplatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForMemoNotification);
+            var emailTemplatePath = Path.Combine(environment.ContentRootPath, Constants.EmailTemplatePathForMemoNotification);
             var bodyTemplate = Utilities.ReadTextFile(emailTemplatePath);
             string companyMailSign = emailSettings.CompanyMailSign;
 

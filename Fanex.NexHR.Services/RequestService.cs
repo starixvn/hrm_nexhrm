@@ -163,10 +163,10 @@
             CommandResult result = await baseService.ExecuteNonQueryAsync(processRequestCriteria);
             if (result.IsSuccessful)
             {
-                string templateEmailToRequester = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForRequester);
-                string templateLeaveEmailToRelated = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForLeaveApproved);
-                string templateLeaveEmailToHR = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForLeaveDisApproved);
-                string templateInOutEmailToRelated = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForCheckInOutApproved);
+                string templateEmailToRequester = Path.Combine(environment.ContentRootPath, Constants.EmailTemplatePathForRequester);
+                string templateLeaveEmailToRelated = Path.Combine(environment.ContentRootPath, Constants.EmailTemplatePathForLeaveApproved);
+                string templateLeaveEmailToHR = Path.Combine(environment.ContentRootPath, Constants.EmailTemplatePathForLeaveDisApproved);
+                string templateInOutEmailToRelated = Path.Combine(environment.ContentRootPath, Constants.EmailTemplatePathForCheckInOutApproved);
 
                 RunBackgroundJobs(
                     new[] {

@@ -25,7 +25,7 @@
 
         public void SendMailUpdateSuccess(Employee employee)
         {
-            var templatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForSuccessUpdateEmployee);
+            var templatePath = Path.Combine(environment.ContentRootPath, Constants.EmailTemplatePathForSuccessUpdateEmployee);
             var bodyTemplate = Utilities.ReadTextFile(templatePath);
             var emailContent = string.Format(
                 bodyTemplate,

@@ -353,7 +353,7 @@
                 OldTotal = GetDisplayScore(oldScore.LRTotal)
             };
 
-            var templatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForTOEICScoreUpdatedNotification);
+            var templatePath = Path.Combine(environment.ContentRootPath, Constants.EmailTemplatePathForTOEICScoreUpdatedNotification);
 
             var body = Utilities.ReadTextFile(templatePath);
 

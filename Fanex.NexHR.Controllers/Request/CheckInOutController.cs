@@ -142,7 +142,7 @@
 
         private void SendEmailAndSkype(CheckInOutRequestViewModel model)
         {
-            model.EmailTemplatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForCheckInOut);
+            model.EmailTemplatePath = Path.Combine(environment.ContentRootPath, Constants.EmailTemplatePathForCheckInOut);
             Task.Factory.StartNew(async () =>
             {
                 var leaders = await requestService.GetLeaderForCheckInOut(model);

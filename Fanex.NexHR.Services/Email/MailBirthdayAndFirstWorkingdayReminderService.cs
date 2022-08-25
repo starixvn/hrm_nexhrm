@@ -102,7 +102,7 @@
                 employeesBirthday.Select(t => string.Format(Constants.ContentEmployeeWithDay, t.NickName, t.FullName, t.DateOfBirth.ToString(FormatDate))));
 
             var emailSubject = string.Format(Messages.ReminderHappyBirthdayTo, string.Join(", ", employeesBirthday.Select(t => t.NickName)));
-            var templatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForReminderBirthday);
+            var templatePath = Path.Combine(environment.ContentRootPath, Constants.EmailTemplatePathForReminderBirthday);
             var bodyTemplate = Utilities.ReadTextFile(templatePath);
             var emailContent = string.Format(
                 bodyTemplate,
@@ -124,7 +124,7 @@
                 employeesFirstWorkingday.Select(t => string.Format(Constants.ContentEmployeeWithDay, t.NickName, t.FullName, t.JoinedDate?.ToString(FormatDate) ?? string.Empty)));
 
             var emailSubject = string.Format(Messages.ReminderFirstWorkingDayAnniversaryOf, string.Join(" - ", employeesFirstWorkingday.Select(t => t.NickName)));
-            var templatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForReminderFirstWorkingday);
+            var templatePath = Path.Combine(environment.ContentRootPath, Constants.EmailTemplatePathForReminderFirstWorkingday);
             var bodyTemplate = Utilities.ReadTextFile(templatePath);
             var emailContent = string.Format(
                 bodyTemplate,

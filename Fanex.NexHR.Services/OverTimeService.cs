@@ -168,7 +168,7 @@
             {
                 IEnumerable<Employee> managers = await baseService.GetDataAsync<Employee>(new GetManagementsCriteria());
                 managers = managers.ToList();
-                var templatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForOvertimeRequest);
+                var templatePath = Path.Combine(environment.ContentRootPath, Constants.EmailTemplatePathForOvertimeRequest);
                 var bodyTemplate = Utilities.ReadTextFile(templatePath);
                 var emloyees = string.Join(
                                                Constants.BrTag,
@@ -206,7 +206,7 @@
                 EmployeeId = approvedBy
             };
             var manager = await baseService.GetDataEntityAsync<Employee>(getEmployeeCriteria);
-            var templatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForOvertimeApprovalNotification);
+            var templatePath = Path.Combine(environment.ContentRootPath, Constants.EmailTemplatePathForOvertimeApprovalNotification);
             var bodyTemplate = Utilities.ReadTextFile(templatePath);
 
             var criteria = new GetOvertimeByIdCriteria
@@ -281,7 +281,7 @@
 
         public async Task SendMailForNotification(string subject, OvertimeVerifyViewModel model)
         {
-            var templatePath = Path.Combine(environment.WebRootPath, Constants.EmailTemplatePathForOvertimeNotification);
+            var templatePath = Path.Combine(environment.ContentRootPath, Constants.EmailTemplatePathForOvertimeNotification);
             var bodyTemplate = Utilities.ReadTextFile(templatePath);
 
             foreach (var item in model.TimeSheets)
