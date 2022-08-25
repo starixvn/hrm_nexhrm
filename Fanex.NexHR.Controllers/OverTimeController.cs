@@ -411,7 +411,7 @@
                 result = commandService.ExecuteNonQuery(criteria);
                 if (result.IsSuccessful)
                 {
-                    await overtimeService.SendMailForTransferNexBalance("NEX balance Notification", model);
+                    await overtimeService.SendMailForTransferNexBalance("NEX balance Notification", model).ConfigureAwait(false);
                 }
             }
             else
