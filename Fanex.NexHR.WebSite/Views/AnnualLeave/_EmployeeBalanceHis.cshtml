@@ -1,0 +1,53 @@
+@using Fanex.NexHR.Core
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.Models.AnnualLeave
+@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Services.Interfaces
+@inject ISessionService sessionService;
+@model IList<AnnualLeaveTransaction>
+<table id="data" class="table bordered striped highlight centered table-custom">
+    <thead>
+        <tr>
+            <th>@Labels.SymbolCount</th>
+            <th>@Labels.FromDate</th>
+            <th>@Labels.ToDate</th>
+            <th>@Labels.TotalDays</th>
+            <th>@Labels.Description</th>
+            <th>@Labels.CreatedDate</th>
+        </tr>
+    </thead>
+    @if (Model.Any())
+    {
+        <tbody>
+            @{int index = 1;}
+            @foreach (AnnualLeaveTransaction item in Model)
+            {
+                <tr>
+                    <td>@(index++)</td>
+                    <td>@item.AffectedFrom.ToDateMonthYearFormatedDate()</td>
+                    <td>@item.ToDate.ToDateMonthYearFormatedDate()</td>
+                    <td>@item.TotalDays</td>
+                    <td class="align-left">
+                        @if (item.RequestId != null)
+                        {
+                            <span>[request]</span>
+                        }
+                        @item.Description
+                    </td>
+                    <td>@item.CreatedDate.ToShortFormatedDate()</td>
+                </tr>
+            }
+        </tbody>
+    }
+    else
+    {
+        <tr>
+            <td colspan="6"></td>
+        </tr>
+        <tr>
+            <td colspan="6" rowspan="2">
+                @Messages.NoInformation
+            </td>
+        </tr>
+    }
+</table>

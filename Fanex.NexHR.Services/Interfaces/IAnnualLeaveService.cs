@@ -9,8 +9,6 @@
     {
         Task<IList<LeaveSummary>> GetAnnualLeaveBalance(GetAnnualLeaveSummaryCriteria criteria);
 
-        Task<IList<AnnualLeaveTransaction>> GetAnnualLeaveTransactionsByYear(GetAnnualLeaveTransactionByYearCriteria criteria);
-
         Task<ShowOpenAndCloseAnnualBalance> GetOpenAndCloseAnnualBalance(GetOpenAndCloseAnnualBalanceCriteria criteria);
 
         Task<IList<AnnualLeaveTransaction>> GetAnnualLeaveTransactions(GetAnnualLeaveTransactionCriteria criteria);

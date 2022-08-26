@@ -6,7 +6,7 @@
 @inject ISessionService sessionService
 @model AnnualLeaveBalanceViewModel
 @{
-    ViewBag.Title = Model.EmployeeNickName + "'s annual leave balance";
+    var title = Model.EmployeeNickName + "'s annual leave balance";
     var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
 }
 @section Styles {
@@ -27,7 +27,7 @@
             <div class="card-content">
                 <div class="card-title-block">
                     <span class="card-title txt-uppercase left">
-                        @ViewBag.Title
+                        @title
                     </span>
                 </div>
                 <div class="card-body">

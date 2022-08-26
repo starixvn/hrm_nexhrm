@@ -126,6 +126,30 @@ function query(isFirstLoad) {
         success: function (data) {
             $('#div-content').html(data);
 
+            $('.viewhistorybymonth').click(function () {
+                var url = $(this).attr('id');
+                var nickname = $(this).attr('data-name'); 
+
+                $.post(url, function (data) {
+                    $('#dialoghistorycontent').html(data);
+
+                    $('#dialoghistorycontent').dialog({
+                        modal: true,
+                        height: 'auto',
+                        width: 'auto',
+                        title: nickname+ "'s " + 'Annual Leave Balance History',
+                        show: {
+                            effect: 'fade',
+                            duration: 300
+                        },
+                        hide: {
+                            effect: 'fade',
+                            duration: 200
+                        }
+                    });
+                });
+            });
+
             $('.aba').each(function () {
                 if ($(this).prop('checked')) {
                     $(this).closest('tr').addClass('row-selected');

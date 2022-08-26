@@ -10,6 +10,9 @@
 
         public int Year { get; set; }
 
+        public int Month { get; set; }
+
+
         [Display(Name = "Include employee's request")]
         public bool ExcludedRequestTrans { get; set; }
     }

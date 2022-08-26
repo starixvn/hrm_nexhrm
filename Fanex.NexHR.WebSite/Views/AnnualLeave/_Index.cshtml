@@ -1,35 +1,39 @@
 @using System.Text
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.Models.AnnualLeave
+@using Fanex.NexHR.Models
 @using Fanex.NexHR.Core.Enums
 @using Fanex.NexHR.Services.Interfaces
 @inject ISessionService sessionService;
 
-@model LeaveSummaryTransactions;
+@model IList<LeaveSummary>;
 @{
     int year = ViewBag.Year;
-    var leaveSummaries = @Model.leaveSummaries;
-    var annualLeaveTransactions = @Model.annualLeaveTransactions;
-    var notMonth = -1;
+    var notMonthColumn = -99;
+    var annualCurrentYear = -1;
     var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
 
-    void DisplayNumber(int month, float value, int empId)
+    void DisplayNumber(int month, float value, Employee employee)
     {
-        var annualLeaveByEmpId = annualLeaveTransactions.Where(x => x.Employee.Id == empId);
-        var annualLeaveByMonth = annualLeaveByEmpId.Where(x => x.AffectedFrom.Month == month + 1);
         var tooltipContents = new StringBuilder();
-        foreach(var annualLeave in annualLeaveByMonth){
-            var content = string.Format("Total Days: {0} ( {1} )", annualLeave.TotalDays, annualLeave.Description, annualLeave.AffectedFrom);
-            tooltipContents.Append(content);
-            tooltipContents.Append(System.Environment.NewLine);
-        }
         if (value == 0)
         {
             <td>-</td>
         }
         else
         {
-            <td title="@tooltipContents.ToString()" class="@(value > 0 ? "tooltip" : "red-color")">@value.ToString("0.0")</td>
+            if (month == notMonthColumn)
+            {
+                <td class ="@(value > 0 ? string.Empty : "red-color")">@value.ToString("0.0")</td>
+            }else{
+                var addMonth = month + 1;
+                <td>
+                    <a class="@(value > 0 ? "viewhistorybymonth" : "red-color")" href="javascript:;" data-name="@employee.NickName"
+                        id="/AnnualLeave/ViewHistoryAnnualByMonth?employeeId=@employee.Id&year=@year&month=@addMonth">@value.ToString("0.0")
+                    </a>
+                </td>
+            }
+            
         }
     }
 }
@@ -90,10 +94,10 @@
             <th style="border-right: none;">@Labels.Dec</th>
         </tr>
     </thead>
-    @if (leaveSummaries != null && leaveSummaries.Any())
+    @if (Model != null && Model.Any())
     {
         int index = 1;
-        IList<LeaveSummary> leaveSummaryByTeams = leaveSummaries.GroupBy(t => t.Employee.Team.Id).Select(grp => grp.First()).ToList();
+        IList<LeaveSummary> leaveSummaryByTeams = Model.GroupBy(t => t.Employee.Team.Id).Select(grp => grp.First()).ToList();
         <tbody>
             @foreach (LeaveSummary leaveSummaryByTeam in leaveSummaryByTeams)
             {
@@ -103,7 +107,7 @@
                     </td>
                 </tr>
 
-                IList<LeaveSummary> leaveSummariesByEmp = leaveSummaries.Where(t => t.Employee.Team.Id == leaveSummaryByTeam.Employee.Team.Id).ToList();
+                IList<LeaveSummary> leaveSummariesByEmp = Model.Where(t => t.Employee.Team.Id == leaveSummaryByTeam.Employee.Team.Id).ToList();
                 foreach (LeaveSummary leaveSummary in leaveSummariesByEmp)
                 {
                     var htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(
@@ -128,23 +132,23 @@
                         <td class="tooltip" title="@leaveSummary.Employee.FullName">@leaveSummary.Employee.NickName</td>
                         @if (year != 2022)
                         {
-                            DisplayNumber(notMonth, leaveSummary.AnnualLeaveLastYear, leaveSummary.Employee.Id);
+                            DisplayNumber(notMonthColumn, leaveSummary.AnnualLeaveLastYear, leaveSummary.Employee);
                         }
                         @{
-                            DisplayNumber(notMonth, leaveSummary.AnnualLeaveCurrentYear, leaveSummary.Employee.Id);
-                            DisplayNumber((int)Months.January, leaveSummary.Jan, leaveSummary.Employee.Id);
-                            DisplayNumber((int)Months.February, leaveSummary.Feb, leaveSummary.Employee.Id);
-                            DisplayNumber((int)Months.March, leaveSummary.Mar, leaveSummary.Employee.Id);
-                            DisplayNumber((int)Months.April, leaveSummary.Apr, leaveSummary.Employee.Id);
-                            DisplayNumber((int)Months.May, leaveSummary.May, leaveSummary.Employee.Id);
-                            DisplayNumber((int)Months.June, leaveSummary.Jun, leaveSummary.Employee.Id);
-                            DisplayNumber((int)Months.July, leaveSummary.Jul, leaveSummary.Employee.Id);
-                            DisplayNumber((int)Months.August, leaveSummary.Aug, leaveSummary.Employee.Id);
-                            DisplayNumber((int)Months.September, leaveSummary.Sep, leaveSummary.Employee.Id);
-                            DisplayNumber((int)Months.October, leaveSummary.Oct, leaveSummary.Employee.Id);
-                            DisplayNumber((int)Months.November, leaveSummary.Nov, leaveSummary.Employee.Id);
-                            DisplayNumber((int)Months.December, leaveSummary.Dec, leaveSummary.Employee.Id);
-                            DisplayNumber(notMonth, leaveSummary.LeaveBalance, leaveSummary.Employee.Id);
+                            DisplayNumber(annualCurrentYear, leaveSummary.AnnualLeaveCurrentYear, leaveSummary.Employee);
+                            DisplayNumber((int)Months.January, leaveSummary.Jan, leaveSummary.Employee);
+                            DisplayNumber((int)Months.February, leaveSummary.Feb, leaveSummary.Employee);
+                            DisplayNumber((int)Months.March, leaveSummary.Mar, leaveSummary.Employee);
+                            DisplayNumber((int)Months.April, leaveSummary.Apr, leaveSummary.Employee);
+                            DisplayNumber((int)Months.May, leaveSummary.May, leaveSummary.Employee);
+                            DisplayNumber((int)Months.June, leaveSummary.Jun, leaveSummary.Employee);
+                            DisplayNumber((int)Months.July, leaveSummary.Jul, leaveSummary.Employee);
+                            DisplayNumber((int)Months.August, leaveSummary.Aug, leaveSummary.Employee);
+                            DisplayNumber((int)Months.September, leaveSummary.Sep, leaveSummary.Employee);
+                            DisplayNumber((int)Months.October, leaveSummary.Oct, leaveSummary.Employee);
+                            DisplayNumber((int)Months.November, leaveSummary.Nov, leaveSummary.Employee);
+                            DisplayNumber((int)Months.December, leaveSummary.Dec, leaveSummary.Employee);
+                            DisplayNumber(notMonthColumn, leaveSummary.LeaveBalance, leaveSummary.Employee);
                         }
                         @if (@isHRRole)
                         {

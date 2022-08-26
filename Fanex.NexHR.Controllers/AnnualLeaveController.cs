@@ -375,6 +375,26 @@
             return PartialView("_Employee", annualLeaveTransactions);
         }
 
+        [HttpPost]
+        public async Task<ActionResult> ViewHistoryAnnualByMonth(AnnualLeaveBalanceViewModel model)
+        {
+            IList<AnnualLeaveTransaction> annualLeaveTransactions = new List<AnnualLeaveTransaction>();
+            if (model != null)
+            {
+                var criteria = new GetAnnualLeaveTransactionCriteria
+                {
+                    EmployeeId = model.EmployeeId,
+                    Year = model.Year
+                };
+
+                annualLeaveTransactions = await annualLeaveService.GetAnnualLeaveTransactions(criteria);
+            }
+
+            var annualLeaveHistoryByMonth = annualLeaveTransactions.Where(x => model.Month > 0 ? (x.AffectedFrom.Month == model.Month) && x.TotalDays < 0 : x.TotalDays > 0).ToList();
+
+            return PartialView("_EmployeeBalanceHis", annualLeaveHistoryByMonth);
+        }
+
         [HrmAuthorize(Roles = "HR")]
         public async Task<ActionResult> Employee(int employeeId, int year)
         {
@@ -417,7 +437,6 @@
         public async Task<ActionResult> Index(LeaveSummaryViewModel model)
         {
             IList<LeaveSummary> leaveSummary = new List<LeaveSummary>();
-            IList<AnnualLeaveTransaction> annualLeaveTransactions = new List<AnnualLeaveTransaction>();
             if (model != null)
             {
                 var getAnnualLeaveCriteria = new GetAnnualLeaveSummaryCriteria
@@ -428,22 +447,11 @@
                     MinAnnualBalance = model.MinAnnualBalance
                 };
                 leaveSummary = await annualLeaveService.GetAnnualLeaveBalance(getAnnualLeaveCriteria);
-                var criteria = new GetAnnualLeaveTransactionByYearCriteria
-                {
-                    Year = model.Year
-                };
-
-                annualLeaveTransactions = await annualLeaveService.GetAnnualLeaveTransactionsByYear(criteria);
+                
                 ViewBag.Year = model.Year;
             }
 
-            var leaveSummaryTransactions = new LeaveSummaryTransactions
-            {
-                leaveSummaries = leaveSummary,
-                annualLeaveTransactions = annualLeaveTransactions
-            };
-
-            return PartialView("_Index", leaveSummaryTransactions);
+            return PartialView("_Index", leaveSummary);
         }
 
         [HttpPost]

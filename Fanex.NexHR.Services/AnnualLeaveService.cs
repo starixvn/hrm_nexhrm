@@ -51,19 +51,6 @@
             return annualLeaves ?? new List<AnnualLeaveTransaction>();
         }
 
-        public async Task<IList<AnnualLeaveTransaction>> GetAnnualLeaveTransactionsByYear(GetAnnualLeaveTransactionByYearCriteria criteria)
-        {
-            IList<AnnualLeaveTransaction> annualLeaves = null;
-            if (criteria != null && criteria.IsValid())
-            {
-                annualLeaves = await annualLeaveRepository.GetAnnualLeaveTransactions(criteria);
-            }
-
-            return annualLeaves ?? new List<AnnualLeaveTransaction>();
-        }
-
-
-        
 
         public async Task<AnnualLeaveTransaction> GetAnnualLeaveTransactionById(GetAnnualLeaveByIdCriteria criteria)
         {

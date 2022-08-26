@@ -14,6 +14,8 @@
 
         public DateTime AffectedFrom { get; set; }
 
+        public DateTime? ToDate { get; set; }
+
         public long? RequestId { get; set; }
 
         public DateTime CreatedDate { get; set; }

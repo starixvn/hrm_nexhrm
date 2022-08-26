@@ -94,7 +94,6 @@
         <Setting Key="AnnualLeave_GetTransByEmp" SpName="AnnualLeave_GetTransByEmp" DbName="nexhr" Plain="0">
             <Mapping DataField="EmpId" ObjectProperty="Id" />
         </Setting>
-        <Setting Key="AnnualLeave_GetTransByYear" SpName="AnnualLeave_GetTransByYear" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="AnnualLeave_GetByID" SpName="AnnualLeave_GetByID" DbName="nexhr" Plain="0">
             <Mapping DataField="EmpId" ObjectProperty="Id" />
         </Setting>
