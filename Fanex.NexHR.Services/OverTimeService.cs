@@ -255,7 +255,7 @@
         private async Task SendMailForHR(string subject, int createdBy, string managerNickName, string bodyTemplate, string employees, string project)
         {
             IEnumerable<Employee> HRs = await baseService.GetDataAsync<Employee>(new GetHRCriteria());
-            HRs = HRs.ToList();
+            var HRLst = HRs.ToList();
             GetEmployeeByIdCriteria getEmployeeCriteria = new GetEmployeeByIdCriteria
             {
                 EmployeeId = createdBy
@@ -273,7 +273,7 @@
 
             emailService.SendEmail(
                     SenderEmail,
-                    string.Join(";", HRs.Select(t => t.Email)),
+                    string.Join(";", HRLst.Select(t => t.Email)),
                     string.Empty,
                     subject,
                     body);

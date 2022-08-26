@@ -44,13 +44,14 @@
                 LookupCode = LookupCodeName.MemoCategory
             };
             IEnumerable<LookupData> memoCategories = await lookupDataService.GetAll(getAllLookupDataCriteria);
-            memoCategories.ToList().Insert(0, new LookupData { Name = "All", Id = -1 });
+            var memoCategorieLst = memoCategories.ToList();
+            memoCategorieLst.Insert(0, new LookupData { Name = "All", Id = -1 });
             var model = new MemoViewModel
             {
                 Content = string.Empty,
                 Year = -1,
                 Category = -1,
-                MemoCategories = memoCategories,
+                MemoCategories = memoCategorieLst,
                 Status = 1
             };
 
