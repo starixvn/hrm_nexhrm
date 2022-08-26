@@ -7,7 +7,7 @@ var _checked = false,
     _ids;
 
 function eventAdjustment() {
-    $('#addadj').on('click', function () {
+    $('#adjustment').on('click', function () {
         _ids = [];
         $('.aba').each(function (index, item) {
             var checked = $(item).prop('checked');
@@ -113,11 +113,22 @@ function eventCloseBalance() {
 }
 
 function query(isFirstLoad) {
+    const queryString = window.location.search;
+    if (queryString && isFirstLoad) {
+        initDataFirstQuery(queryString);
+    }
+    var data = $('.card-container-base .form form').serialize();
+    var selectedTeam = $(".select-teamIds .select-dropdown").val();
+    var url = _global.root + 'annualleave/index?' + data;
+    if (!isFirstLoad) {
+        var orgUrl = _global.root + 'annualleave/index?' + data + '&Team=' + selectedTeam;
+        window.history.replaceState(null, null, orgUrl);
+    }
+
     $.ajax({
-        url: _global.root + 'annualleave/index',
+        url: url,
         type: 'POST',
         dataType: 'html',
-        data: $('.card-container-base form').serialize(),
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
@@ -190,6 +201,28 @@ function query(isFirstLoad) {
             }
         }
     });
+}
+
+function initDataFirstQuery(queryString) {
+    var urlParams = new URLSearchParams(queryString);
+    var yearParam = urlParams.get('Year');
+    var employeeParam = urlParams.get('Employee');
+    var employeeIdParam = urlParams.get('EmployeeId');
+    var teamIdParam = urlParams.get('TeamId');
+    var teamParam = urlParams.get('Team');
+    var minBalanceParam = urlParams.get('MinAnnualBalance');
+    var minAnnualBalanceLable = !minBalanceParam ? "None" : minBalanceParam;
+
+    $("#Employee").val(employeeParam);
+    $("#Year").val(yearParam);
+    $("#TeamId").val(teamIdParam);
+    $("#EmployeeId").val(employeeIdParam);
+    $("#MinAnnualBalance").val(minBalanceParam);
+    $(".select--year .select-dropdown").val(yearParam);
+    $(".select-teamIds .select-dropdown").val(teamParam);
+    $(".select-min-balance .select-dropdown").val(minAnnualBalanceLable);
+
+
 }
 
 $(document).ready(function () {
