@@ -35,7 +35,7 @@
                                     <div class="left label--l">
                                         <label>@Labels.DateRange</label>
                                     </div>
-                                    <div class="left select--s">
+                                    <div class="left select--s date">
                                         <select id="Date" name="Date">
                                             @{
                                                 foreach (DateRangeFilter dateRange in (DateRangeFilter[])Enum.GetValues(typeof(DateRangeFilter)))
@@ -80,7 +80,7 @@
                                     <div class="left label--l">
                                         <label>@Labels.RequestType</label>
                                     </div>
-                                    <div class="left select--s">
+                                    <div class="left select--s rq-type">
                                         <select id="RequestType" name="RequestType">
                                             @{
                                                 foreach (RequestMonitoringType requestType in (RequestMonitoringType[])Enum.GetValues(typeof(RequestMonitoringType)))
@@ -97,7 +97,7 @@
                                     <div class="left label--m">
                                         <label>Times >=</label>
                                     </div>
-                                    <div class="left select--s">
+                                    <div class="left select--s maxrq">
                                         <select id="MaxRequest" name="MaxRequest" class="minWidthDropdown">
                                             @for (int i = 1; i <= 10; i++)
                                             {

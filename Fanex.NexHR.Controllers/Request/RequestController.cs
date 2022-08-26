@@ -336,9 +336,10 @@
         private async Task<IEnumerable<LeaveType>> GetLeaveTypes()
         {
             var leaveTypes = await leaveTypeService.GetAll();
-            leaveTypes.ToList().Insert(0, new LeaveType { Id = 0, Name = Labels.All });
+            var result = leaveTypes.ToList();
+            result.Insert(0, new LeaveType { Id = 0, Name = Labels.All });
 
-            return leaveTypes;
+            return result;
         }
 
         private async Task<IEnumerable<Team>> GetTeamByLeaders()

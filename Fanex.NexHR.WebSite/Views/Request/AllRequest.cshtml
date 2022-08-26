@@ -97,6 +97,7 @@
                                     <input type="text" name="RequestType" value="@request.RequestType.RequestFilter" />
                                     <input type="text" name="RequestViewType" value="@Model.RequestViewType" />
                                 </form>
+                                <input type="hidden" id="action" value="member"/>
                             }
                             else
                             {
@@ -117,6 +118,7 @@
                                         <input type="text" name="RequestViewType" value="@Model.RequestViewType" />
                                         <input asp-for="IsFilterByEffectedDate"/>
                                     </form>
+                                    <input type="hidden" id="action" value="hrview"/>
                                 }
                                 else
                                 {
@@ -135,6 +137,7 @@
                                         <input type="text" name="RequestViewType" value="@Model.RequestViewType" />
                                         <input asp-for="IsFilterByEffectedDate"/>
                                     </form>
+                                    <input type="hidden" id="action" value="employeeview"/>
                                 }
                             }
                         </td>

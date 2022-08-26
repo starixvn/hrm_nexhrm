@@ -97,6 +97,7 @@ function bindMenuApproved() {
 
 function query(isFirstLoad) {   // jshint ignore:line
     var action = $('.card-container-base .form').find('#ActionName').val();
+    var actionOrgUrl = $('#action').val();
 
     const queryString = window.location.search;
     if (queryString && isFirstLoad) {
@@ -106,7 +107,7 @@ function query(isFirstLoad) {   // jshint ignore:line
 
     var url = _global.root + 'request/' + action + "?" + data ;
     if (!isFirstLoad) {
-        var orgUrl = _global.root + 'request/member?' + data + "&Flag=1";
+        var orgUrl = _global.root + 'request/' + actionOrgUrl + "?" + data + "&Flag=1";
         window.history.replaceState(null, null, orgUrl);
     }
 
