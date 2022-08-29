@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Configuration;
     using System.Globalization;
     using System.Threading.Tasks;
     using Core;
@@ -13,6 +12,7 @@
     using Fanex.NexHR.Models.Attributes;
     using Fanex.NexHR.ViewModels.YearlyNexRequest;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
     using Models;
     using Models.Report;
     using Newtonsoft.Json;
@@ -29,18 +29,20 @@
         private readonly ITeamService teamService;
         private readonly IBaseService baseService;
 
-        private static readonly bool isEditableSettingCheckInOut = bool.Parse(ConfigurationManager.AppSettings["IsEditableSettingCheckInOut"]);
+        private readonly bool isEditableSettingCheckInOut;
 
         public ReportController(ISessionService sessionService,
             IEmployeeService employeeService,
             IReportService reportService,
             ITeamService teamService,
-            IBaseService baseService) : base(sessionService)
+            IBaseService baseService,
+            IConfiguration configuration) : base(sessionService)
         {
             this.employeeService = employeeService;
             this.reportService = reportService;
             this.teamService = teamService;
             this.baseService = baseService;
+            isEditableSettingCheckInOut = configuration.GetValue<bool>("IsEditableSettingCheckInOut");
         }
 
         public async Task<IActionResult> Attendance(EmployeeAttendanceViewModel model)
