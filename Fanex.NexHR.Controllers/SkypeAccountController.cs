@@ -16,20 +16,20 @@
     {
         private readonly ITeamService teamService;
         private readonly INexbotService nexbotService;
-        private readonly ICommandService commandService;
+        private readonly IBaseService baseService;
 
         public SkypeAccountController(ISessionService sessionService,
             ITeamService teamService,
             INexbotService nexbotService,
-            ICommandService commandService
+            IBaseService baseService
             ) : base(sessionService)
         {
             this.teamService = teamService;
             this.nexbotService = nexbotService;
-            this.commandService = commandService;
+            this.baseService = baseService;
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             var viewModel = new SkypeAccountFilter
             {
@@ -71,7 +71,7 @@
 
         [HttpPost]
         [Authorize(Roles = "HR")]
-        public ActionResult EditAccount(SkypeAccountViewModel viewModel)
+        public async Task<IActionResult> EditAccount(SkypeAccountViewModel viewModel)
         {
             bool isSuccessful = false;
             string message = string.Empty;
@@ -83,7 +83,7 @@
                     ConversationId = viewModel.ConversationId
                 };
 
-                var result = commandService.ExecuteNonQuery(criteria);
+                var result = await baseService.ExecuteNonQueryAsync(criteria);
                 isSuccessful = result.IsSuccessful;
                 message = result.Message;
             }

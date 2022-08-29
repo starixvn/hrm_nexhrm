@@ -21,30 +21,30 @@
     {
         private readonly IRequestService requestService;
         private readonly IShiftService shiftService;
-        private readonly ICommandService commandService;
+        private readonly IBaseService baseService;
         private readonly INexbotService nexbotService;
         private readonly IWebHostEnvironment environment;
 
         public CheckInOutController(ISessionService sessionService,
             IRequestService requestService,
             IShiftService shiftService,
-            ICommandService commandService,
+            IBaseService baseService,
             INexbotService nexbotService,
             IWebHostEnvironment environment) : base(sessionService)
         {
             this.requestService = requestService;
             this.shiftService = shiftService;
-            this.commandService = commandService;
+            this.baseService = baseService;
             this.nexbotService = nexbotService;
             this.environment = environment;
         }
 
-        public ActionResult EmployeeView()
+        public async Task<IActionResult> EmployeeView()
         {
             return View();
         }
 
-        public async Task<ActionResult> ListCheckInOutRequest(int year)
+        public async Task<IActionResult> ListCheckInOutRequest(int year)
         {
             ViewBag.Year = year;
 
@@ -90,7 +90,7 @@
         }
 
         [HttpPost]
-        public ActionResult Create(CheckInOutRequestViewModel model)
+        public async Task<IActionResult> Create(CheckInOutRequestViewModel model)
         {
             if (model == null || !ModelState.IsValid)
             {
@@ -113,7 +113,7 @@
                     FromDate = model.WorkDate
                 };
 
-                CommandResult result = commandService.ExecuteNonQuery(criteria);
+                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
                 model.Id = criteria.Id;
 
                 if (result.Code == 0 || result.Code == -1)
@@ -154,7 +154,7 @@
             });
         }
 
-        public async Task<ActionResult> Update(int id)
+        public async Task<IActionResult> Update(int id)
         {
             var criteria = new GetRequestByIdCriteria { Id = id };
             RequestEntity request = await requestService.GetRequestEntity(criteria);
@@ -184,7 +184,7 @@
         }
 
         [HttpPost]
-        public ActionResult Update(CheckInOutRequestViewModel model)
+        public async Task<IActionResult> Update(CheckInOutRequestViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -208,7 +208,7 @@
                     IsCrossDate = model.IsCrossDate
                 };
 
-                CommandResult result = commandService.ExecuteNonQuery(criteria);
+                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
 
                 if (result.Code == 0 || result.Code == -1)
                 {

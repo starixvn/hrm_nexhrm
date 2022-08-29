@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.WorkFromHomeRequest
 {
-    using Fanex.Data.Repository;
-
-    public class DeleteWorkFromHomeRequestCriteria : CriteriaBase
+    public class DeleteWorkFromHomeRequestCriteria : BaseCommand
     {
         public int WorkFromHomeRequestId { get; set; }
 

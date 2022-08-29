@@ -1,9 +1,8 @@
 ﻿namespace Fanex.NexHR.Criteria.AnnualLeave
 {
     using System;
-    using Data.Repository;
 
-    public class UpdateAnnualLeaveTransactionCriteria : CriteriaBase
+    public class UpdateAnnualLeaveTransactionCriteria : BaseCommand
     {
         public int LeaveTransactionId { get; set; }
 

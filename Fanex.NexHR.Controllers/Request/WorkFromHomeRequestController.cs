@@ -4,31 +4,30 @@
     using System.Threading.Tasks;
     using Fanex.NexHR.Criteria.WorkFromHomeRequest;
     using Fanex.NexHR.Resources;
-    using Fanex.NexHR.Services;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels.Request;
     using Microsoft.AspNetCore.Mvc;
 
     public class WorkFromHomeRequestController : BaseController
     {
-        private readonly ICommandService commandService;
+        private readonly IBaseService baseService;
         private readonly IWorkFromHomeRequest workFromHomeRequest;
 
         public WorkFromHomeRequestController(ISessionService sessionService,
-            ICommandService commandService,
+            IBaseService baseService,
             IWorkFromHomeRequest workFromHomeRequest
             ) : base(sessionService)
         {
-            this.commandService = commandService;
+            this.baseService = baseService;
             this.workFromHomeRequest = workFromHomeRequest;
         }
 
-        public ActionResult Index()
+        public IActionResult Index()
         {
             return View();
         }
 
-        public async Task<ActionResult> GetWorkFromHomeRequestGrid(int year)
+        public async Task<IActionResult> GetWorkFromHomeRequestGrid(int year)
         {
             var criteria = new GetWorkFromHomeRequestCriteria
             {
@@ -39,14 +38,14 @@
 
             var requests = await workFromHomeRequest.GetAll(criteria);
 
-            foreach(var request in requests)
+            foreach (var request in requests)
             {
                 request.Status = GetStatusName(request.StatusId);
             }
             return PartialView("_WorkFromHomeRequestGrid", requests);
         }
 
-        public ActionResult Create()
+        public IActionResult Create()
         {
             var model = new WorkFromHomeRequestViewModel
             {
@@ -57,7 +56,7 @@
         }
 
         [HttpPost]
-        public ActionResult Create(WorkFromHomeRequestViewModel model)
+        public async Task<IActionResult> Create(WorkFromHomeRequestViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -70,7 +69,7 @@
                     Remark = model.Remark
                 };
 
-                var result = commandService.ExecuteNonQuery(criteria);
+                var result = await baseService.ExecuteNonQueryAsync(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
@@ -83,7 +82,7 @@
             return View(model);
         }
 
-        public async Task<ActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             var request = await workFromHomeRequest.GetById(id);
             var model = new WorkFromHomeRequestViewModel
@@ -97,7 +96,7 @@
         }
 
         [HttpPost]
-        public ActionResult Edit(WorkFromHomeRequestViewModel model)
+        public async Task<IActionResult> Edit(WorkFromHomeRequestViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -111,7 +110,7 @@
                     Remark = model.Remark
                 };
 
-                var result = commandService.ExecuteNonQuery(criteria);
+                var result = await baseService.ExecuteNonQueryAsync(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
@@ -125,10 +124,10 @@
         }
 
         [HttpPost]
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var criteria = new DeleteWorkFromHomeRequestCriteria { WorkFromHomeRequestId = id };
-            var result = commandService.ExecuteNonQuery(criteria);
+            var result = await baseService.ExecuteNonQueryAsync(criteria);
 
             return Json(result);
         }
@@ -142,10 +141,13 @@
             {
                 case 1:
                     return Labels.Pending;
+
                 case secondCase:
                     return Labels.Approved;
+
                 case threeCase:
                     return Labels.Rejected;
+
                 default:
                     return string.Empty;
             }

@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.AnnualLeave
 {
-    using Data.Repository;
-
-    public class OpenAnnualBalanceForNewYearCriteria : CriteriaBase
+    public class OpenAnnualBalanceForNewYearCriteria : BaseCommand
     {
         public int Year { get; set; }
 

@@ -1,9 +1,8 @@
 ﻿namespace Fanex.NexHR.Criteria.Calendar
 {
     using System;
-    using Data.Repository;
 
-    public class UpdateEmployeeShiftDateCriteria : CriteriaBase
+    public class UpdateEmployeeShiftDateCriteria : BaseCommand
     {
         public int EmployeeId { get; set; }
 

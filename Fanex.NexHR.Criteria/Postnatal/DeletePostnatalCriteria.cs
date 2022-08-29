@@ -2,9 +2,8 @@
 {
     using System;
     using Data;
-    using Data.Repository;
 
-    public class DeletePostnatalCriteria : CriteriaBase
+    public class DeletePostnatalCriteria : BaseCommand
     {
         [SpParam(SqlParamName = "EmpId")]
         public int EmployeeId { get; set; }

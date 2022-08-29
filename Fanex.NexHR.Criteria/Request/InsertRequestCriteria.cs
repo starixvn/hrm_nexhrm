@@ -2,9 +2,8 @@
 {
     using System;
     using Core.Attributes;
-    using Data.Repository;
 
-    public class InsertRequestCriteria : CriteriaBase
+    public class InsertRequestCriteria : BaseCommand
     {
         [Output]
         public long Id { get; set; }

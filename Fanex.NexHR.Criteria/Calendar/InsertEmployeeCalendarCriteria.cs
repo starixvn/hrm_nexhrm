@@ -2,9 +2,8 @@
 {
     using System;
     using Data;
-    using Data.Repository;
 
-    public class InsertEmployeeCalendarCriteria : CriteriaBase
+    public class InsertEmployeeCalendarCriteria : BaseCommand
     {
         [SpParam(SqlParamName = "EmpId")]
         public int? EmployeeId { get; set; }

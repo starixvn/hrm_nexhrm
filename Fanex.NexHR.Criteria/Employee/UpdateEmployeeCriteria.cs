@@ -2,9 +2,8 @@
 {
     using System;
     using Data;
-    using Data.Repository;
 
-    public class UpdateEmployeeCriteria : CriteriaBase
+    public class UpdateEmployeeCriteria : BaseCommand
     {
         public int EmployeeId { get; set; }
 

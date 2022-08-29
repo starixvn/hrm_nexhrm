@@ -36,7 +36,7 @@
             IEnumerable<LateInEarlyOutViewModel> employeeList = await baseService.GetDataAsync<LateInEarlyOutViewModel>(criteria);
             return employeeList;
         }
-        
+
         public async Task<IEnumerable<LateInEarlyOutViolateModel>> GetLateInEarlyOutViolateOnMonth(GetLateInEarlyOutViolaterOnCurrentMonthCriteria criteria)
         {
             return await baseService.GetDataAsync<LateInEarlyOutViolateModel>(criteria).ConfigureAwait(false);

@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Department
 {
-    using Data.Repository;
-
-    public class DeleteDepartmentCriteria : CriteriaBase
+    public class DeleteDepartmentCriteria : BaseCommand
     {
         public int DepartmentId { get; set; }
 

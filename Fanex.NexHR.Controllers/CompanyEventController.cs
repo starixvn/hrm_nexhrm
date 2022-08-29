@@ -13,23 +13,23 @@
 
     public class CompanyEventController : BaseController
     {
-        private readonly ICommandService commandService;
+        private readonly IBaseService baseService;
         private readonly ICompanyEventService eventService;
 
-        public CompanyEventController(ISessionService sessionService, 
-            ICommandService commandService, 
+        public CompanyEventController(ISessionService sessionService,
+            IBaseService baseService,
             ICompanyEventService eventService) : base(sessionService)
         {
-            this.commandService = commandService;
+            this.baseService = baseService;
             this.eventService = eventService;
         }
 
-        public ActionResult Index()
+        public IActionResult Index()
         {
             return View();
         }
 
-        public async Task<ActionResult> Detail(int id)
+        public async Task<IActionResult> Detail(int id)
         {
             return View(await GetDetail(id));
         }
@@ -49,7 +49,7 @@
             return Json(events);
         }
 
-        public ActionResult Create(DateTime from, DateTime to)
+        public IActionResult Create(DateTime from, DateTime to)
         {
             var companyEvent = new CompanyEvent
             {
@@ -61,7 +61,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public ActionResult Create(CompanyEvent model)
+        public async Task<IActionResult> Create(CompanyEvent model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -77,7 +77,7 @@
                     CreatedBy = CurrentUser.Id
                 };
 
-                CommandResult result = commandService.ExecuteNonQuery(criteria);
+                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Insert = true;
@@ -92,14 +92,14 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             return View(await GetDetail(id));
         }
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public ActionResult Edit(CompanyEvent model)
+        public async Task<IActionResult> Edit(CompanyEvent model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -114,7 +114,7 @@
                     Location = model.Location,
                     Description = model.Description ?? string.Empty
                 };
-                CommandResult result = commandService.ExecuteNonQuery(criteria);
+                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Updated = true;
@@ -129,13 +129,13 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public JsonResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             CommandResult result = new CommandResult();
             if (id > 0)
             {
                 DeleteEventCriteria criteria = new DeleteEventCriteria { Id = id };
-                result = commandService.ExecuteNonQuery(criteria);
+                result = await baseService.ExecuteNonQueryAsync(criteria);
             }
             else
             {

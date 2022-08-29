@@ -2,9 +2,8 @@
 {
     using System;
     using Data;
-    using Data.Repository;
 
-    public class InsertPostnatalCriteria : CriteriaBase
+    public class InsertPostnatalCriteria : BaseCommand
     {
         [SpParam(SqlParamName = "EmpId")]
         public int EmployeeId { get; set; }

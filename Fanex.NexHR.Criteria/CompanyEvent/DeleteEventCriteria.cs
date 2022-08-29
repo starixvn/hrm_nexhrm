@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.CompanyEvent
 {
-    using Data.Repository;
-
-    public class DeleteEventCriteria : CriteriaBase
+    public class DeleteEventCriteria : BaseCommand
     {
         public int Id { get; set; }
 

@@ -1,10 +1,9 @@
 ﻿namespace Fanex.NexHR.Criteria.AnnualLeave
 {
-    using Data;
-    using Data.Repository;
     using System;
+    using Data;
 
-    public class AdjustAnnualLeavesCriteria : CriteriaBase
+    public class AdjustAnnualLeavesCriteria : BaseCommand
     {
         [SpParam(SqlParamName = "EmpIds")]
         public string EmployeeId { get; set; }

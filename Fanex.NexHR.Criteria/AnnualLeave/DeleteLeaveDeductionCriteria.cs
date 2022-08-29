@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.AnnualLeave
 {
-    using Data.Repository;
-
-    public class DeleteLeaveDeductionCriteria : CriteriaBase
+    public class DeleteLeaveDeductionCriteria : BaseCommand
     {
         public int LeaveDeductionId { get; set; }
 

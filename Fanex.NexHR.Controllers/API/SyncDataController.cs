@@ -27,7 +27,7 @@
             return Ok(employees);
         }
 
-        public async Task<ActionResult> GetDepartment(bool isNexcel, string lastModifiedDate)
+        public async Task<IActionResult> GetDepartment(bool isNexcel, string lastModifiedDate)
         {
             var modifiedDate = GetLastModifiedDate(lastModifiedDate);
 
@@ -36,7 +36,7 @@
             return Ok(departments);
         }
 
-        public async Task<ActionResult> GetGroup(bool isNexcel, string lastModifiedDate)
+        public async Task<IActionResult> GetGroup(bool isNexcel, string lastModifiedDate)
         {
             var modifiedDate = GetLastModifiedDate(lastModifiedDate);
 

@@ -10,12 +10,11 @@
 namespace Fanex.NexHR.Criteria.Report
 {
     using System;
-    using Data.Repository;
 
     /// <summary>
     /// TimeRecordUpdateType Criteria.
     /// </summary>
-    public class TimeRecordUpdateTypeCriteria : CriteriaBase
+    public class TimeRecordUpdateTypeCriteria : BaseCommand
     {
         public int RecordTimeId { get; set; }
 

@@ -12,17 +12,17 @@
     public class DepartmentController : BaseController
     {
         private readonly IDepartmentService departmentService;
-        private readonly ICommandService commandService;
+        private readonly IBaseService baseService;
 
         public DepartmentController(ISessionService sessionService,
             IDepartmentService departmentService,
-            ICommandService commandService) : base(sessionService)
+            IBaseService baseService) : base(sessionService)
         {
             this.departmentService = departmentService;
-            this.commandService = commandService;
+            this.baseService = baseService;
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             IList<Department> departments = await departmentService.GetAll();
 
@@ -30,7 +30,7 @@
             return View();
         }
 
-        public async Task<ActionResult> Create()
+        public async Task<IActionResult> Create()
         {
             IList<Department> departments = await departmentService.GetAll();
             ViewBag.Departments = departments;
@@ -40,7 +40,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(DepartmentViewModel model)
+        public async Task<IActionResult> Create(DepartmentViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -53,7 +53,7 @@
                     CreatedBy = CurrentUser.Id
                 };
 
-                CommandResult commandResult = commandService.ExecuteNonQuery(criteria);
+                CommandResult commandResult = await baseService.ExecuteNonQueryAsync(criteria);
                 if (commandResult.IsSuccessful)
                 {
                     ViewBag.Inserted = true;
@@ -70,7 +70,7 @@
             return View(model);
         }
 
-        public async Task<ActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             IEnumerable<Department> departments = await departmentService.GetAll();
 
@@ -80,7 +80,7 @@
             string managerName = string.Empty;
             int managerId = 0;
 
-            if (department?.Manager != null) 
+            if (department?.Manager != null)
             {
                 Employee manager = department.Manager;
                 managerName = manager.DisplayName;
@@ -106,7 +106,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(DepartmentViewModel model)
+        public async Task<IActionResult> Edit(DepartmentViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -120,7 +120,7 @@
                     ModifiedBy = CurrentUser.Id
                 };
 
-                CommandResult commandResult = commandService.ExecuteNonQuery(criteria);
+                CommandResult commandResult = await baseService.ExecuteNonQueryAsync(criteria);
 
                 if (commandResult.IsSuccessful)
                 {
@@ -138,7 +138,7 @@
             return View(model);
         }
 
-        public JsonResult DeleteDepartment(int id)
+        public async Task<IActionResult> DeleteDepartment(int id)
         {
             var criteria = new DeleteDepartmentCriteria
             {
@@ -146,7 +146,7 @@
                 ModifiedBy = CurrentUser.Id
             };
 
-            CommandResult commandResult = commandService.ExecuteNonQuery(criteria);
+            CommandResult commandResult = await baseService.ExecuteNonQueryAsync(criteria);
             return Json(commandResult);
         }
     }

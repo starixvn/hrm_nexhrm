@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Team
 {
-    using Data.Repository;
-
-    public class DeleteTeamCriteria : CriteriaBase
+    public class DeleteTeamCriteria : BaseCommand
     {
         public int Id { get; set; }
 

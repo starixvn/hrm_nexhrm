@@ -1,40 +1,40 @@
 ﻿namespace Fanex.NexHR.Controllers.Request
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Criteria.LateInEarlyOut;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Resources;
     using Services.Interfaces;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using ViewModels.LateInEarlyOut;
 
     public class LateEarlyController : BaseController
     {
         private readonly ILateInEarlyOutService lateInEarlyOutService;
-        private readonly ICommandService commandService;
+        private readonly IBaseService baseService;
 
-        public LateEarlyController(ISessionService sessionService, 
-            ILateInEarlyOutService lateInEarlyOutService, 
-            ICommandService commandService) : base(sessionService)
+        public LateEarlyController(ISessionService sessionService,
+            ILateInEarlyOutService lateInEarlyOutService,
+            IBaseService baseService) : base(sessionService)
         {
             this.lateInEarlyOutService = lateInEarlyOutService;
-            this.commandService = commandService;
+            this.baseService = baseService;
         }
 
-        public ActionResult Index()
+        public IActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View(new LateInEarlyOutViewModel());
         }
 
         [HttpPost]
-        public ActionResult Create(LateInEarlyOutViewModel model)
+        public async Task<IActionResult> Create(LateInEarlyOutViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -48,7 +48,7 @@
                         WorkDate = model.WorkDate,
                         ModifiedBy = CurrentUser.Id
                     };
-                    CommandResult result = commandService.ExecuteNonQuery(criteria);
+                    CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
                     if (result.IsSuccessful)
                     {
                         ViewBag.Requested = true;
@@ -67,7 +67,7 @@
             return View(model);
         }
 
-        public async Task<ActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             LateInEarlyOutViewModel model = new LateInEarlyOutViewModel();
             GetLateInEarlyOutByIdCriteria criteria = new GetLateInEarlyOutByIdCriteria
@@ -84,7 +84,7 @@
         }
 
         [HttpPost]
-        public ActionResult Edit(LateInEarlyOutViewModel model)
+        public async Task<IActionResult> Edit(LateInEarlyOutViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -99,7 +99,7 @@
                         WorkDate = model.WorkDate,
                         ModifiedBy = CurrentUser.Id
                     };
-                    CommandResult result = commandService.ExecuteNonQuery(criteria);
+                    CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
                     if (result.IsSuccessful)
                     {
                         ViewBag.Requested = true;
@@ -118,15 +118,15 @@
             return View(model);
         }
 
-        public JsonResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             DeleteLateInEarlyOutCriteria criteria = new DeleteLateInEarlyOutCriteria { Id = id };
-            CommandResult result = commandService.ExecuteNonQuery(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
 
             return Json(result);
         }
 
-        public async Task<ActionResult> ListLateEarly(int empId, int year)
+        public async Task<IActionResult> ListLateEarly(int empId, int year)
         {
             IEnumerable<LateInEarlyOutViewModel> model = await GetLateEarlyByEmpId(empId, year);
             return PartialView("_ListLateEarly", model.ToList());

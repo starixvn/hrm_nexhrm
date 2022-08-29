@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Team
 {
-    using Data.Repository;
-
-    public class UpdateTeamCriteria : CriteriaBase
+    public class UpdateTeamCriteria : BaseCommand
     {
         public int Id { get; set; }
 

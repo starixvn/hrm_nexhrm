@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Overtime
 {
-    using Data.Repository;
-
-    public class ResetOvertimeCriteria : CriteriaBase
+    public class ResetOvertimeCriteria : BaseCommand
     {
         public int Id { get; set; }
 

@@ -15,19 +15,19 @@
     {
         private readonly IEmployeeWorkFromHomeService employeeWorkFromHomeService;
         private readonly ITeamService teamService;
-        private readonly ICommandService commandService;
+        private readonly IBaseService baseService;
 
         public EmployeeWorkFromHomeController(ISessionService sessionService,
             IEmployeeWorkFromHomeService employeeWorkFromHomeService,
             ITeamService teamService,
-            ICommandService commandService) : base(sessionService)
+            IBaseService baseService) : base(sessionService)
         {
             this.employeeWorkFromHomeService = employeeWorkFromHomeService;
             this.teamService = teamService;
-            this.commandService = commandService;
+            this.baseService = baseService;
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             var model = new EmployeeWorkFromHomeFilterViewModel
             {
@@ -39,7 +39,7 @@
             return View(model);
         }
 
-        public async Task<ActionResult> GetEmployeeWorkFromHomeGrid(EmployeeWorkFromHomeFilterViewModel model)
+        public async Task<IActionResult> GetEmployeeWorkFromHomeGrid(EmployeeWorkFromHomeFilterViewModel model)
         {
             int? statusNullable = null;
             var criteria = new GetEmployeeWorkFromHomeCriteria
@@ -51,17 +51,16 @@
                 StatusId = model.StatusId == 0 ? statusNullable : model.StatusId
             };
             var employees = await employeeWorkFromHomeService.GetAll(criteria);
-            foreach(var employee in employees)
+            foreach (var employee in employees)
             {
                 employee.Status = GetStatusName(employee.StatusId);
             }
             ViewBag.EmployeeId = CurrentUser.Id;
             return PartialView("_EmployeeWorkFromHomeGrid", employees);
-            
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult Create()
+        public IActionResult Create()
         {
             var model = new EmployeeWorkFromHomeViewModel
             {
@@ -73,7 +72,7 @@
 
         [HttpPost]
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult Create(EmployeeWorkFromHomeViewModel model)
+        public async Task<IActionResult> Create(EmployeeWorkFromHomeViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -86,7 +85,7 @@
                     Remark = model.Remark
                 };
 
-                var result = commandService.ExecuteNonQuery(criteria);
+                var result = await baseService.ExecuteNonQueryAsync(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
@@ -100,7 +99,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             var employeeWorkFromHome = await employeeWorkFromHomeService.GetById(id);
             var model = new EmployeeWorkFromHomeViewModel
@@ -117,7 +116,7 @@
 
         [HttpPost]
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult Edit(EmployeeWorkFromHomeViewModel model)
+        public async Task<IActionResult> Edit(EmployeeWorkFromHomeViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -131,7 +130,7 @@
                     Remark = model.Remark
                 };
 
-                var result = commandService.ExecuteNonQuery(criteria);
+                var result = await baseService.ExecuteNonQueryAsync(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
@@ -146,16 +145,16 @@
 
         [HttpPost]
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var criteria = new DeleteEmployeeWorkFromHomeCriteria { EmployeeWorkFromHomeId = id, DeletedBy = CurrentUser.Id };
-            var result = commandService.ExecuteNonQuery(criteria);
+            var result = await baseService.ExecuteNonQueryAsync(criteria);
             return Json(result);
         }
 
         [HttpPost]
         [HrmAuthorize(Roles = "HR")]
-        public JsonResult ProcessRequestMultiple(string command, int[] requestIds)
+        public async Task<IActionResult> ProcessRequestMultiple(string command, int[] requestIds)
         {
             var commandResult = new CommandResult();
             if (requestIds.Length > 0)
@@ -169,7 +168,7 @@
                         ProcessedBy = CurrentUser.Id,
                         ProcessedDate = DateTime.Now
                     };
-                    var result = commandService.ExecuteNonQuery(criteria);
+                    var result = await baseService.ExecuteNonQueryAsync(criteria);
                     if (!result.IsSuccessful)
                     {
                         commandResult.Code = result.Code;
@@ -183,7 +182,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult ProcessRequest(string command, int id)
+        public async Task<IActionResult> ProcessRequest(string command, int id)
         {
             var criteria = new EmployeeWorkFromHomeApproveAndRejectRequestCriteria
             {
@@ -192,14 +191,13 @@
                 ProcessedBy = CurrentUser.Id,
                 ProcessedDate = DateTime.Now
             };
-            var result = commandService.ExecuteNonQuery(criteria);
+            var result = await baseService.ExecuteNonQueryAsync(criteria);
             return Json(result);
         }
 
-
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult ProcessDisapproveRequest(int id)
+        public async Task<IActionResult> ProcessDisapproveRequest(int id)
         {
             var criteria = new EmployeeWorkFromHomeDisApproveRequestCriteria
             {
@@ -207,7 +205,7 @@
                 ProcessedBy = CurrentUser.Id,
                 ProcessedDate = DateTime.Now
             };
-            var result = commandService.ExecuteNonQuery(criteria);
+            var result = await baseService.ExecuteNonQueryAsync(criteria);
             return Json(result);
         }
 
@@ -220,10 +218,13 @@
             {
                 case 1:
                     return Labels.Pending;
+
                 case secondCase:
                     return Labels.Approved;
+
                 case threeCase:
                     return Labels.Rejected;
+
                 default:
                     return string.Empty;
             }

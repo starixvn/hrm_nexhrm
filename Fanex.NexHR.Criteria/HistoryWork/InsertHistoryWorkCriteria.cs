@@ -1,9 +1,8 @@
 ﻿namespace Fanex.NexHR.Criteria.HistoryWork
 {
-    using Fanex.Data.Repository;
     using System;
 
-    public class InsertHistoryWorkCriteria : CriteriaBase
+    public class InsertHistoryWorkCriteria : BaseCommand
     {
         public int EmpId { get; set; }
 

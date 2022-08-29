@@ -2,9 +2,8 @@
 {
     using System;
     using Core.Enums;
-    using Data.Repository;
 
-    public class WriteLogInputSpendTimeRedmineCriteria : CriteriaBase
+    public class WriteLogInputSpendTimeRedmineCriteria : BaseCommand
     {
         public int EmpId { get; set; }
 

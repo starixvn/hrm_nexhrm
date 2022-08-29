@@ -51,7 +51,6 @@
             return annualLeaves ?? new List<AnnualLeaveTransaction>();
         }
 
-
         public async Task<AnnualLeaveTransaction> GetAnnualLeaveTransactionById(GetAnnualLeaveByIdCriteria criteria)
         {
             AnnualLeaveTransaction annualLeave = null;

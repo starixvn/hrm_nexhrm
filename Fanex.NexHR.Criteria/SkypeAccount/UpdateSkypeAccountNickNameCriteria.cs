@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.SkypeAccount
 {
-    using Fanex.Data.Repository;
-
-    public class UpdateSkypeAccountNickNameCriteria : CriteriaBase
+    public class UpdateSkypeAccountNickNameCriteria : BaseCommand
     {
         public int EmployeeId { get; set; }
 

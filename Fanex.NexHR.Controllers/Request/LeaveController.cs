@@ -19,7 +19,7 @@
     {
         private readonly ILeaveTypeService leaveTypeService;
         private readonly IRequestService requestService;
-        private readonly ICommandService commandService;
+        private readonly IBaseService baseService;
         private readonly INexbotService nexbotService;
         private readonly IWebHostEnvironment environment;
 
@@ -28,25 +28,25 @@
         public LeaveController(ISessionService sessionService,
             ILeaveTypeService leaveTypeService,
             IRequestService requestService,
-            ICommandService commandService,
+            IBaseService baseService,
             INexbotService nexbotService,
             IWebHostEnvironment environment) : base(sessionService)
         {
             this.leaveTypeService = leaveTypeService;
             this.requestService = requestService;
-            this.commandService = commandService;
+            this.baseService = baseService;
             this.nexbotService = nexbotService;
             this.environment = environment;
         }
 
         private const double day = 0.5;
 
-        public ActionResult EmployeeView()
+        public IActionResult EmployeeView()
         {
             return View();
         }
 
-        public async Task<ActionResult> ListLeaveRequest(int year)
+        public async Task<IActionResult> ListLeaveRequest(int year)
         {
             var criteria = new GetRequestCriteria
             {
@@ -84,7 +84,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(LeaveRequestViewModel model)
+        public async Task<IActionResult> Create(LeaveRequestViewModel model)
         {
             var leaveRequestViewModel = model;
             if (leaveRequestViewModel == null)
@@ -119,7 +119,7 @@
                 TotalDays = leaveRequestViewModel.TotalDays
             };
 
-            CommandResult result = commandService.ExecuteNonQuery(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
             model.Id = criteria.Id;
             if (result.Code == 0 || result.Code == -1)
             {
@@ -156,7 +156,7 @@
             });
         }
 
-        public async Task<ActionResult> Update(int id)
+        public async Task<IActionResult> Update(int id)
         {
             var criteria = new GetRequestByIdCriteria { Id = id };
             RequestEntity request = await requestService.GetRequestEntity(criteria);
@@ -191,7 +191,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult> Update(LeaveRequestViewModel model)
+        public async Task<IActionResult> Update(LeaveRequestViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -209,7 +209,7 @@
                     TotalDays = viewModel.TotalDays
                 };
 
-                CommandResult result = commandService.ExecuteNonQuery(criteria);
+                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
                 if (result.Code == 0 || result.Code == -1)
                 {
                     ViewBag.Updated = true;
@@ -236,7 +236,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult> GetAnnualLeaveBalanceInMonth(int empId, DateTime effectedDate, long? requestId)
+        public async Task<IActionResult> GetAnnualLeaveBalanceInMonth(int empId, DateTime effectedDate, long? requestId)
         {
             var criteria = new GetLeaveBalanceInMonthCriteria
             {

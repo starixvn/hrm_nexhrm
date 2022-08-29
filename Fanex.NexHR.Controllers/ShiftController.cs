@@ -17,7 +17,7 @@
             this.shiftService = shiftService;
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             IEnumerable<Shift> shifts = await shiftService.GetAll();
 

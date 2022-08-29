@@ -1,9 +1,8 @@
 ﻿namespace Fanex.NexHR.Criteria.HistoryWork
 {
-    using Fanex.Data.Repository;
     using System;
 
-    public class UpdateHistoryWorkCriteria : CriteriaBase
+    public class UpdateHistoryWorkCriteria : BaseCommand
     {
         public int? Id { get; set; }
 

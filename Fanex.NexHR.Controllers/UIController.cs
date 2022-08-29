@@ -2,16 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Threading.Tasks;
     using Criteria;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
-    using Services;
     using Services.Interfaces;
-    using ViewModels.Navigation;
 
     [Authorize]
     public class UIController : BaseController
@@ -23,7 +20,7 @@
             this.employeeService = employeeService;
         }
 
-        public async Task<ActionResult> Header()
+        public async Task<IActionResult> Header()
         {
             List<Employee> employeesBirthday = null;
             List<Employee> employeesFirstWorkingday = null;
@@ -49,7 +46,7 @@
             return PartialView(CurrentUser);
         }
 
-        public ActionResult GlobalScript()
+        public IActionResult GlobalScript()
         {
             ViewBag.Employee = CurrentUser;
             return PartialView();

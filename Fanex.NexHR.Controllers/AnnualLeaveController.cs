@@ -18,7 +18,7 @@
     public class AnnualLeaveController : BaseController
     {
         private readonly IAnnualLeaveService annualLeaveService;
-        private readonly ICommandService commandService;
+        private readonly IBaseService baseService;
         private readonly IEmployeeService employeeService;
         private readonly ITeamService teamService;
 
@@ -27,17 +27,17 @@
             IEmployeeService employeeService,
             ITeamService teamService,
             IAnnualLeaveService annualLeaveService,
-            ICommandService commandService) : base(sessionService)
+            IBaseService baseService) : base(sessionService)
         {
             this.employeeService = employeeService;
             this.teamService = teamService;
             this.annualLeaveService = annualLeaveService;
-            this.commandService = commandService;
+            this.baseService = baseService;
         }
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult AddLeaveConversion(LeaveConversionViewModel model)
+        public async Task<IActionResult> AddLeaveConversion(LeaveConversionViewModel model)
         {
             CommandResult result;
             if (model != null && ModelState.IsValid)
@@ -50,7 +50,8 @@
                     TotalDays = model.TotalDays,
                     CreatedBy = CurrentUser.Id
                 };
-                result = commandService.ExecuteNonQuery(criteria);
+
+                result = await baseService.ExecuteNonQueryAsync(criteria);
             }
             else
             {
@@ -66,7 +67,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult AddLeaveDeduction(LeaveDeductionViewModel model)
+        public async Task<IActionResult> AddLeaveDeduction(LeaveDeductionViewModel model)
         {
             CommandResult result;
             if (model != null && ModelState.IsValid)
@@ -80,7 +81,7 @@
                     TotalDays = model.TotalDays,
                     CreatedBy = CurrentUser.Id
                 };
-                result = commandService.ExecuteNonQuery(criteria);
+                result = await baseService.ExecuteNonQueryAsync(criteria);
             }
             else
             {
@@ -96,7 +97,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult AdjustAnnualLeaves(AddMultiAnnualLeaveTransactionViewModel model)
+        public async Task<IActionResult> AdjustAnnualLeaves(AddMultiAnnualLeaveTransactionViewModel model)
         {
             CommandResult result = new CommandResult
             {
@@ -116,14 +117,14 @@
                     CreatedBy = CurrentUser.Id
                 };
 
-                result = commandService.ExecuteNonQuery(criteria);
+                result = await baseService.ExecuteNonQueryAsync(criteria);
             }
 
             return Json(result);
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> Create(int employeeId)
+        public async Task<IActionResult> Create(int employeeId)
         {
             var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId };
             ViewBag.Employee = await employeeService.GetEmployeeById(getEmployeeCriteria);
@@ -137,7 +138,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public ActionResult Create(AddAnnualLeaveTransactionViewModel model)
+        public async Task<IActionResult> Create(AddAnnualLeaveTransactionViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -152,7 +153,7 @@
                     CreatedBy = CurrentUser.Id
                 };
 
-                CommandResult result = commandService.ExecuteNonQuery(criteria);
+                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Inserted = true;
@@ -189,20 +190,20 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult Delete(int leaveTransactionId)
+        public async Task<IActionResult> Delete(int leaveTransactionId)
         {
             var criteria = new DeleteAnnualLeaveTransactionCriteria
             {
                 LeaveTransactionId = leaveTransactionId,
                 ModifiedBy = CurrentUser.Id
             };
-            CommandResult result = commandService.ExecuteNonQuery(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
             return Json(result);
         }
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult DeleteLeaveConversion(int leaveConversionId)
+        public async Task<IActionResult> DeleteLeaveConversion(int leaveConversionId)
         {
             var criteria = new DeleteLeaveConversionCriteria
             {
@@ -210,12 +211,12 @@
                 ModifiedBy = CurrentUser.Id
             };
 
-            return Json(commandService.ExecuteNonQuery(criteria));
+            return Json(await baseService.ExecuteNonQueryAsync(criteria));
         }
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult DeleteLeaveDeduction(int leaveDeductionId)
+        public async Task<IActionResult> DeleteLeaveDeduction(int leaveDeductionId)
         {
             var criteria = new DeleteLeaveDeductionCriteria
             {
@@ -223,11 +224,11 @@
                 ModifiedBy = CurrentUser.Id
             };
 
-            return Json(commandService.ExecuteNonQuery(criteria));
+            return Json(await baseService.ExecuteNonQueryAsync(criteria));
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> Edit(int leaveTransactionId)
+        public async Task<IActionResult> Edit(int leaveTransactionId)
         {
             var criteria = new GetAnnualLeaveByIdCriteria
             {
@@ -248,7 +249,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public ActionResult Edit(EditAnnualLeaveTransactionViewModel model)
+        public async Task<IActionResult> Edit(EditAnnualLeaveTransactionViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -261,7 +262,7 @@
                     CreditDays = model.TotalDays > 0 ? model.TotalDays : 0,
                     ModifiedBy = CurrentUser.Id
                 };
-                CommandResult result = commandService.ExecuteNonQuery(criteria);
+                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Updated = true;
@@ -287,7 +288,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult EditLeaveConversion(LeaveConversionViewModel model)
+        public async Task<IActionResult> EditLeaveConversion(LeaveConversionViewModel model)
         {
             CommandResult result;
             if (model != null && ModelState.IsValid)
@@ -300,7 +301,7 @@
                     TotalDays = model.TotalDays,
                     ModifiedBy = CurrentUser.Id
                 };
-                result = commandService.ExecuteNonQuery(criteria);
+                result = await baseService.ExecuteNonQueryAsync(criteria);
             }
             else
             {
@@ -327,7 +328,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult EditLeaveDeduction(LeaveDeductionViewModel model)
+        public async Task<IActionResult> EditLeaveDeduction(LeaveDeductionViewModel model)
         {
             CommandResult result;
             if (model != null && ModelState.IsValid)
@@ -341,7 +342,7 @@
                     TotalDays = model.TotalDays,
                     ModifiedBy = CurrentUser.Id
                 };
-                result = commandService.ExecuteNonQuery(criteria);
+                result = await baseService.ExecuteNonQueryAsync(criteria);
             }
             else
             {
@@ -357,7 +358,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public async Task<ActionResult> Employee(AnnualLeaveBalanceViewModel model)
+        public async Task<IActionResult> Employee(AnnualLeaveBalanceViewModel model)
         {
             IList<AnnualLeaveTransaction> annualLeaveTransactions = new List<AnnualLeaveTransaction>();
             if (model != null)
@@ -396,7 +397,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> Employee(int employeeId, int year)
+        public async Task<IActionResult> Employee(int employeeId, int year)
         {
             var model = new AnnualLeaveBalanceViewModel
             {
@@ -420,7 +421,7 @@
             return View("Employee", model);
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             var model = new LeaveSummaryViewModel
             {
@@ -434,7 +435,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult> Index(LeaveSummaryViewModel model)
+        public async Task<IActionResult> Index(LeaveSummaryViewModel model)
         {
             IList<LeaveSummary> leaveSummary = new List<LeaveSummary>();
             if (model != null)
@@ -475,7 +476,7 @@
             return Json(leaveConversions);
         }
 
-        public async Task<ActionResult> LeaveConversionDetail(
+        public async Task<IActionResult> LeaveConversionDetail(
             DateTime fromDate,
             DateTime toDate,
             int? employeeId = null,
@@ -505,7 +506,7 @@
             return Json(new { data = leaveDeductions });
         }
 
-        public async Task<ActionResult> LeaveDeductionDetail(
+        public async Task<IActionResult> LeaveDeductionDetail(
             DateTime fromDate,
             DateTime toDate,
             int? employeeId = null,
@@ -534,14 +535,14 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult OpenAnnualLeaves()
+        public async Task<IActionResult> OpenAnnualLeaves()
         {
             var criteria = new OpenAnnualBalanceForNewYearCriteria
             {
                 Year = ShowOpenAndCloseAnnualBalance.ToDate.Year
             };
 
-            return Json(commandService.ExecuteNonQuery(criteria));
+            return Json(await baseService.ExecuteNonQueryAsync(criteria));
         }
 
         [HrmAuthorize(Roles = "HR")]
@@ -567,7 +568,7 @@
                 LeaveSummaries = leaveSummariesFilter
             };
 
-            CommandResult result = commandService.ExecuteNonQuery(resetAnnualLeaves);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(resetAnnualLeaves);
 
             return Json(result);
         }

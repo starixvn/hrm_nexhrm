@@ -23,18 +23,18 @@
         private readonly IRequestService requestService;
         private readonly ITeamService teamService;
         private readonly ILeaveTypeService leaveTypeService;
-        private readonly ICommandService commandService;
+        private readonly IBaseService baseService;
 
         public RequestController(ISessionService sessionService,
             IRequestService requestService,
             ITeamService teamService,
             ILeaveTypeService leaveTypeService,
-            ICommandService commandService) : base(sessionService)
+            IBaseService baseService) : base(sessionService)
         {
             this.requestService = requestService;
             this.teamService = teamService;
             this.leaveTypeService = leaveTypeService;
-            this.commandService = commandService;
+            this.baseService = baseService;
         }
 
         private const int months = 2;
@@ -96,7 +96,7 @@
         }
 
         [HrmAuthorize(Roles = "AssistantLeader")]
-        public async Task<ActionResult> Member(RequestViewModel model)
+        public async Task<IActionResult> Member(RequestViewModel model)
         {
             if (model.TeamId == -1)
             {
@@ -126,20 +126,20 @@
         }
 
         [HrmAuthorize(Roles = "AssistantLeader")]
-        public async Task<ActionResult> GetAllRequestByAssistantLeader(RequestViewModel model)
+        public async Task<IActionResult> GetAllRequestByAssistantLeader(RequestViewModel model)
         {
             model.Requests = await GetRequest(model, (short)Role.AssistantLeader);
             return PartialView("AllRequest", model);
         }
 
-        public async Task<ActionResult> EmployeeView(RequestViewModel model)
+        public async Task<IActionResult> EmployeeView(RequestViewModel model)
         {
             var newModel = await GetRequestViewModel(model, RequestViewType.StaffView);
 
             return View("HRView", newModel);
         }
 
-        public async Task<ActionResult> GetAllRequestByEmployee(RequestViewModel model)
+        public async Task<IActionResult> GetAllRequestByEmployee(RequestViewModel model)
         {
             if (model != null)
             {
@@ -150,7 +150,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> HRView(RequestViewModel model)
+        public async Task<IActionResult> HRView(RequestViewModel model)
         {
             var newModel = await GetRequestViewModel(model, RequestViewType.HRView);
 
@@ -158,7 +158,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> GetAllRequestByHR(RequestViewModel model)
+        public async Task<IActionResult> GetAllRequestByHR(RequestViewModel model)
         {
             if (model != null)
             {
@@ -173,7 +173,7 @@
             return PartialView("AllRequest", model);
         }
 
-        public async Task<ActionResult> ViewHistory(long requestId, int requestType)
+        public async Task<IActionResult> ViewHistory(long requestId, int requestType)
         {
             var criteria = new GetRequestHistoryCriteria
             {
@@ -188,13 +188,13 @@
         }
 
         [HttpPost]
-        public ActionResult DeleteWorkingTimeRequest(int id)
+        public async Task<IActionResult> DeleteWorkingTimeRequest(int id)
         {
             var criteria = new DeleteRequestCriteria
             {
                 Id = id
             };
-            CommandResult result = commandService.ExecuteNonQuery(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
 
             return Json(result);
         }

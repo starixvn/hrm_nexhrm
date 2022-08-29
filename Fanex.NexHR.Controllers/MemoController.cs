@@ -22,22 +22,22 @@
     {
         private readonly IMemoService memoService;
         private readonly ILookupDataService lookupDataService;
-        private readonly ICommandService commandService;
+        private readonly IBaseService baseService;
         private readonly IWebHostEnvironment environment;
 
-        public MemoController(ISessionService sessionService, 
+        public MemoController(ISessionService sessionService,
             IMemoService memoService,
             ILookupDataService lookupDataService,
-            ICommandService commandService,
+            IBaseService baseService,
             IWebHostEnvironment environment) : base(sessionService)
         {
             this.memoService = memoService;
             this.lookupDataService = lookupDataService;
-            this.commandService = commandService;
-            this.environment = environment; 
+            this.baseService = baseService;
+            this.environment = environment;
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             var getAllLookupDataCriteria = new GetAllLookupDataCriteria
             {
@@ -58,7 +58,7 @@
             return View(model);
         }
 
-        public async Task<ActionResult> Edit(int id = -1)
+        public async Task<IActionResult> Edit(int id = -1)
         {
             GetMemoByIdCriteria getMemoByIdCriteria = new GetMemoByIdCriteria
             {
@@ -81,7 +81,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public async Task<ActionResult> Edit(Memo model)
+        public async Task<IActionResult> Edit(Memo model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -111,7 +111,7 @@
                     MemoType = model.MemoType,
                     Status = model.Status == 1
                 };
-                CommandResult result = commandService.ExecuteNonQuery(updateMemoCriteria);
+                CommandResult result = await baseService.ExecuteNonQueryAsync(updateMemoCriteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Updated = true;
@@ -130,7 +130,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> Create()
+        public async Task<IActionResult> Create()
         {
             var model = new Memo
             {
@@ -152,7 +152,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public async Task<ActionResult> Create(Memo model)
+        public async Task<IActionResult> Create(Memo model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -179,7 +179,7 @@
                     Status = model.Status == 1
                 };
 
-                CommandResult result = commandService.ExecuteNonQuery(insertMemoCriteria);
+                CommandResult result = await baseService.ExecuteNonQueryAsync(insertMemoCriteria);
 
                 if (result.IsSuccessful)
                 {
@@ -198,7 +198,7 @@
             return View(model);
         }
 
-        public async Task<ActionResult> Detail(int id = -1)
+        public async Task<IActionResult> Detail(int id = -1)
         {
             GetMemoByIdCriteria getMemoByIdCriteria = new GetMemoByIdCriteria { Id = id };
             Memo memo = await memoService.GetById(getMemoByIdCriteria);
@@ -214,8 +214,8 @@
             Memo memo = await memoService.GetById(getMemoByIdCriteria);
 
             var deleteMemoCriteria = new DeleteMemoCriteria { Id = id };
-            CommandResult result = commandService.ExecuteNonQuery(deleteMemoCriteria);
-            
+            CommandResult result = await baseService.ExecuteNonQueryAsync(deleteMemoCriteria);
+
             if (result.IsSuccessful && memo.MemoType == 1)
             {
                 string[] files = memo.AttachFile.TrimEnd(';').Split(';');

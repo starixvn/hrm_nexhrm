@@ -32,7 +32,7 @@
         private readonly IRequestService requestService;
         private readonly INotificationService notificationService;
         private readonly ILateInEarlyOutService lateinearlyoutService;
-        private readonly ICommandService commandService;
+        private readonly IBaseService baseService;
         private readonly IRedmineService redmineService;
         private readonly IReportService reportService;
         private readonly AppSetting appSetting;
@@ -46,7 +46,7 @@
             IRequestService requestService,
             INotificationService notificationService,
             ILateInEarlyOutService lateinearlyoutService,
-            ICommandService commandService,
+            IBaseService baseService,
             IRedmineService redmineService,
             IReportService reportService,
             AppSetting appSetting) : base(sessionService)
@@ -57,7 +57,7 @@
             this.requestService = requestService;
             this.notificationService = notificationService;
             this.lateinearlyoutService = lateinearlyoutService;
-            this.commandService = commandService;
+            this.baseService = baseService;
             this.redmineService = redmineService;
             this.reportService = reportService;
             this.appSetting = appSetting;
@@ -181,7 +181,7 @@
 
             if (isSuccessful)
             {
-                WriteLogInputSpendTime(model);
+                await WriteLogInputSpendTime(model);
             }
             return Json(new { isSuccessful, errors, message });
         }
@@ -193,7 +193,7 @@
             return Json(new { totalHours });
         }
 
-        private void WriteLogInputSpendTime(LogTimeIssue issue)
+        private async Task WriteLogInputSpendTime(LogTimeIssue issue)
         {
             var criteria = new WriteLogInputSpendTimeRedmineCriteria
             {
@@ -206,7 +206,7 @@
                 CreatedDate = DateTime.Now
             };
 
-            commandService.ExecuteNonQuery(criteria);
+            await baseService.ExecuteNonQueryAsync(criteria);
         }
 
         private async Task<IEnumerable<MissingCheckInOutModel>> GetMissingCheckInOut(int? employeeId)
@@ -251,7 +251,7 @@
             return employees;
         }
 
-        public async Task<ActionResult> GetNotification(int employeeId)
+        public async Task<IActionResult> GetNotification(int employeeId)
         {
             GetAllNotificationCriteria criteria = new GetAllNotificationCriteria { EmpId = employeeId };
 

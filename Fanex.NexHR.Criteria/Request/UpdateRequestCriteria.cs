@@ -10,12 +10,11 @@
 namespace Fanex.NexHR.Criteria.Request
 {
     using System;
-    using Data.Repository;
 
     /// <summary>
     /// Update Request Criteria.
     /// </summary>
-    public class UpdateRequestCriteria : CriteriaBase
+    public class UpdateRequestCriteria : BaseCommand
     {
         public long Id { get; set; }
 

@@ -1,9 +1,8 @@
 ﻿namespace Fanex.NexHR.Criteria.Holiday
 {
     using System;
-    using Data.Repository;
 
-    public class UpdateHolidayCriteria : CriteriaBase
+    public class UpdateHolidayCriteria : BaseCommand
     {
         public int Id { get; set; }
 

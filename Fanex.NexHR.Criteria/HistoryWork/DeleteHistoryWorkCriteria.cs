@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.HistoryWork
 {
-    using Fanex.Data.Repository;
-
-    public class DeleteHistoryWorkCriteria : CriteriaBase
+    public class DeleteHistoryWorkCriteria : BaseCommand
     {
         public int Id { get; set; }
 

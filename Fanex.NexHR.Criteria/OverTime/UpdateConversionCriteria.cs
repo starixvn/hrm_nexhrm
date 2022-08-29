@@ -1,9 +1,8 @@
 ﻿namespace Fanex.NexHR.Criteria.Overtime
 {
-    using Data.Repository;
     using System;
 
-    public class UpdateConversionCriteria : CriteriaBase
+    public class UpdateConversionCriteria : BaseCommand
     {
         public int Id { get; set; }
 

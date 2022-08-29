@@ -1,9 +1,8 @@
 ﻿namespace Fanex.NexHR.Criteria.WorkFromHomeRequest
 {
     using System;
-    using Fanex.Data.Repository;
 
-    public class InsertWorkFromHomeRequestCriteria : CriteriaBase
+    public class InsertWorkFromHomeRequestCriteria : BaseCommand
     {
         public int EmpId { get; set; }
         public DateTime FromDate { get; set; }

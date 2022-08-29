@@ -2,9 +2,8 @@
 {
     using System;
     using Data;
-    using Data.Repository;
 
-    public class UpdatePostnatalCriteria : CriteriaBase
+    public class UpdatePostnatalCriteria : BaseCommand
     {
         [SpParam(SqlParamName = "OldEmpId")]
         public int OldEmployeeId { get; set; }

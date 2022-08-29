@@ -16,20 +16,20 @@
     {
         private readonly ICalendarService calendarService;
         private readonly ITeamService teamService;
-        private readonly ICommandService commandService;
+        private readonly IBaseService baseService;
 
         public CalendarController(ISessionService sessionService,
             ICalendarService calendarService,
             ITeamService teamService,
-            ICommandService commandService) : base(sessionService)
+            IBaseService baseService) : base(sessionService)
         {
             this.calendarService = calendarService;
             this.teamService = teamService;
-            this.commandService = commandService;
+            this.baseService = baseService;
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public JsonResult UpdateEmployeeShiftDate(int employeeId, DateTime date, int? shiftId)
+        public async Task<IActionResult> UpdateEmployeeShiftDate(int employeeId, DateTime date, int? shiftId)
         {
             var criteria = new UpdateEmployeeShiftDateCriteria
             {
@@ -38,14 +38,14 @@
                 ShiftId = shiftId,
                 ModifiedBy = CurrentUser.Id,
             };
-            CommandResult result = commandService.ExecuteNonQuery(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
 
             return Json(result);
         }
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult InsertEmployeeCalendar(AddEmployeeCalendarViewModel model)
+        public async Task<IActionResult> InsertEmployeeCalendar(AddEmployeeCalendarViewModel model)
         {
             CommandResult result = new CommandResult();
             if (model != null)
@@ -58,7 +58,7 @@
                     SetOffDay = model.SetOffDay
                 };
 
-                result = commandService.ExecuteNonQuery(criteria);
+                result = await baseService.ExecuteNonQueryAsync(criteria);
             }
 
             return Json(result);
@@ -78,12 +78,12 @@
             return Json(schedules);
         }
 
-        public ActionResult MyWorkingSchedule()
+        public IActionResult MyWorkingSchedule()
         {
             return View();
         }
 
-        public async Task<ActionResult> WorkingCalendars(WorkingCalendarViewModel model)
+        public async Task<IActionResult> WorkingCalendars(WorkingCalendarViewModel model)
         {
             if (model != null)
             {
@@ -111,7 +111,7 @@
             return View(model);
         }
 
-        public async Task<ActionResult> LeaveSchedule(WorkingCalendarViewModel model)
+        public async Task<IActionResult> LeaveSchedule(WorkingCalendarViewModel model)
         {
             if (model != null)
             {
@@ -128,7 +128,7 @@
             return View(model);
         }
 
-        public async Task<ActionResult> GetEmployeeLeaveSchedule(WorkingCalendarViewModel model)
+        public async Task<IActionResult> GetEmployeeLeaveSchedule(WorkingCalendarViewModel model)
         {
             DateTime date = new DateTime(model.Year, model.Month, 1);
             var criteria = new GetLeaveScheduleCriteria

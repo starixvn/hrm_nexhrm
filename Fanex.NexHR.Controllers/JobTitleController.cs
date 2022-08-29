@@ -12,25 +12,25 @@
     public class JobTitleController : BaseController
     {
         private readonly IJobTitleService jobTitleService;
-        private readonly ICommandService commandService;
+        private readonly IBaseService baseService;
 
         public JobTitleController(ISessionService sessionService,
-            IJobTitleService jobTitleService, 
-            ICommandService commandService) : base(sessionService)
+            IJobTitleService jobTitleService,
+            IBaseService baseService) : base(sessionService)
         {
             this.jobTitleService = jobTitleService;
-            this.commandService = commandService;
+            this.baseService = baseService;
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult Index()
+        public IActionResult Index()
         {
             return View();
         }
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public async Task<ActionResult> Index(string jobTitle)
+        public async Task<IActionResult> Index(string jobTitle)
         {
             var lookupDataJobTitleCriteria = new GetJobTitleCriteria { JobTitle = jobTitle };
             IEnumerable<JobTitle> jobTitles = await jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
@@ -40,38 +40,38 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult Insert(string name)
+        public async Task<IActionResult> Insert(string name)
         {
             var insertLookupDataCriteria = new InsertLookupDataCriteria
             {
                 LookupCode = LookupCodeName.JobTitle,
                 Name = name
             };
-            CommandResult result = commandService.ExecuteNonQuery(insertLookupDataCriteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(insertLookupDataCriteria);
 
             return Json(result);
         }
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult Update(int id, string name)
+        public async Task<IActionResult> Update(int id, string name)
         {
             var updateLookupDataCriteria = new UpdateLookupDataCriteria
             {
                 Id = id,
                 Name = name
             };
-            CommandResult result = commandService.ExecuteNonQuery(updateLookupDataCriteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(updateLookupDataCriteria);
 
             return Json(result);
         }
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var deleteLookupDataCriteria = new DeleteLookupDataCriteria { Id = id };
-            CommandResult result = commandService.ExecuteNonQuery(deleteLookupDataCriteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(deleteLookupDataCriteria);
 
             return Json(result);
         }

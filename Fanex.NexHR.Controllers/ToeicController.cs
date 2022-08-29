@@ -27,7 +27,7 @@
         private readonly IJobTitleService jobTitleService;
         private readonly ITeamService teamService;
         private readonly IToeicService toeicService;
-        private readonly ICommandService commandService;
+        private readonly IBaseService baseService;
         private readonly IWebHostEnvironment environment;
         private readonly EmailSettings emailSettings;
 
@@ -38,7 +38,7 @@
             IJobTitleService jobTitleService,
             ITeamService teamService,
             IToeicService toeicService,
-            ICommandService commandService,
+            IBaseService baseService,
             IWebHostEnvironment environment,
             EmailSettings emailSettings) : base(sessionService)
         {
@@ -47,12 +47,12 @@
             this.jobTitleService = jobTitleService;
             this.teamService = teamService;
             this.toeicService = toeicService;
-            this.commandService = commandService;
+            this.baseService = baseService;
             this.environment = environment;
             this.emailSettings = emailSettings;
         }
 
-        public async Task<ActionResult> ToeicManagement(int? jobTitleId = null)
+        public async Task<IActionResult> ToeicManagement(int? jobTitleId = null)
         {
             var model = new ToeicManagementViewModel
             {
@@ -110,7 +110,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult> GetToeicScoreByEmpId(int empId)
+        public async Task<IActionResult> GetToeicScoreByEmpId(int empId)
         {
             var criteria = new GetToeicScoreByEmployeeIdCriteria
             {
@@ -123,7 +123,7 @@
 
         [HttpGet]
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> UpdateToeic(int? id, string name)
+        public async Task<IActionResult> UpdateToeic(int? id, string name)
         {
             Toeic toeic = null;
 
@@ -143,7 +143,7 @@
 
         [HttpPost]
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> UpdateToeic(Toeic model)
+        public async Task<IActionResult> UpdateToeic(Toeic model)
         {
             var result = new CommandResult
             {
@@ -192,7 +192,7 @@
                         Writing = model.Writing,
                         MinimumScore = model.MinimumScore
                     };
-                    result = commandService.ExecuteNonQuery(toeicScoreCriteria);
+                    result = await baseService.ExecuteNonQueryAsync(toeicScoreCriteria);
 
                     if (result.IsSuccessful && model.SendMail)
                     {

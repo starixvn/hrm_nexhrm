@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Request
 {
-    using Data.Repository;
-
-    public class DeleteRequestCriteria : CriteriaBase
+    public class DeleteRequestCriteria : BaseCommand
     {
         public int Id { get; set; }
 

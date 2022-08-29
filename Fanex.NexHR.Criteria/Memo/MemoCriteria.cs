@@ -1,10 +1,9 @@
 ﻿namespace Fanex.NexHR.Criteria.Memo
 {
-    using Data;
-    using Data.Repository;
     using System;
+    using Data;
 
-    public class MemoCriteria : CriteriaBase
+    public class MemoCriteria : BaseCommand
     {
         public string RefNo { get; set; }
 

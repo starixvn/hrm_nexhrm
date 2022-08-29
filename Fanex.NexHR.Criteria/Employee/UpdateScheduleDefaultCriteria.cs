@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Employee
 {
-    using Data.Repository;
-
-    public class UpdateScheduleDefaultCriteria : CriteriaBase
+    public class UpdateScheduleDefaultCriteria : BaseCommand
     {
         public int EmployeeId { get; set; }
 

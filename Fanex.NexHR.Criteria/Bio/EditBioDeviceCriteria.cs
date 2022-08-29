@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Bio
 {
-    using Fanex.Data.Repository;
-
-    public class EditBioDeviceCriteria : CriteriaBase
+    public class EditBioDeviceCriteria : BaseCommand
     {
         public int DeviceId { get; set; }
 

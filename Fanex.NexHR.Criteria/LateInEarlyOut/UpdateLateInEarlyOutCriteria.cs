@@ -2,9 +2,8 @@
 {
     using System;
     using Data;
-    using Data.Repository;
 
-    public class UpdateLateInEarlyOutCriteria : CriteriaBase
+    public class UpdateLateInEarlyOutCriteria : BaseCommand
     {
         public int Id { get; set; }
 

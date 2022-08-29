@@ -1,22 +1,20 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Fanex.NexHR.Controllers
 {
-
-    public class ErrorController: Controller
+    public class ErrorController : Controller
     {
-        public ActionResult AccessDenied()
+        public IActionResult AccessDenied()
         {
             return View();
         }
 
-        public ActionResult AccountSuspended()
+        public IActionResult AccountSuspended()
         {
             return View();
         }
 
-        public ActionResult NoData()
+        public IActionResult NoData()
         {
             return View();
         }

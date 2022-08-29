@@ -7,10 +7,10 @@
     public class GeographicMapController : BaseController
     {
         public GeographicMapController(ISessionService sessionService) : base(sessionService)
-        { 
+        {
         }
 
-        public ActionResult Index()
+        public IActionResult Index()
         {
             var user = CurrentUser;
             bool roleHR = user.IsInRoles(Role.HR);

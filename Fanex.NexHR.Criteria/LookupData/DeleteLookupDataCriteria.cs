@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.LookupData
 {
-    using Data.Repository;
-
-    public class DeleteLookupDataCriteria : CriteriaBase
+    public class DeleteLookupDataCriteria : BaseCommand
     {
         public int Id { get; set; }
 

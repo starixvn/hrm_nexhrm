@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Overtime
 {
-    using Data.Repository;
-
-    public class RejectRequestCriteria : CriteriaBase
+    public class RejectRequestCriteria : BaseCommand
     {
         public int Id { get; set; }
 

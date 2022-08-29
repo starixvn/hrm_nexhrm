@@ -9,12 +9,10 @@
 
 namespace Fanex.NexHR.Criteria.ExtensionNo
 {
-    using Data.Repository;
-
     /// <summary>
     /// UpdateExtensionNoMember Criteria.
     /// </summary>
-    public class UpdateExtensionNoMemberCriteria : CriteriaBase
+    public class UpdateExtensionNoMemberCriteria : BaseCommand
     {
         public int ExtId { get; set; }
 

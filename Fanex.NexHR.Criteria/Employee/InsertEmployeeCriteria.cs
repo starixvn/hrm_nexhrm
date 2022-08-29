@@ -2,9 +2,8 @@
 {
     using Core.Attributes;
     using Data;
-    using Data.Repository;
 
-    public class InsertEmployeeCriteria : CriteriaBase
+    public class InsertEmployeeCriteria : BaseCommand
     {
         [Output]
         public int EmployeeId { get; set; }

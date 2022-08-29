@@ -47,7 +47,7 @@
             this.environment = environment;
         }
 
-        public async Task<ActionResult> TotalWorkingHours(TotalWorkingHoursViewModel model)
+        public async Task<IActionResult> TotalWorkingHours(TotalWorkingHoursViewModel model)
         {
             const int dateOption = 5;
             var year = DateTime.Now.Year;
@@ -90,7 +90,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpGet]
-        public async Task<ActionResult> EmployeeProfileAsync(
+        public async Task<IActionResult> EmployeeProfileAsync(
             string query = null,
             int? teamId = null,
             bool? isDisable = null,
@@ -128,7 +128,7 @@
         }
 
         [HttpGet]
-        public async Task<ActionResult> Attendance(
+        public async Task<IActionResult> Attendance(
             DateTime fromDate,
             DateTime toDate,
             int? empId,
@@ -163,7 +163,7 @@
             return File(bytes, "application/xlsx", fileName);
         }
 
-        public async Task<ActionResult> WorkingHoursStatistic(WorkingHoursStatisticViewModel model)
+        public async Task<IActionResult> WorkingHoursStatistic(WorkingHoursStatisticViewModel model)
         {
             var getWorkingHoursCriteria = new GetWorkingHoursStatisticCriteria
             {
@@ -183,7 +183,7 @@
             return File(bytes, "application/xlsx", fileName);
         }
 
-        public async Task<ActionResult> LeaveScheduleReport(WorkingCalendarViewModel model)
+        public async Task<IActionResult> LeaveScheduleReport(WorkingCalendarViewModel model)
         {
             DateTime date = new DateTime(model.Year, model.Month, 1);
             var criteria = new GetLeaveScheduleCriteria
@@ -203,7 +203,7 @@
             return File(bytes, "application/xlsx", fileName);
         }
 
-        public async Task<ActionResult> HeadCountExport(int year)
+        public async Task<IActionResult> HeadCountExport(int year)
         {
             var criteria = new GetHeadCountByYearCriteria
             {

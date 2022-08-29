@@ -1,9 +1,8 @@
 ﻿namespace Fanex.NexHR.Criteria.Bio
 {
     using Core.Enums;
-    using Data.Repository;
 
-    public class UpdateFingerprintAndCardStatusCriteria : CriteriaBase
+    public class UpdateFingerprintAndCardStatusCriteria : BaseCommand
     {
         public int EmployeeId { get; set; }
 

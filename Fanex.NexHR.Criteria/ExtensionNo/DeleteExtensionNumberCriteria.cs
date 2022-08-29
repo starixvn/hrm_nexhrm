@@ -9,12 +9,10 @@
 
 namespace Fanex.NexHR.Criteria.ExtensionNo
 {
-    using Data.Repository;
-
     /// <summary>
     /// DeleteExtensionNumberCriteria Criteria.
     /// </summary>
-    public class DeleteExtensionNumberCriteria : CriteriaBase
+    public class DeleteExtensionNumberCriteria : BaseCommand
     {
         public int ExtId { get; set; }
 

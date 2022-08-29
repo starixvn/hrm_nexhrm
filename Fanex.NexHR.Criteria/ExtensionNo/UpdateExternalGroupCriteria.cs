@@ -9,12 +9,10 @@
 
 namespace Fanex.NexHR.Criteria.ExtensionNo
 {
-    using Data.Repository;
-
     /// <summary>
     /// AddNewExternalGroup Criteria.
     /// </summary>
-    public class UpdateExternalGroupCriteria : CriteriaBase
+    public class UpdateExternalGroupCriteria : BaseCommand
     {
         public int ExtId { get; set; }
 

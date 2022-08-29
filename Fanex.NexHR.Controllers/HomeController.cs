@@ -9,7 +9,7 @@
         {
         }
 
-        public ActionResult Index()
+        public IActionResult Index()
         {
             ViewBag.Employee = CurrentUser;
 

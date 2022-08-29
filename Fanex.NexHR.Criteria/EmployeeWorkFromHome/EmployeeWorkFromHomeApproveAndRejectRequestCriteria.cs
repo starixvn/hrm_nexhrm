@@ -1,11 +1,8 @@
-﻿
-
-namespace Fanex.NexHR.Criteria.EmployeeWorkFromHome
+﻿namespace Fanex.NexHR.Criteria.EmployeeWorkFromHome
 {
     using System;
-    using Fanex.Data.Repository;
 
-    public class EmployeeWorkFromHomeApproveAndRejectRequestCriteria : CriteriaBase
+    public class EmployeeWorkFromHomeApproveAndRejectRequestCriteria : BaseCommand
     {
         public int WorkFromHomeRequestId { get; set; }
 
@@ -14,7 +11,6 @@ namespace Fanex.NexHR.Criteria.EmployeeWorkFromHome
         public int ProcessedBy { get; set; }
 
         public DateTime ProcessedDate { get; set; }
-
 
         public override string GetSettingKey()
         {

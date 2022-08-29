@@ -15,17 +15,17 @@
     public class HolidayController : BaseController
     {
         private readonly IHolidayService holidayService;
-        private readonly ICommandService commandService;
+        private readonly IBaseService baseService;
 
-        public HolidayController(ISessionService sessionService, 
-            IHolidayService holidayService, 
-            ICommandService commandService) : base(sessionService)
+        public HolidayController(ISessionService sessionService,
+            IHolidayService holidayService,
+            IBaseService baseService) : base(sessionService)
         {
             this.holidayService = holidayService;
-            this.commandService = commandService;
+            this.baseService = baseService;
         }
 
-        public ActionResult Index(int? year)
+        public IActionResult Index(int? year)
         {
             ViewBag.year = year ?? DateTime.Now.Year;
             return View();
@@ -44,7 +44,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult Create()
+        public IActionResult Create()
         {
             HolidayViewModel newHoliday = new HolidayViewModel
             {
@@ -58,8 +58,8 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public ActionResult Create(HolidayViewModel holiday)
-        {            
+        public async Task<IActionResult> Create(HolidayViewModel holiday)
+        {
             CommandResult result = new CommandResult();
             if (holiday != null && ModelState.IsValid)
             {
@@ -71,7 +71,7 @@
                     ModifiedBy = CurrentUser.Id
                 };
 
-                result = commandService.ExecuteNonQuery(criteria);
+                result = await baseService.ExecuteNonQueryAsync(criteria);
 
                 if (result.IsSuccessful)
                 {
@@ -91,7 +91,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             var criteria = new GetHolidayByIdCriteria
             {
@@ -112,7 +112,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public ActionResult Edit(HolidayViewModel holiday)
+        public async Task<IActionResult> Edit(HolidayViewModel holiday)
         {
             CommandResult result = new CommandResult();
             if (holiday != null)
@@ -128,7 +128,7 @@
                         ModifiedBy = CurrentUser.Id,
                     };
 
-                    result = commandService.ExecuteNonQuery(criteria);
+                    result = await baseService.ExecuteNonQueryAsync(criteria);
                     if (result.IsSuccessful)
                     {
                         ViewBag.Updated = true;
@@ -149,14 +149,14 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var criteria = new DeleteHolidayCriteria
             {
                 Id = id,
                 ModifiedBy = CurrentUser.Id
             };
-            CommandResult result = commandService.ExecuteNonQuery(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
 
             return Json(result);
         }

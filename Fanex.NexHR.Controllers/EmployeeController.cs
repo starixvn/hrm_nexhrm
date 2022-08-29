@@ -29,7 +29,7 @@
         private readonly IJobTitleService jobTitleService;
         private readonly IShiftService shiftService;
         private readonly IEmployeeService employeeService;
-        private readonly ICommandService commandService;
+        private readonly IBaseService baseService;
         private readonly IHistoryWorkService historyWorkService;
         private readonly IMailEmployeeService mailEmployeeService;
         private readonly IWebHostEnvironment environment;
@@ -40,7 +40,7 @@
             ITeamService teamService,
             IJobTitleService jobTitleService,
             IShiftService shiftService,
-            ICommandService commandService,
+            IBaseService baseService,
             IHistoryWorkService historyWorkService,
             IMailEmployeeService mailEmployeeService,
             IWebHostEnvironment environment,
@@ -50,14 +50,14 @@
             this.teamService = teamService;
             this.jobTitleService = jobTitleService;
             this.shiftService = shiftService;
-            this.commandService = commandService;
+            this.baseService = baseService;
             this.historyWorkService = historyWorkService;
             this.mailEmployeeService = mailEmployeeService;
             this.environment = environment;
             this.appSetting = appSetting;
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             var model = new StaffInfoViewModel { Teams = await teamService.GetTeam() };
 
@@ -65,7 +65,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> UserManagement(int jobTitleId = 0)
+        public async Task<IActionResult> UserManagement(int jobTitleId = 0)
         {
             var model = new UserManagementViewModel
             {
@@ -78,7 +78,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> SpecialUserManagement(int jobTitleId = 0)
+        public async Task<IActionResult> SpecialUserManagement(int jobTitleId = 0)
         {
             var model = new UserManagementViewModel
             {
@@ -125,7 +125,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> WorkingHistory(int employeeId)
+        public async Task<IActionResult> WorkingHistory(int employeeId)
         {
             const int startYear = 2011;
             var history = new WorkingHistoryViewModel { EmpId = employeeId };
@@ -137,7 +137,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> HistoryWorkDetail(WorkingHistoryViewModel model)
+        public async Task<IActionResult> HistoryWorkDetail(WorkingHistoryViewModel model)
         {
             IList<HistoryWork> filterHistory = await GetFilterHistoryWork(model);
 
@@ -161,7 +161,7 @@
 
         [HttpGet]
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> InsertHistoryWork(int employeeId)
+        public async Task<IActionResult> InsertHistoryWork(int employeeId)
         {
             var history = new WorkingHistoryViewModel { EmpId = employeeId };
             history.Teams = await teamService.GetTeam();
@@ -174,7 +174,7 @@
 
         [HttpPost]
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult InsertHistoryWork(WorkingHistoryViewModel model)
+        public async Task<IActionResult> InsertHistoryWork(WorkingHistoryViewModel model)
         {
             var result = new CommandResult
             {
@@ -194,7 +194,7 @@
                     GroupName = model.GroupName
                 };
 
-                result = commandService.ExecuteNonQuery(history);
+                result = await baseService.ExecuteNonQueryAsync(history);
             }
 
             return Json(result);
@@ -202,7 +202,7 @@
 
         [HttpGet]
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> EditHistoryWork(int? id)
+        public async Task<IActionResult> EditHistoryWork(int? id)
         {
             var history = new WorkingHistoryViewModel { };
 
@@ -225,7 +225,7 @@
 
         [HttpPost]
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult EditHistoryWork(WorkingHistoryViewModel model)
+        public async Task<IActionResult> EditHistoryWork(WorkingHistoryViewModel model)
         {
             var result = new CommandResult
             {
@@ -244,7 +244,7 @@
                     GroupName = model.GroupName
                 };
 
-                result = commandService.ExecuteNonQuery(history);
+                result = await baseService.ExecuteNonQueryAsync(history);
             }
             else
             {
@@ -255,25 +255,25 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public JsonResult DeleteHistoryWork(int id)
+        public async Task<IActionResult> DeleteHistoryWork(int id)
         {
             var criteria = new DeleteHistoryWorkCriteria
             {
                 Id = id,
             };
 
-            CommandResult result = commandService.ExecuteNonQuery(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
             return Json(result);
         }
 
-        public async Task<ActionResult> Detail(int employeeId)
+        public async Task<IActionResult> Detail(int employeeId)
         {
             Employee employee = await GetEmployeeById(employeeId);
             return View(employee);
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> Create()
+        public async Task<IActionResult> Create()
         {
             ViewBag.DomainName = appSetting.DomainName;
             var model = new CreateEmployeeViewModel
@@ -292,7 +292,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public async Task<ActionResult> Create(CreateEmployeeViewModel model)
+        public async Task<IActionResult> Create(CreateEmployeeViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -314,7 +314,7 @@
                     WedShift = model.WedShift
                 };
 
-                CommandResult result = commandService.ExecuteNonQuery(criteria);
+                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
                 if (result.IsSuccessful)
                 {
                     return Redirect("Edit?id=" + criteria.EmployeeId);
@@ -332,7 +332,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             Employee employee = await GetEmployeeById(id);
 
@@ -349,7 +349,7 @@
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(EditEmployeeViewModel model)
+        public async Task<IActionResult> Edit(EditEmployeeViewModel model)
         {
             if (model == null || !ModelState.IsValid)
             {
@@ -357,7 +357,7 @@
             }
 
             UpdateEmployeeCriteria criteria = FillDataUpdateEmployeeCriteria(model);
-            CommandResult result = commandService.ExecuteNonQuery(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
 
             if (result.IsSuccessful)
             {
@@ -391,20 +391,20 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult Delete(int employeeId, DateTime resignedDate)
+        public async Task<IActionResult> Delete(int employeeId, DateTime resignedDate)
         {
             var criteria = new DeleteEmployeeCriteria
             {
                 EmployeeId = employeeId,
                 ResignedDate = resignedDate
             };
-            CommandResult result = commandService.ExecuteNonQuery(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
 
             return Json(result);
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> DefaultSchedule(int employeeId)
+        public async Task<IActionResult> DefaultSchedule(int employeeId)
         {
             Employee employee = await GetEmployeeById(employeeId);
             DefaultScheduleViewModel model = GetDefaultScheduleFromEmployee(employee);
@@ -415,7 +415,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public async Task<ActionResult> DefaultSchedule(DefaultScheduleViewModel model)
+        public async Task<IActionResult> DefaultSchedule(DefaultScheduleViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -430,7 +430,7 @@
                     SatShift = model.SatShiftId,
                     SunShift = model.SunShiftId
                 };
-                CommandResult result = commandService.ExecuteNonQuery(criteria);
+                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Updated = true;
@@ -447,7 +447,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> MonthSchedule(int employeeId)
+        public async Task<IActionResult> MonthSchedule(int employeeId)
         {
             Employee employee = await GetEmployeeById(employeeId);
             MonthlyScheduleViewModel model = new MonthlyScheduleViewModel();
@@ -490,7 +490,7 @@
         [HttpPost]
         public async Task<JsonResult> UploadAvatar(string code, IFormFile file)
         {
-            if(file != null)
+            if (file != null)
             {
                 string FileName = code + ".jpg";
                 var path = Path.Combine(environment.WebRootPath, "avatars\\" + FileName);
@@ -508,7 +508,7 @@
             await file.CopyToAsync(stream);
         }
 
-        public async Task<ActionResult> Birthday(int month = 0)
+        public async Task<IActionResult> Birthday(int month = 0)
         {
             IEnumerable<Employee> employees = await GetEmployees();
             IList<EmployeeBirthdayViewModel> sortedEmployees;
@@ -526,7 +526,7 @@
             return View(sortedEmployees);
         }
 
-        public async Task<ActionResult> MyProfile()
+        public async Task<IActionResult> MyProfile()
         {
             var criteria = new GetEmployeeByIdCriteria
             {
@@ -555,7 +555,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> Transfer()
+        public async Task<IActionResult> Transfer()
         {
             var luminetGroups = await employeeService.GetLuminetGroups();
             var luminetShifts = await employeeService.GetLuminetShifts();
@@ -572,7 +572,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public async Task<ActionResult> Transfer(TransferEmployeeViewModel model)
+        public async Task<IActionResult> Transfer(TransferEmployeeViewModel model)
         {
             if (model == null)
             {
@@ -605,7 +605,7 @@
                 ModifiedBy = CurrentUser.Id,
                 IsTransferNexBalance = model.IsTransferLateInEarlyOut ? 1 : 0
             };
-            CommandResult result = commandService.ExecuteNonQuery(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
             if (result.Code == 0 || result.Code == -1)
             {
                 ViewBag.Requested = true;

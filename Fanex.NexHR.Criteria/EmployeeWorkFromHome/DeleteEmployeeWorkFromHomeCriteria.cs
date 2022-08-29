@@ -1,9 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.EmployeeWorkFromHome
 {
-
-    using Fanex.Data.Repository;
-
-    public class DeleteEmployeeWorkFromHomeCriteria : CriteriaBase
+    public class DeleteEmployeeWorkFromHomeCriteria : BaseCommand
     {
         public int EmployeeWorkFromHomeId { get; set; }
         public int DeletedBy { get; set; }

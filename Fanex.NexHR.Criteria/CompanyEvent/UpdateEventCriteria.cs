@@ -1,9 +1,8 @@
 ﻿namespace Fanex.NexHR.Criteria.CompanyEvent
 {
     using System;
-    using Data.Repository;
 
-    public class UpdateEventCriteria : CriteriaBase
+    public class UpdateEventCriteria : BaseCommand
     {
         public int Id { get; set; }
 

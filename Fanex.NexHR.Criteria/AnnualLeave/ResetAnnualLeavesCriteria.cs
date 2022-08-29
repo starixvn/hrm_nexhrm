@@ -4,10 +4,9 @@
     using System.Collections.Generic;
     using System.Text;
     using Data;
-    using Data.Repository;
     using Models.AnnualLeave;
 
-    public class ResetAnnualLeavesCriteria : CriteriaBase
+    public class ResetAnnualLeavesCriteria : BaseCommand
     {
         private const string XmlTemplate = "<Employee Id='{0}' LeaveBalance='{1}' />";
         private const string BeginRootTag = "<ROOT>";

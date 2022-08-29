@@ -15,19 +15,19 @@
     {
         private readonly ITeamService teamService;
         private readonly IDepartmentService departmentService;
-        private readonly ICommandService commandService;
+        private readonly IBaseService baseService;
 
         public TeamController(ISessionService sessionService,
             ITeamService teamService,
             IDepartmentService departmentService,
-            ICommandService commandService) : base(sessionService)
+            IBaseService baseService) : base(sessionService)
         {
             this.teamService = teamService;
             this.departmentService = departmentService;
-            this.commandService = commandService;
+            this.baseService = baseService;
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             IList<Team> teams = await teamService.GetTeam();
 
@@ -35,7 +35,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> Create()
+        public async Task<IActionResult> Create()
         {
             var model = new TeamViewModel
             {
@@ -48,7 +48,7 @@
 
         [HttpPost]
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> Create(TeamViewModel model)
+        public async Task<IActionResult> Create(TeamViewModel model)
         {
             if (model != null)
             {
@@ -65,7 +65,7 @@
                         CreatedBy = CurrentUser.Id
                     };
 
-                    CommandResult result = commandService.ExecuteNonQuery(criteria);
+                    CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
 
                     if (result.IsSuccessful)
                     {
@@ -85,7 +85,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             var criteria = new GetTeamByIdCriteria
             {
@@ -121,7 +121,7 @@
 
         [HttpPost]
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> Edit(TeamViewModel model)
+        public async Task<IActionResult> Edit(TeamViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -142,7 +142,7 @@
                     ModifiedBy = CurrentUser.Id
                 };
 
-                CommandResult result = commandService.ExecuteNonQuery(criteria);
+                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
 
                 if (result.IsSuccessful)
                 {
@@ -167,7 +167,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var criteria = new DeleteTeamCriteria
             {
@@ -175,7 +175,7 @@
                 ModifiedBy = CurrentUser.Id,
             };
 
-            CommandResult result = commandService.ExecuteNonQuery(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
             return Json(result);
         }
     }

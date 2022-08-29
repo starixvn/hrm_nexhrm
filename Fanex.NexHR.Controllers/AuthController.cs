@@ -33,7 +33,7 @@
         }
 
         [HttpGet]
-        public async Task<ActionResult> Login()
+        public async Task<IActionResult> Login()
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
@@ -50,7 +50,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult> Login(LoginModel model, string returnUrl)
+        public async Task<IActionResult> Login(LoginModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -125,7 +125,7 @@
             return isValid;
         }
 
-        public ActionResult Logout()
+        public IActionResult Logout()
         {
             sessionService.Clear();
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

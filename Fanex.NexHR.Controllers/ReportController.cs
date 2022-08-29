@@ -27,7 +27,7 @@
         private readonly IEmployeeService employeeService;
         private readonly IReportService reportService;
         private readonly ITeamService teamService;
-        private readonly ICommandService commandService;
+        private readonly IBaseService baseService;
 
         private static readonly bool isEditableSettingCheckInOut = bool.Parse(ConfigurationManager.AppSettings["IsEditableSettingCheckInOut"]);
 
@@ -35,15 +35,15 @@
             IEmployeeService employeeService,
             IReportService reportService,
             ITeamService teamService,
-            ICommandService commandService) : base(sessionService)
+            IBaseService baseService) : base(sessionService)
         {
             this.employeeService = employeeService;
             this.reportService = reportService;
             this.teamService = teamService;
-            this.commandService = commandService;
+            this.baseService = baseService;
         }
 
-        public async Task<ActionResult> Attendance(EmployeeAttendanceViewModel model)
+        public async Task<IActionResult> Attendance(EmployeeAttendanceViewModel model)
         {
             const int numberItems = 500;
             var employeeAttendanceViewModel = model;
@@ -68,7 +68,7 @@
             return View(employeeAttendanceViewModel);
         }
 
-        public async Task<ActionResult> ListAttendance(EmployeeAttendanceViewModel model)
+        public async Task<IActionResult> ListAttendance(EmployeeAttendanceViewModel model)
         {
             IList<EmployeeAttendanceModel> attendances = new List<EmployeeAttendanceModel>();
             if (model != null)
@@ -149,7 +149,7 @@
             return Json(employeeAttendances);
         }
 
-        public async Task<ActionResult> Timesheet()
+        public async Task<IActionResult> Timesheet()
         {
             var model = new TimesheetViewModel
             {
@@ -162,7 +162,7 @@
         }
 
         [HttpPost]
-        public JsonResult AddChekInTime()
+        public async Task<IActionResult> AddChekInTime()
         {
             var criteria = new InsertCheckInOutRecordCriteria
             {
@@ -172,12 +172,12 @@
                 IPAddress = GetClientIpAddress(),
                 Platform = Request.Headers["User-Agent"]
             };
-            CommandResult result = commandService.ExecuteNonQuery(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
             return Json(result);
         }
 
         [HttpPost]
-        public JsonResult AddChekOutTime()
+        public async Task<IActionResult> AddChekOutTime()
         {
             var criteria = new InsertCheckInOutRecordCriteria
             {
@@ -187,13 +187,12 @@
                 IPAddress = GetClientIpAddress(),
                 Platform = Request.Headers["User-Agent"]
             };
-            CommandResult result = commandService.ExecuteNonQuery(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
             return Json(result);
         }
 
-
         [HttpPost]
-        public JsonResult EditChekInOutTime(DateTime attendanceDate, string time, short inOutType)
+        public async Task<IActionResult> EditChekInOutTime(DateTime attendanceDate, string time, short inOutType)
         {
             var dateTime = attendanceDate.ToString("dd/MM/yyyy");
             var parseTime = TimeSpan.ParseExact(time, @"h\:mm", CultureInfo.InvariantCulture);
@@ -209,7 +208,7 @@
                 ModifiedDate = DateTime.Now,
                 IsEditCheckInOutOnline = true
             };
-            CommandResult result = commandService.ExecuteNonQuery(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
             return Json(result);
         }
 
@@ -236,7 +235,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult> ListTimesheet(TimesheetViewModel model)
+        public async Task<IActionResult> ListTimesheet(TimesheetViewModel model)
         {
             IList<EmployeeAttendanceModel> employeeAttendances = new List<EmployeeAttendanceModel>();
             if (model != null)
@@ -250,12 +249,12 @@
                 };
 
                 employeeAttendances = await reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
-                foreach(var attendance in employeeAttendances)
+                foreach (var attendance in employeeAttendances)
                 {
                     var parseAttendanceDate = (DateTime)attendance.AttendanceDate;
                     var isOverOneWeek = DateTime.Now >= parseAttendanceDate.AddDays(7);
                     attendance.IsWorkFromHome = attendance.IsWorkFromHome && isEditableSettingCheckInOut && !isOverOneWeek;
-                }    
+                }
             }
 
             return PartialView("_ListTimesheet", employeeAttendances);
@@ -263,7 +262,7 @@
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Hr", Justification = "Reviewed")]
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult HrRequestMonitoring()
+        public IActionResult HrRequestMonitoring()
         {
             var year = DateTime.Now.Year;
             var month = DateTime.Now.Month;
@@ -282,7 +281,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> ListHRRequestMonitoring(RequestsMonitoringViewModel model)
+        public async Task<IActionResult> ListHRRequestMonitoring(RequestsMonitoringViewModel model)
         {
             IList<RequestsMonitoring> requestMonitorings = await GetRequestMonitoringDetail(model);
 
@@ -290,7 +289,7 @@
         }
 
         [HrmAuthorize(Roles = "AssistantLeader")]
-        public ActionResult LeaderRequestMonitoring()
+        public IActionResult LeaderRequestMonitoring()
         {
             var year = DateTime.Now.Year;
             var month = DateTime.Now.Month;
@@ -309,7 +308,7 @@
         }
 
         [HrmAuthorize(Roles = "AssistantLeader")]
-        public async Task<ActionResult> ListLeaderRequestMonitoring(RequestsMonitoringViewModel model)
+        public async Task<IActionResult> ListLeaderRequestMonitoring(RequestsMonitoringViewModel model)
         {
             return PartialView("_ListRequestMonitoring", await GetRequestMonitoringDetail(model));
         }
@@ -336,7 +335,7 @@
             return requestMonitorings;
         }
 
-        public async Task<ActionResult> TotalWorkingHour()
+        public async Task<IActionResult> TotalWorkingHour()
         {
             IList<Team> teams = await teamService.GetTeam();
 
@@ -403,7 +402,7 @@
             return totalWorkingSorted;
         }
 
-        public async Task<ActionResult> LateInEarlyOut(int empId = 0, string nickname = "")
+        public async Task<IActionResult> LateInEarlyOut(int empId = 0, string nickname = "")
         {
             IList<Team> teams = await teamService.GetTeam();
 
@@ -425,7 +424,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult> ListLateInEarlyOut(LateInEarlyOutViewModel model)
+        public async Task<IActionResult> ListLateInEarlyOut(LateInEarlyOutViewModel model)
         {
             IList<LateInEarlyOutModel> lateInEarlyOuts = new List<LateInEarlyOutModel>();
             if (model != null)
@@ -446,7 +445,7 @@
         }
 
         [HttpGet]
-        public async Task<ActionResult> LateInEarlyOutDetail(
+        public async Task<IActionResult> LateInEarlyOutDetail(
             DateTime fromDate,
             DateTime toDate,
             int? employeeId = null,
@@ -496,7 +495,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> LateInEarlyOutDiscipline()
+        public async Task<IActionResult> LateInEarlyOutDiscipline()
         {
             IList<Team> teams = await teamService.GetTeam();
             var today = DateTime.Today;
@@ -515,7 +514,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public async Task<ActionResult> ListLateInEarlyOutDiscipline(LateInEarlyOutSummaryViewModel model)
+        public async Task<IActionResult> ListLateInEarlyOutDiscipline(LateInEarlyOutSummaryViewModel model)
         {
             IList<LateInEarlyOutDiscipline> lateInEarlyOutDisciplines = new List<LateInEarlyOutDiscipline>();
             if (model != null)
@@ -536,7 +535,7 @@
             return PartialView("_ListLateInEarlyOutDiscipline", lateInEarlyOutDisciplines);
         }
 
-        public ActionResult MyTimeRecord(DateTime? fromDate, DateTime? toDate)
+        public IActionResult MyTimeRecord(DateTime? fromDate, DateTime? toDate)
         {
             DateTime from;
             DateTime to;
@@ -563,7 +562,7 @@
             return View(model);
         }
 
-        public async Task<ActionResult> ListMyTimeRecord(TimeRecordViewModel model)
+        public async Task<IActionResult> ListMyTimeRecord(TimeRecordViewModel model)
         {
             IList<TimeRecord> timeRecords = new List<TimeRecord>();
             if (model != null)
@@ -595,7 +594,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> TimeRecord(DateTime? fromDate, DateTime? toDate)
+        public async Task<IActionResult> TimeRecord(DateTime? fromDate, DateTime? toDate)
         {
             DateTime from;
             DateTime to;
@@ -626,7 +625,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> ListTimeRecord(TimeRecordViewModel model)
+        public async Task<IActionResult> ListTimeRecord(TimeRecordViewModel model)
         {
             IList<TimeRecord> timeRecords = new List<TimeRecord>();
             if (model != null)
@@ -678,7 +677,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> WorkingHoursStatistic()
+        public async Task<IActionResult> WorkingHoursStatistic()
         {
             IList<Team> teams = await teamService.GetTeam();
 
@@ -699,13 +698,13 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult HeadCount()
+        public IActionResult HeadCount()
         {
             return View();
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> GetHeadCount(int year)
+        public async Task<IActionResult> GetHeadCount(int year)
         {
             var critera = new GetHeadCountByYearCriteria
             {
@@ -723,7 +722,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> YearlyNexRequest()
+        public async Task<IActionResult> YearlyNexRequest()
         {
             IList<Team> teams = await teamService.GetTeam();
             var model = new YearlyNexRequestViewModel
@@ -737,7 +736,7 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public async Task<ActionResult> GetYearlyNexRequest(int? empId, int? teamId, int year)
+        public async Task<IActionResult> GetYearlyNexRequest(int? empId, int? teamId, int year)
         {
             int? employeeId = null;
             if (empId.HasValue && empId.Value > 0)

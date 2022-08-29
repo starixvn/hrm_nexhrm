@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Overtime
 {
-    using Data.Repository;
-
-    public class DeleteConversionCriteria : CriteriaBase
+    public class DeleteConversionCriteria : BaseCommand
     {
         public int Id { get; set; }
 

@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.ExtensionNo
 {
-    using Data.Repository;
-
-    public class AddNewExtensionNoMemberCriteria : CriteriaBase
+    public class AddNewExtensionNoMemberCriteria : BaseCommand
     {
         public int GroupId { get; set; }
 

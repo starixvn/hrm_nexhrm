@@ -16,19 +16,19 @@
     {
         private readonly IExtensionNoService extensionNoService;
         private readonly ITeamService teamService;
-        private readonly ICommandService commandService;
+        private readonly IBaseService baseService;
 
         public ExtensionNoController(ISessionService sessionService,
             IExtensionNoService extensionNoService,
             ITeamService teamService,
-            ICommandService commandService) : base(sessionService)
+            IBaseService baseService) : base(sessionService)
         {
             this.extensionNoService = extensionNoService;
             this.teamService = teamService;
-            this.commandService = commandService;
+            this.baseService = baseService;
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             GetAllExtensionNoCriteria criteria = new GetAllExtensionNoCriteria();
             IEnumerable<ExtensionNoModel> lstEntity = await extensionNoService.GetAllExtensionNo(criteria);
@@ -40,14 +40,14 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult AddNewMember()
+        public IActionResult AddNewMember()
         {
             return View(new ExtensionNoModel());
         }
 
         [HttpPost]
         [HrmAuthorize(Roles = "HR")]
-        public ActionResult AddNewMember(ExtensionNoModel model)
+        public async Task<IActionResult> AddNewMember(ExtensionNoModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -62,7 +62,7 @@
                     ExtensionNo = model.ExtensionNo
                 };
 
-                CommandResult result = commandService.ExecuteNonQuery(criteria);
+                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
@@ -77,7 +77,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> EditExtensionNumber(bool isInternal, int empExtId)
+        public async Task<IActionResult> EditExtensionNumber(bool isInternal, int empExtId)
         {
             var criteria = new GetEmployeeExtensionNoByIdCriteria
             {
@@ -104,7 +104,7 @@
 
         [HttpPost]
         [HrmAuthorize(Roles = "HR")]
-        public async Task<ActionResult> EditExtensionNumber(ExtensionNoModel model)
+        public async Task<IActionResult> EditExtensionNumber(ExtensionNoModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -132,10 +132,10 @@
                     ExtensionNo = model.ExtensionNo
                 };
 
-                CommandResult result = commandService.ExecuteNonQuery(updateCriteria);
+                CommandResult result = await baseService.ExecuteNonQueryAsync(updateCriteria);
                 if (result.IsSuccessful)
                 {
-                        ViewBag.Updated = true;
+                    ViewBag.Updated = true;
                 }
                 else
                 {
@@ -148,58 +148,58 @@
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult DeleteExtensionNumber(int extId)
+        public async Task<IActionResult> DeleteExtensionNumber(int extId)
         {
             var criteria = new DeleteExtensionNumberCriteria
             {
                 ExtId = extId
             };
-            CommandResult result = commandService.ExecuteNonQuery(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
 
             return Json(result);
         }
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult AddNewExternalGroup(string groupName)
+        public async Task<IActionResult> AddNewExternalGroup(string groupName)
         {
             var criteria = new AddNewExternalGroupCriteria
             {
                 FullName = WebUtility.HtmlEncode(groupName)
             };
-            CommandResult result = commandService.ExecuteNonQuery(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
 
             return Json(result);
         }
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult DeleteExternalGroup(int extId)
+        public async Task<IActionResult> DeleteExternalGroup(int extId)
         {
             var criteria = new DeleteExternalGroupCriteria
             {
                 ExtId = extId
             };
-            CommandResult result = commandService.ExecuteNonQuery(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
 
             return Json(result);
         }
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult EditExternalGroup(int extId, string groupName)
+        public async Task<IActionResult> EditExternalGroup(int extId, string groupName)
         {
             var criteria = new UpdateExternalGroupCriteria
             {
                 ExtId = extId,
                 FullName = groupName
             };
-            CommandResult result = commandService.ExecuteNonQuery(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
 
             return Json(result);
         }
 
-        public async Task<ActionResult> ManageExternalGroup()
+        public async Task<IActionResult> ManageExternalGroup()
         {
             var criteria = new GetAllExtensionGroupInfoCriteria
             {

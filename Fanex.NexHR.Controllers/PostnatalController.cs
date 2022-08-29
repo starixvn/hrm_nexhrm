@@ -14,26 +14,25 @@
     public class PostnatalController : BaseController
     {
         private readonly IPostnatalService postnatalService;
-        private readonly ICommandService commandService;
+        private readonly IBaseService baseService;
         private const int MixPostnatalTypeCount = 2;
         private const int ThirtyMinutes = 30;
         private const int SixtyMinutes = 60;
 
-
-        public PostnatalController(ISessionService sessionService, 
-            IPostnatalService postnatalService, 
-            ICommandService commandService) : base(sessionService)
+        public PostnatalController(ISessionService sessionService,
+            IPostnatalService postnatalService,
+            IBaseService baseService) : base(sessionService)
         {
             this.postnatalService = postnatalService;
-            this.commandService = commandService;
+            this.baseService = baseService;
         }
 
-        public ActionResult Index()
+        public IActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Create()
+        public IActionResult Create()
         {
             PostnatalViewModel model = new PostnatalViewModel
             {
@@ -47,7 +46,7 @@
         }
 
         [HttpPost]
-        public ActionResult Create(PostnatalViewModel model)
+        public async Task<IActionResult> Create(PostnatalViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -60,7 +59,7 @@
                     Minutes = GetMinuteByType(model),
                     Types = model.ChosenTypes.Count == MixPostnatalTypeCount ? (int)PostnatalType.MixLateInEarlyOutAndBreakTime : model.ChosenTypes[0]
                 };
-                CommandResult result = commandService.ExecuteNonQuery(criteria);
+                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
@@ -74,7 +73,7 @@
             return View(model);
         }
 
-        public async Task<ActionResult> Edit(int empId, string from, string to)
+        public async Task<IActionResult> Edit(int empId, string from, string to)
         {
             GetByIdPostnatalCriteria criteria = new GetByIdPostnatalCriteria
             {
@@ -89,12 +88,12 @@
                 employee.OldFromDate = employee.FromDate;
                 employee.OldToDate = employee.ToDate;
             }
-            
+
             return View(employee);
-        }        
+        }
 
         [HttpPost]
-        public ActionResult Edit(PostnatalViewModel model)
+        public async Task<IActionResult> Edit(PostnatalViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
@@ -110,7 +109,7 @@
                     Minutes = GetMinuteByType(model),
                     Types = model.ChosenTypes.Count == MixPostnatalTypeCount ? (int)PostnatalType.MixLateInEarlyOutAndBreakTime : model.ChosenTypes[0]
                 };
-                CommandResult result = commandService.ExecuteNonQuery(criteria);
+                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Requested = true;
@@ -124,7 +123,7 @@
             return View(model);
         }
 
-        public JsonResult Delete(int empId, DateTime fromDate, DateTime toDate)
+        public async Task<IActionResult> Delete(int empId, DateTime fromDate, DateTime toDate)
         {
             DeletePostnatalCriteria criteria = new DeletePostnatalCriteria
             {
@@ -132,11 +131,11 @@
                 FromDate = fromDate,
                 ToDate = toDate
             };
-            CommandResult result = commandService.ExecuteNonQuery(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
             return Json(result);
         }
 
-        public async Task<ActionResult> ListPostnatalEmployee(int empId, int year)
+        public async Task<IActionResult> ListPostnatalEmployee(int empId, int year)
         {
             GetAllPostnatalCriteria criteria = new GetAllPostnatalCriteria
             {

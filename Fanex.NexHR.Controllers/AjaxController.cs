@@ -1,25 +1,25 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
     using System;
+    using System.Threading.Tasks;
     using Criteria.Report;
     using Fanex.NexHR.Models.Attributes;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Services.Interfaces;
 
     public class AjaxController : BaseController
     {
-        private readonly ICommandService commandService;
+        private readonly IBaseService baseService;
 
-        public AjaxController(ISessionService sessionService, ICommandService commandService) : base(sessionService)
+        public AjaxController(ISessionService sessionService, IBaseService baseService) : base(sessionService)
         {
-            this.commandService = commandService;
+            this.baseService = baseService;
         }
 
         [HrmAuthorize(Roles = "HR")]
         [HttpPost]
-        public JsonResult ProcessInOut(TimeRecordUpdateTypeCriteria criteria)
+        public async Task<IActionResult> ProcessInOut(TimeRecordUpdateTypeCriteria criteria)
         {
             if (criteria != null)
             {
@@ -27,7 +27,7 @@
                 criteria.ModifiedDate = DateTime.Now;
             }
 
-            CommandResult commandResult = commandService.ExecuteNonQuery(criteria);
+            CommandResult commandResult = await baseService.ExecuteNonQueryAsync(criteria);
 
             return Json(commandResult);
         }

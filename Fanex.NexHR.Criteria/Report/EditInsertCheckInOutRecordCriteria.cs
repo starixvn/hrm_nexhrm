@@ -1,8 +1,8 @@
 ﻿namespace Fanex.NexHR.Criteria.Report
 {
     using System;
-    using Fanex.Data.Repository;
-    public class EditInsertCheckInOutRecordCriteria : CriteriaBase
+
+    public class EditInsertCheckInOutRecordCriteria : BaseCommand
     {
         public int EmpId { get; set; }
 

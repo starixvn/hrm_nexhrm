@@ -1,9 +1,8 @@
 ﻿namespace Fanex.NexHR.Criteria.EmployeeWorkFromHome
 {
     using System;
-    using Fanex.Data.Repository;
 
-    public class UpdateEmployeeWorkFromHomeCriteria : CriteriaBase
+    public class UpdateEmployeeWorkFromHomeCriteria : BaseCommand
     {
         public int EmployeeWorkFromHomeId { get; set; }
         public int EmpId { get; set; }

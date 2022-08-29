@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.LateInEarlyOut
 {
-    using Data.Repository;
-
-    public class DeleteLateInEarlyOutCriteria : CriteriaBase
+    public class DeleteLateInEarlyOutCriteria : BaseCommand
     {
         public int Id { get; set; }
 

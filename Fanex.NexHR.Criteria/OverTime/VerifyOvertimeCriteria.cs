@@ -3,11 +3,10 @@
     using System.Collections.Generic;
     using System.Linq;
     using Data;
-    using Data.Repository;
     using Fanex.NexHR.Core.XML;
     using Models.Overtime;
 
-    public class VerifyOvertimeCriteria : CriteriaBase
+    public class VerifyOvertimeCriteria : BaseCommand
     {
         public int Id { get; set; }
 
@@ -23,6 +22,7 @@
                 return TimeSheetsXml().ToXML().ToString();
             }
         }
+
         public override string GetSettingKey()
         {
             return "Overtime_VerifyRequest";

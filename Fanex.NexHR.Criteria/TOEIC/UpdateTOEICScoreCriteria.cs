@@ -10,12 +10,11 @@
 namespace Fanex.NexHR.Criteria.Toeic
 {
     using System;
-    using Data.Repository;
 
     /// <summary>
     /// Update TOEIC Score Criteria.
     /// </summary>
-    public class UpdateToeicScoreCriteria : CriteriaBase
+    public class UpdateToeicScoreCriteria : BaseCommand
     {
         public int EmpId { get; set; }
 

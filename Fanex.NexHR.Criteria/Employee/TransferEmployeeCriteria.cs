@@ -1,9 +1,8 @@
 ﻿namespace Fanex.NexHR.Criteria.Employee
 {
-    using Fanex.Data.Repository;
     using System;
 
-    public class TransferEmployeeCriteria : CriteriaBase
+    public class TransferEmployeeCriteria : BaseCommand
     {
         public int EmployeeId { get; set; }
 
@@ -16,7 +15,7 @@
         public int ShiftId { get; set; }
 
         public int IsTransferLateInEarlyOut { get; set; }
-        
+
         public int IsTransferAnnualLeaveBalance { get; set; }
 
         public int ModifiedBy { get; set; }

@@ -16,7 +16,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult> SendScheduledMessages()
+        public async Task<IActionResult> SendScheduledMessages()
         {
             var result = await scheduledMessageService.SendScheduledMessages().ConfigureAwait(false);
             return Ok(result);

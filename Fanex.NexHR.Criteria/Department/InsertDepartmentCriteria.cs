@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Department
 {
-    using Data.Repository;
-
-    public class InsertDepartmentCriteria : CriteriaBase
+    public class InsertDepartmentCriteria : BaseCommand
     {
         public string Code { get; set; }
 

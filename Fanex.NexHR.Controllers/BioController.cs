@@ -19,27 +19,24 @@
     [HrmAuthorize(Roles = "HR")]
     public class BioController : BaseController
     {
-        private readonly ICommandService commandService;
+        private readonly IBaseService baseService;
 
         private readonly ITeamService teamService;
-        private readonly IBaseService baseService;
         private readonly IBioService bioService;
 
         public BioController(ISessionService sessionService,
-            ICommandService commandService,
+            IBaseService baseService,
 
             ITeamService teamService,
-            IBaseService baseService,
             IBioService bioService
             ) : base(sessionService)
         {
-            this.commandService = commandService;
             this.teamService = teamService;
             this.baseService = baseService;
             this.bioService = bioService;
         }
 
-        public async Task<ActionResult> BioDevice()
+        public async Task<IActionResult> BioDevice()
         {
             var bioDevices = await baseService.GetDataAsync<BioDevice>(new GetBioDevicesCriteria());
             var viewModel = bioDevices.Select(x => new BioDeviceViewModel
@@ -55,7 +52,7 @@
             return View(viewModel);
         }
 
-        public async Task<ActionResult> EditBioDevice(int id)
+        public async Task<IActionResult> EditBioDevice(int id)
         {
             var bioDevice = await baseService.GetDataEntityAsync<BioDevice>(new GetBioDeviceCriteria { DeviceId = id });
             var bioDeviceStatuses = await baseService.GetDataAsync<LookupData>(new GetAllLookupDataCriteria { LookupCode = LookupCodeName.BioDeviceStatus });
@@ -76,7 +73,7 @@
         }
 
         [HttpPost]
-        public ActionResult EditBioDevice(EditBioDeviceViewModel viewModel)
+        public async Task<IActionResult> EditBioDevice(EditBioDeviceViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +85,7 @@
                     ModifiedBy = CurrentUser.Id
                 };
 
-                var result = commandService.ExecuteNonQuery(criteria);
+                var result = await baseService.ExecuteNonQueryAsync(criteria);
 
                 return Json(new
                 {
@@ -103,7 +100,7 @@
         }
 
         [HttpGet]
-        public async Task<ActionResult> ReloadBioDevice(int id)
+        public async Task<IActionResult> ReloadBioDevice(int id)
         {
             var bioDevice = await baseService.GetDataEntityAsync<BioDevice>(new GetBioDeviceCriteria { DeviceId = id });
             var viewModel = new BioDeviceViewModel
@@ -119,7 +116,7 @@
             return PartialView("_BioDeviceRow", viewModel);
         }
 
-        public ActionResult BioTimeChange()
+        public IActionResult BioTimeChange()
         {
             var viewModel = new BioStationTimeChangeViewModel
             {
@@ -130,7 +127,7 @@
             return View(viewModel);
         }
 
-        public async Task<ActionResult> GetBioStationTimeChange(BioStationTimeChangeViewModel viewModel)
+        public async Task<IActionResult> GetBioStationTimeChange(BioStationTimeChangeViewModel viewModel)
         {
             var criteria = new GetBioTimeChangeCriteria
             {
@@ -141,7 +138,7 @@
             return PartialView("_ListBioTimeChanges", timeChanges);
         }
 
-        public async Task<ActionResult> Fingerprint()
+        public async Task<IActionResult> Fingerprint()
         {
             var viewModel = new FingerprintAndCardViewModel
             {
@@ -150,7 +147,7 @@
             return View(viewModel);
         }
 
-        public async Task<ActionResult> GetFingerprintScannerData(FingerprintAndCardViewModel viewModel)
+        public async Task<IActionResult> GetFingerprintScannerData(FingerprintAndCardViewModel viewModel)
         {
             var criteria = new GetFingerprintAndCardSummaryCriteria
             {
@@ -165,7 +162,7 @@
         }
 
         [HttpPost]
-        public ActionResult ChangeFingerprintStatus(int employeeId, int bioUserId, FingerprintScannerStatus status)
+        public async Task<IActionResult> ChangeFingerprintStatus(int employeeId, int bioUserId, FingerprintScannerStatus status)
         {
             var criteria = new UpdateFingerprintAndCardStatusCriteria
             {
@@ -175,7 +172,7 @@
                 UpdatedBy = CurrentUser.Id
             };
 
-            var commandResult = commandService.ExecuteNonQuery(criteria);
+            var commandResult = await baseService.ExecuteNonQueryAsync(criteria);
 
             return Json(new { commandResult });
         }

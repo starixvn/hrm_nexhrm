@@ -1,10 +1,8 @@
-﻿
-namespace Fanex.NexHR.Criteria.WorkFromHomeRequest
+﻿namespace Fanex.NexHR.Criteria.WorkFromHomeRequest
 {
     using System;
-    using Fanex.Data.Repository;
 
-    public class EditWorkFromHomeRequestCriteria : CriteriaBase
+    public class EditWorkFromHomeRequestCriteria : BaseCommand
     {
         public int WorkFromHomeRequestId { get; set; }
         public int EmpId { get; set; }
@@ -15,6 +13,6 @@ namespace Fanex.NexHR.Criteria.WorkFromHomeRequest
 
         public override string GetSettingKey() => "WorkFromHomeRequest_Update";
 
-        public override bool IsValid() => WorkFromHomeRequestId > 0 && EmpId > 0  && FromDate <= ToDate && ModifiedBy > 0;
+        public override bool IsValid() => WorkFromHomeRequestId > 0 && EmpId > 0 && FromDate <= ToDate && ModifiedBy > 0;
     }
 }

@@ -30,7 +30,7 @@
         }
 
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             var conversations = await scheduledMessageService.GetConversationsByCreatorAsync(CurrentUser.Id).ConfigureAwait(false);
             ViewBag.NumberOfConversations = conversations.Count();
@@ -38,7 +38,7 @@
         }
 
         [HttpGet]
-        public async Task<ActionResult> Search(int year)
+        public async Task<IActionResult> Search(int year)
         {
             var scheduledMessages = await scheduledMessageService.GetScheduledMessagesAsync(year, CurrentUser.Id).ConfigureAwait(false);
 
@@ -59,7 +59,7 @@
         }
 
         [HttpGet]
-        public async Task<ActionResult> Create()
+        public async Task<IActionResult> Create()
         {
             var conversations = await scheduledMessageService.GetConversationsAsync(CurrentUser.Id).ConfigureAwait(false);
             var repeatTypes = await baseService.GetDataAsync<CronExpression>(new GetRepeatTypesCriteria());
@@ -79,7 +79,7 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(CreateScheduledMessageViewModel viewModel)
+        public async Task<IActionResult> Create(CreateScheduledMessageViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -138,7 +138,7 @@
         }
 
         [HttpGet]
-        public async Task<ActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             var conversations = await scheduledMessageService.GetConversationsAsync(CurrentUser.Id).ConfigureAwait(false);
             var scheduledMessage = await scheduledMessageService.GetScheduledMessageAsync(id).ConfigureAwait(false);
@@ -164,7 +164,7 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(EditScheduledMessageViewModel viewModel)
+        public async Task<IActionResult> Edit(EditScheduledMessageViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -197,7 +197,7 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Remove(int id)
+        public async Task<IActionResult> Remove(int id)
         {
             if (id > 0)
             {
@@ -214,7 +214,7 @@
         }
 
         [HttpGet]
-        public async Task<ActionResult> CreateConversation()
+        public async Task<IActionResult> CreateConversation()
         {
             var userRoles = employeeService.UserRoles(CurrentUser);
             var hasHRRole = userRoles.Any(item => item == "HR");
@@ -243,7 +243,7 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateConversation(CreateConversationViewModel viewModel)
+        public async Task<IActionResult> CreateConversation(CreateConversationViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -268,7 +268,7 @@
         }
 
         [HttpGet]
-        public ActionResult ManageConversations()
+        public IActionResult ManageConversations()
         {
             var userRoles = employeeService.UserRoles(CurrentUser);
             ViewBag.HasHRRole = userRoles.Any(item => item == "HR");
@@ -276,7 +276,7 @@
         }
 
         [HttpGet]
-        public async Task<ActionResult> SearchConversation()
+        public async Task<IActionResult> SearchConversation()
         {
             var conversations = await scheduledMessageService.GetConversationsByCreatorAsync(CurrentUser.Id).ConfigureAwait(false);
             var viewModel = conversations.Select(x => new ConversationViewModel
@@ -294,7 +294,7 @@
         }
 
         [HttpGet]
-        public async Task<ActionResult> EditConversation(int id)
+        public async Task<IActionResult> EditConversation(int id)
         {
             var userRoles = employeeService.UserRoles(CurrentUser);
             var conversation = await scheduledMessageService.GetConversationByIdAsync(id).ConfigureAwait(false);
@@ -327,7 +327,7 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditConversation(EditConversationViewModel viewModel)
+        public async Task<IActionResult> EditConversation(EditConversationViewModel viewModel)
         {
             if (ModelState.IsValid)
             {

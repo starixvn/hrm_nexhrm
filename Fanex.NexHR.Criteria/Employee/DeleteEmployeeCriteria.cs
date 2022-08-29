@@ -1,9 +1,8 @@
 ﻿namespace Fanex.NexHR.Criteria.Employee
 {
     using System;
-    using Data.Repository;
 
-    public class DeleteEmployeeCriteria : CriteriaBase
+    public class DeleteEmployeeCriteria : BaseCommand
     {
         public int EmployeeId { get; set; }
 

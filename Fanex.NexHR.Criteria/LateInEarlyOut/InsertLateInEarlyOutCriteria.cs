@@ -1,10 +1,9 @@
 ﻿namespace Fanex.NexHR.Criteria.LateInEarlyOut
 {
-    using Data;
-    using Data.Repository;
     using System;
+    using Data;
 
-    public class InsertLateInEarlyOutCriteria : CriteriaBase
+    public class InsertLateInEarlyOutCriteria : BaseCommand
     {
         public DateTime WorkDate { get; set; }
 
