@@ -29,7 +29,7 @@
                     <div class="form form-stl-table">
                         <form asp-controller="postnatal" asp-action="Create" method="post" class="form-create-update">
                             <div asp-validation-summary="All"></div>
-                            if (ViewBag.Requested != null)
+                            @if (ViewBag.Requested != null)
                             {
                                 if (ViewBag.Requested == true)
                                 {
@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="left input--employee">
                                         <input type="hidden" asp-for="EmpId" id="EmployeeId"/>
-                                        <input name="Employee" id="Employee"/>
+                                        <input name="Employee" id="Employee" type="text"/>
                                     </div>
                                 </div>
                             </div>

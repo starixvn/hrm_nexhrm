@@ -39,9 +39,9 @@
                                 <div class="left label--s">
                                     <label>@Labels.Team</label>
                                 </div>
-                                <div class="left select--m">     
+                                <div class="left select--m team">     
                                     <select asp-for="TeamId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
-                                        <option value="">All teams</option>
+                                        <option value="">@Labels.AllTeams</option>
                                     </select>
                                 </div>
                             </div>

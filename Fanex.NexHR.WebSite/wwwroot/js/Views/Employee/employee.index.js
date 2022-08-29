@@ -16,9 +16,21 @@ function query(isFirstLoad) {
         isDelete = null,
         jobTitleId = null;
 
+    const queryString = window.location.search;
+    if (queryString && isFirstLoad) {
+        initDataFirstQuery(queryString);
+    }
+    var data = "query=" + keyword + "&teamId=" + $('#TeamId').val() + "&enable=" + enable + "&isDelete=" + isDelete + "&jobTitleId=" + jobTitleId + "&sort=" + JSON.stringify(sorts);
+    var teamName = $(".team .select-dropdown").val();
+
+    var url = _global.root + 'employee/getemployees?' + data;
+    if (!isFirstLoad) {
+        var orgUrl = _global.root + 'employee?' + data + "&teamName=" + teamName;
+        window.history.replaceState(null, null, orgUrl);
+    }
+
     $.ajax({
-        url: _global.root + 'employee/getemployees',
-        data: { query: keyword, teamId: $('#TeamId').val(), enable: enable, isDelete: isDelete, jobTitleId: jobTitleId, sort: JSON.stringify(sorts) },
+        url: url,
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
@@ -69,6 +81,19 @@ function query(isFirstLoad) {
     });
 
     $('#Keyword').focus().select();
+}
+
+function initDataFirstQuery(queryString) {
+    var urlParams = new URLSearchParams(queryString);
+    var query = urlParams.get('query');
+    var teamId = urlParams.get('teamId');
+    var teamName = urlParams.get('teamName');
+
+    $('#Keyword').val(query);
+    $('#TeamId').val(teamId);
+
+    $(".team .select-dropdown").val(teamName);
+
 }
 
 function eventSorting() {

@@ -12,13 +12,20 @@ function index() {
 }
 
 function query(jobTitleId, isFirstLoad) {
-    if (jobTitleId === undefined || jobTitleId === '') {
-        jobTitleId = $('#JobTitleId').val();
-    }
+    jobTitleId = $('#JobTitleId').val();
 
     var keyword = $('#Keyword').val(),
-        isDisable = null;
+        isDisable = null,
+        isDelete = null;
 
+    const queryString = window.location.search;
+    if (queryString && isFirstLoad) {
+        initDataFirstQuery(queryString);
+    }
+
+    if (!$("#IsDisable").prop("checked") && !$("#IsDeleted").prop("checked")) {
+        $("#IsActive").prop("checked", true);
+    }
     if ($("#IsActive").prop("checked")) {
         isDisable = false;
     } else {
@@ -29,7 +36,6 @@ function query(jobTitleId, isFirstLoad) {
         }
     }
 
-    var isDelete = null;
     if ($("#IsDeleted").prop("checked")) {
         isDelete = true;
     } else {
@@ -38,9 +44,19 @@ function query(jobTitleId, isFirstLoad) {
 
     var isSpecial = $('#isspecial').val();
 
+    var jobTitleUrl = (!jobTitleId || jobTitleId === "") ? "" : "&jobTitleId=" + jobTitleId
+    var data = "query=" + keyword + "&teamId=" + $('#TeamId').val() + "&isDisable=" + isDisable + "&isDelete=" + isDelete + jobTitleUrl+ "&sort=" + JSON.stringify(sorts) + "&isSpecial=" + isSpecial;
+    var teamName = $(".team .select-dropdown").val();
+    var url = _global.root + 'employee/getemployees?' + data;
+    var actionOrgUrl = isSpecial ? "SpecialUserManagement?" : "UserManagement?"
+
+    if (!isFirstLoad) {
+        var orgUrl = _global.root + 'employee/' + actionOrgUrl + data + "&teamName=" + teamName ;
+        window.history.replaceState(null, null, orgUrl);
+    }
+
     $.ajax({
-        url: _global.root + 'employee/getemployees',
-        data: { query: keyword, teamId: $('#TeamId').val(), isDisable: isDisable, isDelete: isDelete, jobTitleId: jobTitleId, sort: JSON.stringify(sorts), isSpecial },
+        url: url,
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
@@ -102,6 +118,31 @@ function query(jobTitleId, isFirstLoad) {
     });
 
     $('#Keyword').focus().select();
+}
+
+function initDataFirstQuery(queryString) {
+    var urlParams = new URLSearchParams(queryString);
+    var query = urlParams.get('query');
+    var teamId = urlParams.get('teamId');
+    var jobTitleId = urlParams.get('jobTitleId');
+    var teamName = urlParams.get('teamName');
+    //var jobTitleName = urlParams.get('jobTitleName');
+    var isDisable = urlParams.get('isDisable');
+    var isDelete = urlParams.get('isDelete');
+
+    $('#Keyword').val(query);
+    $('#TeamId').val(teamId);
+    $('#JobTitleId').val(jobTitleId);
+    $(".team .select-dropdown").val(teamName);
+
+    console.log(isDisable)
+    console.log(isDelete)
+    if (isDisable === "true") {
+        $("#IsDisable").prop("checked", true);
+    } else if (isDelete === "true") {
+        $("#IsDeleted").prop("checked", true);
+    }
+
 }
 
 function eventSorting(jobTitleId) {

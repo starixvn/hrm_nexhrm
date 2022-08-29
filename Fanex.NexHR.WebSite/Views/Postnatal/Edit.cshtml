@@ -29,7 +29,7 @@
                     <div class="form form-stl-table">
                         <form asp-controller="postnatal" asp-action="Edit" method="post" class="form-create-update">
                             <div asp-validation-summary="All"></div>
-                            if (ViewBag.Requested != null)
+                            @if (ViewBag.Requested != null)
                             {
                                 if (ViewBag.Requested == true)
                                 {

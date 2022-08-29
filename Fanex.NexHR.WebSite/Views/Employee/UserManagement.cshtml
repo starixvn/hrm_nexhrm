@@ -38,17 +38,18 @@
                                 <div class="left label--s">
                                     <label>@Labels.Team</label>
                                 </div>
-                                <div class="left select--m">
+                                <div class="left select--m team">
                                     <select asp-for="TeamId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
                                             <option value="">@Labels.AllTeams</option>
                                     </select>
+                                    
                                 </div>
                             </div>
                             <div class="col m-r--l">
                                 <div class="left filter-title-lbl">
                                     <label>@Labels.Title</label>
                                 </div>
-                                <div class="left filter-title" style="margin-left: 3px; width:317px"> 
+                                <div class="left filter-title job-title" style="margin-left: 3px; width:317px"> 
                                     <select asp-for="JobTitleId" asp-items="@(new SelectList(Model.JobTitles, "Id", "Name"))">
                                             <option value="">@Labels.AllTitles</option>
                                     </select>
@@ -59,7 +60,7 @@
                             <div class="col">
                                 <div class="left label--m">&nbsp;</div>
                                 <div class="left radioButton">
-                                    <input class="with-gap" name="name" type="radio" id="IsActive" checked="checked" />
+                                    <input class="with-gap" name="name" type="radio" id="IsActive"/>
                                     <label for="IsActive" class="m-r--l">@Labels.ActiveUsers</label>
                                     <input class="with-gap" name="name" type="radio" id="IsDisable" />
                                     <label class="m-r--l" for="IsDisable">@Labels.DisabledUsers</label>
