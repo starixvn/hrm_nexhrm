@@ -92,7 +92,6 @@
             services.AddSingleton<IRequestService, RequestService>();
             services.AddSingleton<INotificationService, NotificationService>();
             services.AddSingleton<ILateInEarlyOutService, LateInEarlyOutService>();
-            services.AddSingleton<ICommandService, CommandService>();
             services.AddSingleton<IRedmineService, RedmineService>();
             services.AddSingleton<IReportService, ReportService>();
             services.AddSingleton<IEmailService, EmailService>();

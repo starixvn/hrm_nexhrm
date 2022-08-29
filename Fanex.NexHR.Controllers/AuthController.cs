@@ -84,13 +84,13 @@
                     else
                     {
                         ViewBag.ReturnUrl = returnUrl;
-                        ModelState.AddModelError("Username", Messages.UserNotExists);
+                        ViewBag.ErrorMessage = Messages.UserNotExists;
                     }
                 }
                 else
                 {
                     ViewBag.ReturnUrl = returnUrl;
-                    ModelState.AddModelError("Username", Messages.IncorrectUsernameOrPassword);
+                    ViewBag.ErrorMessage = Messages.IncorrectUsernameOrPassword;
                 }
             }
             return View(appSetting.LoginView, model);

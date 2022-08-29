@@ -26,5 +26,9 @@
   {
     "outputFile": "wwwroot/css/Views/scheduled-message.css",
     "inputFile": "wwwroot/css/Views/scheduled-message.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/nex-login.css",
+    "inputFile": "wwwroot/css/nex-login.scss"
   }
 ]

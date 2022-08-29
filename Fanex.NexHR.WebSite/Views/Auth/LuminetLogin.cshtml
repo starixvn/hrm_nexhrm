@@ -28,6 +28,10 @@
                             <div class="login__logo">
                                 <img src="~/css/Images/LogoLuminet.svg" alt="logo" class="img-res" />
                             </div>
+                             @if (!string.IsNullOrWhiteSpace(ViewBag.ErrorMessage))
+                            {
+                                 <span class="field-validation-error textdanger" data-valmsg-for="errorSummary" data-valmsg-replace="true">@ViewBag.ErrorMessage</span>
+                            }
                             <div class="material-textfield">
                                 <input type="text" asp-for="Username" class="custom-input" , placeholder=" ">
                                 <label asp-for="Username"></label>
