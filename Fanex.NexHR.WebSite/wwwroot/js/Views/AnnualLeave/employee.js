@@ -52,9 +52,6 @@ function initDataFirstQuery(queryString) {
     $(".select--year .select-dropdown").val(yearParam);
     $("#EmployeeId").val(employeeIdParam);
     $("#ExcludedRequestTrans").prop('checked', isIncludeRequestParam);
-    //$("#ExcludedRequestTrans").prop('checked', isIncludeRequestParam);
-
-   
 }
 
 function deleteLeaveTrans(leaveTransactionId) {
