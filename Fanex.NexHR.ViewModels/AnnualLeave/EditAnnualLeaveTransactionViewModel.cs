@@ -20,5 +20,6 @@
         public DateTime AffectedFrom { get; set; }
 
         public int EmployeeId { get; set; }
+        public bool ExcludedRequestTrans { get; set; }
     }
 }

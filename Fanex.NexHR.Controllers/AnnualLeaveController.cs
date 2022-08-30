@@ -228,7 +228,7 @@
         }
 
         [HrmAuthorize(Roles = "HR")]
-        public async Task<IActionResult> Edit(int leaveTransactionId)
+        public async Task<IActionResult> Edit(int leaveTransactionId, bool excludedRequestTrans)
         {
             var criteria = new GetAnnualLeaveByIdCriteria
             {
@@ -242,7 +242,8 @@
                 TotalDays = leaveTransaction.TotalDays,
                 AffectedFrom = leaveTransaction.AffectedFrom,
                 Description = leaveTransaction.Description,
-                EmployeeId = leaveTransaction.Employee.Id
+                EmployeeId = leaveTransaction.Employee.Id,
+                ExcludedRequestTrans = excludedRequestTrans
             };
             return View(model);
         }
@@ -371,7 +372,9 @@
                 };
 
                 annualLeaveTransactions = await annualLeaveService.GetAnnualLeaveTransactions(criteria);
+                ViewBag.ExcludedRequestTrans = model.ExcludedRequestTrans;
             }
+
 
             return PartialView("_Employee", annualLeaveTransactions);
         }

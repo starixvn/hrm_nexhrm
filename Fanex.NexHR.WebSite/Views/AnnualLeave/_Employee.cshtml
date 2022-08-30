@@ -7,6 +7,7 @@
 @model IList<AnnualLeaveTransaction>
 @{
     var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+    var excludedRequestTrans = @ViewBag.ExcludedRequestTrans;
 }
 <table id="data" class="table bordered striped highlight centered table-custom">
     <thead>
@@ -46,7 +47,7 @@
                         @if (item.RequestId == null)
                         {
                             <td>
-                                <a href="@Url.Action("Edit","AnnualLeave", new {leavetransactionId = item.LeaveTransactionId})">@Labels.Edit</a>
+                                <a href="@Url.Action("Edit","AnnualLeave", new {leavetransactionId = item.LeaveTransactionId, excludedRequestTrans = excludedRequestTrans})">@Labels.Edit</a>
                             </td>
                             <td title="Delete">
                                 <a href="javascript:;" onclick="deleteLeaveTrans(@item.LeaveTransactionId)">

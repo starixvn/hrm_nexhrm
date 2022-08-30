@@ -46,8 +46,8 @@ function eventAdjustment() {
                             var currentAnnualLeaveBalance = parseFloat($('#alb' + value).text());
                             $('#alb' + value).text(currentAnnualLeaveBalance + _totalDays);
                         });
-
-                        document.location = _global.root + 'annualleave/index';
+                        const queryString = window.location.search;
+                        document.location = _global.root + 'annualleave/index' + queryString;
                     } else {
                         alert(response.Message);
                     }

@@ -39,7 +39,7 @@
                                         <label assp-for="@Labels.Year">@Labels.Year</label>
                                     </div>
                                     <div class="left select--xs select--year">
-                                         <select id="yearEdit" name="yearEdit" asp-items="@Extensions.YearPicker(2010, DateTime.Now.Year)"></select>
+                                        <select id="YearEdit" name="YearEdit" asp-items="@Extensions.YearPicker(2010, DateTime.Now.Year)"></select>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -61,7 +61,7 @@
                                     </div>
                                 }
                                 <input type="hidden" asp-for="@Model.EmployeeId"/>
-                                <input type="hidden" asp-for="@Model.Year"/>
+                                <input type="hidden" asp-for="@Model.YearEdit"/>
                             </div>
                         </form>
                     </div>
