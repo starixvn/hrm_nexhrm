@@ -3,15 +3,21 @@
 /* exported deleteRequest */
 
 function query(isFirstLoad) {
+    const queryString = window.location.search;
+    if (queryString && isFirstLoad) {
+        initDataFirstQuery(queryString);
+    }
+    var data = "empId=" + _global.employeeId + "&year=" + $('#Year').val();
+    var url = _global.root + 'LateEarly/ListLateEarly?' + data;
+    if (!isFirstLoad) {
+        var orgUrl = _global.root + 'LateEarly?' + "Year=" + $('#Year').val();
+        window.history.replaceState(null, null, orgUrl);
+    }
+
     $.ajax({
-        url: _global.root + 'LateEarly/ListLateEarly',
+        url: url,
         type: 'GET',
         dataType: 'html',
-        data: {
-            empId: _global.employeeId,
-            month: $('#Month').val(),
-            year: $('#Year').val()
-        },
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
@@ -29,6 +35,15 @@ function query(isFirstLoad) {
             }
         }
     });
+}
+
+function initDataFirstQuery(queryString) {
+    var urlParams = new URLSearchParams(queryString);
+    var year = urlParams.get('Year');
+
+    $("#Year").val(year);
+    $(".year .select-dropdown").val(year);
+
 }
 
 function deleteRequest(id) {

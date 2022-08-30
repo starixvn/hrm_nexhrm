@@ -11,8 +11,9 @@ function query(isFirstLoad) {
     }
     var data = $('.card-container-base form.form-filter').serialize();
 
-    var list = isLeader ? 'ListLeaderRequestMonitoring?' : 'ListHRRequestMonitoring?'
-    var actionOrgUrl = isLeader ? 'LeaderRequestMonitoring?' : 'HRRequestMonitoring?'
+    var list = isLeader === "True" ? 'ListLeaderRequestMonitoring?' : 'ListHRRequestMonitoring?'
+    var actionOrgUrl = isLeader === "True" ? 'LeaderRequestMonitoring?' : 'HRRequestMonitoring?'
+
     var url = _global.root + 'report/' + list + data;
     var selectedDateRange = $(".date .select-dropdown").val();
     var rqType = $(".rq-type .select-dropdown").val();
