@@ -221,8 +221,6 @@ function initDataFirstQuery(queryString) {
     $(".select--year .select-dropdown").val(yearParam);
     $(".select-teamIds .select-dropdown").val(teamParam);
     $(".select-min-balance .select-dropdown").val(minAnnualBalanceLable);
-
-
 }
 
 $(document).ready(function () {

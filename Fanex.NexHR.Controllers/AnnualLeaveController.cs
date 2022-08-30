@@ -366,7 +366,7 @@
                 var criteria = new GetAnnualLeaveTransactionCriteria
                 {
                     EmployeeId = model.EmployeeId,
-                    Year = model.Year,
+                    Year = model.YearEdit,
                     ExcludedRequestTransactions = model.ExcludedRequestTrans
                 };
 

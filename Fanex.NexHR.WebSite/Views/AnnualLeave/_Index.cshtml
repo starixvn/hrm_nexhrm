@@ -153,13 +153,13 @@
                         @if (@isHRRole)
                         {
                             <td class="center">
-                                <a href="~/annualleave/employee?employeeId=@leaveSummary.Employee.Id&year=@year">
+                                <a href="~/annualleave/employee?employeeId=@leaveSummary.Employee.Id&yearEdit=@year">
                                     <i class="mdi mdi-border-color mdi-18px mdi-dark"></i>
                                 </a>
                             </td>
                         }else{
                             <td class="center">
-                                <a class="viewhistory"  href="~/annualleave/employee?employeeId=@leaveSummary.Employee.Id&year=@year">View</a>
+                                <a class="viewhistory"  href="~/annualleave/employee?employeeId=@leaveSummary.Employee.Id&yearEdit=@year">View</a>
                             </td>
                         }
                     </tr>

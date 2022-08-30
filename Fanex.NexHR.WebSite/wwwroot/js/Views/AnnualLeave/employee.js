@@ -3,11 +3,23 @@
 /*exported deleteLeaveTrans*/
 
 function query(isFirstLoad) {
+    const queryString = window.location.search;
+    if (queryString && isFirstLoad) {
+        initDataFirstQuery(queryString);
+    }
+    var employeeId = $('#EmployeeId').val();
+    var year = $('#yearEdit').val();
+    var isIncludeRequest = $('#ExcludedRequestTrans').prop("checked")
+    var url = _global.root + 'annualleave/employee?employeeId=' + employeeId + '&yearEdit=' + year + '&ExcludedRequestTrans=' + isIncludeRequest;
+    if (!isFirstLoad) {
+        var orgUrl = url;
+        window.history.replaceState(null, null, orgUrl);
+    }
+
     $.ajax({
-        url: _global.root + 'annualleave/employee',
+        url: url,
         type: 'POST',
         dataType: 'html',
-        data: $('.card-container-base form').serialize(),
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
@@ -29,6 +41,21 @@ function query(isFirstLoad) {
     });
 }
 
+function initDataFirstQuery(queryString) {
+    var urlParams = new URLSearchParams(queryString);
+    var employeeIdParam = urlParams.get('employeeId');
+    var yearParam = urlParams.get('yearEdit');
+    var includeRequestParam = urlParams.get('ExcludedRequestTrans');
+    var isIncludeRequestParam = includeRequestParam == 'true';
+    console.log(isIncludeRequestParam);
+    $("#yearEdit").val(yearParam);
+    $(".select--year .select-dropdown").val(yearParam);
+    $("#EmployeeId").val(employeeIdParam);
+    $("#ExcludedRequestTrans").prop('checked', isIncludeRequestParam);
+    //$("#ExcludedRequestTrans").prop('checked', isIncludeRequestParam);
+
+   
+}
 
 function deleteLeaveTrans(leaveTransactionId) {
     confirm('Are you sure you want to delete this leave transaction?', function () {
