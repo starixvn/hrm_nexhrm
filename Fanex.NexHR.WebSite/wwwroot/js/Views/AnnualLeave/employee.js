@@ -46,7 +46,7 @@ function initDataFirstQuery(queryString) {
     var employeeIdParam = urlParams.get('employeeId');
     var yearParam = urlParams.get('YearEdit');
     var includeRequestParam = urlParams.get('ExcludedRequestTrans');
-    var isIncludeRequestParam = includeRequestParam?.toLowerCase() == 'true';
+    var isIncludeRequestParam = !includeRequestParam ? false : includeRequestParam.toLowerCase() == 'true';
     $("#YearEdit").val(yearParam);
     $(".select--year .select-dropdown").val(yearParam);
     $("#EmployeeId").val(employeeIdParam);
