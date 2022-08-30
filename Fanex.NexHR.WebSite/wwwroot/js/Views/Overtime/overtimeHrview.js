@@ -244,12 +244,14 @@ var overtimeHrView = (function ($) {
                 let empId = +$(NexDetails[i]).attr('empId');
                 let date = $(NexDetails[i]).attr('dateOT');
                 let nexHour = +$(NexDetails[i]).find('td.nex-hour input.value-nex-hour').val();
+                let hour = +$(NexDetails[i]).attr('hour');
                 timeRecords.push({
                     Employee: {
                         Id: empId
                     },
                     Date: date,
                     NexHour: nexHour,
+                    Hour: hour
                 });
             }
             return JSON.stringify(timeRecords);

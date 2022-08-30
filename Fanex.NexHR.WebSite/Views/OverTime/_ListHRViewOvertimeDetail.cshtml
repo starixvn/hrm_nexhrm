@@ -23,7 +23,7 @@
             foreach(var item in Model)
             {
                 var rowId = item.OvertimeId.ToString() + "_" + item.Employee.Id.ToString() + "_" + index;
-                <tr id="@rowId" empId="@item.Employee.Id" overtimeId="@item.OvertimeId" dateOT="@item.Date" class="row-detail">
+                <tr id="@rowId" empId="@item.Employee.Id" overtimeId="@item.OvertimeId" dateOT="@item.Date" hour="@item.Hour" class="row-detail">
                     <td>@(index++)</td>
                     <td class="align-left">@item.Employee.DisplayName</td>
                     <td>@item.Date.ToDateMonthYearFormatedDate()</td>
