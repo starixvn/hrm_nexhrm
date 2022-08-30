@@ -1,6 +1,6 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using Fanex.NexHR.Models.Attributes;
+    using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
     using Models;

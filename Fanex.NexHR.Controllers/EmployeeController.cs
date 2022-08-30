@@ -9,9 +9,9 @@
     using Core.Enums;
     using Core.Model;
     using Criteria.Employee;
+    using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Criteria.HistoryWork;
     using Fanex.NexHR.Criteria.LookupData;
-    using Fanex.NexHR.Models.Attributes;
     using Fanex.NexHR.Resources;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;

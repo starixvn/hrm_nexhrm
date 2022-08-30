@@ -2,10 +2,10 @@
 {
     using System;
     using System.Threading.Tasks;
+    using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.EmployeeWorkFromHome;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Attributes;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels.EmployeeWorkFromHome;

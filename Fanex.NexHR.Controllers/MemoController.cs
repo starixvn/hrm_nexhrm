@@ -8,8 +8,8 @@
     using System.Threading.Tasks;
     using Criteria.LookupData;
     using Criteria.Memo;
+    using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Models.Attributes;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using Models;

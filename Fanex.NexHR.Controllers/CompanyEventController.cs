@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Criteria.CompanyEvent;
-    using Fanex.NexHR.Models.Attributes;
+    using Fanex.NexHR.Controllers.Attributes;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.CompanyEvent;

@@ -6,7 +6,7 @@
     using Core.Enums;
     using Criteria.Bio;
     using Criteria.LookupData;
-    using Fanex.NexHR.Models.Attributes;
+    using Fanex.NexHR.Controllers.Attributes;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Models;

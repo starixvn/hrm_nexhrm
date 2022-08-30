@@ -5,7 +5,7 @@
     using System.Net;
     using System.Threading.Tasks;
     using Criteria.ExtensionNo;
-    using Fanex.NexHR.Models.Attributes;
+    using Fanex.NexHR.Controllers.Attributes;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Models;

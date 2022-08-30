@@ -8,8 +8,8 @@
     using Core.Enums;
     using Criteria.Employee;
     using Criteria.Report;
+    using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Core.Model;
-    using Fanex.NexHR.Models.Attributes;
     using Fanex.NexHR.ViewModels.YearlyNexRequest;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;

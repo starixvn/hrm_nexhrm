@@ -4,7 +4,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Criteria.Team;
-    using Fanex.NexHR.Models.Attributes;
+    using Fanex.NexHR.Controllers.Attributes;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Resources;

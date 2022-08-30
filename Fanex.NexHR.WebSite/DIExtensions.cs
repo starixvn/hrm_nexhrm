@@ -51,7 +51,7 @@
                 .AddCookie(cookieOptions =>
             {
                 cookieOptions.LoginPath = "/Auth/Login";
-                cookieOptions.ExpireTimeSpan = TimeSpan.FromDays(10);
+                cookieOptions.ExpireTimeSpan = TimeSpan.FromDays(1);
                 cookieOptions.SlidingExpiration = true;
                 cookieOptions.Cookie = new CookieBuilder
                 {

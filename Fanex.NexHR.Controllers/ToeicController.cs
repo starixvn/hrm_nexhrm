@@ -9,8 +9,8 @@
     using Core;
     using Criteria.Employee;
     using Criteria.Toeic;
+    using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Core.Model;
-    using Fanex.NexHR.Models.Attributes;
     using Fanex.NexHR.Models.Core;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;

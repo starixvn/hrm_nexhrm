@@ -7,7 +7,7 @@
     using Core.Enums;
     using Criteria.AnnualLeave;
     using Criteria.Employee;
-    using Fanex.NexHR.Models.Attributes;
+    using Fanex.NexHR.Controllers.Attributes;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.AnnualLeave;
@@ -451,7 +451,7 @@
                     MinAnnualBalance = model.MinAnnualBalance
                 };
                 leaveSummary = await annualLeaveService.GetAnnualLeaveBalance(getAnnualLeaveCriteria);
-                
+
                 ViewBag.Year = model.Year;
             }
 

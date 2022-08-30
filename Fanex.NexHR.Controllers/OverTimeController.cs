@@ -6,9 +6,9 @@
     using System.Threading.Tasks;
     using Criteria.Employee;
     using Criteria.Overtime;
+    using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Models.Attributes;
     using Fanex.NexHR.Resources;
     using Microsoft.AspNetCore.Mvc;
     using Models;

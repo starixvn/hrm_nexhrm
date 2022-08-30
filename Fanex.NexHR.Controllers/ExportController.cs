@@ -9,7 +9,7 @@
     using Criteria.Calendar;
     using Criteria.Employee;
     using Criteria.Report;
-    using Fanex.NexHR.Models.Attributes;
+    using Fanex.NexHR.Controllers.Attributes;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using Models;

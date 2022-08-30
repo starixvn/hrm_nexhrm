@@ -8,7 +8,7 @@
     using Core.Enums;
     using Criteria.Request;
     using Criteria.Team;
-    using Fanex.NexHR.Models.Attributes;
+    using Fanex.NexHR.Controllers.Attributes;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.Request;

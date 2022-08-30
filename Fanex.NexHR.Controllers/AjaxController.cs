@@ -3,7 +3,7 @@
     using System;
     using System.Threading.Tasks;
     using Criteria.Report;
-    using Fanex.NexHR.Models.Attributes;
+    using Fanex.NexHR.Controllers.Attributes;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Services.Interfaces;
