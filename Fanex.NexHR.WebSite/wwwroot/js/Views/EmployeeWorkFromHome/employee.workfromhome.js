@@ -3,12 +3,26 @@
 /* exported deleteRequest */
 
 function query(isFirstLoad) {
+    
+
+    const queryString = window.location.search;
+    if (queryString && isFirstLoad) {
+        initDataFirstQuery(queryString);
+    }
     const data = $('.card-container-base form').serialize();
+    var teamParam = $(".team .select-dropdown").val();
+    var statusParam = $(".status .select-dropdown").val();
+
+    var url = _global.root + 'EmployeeWorkFromHome/GetEmployeeWorkFromHomeGrid?' + data;
+    if (!isFirstLoad) {
+        var orgUrl = _global.root + 'EmployeeWorkFromHome/Index?' + data + "&TeamParam=" + teamParam + "&StatusParam=" + statusParam;
+        window.history.replaceState(null, null, orgUrl);
+    }
+
     $.ajax({
-        url: _global.root + 'EmployeeWorkFromHome/GetEmployeeWorkFromHomeGrid',
+        url: url,
         dataType: 'html',
         method: "GET",
-        data: data,
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
@@ -39,6 +53,28 @@ function query(isFirstLoad) {
             }
         }
     });
+}
+
+function initDataFirstQuery(queryString) {
+    var urlParams = new URLSearchParams(queryString);
+    var TeamId = urlParams.get('TeamId');
+    var Employee = urlParams.get('Employee');
+    var EmployeeId = urlParams.get('EmployeeId');
+    var statusId = urlParams.get('statusId');
+    var FromDate = urlParams.get('FromDate');
+    var ToDate = urlParams.get('ToDate');
+    var teamParam = urlParams.get('TeamParam');
+    var statusParam = urlParams.get('StatusParam');
+
+    $("#TeamId").val(TeamId);
+    $("#Employee").val(Employee);
+    $("#EmployeeId").val(EmployeeId);
+    $("#statusId").val(statusId);
+    $("#FromDate").val(FromDate);
+    $("#ToDate").val(ToDate);
+
+    $(".team .select-dropdown").val(teamParam);
+    $(".status .select-dropdown").val(statusParam);
 }
 
 function initApproveMultiEvent() {

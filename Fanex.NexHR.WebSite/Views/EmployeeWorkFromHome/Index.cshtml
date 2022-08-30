@@ -33,14 +33,13 @@
                 </div>
                 <div class="card-body">
                     <div class="form form-stl-table">
-                        @using (Html.BeginForm())
-                        {
+                        <form asp-controller="EmployeeWorkFromHome" asp-action="index" method="post">
                             <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--m">
                                         <label>@Labels.Team</label>
                                     </div>
-                                    <div class="left select--m">
+                                    <div class="left select--m team">
                                         <select asp-for="TeamId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
                                             <option value="">All teams</option>
                                         </select>
@@ -57,9 +56,9 @@
                                 </div>
                                 <div class="col m-r--l">
                                     <div class="left label--m">
-                                        <label>StatusId</label>
+                                        <label>Status</label>
                                     </div>
-                                    <div class="left select--datepicker">
+                                    <div class="left select--datepicker status">
                                         <select name="statusId" id="statusId">
                                             <option selected="@(Model.StatusId == 0)" value="0">All</option>
                                             <option selected="@(Model.StatusId == (byte)RequestStatuse.Pending)" value="@Convert.ToByte(RequestStatuse.Pending)">@Labels.Pending</option>
@@ -107,7 +106,7 @@
                                     </a>
                                 </div>
                             </div>
-                        }
+                        </form>
                     </div>
                     <div class="p-x--s">
                         <div id="list-workfromhome" class="over-auto table-resize table-medium"></div>

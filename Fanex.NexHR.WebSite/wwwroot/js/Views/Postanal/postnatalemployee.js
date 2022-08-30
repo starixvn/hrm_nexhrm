@@ -3,14 +3,23 @@
 'use strict';
 
 function query(isFirstLoad) {
+    const queryString = window.location.search;
+    if (queryString && isFirstLoad) {
+        initDataFirstQuery(queryString);
+    }
+    var empIdUrl = $('#EmployeeId').val() === "" ? -1 : $('#EmployeeId').val();
+    var data = "empId=" + empIdUrl + "&year=" + $('#Year').val();
+
+    var url = _global.root + 'Postnatal/ListPostnatalEmployee?' + data;
+    if (!isFirstLoad) {
+        var orgUrl = _global.root + 'Postnatal?' + data + "&empName=" + $('#Employee').val();
+        window.history.replaceState(null, null, orgUrl);
+    }
+
     $.ajax({
-        url: _global.root + 'Postnatal/ListPostnatalEmployee',
+        url: url,
         type: 'GET',
         dataType: 'html',
-        data: {
-            empId: $('#EmployeeId').val() === "" ? -1 : $('#EmployeeId').val(),
-            year: $('#Year').val()
-        },
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
@@ -29,6 +38,19 @@ function query(isFirstLoad) {
             }
         }
     });
+}
+
+function initDataFirstQuery(queryString) {
+    var urlParams = new URLSearchParams(queryString);
+    var empId = urlParams.get('empId');
+    var empName = urlParams.get('empName');
+    var year = urlParams.get('year');
+
+    $("#EmployeeId").val(empId);
+    $("#Employee").val(empName);
+    $("#Year").val(year);
+
+    $(".year .select-dropdown").val(year);
 }
 
 function deleteRequest(id, fromDate, toDate) {
