@@ -66,7 +66,7 @@
 
                         var claims = new List<Claim>
                             {
-                                new Claim(ClaimTypes.Name, model.Username),
+                                new Claim(ClaimTypes.Name, domainUsername),
                                 new Claim(ClaimTypes.NameIdentifier, employee.Id.ToString())
                             };
                         var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -125,10 +125,10 @@
             return isValid;
         }
 
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
             sessionService.Clear();
-            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login");
         }
     }

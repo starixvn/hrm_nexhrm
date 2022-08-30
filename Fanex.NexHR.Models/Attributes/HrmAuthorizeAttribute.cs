@@ -16,11 +16,21 @@
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            var employee = context.HttpContext.Session.Get<Employee>("CurrentUser");
+            if (context?.HttpContext == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            var employee = context.HttpContext.Session?.Get<Employee>("CurrentUser");
+
+            if (employee is null || employee.Id == 0)
+            {
+                UnauthorizedResponse(context);
+            }
 
             if (!string.IsNullOrWhiteSpace(Roles))
             {
-                var userRoles = employee.RoleList;
+                var userRoles = employee?.RoleList;
                 List<string> roleList = new List<string>();
                 foreach (var role in userRoles)
                 {
@@ -33,13 +43,8 @@
                 {
                     UnauthorizedResponse(context);
 
-                    //NoPermisssionResponse(context);
+                    NoPermisssionResponse(context);
                 }
-            }
-
-            if (employee is null || employee.Id == 0)
-            {
-                UnauthorizedResponse(context);
             }
         }
 
@@ -63,14 +68,13 @@
 
         private static void UnauthorizedResponse(AuthorizationFilterContext context)
         {
-            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-            context.Result = new RedirectResult("/Auth/Logout");
+            context.Result = new RedirectToActionResult("logout", "auth", null);
         }
 
         private static void NoPermisssionResponse(AuthorizationFilterContext context)
         {
             context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-            context.Result = new RedirectResult("/Dashboard");
+            context.Result = new RedirectToActionResult("Index", "Dashboard", null);
         }
     }
 }

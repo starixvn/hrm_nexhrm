@@ -8,12 +8,10 @@
     public class SessionService : ISessionService
     {
         private readonly ISession session;
-        private readonly IHttpContextAccessor httpContextAccessor;
 
         public SessionService(IHttpContextAccessor httpContextAccessor)
         {
-            this.httpContextAccessor = httpContextAccessor;
-            this.session = httpContextAccessor.HttpContext.Session;
+            session = httpContextAccessor.HttpContext.Session;
         }
 
         public Employee CurrentEmployee

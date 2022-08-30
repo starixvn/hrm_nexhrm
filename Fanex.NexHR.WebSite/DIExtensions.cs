@@ -52,6 +52,7 @@
             {
                 cookieOptions.LoginPath = "/Auth/Login";
                 cookieOptions.ExpireTimeSpan = TimeSpan.FromDays(10);
+                cookieOptions.SlidingExpiration = true;
                 cookieOptions.Cookie = new CookieBuilder
                 {
                     Name = $"{appName}.Cookie",

@@ -20,7 +20,6 @@
     public class BioController : BaseController
     {
         private readonly IBaseService baseService;
-
         private readonly ITeamService teamService;
         private readonly IBioService bioService;
 
