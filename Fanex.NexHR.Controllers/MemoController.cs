@@ -9,6 +9,7 @@
     using Criteria.LookupData;
     using Criteria.Memo;
     using Fanex.NexHR.Controllers.Attributes;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
@@ -24,17 +25,20 @@
         private readonly ILookupDataService lookupDataService;
         private readonly IBaseService baseService;
         private readonly IWebHostEnvironment environment;
+        private readonly IEmployeeService employeeService;
 
         public MemoController(ISessionService sessionService,
             IMemoService memoService,
             ILookupDataService lookupDataService,
             IBaseService baseService,
-            IWebHostEnvironment environment) : base(sessionService)
+            IWebHostEnvironment environment,
+            IEmployeeService employeeService) : base(sessionService)
         {
             this.memoService = memoService;
             this.lookupDataService = lookupDataService;
             this.baseService = baseService;
             this.environment = environment;
+            this.employeeService = employeeService;
         }
 
         public async Task<IActionResult> Index()
@@ -235,11 +239,14 @@
 
         public async Task<JsonResult> GetMemos(int category, int year, int status)
         {
+            var userRoles = employeeService.UserRoles(CurrentUser);
+            var isIsInRoleHR = userRoles.Any(item => (item == Role.HR.EnumToString()));
+
             GetAllMemoCriteria criteria = new GetAllMemoCriteria
             {
                 Category = category,
                 Year = year,
-                Status = CurrentUser.IsInRole(Role.HR) ? status : 1
+                Status = isIsInRoleHR ? status : 1
             };
 
             IEnumerable<Memo> memos = await memoService.GetAll(criteria);

@@ -13,12 +13,22 @@ function initAddLeaveDeduction() {
     });
 }
 
-function query() {
+function query(isFirstLoad) {
+    const queryString = window.location.search;
+    if (queryString && isFirstLoad) {
+        initDataFirstQuery(queryString);
+    }
+    var data = $('.card-container-base .form-filter').serialize();
+    var teamName = $(".team .select-dropdown").val();
+
+    var url = _global.root + 'Report/ListLateInEarlyOut?' + data;
+    var orgUrl = _global.root + 'report/lateinearlyout?' + data + "&teamName=" + teamName;
+    window.history.replaceState(null, null, orgUrl);
+
     $.ajax({
-        url: _global.root + 'Report/ListLateInEarlyOut',
+        url: url,
         type: 'POST',
         dataType: 'html',
-        data: $('.card-container-base .form-filter').serialize(),
         beforeSend: function () {
             $('.loading-process').fadeIn(300);
         },
@@ -38,10 +48,29 @@ function query() {
     });
 }
 
+function initDataFirstQuery(queryString) {
+    var urlParams = new URLSearchParams(queryString);
+    var Year = urlParams.get('Year');
+    var TeamId = urlParams.get('TeamId');
+    var Employee = urlParams.get('Employee');
+    var EmployeeId = urlParams.get('EmployeeId');
+    var teamName = urlParams.get('teamName');
+
+
+    $("#Year").val(Year);
+    $("#TeamId").val(TeamId);
+    $("#Employee").val(Employee);
+    $("#EmployeeId").val(EmployeeId);
+
+    $(".team .select-dropdown").val(teamName);
+    $(".year .select-dropdown").val(Year);
+
+}
+
 $(document).ready(function () {
-    query();
+    query(true);
     $('#submit').on('click', function () {
-        query();
+        query(false);
     });
 
     $('#insertform').dialog({

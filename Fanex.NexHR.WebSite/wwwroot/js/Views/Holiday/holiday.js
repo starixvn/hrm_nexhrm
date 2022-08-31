@@ -33,9 +33,19 @@ function deleteHoliday(id) {
 }
 
 function query(isFirstLoad) {
+    const queryString = window.location.search;
+    if (queryString && isFirstLoad) {
+        initDataFirstQuery(queryString);
+    }
+    var data = "year=" + $('#year').val();
+    var url = _global.root + 'holiday/getholiday?' + data;
+    if (!isFirstLoad) {
+        var orgUrl = _global.root + 'holiday?' + data;
+        window.history.replaceState(null, null, orgUrl);
+    }
+
     $.ajax({
-        url: _global.root + 'holiday/getholiday',
-        data: { year: $('#year').val() },
+        url: url,
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
@@ -68,6 +78,15 @@ function query(isFirstLoad) {
             }
         }
     });
+}
+
+function initDataFirstQuery(queryString) {
+    var urlParams = new URLSearchParams(queryString);
+    var year = urlParams.get('year');
+
+    $("#year").val(year);
+    $(".year .select-dropdown").val(year);
+
 }
 
 $(document).ready(function () {
