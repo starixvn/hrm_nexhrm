@@ -41,7 +41,7 @@
                                     <div class="left label--s">
                                         <label asp-for="@Model.Year">@Labels.Year</label>
                                     </div>
-                                    <div class="left select--xs">
+                                    <div class="left select--xs year">
                                         <select id="Year" name="Year" asp-items="@Extensions.YearPicker(2010, DateTime.Now.Year)"></select>
                                     </div>
                                 </div>
@@ -49,7 +49,7 @@
                                     <div class="left label--s">
                                         <label asp-for="@Model.TeamId">@Labels.Team</label>
                                     </div>
-                                    <div class="left select--m">
+                                    <div class="left select--m team">
                                         <select asp-for="@Model.TeamId" asp-items="@teams">
                                             <option value="">@Labels.AllTeams</option>
                                         </select>

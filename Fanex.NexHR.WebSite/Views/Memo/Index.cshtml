@@ -49,7 +49,7 @@
                                     <div class='left label--s'>
                                         <label asp-for="@Model.Year">@Labels.Year</label>
                                     </div>
-                                    <div class="left select--xs">
+                                    <div class="left select--xs year">
                                         <select id="Year" name="Year" asp-items="@Extensions.YearPicker(2010, DateTime.Now.Year, true)"></select>
                                     </div>
                                 </div>
@@ -57,7 +57,7 @@
                                     <div class='left label--m'>
                                         <label asp-for="@Model.Category">@Labels.Category</label>
                                     </div>
-                                    <div class="left select--s">
+                                    <div class="left select--s category">
                                         <select asp-for="@Model.Category" asp-items="@categories">
                                         </select>
                                     </div>
@@ -68,7 +68,7 @@
                                         <div class='left label--s'>
                                             <label asp-for="@Model.Status">@Labels.Status</label>
                                         </div>
-                                        <div class="left select--s">
+                                        <div class="left select--s status">
                                             <select asp-for="@Model.Status" asp-items="@Model.StatusTypes">
                                             </select>
                                         </div>

@@ -70,15 +70,24 @@ var overtimeSummary = (function ($) {
     }
 
     function query(isFirstLoad) {
+        const queryString = window.location.search;
+        if (queryString && isFirstLoad) {
+            initDataFirstQuery(queryString);
+        }
+        var data = "empId=" + $('#EmployeeId').val() + "&teamid=" + $('#TeamId').val() + "&year=" + $('#Year').val();
+        var teamName = $(".team .select-dropdown").val();
+        var empName = $("#Employee").val();
+
+        var url = _global.root + 'Overtime/OvertimeSummary?' + data;
+        if (!isFirstLoad) {
+            var orgUrl = _global.root + 'overtime/overtimesummary?' + data + "&teamName=" + teamName + "&empName=" + empName;
+            window.history.replaceState(null, null, orgUrl);
+        }
+
         $.ajax({
-            url: _global.root + 'Overtime/OvertimeSummary',
+            url: url,
             type: 'POST',
             dataType: 'html',
-            data: {
-                empId: $('#EmployeeId').val(),
-                teamid: $('#TeamId').val(),
-                year: $('#Year').val()
-            },
             beforeSend: function () {
                 if (!isFirstLoad) {
                     $('.loading-process').fadeIn(300);
@@ -103,6 +112,23 @@ var overtimeSummary = (function ($) {
                 }
             }
         });
+    }
+
+    function initDataFirstQuery(queryString) {
+        var urlParams = new URLSearchParams(queryString);
+        var empId = urlParams.get('empId');
+        var empName = urlParams.get('empName');
+        var teamid = urlParams.get('teamid');
+        var year = urlParams.get('year');
+        var teamName = urlParams.get('teamName');
+
+        $("#EmployeeId").val(empId);
+        $("#Employee").val(empName);
+        $("#TeamId").val(teamid);
+        $("#Year").val(year);
+
+        $(".team .select-dropdown").val(teamName);
+        $(".year .select-dropdown").val(year);
     }
 
     //function registerAddLeaveDeductEvent{
