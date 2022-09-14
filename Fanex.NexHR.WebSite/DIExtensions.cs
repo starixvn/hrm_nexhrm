@@ -77,6 +77,9 @@
 
             var emailSettings = configuration.GetSection("EmailSettings").Get<EmailSettings>();
             services.AddSingleton(emailSettings);
+
+            var ldapSettings = configuration.GetSection("LdapSettings").Get<LdapSettings>();
+            services.AddSingleton(ldapSettings);
         }
 
         private static void InjectServices(IServiceCollection services)

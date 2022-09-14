@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Security.Claims;
     using System.Threading.Tasks;
@@ -20,16 +21,19 @@
         private readonly ISessionService sessionService;
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly AppSetting appSetting;
+        private readonly LdapSettings ldapSettings;
 
         public AuthController(IAuthService authService,
             ISessionService sessionService,
             AppSetting appSetting,
-            IWebHostEnvironment webHostEnvironment)
+            IWebHostEnvironment webHostEnvironment,
+            LdapSettings ldapSettings)
         {
             this.authService = authService;
             this.sessionService = sessionService;
             this.appSetting = appSetting;
             this.webHostEnvironment = webHostEnvironment;
+            this.ldapSettings = ldapSettings;
         }
 
         [HttpGet]
@@ -54,7 +58,7 @@
         {
             if (ModelState.IsValid)
             {
-                if (IsValidAccount(model))
+                if (IsLoginLdapSuccess(model))
                 {
                     string domainUsername = appSetting.DomainName + model.Username;
                     var employee = await authService.GetEmployeeByDomain(domainUsername);
@@ -96,27 +100,26 @@
             return View(appSetting.LoginView, model);
         }
 
-        private bool IsValidAccount(LoginModel model)
+        private bool IsLoginLdapSuccess(LoginModel model)
         {
             if (webHostEnvironment.IsDevelopment())
             {
                 return true;
             }
 
-            string userDn = $"{model.Username}@{appSetting.DomainName.Replace("\\", "")}";
             var isValid = false;
             using (var connection = new LdapConnection())
             {
-                connection.Connect(appSetting.LdapUrl, LdapConnection.DefaultPort);
+                connection.Connect(ldapSettings.Host, ldapSettings.Port);
                 try
                 {
-                    connection.Bind(userDn, model.Password);
+                    connection.Bind(string.Format(ldapSettings.UserLoginSchema, model.Username), model.Password);
                     if (connection.Bound)
                     {
                         isValid = true;
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
                     isValid = false;
                 }

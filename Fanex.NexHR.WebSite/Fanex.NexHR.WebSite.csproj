@@ -603,6 +603,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="appsettings.NEXAWS_1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Update="Navigation.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
