@@ -146,7 +146,7 @@
                         ? Constants.EmailTemplatePathForUnpaidLeave
                         : Constants.EmailTemplatePathForLeave;
 
-            model.EmailTemplatePath = Path.Combine(environment.WebRootPath, templatePath);
+            model.EmailTemplatePath = Path.Combine(environment.ContentRootPath, templatePath);
 
             model.CurrentUserEmail = CurrentUser.Email;
             Task.Factory.StartNew(async () =>
