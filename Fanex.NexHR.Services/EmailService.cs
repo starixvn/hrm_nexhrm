@@ -32,6 +32,8 @@
 
             try
             {
+                logServiceProvider.LogFile("Test start send mail");
+
                 using var client = new SmtpClient(emailSettings.Host, emailSettings.Port);
                 using var msg = new MailMessage();
 
