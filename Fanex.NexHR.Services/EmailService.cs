@@ -34,8 +34,8 @@
             {
                 logServiceProvider.LogFile("Test start send mail");
 
-                using var client = new SmtpClient(emailSettings.Host, emailSettings.Port);
-                using var msg = new MailMessage();
+		var client = new SmtpClient(emailSettings.Host, emailSettings.Port);
+                var msg = new MailMessage();
 
                 msg.From = new MailAddress(emailSettings.Email, $"[{appSetting.HRMName}]");
                 GetMailFromString(receiverEmail, msg.To);
