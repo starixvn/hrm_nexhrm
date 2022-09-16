@@ -32,9 +32,7 @@
 
             try
             {
-                logServiceProvider.LogFile("Test start send mail");
-
-		var client = new SmtpClient(emailSettings.Host, emailSettings.Port);
+                var client = new SmtpClient(emailSettings.Host, emailSettings.Port);
                 var msg = new MailMessage();
 
                 msg.From = new MailAddress(emailSettings.Email, $"[{appSetting.HRMName}]");
@@ -50,6 +48,8 @@
                 ServicePointManager.ServerCertificateValidationCallback += (_, _, _, _) => true;
 
                 client.SendAsync(msg, null);
+
+                logServiceProvider.LogFile(String.Format("To: {0} - CC: {1} - Subject: {2}", msg.To, msg.CC, subject));
             }
             catch (Exception ex)
             {
