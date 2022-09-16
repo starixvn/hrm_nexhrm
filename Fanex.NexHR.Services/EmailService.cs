@@ -1,26 +1,24 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using Core;
-    using Fanex.MailDeliver.MailClient;
-    using Fanex.NexHR.Models.Core;
-    using Interfaces;
-    using MailDeliver.MailClient.API;
-    using MailDeliver.Model;
     using System;
+    using System.Net;
     using System.Net.Mail;
     using System.Text;
+    using Core;
+    using Fanex.NexHR.Models.Core;
+    using Interfaces;
 
     public class EmailService : IEmailService
     {
+        private readonly ILogServiceProvider logServiceProvider;
         private readonly EmailSettings emailSettings;
         private readonly AppSetting appSetting;
 
-        public EmailService(EmailSettings emailSettings, AppSetting appSetting)
+        public EmailService(ILogServiceProvider logServiceProvider, EmailSettings emailSettings, AppSetting appSetting)
         {
+            this.logServiceProvider = logServiceProvider;
             this.emailSettings = emailSettings;
             this.appSetting = appSetting;
-            AppSettings.AppMailAddress = emailSettings.AppMailAddress;
-            AppSettings.AppMailId = emailSettings.AppMailId;
         }
 
         public void SendEmail(string senderEmail, string receiverEmail, string mailCC, string subject, string body)
@@ -34,7 +32,9 @@
 
             try
             {
-                var msg = new MailMessage();
+                using var client = new SmtpClient(emailSettings.Host, emailSettings.Port);
+                using var msg = new MailMessage();
+
                 msg.From = new MailAddress(emailSettings.Email, $"[{appSetting.HRMName}]");
                 GetMailFromString(receiverEmail, msg.To);
                 GetMailFromString(mailCC, msg.CC);
@@ -45,18 +45,14 @@
                 msg.BodyEncoding = Encoding.UTF8;
                 msg.Priority = MailPriority.Normal;
 
-                var client = new System.Net.Mail.SmtpClient
-                {
-                    Port = emailSettings.Port,
-                    Host = emailSettings.Host
-                };
-                System.Net.ServicePointManager.ServerCertificateValidationCallback += (s, cert, chain, sslPolicyErrors) => true;
+                ServicePointManager.ServerCertificateValidationCallback += (_, _, _, _) => true;
 
                 client.SendAsync(msg, null);
             }
             catch (Exception ex)
             {
-                throw;
+                logServiceProvider.LogFile("==========================Email error==============================");
+                logServiceProvider.LogFile(ex.Message);
             }
         }
 
