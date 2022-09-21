@@ -36,13 +36,16 @@
 
         private async Task<int> GetCurrentRedmineId(string loginName)
         {
-            int redmineId = 0;
-            var criteria = new GetRedmineUserIdCriteria { LoginName = loginName };
+            var nickName = loginName.Split('\\')[1];
+            var redmineId = 0;
+            var request = CreateRequest(string.Format("/users.json?name={0}&offset=0&limit=100", nickName), HttpMethod.Get);
 
-            if (criteria.IsValid())
+            using var response = await httpClient.SendAsync(request);
+            if (response.StatusCode == HttpStatusCode.OK)
             {
-                var userRedmind = await baseService.GetDataEntityAsync<RedmineUser>(criteria);
-                redmineId = userRedmind != null ? userRedmind.RedmineId : 0;
+                var json = await response.Content.ReadAsStringAsync();
+                var obj = JsonConvert.DeserializeObject<dynamic>(json);
+                redmineId = (int)obj["users"][0]["id"];
             }
 
             return redmineId;
