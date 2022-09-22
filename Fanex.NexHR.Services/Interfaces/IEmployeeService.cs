@@ -38,7 +38,7 @@
 
         Task<IEnumerable<EmployeeLateInEarlyOut>> GetEmployeeLateInEarlyOut(GetEmployeeAttendanceLateInEarlyOutCriteria criteria);
 
-        Task<IList<Workload>> GetWorkloadByTeam(GetEmployeeWorkloadCriteria criteria);
+        Task<IList<Workload>> GetWorkloadDefaultByTeam(GetEmployeeWorkloadCriteria criteria);
 
         Task<IEnumerable<MissingCheckInOutEmployee>> GetMissingCheckInOutEmployeeAsync();
 

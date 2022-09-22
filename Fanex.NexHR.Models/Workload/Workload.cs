@@ -7,18 +7,11 @@
         public Employee Employee { get; set; }
 
         public double PercentWorkload { get; set; }
+        public int WorkHour { get; set; }
 
-        public string DisplayPercentWorkload
-        {
-            get
-            {
-                var display = (Math.Round(PercentWorkload, 2) * 100) + "%";
+        public string DisplayPercentWorkload { get; set; }
 
-                return display;
-            }
-        }
-
-        public string CssClassForPercent 
+        public string CssClassForPercent
         {
             get
             {

@@ -167,7 +167,7 @@
             return await employeeRepository.GetDashBoardCompanySpace(criteria);
         }
 
-        public async Task<IList<Workload>> GetWorkloadByTeam(GetEmployeeWorkloadCriteria criteria)
+        public async Task<IList<Workload>> GetWorkloadDefaultByTeam(GetEmployeeWorkloadCriteria criteria)
         {
             return await employeeRepository.GetWorkloadByTeam(criteria);
         }

@@ -268,9 +268,36 @@
                 FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1),
                 ToDate = DateTime.Today
             };
-            IList<Workload> listWorkload = await employeeService.GetWorkloadByTeam(criteria);
+            IList<Workload> listWorkload = await employeeService.GetWorkloadDefaultByTeam(criteria);
+            await GetWorkloadByTeam(listWorkload, new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1), DateTime.Today.AddDays(-1));
 
             return PartialView("_ListTeamWorkload", listWorkload);
+        }
+
+        private async Task GetWorkloadByTeam(IList<Workload> employees, DateTime fromDate, DateTime toDate)
+        {
+            for (int i = 0; i < employees.Count; i++)
+            {
+                var domainName = employees[i].Employee.DomainUsername;
+                var redmindId = await redmineService.GetCurrentRedmineId(domainName);
+                var timeEntries = await redmineService.GetTimeEntries(redmindId, fromDate, toDate);
+                var totalHour = GetTotalHourLogTime(timeEntries);
+#pragma warning disable S109 // Magic numbers should not be used
+                employees[i].PercentWorkload = Math.Round(totalHour / employees[i].WorkHour, 2);
+                employees[i].DisplayPercentWorkload = String.Format("{0:0}%", employees[i].PercentWorkload * 100);
+#pragma warning restore S109 // Magic numbers should not be used
+            }
+        }
+
+        [NonAction]
+        private double GetTotalHourLogTime(IList<TimeEntry> timeEntries)
+        {
+            double total = 0;
+            foreach (var timeEntry in timeEntries)
+            {
+                total += timeEntry.Hours;
+            }
+            return total;
         }
 
         [NonAction]

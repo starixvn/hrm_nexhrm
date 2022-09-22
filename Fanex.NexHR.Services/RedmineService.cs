@@ -34,7 +34,7 @@
             this.baseService = baseService;
         }
 
-        private async Task<int> GetCurrentRedmineId(string loginName)
+        public async Task<int> GetCurrentRedmineId(string loginName)
         {
             var nickName = loginName.Split('\\')[1];
             var redmineId = 0;
@@ -175,7 +175,7 @@
             return result;
         }
 
-        private async Task<IList<TimeEntry>> GetTimeEntries(int currentUserId, DateTime fromDate, DateTime toDate)
+        public async Task<IList<TimeEntry>> GetTimeEntries(int currentUserId, DateTime fromDate, DateTime toDate)
         {
             string url = string.Format("time_entries.json?user_id={0}&spent_on=><{1}|{2}&offset=0&limit=100",
                 currentUserId,
