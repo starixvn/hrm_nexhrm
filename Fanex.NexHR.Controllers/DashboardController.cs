@@ -276,16 +276,16 @@
 
         private async Task GetWorkloadByTeam(IList<Workload> employees, DateTime fromDate, DateTime toDate)
         {
+            const int NumberRounding = 2;
+            const int NumberPercent = 100;
             for (int i = 0; i < employees.Count; i++)
             {
                 var domainName = employees[i].Employee.DomainUsername;
-                var redmindId = await redmineService.GetCurrentRedmineId(domainName);
-                var timeEntries = await redmineService.GetTimeEntries(redmindId, fromDate, toDate);
+                var redmineUserId = await redmineService.GetCurrentRedmineId(domainName);
+                var timeEntries = await redmineService.GetTimeEntries(redmineUserId, fromDate, toDate);
                 var totalHour = GetTotalHourLogTime(timeEntries);
-#pragma warning disable S109 // Magic numbers should not be used
-                employees[i].PercentWorkload = Math.Round(totalHour / employees[i].WorkHour, 2);
-                employees[i].DisplayPercentWorkload = String.Format("{0:0}%", employees[i].PercentWorkload * 100);
-#pragma warning restore S109 // Magic numbers should not be used
+                employees[i].PercentWorkload = Math.Round(totalHour / employees[i].WorkHour, NumberRounding);
+                employees[i].DisplayPercentWorkload = String.Format("{0:0}%", employees[i].PercentWorkload * NumberPercent);
             }
         }
 
