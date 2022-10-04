@@ -357,7 +357,6 @@
             return Json(result);
         }
 
-        [HrmAuthorize(Roles = "HR")]
         [HttpPost]
         public async Task<IActionResult> Employee(AnnualLeaveBalanceViewModel model)
         {
@@ -399,7 +398,6 @@
             return PartialView("_EmployeeBalanceHis", annualLeaveHistoryByMonth);
         }
 
-        [HrmAuthorize(Roles = "HR")]
         public async Task<IActionResult> Employee(int employeeId, int year)
         {
             var model = new AnnualLeaveBalanceViewModel
