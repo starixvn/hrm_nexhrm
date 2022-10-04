@@ -74,7 +74,6 @@
                 {"client_secret", nexBotSettings.ClientPassword  },
                 {"scope", $"{nexBotSettings.ClientId}/.default"  },
             };
-            httpClient.DefaultRequestHeaders.Add("Content-type", "application/x-www-form-urlencoded");
 
             using var authDataContent = new FormUrlEncodedContent(authData);
             using var response = await httpClient.PostAsync(url, authDataContent);
