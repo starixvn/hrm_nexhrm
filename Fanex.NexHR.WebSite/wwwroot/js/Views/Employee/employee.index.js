@@ -53,7 +53,7 @@ function query(isFirstLoad) {
 
                 $('.nick').tipsy({
                     className: 'tipsy-avatar',
-                    gravity: $.fn.tipsy.autoNS,
+                    gravity: 's',
                     html: true,
                     title: function () {
                         var src = _global.root + 'employee/avatar/' + $(this).attr('data-code');
@@ -68,7 +68,6 @@ function query(isFirstLoad) {
                 $('table#data').floatThead('destroy');
                 $(noInformation(11)).appendTo('table#data');
             }
-
         },
         error: function () {
             alert(_messages.errorTryAgain);
@@ -93,7 +92,6 @@ function initDataFirstQuery(queryString) {
     $('#TeamId').val(teamId);
 
     $(".team .select-dropdown").val(teamName);
-
 }
 
 function eventSorting() {
