@@ -4,12 +4,11 @@
 
     public class Workload
     {
+        private const int NumberPercent = 100;
         public Employee Employee { get; set; }
-
         public double PercentWorkload { get; set; }
         public int WorkHour { get; set; }
-
-        public string DisplayPercentWorkload { get; set; }
+        public string DisplayPercentWorkload => string.Format("{0:0}%", PercentWorkload * NumberPercent);
 
         public string CssClassForPercent
         {

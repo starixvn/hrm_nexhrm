@@ -40,12 +40,19 @@
             var redmineId = 0;
             var request = CreateRequest(string.Format("/users.json?name={0}&offset=0&limit=100", nickName), HttpMethod.Get);
 
-            using var response = await httpClient.SendAsync(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            try
             {
-                var json = await response.Content.ReadAsStringAsync();
-                var obj = JsonConvert.DeserializeObject<dynamic>(json);
-                redmineId = (int)obj["users"][0]["id"];
+                using var response = await httpClient.SendAsync(request);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    var obj = JsonConvert.DeserializeObject<dynamic>(json);
+                    redmineId = (int)obj["users"][0]["id"];
+                }
+            }
+            catch
+            {
+                redmineId = 0;
             }
 
             return redmineId;
@@ -63,16 +70,19 @@
         private async Task<string> GetCurrentRedmineUser(string domainName)
         {
             int currentId = await GetCurrentRedmineId(domainName);
-
-            var request = CreateRequest(string.Format("/users/{0}.json?offset=0&limit=100", currentId), HttpMethod.Get);
-
-            using var response = await httpClient.SendAsync(request);
             var apiKey = string.Empty;
-            if (response.StatusCode == HttpStatusCode.OK)
+
+            if (currentId > 0)
             {
-                var json = await response.Content.ReadAsStringAsync();
-                var obj = JsonConvert.DeserializeObject<dynamic>(json);
-                apiKey = obj["user"]["api_key"];
+                var request = CreateRequest(string.Format("/users/{0}.json?offset=0&limit=100", currentId), HttpMethod.Get);
+
+                using var response = await httpClient.SendAsync(request);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    var obj = JsonConvert.DeserializeObject<dynamic>(json);
+                    apiKey = obj["user"]["api_key"];
+                }
             }
 
             return apiKey;
@@ -82,22 +92,26 @@
         {
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            var tasks = new List<RedmineIssue>();
 
             int currentId = await GetCurrentRedmineId(domainName);
 
-            string endpoint = string.Format("issues.json?assigned_to_id={0}&status_id={1}&offset=0&limit=100",
-                            currentId,
-                            (int)RedmineIssueStatus.InProgress);
-            var request = CreateRequest(endpoint, HttpMethod.Get);
-
-            using var response = await httpClient.SendAsync(request);
-
-            var tasks = new List<RedmineIssue>();
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (currentId > 0)
             {
-                var json = await response.Content.ReadAsStringAsync();
-                GenerateTaskList(tasks, json);
+                string endpoint = string.Format("issues.json?assigned_to_id={0}&status_id={1}&offset=0&limit=100",
+                          currentId,
+                          (int)RedmineIssueStatus.InProgress);
+                var request = CreateRequest(endpoint, HttpMethod.Get);
+
+                using var response = await httpClient.SendAsync(request);
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    GenerateTaskList(tasks, json);
+                }
             }
+
             return tasks.OrderByDescending(x => x.Priority).ToList();
         }
 
@@ -228,12 +242,16 @@
             var fromDate = toDate.AddDays(-6);
             var currentUser = await GetCurrentRedmineId(domainUser);
 
-            var timeEntries = await GetTimeEntries(currentUser, fromDate, toDate);
+            if (currentUser > 0)
+            {
+                var timeEntries = await GetTimeEntries(currentUser, fromDate, toDate);
 
-            var hadLogtimeDates = timeEntries.GroupBy(x => x.SpentOn).Select(d => d.Key).ToList();
-            var onWorkedDates = await GetWorkedDatesOfUser(fromDate, toDate, currentUserId);
+                var hadLogtimeDates = timeEntries.GroupBy(x => x.SpentOn).Select(d => d.Key).ToList();
+                var onWorkedDates = await GetWorkedDatesOfUser(fromDate, toDate, currentUserId);
 
-            return onWorkedDates.Except(hadLogtimeDates).OrderBy(x => x).ToList();
+                return onWorkedDates.Except(hadLogtimeDates).OrderBy(x => x).ToList();
+            }
+            return new List<DateTime>();
         }
 
         private async Task GetForgotDates(RedmineUser employee)
@@ -248,10 +266,16 @@
 
         public async Task<double> GetTotalSpentHoursOnDate(string domainName, DateTime onDate)
         {
+            double spentHours = 0;
             DateTime toDate = onDate;
             var currentUserId = await GetCurrentRedmineId(domainName);
-            var timeEntries = await GetTimeEntries(currentUserId, onDate, toDate);
-            return timeEntries.Sum(x => x.Hours);
+            if (currentUserId > 0)
+            {
+                var timeEntries = await GetTimeEntries(currentUserId, onDate, toDate);
+                spentHours = timeEntries.Sum(x => x.Hours);
+            }
+
+            return spentHours;
         }
 
         public async Task<IEnumerable<RedmineUser>> GetForgotLogtimeEmployees()

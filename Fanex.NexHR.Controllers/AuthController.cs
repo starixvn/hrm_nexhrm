@@ -60,7 +60,7 @@
             {
                 if (IsLoginLdapSuccess(model))
                 {
-                    string domainUsername = appSetting.DomainName + model.Username;
+                    string domainUsername = appSetting.DomainName + model.Username.Trim();
                     var employee = await authService.GetEmployeeByDomain(domainUsername);
                     if (employee != null)
                     {
