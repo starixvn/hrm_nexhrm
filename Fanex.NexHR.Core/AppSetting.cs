@@ -9,6 +9,7 @@
         public string DomainName { get; set; }
         public string IgnoreTeamWorkload { get; set; }
         public string RedmineBaseUrl { get; set; }
+        public string RedmineDisplayUrl { get; set; }
         public string RedmineSecret { get; set; }
         public string ScheduledMessageUserGuide { get; set; }
         public string HRMName { get; set; }

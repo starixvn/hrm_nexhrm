@@ -95,7 +95,7 @@
     {
         <p class="red-border tasks">
             @{
-                var href = string.Format("{0}issues/{1}", settings.RedmineBaseUrl, issue.IssueId);
+                var href = string.Format("{0}issues/{1}", settings.RedmineDisplayUrl, issue.IssueId);
                 var dueDate = issue.DueDate.HasValue ? issue.DueDate.Value.ToString("dd MMM, yyyy") : string.Empty;
                 var startDate = issue.StartDate.HasValue ? issue.StartDate.Value.ToString("dd MMM, yyyy") : string.Empty;
 
