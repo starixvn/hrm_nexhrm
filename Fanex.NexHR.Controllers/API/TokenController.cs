@@ -25,7 +25,7 @@
             if (CheckUser(username, password))
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes("");
+                var key = Encoding.ASCII.GetBytes(authSettings.Secret);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new[] {

@@ -7,12 +7,13 @@
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Services.Interfaces;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Filters;
     using Microsoft.Extensions.DependencyInjection;
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-    public class HrmAuthorizeAttribute : Attribute, IAsyncAuthorizationFilter
+    public class HrmAuthorizeAttribute : AuthorizeAttribute, IAsyncAuthorizationFilter
     {
         public string Roles { get; set; }
 

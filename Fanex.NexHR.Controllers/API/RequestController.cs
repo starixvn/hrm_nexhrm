@@ -3,13 +3,14 @@
     using System.Threading.Tasks;
     using Criteria.Employee;
     using Fanex.NexHR.Core;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Newtonsoft.Json;
     using Services.Interfaces;
 
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class RequestController : ControllerBase
     {
         private readonly IRequestService requestService;

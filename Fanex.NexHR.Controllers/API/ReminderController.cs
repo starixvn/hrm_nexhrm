@@ -1,19 +1,19 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
     using System.Threading.Tasks;
-    using Fanex.NexHR.Services.Email;
     using Fanex.NexHR.Services.Interfaces;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ReminderController : ControllerBase
     {
-        private readonly MailBirthdayAndFirstWorkingdayReminderService mailReminderService;
+        private readonly IMailBirthdayAndFirstWorkingdayReminderService mailReminderService;
         private readonly IBotAutoJobService botService;
 
         public ReminderController(
-            MailBirthdayAndFirstWorkingdayReminderService mailReminderService,
+            IMailBirthdayAndFirstWorkingdayReminderService mailReminderService,
             IBotAutoJobService botService
         )
         {

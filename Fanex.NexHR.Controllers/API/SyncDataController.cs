@@ -3,10 +3,11 @@
     using System;
     using System.Threading.Tasks;
     using Fanex.NexHR.Services.Interfaces;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class SyncDataController : ControllerBase
     {
         private readonly ISyncDataService syncDataService;

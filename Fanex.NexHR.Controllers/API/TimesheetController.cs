@@ -3,10 +3,11 @@
     using System.Threading.Tasks;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Services.Interfaces;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class TimesheetController : ControllerBase
     {
         private readonly ITimeSheetService timeSheetService;

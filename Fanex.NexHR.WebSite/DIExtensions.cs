@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.WebSite
 {
+    using System.Text;
     using Fanex.Data.Repository;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Models.Core;
@@ -8,11 +9,12 @@
     using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services;
+    using Fanex.NexHR.Services.AutoJobService;
     using Fanex.NexHR.Services.Email;
     using Fanex.NexHR.Services.Interfaces;
-    using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.DataProtection;
     using Microsoft.AspNetCore.Mvc.Infrastructure;
+    using Microsoft.IdentityModel.Tokens;
     using StackExchange.Redis;
 
     public static class DIExtensions
@@ -47,18 +49,31 @@
                 options.InstanceName = $"{appName}:Session:";
             });
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            string key = configuration.GetSection("AuthorizedSettings:Secret").Value;
+            services.AddAuthentication()
                 .AddCookie(cookieOptions =>
-            {
-                cookieOptions.LoginPath = "/Auth/Login";
-                cookieOptions.ExpireTimeSpan = TimeSpan.FromDays(1);
-                cookieOptions.SlidingExpiration = true;
-                cookieOptions.Cookie = new CookieBuilder
                 {
-                    Name = $"{appName}.Cookie",
-                    SecurePolicy = CookieSecurePolicy.SameAsRequest
-                };
-            });
+                    cookieOptions.LoginPath = "/Auth/Login";
+                    cookieOptions.ExpireTimeSpan = TimeSpan.FromDays(1);
+                    cookieOptions.SlidingExpiration = true;
+                    cookieOptions.Cookie = new CookieBuilder
+                    {
+                        Name = $"{appName}.Cookie",
+                        SecurePolicy = CookieSecurePolicy.SameAsRequest
+                    };
+                })
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
         }
 
         public static void InjectConfiguration(this IServiceCollection services, IConfiguration configuration)
@@ -120,6 +135,15 @@
             services.AddSingleton<ILookupDataService, LookupDataService>();
             services.AddSingleton<IMemoService, MemoService>();
             services.AddSingleton<ICompanyEventService, CompanyEventService>();
+            //API Service
+            services.AddSingleton<IBotBioTasksService, BioTasksService>();
+            services.AddSingleton<IEmployeeOnlineService, EmployeeOnlineService>();
+            services.AddSingleton<IBotFogotLogtimeReminderService, FogotLogtimeReminderService>();
+            services.AddSingleton<IBotLateInLateOutAutoJobService, BotLateInEarlyOutViolateOnMonthWarningSerivce>();
+            services.AddSingleton<IBotAutoJobService, BotMissingCheckInCheckOutReminderSerivce>();
+            services.AddSingleton<IMailBirthdayAndFirstWorkingdayReminderService, MailBirthdayAndFirstWorkingdayReminderService>();
+            services.AddSingleton<ISyncDataService, SyncDataService>();
+            services.AddSingleton<ITimeSheetService, TimeSheetService>();
         }
 
         private static void InjectRepository(IServiceCollection services)
