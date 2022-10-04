@@ -476,7 +476,8 @@
                 userId += ".jpg";
             }
 
-            var avaPath = Path.Combine(environment.WebRootPath, "avatars\\" + userId);
+            var paths = new string[] { environment.WebRootPath, "avatars/", userId };
+            var avaPath = Path.Combine(paths);
 
             if (System.IO.File.Exists(avaPath))
             {
@@ -493,9 +494,10 @@
             if (file != null)
             {
                 string FileName = code + ".jpg";
-                var path = Path.Combine(environment.WebRootPath, "avatars\\" + FileName);
+                var paths = new string[] { environment.WebRootPath, "avatars/", FileName };
+                var fullPath = Path.Combine(paths);
 
-                var stream = new FileStream(path, FileMode.Create);
+                var stream = new FileStream(fullPath, FileMode.Create);
                 await CopyFiles(file, stream);
                 stream.Close();
                 return Json(true);
