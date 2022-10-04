@@ -93,7 +93,9 @@
                     { "conversationId", conversationId },
                     { "message", message }
                 };
-                request.Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, ContentType);
+
+                request.Content = new FormUrlEncodedContent(data);
+
                 using var response = await httpClient.SendAsync(request);
                 isSuccessful = response.IsSuccessStatusCode;
             }
