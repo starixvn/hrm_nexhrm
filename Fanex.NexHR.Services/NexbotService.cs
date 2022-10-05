@@ -6,7 +6,6 @@
     using System.Linq;
     using System.Net.Http;
     using System.Net.Http.Headers;
-    using System.Text;
     using System.Threading.Tasks;
     using Core;
     using Core.Enums;
@@ -24,7 +23,6 @@
 
     public class NexbotService : INexbotService
     {
-        private const string ContentType = "application/json";
         private readonly HttpClient httpClient;
         private readonly INexbotRepository nexbotRepository;
         private readonly IBaseService baseService;
@@ -120,10 +118,10 @@
         {
             if (!nexBotSettings.DisabledSendSkype)
             {
-                var data = new Dictionary<string, object>
+                var data = new Dictionary<string, string>
                 {
                     {"conversationId", conversationId },
-                    {"requestId", requestId },
+                    {"requestId", requestId.ToString() },
                     {"message", message },
                     {"callBackUrl", $"{BaseUrl}/api" },
                 };
@@ -280,15 +278,14 @@
             return message;
         }
 
-        private async Task<T> SendHttpClientAsync<T>(string endPoint, HttpMethod method, IDictionary<string, object> data = null)
+        private async Task<T> SendHttpClientAsync<T>(string endPoint, HttpMethod method, IDictionary<string, string> data = null)
         {
             ValidateEndPoint(endPoint);
 
             using var request = await CreateRequestAsync(endPoint, method);
             if (data is not null)
             {
-                StringContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, ContentType);
-                request.Content = content;
+                request.Content = new FormUrlEncodedContent(data);
             }
 
             using var response = await httpClient.SendAsync(request);

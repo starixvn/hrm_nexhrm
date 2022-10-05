@@ -39,7 +39,7 @@
             this.environment = environment;
         }
 
-        public async Task<IActionResult> EmployeeView()
+        public IActionResult EmployeeView()
         {
             return View();
         }
