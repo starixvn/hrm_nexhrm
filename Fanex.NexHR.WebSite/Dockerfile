@@ -37,4 +37,6 @@ RUN set -x \
 
 COPY --from=builder /app .
 
+ENV TZ="Asia/Bangkok"
+
 ENTRYPOINT ["dotnet", "Fanex.NexHR.WebSite.dll"]

@@ -1,7 +1,6 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
     using System.Threading.Tasks;
-    using Fanex.NexHR.Core;
     using Fanex.NexHR.Services.Interfaces;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
@@ -11,16 +10,19 @@
     public class TimesheetController : ControllerBase
     {
         private readonly ITimeSheetService timeSheetService;
+        private readonly ILogServiceProvider logServiceProvider;
 
-        public TimesheetController(ITimeSheetService timeSheetService)
+        public TimesheetController(ITimeSheetService timeSheetService,
+            ILogServiceProvider logServiceProvider)
         {
             this.timeSheetService = timeSheetService;
+            this.logServiceProvider = logServiceProvider;
         }
 
         [HttpGet]
         public async Task<IActionResult> ReminderReachedWorkingTime()
         {
-            LogFileHelper.WriteInfo("Call API ReminderReachedWorkingTime");
+            logServiceProvider.LogFile("Call API ReminderReachedWorkingTime");
 
             await timeSheetService.SendReminderReachedWorkingTime();
             return Ok();
