@@ -28,7 +28,7 @@
             this.baseService = baseService;
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> UpdateEmployeeShiftDate(int employeeId, DateTime date, int? shiftId)
         {
             var criteria = new UpdateEmployeeShiftDateCriteria
@@ -43,7 +43,7 @@
             return Json(result);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> InsertEmployeeCalendar(AddEmployeeCalendarViewModel model)
         {

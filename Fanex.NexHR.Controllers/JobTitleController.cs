@@ -22,13 +22,13 @@
             this.baseService = baseService;
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public IActionResult Index()
         {
             return View();
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> Index(string jobTitle)
         {
@@ -38,7 +38,7 @@
             return PartialView("_Index", jobTitles);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> Insert(string name)
         {
@@ -52,7 +52,7 @@
             return Json(result);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> Update(int id, string name)
         {
@@ -66,7 +66,7 @@
             return Json(result);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {

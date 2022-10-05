@@ -88,7 +88,7 @@
             return File(bytes, "application/xlsx", fileName);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpGet]
         public async Task<IActionResult> EmployeeProfileAsync(
             string query = null,

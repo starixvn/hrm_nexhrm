@@ -16,7 +16,7 @@
     using ViewModels;
     using ViewModels.Bio;
 
-    [HrmAuthorize(Roles = "HR")]
+    [HrmAuthorize(UserRoles = "HR")]
     public class BioController : BaseController
     {
         private readonly IBaseService baseService;

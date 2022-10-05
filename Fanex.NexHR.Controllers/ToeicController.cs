@@ -122,7 +122,7 @@
         }
 
         [HttpGet]
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> UpdateToeic(int? id, string name)
         {
             Toeic toeic = null;
@@ -142,7 +142,7 @@
         }
 
         [HttpPost]
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> UpdateToeic(Toeic model)
         {
             var result = new CommandResult

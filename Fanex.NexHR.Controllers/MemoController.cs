@@ -83,7 +83,7 @@
             return View(memo);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> Edit(Memo model)
         {
@@ -133,7 +133,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Create()
         {
             var model = new Memo
@@ -154,7 +154,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> Create(Memo model)
         {
@@ -210,7 +210,7 @@
             return View(memo);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<JsonResult> DeleteMemo(int id)
         {

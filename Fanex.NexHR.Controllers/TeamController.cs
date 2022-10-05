@@ -34,7 +34,7 @@
             return View(teams);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Create()
         {
             var model = new TeamViewModel
@@ -47,7 +47,7 @@
         }
 
         [HttpPost]
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Create(TeamViewModel model)
         {
             if (model != null)
@@ -84,7 +84,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Edit(int id)
         {
             var criteria = new GetTeamByIdCriteria
@@ -120,7 +120,7 @@
         }
 
         [HttpPost]
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Edit(TeamViewModel model)
         {
             if (ModelState.IsValid)
@@ -165,7 +165,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {

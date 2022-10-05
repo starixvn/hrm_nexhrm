@@ -59,7 +59,7 @@
             return View(companyEvent);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> Create(CompanyEvent model)
         {
@@ -91,13 +91,13 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Edit(int id)
         {
             return View(await GetDetail(id));
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> Edit(CompanyEvent model)
         {
@@ -128,7 +128,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Delete(int id)
         {
             CommandResult result = new CommandResult();

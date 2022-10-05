@@ -43,7 +43,7 @@
             return Json(holidays);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public IActionResult Create()
         {
             HolidayViewModel newHoliday = new HolidayViewModel
@@ -56,7 +56,7 @@
             return View(newHoliday);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> Create(HolidayViewModel holiday)
         {
@@ -90,7 +90,7 @@
             return Json(result);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Edit(int id)
         {
             var criteria = new GetHolidayByIdCriteria
@@ -110,7 +110,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> Edit(HolidayViewModel holiday)
         {
@@ -147,7 +147,7 @@
             return Json(result);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {

@@ -64,7 +64,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> UserManagement(int jobTitleId = 0)
         {
             var model = new UserManagementViewModel
@@ -77,7 +77,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> SpecialUserManagement(int jobTitleId = 0)
         {
             var model = new UserManagementViewModel
@@ -124,7 +124,7 @@
             return Json(listEmployee);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> WorkingHistory(int employeeId)
         {
             const int startYear = 2011;
@@ -136,7 +136,7 @@
             return View(history);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> HistoryWorkDetail(WorkingHistoryViewModel model)
         {
             IList<HistoryWork> filterHistory = await GetFilterHistoryWork(model);
@@ -160,7 +160,7 @@
         }
 
         [HttpGet]
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> InsertHistoryWork(int employeeId)
         {
             var history = new WorkingHistoryViewModel { EmpId = employeeId };
@@ -173,7 +173,7 @@
         }
 
         [HttpPost]
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> InsertHistoryWork(WorkingHistoryViewModel model)
         {
             var result = new CommandResult
@@ -201,7 +201,7 @@
         }
 
         [HttpGet]
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> EditHistoryWork(int? id)
         {
             var history = new WorkingHistoryViewModel { };
@@ -224,7 +224,7 @@
         }
 
         [HttpPost]
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> EditHistoryWork(WorkingHistoryViewModel model)
         {
             var result = new CommandResult
@@ -254,7 +254,7 @@
             return Json(result);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> DeleteHistoryWork(int id)
         {
             var criteria = new DeleteHistoryWorkCriteria
@@ -272,7 +272,7 @@
             return View(employee);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Create()
         {
             ViewBag.DomainName = appSetting.DomainName;
@@ -290,7 +290,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> Create(CreateEmployeeViewModel model)
         {
@@ -331,7 +331,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Edit(int id)
         {
             Employee employee = await GetEmployeeById(id);
@@ -346,7 +346,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EditEmployeeViewModel model)
@@ -389,7 +389,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> Delete(int employeeId, DateTime resignedDate)
         {
@@ -403,7 +403,7 @@
             return Json(result);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> DefaultSchedule(int employeeId)
         {
             Employee employee = await GetEmployeeById(employeeId);
@@ -413,7 +413,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> DefaultSchedule(DefaultScheduleViewModel model)
         {
@@ -446,7 +446,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> MonthSchedule(int employeeId)
         {
             Employee employee = await GetEmployeeById(employeeId);
@@ -487,7 +487,7 @@
             return File(fileName, "image/jpeg");
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<JsonResult> UploadAvatar(string code, IFormFile file)
         {
@@ -538,7 +538,7 @@
             return View(employee);
         }
 
-        [HrmAuthorize(Roles = "AssistantLeader,HR")]
+        [HrmAuthorize(UserRoles = "AssistantLeader,HR")]
         public async Task<JsonResult> GetMembersByManager(string keyword, int? groupId = null)
         {
             const int Records = 10;
@@ -556,7 +556,7 @@
             return Json(membersByManager.Take(Records));
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Transfer()
         {
             var luminetGroups = await employeeService.GetLuminetGroups();
@@ -572,7 +572,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> Transfer(TransferEmployeeViewModel model)
         {

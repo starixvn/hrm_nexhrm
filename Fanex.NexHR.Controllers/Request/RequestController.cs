@@ -40,7 +40,7 @@
         private const int months = 2;
         private const int numberId = 2;
 
-        [HrmAuthorize(Roles = "AssistantLeader,HR")]
+        [HrmAuthorize(UserRoles = "AssistantLeader,HR")]
         [HttpPost("request/process-request")]
         public async Task<IActionResult> ProcessRequest(string command, long id)
         {
@@ -48,7 +48,7 @@
             return Json(result);
         }
 
-        [HrmAuthorize(Roles = "AssistantLeader,HR")]
+        [HrmAuthorize(UserRoles = "AssistantLeader,HR")]
         [HttpPost]
         public async Task<IActionResult> ApproveMultiple(int[] requestIds)
         {
@@ -69,7 +69,7 @@
             return Json(commandResult);
         }
 
-        [HrmAuthorize(Roles = "AssistantLeader,HR")]
+        [HrmAuthorize(UserRoles = "AssistantLeader,HR")]
         [HttpPost]
         public async Task<IActionResult> RejectMultiple(int[] requestIds)
         {
@@ -95,7 +95,7 @@
             return PartialView(model);
         }
 
-        [HrmAuthorize(Roles = "AssistantLeader")]
+        [HrmAuthorize(UserRoles = "AssistantLeader")]
         public async Task<IActionResult> Member(RequestViewModel model)
         {
             if (model.TeamId == -1)
@@ -125,7 +125,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "AssistantLeader")]
+        [HrmAuthorize(UserRoles = "AssistantLeader")]
         public async Task<IActionResult> GetAllRequestByAssistantLeader(RequestViewModel model)
         {
             model.Requests = await GetRequest(model, (short)Role.AssistantLeader);
@@ -149,7 +149,7 @@
             return PartialView("AllRequest", model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> HRView(RequestViewModel model)
         {
             var newModel = await GetRequestViewModel(model, RequestViewType.HRView);
@@ -157,7 +157,7 @@
             return View(newModel);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> GetAllRequestByHR(RequestViewModel model)
         {
             if (model != null)

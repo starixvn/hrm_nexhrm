@@ -35,7 +35,7 @@
             this.baseService = baseService;
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> AddLeaveConversion(LeaveConversionViewModel model)
         {
@@ -65,7 +65,7 @@
             return Json(result);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> AddLeaveDeduction(LeaveDeductionViewModel model)
         {
@@ -95,7 +95,7 @@
             return Json(result);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> AdjustAnnualLeaves(AddMultiAnnualLeaveTransactionViewModel model)
         {
@@ -123,7 +123,7 @@
             return Json(result);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Create(int employeeId)
         {
             var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId };
@@ -136,7 +136,7 @@
             });
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> Create(AddAnnualLeaveTransactionViewModel model)
         {
@@ -188,7 +188,7 @@
             });
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> Delete(int leaveTransactionId)
         {
@@ -201,7 +201,7 @@
             return Json(result);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> DeleteLeaveConversion(int leaveConversionId)
         {
@@ -214,7 +214,7 @@
             return Json(await baseService.ExecuteNonQueryAsync(criteria));
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> DeleteLeaveDeduction(int leaveDeductionId)
         {
@@ -227,7 +227,7 @@
             return Json(await baseService.ExecuteNonQueryAsync(criteria));
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Edit(int leaveTransactionId, bool excludedRequestTrans)
         {
             var criteria = new GetAnnualLeaveByIdCriteria
@@ -248,7 +248,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> Edit(EditAnnualLeaveTransactionViewModel model)
         {
@@ -287,7 +287,7 @@
             });
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> EditLeaveConversion(LeaveConversionViewModel model)
         {
@@ -327,7 +327,7 @@
             });
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> EditLeaveDeduction(LeaveDeductionViewModel model)
         {
@@ -373,7 +373,6 @@
                 annualLeaveTransactions = await annualLeaveService.GetAnnualLeaveTransactions(criteria);
                 ViewBag.ExcludedRequestTrans = model.ExcludedRequestTrans;
             }
-
 
             return PartialView("_Employee", annualLeaveTransactions);
         }
@@ -516,7 +515,7 @@
             return View(await GetLeaveDetailModel(fromDate, toDate, employeeId, teamId));
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public PartialViewResult MultipleInsert()
         {
             return PartialView(new AddMultiAnnualLeaveTransactionViewModel
@@ -525,7 +524,7 @@
             });
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public PartialViewResult MultipleReset()
         {
             return PartialView(new AddMultiAnnualLeaveTransactionViewModel
@@ -534,7 +533,7 @@
             });
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> OpenAnnualLeaves()
         {
@@ -546,7 +545,7 @@
             return Json(await baseService.ExecuteNonQueryAsync(criteria));
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<JsonResult> ResetAnnualLeaves(int minbalance, string descriptionReset)
         {

@@ -39,14 +39,14 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public IActionResult AddNewMember()
         {
             return View(new ExtensionNoModel());
         }
 
         [HttpPost]
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> AddNewMember(ExtensionNoModel model)
         {
             if (model != null && ModelState.IsValid)
@@ -76,7 +76,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> EditExtensionNumber(bool isInternal, int empExtId)
         {
             var criteria = new GetEmployeeExtensionNoByIdCriteria
@@ -103,7 +103,7 @@
         }
 
         [HttpPost]
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> EditExtensionNumber(ExtensionNoModel model)
         {
             if (model != null && ModelState.IsValid)
@@ -146,7 +146,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> DeleteExtensionNumber(int extId)
         {
@@ -159,7 +159,7 @@
             return Json(result);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> AddNewExternalGroup(string groupName)
         {
@@ -172,7 +172,7 @@
             return Json(result);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> DeleteExternalGroup(int extId)
         {
@@ -185,7 +185,7 @@
             return Json(result);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> EditExternalGroup(int extId, string groupName)
         {

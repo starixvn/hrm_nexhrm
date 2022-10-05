@@ -15,7 +15,7 @@
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public class HrmAuthorizeAttribute : AuthorizeAttribute, IAsyncAuthorizationFilter
     {
-        public string Roles { get; set; }
+        public string UserRoles { get; set; }
 
         public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {
@@ -27,7 +27,7 @@
             {
                 await ResetSession(context);
 
-                if (!string.IsNullOrWhiteSpace(Roles))
+                if (!string.IsNullOrWhiteSpace(UserRoles))
                 {
                     ValidateRoles(context);
                 }
@@ -45,12 +45,23 @@
                 roleList.Add(((Role)role).ToString());
             }
 
-            var permissionRoles = Roles.Split(",");
+            var permissionRoles = GetPermissionRoles();
 
             if (!IsValidRole(roleList, permissionRoles))
             {
                 UnauthorizedResponse(context);
             }
+        }
+
+        private string[] GetPermissionRoles()
+        {
+            var permissionRoles = UserRoles.Split(",");
+            if (permissionRoles.Any(r => r.Equals(Role.AssistantLeader.ToString(), StringComparison.OrdinalIgnoreCase)) &&
+                @permissionRoles.Any(r => r.Equals(Role.Leader.ToString(), StringComparison.OrdinalIgnoreCase)))
+            {
+                permissionRoles = permissionRoles.Concat(new[] { Role.Leader.ToString() }).ToArray();
+            }
+            return permissionRoles;
         }
 
         private static async Task ResetSession(AuthorizationFilterContext context)

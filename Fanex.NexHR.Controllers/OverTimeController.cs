@@ -61,7 +61,7 @@
             return View();
         }
 
-        [HrmAuthorize(Roles = "AssistantLeader,HR,PM")]
+        [HrmAuthorize(UserRoles = "AssistantLeader,HR,PM")]
         public IActionResult MemberOvertime()
         {
             var model = new MemberOvertimeViewModel();
@@ -69,7 +69,7 @@
             return PartialView(model);
         }
 
-        [HrmAuthorize(Roles = "AssistantLeader,HR,PM")]
+        [HrmAuthorize(UserRoles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public async Task<IActionResult> MemberOvertimeData(MemberOvertimeViewModel model)
         {
@@ -93,7 +93,7 @@
             return PartialView("_ListMemberOvertime", result);
         }
 
-        [HrmAuthorize(Roles = "AssistantLeader,PM")]
+        [HrmAuthorize(UserRoles = "AssistantLeader,PM")]
         public IActionResult Create()
         {
             var model = new CreateOvertimeViewModel();
@@ -101,7 +101,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "AssistantLeader,PM")]
+        [HrmAuthorize(UserRoles = "AssistantLeader,PM")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateOvertimeViewModel model)
@@ -132,7 +132,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "AssistantLeader,PM")]
+        [HrmAuthorize(UserRoles = "AssistantLeader,PM")]
         public async Task<IActionResult> Edit(int id)
         {
             var criteria = new GetOvertimeByIdCriteria { Id = id };
@@ -159,7 +159,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "AssistantLeader,PM")]
+        [HrmAuthorize(UserRoles = "AssistantLeader,PM")]
         [HttpPost]
         public async Task<IActionResult> Edit(CreateOvertimeViewModel model)
         {
@@ -190,7 +190,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "AssistantLeader,PM")]
+        [HrmAuthorize(UserRoles = "AssistantLeader,PM")]
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
@@ -204,7 +204,7 @@
             return Json(result);
         }
 
-        [HrmAuthorize(Roles = "AssistantLeader,HR,PM")]
+        [HrmAuthorize(UserRoles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public async Task<IActionResult> ApproveRequest(int id, int createdBy)
         {
@@ -222,7 +222,7 @@
             return Json(result);
         }
 
-        [HrmAuthorize(Roles = "AssistantLeader,HR,PM")]
+        [HrmAuthorize(UserRoles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public async Task<IActionResult> RejectRequest(int id)
         {
@@ -237,7 +237,7 @@
             return Json(result);
         }
 
-        [HrmAuthorize(Roles = "AssistantLeader,HR,PM")]
+        [HrmAuthorize(UserRoles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public async Task<IActionResult> DisapproveRequest(int id)
         {
@@ -252,7 +252,7 @@
             return Json(result);
         }
 
-        [HrmAuthorize(Roles = "AssistantLeader,HR,PM")]
+        [HrmAuthorize(UserRoles = "AssistantLeader,HR,PM")]
         [HttpPost]
         public async Task<IActionResult> ResetRequest(int id)
         {
@@ -396,7 +396,7 @@
             return PartialView("_CreateOvertimeConversion", model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> CreateOvertimeConversion(OvertimeConversionCreateViewModel model)
         {
@@ -434,7 +434,7 @@
             return PartialView("_EditOvertimeConversion", model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> EditOvertimeConversion(OvertimeConversionEditViewModel model)
         {
@@ -462,7 +462,7 @@
             return Json(result);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> DeleteOvertimeConversion(int id)
         {
@@ -504,7 +504,7 @@
             return model;
         }
 
-        [HrmAuthorize(Roles = "AssistantLeader,PM")]
+        [HrmAuthorize(UserRoles = "AssistantLeader,PM")]
         [HttpPost]
         public async Task<IActionResult> CreateEmployeeRecord(OvertimeRecord model, int index)
         {
@@ -520,7 +520,7 @@
             return PartialView("_CreateEmployeeRecord", model);
         }
 
-        [HrmAuthorize(Roles = "AssistantLeader,HR,PM")]
+        [HrmAuthorize(UserRoles = "AssistantLeader,HR,PM")]
         public async Task<IActionResult> GetNexHour(int employeeId, DateTime date, float hour)
         {
             var criteria = new GetNexHourCriteria
@@ -533,14 +533,14 @@
             return Json(nexHour);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public IActionResult HRView()
         {
             var model = new HROvertimeViewModel();
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> HRView(HROvertimeViewModel model)
         {
@@ -564,7 +564,7 @@
             return PartialView("_ListHRViewOvertime", result);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> HRViewDetail(int id)
         {
@@ -576,7 +576,7 @@
             return PartialView("_ListHRViewOvertimeDetail", result);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> VoidRequest(int id)
         {
@@ -591,7 +591,7 @@
             return Json(result);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> VerifyRequest(OvertimeVerifyViewModel model)
         {

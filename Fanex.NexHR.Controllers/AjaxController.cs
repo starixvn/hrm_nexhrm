@@ -17,7 +17,7 @@
             this.baseService = baseService;
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> ProcessInOut(TimeRecordUpdateTypeCriteria criteria)
         {

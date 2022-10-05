@@ -59,7 +59,7 @@
             return PartialView("_EmployeeWorkFromHomeGrid", employees);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public IActionResult Create()
         {
             var model = new EmployeeWorkFromHomeViewModel
@@ -71,7 +71,7 @@
         }
 
         [HttpPost]
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Create(EmployeeWorkFromHomeViewModel model)
         {
             if (model != null && ModelState.IsValid)
@@ -98,7 +98,7 @@
             return View(model);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Edit(int id)
         {
             var employeeWorkFromHome = await employeeWorkFromHomeService.GetById(id);
@@ -115,7 +115,7 @@
         }
 
         [HttpPost]
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Edit(EmployeeWorkFromHomeViewModel model)
         {
             if (model != null && ModelState.IsValid)
@@ -144,7 +144,7 @@
         }
 
         [HttpPost]
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Delete(int id)
         {
             var criteria = new DeleteEmployeeWorkFromHomeCriteria { EmployeeWorkFromHomeId = id, DeletedBy = CurrentUser.Id };
@@ -153,7 +153,7 @@
         }
 
         [HttpPost]
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> ProcessRequestMultiple(string command, int[] requestIds)
         {
             var commandResult = new CommandResult();
@@ -180,7 +180,7 @@
             return Json(commandResult);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> ProcessRequest(string command, int id)
         {
@@ -195,7 +195,7 @@
             return Json(result);
         }
 
-        [HrmAuthorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> ProcessDisapproveRequest(int id)
         {
