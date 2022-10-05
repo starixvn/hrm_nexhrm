@@ -52,7 +52,7 @@
             RequestEntity request = new RequestEntity();
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                using (IDataReader reader =await db.ExecuteReaderAsync(criteria))
+                using (IDataReader reader = await db.ExecuteReaderAsync(criteria))
                 {
                     if (reader != null)
                     {
@@ -84,7 +84,7 @@
                     Id = reader.GetInt32(reader.GetOrdinal("empID")),
                     NickName = reader.GetString(reader.GetOrdinal("Requester")),
                     FullName = reader.GetString(reader.GetOrdinal("FullNameRequester")),
-                    Email = reader.GetString(reader.GetOrdinal("EmailRequester")),
+                    Email = !reader.IsDBNull(reader.GetOrdinal("EmailRequester")) ? reader.GetString(reader.GetOrdinal("EmailRequester")) : "",
                     AnnualLeaveBalance = reader.GetDecimal(reader.GetOrdinal("AnnualLeaveBalance")),
                     Team = new Team { Name = reader.GetString(reader.GetOrdinal("Team")), Code = reader.GetString(reader.GetOrdinal("TeamCode")) }
                 },
@@ -94,13 +94,13 @@
                     FullName = GetStringFromReader(reader, "FullNameProcessedBy"),
                     Email = GetStringFromReader(reader, "EmailProcessedBy")
                 },
-                ModifiedDate = !reader.IsDBNull(reader.GetOrdinal("ProcessedDate")) ? reader.GetDateTime(reader.GetOrdinal("ProcessedDate")) : DateTime.Now,
+                ModifiedDate = !reader.IsDBNull(reader.GetOrdinal("ProcessedDate")) ? reader.GetDateTime(reader.GetOrdinal("ProcessedDate")) : new DateTime(),
                 FromShift = new Shift { Name = GetStringFromReader(reader, "FromShift") },
                 ToShift = new Shift { Name = GetStringFromReader(reader, "ToShift") },
                 TotalMins = !reader.IsDBNull(reader.GetOrdinal("TotalMins")) ? reader.GetInt32(reader.GetOrdinal("TotalMins")) : 0,
                 FromDate = reader.GetDateTime(reader.GetOrdinal("FromDate")),
                 ToDate = !reader.IsDBNull(reader.GetOrdinal("ToDate")) ? reader.GetDateTime(reader.GetOrdinal("ToDate")) : new DateTime(),
-                TotalDays = !reader.IsDBNull(reader.GetOrdinal("TotalDays")) ?  reader.GetDecimal(reader.GetOrdinal("TotalDays")) : 0,
+                TotalDays = !reader.IsDBNull(reader.GetOrdinal("TotalDays")) ? reader.GetDecimal(reader.GetOrdinal("TotalDays")) : 0,
                 LeaveType = new LeaveType
                 {
                     Id = !reader.IsDBNull(reader.GetOrdinal("LeaveTypeId")) ? reader.GetInt32(reader.GetOrdinal("LeaveTypeId")) : -1,
