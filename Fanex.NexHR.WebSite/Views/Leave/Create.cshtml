@@ -7,20 +7,20 @@
     var listLeaveTypes = new SelectList(Model.LeaveTypes, "Id", "Name");
 }
 @section Styles {
-    <link rel="stylesheet" href="~/minify/css/myrequest.min.css" asp-append-version="true">
-    <link rel="stylesheet" href="~/minify/css/leaverequest.min.css" asp-append-version="true">
+<link rel="stylesheet" href="~/minify/css/myrequest.min.css" asp-append-version="true">
+<link rel="stylesheet" href="~/minify/css/leaverequest.min.css" asp-append-version="true">
 }
 @section Scripts {
-    <environment include="Development">
-        <script src="~/js/Libs/jquery.contextMenu.min.js" asp-append-version="true"></script>
-        <script src="~/js/Views/Request/leave.request.js" asp-append-version="true"></script>
-        <script src="~/js/Views/Request/process.leave-checkinout.byemployee.js" asp-append-version="true"></script>
-        <script src="~/js/Views/Request/search.request.js" asp-append-version="true"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="~/minify/js/contextmenu.min.js" asp-append-version="true"></script>
-        <script src="~/minify/js/leave.min.js" asp-append-version="true"></script>
-    </environment>
+<environment include="Development">
+    <script src="~/js/Libs/jquery.contextMenu.min.js" asp-append-version="true"></script>
+    <script src="~/js/Views/Request/leave.request.js" asp-append-version="true"></script>
+    <script src="~/js/Views/Request/process.leave-checkinout.byemployee.js" asp-append-version="true"></script>
+    <script src="~/js/Views/Request/search.request.js" asp-append-version="true"></script>
+</environment>
+<environment exclude="Development">
+    <script src="~/minify/js/contextmenu.min.js" asp-append-version="true"></script>
+    <script src="~/minify/js/leave.min.js" asp-append-version="true"></script>
+</environment>
 }
 
 
@@ -62,7 +62,7 @@
                                     <div class="left text-legend">
                                         ※ In <span id='lblMonth'>{0}</span>,
                                         you can use up to <span id='lblAnnualLeaveCanBeUsed' class='red-color'>{1}</span>
-                                        day (s) AL in a total of <span id = 'lblAnnualLeaveBalance' class='red-color'> {2} </span>
+                                        day (s) AL in a total of <span id='lblAnnualLeaveBalance' class='red-color'> {2} </span>
                                         day (s) for <span id='lblYear'>{3}</span>
                                     </div>
                                 </div>
@@ -74,7 +74,7 @@
                                     </div>
                                     <div class="left select--m leaveTypeId">
                                         <select asp-for="LeaveTypeId" asp-items="@listLeaveTypes">
-                                        </select> 
+                                        </select>
                                         <input asp-for="LeaveTypeName" type="hidden" />
                                     </div>
                                 </div>
@@ -95,7 +95,7 @@
                                         <label>@Labels.HalfDayOff</label>
                                     </div>
                                     <div class="left input--m">
-                                        <input asp-for="HalfDayOff" type="checkbox" class="filled-in"/>
+                                        <input asp-for="HalfDayOff" type="checkbox" class="filled-in" />
                                         <label for="HalfDayOff"></label>
                                     </div>
                                 </div>
@@ -107,25 +107,23 @@
                                     </div>
                                     <div class="left block-time">
                                         <div class="datepicker-button left select--s">
-                                            <date-picker 
-                                                name="FromDate"
-                                                min-date="Utilities.RequestAvailableFromDate"
-                                                max-date="Utilities.RequestAvailableToDate"
-                                                disabled-dates="Model.UnavailDates"
-                                                value="DateTime.Now"
-                                            >
+                                            <date-picker name="FromDate"
+                                                         min-date="Utilities.RequestAvailableFromDate"
+                                                         max-date="Utilities.RequestAvailableToDate"
+                                                         disabled-dates="Model.UnavailDates"
+                                                         value="DateTime.Now">
                                             </date-picker>
                                             <i class="mdi-action-event calendar-icon from-date left"></i>
                                         </div>
                                         <div class="box-time hide">
                                             <div class="col m-l--m">
-                                                <input asp-for="FromHour" type = "number" min = "0" max = "23" step = "1" MaxLength = "2" id = "Hour" name = "Hour"/>
+                                                <input asp-for="FromHour" type="number" min="0" max="23" step="1" MaxLength="2" />
                                             </div>
                                             <div class="col p-0">
                                                 <span class="colon">:</span>
                                             </div>
                                             <div class="col">
-                                                <input asp-for="FromMinute" type = "number" min = "0" max = "59" step = "1" MaxLength = "2" id = "Minute" name = "Minute"/>
+                                                <input asp-for="FromMinute" type="number" min="0" max="59" step="1" MaxLength="2" />
                                             </div>
                                         </div>
                                     </div>
@@ -134,7 +132,7 @@
                                     <div class="left select-time">
                                         <span class="time hide">
                                             <select asp-for="FromTime" asp-items="Utilities.TimeSteps(30)">
-                                            </select> 
+                                            </select>
                                         </span>
                                     </div>
                                 </div>
@@ -146,25 +144,23 @@
                                     </div>
                                     <div class="left block-time">
                                         <div class="datepicker-button select--s left">
-                                           <date-picker 
-                                                name="ToDate"
-                                                min-date="Utilities.RequestAvailableFromDate"
-                                                max-date="Utilities.RequestAvailableToDate"
-                                                disabled-dates="Model.UnavailDates"
-                                                value="DateTime.Now"
-                                            >
+                                            <date-picker name="ToDate"
+                                                         min-date="Utilities.RequestAvailableFromDate"
+                                                         max-date="Utilities.RequestAvailableToDate"
+                                                         disabled-dates="Model.UnavailDates"
+                                                         value="DateTime.Now">
                                             </date-picker>
                                             <i class="mdi-action-event calendar-icon from-date left"></i>
                                         </div>
                                         <div class="box-time hide">
                                             <div class="col m-l--m">
-                                                <input asp-for="ToHour" type = "number" min = "0" max = "23" step = "1" MaxLength = "2" id = "Hour" name = "Hour"/>
+                                                <input asp-for="ToHour" type="number" min="0" max="23" step="1" MaxLength="2" />
                                             </div>
                                             <div class="col p-0">
                                                 <span class="colon">:</span>
                                             </div>
                                             <div class="col">
-                                                <input asp-for="ToMinute" type = "number" min = "0" max = "59" step = "1" MaxLength = "2" id = "Minute" name = "Minute"/>
+                                                <input asp-for="ToMinute" type="number" min="0" max="59" step="1" MaxLength="2" />
                                             </div>
                                         </div>
                                     </div>
@@ -173,7 +169,7 @@
                                     <div class="left select-time">
                                         <span class="time hide">
                                             <select asp-for="ToTime" asp-items="Utilities.TimeSteps(30)">
-                                            </select> 
+                                            </select>
                                         </span>
                                     </div>
                                 </div>
