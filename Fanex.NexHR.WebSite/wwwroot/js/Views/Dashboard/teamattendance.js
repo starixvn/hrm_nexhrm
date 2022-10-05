@@ -11,8 +11,6 @@ function index() {
 
 function getRequestDetail(requestType, fromDate, toDate, createddate, fromShift, toShift, totalDays, totalMins) {
     var result = '';
-    fromDate = $.format.date(new Date(parseInt(fromDate.substr(6))), "dd MMM, yyyy HH:mm");
-    toDate = $.format.date(new Date(parseInt(toDate.substr(6))), "dd MMM, yyyy HH:mm");
 
     $.ajax({
         url: _global.root + "request/GetRequestDetail",
@@ -38,25 +36,25 @@ function initTooltip() {
         title: function () {
             var object = $(this);
             var result = getRequestDetail(
-                        object.attr('data-requesttype'),
-                        object.attr('data-fromdate'),
-                        object.attr('data-todate'),
-                        object.attr('data-createddate'),
-                        object.attr('data-fromshift'),
-                        object.attr('data-toshift'),
-                        object.attr('data-totaldays'),
-                        object.attr('data-totalmins'));
+                object.attr('data-requesttype'),
+                object.attr('data-fromdate'),
+                object.attr('data-todate'),
+                object.attr('data-createddate'),
+                object.attr('data-fromshift'),
+                object.attr('data-toshift'),
+                object.attr('data-totaldays'),
+                object.attr('data-totalmins'));
 
             return "<table class='table-tooltip'>" +
-                        "<tr>" +
-                            "<td>Details</td>" +
-                            "<td>" + result + "</td>" +
-                        "</tr>" +
-                        "<tr>" +
-                            "<td>Remark</td>" +
-                            "<td>" + object.attr('data-remark') + "</td>" +
-                        "</tr>" +
-                    "</table>";
+                "<tr>" +
+                "<td>Details</td>" +
+                "<td>" + result + "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td>Remark</td>" +
+                "<td>" + object.attr('data-remark') + "</td>" +
+                "</tr>" +
+                "</table>";
         }
     });
 }
@@ -102,7 +100,7 @@ function query(isFirstLoad) {
                     initTooltip();
                 } else {
                     $(noInformation(14)).appendTo('table#attendance');
-                    $('table#attendance').addClass('table-fail'); //add this class to style when table hasn't data 
+                    $('table#attendance').addClass('table-fail'); //add this class to style when table hasn't data
                 }
             },
             error: function () {
@@ -112,7 +110,6 @@ function query(isFirstLoad) {
                 if (!isFirstLoad) {
                     $('.loading-process').fadeOut(300);
                 }
-                
             }
         });
     }

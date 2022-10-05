@@ -106,7 +106,6 @@ function query(isFirstLoad) {
                 $('#attendance-detail').parents().addClass('table-success'); //use this class to style table
             }
             $('#attendance-detail').parents().addClass('table-fail'); //use this class to style table
-            
         },
         error: function () {
             alert(_messages.errorTryAgain);
@@ -139,7 +138,7 @@ function initExportExcel() {
 
 function eventSorting() {
     $('html').on('click', 'th.col-sorter', function () {
-        var $this = $(this).find('div.sorter','th.col-sorter'),
+        var $this = $(this).find('div.sorter', 'th.col-sorter'),
             property = $this.attr('data-property'),
             direction, index;
 
