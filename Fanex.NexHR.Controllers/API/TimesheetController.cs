@@ -27,5 +27,12 @@
             await timeSheetService.SendReminderReachedWorkingTime();
             return Ok();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ImportDataFromBioStar()
+        {
+            await timeSheetService.ImportDataFromBioStar();
+            return Ok();
+        }
     }
 }

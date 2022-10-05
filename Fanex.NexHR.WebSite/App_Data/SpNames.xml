@@ -414,9 +414,10 @@
 		<Setting Key="Conversation_GetById" SpName="Conversation_GetById" DbName="nexhr" Plain="0"></Setting>
 		<Setting Key="Conversation_Update" SpName="Conversation_Update" DbName="nexhr" Plain="0"></Setting>
 	</Function>
-	<Function Name="Time Sheet">
+	<Function Name="TimeSheet">
 		<Setting Key="EmployeeAttendance_GetEmployeeReachedWorkingTime" SpName="EmployeeAttendance_GetEmployeeReachedWorkingTime" DbName="nexhr" Plain="0"></Setting>
 		<Setting Key="LogReachedWorkingTime_Insert" SpName="LogReachedWorkingTime_Insert" DbName="nexhr" Plain="0"></Setting>
+    <Setting Key="TimeRecord_ImportData" SpName="TimeRecord_ImportData" DbName="nexhr" Plain="0"></Setting>
 	</Function>
 	<Function Name="Schedule">
 		<Setting Key="MessageCategoryLog_CheckIfObjectNotChange" SpName="MessageCategoryLog_CheckIfObjectNotChange" DbName="nexhr" Plain="0"></Setting>

@@ -9,7 +9,6 @@
     using Fanex.NexHR.Criteria.TimeSheet;
     using Fanex.NexHR.Models.SkypeAccount;
     using Fanex.NexHR.Models.TimeSheet;
-    using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services.Interfaces;
 
     public class TimeSheetService : ITimeSheetService
@@ -17,13 +16,11 @@
         private const string CacheKeyIgnoredReminder = "UserIgnoredReminderReachedWorkingTime";
 
         private readonly INexbotService nexbotService;
-        private readonly IBaseRepository respository;
         private readonly IBaseService baseService;
 
-        public TimeSheetService(INexbotService nexbotService, IBaseRepository respository, IBaseService baseService)
+        public TimeSheetService(INexbotService nexbotService, IBaseService baseService)
         {
             this.nexbotService = nexbotService;
-            this.respository = respository;
             this.baseService = baseService;
         }
 
@@ -77,6 +74,13 @@
             }
 
             return conversations;
+        }
+
+        public async Task ImportDataFromBioStar()
+        {
+            var criteria = new ImportDataFromBioStarCriteria();
+
+            await baseService.ExecuteNonQueryAsync(criteria);
         }
     }
 }

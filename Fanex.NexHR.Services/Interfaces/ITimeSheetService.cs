@@ -5,5 +5,7 @@
     public interface ITimeSheetService
     {
         Task SendReminderReachedWorkingTime();
+
+        Task ImportDataFromBioStar();
     }
 }
