@@ -134,7 +134,7 @@
         </span>
         @foreach (var date in Model.ForgotLogtimeDates)
         {
-            <a href="@settings.RedmineBaseUrl" target="_blank" class="redmine-date"><span class="req leave">@date.ToString("dd MMM, yyyy")</span></a>
+            <a href="@settings.RedmineDisplayUrl" target="_blank" class="redmine-date"><span class="req leave">@date.ToString("dd MMM, yyyy")</span></a>
         }
     </p>
 }
