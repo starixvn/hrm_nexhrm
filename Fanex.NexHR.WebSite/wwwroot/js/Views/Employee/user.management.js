@@ -45,13 +45,13 @@ function query(jobTitleId, isFirstLoad) {
     var isSpecial = $('#isspecial').val();
 
     var jobTitleUrl = (!jobTitleId || jobTitleId === "") ? "" : "&jobTitleId=" + jobTitleId
-    var data = "query=" + keyword + "&teamId=" + $('#TeamId').val() + "&isDisable=" + isDisable + "&isDelete=" + isDelete + jobTitleUrl+ "&sort=" + JSON.stringify(sorts) + "&isSpecial=" + isSpecial;
+    var data = "query=" + keyword + "&teamId=" + $('#TeamId').val() + "&isDisable=" + isDisable + "&isDelete=" + isDelete + jobTitleUrl + "&sort=" + JSON.stringify(sorts) + "&isSpecial=" + isSpecial;
     var teamName = $(".team .select-dropdown").val();
     var url = _global.root + 'employee/getemployees?' + data;
     var actionOrgUrl = isSpecial ? "SpecialUserManagement?" : "UserManagement?"
 
     if (!isFirstLoad) {
-        var orgUrl = _global.root + 'employee/' + actionOrgUrl + data + "&teamName=" + teamName ;
+        var orgUrl = _global.root + 'employee/' + actionOrgUrl + data + "&teamName=" + teamName;
         window.history.replaceState(null, null, orgUrl);
     }
 
@@ -80,7 +80,7 @@ function query(jobTitleId, isFirstLoad) {
 
                 $('.nick').tipsy({
                     className: 'tipsy-avatar',
-                    gravity: $.fn.tipsy.autoNS,
+                    gravity: 'n',
                     html: true,
                     title: function () {
                         return '<img src="/employee/avatar/' + $(this).attr('data-code') + '" />';
@@ -142,7 +142,6 @@ function initDataFirstQuery(queryString) {
     } else if (isDelete === "true") {
         $("#IsDeleted").prop("checked", true);
     }
-
 }
 
 function eventSorting(jobTitleId) {
