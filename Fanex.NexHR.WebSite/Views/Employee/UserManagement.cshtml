@@ -5,15 +5,15 @@
     ViewBag.Title = Labels.EmployeeManagement;
 }
 @section Styles {
-    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+<link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
 }
 @section Scripts {
-    <environment include="Development">
-        <script src="~/js/Views/Employee/user.management.js" asp-append-version="true"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="~/minify/js/usermanagement.min.js" asp-append-version="true"></script>
-    </environment>
+<environment include="Development">
+    <script src="~/js/Views/Employee/user.management.js" asp-append-version="true"></script>
+</environment>
+<environment exclude="Development">
+    <script src="~/minify/js/usermanagement.min.js" asp-append-version="true"></script>
+</environment>
 }
 
 <div class="row content">
@@ -31,7 +31,7 @@
                                     <label>@Labels.Keyword</label>
                                 </div>
                                 <div class="left filter-keyword">
-                                    <input asp-for="Keyword" placeholder="@Messages.SearchEmployeeWatermark "/>
+                                    <input asp-for="Keyword" placeholder="@Messages.SearchEmployeeWatermark " />
                                 </div>
                             </div>
                             <div class="col m-r--l">
@@ -40,18 +40,18 @@
                                 </div>
                                 <div class="left select--m team">
                                     <select asp-for="TeamId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
-                                            <option value="">@Labels.AllTeams</option>
+                                        <option value="">@Labels.AllTeams</option>
                                     </select>
-                                    
+
                                 </div>
                             </div>
                             <div class="col m-r--l">
                                 <div class="left filter-title-lbl">
                                     <label>@Labels.Title</label>
                                 </div>
-                                <div class="left filter-title job-title" style="margin-left: 3px; width:317px"> 
+                                <div class="left filter-title job-title" style="margin-left: 3px; width:317px">
                                     <select asp-for="JobTitleId" asp-items="@(new SelectList(Model.JobTitles, "Id", "Name"))">
-                                            <option value="">@Labels.AllTitles</option>
+                                        <option value="">@Labels.AllTitles</option>
                                     </select>
                                 </div>
                             </div>
@@ -60,7 +60,7 @@
                             <div class="col">
                                 <div class="left label--m">&nbsp;</div>
                                 <div class="left radioButton">
-                                    <input class="with-gap" name="name" type="radio" id="IsActive"/>
+                                    <input class="with-gap" name="name" type="radio" id="IsActive" />
                                     <label for="IsActive" class="m-r--l">@Labels.ActiveUsers</label>
                                     <input class="with-gap" name="name" type="radio" id="IsDisable" />
                                     <label class="m-r--l" for="IsDisable">@Labels.DisabledUsers</label>
@@ -197,7 +197,7 @@
         </td>
         <td>
             {{if !IsDeleted}}
-            <a href="/employee/defaultschedule?employeeId={{:Id}}"><i class="mdi mdi-border-color mdi-dark mdi-18px"></i></a>
+            <a href="/employee/defaultschedule/{{:Id}}"><i class="mdi mdi-border-color mdi-dark mdi-18px"></i></a>
             {{else}}
             -
             {{/if}}

@@ -19,15 +19,15 @@ function updateShiftDialog() {
 $(document).ready(function () {
     var employeeId = $('#EmployeeId').val();
     $('#defaultschedule').on('click', function () {
-        document.location = _global.root + 'employee/defaultschedule?employeeId=' + employeeId;
+        document.location = _global.root + 'employee/defaultschedule/' + employeeId;
     });
 
     $('#update').on('click', function () {
         $.post(_global.root + 'Calendar/UpdateEmployeeShiftDate',
-        { employeeId: employeeId, date: _event.start.format('MM/DD/YYYY'), shiftId: $('#ShiftId').val() },
-        function () {
-            $('#row' + employeeId).remove();
-        });
+            { employeeId: employeeId, date: _event.start.format('MM/DD/YYYY'), shiftId: $('#ShiftId').val() },
+            function () {
+                $('#row' + employeeId).remove();
+            });
 
         _event.title = $('#ShiftId option:selected').text();
         $('#calendar').fullCalendar('updateEvent', _event);

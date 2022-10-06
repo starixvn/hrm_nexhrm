@@ -404,9 +404,9 @@
         }
 
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> DefaultSchedule(int employeeId)
+        public async Task<IActionResult> DefaultSchedule(int id)
         {
-            Employee employee = await GetEmployeeById(employeeId);
+            Employee employee = await GetEmployeeById(id);
             DefaultScheduleViewModel model = GetDefaultScheduleFromEmployee(employee);
             model.Shifts = await shiftService.GetAll();
 

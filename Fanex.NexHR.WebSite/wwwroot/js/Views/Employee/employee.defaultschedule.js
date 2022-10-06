@@ -17,6 +17,6 @@ $(document).ready(function () {
     });
 
     $('#defaultschedule').on('click', function () {
-        document.location = _global.root + 'employee/defaultschedule?employeeId=' + id;
+        document.location = _global.root + 'employee/defaultschedule/' + id;
     });
 });
