@@ -53,7 +53,7 @@ function query(isFirstLoad) {
 
                 $('.nick').tipsy({
                     className: 'tipsy-avatar',
-                    gravity: 's',
+                    gravity: 'n',
                     html: true,
                     title: function () {
                         var src = _global.root + 'employee/avatar/' + $(this).attr('data-code');
