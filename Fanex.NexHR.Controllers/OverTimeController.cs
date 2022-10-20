@@ -23,17 +23,20 @@
         private readonly IEmployeeService employeeService;
         private readonly IBaseService baseService;
         private readonly ITeamService teamService;
+        private readonly ILogServiceProvider logService;
 
         public OvertimeController(ISessionService sessionService,
             IOvertimeService overtimeService,
             IEmployeeService employeeService,
             IBaseService baseService,
-            ITeamService teamService) : base(sessionService)
+            ITeamService teamService,
+            ILogServiceProvider logService) : base(sessionService)
         {
             this.overtimeService = overtimeService;
             this.employeeService = employeeService;
             this.teamService = teamService;
             this.baseService = baseService;
+            this.logService = logService;
         }
 
         public IActionResult Index(int chosenTab = 0)
@@ -595,19 +598,35 @@
         [HttpPost]
         public async Task<IActionResult> VerifyRequest(OvertimeVerifyViewModel model)
         {
-            model.TimeSheets = JsonConvert.DeserializeObject<IList<OvertimeRecord>>(model.TimeSheetData);
-            var criteria = new VerifyOvertimeCriteria
+            var result = new CommandResult();
+            try
             {
-                ModifiedBy = CurrentUser.Id,
-                Id = model.Id,
-                TimeSheets = model.TimeSheets
-            };
+                logService.LogFile("Call VerifyRequest");
+                model.TimeSheets = JsonConvert.DeserializeObject<IList<OvertimeRecord>>(model.TimeSheetData);
+                logService.LogFile("VerifyRequest - After DeserializeObject");
+                var criteria = new VerifyOvertimeCriteria
+                {
+                    ModifiedBy = CurrentUser.Id,
+                    Id = model.Id,
+                    TimeSheets = model.TimeSheets
+                };
 
-            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
-            if (result.IsSuccessful)
-            {
-                await overtimeService.SendMailForNotification("NEX request Notification", model);
+                logService.LogFile("VerifyRequest - Check IsValid: " + criteria.IsValid());
+
+                result = await baseService.ExecuteNonQueryAsync(criteria);
+                logService.LogFile("VerifyRequest - CommandResult: " + result.IsSuccessful);
+                if (result.IsSuccessful)
+                {
+                    await overtimeService.SendMailForNotification("NEX request Notification", model);
+                }
+                logService.LogFile("VerifyRequest - Finish");
+
             }
+            catch (Exception ex)
+            {
+                logService.LogFile(ex.ToString());
+            }
+
             return Json(result);
         }
 
