@@ -7,6 +7,7 @@
     using Data.Repository;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Repositories.Interfaces;
+    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
 
     public class BaseService : IBaseService
@@ -84,7 +85,11 @@
 
         public async Task<CommandResult> ExecuteNonQueryAsync(INonQueryCommand criteria)
         {
-            var commandResult = new CommandResult();
+            var commandResult = new CommandResult
+            {
+                Code = 1,
+                Message = Messages.InvalidInputData
+            };
 
             if (criteria != null && criteria.IsValid())
             {
