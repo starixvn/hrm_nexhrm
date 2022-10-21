@@ -88,7 +88,6 @@
             model.NotificationLateInEarlyOutToDay = await GetLateInEarlyOutNotification();
             model.IsLoadTeamWorkload = IsLoadTeamWorkload();
             model.IsHavePrivilegeCreateCheckInOutRecord = await IsPrivilegeCreateCheckInOut();
-
             return View(model);
         }
 

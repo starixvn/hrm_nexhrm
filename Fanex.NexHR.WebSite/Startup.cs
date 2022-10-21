@@ -47,7 +47,9 @@
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseMiddleware<ErrorHandler>();
+
+                //app.UseDeveloperExceptionPage();
             }
             else
             {

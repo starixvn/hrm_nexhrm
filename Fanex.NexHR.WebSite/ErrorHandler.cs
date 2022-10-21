@@ -21,7 +21,7 @@
             }
             catch (Exception ex)
             {
-                logService.LogFile(ex.ToString());
+                logService.LogException(ex);
             }
         }
     }
