@@ -602,7 +602,10 @@
             try
             {
                 logService.LogFile("Call VerifyRequest");
+                logService.LogFile(model.TimeSheetData);
                 model.TimeSheets = JsonConvert.DeserializeObject<IList<OvertimeRecord>>(model.TimeSheetData);
+                logService.LogFile(model.TimeSheets.Count().ToString());
+
                 logService.LogFile("VerifyRequest - After DeserializeObject");
                 var criteria = new VerifyOvertimeCriteria
                 {
@@ -615,10 +618,10 @@
 
                 result = await baseService.ExecuteNonQueryAsync(criteria);
                 logService.LogFile("VerifyRequest - CommandResult: " + result.IsSuccessful);
-                if (result.IsSuccessful)
-                {
-                    await overtimeService.SendMailForNotification("NEX request Notification", model);
-                }
+                ////if (result.IsSuccessful)
+                ////{
+                ////    await overtimeService.SendMailForNotification("NEX request Notification", model);
+                ////}
                 logService.LogFile("VerifyRequest - Finish");
 
             }
