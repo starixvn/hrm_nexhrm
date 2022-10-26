@@ -61,6 +61,7 @@
             {
                 permissionRoles = permissionRoles.Concat(new[] { Role.Leader.ToString() }).ToArray();
             }
+
             return permissionRoles;
         }
 

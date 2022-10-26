@@ -136,7 +136,7 @@
             {
                 if (string.IsNullOrWhiteSpace(Roles))
                 {
-                    return new List<short>();
+                    return !HasRolePM ? new List<short>() : new List<short> { (short)Role.PM };
                 }
 
                 var roles = Roles.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
@@ -145,6 +145,11 @@
                 foreach (var item in roles)
                 {
                     result.Add(short.Parse(item));
+                }
+
+                if (HasRolePM)
+                {
+                    result.Add((short)Role.PM);
                 }
 
                 return result;
