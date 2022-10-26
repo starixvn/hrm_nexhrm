@@ -38,7 +38,7 @@
         {
             var nickName = loginName.Split('\\')[1];
             var redmineId = 0;
-            var request = CreateRequest(string.Format("/users.json?name={0}&offset=0&limit=100", nickName), HttpMethod.Get);
+            using var request = CreateRequest(string.Format("/users.json?name={0}&offset=0&limit=100", nickName), HttpMethod.Get);
 
             try
             {
@@ -74,7 +74,7 @@
 
             if (currentId > 0)
             {
-                var request = CreateRequest(string.Format("/users/{0}.json?offset=0&limit=100", currentId), HttpMethod.Get);
+                using var request = CreateRequest(string.Format("/users/{0}.json?offset=0&limit=100", currentId), HttpMethod.Get);
 
                 using var response = await httpClient.SendAsync(request);
                 if (response.StatusCode == HttpStatusCode.OK)
@@ -101,7 +101,7 @@
                 string endpoint = string.Format("issues.json?assigned_to_id={0}&status_id={1}&offset=0&limit=100",
                           currentId,
                           (int)RedmineIssueStatus.InProgress);
-                var request = CreateRequest(endpoint, HttpMethod.Get);
+                using var request = CreateRequest(endpoint, HttpMethod.Get);
 
                 using var response = await httpClient.SendAsync(request);
 
@@ -165,7 +165,7 @@
             else
             {
                 var url = string.Format("time_entries.json?key={0}", apiKey);
-                var request = CreateRequest(url, HttpMethod.Post);
+                using var request = CreateRequest(url, HttpMethod.Post);
 
                 var jsonData = "{\"time_entry\":" +
                     JsonConvert.SerializeObject(new
@@ -196,7 +196,7 @@
                 fromDate.ToString(apiDateTimeFormat),
                 toDate.ToString(apiDateTimeFormat));
 
-            var request = CreateRequest(url, HttpMethod.Get);
+            using var request = CreateRequest(url, HttpMethod.Get);
             var listEntries = new List<TimeEntry>();
 
             using var response = await httpClient.SendAsync(request);

@@ -75,8 +75,7 @@
         {
             string baseUrl = isNexcel ? settings.NexGoalBaseUrl : settings.LumiGoalBaseUrl;
             Uri url = new($"{baseUrl}{settings.FlowUrl}");
-            var request = new HttpRequestMessage(HttpMethod.Get, url);
-            request.Headers.Add("content-type", "application/x-www-form-urlencoded");
+            using var request = new HttpRequestMessage(HttpMethod.Get, url);
 
             using var response = await httpClient.SendAsync(request);
             if (response.IsSuccessStatusCode)
