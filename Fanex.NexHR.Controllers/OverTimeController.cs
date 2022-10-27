@@ -618,10 +618,10 @@
 
                 result = await baseService.ExecuteNonQueryAsync(criteria);
                 logService.LogFile("VerifyRequest - CommandResult: " + result.IsSuccessful);
-                ////if (result.IsSuccessful)
-                ////{
-                ////    await overtimeService.SendMailForNotification("NEX request Notification", model);
-                ////}
+                if (result.IsSuccessful)
+                {
+                    await overtimeService.SendMailForNotification("NEX request Notification", model);
+                }
                 logService.LogFile("VerifyRequest - Finish");
 
             }
