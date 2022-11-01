@@ -285,7 +285,15 @@
                 {
                     var timeEntries = await redmineService.GetTimeEntries(redmineUserId, fromDate, toDate);
                     var totalHour = GetTotalHourLogTime(timeEntries);
-                    employees[i].PercentWorkload = Math.Round(totalHour / employees[i].WorkHour, NumberRounding);
+                    if(employees[i].WorkHour == 0)
+                    {
+                        employees[i].PercentWorkload = 0;
+                    }
+                    else
+                    {
+                        employees[i].PercentWorkload = Math.Round(totalHour / employees[i].WorkHour, NumberRounding);
+                    }
+                    
                 }
             }
         }
