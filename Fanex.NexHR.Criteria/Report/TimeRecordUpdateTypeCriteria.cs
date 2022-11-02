@@ -17,8 +17,9 @@ namespace Fanex.NexHR.Criteria.Report
     public class TimeRecordUpdateTypeCriteria : BaseCommand
     {
         public int RecordTimeId { get; set; }
+        public int EmployeeId { get; set; }
 
-        public byte? InOutType { get; set; }
+        public short? InOutType { get; set; }
 
         public int ModifiedBy { get; set; }
 

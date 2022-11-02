@@ -2,6 +2,7 @@
 /*global _global, _messages, setDateTimeRange, floatThead, validateFromDateAndToDate*/
 /*exported */
 var recordTimeIdToChange = 0;
+var empId = 0;
 
 function query(isFirstLoad) {
     $.ajax({
@@ -73,9 +74,9 @@ function initEventForFromDateAndToDate() {
     });
 }
 
-function processInOut(inoutType, eventElement) {
-    $.post(_global.root + 'ajax/ProcessInOut',
-        { inoutType: inoutType, recordTimeId: recordTimeIdToChange },
+function processInOut(inoutType) {
+    $.post(_global.root + 'ajax/ProcessInOutUser',
+        { inoutType: inoutType, recordTimeId: recordTimeIdToChange, employeeId : empId },
         function (response) {
             if (response.IsSuccessful) {
                 query(false);   // jshint ignore:line
@@ -90,6 +91,7 @@ function bindMenuIn() {
     $('table#data tbody td a.in-action').on('mouseup', function () {
         //var $this = $(this);
         recordTimeIdToChange = $(this).data("id");
+        empId = $(this).data("emp");
 
         $.contextMenu({
             selector: '.in-action',
@@ -100,13 +102,13 @@ function bindMenuIn() {
                         switch (key) {
                             case 'in':
                                 confirm('Are you sure you change to in?', function () {
-                                    processInOut(0, recordTimeIdToChange);
+                                    processInOut(0);
                                 });
 
                                 break;
                             case 'none':
                                 confirm('Are you sure you change to none?', function () {
-                                    processInOut(null, recordTimeIdToChange);
+                                    processInOut(null);
                                 });
 
                                 break;
@@ -126,6 +128,7 @@ function bindMenuOut() {
     $('table#data tbody td a.out-action').on('mouseup', function () {
         //var $this = $(this);
         recordTimeIdToChange = $(this).data("id");
+        empId = $(this).data("emp");
 
         $.contextMenu({
             selector: '.out-action',
@@ -136,13 +139,13 @@ function bindMenuOut() {
                         switch (key) {
                             case 'out':
                                 confirm('Are you sure you change to out?', function () {
-                                    processInOut(1, recordTimeIdToChange);
+                                    processInOut(1);
                                 });
 
                                 break;
                             case 'none':
                                 confirm('Are you sure you change to none?', function () {
-                                    processInOut(null, recordTimeIdToChange);
+                                    processInOut(null);
                                 });
 
                                 break;
@@ -161,6 +164,7 @@ function bindMenuOut() {
 function bindMenuInOut() {
     $('table#data tbody td a.inout-action').on('mouseup', function () {
         recordTimeIdToChange = $(this).data("id");
+        empId = $(this).data("emp");
 
         $.contextMenu({
             selector: '.inout-action',
@@ -171,13 +175,13 @@ function bindMenuInOut() {
                         switch (key) {
                             case 'in':
                                 confirm('Are you sure you change to in?', function () {
-                                    processInOut(0, recordTimeIdToChange);
+                                    processInOut(0);
                                 });
 
                                 break;
                             case 'out':
                                 confirm('Are you sure you change to out?', function () {
-                                    processInOut(1, recordTimeIdToChange);
+                                    processInOut(1);
                                 });
 
                                 break;
