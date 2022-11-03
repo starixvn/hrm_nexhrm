@@ -1,6 +1,5 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
     using System.Collections.Generic;
     using System.Security.Claims;
     using System.Threading.Tasks;
@@ -10,29 +9,24 @@
     using Fanex.NexHR.ViewModels;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authentication.Cookies;
-    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Hosting;
     using Novell.Directory.Ldap;
 
     public class AuthController : Controller
     {
         private readonly IAuthService authService;
         private readonly ISessionService sessionService;
-        private readonly IWebHostEnvironment webHostEnvironment;
         private readonly AppSetting appSetting;
         private readonly LdapSettings ldapSettings;
 
         public AuthController(IAuthService authService,
             ISessionService sessionService,
             AppSetting appSetting,
-            IWebHostEnvironment webHostEnvironment,
             LdapSettings ldapSettings)
         {
             this.authService = authService;
             this.sessionService = sessionService;
             this.appSetting = appSetting;
-            this.webHostEnvironment = webHostEnvironment;
             this.ldapSettings = ldapSettings;
         }
 
@@ -102,24 +96,16 @@
 
         private bool IsLoginLdapSuccess(LoginModel model)
         {
-            if (webHostEnvironment.IsDevelopment())
-            {
-                return true;
-            }
-
             var isValid = false;
             using (var connection = new LdapConnection())
             {
-                connection.Connect(ldapSettings.Host, ldapSettings.Port);
                 try
                 {
+                    connection.Connect(ldapSettings.Host, ldapSettings.Port);
                     connection.Bind(string.Format(ldapSettings.UserLoginSchema, model.Username), model.Password);
-                    if (connection.Bound)
-                    {
-                        isValid = true;
-                    }
+                    isValid = connection.Bound;
                 }
-                catch (Exception ex)
+                catch
                 {
                     isValid = false;
                 }
