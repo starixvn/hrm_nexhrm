@@ -17,7 +17,5 @@
         Task<IList<OvertimeSummary>> GetOvertimeSummary(ICriteria criteria);
 
         Task<IList<OvertimeConversion>> GetConversions(ICriteria criteria);
-
-        Task<IList<ReportOvertimeHRDetail>> GetReportOvertimeHRDetail(ICriteria criteria);
     }
 }

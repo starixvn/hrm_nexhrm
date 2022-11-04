@@ -124,12 +124,12 @@
             return overtimes ?? new List<Overtime>();
         }
 
-        public async Task<IList<ReportOvertimeHRDetail>> GetReportOvertimeHRDetail(ReportOvertimeHRDetailCriteria criteria)
+        public async Task<IEnumerable<ReportOvertimeHRDetail>> GetReportOvertimeHRDetail(ReportOvertimeHRDetailCriteria criteria)
         {
-            IList<ReportOvertimeHRDetail> report = null;
+            IEnumerable<ReportOvertimeHRDetail> report = null;
             if (criteria != null && criteria.IsValid())
             {
-                report = await overtimeRepository.GetReportOvertimeHRDetail(criteria);
+                report = await baseService.GetDataAsync<ReportOvertimeHRDetail>(criteria);
             }
 
             return report ?? new List<ReportOvertimeHRDetail>();

@@ -25,7 +25,7 @@
 
         Task<IList<Overtime>> GetReportOvertimeHR(ReportOvertimeHRCriteria criteria);
 
-        Task<IList<ReportOvertimeHRDetail>> GetReportOvertimeHRDetail(ReportOvertimeHRDetailCriteria criteria);
+        Task<IEnumerable<ReportOvertimeHRDetail>> GetReportOvertimeHRDetail(ReportOvertimeHRDetailCriteria criteria);
 
         Task SendMailForNEXRequest(string subject, CreateOvertimeViewModel model);
 

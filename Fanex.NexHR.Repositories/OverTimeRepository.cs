@@ -133,22 +133,5 @@
                 return conversions.ToList();
             }
         }
-
-        public async Task<IList<ReportOvertimeHRDetail>> GetReportOvertimeHRDetail(ICriteria criteria)
-        {
-            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
-            {
-                var report = await db.QueryAsync<ReportOvertimeHRDetail, Employee, ReportOvertimeHRDetail>(
-                    (rp, e1) =>
-                    {
-                        rp.Employee = e1;
-                        return rp;
-                    },
-                    stringSplitOnEmployeeId,
-                    criteria);
-
-                return report.ToList();
-            }
-        }
     }
 }

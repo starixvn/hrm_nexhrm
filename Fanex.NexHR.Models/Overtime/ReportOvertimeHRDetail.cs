@@ -14,7 +14,12 @@
 
         public float NexHour { get; set; }
 
-        public Employee Employee { get; set; }
-        
+        public int UserId { get; set; }
+
+        public string FullName { get; set; }
+
+        public string NickName { get; set; }
+
+        public string DisplayName => NickName + (string.IsNullOrWhiteSpace(FullName) ? string.Empty : " (" + FullName + ")");
     }
 }
