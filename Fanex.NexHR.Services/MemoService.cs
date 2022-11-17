@@ -74,7 +74,7 @@
             var bodyTemplate = Utilities.ReadTextFile(emailTemplatePath);
             string companyMailSign = emailSettings.CompanyMailSign;
 
-            var body = string.Format(bodyTemplate, subject, appSettings.BaseUrl + "memo/detail/" + memoId, companyMailSign, emailSettings.CompanyMailSign);
+            var body = string.Format(bodyTemplate, subject,$"{appSettings.BaseUrl}/memo/detail/{memoId}", companyMailSign);
             emailService.SendEmail(
                 emailSettings.Email,
                 groupGo,
