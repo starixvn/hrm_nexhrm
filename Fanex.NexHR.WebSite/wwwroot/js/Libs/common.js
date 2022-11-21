@@ -630,7 +630,7 @@ function ajaxLoadingProcess() {
     });
 }
 
-function initAutocomplete(selectorName, selectorId, isSpecial, isDisable = null) {
+function initAutocomplete(selectorName, selectorId, isSpecial, isDisable = null, isIncludeSpecialUser) {
     $(selectorName).autocomplete({
         source: function (request, response) {
             var term = request.term;
@@ -645,6 +645,7 @@ function initAutocomplete(selectorName, selectorId, isSpecial, isDisable = null)
                 data: {
                     query: term,
                     isSpecial: isSpecial ? true : false,
+                    isIncludeSpecialUser: isIncludeSpecialUser ? true : false,
                     isDisable,
                     $top: 10
                 },

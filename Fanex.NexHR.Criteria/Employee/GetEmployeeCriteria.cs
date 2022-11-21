@@ -24,6 +24,8 @@
 
         public bool IsSpecial { get; set; }
 
+        public bool IsIncludeSpecialUser { get; set; }
+
         public override bool IsValid()
         {
             return true;

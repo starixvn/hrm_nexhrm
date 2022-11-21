@@ -90,6 +90,7 @@
             return View(model);
         }
 
+#pragma warning disable S107 // Methods should not have too many parameters
         public async Task<JsonResult> GetEmployees(
             string query,
             int? teamId = null,
@@ -97,7 +98,9 @@
             bool? isDelete = null,
             int? jobTitleId = null,
             string sort = null,
-            bool? isSpecial = null)
+            bool? isSpecial = null,
+            bool? isIncludeSpecialUser = null)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             var listEmployee = new EmployeeListViewModel
             {
@@ -114,7 +117,8 @@
                 PageNumber = 1,
                 PageSize = int.MaxValue,
                 TotalRow = 2000,
-                IsSpecial = isSpecial ?? false
+                IsSpecial = isSpecial ?? false,
+                IsIncludeSpecialUser = isIncludeSpecialUser ?? false
             };
 
             listEmployee.Employees = await employeeService.Query(criteria);
