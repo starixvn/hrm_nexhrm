@@ -3,7 +3,7 @@
 /*exported submitForm*/
 
 $(document).ready(function () {
-    initAutocomplete('#Employee', '#EmployeeId');
+    initAutocomplete('#Employee', '#EmployeeId', false);
 
     // when user clear the textbox, we must set employeeId field to -1 for seaching all employees
     $('form').submit(function () {

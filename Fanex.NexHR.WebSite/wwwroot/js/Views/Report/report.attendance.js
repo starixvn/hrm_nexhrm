@@ -172,7 +172,7 @@ function refreshSorting() {
 }
 
 $(document).ready(function () {
-    initAutocomplete('#Employee', '#EmployeeId');
+    initAutocomplete('#Employee', '#EmployeeId', false);
     initExportExcel();
 
     eventSorting();

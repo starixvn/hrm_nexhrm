@@ -16,6 +16,7 @@ function autoCompleteEmployee() {
                 url: _global.root + 'employee/getemployees',
                 data: {
                     query: term,
+                    isSpecial: false,
                     $top: 10
                 },
                 success: function (data) {
@@ -217,6 +218,7 @@ function addMarkersToMap(map) {
         url: _global.root + 'employee/getemployees',
         data: {
             query: '',
+            isSpecial: false,
             $top: 10
         },
         async: false,

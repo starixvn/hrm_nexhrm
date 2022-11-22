@@ -42,7 +42,7 @@ function query(jobTitleId, isFirstLoad) {
         isDelete = null;
     }
 
-    var isSpecial = $('#isspecial').val();
+    var isSpecial = $('#IsSpecial').val();
 
     var jobTitleUrl = (!jobTitleId || jobTitleId === "") ? "" : "&jobTitleId=" + jobTitleId
     var data = "query=" + keyword + "&teamId=" + $('#TeamId').val() + "&isDisable=" + isDisable + "&isDelete=" + isDelete + jobTitleUrl + "&sort=" + JSON.stringify(sorts) + "&isSpecial=" + isSpecial;

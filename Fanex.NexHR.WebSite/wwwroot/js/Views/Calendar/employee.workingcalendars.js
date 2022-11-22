@@ -77,5 +77,5 @@ $(document).ready(function () {
         });
     });
 
-    initAutocomplete('#AddEmployee', '#AddEmployeeId');
+    initAutocomplete('#AddEmployee', '#AddEmployeeId', false);
 });

@@ -59,7 +59,8 @@ $(document).ready(function () {
             $.ajax({
                 url: _global.root + 'employee/getemployees',
                 data: {
-                    query: request.term
+                    query: request.term,
+                    isSpecial: false
                 },
                 success: function (data) {
                     response($.map(data.Employees, function (item) {

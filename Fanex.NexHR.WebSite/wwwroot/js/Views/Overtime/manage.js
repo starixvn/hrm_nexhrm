@@ -137,6 +137,7 @@ var manageOvertime = (function ($) {
                     dataType: 'json',
                     data: {
                         query: term,
+                        isSpecial: false,
                         $top: 10
                     },
                     success: function (data) {

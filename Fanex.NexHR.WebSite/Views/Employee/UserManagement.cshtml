@@ -78,7 +78,8 @@
                         </div>
                     </div>
                 </div>
-                <input type="hidden" id="jobtitleid" value="@Model.JobTitleId" />
+                <input type="hidden" asp-for="@Model.JobTitleId" />
+                <input type="hidden" asp-for="@Model.IsSpecial" />
                 <div class="p-x--s over-auto cover-form-mb table-team">
                     <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
                         <thead>

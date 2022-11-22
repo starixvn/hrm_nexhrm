@@ -50,8 +50,8 @@ function setDateTimeRangeForOTRequest(selectedIndex) {
 function initFormOTRequest() {
     initDatePicker("#OTRequest .datepicker");
     initButtonForOTRequest();
-    initAutocomplete("#OTRequest #CreatedName", "#OTRequest #CreatedBy");
-    initAutocomplete("#OTRequest #Employee", "#OTRequest #EmployeeId");
+    initAutocomplete("#OTRequest #CreatedName", "#OTRequest #CreatedBy", false);
+    initAutocomplete("#OTRequest #Employee", "#OTRequest #EmployeeId", false);
 
     $('#OTRequest #Date').on('change', function () {
         setDateTimeRangeForOTRequest($(this).val());
@@ -92,7 +92,7 @@ function loadOTRequest(isFirstLoad, createdBy, fromDate, toDate, status, overtim
 function initFormMemberOT() {
     initDatePicker("#memberOT .datepicker");
     initButtonForMemberOT();
-    initAutocomplete("#memberOT #CreatedName", "#memberOT #CreatedBy");
+    initAutocomplete("#memberOT #CreatedName", "#memberOT #CreatedBy", false);
 
     $('#memberOT #Date').on('change', function () {
         setDateTimeRange($(this).val());

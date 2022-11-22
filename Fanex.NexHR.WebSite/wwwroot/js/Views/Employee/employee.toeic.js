@@ -106,7 +106,7 @@ function getToeicScoreByEmpId(empId) {
 
 function initAddToeicDialog() {
     initDatePicker();
-    initAutocomplete('#Employee', '#EmpId');
+    initAutocomplete('#Employee', '#EmpId', false);
     initNumberTextbox();
 
     $('#Employee').on('change', function () {

@@ -334,7 +334,7 @@ var overtimeHrView = (function ($) {
 
     function init() {
         query(true);
-        initAutocomplete('#CreatedName', '#CreatedBy');
+        initAutocomplete('#CreatedName', '#CreatedBy', false);
         initDateChangeEvent();
         registerSubmitEvent();
     }

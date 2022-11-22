@@ -22,9 +22,7 @@
 
         public int? JobTitleId { get; set; }
 
-        public bool IsSpecial { get; set; }
-
-        public bool IsIncludeSpecialUser { get; set; }
+        public bool? IsSpecial { get; set; }
 
         public override bool IsValid()
         {

@@ -27,8 +27,8 @@ function initCreateEditPage() {
         }
     });
 
-    initAutocomplete('#Leader', '#LeaderId', false, null, true);
-    initAutocomplete('#AssistantLeader', '#AssistantLeaderId', false, null, true);
+    initAutocomplete('#Leader', '#LeaderId', null);
+    initAutocomplete('#AssistantLeader', '#AssistantLeaderId', null);
 
     var successed = $('#successed').val();
     if (successed === 'true') {

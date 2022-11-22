@@ -43,7 +43,7 @@ function setDateTimeRangeForOTRequest(selectedIndex) {
 }
 
 $(document).ready(function () {
-    initAutocomplete("#OTRequest #CreatedName", "#OTRequest #CreatedBy");
+    initAutocomplete("#OTRequest #CreatedName", "#OTRequest #CreatedBy", false);
 
     $('#OTRequest #Date').on('change', function () {
         setDateTimeRangeForOTRequest($(this).val());

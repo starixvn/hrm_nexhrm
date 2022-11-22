@@ -117,7 +117,7 @@ function query(isFirstLoad) {
 
 $(document).ready(function () {
     setDateTimeRange(1);
-    initAutocomplete('#Employee', '#EmployeeId');
+    initAutocomplete('#Employee', '#EmployeeId', false);
 
     $('#Date').on('change', function () {
         setDateTimeRange($(this).val());

@@ -20,7 +20,7 @@ function query(isFirstLoad) {
     if (queryString && isFirstLoad) {
         initDataFirstQuery(queryString);
     }
-    var data = "query=" + keyword + "&teamId=" + $('#TeamId').val() + "&enable=" + enable + "&isDelete=" + isDelete + "&jobTitleId=" + jobTitleId + "&sort=" + JSON.stringify(sorts);
+    var data = "query=" + keyword + "&teamId=" + $('#TeamId').val() + "&enable=" + enable + "&isDelete=" + isDelete + "&jobTitleId=" + jobTitleId + "&sort=" + JSON.stringify(sorts) + "&isSpecial=false";
     var teamName = $(".team .select-dropdown").val();
 
     var url = _global.root + 'employee/getemployees?' + data;

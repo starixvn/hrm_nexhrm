@@ -204,7 +204,7 @@ function deleteHistoryWork(id,EmpId) {
 
 $(document).ready(function () {
 
-    initAutocomplete('#FullName', '#EmpId');
+    initAutocomplete('#FullName', '#EmpId', false);
 
     initialize();
 

@@ -16,7 +16,7 @@ $(document).ready(function () {
             $.ajax({
                 url: _global.root + 'employee/GetEmployees',
                 dataType: 'json',
-                data: { query: term },
+                data: { query: term, isSpecial: false },
                 success: function (data) {
                     if (data.Employees && data.Employees.length > 0) {
                         response($.map(data.Employees, function (item) {

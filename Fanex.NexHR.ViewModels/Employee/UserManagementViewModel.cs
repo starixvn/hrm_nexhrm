@@ -11,6 +11,8 @@
 
         public int JobTitleId { get; set; }
 
+        public bool IsSpecial { get; set; }
+
         public IEnumerable<Team> Teams { get; set; }
 
         public IEnumerable<JobTitle> JobTitles { get; set; }
