@@ -195,9 +195,23 @@
                 currentUserId,
                 fromDate.ToString(apiDateTimeFormat),
                 toDate.ToString(apiDateTimeFormat));
-
-            using var request = CreateRequest(url, HttpMethod.Get);
             var listEntries = new List<TimeEntry>();
+
+            await GetTimeEntriesRecursiveAsync(listEntries, currentUserId, 0, fromDate, toDate);
+
+            return listEntries;
+        }
+
+        public async Task GetTimeEntriesRecursiveAsync(List<TimeEntry> entries, int currentId, int offset, DateTime fromDate, DateTime toDate)
+        {
+            const int limit = 100;
+            string url = string.Format("time_entries.json?user_id={0}&spent_on=><{1}|{2}&offset={3}&limit={4}",
+                currentId,
+                fromDate.ToString(apiDateTimeFormat),
+                toDate.ToString(apiDateTimeFormat),
+                offset,
+                limit);
+            using var request = CreateRequest(url, HttpMethod.Get);
 
             using var response = await httpClient.SendAsync(request);
 
@@ -206,6 +220,7 @@
                 var json = await response.Content.ReadAsStringAsync();
                 var obj = JsonConvert.DeserializeObject<dynamic>(json);
                 var timeEntries = obj["time_entries"];
+                var totalItems = (int)obj["total_count"];
 
                 foreach (var timeEntry in timeEntries)
                 {
@@ -218,11 +233,16 @@
                         Hours = (double)timeEntry["hours"],
                     };
 
-                    listEntries.Add(entry);
+                    entries.Add(entry);
+                }
+
+                offset += limit;
+
+                if (offset <= totalItems)
+                {
+                    await GetTimeEntriesRecursiveAsync(entries, currentId, offset, fromDate, toDate);
                 }
             }
-
-            return listEntries;
         }
 
         private async Task<IEnumerable<DateTime>> GetWorkedDatesOfUser(DateTime from, DateTime to, int currentUserId)
