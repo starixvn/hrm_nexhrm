@@ -20,6 +20,7 @@
     using ViewModels.Calendar;
     using ViewModels.Report;
     using ViewModels.TotalWorkingHours;
+    using static NPOI.SS.Format.CellNumberFormatter;
 
     public class ExportController : BaseController
     {
@@ -105,6 +106,7 @@
                 JobTitleId = jobTitleId,
                 IsDisable = isDisable,
                 IsDelete = isDelete,
+                IsSpecial = false,
                 PageNumber = 1,
                 PageSize = int.MaxValue,
                 TotalRow = 2000

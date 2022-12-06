@@ -1,0 +1,36 @@
+﻿@using Fanex.NexHR.Resources
+﻿@using Fanex.NexHR.ViewModels.SkypeAccount
+@model SkypeAccountViewModel
+
+<form id="skype-account-edit" class="form align-left">
+    <input type="hidden" asp-for="@Model.EmployeeId" />
+
+    <div class="row form-input mgr-b-15">
+        <div class="left label--l">
+            <label>@Labels.NickName</label>
+        </div>
+        <div class="left select--m">
+            <span>@Model.NickName</span>
+        </div>
+    </div>
+
+    <div class="row form-input mgr-b-15">
+        <div class="left label--l">
+            <label>@Labels.FullName</label>
+        </div>
+        <div class="left select--m">
+            <span>@Model.FullName</span>
+        </div>
+    </div>
+
+    <div class="row form-input mgr-b-15">
+        <div class="left label--l">
+            <label>@Labels.SkypeName</label>
+        </div>
+        <div class="left select--m">
+            <select asp-for="ConversationId" asp-items="Model.SkypeUserSuggestion">
+            </select>
+            @Html.ValidationMessageFor(model => model.ConversationId)
+        </div>
+    </div>
+</form>

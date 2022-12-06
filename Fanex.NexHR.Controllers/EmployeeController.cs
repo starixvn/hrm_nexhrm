@@ -698,6 +698,7 @@
                 JobTitleId = null,
                 IsDisable = null,
                 IsDelete = null,
+                IsSpecial = false,
                 PageNumber = 1,
                 PageSize = int.MaxValue,
                 TotalRow = 2000

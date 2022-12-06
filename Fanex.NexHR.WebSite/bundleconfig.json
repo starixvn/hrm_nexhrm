@@ -983,5 +983,17 @@
       "renameLocals": true
     },
     "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/minify/js/skypeaccount.min.js",
+    "inputFiles": [
+      "wwwroot/js/Views/SkypeAccount/skype-account.js",
+      "wwwroot/js/Views/Employee/_employee.search.in.company.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
   }
 ]

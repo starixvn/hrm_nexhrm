@@ -5,6 +5,10 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Criteria.SkypeAccount;
+    using Fanex.NexHR.Controllers.Attributes;
+    using Fanex.NexHR.Core;
+    using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Services;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
@@ -17,15 +21,18 @@
         private readonly ITeamService teamService;
         private readonly INexbotService nexbotService;
         private readonly IBaseService baseService;
+        private readonly IEmployeeService employeeService;
 
         public SkypeAccountController(ISessionService sessionService,
             ITeamService teamService,
             INexbotService nexbotService,
+            IEmployeeService employeeService,
             IBaseService baseService
             ) : base(sessionService)
         {
             this.teamService = teamService;
             this.nexbotService = nexbotService;
+            this.employeeService = employeeService;
             this.baseService = baseService;
         }
 
@@ -41,6 +48,8 @@
 
         public async Task<IActionResult> GetEmployeeSkypeAccount(SkypeAccountFilter viewModel)
         {
+            var userRoles = employeeService.UserRoles(CurrentUser);
+            ViewBag.IsUserInRoleHR = userRoles.Any(item => (item == Role.HR.EnumToString()));
             var criteria = new GetEmployeeSkypeAccountCriteria
             {
                 EmployeeId = viewModel.EmployeeId,
@@ -53,11 +62,10 @@
             return PartialView("_ListAccount", employeeAccounts);
         }
 
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> EditAccount(int employeeId, string fullName, string nickName)
         {
             var skypeAccounts = await nexbotService.GetSkypeAccountAsync();
-
             var viewModel = new SkypeAccountViewModel
             {
                 EmployeeId = employeeId,
@@ -70,7 +78,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> EditAccount(SkypeAccountViewModel viewModel)
         {
             bool isSuccessful = false;
