@@ -8,9 +8,11 @@
 
 @section Styles {
     <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+    <link href="~/css/select2/select2new.css" rel="stylesheet" />
 }
     @section Scripts {
     <environment include="Development">
+        <script src="~/js/Libs/select2.js" asp-append-version="true"></script>
         <script src="~/js/Views/SkypeAccount/skype-account.js" asp-append-version="true"></script>
         <script src="~/js/Views/Employee/_employee.search.in.company.js" asp-append-version="true"></script>
     </environment>

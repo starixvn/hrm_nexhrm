@@ -34,9 +34,14 @@
     }
 
     function initDialog() {
+        $('#ConversationId', '#skype-account-edit').select2({
+            dropdownParent: $("#skype-account-dialog")
+        });
+
         $(domElement.dialog).dialog({
             modal: true,
             width: 'auto',
+            height: '625',
             title: '',
             buttons: [
                 {
@@ -67,7 +72,6 @@
 
     function editAccount() {
         var $form = $(domElement.editForm);
-        console.log($form.serialize());
         $.ajax({
             url: _global.root + 'SkypeAccount/EditAccount',
             method: "POST",
@@ -116,7 +120,7 @@
                 success: function (data) {
                     $(domElement.dialog).html(data);
                     initDialog();
-                    initSelectMaterial();
+                    //initSelectMaterial();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(textStatus + ': ' + errorThrown);
@@ -127,7 +131,7 @@
 
     function initSelectMaterial() {
         var select = $(domElement.editForm).find("select");
-        $(select).material_select();
+        $(select).select2();
     }
 
     function registerEventSubmit() {
@@ -149,4 +153,5 @@
 
 $(document).ready(function () {
     skypeAccount.initModule();
+
 });
