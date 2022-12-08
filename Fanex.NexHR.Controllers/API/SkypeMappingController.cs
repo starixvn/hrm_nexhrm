@@ -8,17 +8,22 @@
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class SkypeMappingController : ControllerBase
     {
         private readonly INexbotService nexbotService;
         private readonly IBaseService baseService;
+        private readonly ILogServiceProvider logServiceProvider;
 
-        public SkypeMappingController(INexbotService nexbotService, IBaseService baseService)
+        public SkypeMappingController(INexbotService nexbotService,
+            IBaseService baseService,
+            ILogServiceProvider logServiceProvider)
         {
             this.nexbotService = nexbotService;
             this.baseService = baseService;
+            this.logServiceProvider = logServiceProvider;
         }
 
         [HttpGet]
@@ -32,6 +37,13 @@
 
                 if (skypeMapped is not null && !string.IsNullOrWhiteSpace(skypeMapped.ConversationId) && emp.Id > 0)
                 {
+                    logServiceProvider.LogFile(JsonConvert.SerializeObject(new
+                    {
+                        EmpId = emp.Id,
+                        NickName = emp.NickName,
+                        ConversationId = skypeMapped.ConversationId
+                    }));
+
                     await UpdateSkypeAccount(emp.Id, skypeMapped.ConversationId);
                 }
             }
