@@ -144,6 +144,7 @@
             services.AddSingleton<IMailBirthdayAndFirstWorkingdayReminderService, MailBirthdayAndFirstWorkingdayReminderService>();
             services.AddSingleton<ISyncDataService, SyncDataService>();
             services.AddSingleton<ITimeSheetService, TimeSheetService>();
+            services.AddSingleton<IMessageCategoryLogService, MessageCategoryLogService>();
         }
 
         private static void InjectRepository(IServiceCollection services)
