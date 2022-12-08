@@ -81,6 +81,10 @@
 
 .select2-results {
     display: block;
+    background: white;
+    position: fixed;
+    width: 219px;
+    margin-top: -14px;
 }
 
 .select2-results__options {

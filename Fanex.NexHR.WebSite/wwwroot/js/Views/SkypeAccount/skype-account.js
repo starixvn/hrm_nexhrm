@@ -34,17 +34,6 @@
     }
 
     function initDialog() {
-        $('#ConversationId', '#skype-account-edit').select2({
-            dropdownParent: $("#skype-account-dialog")
-        });
-
-        $('#ConversationId', '#skype-account-edit').on('select2:open', function (e) {
-            $(domElement.dialog).dialog("option", "height", 625);
-        });
-        $('#ConversationId', '#skype-account-edit').on('select2:close', function (e) {
-            $(domElement.dialog).dialog("option", "height", 'auto');
-        });
-
         $(domElement.dialog).dialog({
             modal: true,
             width: 'auto',
@@ -72,7 +61,13 @@
             hide: {
                 effect: 'blin',
                 duration: 200
-            }
+            },
+            open: function (event, ui) {
+                $(event.target).dialog('widget')
+                    .css({ position: 'fixed' })
+                    .position({ my: 'center', at: 'center', of: window });
+            },
+            resizable: false
         });
     }
 
@@ -126,7 +121,7 @@
                 success: function (data) {
                     $(domElement.dialog).html(data);
                     initDialog();
-                    //initSelectMaterial();
+                    initSelectMaterial();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(textStatus + ': ' + errorThrown);
@@ -136,8 +131,9 @@
     }
 
     function initSelectMaterial() {
-        var select = $(domElement.editForm).find("select");
-        $(select).select2();
+        $('.select-2').select2({
+            dropdownParent: $("#skype-account-dialog"),
+        })
     }
 
     function registerEventSubmit() {

@@ -28,7 +28,7 @@
             <label>@Labels.SkypeName</label>
         </div>
         <div class="left select--m">
-            <select asp-for="ConversationId" asp-items="Model.SkypeUserSuggestion" style="width:100%;">
+            <select class="select-2" asp-for="ConversationId" asp-items="Model.SkypeUserSuggestion" style="width:100%;">
             </select>
             @Html.ValidationMessageFor(model => model.ConversationId)
         </div>
