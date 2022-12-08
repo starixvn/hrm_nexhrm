@@ -36,6 +36,7 @@
             this.baseService = baseService;
         }
 
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Index()
         {
             var viewModel = new SkypeAccountFilter

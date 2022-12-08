@@ -234,15 +234,6 @@
     "ParentId": 25
   },
   {
-    "Title": "Skype Info",
-    "Controller": "skypeaccount",
-    "Action": "Index",
-    "Icon": "skype",
-    "Roles": "Member",
-    "Id": 44,
-    "ParentId": 25
-  },
-  {
     "Title": "Staff TOEIC Score",
     "Controller": "toeic",
     "Action": "toeicmanagement",
