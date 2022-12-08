@@ -38,10 +38,16 @@
             dropdownParent: $("#skype-account-dialog")
         });
 
+        $('#ConversationId', '#skype-account-edit').on('select2:open', function (e) {
+            $(domElement.dialog).dialog("option", "height", 625);
+        });
+        $('#ConversationId', '#skype-account-edit').on('select2:close', function (e) {
+            $(domElement.dialog).dialog("option", "height", 'auto');
+        });
+
         $(domElement.dialog).dialog({
             modal: true,
             width: 'auto',
-            height: '625',
             title: '',
             buttons: [
                 {

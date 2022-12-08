@@ -145,6 +145,12 @@
     ]
   },
   {
+    "outputFileName": "wwwroot/minify/css/skypeaccount.min.css",
+    "inputFiles": [
+      "wwwroot/css/Select2/select2new.css",
+    ]
+  },
+  {
     "outputFileName": "wwwroot/minify/css/workingcalendars.min.css",
     "inputFiles": [
       "wwwroot/css/Views/report.timesheet.css"
@@ -987,8 +993,8 @@
   {
     "outputFileName": "wwwroot/minify/js/skypeaccount.min.js",
     "inputFiles": [
-      "wwwroot/js/Views/SkypeAccount/skype-account.js",
       "wwwroot/js/Libs/select2.js",
+      "wwwroot/js/Views/SkypeAccount/skype-account.js",
       "wwwroot/js/Views/Employee/_employee.search.in.company.js"
     ],
     "minify": {
