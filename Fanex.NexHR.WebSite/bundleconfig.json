@@ -1,1006 +1,1017 @@
 [
-  // ---------------------------- CSS ---------------------------
-  {
-    "outputFileName": "wwwroot/minify/css/site.min.css",
-    "inputFiles": [
-      "wwwroot/css/Materialize/materialize.css",
-      "wwwroot/css/components/materialdesignicons.css",
-      "wwwroot/css/themes/base/core.css",
-      "wwwroot/css/themes/base/accordion.css",
-      "wwwroot/css/themes/base/autocomplete.css",
-      "wwwroot/css/themes/base/button.css",
-      "wwwroot/css/themes/base/datepicker.css",
-      "wwwroot/css/themes/base/dialog.css",
-      "wwwroot/css/themes/base/draggable.css",
-      "wwwroot/css/themes/base/menu.css",
-      "wwwroot/css/themes/base/progressbar.css",
-      "wwwroot/css/themes/base/resizable.css",
-      "wwwroot/css/themes/base/selectable.css",
-      "wwwroot/css/themes/base/sortable.css",
-      "wwwroot/css/themes/base/slider.css",
-      "wwwroot/css/themes/base/spinner.css",
-      "wwwroot/css/themes/base/tabs.css",
-      "wwwroot/css/themes/base/tooltip.css",
-      "wwwroot/css/themes/base/theme.css",
-      "wwwroot/css/site.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/dashboard.min.css",
-    "inputFiles": [
-      "wwwroot/css/vendors/slick.css",
-      "wwwroot/css/Views/mydashboard.css",
-      "wwwroot/css/vendors/fullcalendar.css",
-      "wwwroot/css/Views/mycalendar.css",
-      "wwwroot/css/vendors/jquery.mCustomScrollbar.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/contextmenu.min.css",
-    "inputFiles": [
-      "wwwroot/css/ContextMenu/contextMenu.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/staffbirthday.min.css",
-    "inputFiles": [
-      "wwwroot/css/Views/employee.birthday.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/view-mobile.min.css",
-    "inputFiles": [
-      "wwwroot/css/Views/view-mobile.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/leaverequest.min.css",
-    "inputFiles": [
-      "wwwroot/css/Views/leaverequest.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/myrequest.min.css",
-    "inputFiles": [
-      "wwwroot/css/Views/myrequest.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/monthpicker.min.css",
-    "inputFiles": [
-      "wwwroot/css/vendors/monPickr-0.0.3.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/mytimesheet.min.css",
-    "inputFiles": [
-      "wwwroot/css/Views/report.timesheet.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/fullcalendar.min.css",
-    "inputFiles": [
-      "wwwroot/css/vendors/fullcalendar.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/mycalendar.min.css",
-    "inputFiles": [
-      "wwwroot/css/Views/mycalendar.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/simplepagination.min.css",
-    "inputFiles": [
-      "wwwroot/css/SimplePagination/simplePagination.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/myrecord.min.css",
-    "inputFiles": [
-      "wwwroot/css/Views/myrecord.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/mynex.min.css",
-    "inputFiles": [
-      "wwwroot/css/Views/mynex.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/overtimemanage.min.css",
-    "inputFiles": [
-      "wwwroot/css/Views/overtime.manage.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/myprofile.min.css",
-    "inputFiles": [
-      "wwwroot/css/Views/my.profile.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/leaverequest.min.css",
-    "inputFiles": [
-      "wwwroot/css/Views/leaverequest.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/scheduledmessage.min.css",
-    "inputFiles": [
-      "wwwroot/css/Views/scheduled-message.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/view-mobile.min.css",
-    "inputFiles": [
-      "wwwroot/css/Views/view-mobile.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/conversationmanagement.min.css",
-    "inputFiles": [
-      "wwwroot/css/Select2/materialize-select2.css",
-      "wwwroot/css/Views/conversation-management.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/skypeaccount.min.css",
-    "inputFiles": [
-      "wwwroot/css/Select2/select2new.css",
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/workingcalendars.min.css",
-    "inputFiles": [
-      "wwwroot/css/Views/report.timesheet.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/employeeedit.min.css",
-    "inputFiles": [
-      "wwwroot/css/Views/employee.edit.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/postnatal.min.css",
-    "inputFiles": [
-      "wwwroot/css/Views/employee.postnatal.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/annualleavebalance.min.css",
-    "inputFiles": [
-      "wwwroot/css/Views/annualleavebalance.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/jobtitle.min.css",
-    "inputFiles": [
-      "wwwroot/css/Views/jobtitle.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/lateinearlyoutdiscipline.min.css",
-    "inputFiles": [
-      "wwwroot/css/Views/report.latein.earlyout.discipline.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/geolocation.min.css",
-    "inputFiles": [
-      "wwwroot/css/Views/geolocation.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/eventcalendar.min.css",
-    "inputFiles": [
-      "wwwroot/css/Views/eventcalendar.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/companyevent.min.css",
-    "inputFiles": [
-      "wwwroot/css/vendors/jquery.timepicker.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/minify/css/yearlynexrequest.min.css",
-    "inputFiles": [
-      "wwwroot/css/Views/yearlynexrequest.css"
-    ]
-  },
-  // ----------------------- Javascript ------------------------------
-  {
-    "outputFileName": "wwwroot/minify/js/site.min.js",
-    "inputFiles": [
-      "wwwroot/js/Libs/jquery-2.1.4.min.js",
-      "wwwroot/js/Libs/jquery-ui-1.11.4.js",
-      "wwwroot/js/Libs/jquery.validate*",
-      "wwwroot/js/Libs/jquery-dateFormat.min.js",
-      "wwwroot/js/Libs/materialize.js",
-      "wwwroot/js/Libs/jquery.tipsy.js",
-      "wwwroot/js/Libs/jsrender.js",
-      "wwwroot/js/Libs/jquery.cookie.js",
-      "wwwroot/js/Libs/chart.js",
-      "wwwroot/js/Libs/date.js",
-      "wwwroot/js/Libs/jquery.floatThead.min.js",
-      "wwwroot/js/Libs/common.js",
-      "wwwroot/js/Views/language.js",
-      "wwwroot/js/Notification/notification.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/toeic.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Employee/employee.toeic.js",
-      "wwwroot/js/Libs/moment.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/dashboard.min.js",
-    "inputFiles": [
-      "wwwroot/js/Libs/slick.min.js",
-      "wwwroot/js/Views/Dashboard/employee.dashboard.js",
-      "wwwroot/js/Views/Dashboard/teamattendance.js",
-      "wwwroot/js/Libs/moment.js",
-      "wwwroot/js/Views/Dashboard/calendar.js",
-      "wwwroot/js/Views/Dashboard/googleAPI.js",
-      "wwwroot/js/Libs/CustomScrollbar/jquery.mCustomScrollbar.concat.min.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/attendance.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Report/report.attendance.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/apiclientcalendarjs.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Dashboard/client.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/contextmenu.min.js",
-    "inputFiles": [
-      "wwwroot/js/Libs/jquery.contextMenu.min.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/leave.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Request/leave.request.js",
-      "wwwroot/js/Views/Request/process.leave-checkinout.byemployee.js",
-      "wwwroot/js/Views/Request/search.request.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/empcheckinout.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Request/checkinout.request.js",
-      "wwwroot/js/Views/Request/process.leave-checkinout.byemployee.js",
-      "wwwroot/js/Views/Request/search.request.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/staffbirthday.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Employee/employee.birthday.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/workfromhomerequest.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Request/workfromhome.request.js",
-      "wwwroot/js/Views/Request/process.workfromhomerequest.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/monthpicker.min.js",
-    "inputFiles": [
-      "wwwroot/js/Libs/monPickr-0.0.3.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/mytimesheet.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Report/report.timesheet.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/fullcalendar.min.js",
-    "inputFiles": [
-      "wwwroot/js/Libs/moment.js",
-      "wwwroot/js/Libs/fullcalendar.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/mycalendar.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Calendar/mycalendar.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/simplepagination.min.js",
-    "inputFiles": [
-      "wwwroot/js/Libs/jquery.simplePagination.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/mytimerecord.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Report/report.mytimerecord.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/overtime.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Overtime/myOvertime.js",
-      "wwwroot/js/Views/Overtime/overtimeMember.js",
-      "wwwroot/js/Views/Overtime/overtimeRequest.js",
-      "wwwroot/js/Views/Overtime/overtime.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/overtimedetail.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Overtime/overtimeDetail.js",
-      "wwwroot/js/Views/Overtime/overtimeRequest.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/overtimesummary.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Overtime/overtimeSummary.js",
-      "wwwroot/js/Views/Employee/_employee.search.in.company.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/manageovertime.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Overtime/manage.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/lateearly.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/LateInEarlyOut/lateinearlyout.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/managerequests.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Request/mgr.requests.js",
-      "wwwroot/js/Views/Employee/_employee.search.in.team.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/scheduledmessage.min.js",
-    "inputFiles": [
-      "wwwroot/js/Libs/jquery.validate.unobtrusive.js",
-      "wwwroot/js/Views/ScheduledMessage/scheduled-message.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/conversationmanagement.min.js",
-    "inputFiles": [
-      "wwwroot/js/Libs/jquery.validate.unobtrusive.js",
-      "wwwroot/js/Libs/select2.js",
-      "wwwroot/js/Views/ScheduledMessage/conversation-management.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/createlateearly.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Request/search.request.js",
-      "wwwroot/js/Views/LateInEarlyOut/create.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/staffinfo.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Employee/employee.index.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/workingcalendars.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Calendar/employee.workingcalendars.js",
-      "wwwroot/js/Views/Employee/_employee.search.in.company.js",
-      "wwwroot/js/Views/fixtable.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/leavecalendars.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Calendar/employee.leavecalendar.js",
-      "wwwroot/js/Views/Employee/_employee.search.in.company.js",
-      "wwwroot/js/Views/fixtable.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/holidays.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Holiday/holiday.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/holidayedit.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Holiday/holiday.edit.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/reportmonitoring.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Report/report.monitoring.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/usermanagement.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Employee/user.management.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/employeeedit.min.js",
-    "inputFiles": [
-      "wwwroot/js/Libs/birthdaypicker.js",
-      "wwwroot/js/Views/Employee/employee.edit.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/defaultschedule.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Employee/employee.defaultschedule.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/monthschedule.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Employee/employee.monthschedule.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/historywork.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Employee/employee.historywork.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/postnatalemployee.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Postanal/postnatalemployee.js",
-      "wwwroot/js/Views/Employee/_employee.search.in.company.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/createpostnatalemployee.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Postanal/create.js",
-      "wwwroot/js/Views/Employee/_employee.search.in.company.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/employeeworkfromhome.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Employee/_employee.search.in.company.js",
-      "wwwroot/js/Views/EmployeeWorkFromHome/employee.workfromhome.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/teammanagement.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/TeamManagement/team.management.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/lateinearlyout.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Report/report.latein.earlyout.js",
-      "wwwroot/js/Views/Employee/_employee.search.in.company.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/lateinearlyoutdetail.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Employee/_employee.search.in.company.js",
-      "wwwroot/js/Views/Report/report.latein.earlyout.detail.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/leavedeductiondetail.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/AnnualLeave/leave.deduction.detail.js",
-      "wwwroot/js/Views/Employee/_employee.search.in.company.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/annualleavebalance.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/AnnualLeave/index.js",
-      "wwwroot/js/Views/Employee/_employee.search.in.company.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/employeeannualleavebalance.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/AnnualLeave/employee.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/editleavetransaction.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/AnnualLeave/annualleave.edit.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/overtimeconversion.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Overtime/overtimeConversion.js",
-      "wwwroot/js/Views/Employee/_employee.search.in.company.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/jobtitle.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Jobtitle/jobtitle.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/lateinearlyoutdiscipline.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Report/report.latein.earlyout.discipline.js",
-      "wwwroot/js/Views/Employee/_employee.search.in.company.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/totalworkinghour.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Report/report.totalworkinghours.js",
-      "wwwroot/js/Views/Employee/_employee.search.in.company.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/workinghoursstatistic.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Report/report.workinghoursstatistic.js",
-      "wwwroot/js/Views/Employee/_employee.search.in.company.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/geolocationmap.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Geolocationmap/geolocationmap.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/extensionno.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/ExtensionNo/extensionno.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/addextensionno.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/ExtensionNo/addextensionno.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/headcount.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Report/report.headcount.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/reporttimerecord.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Report/report.timerecord.js",
-      "wwwroot/js/Views/Employee/_employee.search.in.company.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/biostationmanagement.min.js",
-    "inputFiles": [
-      "wwwroot/js/Libs/jquery.validate.unobtrusive.js",
-      "wwwroot/js/Libs/jquery.unobtrusive-ajax.js",
-      "wwwroot/js/Views/Bio/bio-management.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/biostationtimechange.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Bio/biostationtimechange.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/fingerprintscanner.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Bio/fingerprint-scanner.js",
-      "wwwroot/js/Views/Employee/_employee.search.in.company.js",
-      "wwwroot/js/Views/fixtable.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/memoindex.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Memo/memo.js",
-      "wwwroot/js/Views/Memo/memo.index.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/memoedit.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Memo/memo.js",
-      "wwwroot/js/tinymce/tinymce.min.js",
-      "wwwroot/js/Views/Memo/memo.edit.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/overtimehrview.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Overtime/overtimeHrview.js",
-      "wwwroot/js/Views/Employee/_employee.search.in.company.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/companyevent.min.js",
-    "inputFiles": [
-      "wwwroot/js/Libs/jquery.contextMenu.min.js",
-      "wwwroot/js/Views/CompanyEvent/event.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/companyeventedit.min.js",
-    "inputFiles": [
-      "wwwroot/js/Libs/jquery.timepicker.js",
-      "wwwroot/js/Views/CompanyEvent/event-edit.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/yearlynexrequest.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Report/report.yearlynexrequest.js",
-      "wwwroot/js/Views/Employee/_employee.search.in.company.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/minify/js/skypeaccount.min.js",
-    "inputFiles": [
-      "wwwroot/js/Libs/select2.js",
-      "wwwroot/js/Views/SkypeAccount/skype-account.js",
-      "wwwroot/js/Views/Employee/_employee.search.in.company.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  }
+    // ---------------------------- CSS ---------------------------
+    {
+        "outputFileName": "wwwroot/minify/css/site.min.css",
+        "inputFiles": [
+            "wwwroot/css/Materialize/materialize.css",
+            "wwwroot/css/components/materialdesignicons.css",
+            "wwwroot/css/themes/base/core.css",
+            "wwwroot/css/themes/base/accordion.css",
+            "wwwroot/css/themes/base/autocomplete.css",
+            "wwwroot/css/themes/base/button.css",
+            "wwwroot/css/themes/base/datepicker.css",
+            "wwwroot/css/themes/base/dialog.css",
+            "wwwroot/css/themes/base/draggable.css",
+            "wwwroot/css/themes/base/menu.css",
+            "wwwroot/css/themes/base/progressbar.css",
+            "wwwroot/css/themes/base/resizable.css",
+            "wwwroot/css/themes/base/selectable.css",
+            "wwwroot/css/themes/base/sortable.css",
+            "wwwroot/css/themes/base/slider.css",
+            "wwwroot/css/themes/base/spinner.css",
+            "wwwroot/css/themes/base/tabs.css",
+            "wwwroot/css/themes/base/tooltip.css",
+            "wwwroot/css/themes/base/theme.css",
+            "wwwroot/css/site.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/dashboard.min.css",
+        "inputFiles": [
+            "wwwroot/css/vendors/slick.css",
+            "wwwroot/css/Views/mydashboard.css",
+            "wwwroot/css/vendors/fullcalendar.css",
+            "wwwroot/css/Views/mycalendar.css",
+            "wwwroot/css/vendors/jquery.mCustomScrollbar.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/contextmenu.min.css",
+        "inputFiles": [
+            "wwwroot/css/ContextMenu/contextMenu.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/staffbirthday.min.css",
+        "inputFiles": [
+            "wwwroot/css/Views/employee.birthday.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/view-mobile.min.css",
+        "inputFiles": [
+            "wwwroot/css/Views/view-mobile.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/leaverequest.min.css",
+        "inputFiles": [
+            "wwwroot/css/Views/leaverequest.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/myrequest.min.css",
+        "inputFiles": [
+            "wwwroot/css/Views/myrequest.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/monthpicker.min.css",
+        "inputFiles": [
+            "wwwroot/css/vendors/monPickr-0.0.3.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/mytimesheet.min.css",
+        "inputFiles": [
+            "wwwroot/css/Views/report.timesheet.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/fullcalendar.min.css",
+        "inputFiles": [
+            "wwwroot/css/vendors/fullcalendar.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/mycalendar.min.css",
+        "inputFiles": [
+            "wwwroot/css/Views/mycalendar.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/simplepagination.min.css",
+        "inputFiles": [
+            "wwwroot/css/SimplePagination/simplePagination.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/myrecord.min.css",
+        "inputFiles": [
+            "wwwroot/css/Views/myrecord.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/mynex.min.css",
+        "inputFiles": [
+            "wwwroot/css/Views/mynex.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/overtimemanage.min.css",
+        "inputFiles": [
+            "wwwroot/css/Views/overtime.manage.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/myprofile.min.css",
+        "inputFiles": [
+            "wwwroot/css/Views/my.profile.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/leaverequest.min.css",
+        "inputFiles": [
+            "wwwroot/css/Views/leaverequest.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/scheduledmessage.min.css",
+        "inputFiles": [
+            "wwwroot/css/Views/scheduled-message.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/view-mobile.min.css",
+        "inputFiles": [
+            "wwwroot/css/Views/view-mobile.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/conversationmanagement.min.css",
+        "inputFiles": [
+            "wwwroot/css/Select2/materialize-select2.css",
+            "wwwroot/css/Views/conversation-management.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/skypeaccount.min.css",
+        "inputFiles": [
+            "wwwroot/css/Select2/select2new.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/workingcalendars.min.css",
+        "inputFiles": [
+            "wwwroot/css/Views/report.timesheet.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/employeeedit.min.css",
+        "inputFiles": [
+            "wwwroot/css/Views/employee.edit.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/postnatal.min.css",
+        "inputFiles": [
+            "wwwroot/css/Views/employee.postnatal.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/annualleavebalance.min.css",
+        "inputFiles": [
+            "wwwroot/css/Views/annualleavebalance.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/jobtitle.min.css",
+        "inputFiles": [
+            "wwwroot/css/Views/jobtitle.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/lateinearlyoutdiscipline.min.css",
+        "inputFiles": [
+            "wwwroot/css/Views/report.latein.earlyout.discipline.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/geolocation.min.css",
+        "inputFiles": [
+            "wwwroot/css/Views/geolocation.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/eventcalendar.min.css",
+        "inputFiles": [
+            "wwwroot/css/Views/eventcalendar.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/companyevent.min.css",
+        "inputFiles": [
+            "wwwroot/css/vendors/jquery.timepicker.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/minify/css/yearlynexrequest.min.css",
+        "inputFiles": [
+            "wwwroot/css/Views/yearlynexrequest.css"
+        ]
+    },
+    // ----------------------- Javascript ------------------------------
+    {
+        "outputFileName": "wwwroot/minify/js/site.min.js",
+        "inputFiles": [
+            "wwwroot/js/Libs/jquery-2.1.4.min.js",
+            "wwwroot/js/Libs/jquery-ui-1.11.4.js",
+            "wwwroot/js/Libs/jquery.validate*",
+            "wwwroot/js/Libs/jquery-dateFormat.min.js",
+            "wwwroot/js/Libs/materialize.js",
+            "wwwroot/js/Libs/jquery.tipsy.js",
+            "wwwroot/js/Libs/jsrender.js",
+            "wwwroot/js/Libs/jquery.cookie.js",
+            "wwwroot/js/Libs/chart.js",
+            "wwwroot/js/Libs/date.js",
+            "wwwroot/js/Libs/jquery.floatThead.min.js",
+            "wwwroot/js/Libs/common.js",
+            "wwwroot/js/Views/language.js",
+            "wwwroot/js/Notification/notification.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/toeic.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Employee/employee.toeic.js",
+            "wwwroot/js/Libs/moment.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/dashboard.min.js",
+        "inputFiles": [
+            "wwwroot/js/Libs/slick.min.js",
+            "wwwroot/js/Views/Dashboard/employee.dashboard.js",
+            "wwwroot/js/Views/Dashboard/teamattendance.js",
+            "wwwroot/js/Libs/moment.js",
+            "wwwroot/js/Views/Dashboard/calendar.js",
+            "wwwroot/js/Views/Dashboard/googleAPI.js",
+            "wwwroot/js/Libs/CustomScrollbar/jquery.mCustomScrollbar.concat.min.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/attendance.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Report/report.attendance.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/apiclientcalendarjs.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Dashboard/client.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/contextmenu.min.js",
+        "inputFiles": [
+            "wwwroot/js/Libs/jquery.contextMenu.min.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/leave.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Request/leave.request.js",
+            "wwwroot/js/Views/Request/process.leave-checkinout.byemployee.js",
+            "wwwroot/js/Views/Request/search.request.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/empcheckinout.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Request/checkinout.request.js",
+            "wwwroot/js/Views/Request/process.leave-checkinout.byemployee.js",
+            "wwwroot/js/Views/Request/search.request.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/staffbirthday.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Employee/employee.birthday.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/employeetransferjs.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Employee/employee.transfer.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/workfromhomerequest.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Request/workfromhome.request.js",
+            "wwwroot/js/Views/Request/process.workfromhomerequest.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/monthpicker.min.js",
+        "inputFiles": [
+            "wwwroot/js/Libs/monPickr-0.0.3.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/mytimesheet.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Report/report.timesheet.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/fullcalendar.min.js",
+        "inputFiles": [
+            "wwwroot/js/Libs/moment.js",
+            "wwwroot/js/Libs/fullcalendar.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/mycalendar.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Calendar/mycalendar.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/simplepagination.min.js",
+        "inputFiles": [
+            "wwwroot/js/Libs/jquery.simplePagination.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/mytimerecord.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Report/report.mytimerecord.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/overtime.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Overtime/myOvertime.js",
+            "wwwroot/js/Views/Overtime/overtimeMember.js",
+            "wwwroot/js/Views/Overtime/overtimeRequest.js",
+            "wwwroot/js/Views/Overtime/overtime.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/overtimedetail.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Overtime/overtimeDetail.js",
+            "wwwroot/js/Views/Overtime/overtimeRequest.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/overtimesummary.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Overtime/overtimeSummary.js",
+            "wwwroot/js/Views/Employee/_employee.search.in.company.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/manageovertime.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Overtime/manage.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/lateearly.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/LateInEarlyOut/lateinearlyout.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/managerequests.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Request/mgr.requests.js",
+            "wwwroot/js/Views/Employee/_employee.search.in.team.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/scheduledmessage.min.js",
+        "inputFiles": [
+            "wwwroot/js/Libs/jquery.validate.unobtrusive.js",
+            "wwwroot/js/Views/ScheduledMessage/scheduled-message.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/conversationmanagement.min.js",
+        "inputFiles": [
+            "wwwroot/js/Libs/jquery.validate.unobtrusive.js",
+            "wwwroot/js/Libs/select2.js",
+            "wwwroot/js/Views/ScheduledMessage/conversation-management.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/createlateearly.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Request/search.request.js",
+            "wwwroot/js/Views/LateInEarlyOut/create.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/staffinfo.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Employee/employee.index.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/workingcalendars.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Calendar/employee.workingcalendars.js",
+            "wwwroot/js/Views/Employee/_employee.search.in.company.js",
+            "wwwroot/js/Views/fixtable.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/leavecalendars.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Calendar/employee.leavecalendar.js",
+            "wwwroot/js/Views/Employee/_employee.search.in.company.js",
+            "wwwroot/js/Views/fixtable.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/holidays.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Holiday/holiday.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/holidayedit.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Holiday/holiday.edit.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/reportmonitoring.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Report/report.monitoring.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/usermanagement.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Employee/user.management.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/employeeedit.min.js",
+        "inputFiles": [
+            "wwwroot/js/Libs/birthdaypicker.js",
+            "wwwroot/js/Views/Employee/employee.edit.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/defaultschedule.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Employee/employee.defaultschedule.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/monthschedule.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Employee/employee.monthschedule.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/historywork.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Employee/employee.historywork.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/postnatalemployee.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Postanal/postnatalemployee.js",
+            "wwwroot/js/Views/Employee/_employee.search.in.company.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/createpostnatalemployee.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Postanal/create.js",
+            "wwwroot/js/Views/Employee/_employee.search.in.company.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/employeeworkfromhome.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Employee/_employee.search.in.company.js",
+            "wwwroot/js/Views/EmployeeWorkFromHome/employee.workfromhome.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/teammanagement.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/TeamManagement/team.management.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/lateinearlyout.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Report/report.latein.earlyout.js",
+            "wwwroot/js/Views/Employee/_employee.search.in.company.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/lateinearlyoutdetail.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Employee/_employee.search.in.company.js",
+            "wwwroot/js/Views/Report/report.latein.earlyout.detail.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/leavedeductiondetail.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/AnnualLeave/leave.deduction.detail.js",
+            "wwwroot/js/Views/Employee/_employee.search.in.company.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/annualleavebalance.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/AnnualLeave/index.js",
+            "wwwroot/js/Views/Employee/_employee.search.in.company.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/employeeannualleavebalance.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/AnnualLeave/employee.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/editleavetransaction.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/AnnualLeave/annualleave.edit.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/overtimeconversion.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Overtime/overtimeConversion.js",
+            "wwwroot/js/Views/Employee/_employee.search.in.company.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/jobtitle.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Jobtitle/jobtitle.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/lateinearlyoutdiscipline.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Report/report.latein.earlyout.discipline.js",
+            "wwwroot/js/Views/Employee/_employee.search.in.company.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/totalworkinghour.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Report/report.totalworkinghours.js",
+            "wwwroot/js/Views/Employee/_employee.search.in.company.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/workinghoursstatistic.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Report/report.workinghoursstatistic.js",
+            "wwwroot/js/Views/Employee/_employee.search.in.company.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/geolocationmap.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Geolocationmap/geolocationmap.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/extensionno.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/ExtensionNo/extensionno.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/addextensionno.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/ExtensionNo/addextensionno.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/headcount.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Report/report.headcount.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/reporttimerecord.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Report/report.timerecord.js",
+            "wwwroot/js/Views/Employee/_employee.search.in.company.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/biostationmanagement.min.js",
+        "inputFiles": [
+            "wwwroot/js/Libs/jquery.validate.unobtrusive.js",
+            "wwwroot/js/Libs/jquery.unobtrusive-ajax.js",
+            "wwwroot/js/Views/Bio/bio-management.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/biostationtimechange.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Bio/biostationtimechange.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/fingerprintscanner.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Bio/fingerprint-scanner.js",
+            "wwwroot/js/Views/Employee/_employee.search.in.company.js",
+            "wwwroot/js/Views/fixtable.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/memoindex.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Memo/memo.js",
+            "wwwroot/js/Views/Memo/memo.index.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/memoedit.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Memo/memo.js",
+            "wwwroot/js/tinymce/tinymce.min.js",
+            "wwwroot/js/Views/Memo/memo.edit.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/overtimehrview.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Overtime/overtimeHrview.js",
+            "wwwroot/js/Views/Employee/_employee.search.in.company.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/companyevent.min.js",
+        "inputFiles": [
+            "wwwroot/js/Libs/jquery.contextMenu.min.js",
+            "wwwroot/js/Views/CompanyEvent/event.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/companyeventedit.min.js",
+        "inputFiles": [
+            "wwwroot/js/Libs/jquery.timepicker.js",
+            "wwwroot/js/Views/CompanyEvent/event-edit.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/yearlynexrequest.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Report/report.yearlynexrequest.js",
+            "wwwroot/js/Views/Employee/_employee.search.in.company.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/skypeaccount.min.js",
+        "inputFiles": [
+            "wwwroot/js/Libs/select2.js",
+            "wwwroot/js/Views/SkypeAccount/skype-account.js",
+            "wwwroot/js/Views/Employee/_employee.search.in.company.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    }
 ]
