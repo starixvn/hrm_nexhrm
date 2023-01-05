@@ -30,7 +30,8 @@ function enableControlforHalfday() {
         $('#ToDate').val($('#FromDate').val());
         $('#ToDate').prop('readonly', true).datepicker('disable').prop('disabled', false);
         var leaveTypeId = parseInt($('#LeaveTypeId').val());
-        if (leaveTypeId == 9) {
+        var isShowBoxTime = leaveTypeId === 9 || leaveTypeId === 32;
+        if (isShowBoxTime) {
             $('.box-time').removeClass('hide');
             $('.time').addClass('hide');
         }
@@ -74,11 +75,12 @@ function bindHalfDay() {
 
 function changeHalfDayOffDisplayTime() {
     var leaveTypeId = parseInt($('#LeaveTypeId').val());
-    if (leaveTypeId == 9 && $('#HalfDayOff').prop('checked')) {
+    var isShowBoxTime = leaveTypeId === 9 || leaveTypeId === 32;
+    if (isShowBoxTime && $('#HalfDayOff').prop('checked')) {
         $('.box-time').removeClass('hide');
         $('.time').addClass('hide');
     }
-    else if (leaveTypeId !== 9 && $('#HalfDayOff').prop('checked')) {
+    else if (!isShowBoxTime && $('#HalfDayOff').prop('checked')) {
         $('.box-time').addClass('hide');
         $('.time').removeClass('hide');
     }

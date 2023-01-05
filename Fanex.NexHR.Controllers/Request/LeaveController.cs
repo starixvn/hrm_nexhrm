@@ -24,6 +24,7 @@
         private readonly IWebHostEnvironment environment;
 
         private const int BusinessTripLeaveType = 9;
+        private const int BusinessLeaveLeaveType = 32;
 
         public LeaveController(ISessionService sessionService,
             ILeaveTypeService leaveTypeService,
@@ -164,6 +165,7 @@
             var toHourSub = request.ToDate.Hour;
             var fromMinutesSub = request.FromDate.Minute;
             var toMinutesSub = request.ToDate.Minute;
+            var isShowBoxTime = request.LeaveType.Id == BusinessTripLeaveType || request.LeaveType.Id == BusinessLeaveLeaveType;
 
             var model = new LeaveRequestViewModel
             {
@@ -181,10 +183,10 @@
                 HalfDayOff = request.TotalDays == (decimal)0.5,
                 LeaveTypes = await leaveTypeService.GetAll(),
                 UnavailDates = await requestService.GetDisableRequestDate(CurrentUser.Id, requestId: id),
-                FromHour = request.LeaveType.Id == BusinessTripLeaveType && request.TotalDays == (decimal)0.5 ? fromHourSub : 0,
-                ToHour = request.LeaveType.Id == BusinessTripLeaveType && request.TotalDays == (decimal)0.5 ? toHourSub : 0,
-                FromMinute = request.LeaveType.Id == BusinessTripLeaveType && request.TotalDays == (decimal)0.5 ? fromMinutesSub : 0,
-                ToMinute = request.LeaveType.Id == BusinessTripLeaveType && request.TotalDays == (decimal)0.5 ? toMinutesSub : 0,
+                FromHour = isShowBoxTime && request.TotalDays == (decimal)0.5 ? fromHourSub : 0,
+                ToHour = isShowBoxTime && request.TotalDays == (decimal)0.5 ? toHourSub : 0,
+                FromMinute = isShowBoxTime && request.TotalDays == (decimal)0.5 ? fromMinutesSub : 0,
+                ToMinute = isShowBoxTime && request.TotalDays == (decimal)0.5 ? toMinutesSub : 0,
             };
 
             return View(model);
@@ -263,8 +265,9 @@
             model.LeaveTypes = await leaveTypeService.GetAll();
             var fromTimeLeaveBusiness = string.Concat(model.FromHour, ":", model.FromMinute);
             var toTimeLeaveBusiness = string.Concat(model.ToHour, ":", model.ToMinute);
-            var fromDate = model.LeaveTypeId == BusinessTripLeaveType ? Utilities.AddTimeToDate(model.FromDate, fromTimeLeaveBusiness) : Utilities.AddTimeToDate(model.FromDate, model.FromTime);
-            var toDate = model.LeaveTypeId == BusinessTripLeaveType ? Utilities.AddTimeToDate(model.ToDate, toTimeLeaveBusiness) : Utilities.AddTimeToDate(model.ToDate, model.ToTime);
+            var isShowBoxTime = model.LeaveTypeId == BusinessTripLeaveType || model.LeaveTypeId == BusinessLeaveLeaveType;
+            var fromDate = isShowBoxTime ? Utilities.AddTimeToDate(model.FromDate, fromTimeLeaveBusiness) : Utilities.AddTimeToDate(model.FromDate, model.FromTime);
+            var toDate = isShowBoxTime ? Utilities.AddTimeToDate(model.ToDate, toTimeLeaveBusiness) : Utilities.AddTimeToDate(model.ToDate, model.ToTime);
             if (model.HalfDayOff)
             {
                 model.TotalDays = (decimal)day;
