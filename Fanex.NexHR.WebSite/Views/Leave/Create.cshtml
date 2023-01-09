@@ -7,37 +7,37 @@
     var listLeaveTypes = new SelectList(Model.LeaveTypes, "Id", "Name");
 }
 @section Styles {
-<link rel="stylesheet" href="~/minify/css/myrequest.min.css" asp-append-version="true">
-<link rel="stylesheet" href="~/minify/css/leaverequest.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/myrequest.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/leaverequest.min.css" asp-append-version="true">
 }
-@section Scripts {
-<environment include="Development">
-    <script src="~/js/Libs/jquery.contextMenu.min.js" asp-append-version="true"></script>
-    <script src="~/js/Views/Request/leave.request.js" asp-append-version="true"></script>
-    <script src="~/js/Views/Request/process.leave-checkinout.byemployee.js" asp-append-version="true"></script>
-    <script src="~/js/Views/Request/search.request.js" asp-append-version="true"></script>
-</environment>
-<environment exclude="Development">
-    <script src="~/minify/js/contextmenu.min.js" asp-append-version="true"></script>
-    <script src="~/minify/js/leave.min.js" asp-append-version="true"></script>
-</environment>
+    @section Scripts {
+    <environment include="Development">
+        <script src="~/js/Libs/jquery.contextMenu.min.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Request/leave.request.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Request/process.leave-checkinout.byemployee.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Request/search.request.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/contextmenu.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/leave.min.js" asp-append-version="true"></script>
+    </environment>
 }
 
 
-<div class="row content">
-    <div class="col s12 card-container-base my-request">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-title-block">
-                    <span class="card-title txt-uppercase">@ViewBag.Title</span>
-                    <a id="legendInfo" href="javascript:;">
-                        <span class="tooltip"><i class="mdi mdi-information-outline"></i></span>
-                    </a>
-                </div>
-                <div class="card-body">
-                    <div class="form list-item-form">
-                        <form asp-controller="leave" asp-action="create" method="post" class="form-create-update">
-                            <div asp-validation-summary="All"></div>
+    <div class="row content">
+        <div class="col s12 card-container-base my-request">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-title-block">
+                        <span class="card-title txt-uppercase">@ViewBag.Title</span>
+                        <a id="legendInfo" href="javascript:;">
+                            <span class="tooltip"><i class="mdi mdi-information-outline"></i></span>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="form list-item-form">
+                            <form asp-controller="leave" asp-action="create" method="post" class="form-create-update">
+                                <div asp-validation-summary="All"></div>
                             @if (ViewBag.Requested == true)
                             {
                                 <div class="row validation-summary-success">
@@ -117,13 +117,13 @@
                                         </div>
                                         <div class="box-time hide">
                                             <div class="col m-l--m">
-                                                <input asp-for="FromHour" type="number" min="0" max="23" step="1" MaxLength="2" />
+                                                <input class="box-time-input" asp-for="FromHour" type="number" min="0" max="23" step="1" MaxLength="2" />
                                             </div>
                                             <div class="col p-0">
-                                                <span class="colon">:</span>
+                                                <span class="colon box-time-colon">:</span>
                                             </div>
                                             <div class="col">
-                                                <input asp-for="FromMinute" type="number" min="0" max="59" step="1" MaxLength="2" />
+                                                <input class="box-time-input" asp-for="FromMinute" type="number" min="0" max="59" step="1" MaxLength="2" />
                                             </div>
                                         </div>
                                     </div>
@@ -154,13 +154,13 @@
                                         </div>
                                         <div class="box-time hide">
                                             <div class="col m-l--m">
-                                                <input asp-for="ToHour" type="number" min="0" max="23" step="1" MaxLength="2" />
+                                                <input class="box-time-input" asp-for="ToHour" type="number" min="0" max="23" step="1" MaxLength="2" />
                                             </div>
                                             <div class="col p-0">
-                                                <span class="colon">:</span>
+                                                <span class="colon box-time-colon">:</span>
                                             </div>
                                             <div class="col">
-                                                <input asp-for="ToMinute" type="number" min="0" max="59" step="1" MaxLength="2" />
+                                                <input class="box-time-input" asp-for="ToMinute" type="number" min="0" max="59" step="1" MaxLength="2" />
                                             </div>
                                         </div>
                                     </div>
