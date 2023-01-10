@@ -7,7 +7,7 @@
 @section Styles {
     <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
 }
-@section Scripts {
+    @section Scripts {
     <environment include="Development">
         <script src="~/js/Views/AnnualLeave/annualleave.edit.js" asp-append-version="true"></script>
     </environment>
@@ -16,10 +16,10 @@
     </environment>
 }
 
-<div class="row content">
-    <div class="col s12 card-container-base">
-        <div class="card">
-            <div class="card-content">
+    <div class="row content">
+        <div class="col s12 card-container-base">
+            <div class="card">
+                <div class="card-content">
                 @if (Model.EmployeeId > 0)
                 {
                     <div class="card-title-block">
@@ -28,8 +28,9 @@
                     <div class="card-body">
                         <div class="form form-stl-table">
                             <form action="/AnnualLeave/Create?employeeId=@Model.EmployeeId" method="post" novalidate="novalidate">
-                                <input type="hidden" asp-for="@Model.EmployeeId"/>
-                                <input type="hidden" id="year" name="year" value="@Model.AffectedFrom.Year"/>
+                                <input type="hidden" asp-for="@Model.EmployeeId" />
+                                <input type="hidden" id="year" name="year" value="@Model.AffectedFrom.Year" />
+                                <input type="hidden" id="ExcludedRequestTrans" name="ExcludedRequestTrans" value="ViewBag.ExcludedRequestTrans" />
 
                                 <div asp-validation-summary="All"></div>
                                 @if (ViewBag.Inserted == true)
@@ -45,7 +46,7 @@
                                             <label asp-for="@Labels.TotalDays">@Labels.TotalDays</label>
                                         </div>
                                         <div class="left input--xs">
-                                            <input asp-for="@Model.TotalDays" class="text-box single-line"/>
+                                            <input asp-for="@Model.TotalDays" class="text-box single-line" />
                                             <span class="field-validation-valid" data-valmsg-for="TotalDays" data-valmsg-replace="true"></span>
                                         </div>
                                     </div>
@@ -66,10 +67,8 @@
                                             <label asp-for="@Labels.AffectFrom">@Labels.AffectFrom</label>
                                         </div>
                                         <div class="left input--s datepicker-button">
-                                            <date-picker
-                                                name="AffectedFrom"
-                                                value="Model.AffectedFrom"
-                                            >
+                                            <date-picker name="AffectedFrom"
+                                                     value="Model.AffectedFrom">
                                             </date-picker>
                                             <i class="mdi-action-event calendar-icon left"></i>
                                             <span class="field-validation-valid" data-valmsg-for="AffectedFrom" data-valmsg-replace="true"></span>
@@ -82,7 +81,7 @@
                                             &nbsp;
                                         </div>
                                         <div class="left">
-                                            <a href="/AnnualLeave/employee?employeeId=@Model.EmployeeId&year=@Model.AffectedFrom.Year" class= "btn-cancel waves-effect waves-ligh">@Labels.Cancel</a>
+                                            <a href="/AnnualLeave/employee?employeeId=@Model.EmployeeId&YearEdit=@Model.AffectedFrom.Year" class="btn-cancel waves-effect waves-ligh">@Labels.Cancel</a>
                                             <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Adjust" />
                                         </div>
                                     </div>
