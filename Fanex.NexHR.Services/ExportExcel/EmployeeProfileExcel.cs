@@ -15,7 +15,7 @@ namespace Fanex.NexHR.Services.ExportExcel
         private int rowIndex = RowStartBody;
         private int rowNumber = 1;
 
-        public EmployeeProfileExcel(string templatePath, IList<Employee> employee) 
+        public EmployeeProfileExcel(string templatePath, IList<Employee> employee)
             : base(templatePath, 0, "EmployeeProfile")
         {
             this.employee = employee;
@@ -50,23 +50,23 @@ namespace Fanex.NexHR.Services.ExportExcel
             worksheet.Cells[rowIndex, colIndex++].Value = employee.Code;
             worksheet.Cells[rowIndex, colIndex++].Value = employee.FullName;
             worksheet.Cells[rowIndex, colIndex++].Value = employee.NickName;
-            worksheet.Cells[rowIndex, colIndex++].Value = employee.DateOfBirth.ToString("MM/dd/yyyy");
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.DateOfBirth.ToString("dd/MM/yyyy");
             worksheet.Cells[rowIndex, colIndex++].Value = employee.PlaceOfBirth;
             worksheet.Cells[rowIndex, colIndex++].Value = employee.Email;
             worksheet.Cells[rowIndex, colIndex++].Value = JobTitle(employee);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.Team.Name);
-            worksheet.Cells[rowIndex, colIndex++].Value = employee.JoinedDate?.ToString("MM/dd/yyyy");
-            worksheet.Cells[rowIndex, colIndex++].Value = employee.ConfirmedDate?.ToString("MM/dd/yyyy");
-            worksheet.Cells[rowIndex, colIndex++].Value = employee.ResignedDate?.ToString("MM/dd/yyyy");
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.JoinedDate?.ToString("dd/MM/yyyy");
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.ConfirmedDate?.ToString("dd/MM/yyyy");
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.ResignedDate?.ToString("dd/MM/yyyy");
             worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.Phone);
             worksheet.Cells[rowIndex, colIndex++].Value = Gender(employee);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.CardNo);
-            worksheet.Cells[rowIndex, colIndex++].Value = employee.IssuedDate?.ToString("MM/dd/yyyy");
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.IssuedDate?.ToString("dd/MM/yyyy");
             worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.IssuedPlace);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.CurrentAddress);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.PermanentAddress);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.PassportNo);
-            worksheet.Cells[rowIndex, colIndex++].Value = employee.PassportExp?.ToString("MM/dd/yyyy");
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.PassportExp?.ToString("dd/MM/yyyy");
             worksheet.Cells[rowIndex, colIndex++].Value = FormatToeicScore(employee.ToeicScore?.Listening);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatToeicScore(employee.ToeicScore?.Reading);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatToeicScore(employee.ToeicScore?.Speaking);
@@ -115,12 +115,14 @@ namespace Fanex.NexHR.Services.ExportExcel
 
         protected internal virtual void SetStyle(ExcelWorksheet worksheet)
         {
-            int[] colWithCenter = new[] { 1, 2, 4, 6, 10, 11, 12, 13, 14, 15 , 16, 17, 20, 21, 22, 23, 24, 25, 27, 28 };
+            int[] colWithCenter = new[] { 1, 2, 4, 6, 10, 11, 12, 13, 14, 15, 16, 17, 20, 21, 22, 23, 24, 25, 27, 28 };
             int[] colWithLeft = new[] { 3, 5, 7, 8, 9, 18, 19, 26, 29 };
-            foreach(int index in colWithCenter) {
+            foreach (int index in colWithCenter)
+            {
                 worksheet.Column(index).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             }
-            foreach(int index in colWithLeft) {
+            foreach (int index in colWithLeft)
+            {
                 worksheet.Column(index).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
                 worksheet.Cells[RowStartHeader, index].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             }
