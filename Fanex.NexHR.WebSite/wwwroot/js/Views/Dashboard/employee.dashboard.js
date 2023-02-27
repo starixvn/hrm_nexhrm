@@ -346,7 +346,6 @@ $(document).ready(function () {
     });
 
     initTodoList();
-    loadNotification();
     initTeamWorkload();
     workingHours = parseFloat($('#workinghour').val());
 
