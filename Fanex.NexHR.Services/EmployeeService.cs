@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -21,11 +22,13 @@
     {
         private readonly IEmployeeRepository employeeRepository;
         private readonly IBaseService baseService;
+        private readonly ILogServiceProvider logServiceProvider;
 
-        public EmployeeService(IEmployeeRepository employeeRepository, IBaseService baseService)
+        public EmployeeService(IEmployeeRepository employeeRepository, IBaseService baseService, ILogServiceProvider logServiceProvider)
         {
             this.employeeRepository = employeeRepository;
             this.baseService = baseService;
+            this.logServiceProvider = logServiceProvider;
         }
 
         public async Task<Employee> GetEmployeeById(GetEmployeeByIdCriteria criteria)
@@ -153,8 +156,12 @@
             {
                 EmpId = employeeId
             };
-
-            return await employeeRepository.GetDashBoardPersonalSpace(criteria);
+            var watch = Stopwatch.StartNew();
+            var personal = await employeeRepository.GetDashBoardPersonalSpace(criteria);
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+            logServiceProvider.LogFile($"SP name: Report_EmployeeSpaceDashBoard - EmpID: {employeeId} - Execute time: {elapsedMs} ms");
+            return personal;
         }
 
         private async Task<IList<DashBoardCompanySpace>> GetDashBoardCompanySpace(int employeeId)
