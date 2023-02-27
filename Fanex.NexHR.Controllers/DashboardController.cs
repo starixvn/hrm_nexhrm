@@ -65,15 +65,34 @@
 
         public async Task<IActionResult> Index()
         {
+            var model = await GetMySpaceModelAsync();
+            var systemReminder = GetRemind();
+            var attendance = GetEmployeeAttendaneAsync();
+            var notificationLateInEarlyOut = GetLateInEarlyOutNotification();
+            var isPrivilegeCreateCheckInOut = IsPrivilegeCreateCheckInOut();
+
+            await Task.WhenAll(systemReminder, attendance, notificationLateInEarlyOut, isPrivilegeCreateCheckInOut);
+
+            model.SystemReminder = await systemReminder;
+            model.EmployeeAttendanceModel = await attendance;
+            model.NotificationLateInEarlyOutToDay = await notificationLateInEarlyOut;
+            model.IsLoadTeamWorkload = IsLoadTeamWorkload();
+            model.IsHavePrivilegeCreateCheckInOutRecord = await isPrivilegeCreateCheckInOut;
+
+            return View(model);
+        }
+
+        private async Task<MySpaceViewModel> GetMySpaceModelAsync()
+        {
             var getMySpaceCriteria = new GetMySpaceCriteria
             {
                 EmpId = CurrentUser.Id
             };
+            return await employeeService.GetMySpace(getMySpaceCriteria);
+        }
 
-            MySpaceViewModel model = await employeeService.GetMySpace(getMySpaceCriteria);
-            model.SystemReminder = await GetRemind();
-
-            EmployeeAttendanceViewModel empAttendance = new EmployeeAttendanceViewModel
+        private async Task<EmployeeAttendanceViewModel> GetEmployeeAttendaneAsync()
+            => new EmployeeAttendanceViewModel
             {
                 FromDate = DateTime.Now,
                 ToDate = DateTime.Now,
@@ -83,13 +102,6 @@
                 Teams = await teamService.GetTeam(),
                 IsDisplayTeamAttendence = CurrentUserSetting.DisplayTeamAttendence
             };
-
-            model.EmployeeAttendanceModel = empAttendance;
-            model.NotificationLateInEarlyOutToDay = await GetLateInEarlyOutNotification();
-            model.IsLoadTeamWorkload = IsLoadTeamWorkload();
-            model.IsHavePrivilegeCreateCheckInOutRecord = await IsPrivilegeCreateCheckInOut();
-            return View(model);
-        }
 
         private async Task<IEnumerable<ViewModels.LateInEarlyOut.LateInEarlyOutViewModel>> GetLateInEarlyOutNotification()
         {
@@ -285,7 +297,7 @@
                 {
                     var timeEntries = await redmineService.GetTimeEntries(redmineUserId, fromDate, toDate);
                     var totalHour = GetTotalHourLogTime(timeEntries);
-                    if(employees[i].WorkHour == 0)
+                    if (employees[i].WorkHour == 0)
                     {
                         employees[i].PercentWorkload = 0;
                     }
@@ -293,7 +305,6 @@
                     {
                         employees[i].PercentWorkload = Math.Round(totalHour / employees[i].WorkHour, NumberRounding);
                     }
-                    
                 }
             }
         }
