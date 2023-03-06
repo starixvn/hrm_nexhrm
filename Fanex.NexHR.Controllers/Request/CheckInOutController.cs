@@ -24,19 +24,22 @@
         private readonly IBaseService baseService;
         private readonly INexbotService nexbotService;
         private readonly IWebHostEnvironment environment;
+        private readonly ILogServiceProvider logService;
 
         public CheckInOutController(ISessionService sessionService,
             IRequestService requestService,
             IShiftService shiftService,
             IBaseService baseService,
             INexbotService nexbotService,
-            IWebHostEnvironment environment) : base(sessionService)
+            IWebHostEnvironment environment,
+            ILogServiceProvider logService) : base(sessionService)
         {
             this.requestService = requestService;
             this.shiftService = shiftService;
             this.baseService = baseService;
             this.nexbotService = nexbotService;
             this.environment = environment;
+            this.logService = logService;
         }
 
         public IActionResult EmployeeView()
@@ -145,11 +148,18 @@
             model.EmailTemplatePath = Path.Combine(environment.ContentRootPath, Constants.EmailTemplatePathForCheckInOut);
             Task.Factory.StartNew(async () =>
             {
-                var leaders = await requestService.GetLeaderForCheckInOut(model);
-                if (leaders != null && leaders.Any())
+                try
                 {
-                    requestService.SendMailForCheckInOut(model, leaders.ToList());
-                    await nexbotService.SendMessageForCheckInOutRequest(model, leaders.ToList());
+                    var leaders = await requestService.GetLeaderForCheckInOut(model);
+                    if (leaders != null && leaders.Any())
+                    {
+                        requestService.SendMailForCheckInOut(model, leaders.ToList());
+                        await nexbotService.SendMessageForCheckInOutRequest(model, leaders.ToList());
+                    }
+                }
+                catch(Exception ex)
+                {
+                    logService.LogException(ex);
                 }
             });
         }

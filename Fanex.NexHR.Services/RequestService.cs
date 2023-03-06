@@ -31,6 +31,7 @@
         private readonly IBaseService baseService;
         private readonly AppSetting appSetting;
         private readonly EmailSettings emailSettings;
+        private readonly ILogServiceProvider logService;
 
         private const string stringTime = "HH:mm";
 
@@ -42,7 +43,8 @@
             IWebHostEnvironment environment,
             AppSetting appSetting,
             EmailSettings emailSettings,
-            IBaseService baseService)
+            IBaseService baseService,
+            ILogServiceProvider logService)
         {
             this.requestRepository = requestRepository;
             this.emailService = emailService;
@@ -52,6 +54,7 @@
             this.appSetting = appSetting;
             this.emailSettings = emailSettings;
             this.baseService = baseService;
+            this.logService = logService;
         }
 
         private static string GetMessageDateforLeaveRequest(DateTime fromDate, DateTime toDate)
@@ -372,36 +375,43 @@
 
         public void SendMailForCheckInOut(CheckInOutRequestViewModel model, IList<Employee> leaders)
         {
-            var content = new
+            try
             {
-                Leader = leaders.First().NickName,
-                Member = model.Employee,
-                Type = model.CheckInOutType == (short)RequestType.CheckIn
+                var content = new
+                {
+                    Leader = leaders.First().NickName,
+                    Member = model.Employee,
+                    Type = model.CheckInOutType == (short)RequestType.CheckIn
                             ? RequestType.CheckIn.EnumToString().ToLower(CultureInfo.InvariantCulture)
                             : RequestType.CheckOut.EnumToString().ToLower(CultureInfo.InvariantCulture),
-                RequestId = model.Id,
-                ForDate = model.WorkDate.ToDateMonthYearFormatedDate(),
-                Time = model.Hour.ToString().PadLeft(2, '0') + ":" + model.Minute.ToString().PadLeft(2, '0'),
-                model.Shift
-            };
+                    RequestId = model.Id,
+                    ForDate = model.WorkDate.ToDateMonthYearFormatedDate(),
+                    Time = model.Hour.ToString().PadLeft(2, '0') + ":" + model.Minute.ToString().PadLeft(2, '0'),
+                    model.Shift
+                };
 
-            var body = string.Format(
-                model.EmailTemplate,
-                content.Leader,
-                content.Member,
-                content.Type,
-                content.ForDate,
-                content.Shift,
-                content.Time,
-                appSetting.BaseUrl,
-                emailSettings.CompanyMailSign);
+                var body = string.Format(
+                    model.EmailTemplate,
+                    content.Leader,
+                    content.Member,
+                    content.Type,
+                    content.ForDate,
+                    content.Shift,
+                    content.Time,
+                    appSetting.BaseUrl,
+                    emailSettings.CompanyMailSign);
 
-            emailService.SendEmail(
-                emailSettings.Email,
-                string.Join(";", leaders.Select(t => t.Email)),
-                string.Empty,
-                model.SubjectEmail,
-                body);
+                emailService.SendEmail(
+                    emailSettings.Email,
+                    string.Join(";", leaders.Select(t => t.Email)),
+                    string.Empty,
+                    model.SubjectEmail,
+                    body);
+            }
+            catch (Exception ex)
+            {
+                logService.LogException(ex);
+            }
         }
 
         public async Task<IEnumerable<Employee>> GetLeaderForCheckInOut(CheckInOutRequestViewModel model)
