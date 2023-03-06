@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="EmailTemplates\CheckInOut.Request.cshtml" />
     <Content Remove="wwwroot\avatars\03000.jpg" />
   </ItemGroup>
 
@@ -18,6 +19,9 @@
 
   <ItemGroup>
     <None Include="compilerconfig.json" />
+    <None Include="EmailTemplates\CheckInOut.Request.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="wwwroot\avatars\avatar.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
