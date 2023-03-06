@@ -27,19 +27,22 @@
         private readonly INexbotRepository nexbotRepository;
         private readonly IBaseService baseService;
         private readonly NexBotSettings nexBotSettings;
+        private readonly ILogServiceProvider logService;
         private readonly string BaseUrl;
 
         public NexbotService(IHttpClientFactory httpClientFactory,
             INexbotRepository nexbotRepository,
             IBaseService baseService,
             AppSetting appSetting,
-            NexBotSettings nexBotSettings)
+            NexBotSettings nexBotSettings,
+            ILogServiceProvider logService)
         {
             httpClient = httpClientFactory.CreateClient();
             this.nexbotRepository = nexbotRepository;
             this.nexBotSettings = nexBotSettings;
             this.baseService = baseService;
             BaseUrl = appSetting.BaseUrl;
+            this.logService = logService;
         }
 
         public async Task<bool> SendMessageAsync(string conversationId, string message)
@@ -255,10 +258,17 @@
 
         public async Task SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request, IList<Employee> leaders)
         {
-            foreach (var leader in leaders)
+            try
             {
-                var message = GenerateCheckInOutRequestMessage(request, leader.NickName);
-                await SendApproveMessageAsync(leader.ConversationId, request.Id, message);
+                foreach (var leader in leaders)
+                {
+                    var message = GenerateCheckInOutRequestMessage(request, leader.NickName);
+                    await SendApproveMessageAsync(leader.ConversationId, request.Id, message);
+                }
+            }
+            catch (Exception ex)
+            {
+                logService.LogException(ex);
             }
         }
 
