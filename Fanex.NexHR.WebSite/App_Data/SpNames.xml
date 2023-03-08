@@ -437,6 +437,9 @@
         <Setting Key="SyncData_LumiHRM_GetGroupByLastModifiedDate" SpName="SyncData_GetGroupByLastModifiedDate" DbName="lumihr" Plain="0"></Setting>
         <Setting Key="SyncData_NexHRM_GetJobTitle" SpName="SyncData_GetJobTitle" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="SyncData_LumiHRM_GetJobTitle" SpName="SyncData_GetJobTitle" DbName="lumihr" Plain="0"></Setting>
+
+        <Setting Key="Sync_GO_UnitHead_GetInfo" SpName="Sync_GO_UnitHead_GetInfo" DbName="nexhr" Plain="0" />
+        <Setting Key="Sync_GO_UnitHead_GetSchedule" SpName="Sync_GO_UnitHead_GetSchedule" DbName="nexhr" Plain="0" />
     </Function>
     <Function Name="Employee Transfer">
         <Setting Key="EmployeeTransfer_GetLumiGroup" SpName="EmployeeTransfer_GetLumiGroup" DbName="nexhr" Plain="1"></Setting>
