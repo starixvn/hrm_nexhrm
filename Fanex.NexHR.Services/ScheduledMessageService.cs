@@ -9,6 +9,7 @@
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Services.Interfaces;
     using NCrontab;
+    using NPOI.SS.Formula.Functions;
 
     public class ScheduledMessageService : IScheduledMessageService
     {
@@ -160,6 +161,120 @@
                 EditedBy = model.EditedBy,
                 IsActive = model.IsActive
             }).ConfigureAwait(false);
+        }
+
+        public async Task<CommandResult> SendScheduledVegetarianMessages()
+        {
+            DateTime dateTimeNow = new DateTime(2023, 5, 1);
+            DateTime dateTimeNext = dateTimeNow.AddMonths(1);
+
+            List<Solar> lunarListFirstMonth = HandleLunar(dateTimeNow);
+            List<Solar> lunarListSecondMonth = HandleLunar(new DateTime(dateTimeNext.Year, dateTimeNext.Month, 1));
+
+            List<CreateScheduledMessageCriteria> schedule = HandleCriteria(lunarListFirstMonth);
+            schedule.AddRange(HandleCriteria(lunarListSecondMonth));
+
+            return await scheduledMessageRepository.CreateAsync(new CreateScheduledMessageCriteria
+            {
+            }).ConfigureAwait(false);
+        }
+
+        private static List<CreateScheduledMessageCriteria> HandleCriteria(List<Solar> solars)
+        {
+            List<CreateScheduledMessageCriteria> schedule = new();
+
+            foreach (var item in solars)
+            {
+                Lunar lunar = LunarSolarConverter.SolarToLunar(new Solar
+                {
+                    solarDay = item.solarDay,
+                    solarMonth = item.solarMonth,
+                    solarYear = item.solarYear
+                });
+
+                var dateContent = new DateTime(item.solarYear, item.solarMonth, item.solarDay);
+                string content = "🥦🥬 Đặt cơm chay 🥦🥬" +
+                                "Các bạn có nhu cầu ăn chay thứ " + ((int)dateContent.DayOfWeek + 1) + " ngày" + item.solarDay + "/" + item.solarMonth + "/" + item.solarYear
+                                + "(nhằm" + lunar.lunarDay + " âm lịch) vui lòng đặt trước trên hệ thống F&B để Bếp chuẩn bị được tốt hơn." +
+                                "Thank you ❤️";
+                var dateBefore = new DateTime(item.solarYear, item.solarMonth, item.solarDay).AddDays(-1);
+                var sendDate = GenerateSendDate(dateBefore);
+
+                schedule.Add(new CreateScheduledMessageCriteria
+                {
+                    ConversationId = 1,
+                    SendDate = new DateTime(sendDate.Year, sendDate.Month, sendDate.Day, 11, 0, 0),
+                    Content = content,
+                    CreatedBy = 1,
+                    CronExpression = null,
+                    RepeatTypeId = null
+                });
+            }
+            return schedule;
+        }
+
+        private static DateTime GenerateSendDate(DateTime dateTime)
+        {
+            var dateSend = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day);
+            do{
+                dateSend.AddDays(-1);
+            }
+            while (((int)dateSend.DayOfWeek + 1) != 7 && ((int)dateSend.DayOfWeek + 1) != 1);
+            return dateSend;
+        }
+
+        private static List<Solar> HandleLunar(DateTime dateTime)
+        {
+            List<Solar> solars = new();
+            for(int i = dateTime.Day; i <= DateInMount(dateTime.Month, dateTime.Year); i++)
+            {
+                Lunar lunar = LunarSolarConverter.SolarToLunar(new Solar
+                {
+                    solarDay = i,
+                    solarMonth = dateTime.Month,
+                    solarYear = dateTime.Year
+                });
+                var dateCheck = new DateTime(dateTime.Year, dateTime.Month, i);
+                if ((lunar.lunarDay == 1 || lunar.lunarDay == 15) && (((int)dateCheck.DayOfWeek + 1) != 7 && ((int)dateCheck.DayOfWeek + 1) != 8))
+                {
+                    solars.Add(new Solar { 
+                        solarDay = i,
+                        solarMonth = dateTime.Month,
+                        solarYear = dateTime.Year
+                    });
+                }
+            }
+            return solars;
+        }
+
+        private static int DateInMount(int th, int nm)
+        {
+            int songay = 0;
+            if (th >= 1 && th <= 12)
+            {
+                switch (th)
+                {
+                    case 1:
+                    case 3:
+                    case 5:
+                    case 7:
+                    case 8:
+                    case 10:
+                    case 12: songay = 31; break;
+                    case 4:
+                    case 6:
+                    case 9:
+                    case 11: songay = 30; break;
+
+                    case 2:
+                        if (nm % 400 == 0 || (nm % 4 == 0 && nm % 100 != 0))
+                            songay = 29;
+                        else
+                            songay = 28;
+                        break;
+                }
+            }
+            return songay;
         }
     }
 }

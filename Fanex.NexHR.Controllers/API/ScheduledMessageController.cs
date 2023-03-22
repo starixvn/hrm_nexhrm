@@ -6,7 +6,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ScheduledMessageController : ControllerBase
     {
         private readonly IScheduledMessageService scheduledMessageService;
@@ -20,6 +20,13 @@
         public async Task<IActionResult> SendScheduledMessages()
         {
             var result = await scheduledMessageService.SendScheduledMessages().ConfigureAwait(false);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendScheduledVegetarianMessages()
+        {
+            var result = await scheduledMessageService.SendScheduledVegetarianMessages().ConfigureAwait(false);
             return Ok(result);
         }
     }
