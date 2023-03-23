@@ -168,7 +168,7 @@
 
         public async Task<CommandResult> SendScheduledVegetarianMessages()
         {
-            var scheduledMessages = await GetScheduledMessagesAsync(DateTime.Now.Year, 536).ConfigureAwait(false);
+            var scheduledMessages = await GetScheduledMessagesAsync(DateTime.Now.Year, 125).ConfigureAwait(false);
             DateTime dateTimeNow = DateTime.Now;
             DateTime dateTimeNext = dateTimeNow.AddMonths(1);
             List<Solar> lunarListFirstMonth = HandleLunar(dateTimeNow);
@@ -190,7 +190,7 @@
             foreach (var item in solars)
             {
                 var firstLunar = "01";
-                int hourSend = 11, createdBy = 536;
+                int hourSend = 11, createdBy = 125;
                 Lunar lunar = LunarSolarConverter.SolarToLunar(new Solar
                 {
                     solarDay = item.solarDay,
