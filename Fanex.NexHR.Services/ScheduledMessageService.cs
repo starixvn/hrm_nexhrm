@@ -190,6 +190,7 @@
             foreach (var item in solars)
             {
                 var firstLunar = "01";
+                int hourSend = 11, createdBy = 536;
                 Lunar lunar = LunarSolarConverter.SolarToLunar(new Solar
                 {
                     solarDay = item.solarDay,
@@ -207,9 +208,9 @@
                     schedule.Add(new CreateScheduledMessageCriteria
                     {
                         ConversationId = 1,
-                        SendDate = new DateTime(sendDate.Year, sendDate.Month, sendDate.Day, 11, 0, 0),
+                        SendDate = new DateTime(sendDate.Year, sendDate.Month, sendDate.Day, hourSend, 0, 0),
                         Content = content,
-                        CreatedBy = 536,
+                        CreatedBy = createdBy,
                         CronExpression = null,
                         RepeatTypeId = null
                     });
@@ -222,16 +223,19 @@
         {
             DateTime dateSend;
             int before = 0;
-            do{
+            int saturday = 7;
+            do
+            {
                 dateSend = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day).AddDays(before--);
             }
-            while (((int)dateSend.DayOfWeek + 1) == 7 || ((int)dateSend.DayOfWeek + 1) == 1);
+            while (((int)dateSend.DayOfWeek + 1) == saturday || ((int)dateSend.DayOfWeek + 1) == 1);
             return dateSend;
         }
 
         private static List<Solar> HandleLunar(DateTime dateTime)
         {
             List<Solar> solars = new();
+            int saturday = 7, fifteenLunar = 15;
             for(int i = dateTime.Day; i <= DateInMount(dateTime.Month, dateTime.Year); i++)
             {
                 Lunar lunar = LunarSolarConverter.SolarToLunar(new Solar
@@ -241,7 +245,7 @@
                     solarYear = dateTime.Year
                 });
                 var dateCheck = new DateTime(dateTime.Year, dateTime.Month, i);
-                if ((lunar.lunarDay == 1 || lunar.lunarDay == 15) && (((int)dateCheck.DayOfWeek + 1) != 7 && ((int)dateCheck.DayOfWeek + 1) != 1))
+                if ((lunar.lunarDay == 1 || lunar.lunarDay == fifteenLunar) && (((int)dateCheck.DayOfWeek + 1) != saturday && ((int)dateCheck.DayOfWeek + 1) != 1))
                 {
                     solars.Add(new Solar { 
                         solarDay = i,
@@ -255,30 +259,16 @@
 
         private static int DateInMount(int th, int nm)
         {
-            int songay = 0;
-            if (th >= 1 && th <= 12)
-            {
-                switch (th)
-                {
-                    case 1:
-                    case 3:
-                    case 5:
-                    case 7:
-                    case 8:
-                    case 10:
-                    case 12: songay = 31; break;
-                    case 4:
-                    case 6:
-                    case 9:
-                    case 11: songay = 30; break;
-
-                    case 2:
-                        if (nm % 400 == 0 || (nm % 4 == 0 && nm % 100 != 0))
-                            songay = 29;
-                        else
-                            songay = 28;
-                        break;
-                }
+            int songay;
+            if (th == 1 || th == 3 || th == 5 || th == 7 || th == 8 || th == 10 || th == 12){
+                songay = 31;
+            }else if(th == 4 || th == 6 || th == 9 || th == 11){
+                songay = 30;
+            }else{
+                if (nm % 400 == 0 || (nm % 4 == 0 && nm % 100 != 0))
+                    songay = 29;
+                else
+                    songay = 28;
             }
             return songay;
         }
