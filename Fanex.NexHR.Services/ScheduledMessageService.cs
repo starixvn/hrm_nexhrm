@@ -2,12 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using Fanex.NexHR.Criteria.ScheduledMessage;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.ScheduledMessage;
     using Fanex.NexHR.Repositories.Interfaces;
+    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
+    using Microsoft.AspNetCore.Mvc;
     using NCrontab;
     using NPOI.SS.Formula.Functions;
 
@@ -165,26 +168,28 @@
 
         public async Task<CommandResult> SendScheduledVegetarianMessages()
         {
-            DateTime dateTimeNow = new DateTime(2023, 5, 1);
+            var scheduledMessages = await GetScheduledMessagesAsync(DateTime.Now.Year, 536).ConfigureAwait(false);
+            DateTime dateTimeNow = DateTime.Now;
             DateTime dateTimeNext = dateTimeNow.AddMonths(1);
-
             List<Solar> lunarListFirstMonth = HandleLunar(dateTimeNow);
             List<Solar> lunarListSecondMonth = HandleLunar(new DateTime(dateTimeNext.Year, dateTimeNext.Month, 1));
-
-            List<CreateScheduledMessageCriteria> schedule = HandleCriteria(lunarListFirstMonth);
-            schedule.AddRange(HandleCriteria(lunarListSecondMonth));
-
-            return await scheduledMessageRepository.CreateAsync(new CreateScheduledMessageCriteria
+            List<CreateScheduledMessageCriteria> schedule = HandleCriteria(lunarListFirstMonth, scheduledMessages);
+            schedule.AddRange(HandleCriteria(lunarListSecondMonth, scheduledMessages));
+            var result = new CommandResult();
+            foreach (var item in schedule)
             {
-            }).ConfigureAwait(false);
+               result = await scheduledMessageRepository.CreateAsync(item).ConfigureAwait(false);
+            }
+            return result;
         }
 
-        private static List<CreateScheduledMessageCriteria> HandleCriteria(List<Solar> solars)
+        private static List<CreateScheduledMessageCriteria> HandleCriteria(List<Solar> solars, 
+            IEnumerable<ScheduledMessage> scheduledMessages)
         {
             List<CreateScheduledMessageCriteria> schedule = new();
-
             foreach (var item in solars)
             {
+                var firstLunar = "01";
                 Lunar lunar = LunarSolarConverter.SolarToLunar(new Solar
                 {
                     solarDay = item.solarDay,
@@ -193,33 +198,34 @@
                 });
 
                 var dateContent = new DateTime(item.solarYear, item.solarMonth, item.solarDay);
-                string content = "🥦🥬 Đặt cơm chay 🥦🥬" +
-                                "Các bạn có nhu cầu ăn chay thứ " + ((int)dateContent.DayOfWeek + 1) + " ngày" + item.solarDay + "/" + item.solarMonth + "/" + item.solarYear
-                                + "(nhằm" + lunar.lunarDay + " âm lịch) vui lòng đặt trước trên hệ thống F&B để Bếp chuẩn bị được tốt hơn." +
-                                "Thank you ❤️";
-                var dateBefore = new DateTime(item.solarYear, item.solarMonth, item.solarDay).AddDays(-1);
-                var sendDate = GenerateSendDate(dateBefore);
+                string content = String.Format(Labels.VegetarianMessages, ((int)dateContent.DayOfWeek + 1), 
+                    dateContent.ToString("dd/MM/yyyy"), lunar.lunarDay == 1 ? firstLunar : lunar.lunarDay);
 
-                schedule.Add(new CreateScheduledMessageCriteria
-                {
-                    ConversationId = 1,
-                    SendDate = new DateTime(sendDate.Year, sendDate.Month, sendDate.Day, 11, 0, 0),
-                    Content = content,
-                    CreatedBy = 1,
-                    CronExpression = null,
-                    RepeatTypeId = null
-                });
+                if(!scheduledMessages.Any(x => x.Content == content)) {
+                    var dateBefore = new DateTime(item.solarYear, item.solarMonth, item.solarDay).AddDays(-1);
+                    var sendDate = GenerateSendDate(dateBefore);
+                    schedule.Add(new CreateScheduledMessageCriteria
+                    {
+                        ConversationId = 1,
+                        SendDate = new DateTime(sendDate.Year, sendDate.Month, sendDate.Day, 11, 0, 0),
+                        Content = content,
+                        CreatedBy = 536,
+                        CronExpression = null,
+                        RepeatTypeId = null
+                    });
+                }
             }
             return schedule;
         }
 
         private static DateTime GenerateSendDate(DateTime dateTime)
         {
-            var dateSend = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day);
+            DateTime dateSend;
+            int before = 0;
             do{
-                dateSend.AddDays(-1);
+                dateSend = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day).AddDays(before--);
             }
-            while (((int)dateSend.DayOfWeek + 1) != 7 && ((int)dateSend.DayOfWeek + 1) != 1);
+            while (((int)dateSend.DayOfWeek + 1) == 7 || ((int)dateSend.DayOfWeek + 1) == 1);
             return dateSend;
         }
 
@@ -235,7 +241,7 @@
                     solarYear = dateTime.Year
                 });
                 var dateCheck = new DateTime(dateTime.Year, dateTime.Month, i);
-                if ((lunar.lunarDay == 1 || lunar.lunarDay == 15) && (((int)dateCheck.DayOfWeek + 1) != 7 && ((int)dateCheck.DayOfWeek + 1) != 8))
+                if ((lunar.lunarDay == 1 || lunar.lunarDay == 15) && (((int)dateCheck.DayOfWeek + 1) != 7 && ((int)dateCheck.DayOfWeek + 1) != 1))
                 {
                     solars.Add(new Solar { 
                         solarDay = i,

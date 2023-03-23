@@ -4777,6 +4777,19 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 🥦🥬 Đặt cơm chay 🥦🥬
+        ///
+        ///Các bạn có nhu cầu ăn chay thứ {0} ngày {1} (nhằm {2} âm lịch) vui lòng đặt trước trên hệ thống F&amp;B để Bếp chuẩn bị được tốt hơn.
+        ///
+        ///Thank you ❤️.
+        /// </summary>
+        public static string VegetarianMessages {
+            get {
+                return ResourceManager.GetString("VegetarianMessages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Verified.
         /// </summary>
         public static string Verified {

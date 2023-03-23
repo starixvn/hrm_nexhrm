@@ -1767,4 +1767,11 @@
   <data name="StatusId" xml:space="preserve">
     <value>StatusId</value>
   </data>
+  <data name="VegetarianMessages" xml:space="preserve">
+    <value>🥦🥬 Đặt cơm chay 🥦🥬
+
+Các bạn có nhu cầu ăn chay thứ {0} ngày {1} (nhằm {2} âm lịch) vui lòng đặt trước trên hệ thống F&amp;B để Bếp chuẩn bị được tốt hơn.
+
+Thank you ❤️</value>
+  </data>
 </root>
