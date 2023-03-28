@@ -10,5 +10,6 @@
         Task<CommandResult> SendMessageViolateDisciplineAsync();
 
         Task<CommandResult> SendMessageDeductAsync();
+        Task<CommandResult> DeductAsync();
     }
 }

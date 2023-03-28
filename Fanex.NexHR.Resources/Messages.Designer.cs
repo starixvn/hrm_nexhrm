@@ -295,6 +295,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deduct 0.5 day leave for 4 hours late in/early out.
+        /// </summary>
+        public static string DescriptionAutoDeduct {
+            get {
+                return ResourceManager.GetString("DescriptionAutoDeduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _- Device Id: {0}. Device Name: {1}. Time Changed: {2}._ {3}.
         /// </summary>
         public static string DeviceBioChangeTime {
@@ -583,6 +592,17 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hi {0},
+        ///Please be informed that your total late in/eraly out is up to 4 hours. Your Annual Leave will be deducted a half day. 
+        ///Thank you..
+        /// </summary>
+        public static string MessageAutoDeduct {
+            get {
+                return ResourceManager.GetString("MessageAutoDeduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Missing Jwt Token.
         /// </summary>
         public static string MissingJwtToken {
@@ -826,6 +846,15 @@ namespace Fanex.NexHR.Resources {
         public static string StopEditRequest {
             get {
                 return ResourceManager.GetString("StopEditRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deduct A Half Day For Late In/Early Out.
+        /// </summary>
+        public static string SubjectEmailAutoDeduct {
+            get {
+                return ResourceManager.GetString("SubjectEmailAutoDeduct", resourceCulture);
             }
         }
         

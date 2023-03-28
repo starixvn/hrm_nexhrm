@@ -38,5 +38,12 @@
             var result = await botService.SendMessageDeductAsync().ConfigureAwait(false);
             return Ok(result);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AutoDeduct()
+        {
+            var result = await botService.DeductAsync().ConfigureAwait(false);
+            return Ok(result);
+        }
     }
 }

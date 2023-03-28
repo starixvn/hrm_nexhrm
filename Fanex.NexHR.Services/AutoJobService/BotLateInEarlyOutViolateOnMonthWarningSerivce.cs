@@ -2,38 +2,65 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Fanex.MailDeliver.MailClient;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.AnnualLeave;
     using Fanex.NexHR.Criteria.LateInEarlyOut;
+    using Fanex.NexHR.Criteria.ScheduledMessage;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Core;
     using Fanex.NexHR.Models.LateInEarlyOut;
+    using Fanex.NexHR.Repositories;
+    using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Resources;
     using Interfaces;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Routing.Template;
     using Newtonsoft.Json;
+    using static Org.BouncyCastle.Bcpg.Attr.ImageAttrib;
 
     public class BotLateInEarlyOutViolateOnMonthWarningSerivce : IBotLateInLateOutAutoJobService
     {
         private const int ViolatedTime = 4;
         private const string FormatShortDate = "MMM, yyyy";
         private const string FormatLongDate = "dd MMM, yyyy";
+        private readonly EmailSettings emailSettings;
         private readonly string BaseUrl;
         private readonly IMessageCategoryLogService messageCategoryLog;
         private readonly INexbotService nexbotService;
         private readonly ILateInEarlyOutService lateInEarlyOutService;
+        private readonly IScheduledMessageRepository scheduledMessageRepository;
+        private readonly IEmailService emailService;
+        private readonly AppSetting appSetting;
+        private readonly IWebHostEnvironment environment;
+        private readonly IBaseService baseService;
 
         public BotLateInEarlyOutViolateOnMonthWarningSerivce(
             IMessageCategoryLogService messageCategoryLog,
             INexbotService nexbotService,
             ILateInEarlyOutService lateInEarlyOutService,
+            IScheduledMessageRepository scheduledMessageRepository,
+            IBaseService baseService,
+            IEmailService emailService,
+            EmailSettings emailSettings,
+            IWebHostEnvironment environment,
             AppSetting appSetting
         )
         {
             this.messageCategoryLog = messageCategoryLog;
             this.nexbotService = nexbotService;
             this.lateInEarlyOutService = lateInEarlyOutService;
+            this.scheduledMessageRepository = scheduledMessageRepository;
+            this.baseService = baseService;
+            this.emailService = emailService;
+            this.appSetting = appSetting;
+            this.environment = environment;
+            this.emailSettings = emailSettings;
             BaseUrl = appSetting.BaseUrl;
         }
 
@@ -108,6 +135,63 @@
             }
 
             return result;
+        }
+
+        public async Task<CommandResult> DeductAsync()
+        {
+            var result = new CommandResult { Code = 0 };
+            var CreatedByID = 279;
+            var criteria = new GetLateInEarlyOutDeductionCriteria { Year = 2022 };
+            var deductedEmployees = await lateInEarlyOutService.GetLateInEarlyOutDeduction(criteria).ConfigureAwait(false);
+            
+            foreach (var item in deductedEmployees)
+            {
+                var insertLeaveDeductionCriteria = new InsertLeaveDeductionCriteria
+                {
+                    EmployeeId = item.EmpId,
+                    Description = Messages.DescriptionAutoDeduct,
+                    DeductDate = DateTime.UtcNow,
+                    IsAnnual = true,
+                    TotalDays = Convert.ToDecimal(0.5),
+                    CreatedBy = CreatedByID
+                };
+                result = await baseService.ExecuteNonQueryAsync(insertLeaveDeductionCriteria);
+
+                result = await SendMessageDeduct(item);
+                SendMailDeductToEmp(item);
+            }
+            return result;
+        }
+
+        private async Task<CommandResult> SendMessageDeduct(LateInEarlyOutModel item)
+        {
+            var conversations = await scheduledMessageRepository.GetConversationsAsync(new GetConversationsCriteria { EmployeeId = item.EmpId }).ConfigureAwait(false);
+            var result = new CommandResult { Code = 0 };
+            if (conversations.Any())
+            {
+                string message = string.Format(Messages.MessageAutoDeduct, item.NickName);
+                result = await SendMessageDeductToConversation(conversations.Where(x => x.ConversationName.ToLower().Equals(item.NickName.ToLower()))
+                    .Select(m => m.ConversationId.ToString()), message).ConfigureAwait(false);
+            }
+            return result;
+        }
+
+        private void SendMailDeductToEmp(LateInEarlyOutModel item)
+        {
+            var EmailTemplatePath = "EmailTemplates/AutoJobDeduct.Request.txt";
+            string templatePath = Path.Combine(environment.ContentRootPath, EmailTemplatePath);
+            string body = string.Format(
+                   Utilities.ReadTextFile(templatePath),
+                   item.NickName,
+                   appSetting.BaseUrl,
+                   emailSettings.CompanyMailSign);
+
+            emailService.SendEmail(
+                emailSettings.Email,
+                string.Join(";", item.Email),
+                string.Empty,
+                Messages.SubjectEmailAutoDeduct,
+                body);
         }
 
         private async Task SendMessageViolateOnMonthToEmployees(IEnumerable<LateInEarlyOutViolateModel> violaters)
@@ -264,6 +348,32 @@
                 Messages.ThereIsNumberEmployeeNeedToDeductForLateInEarlyOut,
                 deductedEmployees.Count(),
                 Constants.NewLine));
+
+            foreach (var e in deductedEmployees)
+            {
+                string balanceCurrentYear = (e.BalanceCurrentYear / 60).ToString("0.0");
+                message.Append(string.Format(
+                    Messages.BalanceCurrentYearHour,
+                    e.FullName,
+                    e.NickName,
+                    balanceCurrentYear,
+                    Constants.NewLine));
+            }
+
+            message.Append(string.Format(
+                Messages.AccessLinkAndReviewToTakeDeduction,
+                BaseUrl));
+
+            return message.ToString();
+        }
+
+        private string GenerateMessageAutoDeduct(IEnumerable<LateInEarlyOutModel> deductedEmployees)
+        {
+            StringBuilder message = new StringBuilder();
+            message.Append(string.Format(
+                Messages.MessageAutoDeduct,
+                deductedEmployees.Count()
+                ));
 
             foreach (var e in deductedEmployees)
             {
