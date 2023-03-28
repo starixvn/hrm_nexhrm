@@ -141,7 +141,7 @@
         {
             var result = new CommandResult { Code = 0 };
             var CreatedByID = 279;
-            var criteria = new GetLateInEarlyOutDeductionCriteria { Year = 2022 };
+            var criteria = new GetLateInEarlyOutDeductionCriteria { Year = DateTime.Now.Year };
             var deductedEmployees = await lateInEarlyOutService.GetLateInEarlyOutDeduction(criteria).ConfigureAwait(false);
             
             foreach (var item in deductedEmployees)
@@ -156,8 +156,7 @@
                     CreatedBy = CreatedByID
                 };
                 result = await baseService.ExecuteNonQueryAsync(insertLeaveDeductionCriteria);
-
-                result = await SendMessageDeduct(item);
+                _ = await SendMessageDeduct(item);
                 SendMailDeductToEmp(item);
             }
             return result;
@@ -348,32 +347,6 @@
                 Messages.ThereIsNumberEmployeeNeedToDeductForLateInEarlyOut,
                 deductedEmployees.Count(),
                 Constants.NewLine));
-
-            foreach (var e in deductedEmployees)
-            {
-                string balanceCurrentYear = (e.BalanceCurrentYear / 60).ToString("0.0");
-                message.Append(string.Format(
-                    Messages.BalanceCurrentYearHour,
-                    e.FullName,
-                    e.NickName,
-                    balanceCurrentYear,
-                    Constants.NewLine));
-            }
-
-            message.Append(string.Format(
-                Messages.AccessLinkAndReviewToTakeDeduction,
-                BaseUrl));
-
-            return message.ToString();
-        }
-
-        private string GenerateMessageAutoDeduct(IEnumerable<LateInEarlyOutModel> deductedEmployees)
-        {
-            StringBuilder message = new StringBuilder();
-            message.Append(string.Format(
-                Messages.MessageAutoDeduct,
-                deductedEmployees.Count()
-                ));
 
             foreach (var e in deductedEmployees)
             {
