@@ -870,6 +870,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deduct A Half Day For Late In/Early Out.
+        /// </summary>
+        public static string SubjectEmailAutoDeduct {
+            get {
+                return ResourceManager.GetString("SubjectEmailAutoDeduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Success update information.
         /// </summary>
         public static string SuccessUpdateInformation {
