@@ -170,7 +170,7 @@
             {
                 string message = string.Format(Messages.MessageAutoDeduct, item.NickName);
                 result = await SendMessageDeductToConversation(conversations.Where(x => x.ConversationName.ToLower().Equals(item.NickName.ToLower()))
-                    .Select(m => m.ConversationId.ToString()), message).ConfigureAwait(false);
+                    .Select(m => m.SkypeConversationId), message).ConfigureAwait(false);
             }
             return result;
         }
