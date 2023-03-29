@@ -150,7 +150,7 @@
                 {
                     EmployeeId = item.EmpId,
                     Description = Messages.DescriptionAutoDeduct,
-                    DeductDate = DateTime.UtcNow,
+                    DeductDate = DateTime.Now,
                     IsAnnual = true,
                     TotalDays = Convert.ToDecimal(0.5),
                     CreatedBy = CreatedByID
@@ -182,7 +182,6 @@
             string body = string.Format(
                    Utilities.ReadTextFile(templatePath),
                    item.NickName,
-                   appSetting.BaseUrl,
                    emailSettings.CompanyMailSign);
 
             emailService.SendEmail(
