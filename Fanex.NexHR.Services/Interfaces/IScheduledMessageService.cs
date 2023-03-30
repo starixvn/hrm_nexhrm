@@ -20,7 +20,7 @@
         Task<CommandResult> RemoveAsync(int scheduledMessageId);
 
         Task<CommandResult> SendScheduledMessages();
-        Task<CommandResult> SendScheduledVegetarianMessages();
+        Task<CommandResult> CreateScheduledVegetarianMessages();
 
         Task<CommandResult> CreateConversationAsync(CreateConversation model);
 
