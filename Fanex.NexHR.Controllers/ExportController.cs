@@ -1,9 +1,5 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Threading.Tasks;
     using Core;
     using Core.Model;
     using Criteria.Calendar;
@@ -17,10 +13,13 @@
     using Newtonsoft.Json;
     using Services;
     using Services.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Threading.Tasks;
     using ViewModels.Calendar;
     using ViewModels.Report;
     using ViewModels.TotalWorkingHours;
-    using static NPOI.SS.Format.CellNumberFormatter;
 
     public class ExportController : BaseController
     {
@@ -30,6 +29,7 @@
         private const string WorkingHoursStatisticTemplatePath = "ExcelTemplates/WorkingHoursStatistic.xlsx";
         private const string DayOffScheduleTemplatePath = "ExcelTemplates/DayOffSchedule.xlsx";
         private const string HeadCountReportTemplatePath = "ExcelTemplates/HeadCountReport.xlsx";
+        private const string ContentTyleFile = "application/xlsx";
 
         private readonly IEmployeeService employeeService;
         private readonly IReportService reportService;
@@ -86,7 +86,7 @@
             string templatePath = Path.Combine(environment.ContentRootPath, TotalWorkingHoursTemplatePath);
             var bytes = ExportService.ExportTotalWorkingHours(listTotalWorkingHours, totalWorkingHoursViewModel.FromDate, totalWorkingHoursViewModel.ToDate, templatePath);
 
-            return File(bytes, "application/xlsx", fileName);
+            return File(bytes, ContentTyleFile, fileName);
         }
 
         [HrmAuthorize(UserRoles = "HR")]
@@ -126,7 +126,7 @@
             string templatePath = Path.Combine(environment.ContentRootPath, EmployeeProfileTemplatePath);
             var bytes = ExportService.ExportEmployeeProfile(listEmployees, templatePath);
 
-            return File(bytes, "application/xlsx", fileName);
+            return File(bytes, ContentTyleFile, fileName);
         }
 
         [HttpGet]
@@ -162,7 +162,7 @@
             string templatePath = Path.Combine(environment.ContentRootPath, EmployeeAttendaceTemplatePath);
             var bytes = ExportService.ExportEmployeeAttendances(employeeAttendances, templatePath);
 
-            return File(bytes, "application/xlsx", fileName);
+            return File(bytes, ContentTyleFile, fileName);
         }
 
         public async Task<IActionResult> WorkingHoursStatistic(WorkingHoursStatisticViewModel model)
@@ -182,7 +182,7 @@
             string templatePath = Path.Combine(environment.ContentRootPath, WorkingHoursStatisticTemplatePath);
             var bytes = ExportService.ExportWorkingHoursStatistic(listTotalWorkingHours, getWorkingHoursCriteria.FromDateLastMonth, getWorkingHoursCriteria.ToDate, templatePath);
 
-            return File(bytes, "application/xlsx", fileName);
+            return File(bytes, ContentTyleFile, fileName);
         }
 
         public async Task<IActionResult> LeaveScheduleReport(WorkingCalendarViewModel model)
@@ -202,7 +202,7 @@
             string templatePath = Path.Combine(environment.ContentRootPath, DayOffScheduleTemplatePath);
             var bytes = ExportService.ExportLeaveSummaryScheduleReport(schedules, templatePath);
 
-            return File(bytes, "application/xlsx", fileName);
+            return File(bytes, ContentTyleFile, fileName);
         }
 
         public async Task<IActionResult> HeadCountExport(int year)
@@ -224,7 +224,7 @@
             string templatePath = Path.Combine(environment.ContentRootPath, HeadCountReportTemplatePath);
             var bytes = ExportService.ExportHeadCountReport(report, templatePath);
 
-            return File(bytes, "application/xlsx", fileName);
+            return File(bytes, ContentTyleFile, fileName);
         }
     }
 }

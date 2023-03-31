@@ -1,10 +1,5 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Core;
     using Core.Enums;
     using Core.Model;
@@ -20,6 +15,11 @@
     using Models;
     using Newtonsoft.Json;
     using Services.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
     using ViewModels;
     using ViewModels.Employee;
 
@@ -477,7 +477,7 @@
                 userId += ".jpg";
             }
 
-            var paths = new string[] { environment.WebRootPath, "avatars/", userId };
+            var paths = new[] { environment.WebRootPath, "avatars/", userId };
             var avaPath = Path.Combine(paths);
 
             if (System.IO.File.Exists(avaPath))
@@ -495,7 +495,7 @@
             if (file != null)
             {
                 string FileName = code + ".jpg";
-                var paths = new string[] { environment.WebRootPath, "avatars/", FileName };
+                var paths = new[] { environment.WebRootPath, "avatars/", FileName };
                 var fullPath = Path.Combine(paths);
 
                 var stream = new FileStream(fullPath, FileMode.Create);

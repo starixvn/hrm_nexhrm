@@ -9,6 +9,9 @@
 
 namespace Fanex.NexHR.Core
 {
+    using Fanex.NexHR.Resources;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Model;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -17,9 +20,6 @@ namespace Fanex.NexHR.Core
     using System.Reflection;
     using System.Text;
     using System.Text.RegularExpressions;
-    using Fanex.NexHR.Resources;
-    using Microsoft.AspNetCore.Mvc.Rendering;
-    using Model;
 
     public static class Utilities
     {
@@ -74,7 +74,7 @@ namespace Fanex.NexHR.Core
 
                     return sr.ReadToEnd();
                 }
-            }  
+            }
         }
 
         private static Random random = new Random();
@@ -84,50 +84,6 @@ namespace Fanex.NexHR.Core
             return new string(Enumerable.Repeat(chars, length)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
-
-        //public static string RandomString(int length)
-        //{
-        //    // returns random string of length specified with characters including: 0-9, a-z, A-Z
-        //    var ca = new char[length];
-        //    var random = new byte[length];
-
-        //    // RNGCryptoServiceProvider is an implementation of a random number generator.
-        //    using (var rng = new RNGCryptoServiceProvider())
-        //    {
-        //        rng.GetBytes(random); // The array is now filled with cryptographically strong random bytes.
-
-        //        for (var i = 0; i < length; i++)
-        //        {
-        //            var found = false;
-        //            var rand = (int)random[i];
-        //            const int min1 = 48;
-        //            const int min2 = 65;
-        //            const int min3 = 97;
-        //            const int max1 = 57;
-        //            const int max2 = 90;
-        //            const int max3 = 122;
-        //            while (!found)
-        //            {
-        //                if (rand.IsWithin(min1, max1) || rand.IsWithin(min2, max2) || rand.IsWithin(min3, max3))
-        //                {
-        //                    found = true;
-        //                }
-        //                else
-        //                {
-        //                    // get a new random int.
-        //                    var single = new byte[1];
-        //                    rng.GetBytes(single);
-        //                    rand = single[0];
-        //                }
-        //            }
-
-        //            var ci = (char)rand;
-        //            ca[i] = ci;
-        //        }
-
-        //        return new string(ca).ToLower(CultureInfo.InvariantCulture);
-        //    }
-        //}
 
         public static bool IsWithin(this int value, int minimum, int maximum)
         {

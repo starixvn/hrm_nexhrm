@@ -1,12 +1,12 @@
 ﻿namespace Fanex.NexHR.Models
 {
+    using Fanex.NexHR.Core;
+    using Fanex.NexHR.Core.Enums;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Text;
-    using Fanex.NexHR.Core;
-    using Fanex.NexHR.Core.Enums;
 
     public class Employee : EntityBase<int>
     {
@@ -236,8 +236,6 @@
                 return false;
             }
 
-            //var userRoles = System.Web.Security.Roles.GetRolesForUser();
-            //return roles.Any(role => userRoles.Contains(role));
             return true;
         }
 

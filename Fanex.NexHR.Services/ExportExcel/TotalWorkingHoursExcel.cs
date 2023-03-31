@@ -1,11 +1,11 @@
 namespace Fanex.NexHR.Services.ExportExcel
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Drawing;
     using Fanex.NexHR.Models;
     using OfficeOpenXml;
     using OfficeOpenXml.Style;
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
 
     public class TotalWorkingHoursExcel : ExcelBase
     {
@@ -16,10 +16,12 @@ namespace Fanex.NexHR.Services.ExportExcel
         private const byte RowStartHeader = 4;
         private const byte RowStartBody = 6;
         private const byte TotalCols = 16;
+        private const byte FontSizeTitle = 16;
+        private const byte RowDeductHeader = 2;
         private int rowIndex = RowStartBody;
         private int rowNumber = 1;
 
-        public TotalWorkingHoursExcel(string templatePath, IList<TotalWorkingHours> totalWorkingHours, DateTime fromDate, DateTime toDate) 
+        public TotalWorkingHoursExcel(string templatePath, IList<TotalWorkingHours> totalWorkingHours, DateTime fromDate, DateTime toDate)
             : base(templatePath, 0, "TotalWorkingHours")
         {
             this.totalWorkingHours = totalWorkingHours;
@@ -37,13 +39,13 @@ namespace Fanex.NexHR.Services.ExportExcel
             worksheet.Cells[1, 1, 1, TotalCols].Merge = true;
             worksheet.Cells[1, 1].Value = "Total Working Hours: " + fromDate.ToString(formatDate) + " - " + toDate.ToString(formatDate);
             worksheet.Cells[1, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-            worksheet.Cells[1, 1].Style.Font.Size = 16;
+            worksheet.Cells[1, 1].Style.Font.Size = FontSizeTitle;
             worksheet.Cells[1, 1].Style.Font.Bold = true;
         }
 
         protected internal override void RenderHeader(ExcelWorksheet templateWorksheet, ExcelWorksheet worksheet)
         {
-            templateWorksheet.Cells[RowStartHeader - 1, 1, RowStartBody - 2, TotalCols]
+            templateWorksheet.Cells[RowStartHeader - 1, 1, RowStartBody - RowDeductHeader, TotalCols]
                 .Copy(worksheet.Cells[RowStartHeader, 1, RowStartBody - 1, TotalCols]);
         }
 
@@ -91,10 +93,12 @@ namespace Fanex.NexHR.Services.ExportExcel
 
         protected internal virtual void SetStyle(ExcelWorksheet worksheet)
         {
+            const int columnTwo = 2;
+            const int columnThree = 3;
             worksheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-            worksheet.Column(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-            worksheet.Column(3).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-            worksheet.Cells[RowStartHeader, 3].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            worksheet.Column(columnTwo).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            worksheet.Column(columnThree).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+            worksheet.Cells[RowStartHeader, columnThree].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             for (int index = 4; index <= TotalCols; index++)
             {
                 worksheet.Column(index).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;

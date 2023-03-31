@@ -1,11 +1,11 @@
 namespace Fanex.NexHR.Services.ExportExcel
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using Fanex.NexHR.Models.Report;
     using Fanex.NexHR.Resources;
     using OfficeOpenXml;
     using OfficeOpenXml.Style;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class HeadCountReportExcel : ExcelBase
     {
@@ -14,10 +14,14 @@ namespace Fanex.NexHR.Services.ExportExcel
         private const byte RowStartBody = 3;
         private const byte RowSum = 4;
         private const byte TotalCols = 10;
+        private const byte fontSizeTitle = 16;
+        private const byte rowHeader = 2;
+        private const byte CollumnHeaderStartDate = 4;
+        private const byte CollumnHeaderEndDate = 9;
         private int rowIndex = RowStartBody;
         private int rowNumber = 1;
 
-        public HeadCountReportExcel(string templatePath, HeadCountModel headCountModel, int year) 
+        public HeadCountReportExcel(string templatePath, HeadCountModel headCountModel, int year)
             : base(templatePath, 0, "HeadCount" + year)
         {
             this.headCountModel = headCountModel;
@@ -28,7 +32,7 @@ namespace Fanex.NexHR.Services.ExportExcel
             templateWorksheet.Cells[1, 1, RowStartHeader - 1, TotalCols]
                    .Copy(worksheet.Cells[1, 1, RowStartHeader - 1, TotalCols]);
             worksheet.Cells[1, 1].Value = string.Format("{0}{1}", "HEAD COUNT ", headCountModel.StartDate.Year);
-            worksheet.Cells[1, 1].Style.Font.Size = 16;
+            worksheet.Cells[1, 1].Style.Font.Size = fontSizeTitle;
             worksheet.Cells[1, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
         }
 
@@ -36,9 +40,9 @@ namespace Fanex.NexHR.Services.ExportExcel
         {
             templateWorksheet.Cells[RowStartHeader, 1, RowStartHeader, TotalCols]
                 .Copy(worksheet.Cells[RowStartHeader, 1, RowStartHeader, TotalCols]);
-            
-            worksheet.Cells[2, 4].Value = headCountModel.StartDate.ToString("dd MMM yyyy");
-            worksheet.Cells[2, 9].Value = headCountModel.EndDate.ToString("dd MMM yyyy");
+
+            worksheet.Cells[rowHeader, CollumnHeaderStartDate].Value = headCountModel.StartDate.ToString("dd MMM yyyy");
+            worksheet.Cells[rowHeader, CollumnHeaderEndDate].Value = headCountModel.EndDate.ToString("dd MMM yyyy");
         }
 
         protected internal override void RenderBody(ExcelWorksheet templateWorksheet, ExcelWorksheet worksheet)
@@ -70,10 +74,10 @@ namespace Fanex.NexHR.Services.ExportExcel
         private static void RenderSumRow(IEnumerable<HeadCount> headCount, ExcelWorksheet templateWorksheet, ExcelWorksheet worksheet, int rowIndex)
         {
             var startCol = 4;
-
-            templateWorksheet.Cells[RowSum, 1, RowSum , TotalCols]
+            const int columnMerge = 3;
+            templateWorksheet.Cells[RowSum, 1, RowSum, TotalCols]
                 .Copy(worksheet.Cells[rowIndex, 1, rowIndex, TotalCols]);
-            worksheet.Cells[rowIndex, 1, rowIndex, 3].Merge = true;
+            worksheet.Cells[rowIndex, 1, rowIndex, columnMerge].Merge = true;
             worksheet.Cells[rowIndex, 1].Value = Labels.Total;
             worksheet.Cells[rowIndex, startCol++].Value = headCount.Sum(x => x.EmployeeAtJanuary);
             worksheet.Cells[rowIndex, startCol++].Value = headCount.Sum(x => x.MoveTeam);
@@ -92,9 +96,10 @@ namespace Fanex.NexHR.Services.ExportExcel
 
         protected internal virtual void SetStyle(ExcelWorksheet worksheet)
         {
+            const int columnTwo = 2;
             worksheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-            worksheet.Column(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-            worksheet.Cells[RowStartHeader, 2].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            worksheet.Column(columnTwo).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+            worksheet.Cells[RowStartHeader, columnTwo].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             for (int index = 3; index <= TotalCols; index++)
             {
                 worksheet.Column(index).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;

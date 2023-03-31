@@ -1,14 +1,14 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Criteria;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Services.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     [Authorize]
     public class UIController : BaseController
@@ -54,54 +54,7 @@
 
         public PartialViewResult NavBar()
         {
-            //var routeData = ControllerContext.ParentActionViewContext.RouteData;
-            //ViewBag.Controller = routeData.Values["controller"];
-            //ViewBag.Action = routeData.Values["action"];
-            //ViewBag.NavigationItems = GetNagivationData();
-
             return PartialView();
         }
-
-        //[NonAction]
-        //public IList<NavigationViewModel> GetNagivationData()
-        //{
-        //    var roles = Roles.GetRolesForUser();
-        //    var navigationItemList = new List<NavigationViewModel>();
-
-        //    SiteMapNode root = SiteMap.RootNode;
-
-        //    foreach (SiteMapNode sectionNode in root.ChildNodes)
-        //    {
-        //        if (!Employee.IsInRoles(sectionNode.Roles.Cast<string>().ToList()))
-        //        {
-        //            continue;
-        //        }
-
-        //        NavigationViewModel sectionItem = CreateSectionItemFromSectionNodeWithRoles(roles, sectionNode);
-
-        //        navigationItemList.Add(sectionItem);
-        //    }
-
-        //    return navigationItemList;
-        //}
-
-        //private static NavigationViewModel CreateSectionItemFromSectionNodeWithRoles(string[] roles, SiteMapNode sectionNode)
-        //{
-        //    var sectionItem = new NavigationViewModel(sectionNode)
-        //    {
-        //        Childs = new List<NavigationViewModel>()
-        //    };
-
-        //    foreach (SiteMapNode navNode in sectionNode.ChildNodes)
-        //    {
-        //        var navItem = new NavigationViewModel(navNode);
-        //        if (roles.Any(navNode.Roles.Contains))
-        //        {
-        //            sectionItem.Childs.Add(navItem);
-        //        }
-        //    }
-
-        //    return sectionItem;
-        //}
     }
 }

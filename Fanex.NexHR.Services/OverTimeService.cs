@@ -1,9 +1,5 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Core;
     using Criteria.Employee;
     using Criteria.Overtime;
@@ -13,6 +9,10 @@
     using Models;
     using Models.Overtime;
     using Repositories.Interfaces;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
     using ViewModels.Overtime;
 
     public class OvertimeService : IOvertimeService
@@ -223,8 +223,8 @@
                                                                     t.Employee.FullName,
                                                                     t.Date.ToString(FormatDate),
                                                                     t.Hour)));
-            SendMailForCreatedRequest(subject, createdBy, manager.NickName, bodyTemplate, emloyees, overtime.Description);
-            SendMailForHR(subject, createdBy, manager.NickName, bodyTemplate, emloyees, overtime.Description);
+            _ = SendMailForCreatedRequest(subject, createdBy, manager.NickName, bodyTemplate, emloyees, overtime.Description);
+            _ = SendMailForHR(subject, createdBy, manager.NickName, bodyTemplate, emloyees, overtime.Description);
         }
 
         private async Task SendMailForCreatedRequest(string subject, int createdBy, string managerNickName, string bodyTemplate, string employees, string project)

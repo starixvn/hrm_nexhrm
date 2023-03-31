@@ -1,9 +1,9 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System.IO;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
+    using System.IO;
 
     public class AvatarController : Controller
     {
@@ -20,7 +20,7 @@
         {
             var fileName = string.IsNullOrWhiteSpace(id) ? "avatar.jpg" : (id);
 
-            var paths = new string[] { environment.WebRootPath, "avatars", fileName };
+            var paths = new[] { environment.WebRootPath, "avatars", fileName };
             var avaPath = Path.Combine(paths);
 
             if (System.IO.File.Exists(avaPath))

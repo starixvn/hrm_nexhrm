@@ -1,14 +1,5 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-    using System.Net;
-    using System.Net.Http;
-    using System.Net.Http.Headers;
-    using System.Text;
-    using System.Threading.Tasks;
     using Core;
     using Core.Enums;
     using Criteria.Employee;
@@ -19,6 +10,15 @@
     using Models.RedmineAPI;
     using Newtonsoft.Json;
     using Resources;
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
+    using System.Text;
+    using System.Threading.Tasks;
 
     public class RedmineService : IRedmineService
     {
@@ -191,10 +191,6 @@
 
         public async Task<IList<TimeEntry>> GetTimeEntries(int currentUserId, DateTime fromDate, DateTime toDate)
         {
-            string url = string.Format("time_entries.json?user_id={0}&spent_on=><{1}|{2}&offset=0&limit=100",
-                currentUserId,
-                fromDate.ToString(apiDateTimeFormat),
-                toDate.ToString(apiDateTimeFormat));
             var listEntries = new List<TimeEntry>();
 
             await GetTimeEntriesRecursiveAsync(listEntries, currentUserId, 0, fromDate, toDate);

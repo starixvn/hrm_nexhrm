@@ -19,7 +19,7 @@
         private const int ThreeThousandSixTy = 3060;
         private const int TenThousand = 10000;
         private const int FourTeenThousandSevenHundredEightTy = 14780;
-        private const int NumDayLunarInYear = 3652425;
+        private const long NumDayLunarInYear = 3652425;
 
         public readonly static int[] lunar_month_days =
         {
@@ -114,14 +114,7 @@
             int loopend = leap;
             if (!lunar.Isleap)
             {
-                if (lunar.LunarMonth <= leap || leap == 0)
-                {
-                    loopend = lunar.LunarMonth - 1;
-                }
-                else
-                {
-                    loopend = lunar.LunarMonth;
-                }
+                loopend = (lunar.LunarMonth <= leap || leap == 0) ? lunar.LunarMonth - 1 : lunar.LunarMonth;
             }
             for (int i = 0; i < loopend; i++)
             {

@@ -1,10 +1,10 @@
 namespace Fanex.NexHR.Services.ExportExcel
 {
-    using System.Collections.Generic;
-    using System.Drawing;
     using Fanex.NexHR.Models.Calendar;
     using OfficeOpenXml;
     using OfficeOpenXml.Style;
+    using System.Collections.Generic;
+    using System.Drawing;
 
     public class LeaveScheduleExcel : ExcelBase
     {
@@ -16,7 +16,7 @@ namespace Fanex.NexHR.Services.ExportExcel
         private int rowIndex = RowStartBody;
         private int rowNumber = 1;
 
-        public LeaveScheduleExcel(string templatePath, LeaveDaySummarySchedule schedules) 
+        public LeaveScheduleExcel(string templatePath, LeaveDaySummarySchedule schedules)
             : base(templatePath, 0, "DayOffSchedule")
         {
             this.schedules = schedules;
@@ -65,7 +65,7 @@ namespace Fanex.NexHR.Services.ExportExcel
         {
             var startCol = 5;
 
-            templateWorksheet.Cells[RowSum, 1, RowSum , TotalCols]
+            templateWorksheet.Cells[RowSum, 1, RowSum, TotalCols]
                 .Copy(worksheet.Cells[rowIndex, 1, rowIndex, TotalCols]);
 
             foreach (var totalLeave in totalLeaves)
@@ -110,9 +110,10 @@ namespace Fanex.NexHR.Services.ExportExcel
 
         protected internal virtual void SetStyle(ExcelWorksheet worksheet)
         {
+            const int columnTwo = 2;
             worksheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-            worksheet.Column(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-            worksheet.Cells[RowStartHeader, 2].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            worksheet.Column(columnTwo).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+            worksheet.Cells[RowStartHeader, columnTwo].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             for (int index = 3; index <= TotalCols; index++)
             {
                 worksheet.Column(index).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;

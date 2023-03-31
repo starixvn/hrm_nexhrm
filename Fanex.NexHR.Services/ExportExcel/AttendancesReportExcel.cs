@@ -1,10 +1,10 @@
 ﻿namespace Fanex.NexHR.Services.ExportExcel
 {
-    using System.Collections.Generic;
-    using System.Drawing;
     using Fanex.NexHR.Models.Report;
     using OfficeOpenXml;
     using OfficeOpenXml.Style;
+    using System.Collections.Generic;
+    using System.Drawing;
 
     public class AttendancesReportExcel : ExcelBase
     {
@@ -12,10 +12,11 @@
         private const byte RowStartHeader = 3;
         private const byte RowStartBody = 4;
         private const byte TotalCols = 14;
+        private const byte Five = 5;
         private int rowIndex = RowStartBody;
         private int stt = 1;
 
-        public AttendancesReportExcel(string templatePath, IList<EmployeeAttendanceModel> EmployeeAttendanceModel) 
+        public AttendancesReportExcel(string templatePath, IList<EmployeeAttendanceModel> EmployeeAttendanceModel)
             : base(templatePath, 0, "EmployeeAttendance")
         {
             employeeAttendanceModel = EmployeeAttendanceModel;
@@ -45,8 +46,8 @@
             worksheet.Cells[rowIndex, colIndex++].Value = report.OutFixed?.ToString("hh:mm");
             var totalWorkHour = ((int)report.TotalWorkHours);
             var totalWorkMinute = (report.TotalWorkHours - totalWorkHour) * 100;
-            worksheet.Cells[rowIndex, colIndex++].Value = report.TotalWorkHours == 0 ? "" 
-                : ($"{string.Format("{0:00}", totalWorkHour)}h:{string.Format("{0:00}", totalWorkMinute)}'");  
+            worksheet.Cells[rowIndex, colIndex++].Value = report.TotalWorkHours == 0 ? ""
+                : ($"{string.Format("{0:00}", totalWorkHour)}h:{string.Format("{0:00}", totalWorkMinute)}'");
             worksheet.Cells[rowIndex, colIndex++].Value = report.LateIn == 0 ? "" : ($"00:{report.LateIn}");
             worksheet.Cells[rowIndex, colIndex++].Value = report.EarlyOut == 0 ? "" : ($"00:{report.EarlyOut}");
             worksheet.Cells[rowIndex, colIndex++].Value = report.IsWorkFromHome ? "Yes" : "No";
@@ -82,8 +83,8 @@
             {
                 worksheet.Column(index).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             }
-            worksheet.Column(5).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-            worksheet.Cells[RowStartHeader, 5].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            worksheet.Column(Five).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+            worksheet.Cells[RowStartHeader, Five].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
             for (var index = 0; index < employeeAttendanceModel.Count; index++)
             {

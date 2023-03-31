@@ -1,10 +1,10 @@
 namespace Fanex.NexHR.Services.ExportExcel
 {
-    using System.Collections.Generic;
-    using System.Drawing;
     using Fanex.NexHR.Models;
     using OfficeOpenXml;
     using OfficeOpenXml.Style;
+    using System.Collections.Generic;
+    using System.Drawing;
 
     public class EmployeeProfileExcel : ExcelBase
     {
@@ -13,6 +13,7 @@ namespace Fanex.NexHR.Services.ExportExcel
         private const byte RowStartBody = 4;
         private const byte TotalCols = 29;
         private int rowIndex = RowStartBody;
+        private const string fomatDate = "dd/MM/yyyy";
         private int rowNumber = 1;
 
         public EmployeeProfileExcel(string templatePath, IList<Employee> employee)
@@ -50,23 +51,23 @@ namespace Fanex.NexHR.Services.ExportExcel
             worksheet.Cells[rowIndex, colIndex++].Value = employee.Code;
             worksheet.Cells[rowIndex, colIndex++].Value = employee.FullName;
             worksheet.Cells[rowIndex, colIndex++].Value = employee.NickName;
-            worksheet.Cells[rowIndex, colIndex++].Value = employee.DateOfBirth.ToString("dd/MM/yyyy");
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.DateOfBirth.ToString(fomatDate);
             worksheet.Cells[rowIndex, colIndex++].Value = employee.PlaceOfBirth;
             worksheet.Cells[rowIndex, colIndex++].Value = employee.Email;
             worksheet.Cells[rowIndex, colIndex++].Value = JobTitle(employee);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.Team.Name);
-            worksheet.Cells[rowIndex, colIndex++].Value = employee.JoinedDate?.ToString("dd/MM/yyyy");
-            worksheet.Cells[rowIndex, colIndex++].Value = employee.ConfirmedDate?.ToString("dd/MM/yyyy");
-            worksheet.Cells[rowIndex, colIndex++].Value = employee.ResignedDate?.ToString("dd/MM/yyyy");
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.JoinedDate?.ToString(fomatDate);
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.ConfirmedDate?.ToString(fomatDate);
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.ResignedDate?.ToString(fomatDate);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.Phone);
             worksheet.Cells[rowIndex, colIndex++].Value = Gender(employee);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.CardNo);
-            worksheet.Cells[rowIndex, colIndex++].Value = employee.IssuedDate?.ToString("dd/MM/yyyy");
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.IssuedDate?.ToString(fomatDate);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.IssuedPlace);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.CurrentAddress);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.PermanentAddress);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.PassportNo);
-            worksheet.Cells[rowIndex, colIndex++].Value = employee.PassportExp?.ToString("dd/MM/yyyy");
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.PassportExp?.ToString(fomatDate);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatToeicScore(employee.ToeicScore?.Listening);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatToeicScore(employee.ToeicScore?.Reading);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatToeicScore(employee.ToeicScore?.Speaking);
