@@ -184,9 +184,9 @@
                                                 new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(NumMonthOfScheduleVegetarianMessages).AddDays(-1), holidays);
             foreach (var item in scheduledVegetarianList)
             {
-                var dateContent = new DateTime(item.Solar.solarYear, item.Solar.solarMonth, item.Solar.solarDay);
+                var dateContent = new DateTime(item.Solar.SolarYear, item.Solar.SolarMonth, item.Solar.SolarDay);
                 string content = String.Format(Labels.VegetarianMessages, ((int)dateContent.DayOfWeek + 1),
-                                        dateContent.ToString("dd/MM/yyyy"), item.Lunar.lunarDay == 1 ? FirstLunar : item.Lunar.lunarDay);
+                                        dateContent.ToString("dd/MM/yyyy"), item.Lunar.LunarDay == 1 ? FirstLunar : item.Lunar.LunarDay);
                 if (!scheduledVegetarianMessages.Any(x => x.Content == content))
                 {
                     var criteria = new CreateScheduledMessageCriteria
@@ -206,7 +206,7 @@
 
         private static DateTime GetSendDate(SolarLunarViewModel solarLunarViewModel, IEnumerable<Holiday> holidays)
         {
-            var dateSend = new DateTime(solarLunarViewModel.Solar.solarYear, solarLunarViewModel.Solar.solarMonth, solarLunarViewModel.Solar.solarDay);
+            var dateSend = new DateTime(solarLunarViewModel.Solar.SolarYear, solarLunarViewModel.Solar.SolarMonth, solarLunarViewModel.Solar.SolarDay);
             do
             {
                 dateSend = dateSend.AddDays(-1);
@@ -224,9 +224,9 @@
             {
                 Lunar lunar = LunarSolarConverter.SolarToLunar(new Solar
                 {
-                    solarDay = currentDate.Day,
-                    solarMonth = currentDate.Month,
-                    solarYear = currentDate.Year
+                    SolarDay = currentDate.Day,
+                    SolarMonth = currentDate.Month,
+                    SolarYear = currentDate.Year
                 });
                 var dateCheck = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day);
                 if (!IsDayOff(dateCheck) && !IsHoliday(holidays, dateCheck) && IsFirstAndFifteenLuner(lunar))
@@ -235,9 +235,9 @@
                     {
                         Solar = new Solar
                         {
-                            solarDay = currentDate.Day,
-                            solarMonth = currentDate.Month,
-                            solarYear = currentDate.Year
+                            SolarDay = currentDate.Day,
+                            SolarMonth = currentDate.Month,
+                            SolarYear = currentDate.Year
                         },
                         Lunar = lunar,
                     });
@@ -250,6 +250,6 @@
 
         private static bool IsDayOff(DateTime dateTime) => (int)dateTime.DayOfWeek == (int)DayOfWeek.Saturday || (int)dateTime.DayOfWeek == (int)DayOfWeek.Sunday;
         private static bool IsHoliday(IEnumerable<Holiday> holidays, DateTime dateTime) => holidays.Any(x => dateTime >= x.FromDate && dateTime <= x.ToDate);
-        private static bool IsFirstAndFifteenLuner(Lunar lunar) => lunar.lunarDay == 1 || lunar.lunarDay == FifteenLunar;
+        private static bool IsFirstAndFifteenLuner(Lunar lunar) => lunar.LunarDay == 1 || lunar.LunarDay == FifteenLunar;
     }
 }

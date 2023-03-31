@@ -1,22 +1,26 @@
 ﻿namespace Fanex.NexHR.Models
 {
-    public class Lunar
-    {
-        public bool isleap;
-        public int lunarDay;
-        public int lunarMonth;
-        public int lunarYear;
-    }
-
-    public class Solar
-    {
-        public int solarDay;
-        public int solarMonth;
-        public int solarYear;
-    }
-
     public static class LunarSolarConverter
     {
+        private const int Two = 2;
+        private const int Four = 4;
+        private const int Five = 5;
+        private const int Nine = 9;
+        private const int Ten = 10;
+        private const int Twelve = 12;
+        private const int Thirteen = 13;
+        private const int TwentyNine = 29;
+        private const int Thirty = 30;
+        private const int FiftyTwo = 52;
+        private const int OneHundred = 100;
+        private const int ThreeHundredSix = 306;
+        private const int NumDayInYear = 365;
+        private const int FourHundred = 400;
+        private const int ThreeThousandSixTy = 3060;
+        private const int TenThousand = 10000;
+        private const int FourTeenThousandSevenHundredEightTy = 14780;
+        private const int NumDayLunarInYear = 3652425;
+
         public readonly static int[] lunar_month_days =
         {
             1887, 0x1694, 0x16aa, 0x4ad5, 0xab6, 0xc4b7, 0x4ae, 0xa56, 0xb52a,
@@ -70,66 +74,66 @@
         //WARNING: Dates before Oct. 1582 are inaccurate 
         public static long SolarToInt(int y, int m, int d)
         {
-            m = (m + 9) % 12;
-            y -= m / 10;
-            return 365 * y + y / 4 - y / 100 + y / 400 + (m * 306 + 5) / 10 + (d - 1);
+            m = (m + Nine) % Twelve;
+            y -= m / Ten;
+            return NumDayInYear * y + y / Four - y / OneHundred + y / FourHundred + (m * ThreeHundredSix + Five) / Ten + (d - 1);
         }
 
         public static Solar SolarFromInt(long g)
         {
-            long y = (10000 * g + 14780) / 3652425;
-            long ddd = g - (365 * y + y / 4 - y / 100 + y / 400);
+            long y = (TenThousand * g + FourTeenThousandSevenHundredEightTy) / NumDayLunarInYear;
+            long ddd = g - (NumDayInYear * y + y / Four - y / OneHundred + y / FourHundred);
             if (ddd < 0)
             {
                 y--;
-                ddd = g - (365 * y + y / 4 - y / 100 + y / 400);
+                ddd = g - (NumDayInYear * y + y / Four - y / OneHundred + y / FourHundred);
             }
-            long mi = (100 * ddd + 52) / 3060;
-            long mm = (mi + 2) % 12 + 1;
-            y = y + (mi + 2) / 12;
-            long dd = ddd - (mi * 306 + 5) / 10 + 1;
+            long mi = (OneHundred * ddd + FiftyTwo) / ThreeThousandSixTy;
+            long mm = (mi + Two) % Twelve + 1;
+            y += (mi + Two) / Twelve;
+            long dd = ddd - (mi * ThreeHundredSix + Five) / Ten + 1;
             var solar = new Solar
             {
-                solarYear = (int)y,
-                solarMonth = (int)mm,
-                solarDay = (int)dd
+                SolarYear = (int)y,
+                SolarMonth = (int)mm,
+                SolarDay = (int)dd
             };
             return solar;
         }
 
         public static bool IsLeapYear(int y)
         {
-            return ((y % 4 == 0 && y % 100 != 0) || (y % 400 == 0));
+            return ((y % Four == 0 && y % OneHundred != 0) || (y % FourHundred == 0));
         }
 
         public static Solar LunarToSolar(Lunar lunar)
         {
-            int days = lunar_month_days[lunar.lunarYear - lunar_month_days[0]];
-            int leap = GetBitInt(days, 4, 13);
+            int days = lunar_month_days[lunar.LunarYear - lunar_month_days[0]];
+            int leap = GetBitInt(days, Four, Thirteen);
             int offset = 0;
             int loopend = leap;
-            if (!lunar.isleap)
+            if (!lunar.Isleap)
             {
-                if (lunar.lunarMonth <= leap || leap == 0)
+                if (lunar.LunarMonth <= leap || leap == 0)
                 {
-                    loopend = lunar.lunarMonth - 1;
+                    loopend = lunar.LunarMonth - 1;
                 }
                 else
                 {
-                    loopend = lunar.lunarMonth;
+                    loopend = lunar.LunarMonth;
                 }
             }
             for (int i = 0; i < loopend; i++)
             {
-                offset += GetBitInt(days, 1, 12 - i) == 1 ? 30 : 29;
+                offset += GetBitInt(days, 1, Twelve - i) == 1 ? Thirty : TwentyNine;
             }
-            offset += lunar.lunarDay;
+            offset += lunar.LunarDay;
 
-            int solar11 = solar_1_1[lunar.lunarYear - solar_1_1[0]];
+            int solar11 = solar_1_1[lunar.LunarYear - solar_1_1[0]];
 
-            int y = GetBitInt(solar11, 12, 9);
-            int m = GetBitInt(solar11, 4, 5);
-            int d = GetBitInt(solar11, 5, 0);
+            int y = GetBitInt(solar11, Twelve, Nine);
+            int m = GetBitInt(solar11, Four, Five);
+            int d = GetBitInt(solar11, Five, 0);
 
             return SolarFromInt(SolarToInt(y, m, d) + offset - 1);
         }
@@ -137,30 +141,28 @@
         public static Lunar SolarToLunar(Solar solar)
         {
             var lunar = new Lunar();
-            int index = solar.solarYear - solar_1_1[0];
-            int data = (solar.solarYear << 9) | (solar.solarMonth << 5) | (solar.solarDay);
-            int solar11 = 0;
+            int index = solar.SolarYear - solar_1_1[0];
+            int data = (solar.SolarYear << Nine) | (solar.SolarMonth << Five) | (solar.SolarDay);
             if (solar_1_1[index] > data)
             {
                 index--;
             }
-            solar11 = solar_1_1[index];
-            int y = GetBitInt(solar11, 12, 9);
-            int m = GetBitInt(solar11, 4, 5);
-            int d = GetBitInt(solar11, 5, 0);
-            long offset = SolarToInt(solar.solarYear, solar.solarMonth, solar.solarDay) - SolarToInt(y, m, d);
+            int solar11 = solar_1_1[index];
+            int y = GetBitInt(solar11, Twelve, Nine);
+            int m = GetBitInt(solar11, Four, Five);
+            int d = GetBitInt(solar11, Five, 0);
+            long offset = SolarToInt(solar.SolarYear, solar.SolarMonth, solar.SolarDay) - SolarToInt(y, m, d);
 
             int days = lunar_month_days[index];
-            int leap = GetBitInt(days, 4, 13);
+            int leap = GetBitInt(days, Four, Thirteen);
 
             int lunarY = index + solar_1_1[0];
             int lunarM = 1;
-            int lunarD = 1;
             offset += 1;
 
-            for (int i = 0; i < 13; i++)
+            for (int i = 0; i < Thirteen; i++)
             {
-                int dm = GetBitInt(days, 1, 12 - i) == 1 ? 30 : 29;
+                int dm = GetBitInt(days, 1, Twelve - i) == 1 ? Thirty : TwentyNine;
                 if (offset > dm)
                 {
                     lunarM++;
@@ -171,20 +173,20 @@
                     break;
                 }
             }
-            lunarD = (int)(offset);
-            lunar.lunarYear = lunarY;
-            lunar.lunarMonth = lunarM;
-            lunar.isleap = false;
+            int lunarD = (int)offset;
+            lunar.LunarYear = lunarY;
+            lunar.LunarMonth = lunarM;
+            lunar.Isleap = false;
             if (leap != 0 && lunarM > leap)
             {
-                lunar.lunarMonth = lunarM - 1;
+                lunar.LunarMonth = lunarM - 1;
                 if (lunarM == leap + 1)
                 {
-                    lunar.isleap = true;
+                    lunar.Isleap = true;
                 }
             }
 
-            lunar.lunarDay = lunarD;
+            lunar.LunarDay = lunarD;
             return lunar;
         }
     }

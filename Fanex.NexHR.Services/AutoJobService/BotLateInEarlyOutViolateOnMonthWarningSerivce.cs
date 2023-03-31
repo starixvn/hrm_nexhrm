@@ -1,12 +1,5 @@
 ﻿namespace Fanex.NexHR.Services.AutoJobService
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Fanex.MailDeliver.MailClient;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.AnnualLeave;
@@ -15,20 +8,26 @@
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Core;
     using Fanex.NexHR.Models.LateInEarlyOut;
-    using Fanex.NexHR.Repositories;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Resources;
     using Interfaces;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Routing.Template;
     using Newtonsoft.Json;
-    using static Org.BouncyCastle.Bcpg.Attr.ImageAttrib;
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
 
     public class BotLateInEarlyOutViolateOnMonthWarningSerivce : IBotLateInLateOutAutoJobService
     {
         private const int ViolatedTime = 4;
         private const string FormatShortDate = "MMM, yyyy";
         private const string FormatLongDate = "dd MMM, yyyy";
+        private const string EmailTemplatePath = "EmailTemplates/AutoJobDeduct.Request.txt";
+        private const int IdEmpDeductLateInEarlyOut = 279;
         private readonly EmailSettings emailSettings;
         private readonly string BaseUrl;
         private readonly IMessageCategoryLogService messageCategoryLog;
@@ -140,10 +139,9 @@
         public async Task<CommandResult> DeductAsync()
         {
             var result = new CommandResult { Code = 0 };
-            var CreatedByID = 279;
             var criteria = new GetLateInEarlyOutDeductionCriteria { Year = DateTime.Now.Year };
             var deductedEmployees = await lateInEarlyOutService.GetLateInEarlyOutDeduction(criteria).ConfigureAwait(false);
-            
+
             foreach (var item in deductedEmployees)
             {
                 var insertLeaveDeductionCriteria = new InsertLeaveDeductionCriteria
@@ -153,7 +151,7 @@
                     DeductDate = DateTime.Now,
                     IsAnnual = true,
                     TotalDays = Convert.ToDecimal(0.5),
-                    CreatedBy = CreatedByID
+                    CreatedBy = IdEmpDeductLateInEarlyOut
                 };
                 result = await baseService.ExecuteNonQueryAsync(insertLeaveDeductionCriteria);
                 _ = await SendMessageDeduct(item);
@@ -169,7 +167,8 @@
             if (conversations.Any())
             {
                 string message = string.Format(Messages.MessageAutoDeduct, item.NickName);
-                result = await SendMessageDeductToConversation(conversations.Where(x => x.ConversationName.ToLower().Equals(item.NickName.ToLower()))
+                result = await SendMessageDeductToConversation(conversations.Where(x =>
+                    x.ConversationName.ToLower(CultureInfo.InvariantCulture).Equals(item.NickName.ToLower(CultureInfo.InvariantCulture)))
                     .Select(m => m.SkypeConversationId), message).ConfigureAwait(false);
             }
             return result;
@@ -177,7 +176,6 @@
 
         private void SendMailDeductToEmp(LateInEarlyOutModel item)
         {
-            var EmailTemplatePath = "EmailTemplates/AutoJobDeduct.Request.txt";
             string templatePath = Path.Combine(environment.ContentRootPath, EmailTemplatePath);
             string body = string.Format(
                    Utilities.ReadTextFile(templatePath),
