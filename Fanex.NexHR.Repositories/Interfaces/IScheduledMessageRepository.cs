@@ -1,10 +1,10 @@
 ﻿namespace Fanex.NexHR.Repositories.Interfaces
 {
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
     using Fanex.NexHR.Criteria.ScheduledMessage;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.ScheduledMessage;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public interface IScheduledMessageRepository
     {
@@ -31,5 +31,6 @@
         Task<Conversation> GetConversationByIdAsync(GetConversationsByIdCriteria criteria);
 
         Task<CommandResult> EditConversationAsync(EditConversationCriteria criteria);
+        Task<IEnumerable<ScheduledMessage>> GetScheduledVegetarianMessagesAsync(GetScheduledVegetarianMessageCriteria criteria);
     }
 }

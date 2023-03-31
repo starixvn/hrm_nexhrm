@@ -1,13 +1,13 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Fanex.Data;
     using Fanex.NexHR.Criteria.ScheduledMessage;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.ScheduledMessage;
     using Fanex.NexHR.Repositories.Interfaces;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     public class ScheduledMessageRepository : BaseRepository, IScheduledMessageRepository
     {
@@ -106,6 +106,14 @@
         public async Task<CommandResult> EditConversationAsync(EditConversationCriteria criteria)
         {
             return await ExecuteNonQueryAsync(criteria);
+        }
+
+        public async Task<IEnumerable<ScheduledMessage>> GetScheduledVegetarianMessagesAsync(GetScheduledVegetarianMessageCriteria criteria)
+        {
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
+            {
+                return await db.QueryAsync<ScheduledMessage>(criteria);
+            }
         }
     }
 }
