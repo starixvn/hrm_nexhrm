@@ -19,7 +19,7 @@
         private const int ThreeThousandSixTy = 3060;
         private const int TenThousand = 10000;
         private const int FourTeenThousandSevenHundredEightTy = 14780;
-        private const long NumDayLunarInYear = 3652425;
+        private const long NumDayLunarInYear = 3_652_425;
 
         public readonly static int[] lunar_month_days =
         {
@@ -166,6 +166,7 @@
                     break;
                 }
             }
+
             int lunarD = (int)offset;
             lunar.LunarYear = lunarY;
             lunar.LunarMonth = lunarM;

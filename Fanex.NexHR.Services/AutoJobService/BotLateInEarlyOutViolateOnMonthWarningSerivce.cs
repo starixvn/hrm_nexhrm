@@ -31,6 +31,7 @@
         private readonly EmailSettings emailSettings;
         private readonly string BaseUrl;
         private readonly IMessageCategoryLogService messageCategoryLog;
+        private readonly ILogServiceProvider logService;
         private readonly INexbotService nexbotService;
         private readonly ILateInEarlyOutService lateInEarlyOutService;
         private readonly IScheduledMessageRepository scheduledMessageRepository;
@@ -47,6 +48,7 @@
             IBaseService baseService,
             IEmailService emailService,
             EmailSettings emailSettings,
+            ILogServiceProvider logService,
             IWebHostEnvironment environment,
             AppSetting appSetting
         )
@@ -59,6 +61,7 @@
             this.emailService = emailService;
             this.appSetting = appSetting;
             this.environment = environment;
+            this.logService = logService;
             this.emailSettings = emailSettings;
             BaseUrl = appSetting.BaseUrl;
         }
@@ -154,8 +157,19 @@
                     CreatedBy = IdEmpDeductLateInEarlyOut
                 };
                 result = await baseService.ExecuteNonQueryAsync(insertLeaveDeductionCriteria);
-                _ = await SendMessageDeduct(item);
-                SendMailDeductToEmp(item);
+
+                if (result.IsSuccessful)
+                {
+                    try
+                    {
+                        _ = await SendMessageDeduct(item);
+                        SendMailDeductToEmp(item);
+                    }
+                    catch (Exception ex)
+                    {
+                        logService.LogException(ex);
+                    }
+                }
             }
             return result;
         }

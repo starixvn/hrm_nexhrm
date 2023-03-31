@@ -1,12 +1,5 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Core;
     using Core.Enums;
     using Criteria.Employee;
@@ -19,6 +12,13 @@
     using Models.Request;
     using Repositories.Interfaces;
     using Resources;
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
     using ViewModels;
     using ViewModels.CheckInOutRequest;
 
@@ -38,7 +38,6 @@
         public RequestService(
             IRequestRepository requestRepository,
             IEmailService emailService,
-
             INexbotService nexbotService,
             IWebHostEnvironment environment,
             AppSetting appSetting,

@@ -77,6 +77,11 @@ namespace Fanex.NexHR.Services.ExportExcel
             worksheet.Cells[rowIndex, colIndex++].Value = employee.ContactPhone;
             worksheet.Cells[rowIndex, colIndex].Value = employee.ContactAddress;
 
+            SetBackground(rowIndex, worksheet, colIndex);
+        }
+
+        private void SetBackground(int rowIndex, ExcelWorksheet worksheet, int colIndex)
+        {
             if ((rowIndex & 1) == 0)
             {
                 SetBackgroundColor(worksheet.Cells[rowIndex, 1, rowIndex, colIndex], ColorTranslator.FromHtml("#C6C8FF"));
