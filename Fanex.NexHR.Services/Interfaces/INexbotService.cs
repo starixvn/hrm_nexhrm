@@ -29,5 +29,7 @@
 
         Task SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request, IList<Employee> leaders);
         Task<CommandResult> SendMessageDeductLateInEarlyOutToEmp(LateInEarlyOutModel lateInEarlyOutModel);
+        Task<CommandResult> SendMessageDeductLateInEarlyOutToHrTeam(IEnumerable<LateInEarlyOutModel> lateInEarlyOutModels);
+        Task<CommandResult> SendMessageDeductToConversation(IEnumerable<string> conversations, string message);
     }
 }

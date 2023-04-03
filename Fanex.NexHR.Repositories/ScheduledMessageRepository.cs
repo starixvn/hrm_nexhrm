@@ -115,5 +115,13 @@
                 return await db.QueryAsync<ScheduledMessage>(criteria);
             }
         }
+
+        public async Task<IEnumerable<Conversation>> GetTeamHrConversationsAsync(GetTeamHrConversationCriteria criteria)
+        {
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
+            {
+                return await db.QueryAsync<Conversation>(criteria);
+            }
+        }
     }
 }

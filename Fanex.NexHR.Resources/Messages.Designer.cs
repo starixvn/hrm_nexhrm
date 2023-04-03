@@ -593,12 +593,23 @@ namespace Fanex.NexHR.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to Hi {0},
-        ///Please be informed that your total late in/eraly out is up to 4 hours. Your Annual Leave will be deducted a half day. 
+        ///Please be informed that your total late in/early out is up to 4 hours. Your Annual Leave will be deducted a half day. 
         ///Thank you..
         /// </summary>
         public static string MessageAutoDeduct {
             get {
                 return ResourceManager.GetString("MessageAutoDeduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hi {0},
+        ///Please be informed that total hour late in/early out of {1} was deducted.
+        ///Thank you..
+        /// </summary>
+        public static string MessageHRAutoDeduct {
+            get {
+                return ResourceManager.GetString("MessageHRAutoDeduct", resourceCulture);
             }
         }
         

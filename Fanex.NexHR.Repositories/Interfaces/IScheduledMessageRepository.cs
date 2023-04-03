@@ -32,5 +32,6 @@
 
         Task<CommandResult> EditConversationAsync(EditConversationCriteria criteria);
         Task<IEnumerable<ScheduledMessage>> GetScheduledVegetarianMessagesAsync(GetScheduledVegetarianMessageCriteria criteria);
+        Task<IEnumerable<Conversation>> GetTeamHrConversationsAsync(GetTeamHrConversationCriteria criteria);
     }
 }

@@ -416,6 +416,7 @@
         <Setting Key="Conversation_GetByCreator" SpName="Conversation_GetByCreator" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Conversation_GetById" SpName="Conversation_GetById" DbName="nexhr" Plain="0"></Setting>
 		<Setting Key="Conversation_Update" SpName="Conversation_Update" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Conversation_GetTeamHr" SpName="Conversation_GetTeamHr" DbName="nexhr" Plain="0"></Setting>
 		<Setting Key="ScheduledVegetarianMessage_Get" SpName="ScheduledVegetarianMessage_Get" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="TimeSheet">

@@ -248,6 +248,17 @@
             }
         }
 
+        public async Task<CommandResult> SendMessageDeductToConversation(IEnumerable<string> conversations, string message)
+        {
+            var result = false;
+            foreach (var conversation in conversations)
+            {
+                result = await SendMessageAsync(conversation, message).ConfigureAwait(false);
+            }
+
+            return new CommandResult { Code = result ? 0 : 1 };
+        }
+
         private string GenerateProcessRequestMessage(RequestEntity request, string command)
         {
             var action = command == Command.Reject.EnumToString() ? $"{command.ToLowerInvariant()}ed" : $"{command.ToLowerInvariant()}d";
@@ -280,14 +291,41 @@
 
         public async Task<CommandResult> SendMessageDeductLateInEarlyOutToEmp(LateInEarlyOutModel lateInEarlyOutModel)
         {
-            var conversations = await scheduledMessageRepository.GetConversationsAsync(new GetConversationsCriteria { EmployeeId = lateInEarlyOutModel.EmpId }).ConfigureAwait(false);
-            var result = false;
-            if (conversations.Any())
+            var result = new CommandResult();
+            try
             {
-                string message = string.Format(Messages.MessageAutoDeduct, lateInEarlyOutModel.NickName);
-                result = await SendMessageAsync(conversations.Where(x =>
-                    x.ConversationName.ToLower(CultureInfo.InvariantCulture).Equals(lateInEarlyOutModel.NickName.ToLower(CultureInfo.InvariantCulture)))
-                    .Select(m => m.SkypeConversationId).First(), message);
+                var conversations = await scheduledMessageRepository.GetConversationsAsync(new GetConversationsCriteria { EmployeeId = lateInEarlyOutModel.EmpId }).ConfigureAwait(false);
+                if (conversations.Any())
+                {
+                    string message = string.Format(Messages.MessageAutoDeduct, lateInEarlyOutModel.NickName);
+                    result = await SendMessageDeductToConversation(conversations.Where(x =>
+                        x.ConversationName.ToLower(CultureInfo.InvariantCulture).Equals(lateInEarlyOutModel.NickName.ToLower(CultureInfo.InvariantCulture)))
+                        .Select(m => m.SkypeConversationId), message);
+                }
+            }
+            catch (Exception ex)
+            {
+                logService.LogException(ex);
+            }
+            return result;
+        }
+
+        public async Task<CommandResult> SendMessageDeductLateInEarlyOutToHrTeam(IEnumerable<LateInEarlyOutModel> deductedEmployees)
+        {
+            var result = false;
+            try
+            {
+                var conversations = await scheduledMessageRepository.GetTeamHrConversationsAsync(new GetTeamHrConversationCriteria()).ConfigureAwait(false);
+                var users = String.Join(", ", deductedEmployees.Select(x => x.NickName));
+                foreach (var item in conversations)
+                {
+                    var message = string.Format(Messages.MessageHRAutoDeduct, item.ConversationName, users);
+                    //result = await SendMessageAsync(item.SkypeConversationId, message).ConfigureAwait(false);
+                }
+            }
+            catch (Exception ex)
+            {
+                logService.LogException(ex);
             }
             return new CommandResult { Code = result ? 0 : 1 };
         }

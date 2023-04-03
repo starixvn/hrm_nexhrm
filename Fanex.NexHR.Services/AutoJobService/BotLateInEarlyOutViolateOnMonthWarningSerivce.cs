@@ -116,7 +116,7 @@
                 if (conversations.Any())
                 {
                     var message = GenerateMessageDeduct(deductedEmployees);
-                    result = await SendMessageDeductToConversation(conversations.Select(m => m.ConversationId), message).ConfigureAwait(false);
+                    result = await nexbotService.SendMessageDeductToConversation(conversations.Select(m => m.ConversationId), message).ConfigureAwait(false);
                 }
             }
 
@@ -155,6 +155,12 @@
                     }
                 }
             }
+
+            if (deductedEmployees.Any() && result.IsSuccessful)
+            {
+                _ = await nexbotService.SendMessageDeductLateInEarlyOutToHrTeam(deductedEmployees);
+            }
+
             return result;
         }
 
@@ -294,16 +300,7 @@
             return message.ToString();
         }
 
-        private async Task<CommandResult> SendMessageDeductToConversation(IEnumerable<string> conversations, string message)
-        {
-            var result = false;
-            foreach (var conversation in conversations)
-            {
-                result = await nexbotService.SendMessageAsync(conversation, message).ConfigureAwait(false);
-            }
 
-            return new CommandResult { Code = result ? 0 : 1 };
-        }
 
         private string GenerateMessageDeduct(IEnumerable<LateInEarlyOutModel> deductedEmployees)
         {
