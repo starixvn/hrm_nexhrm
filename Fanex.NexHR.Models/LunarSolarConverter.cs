@@ -161,10 +161,6 @@
                     lunarM++;
                     offset -= dm;
                 }
-                else
-                {
-                    break;
-                }
             }
 
             int lunarD = (int)offset;
