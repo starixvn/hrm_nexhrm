@@ -320,7 +320,7 @@
                 foreach (var item in conversations)
                 {
                     var message = string.Format(Messages.MessageHRAutoDeduct, item.ConversationName, users);
-                    //result = await SendMessageAsync(item.SkypeConversationId, message).ConfigureAwait(false);
+                    result = await SendMessageAsync(item.SkypeConversationId, message).ConfigureAwait(false);
                 }
             }
             catch (Exception ex)

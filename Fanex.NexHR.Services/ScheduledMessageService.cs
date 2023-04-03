@@ -3,7 +3,7 @@
     using Fanex.NexHR.Criteria.Holiday;
     using Fanex.NexHR.Criteria.ScheduledMessage;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Holiday;
+    using Fanex.NexHR.Models.Calendar;
     using Fanex.NexHR.Models.ScheduledMessage;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Resources;
@@ -22,7 +22,7 @@
         private const string FirstLunar = "01";
         private const int FifteenLunar = 15;
         private const int HourSendVegetarianMessages = 11;
-        private const int IdEmpCreateVegetarianMessages = 536;
+        private const int IdEmpCreateVegetarianMessages = 125;
         private const int NumMonthOfScheduleVegetarianMessages = 2;
         public ScheduledMessageService(IScheduledMessageRepository scheduledMessageRepository,
             IHolidayService holidayService,
@@ -177,11 +177,16 @@
         public async Task<CommandResult> CreateScheduledVegetarianMessages()
         {
             var result = new CommandResult();
-            var holidays = await holidayService.GetByYear(new GetHolidayByYearCriteria { Year = DateTime.Now.Year });
+            var workingSchedules = await holidayService.GetWorkDateEmployeeCalendar(new GetWorkDateEmployeeCalendarCriteria
+            {
+                EmpId = IdEmpCreateVegetarianMessages,
+                Year = DateTime.Now.Year,
+            });
+
             var scheduledVegetarianMessages = await scheduledMessageRepository.GetScheduledVegetarianMessagesAsync(
                                                 new GetScheduledVegetarianMessageCriteria { Year = DateTime.Now.Year });
             var scheduledVegetarianList = GetFirstAndFifteenLunerOfMonths(
-                                                new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(NumMonthOfScheduleVegetarianMessages).AddDays(-1), holidays);
+                                                new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(NumMonthOfScheduleVegetarianMessages).AddDays(-1), workingSchedules);
             foreach (var item in scheduledVegetarianList)
             {
                 var dateContent = new DateTime(item.Solar.SolarYear, item.Solar.SolarMonth, item.Solar.SolarDay);
@@ -192,7 +197,7 @@
                     var criteria = new CreateScheduledMessageCriteria
                     {
                         ConversationId = 1,
-                        SendDate = GetSendDate(item, holidays),
+                        SendDate = GetSendDate(item, workingSchedules),
                         Content = content,
                         CreatedBy = IdEmpCreateVegetarianMessages,
                         CronExpression = null,
@@ -204,19 +209,18 @@
             return result;
         }
 
-        private static DateTime GetSendDate(SolarLunarViewModel solarLunarViewModel, IEnumerable<Holiday> holidays)
+        private static DateTime GetSendDate(SolarLunarViewModel solarLunarViewModel, IEnumerable<WorkingSchedule> workingSchedules)
         {
             var dateSend = new DateTime(solarLunarViewModel.Solar.SolarYear, solarLunarViewModel.Solar.SolarMonth, solarLunarViewModel.Solar.SolarDay);
             do
             {
                 dateSend = dateSend.AddDays(-1);
             }
-            while (IsDayOff(dateSend)
-            || IsHoliday(holidays, dateSend));
+            while (IsHolidayOrDayOff(workingSchedules, dateSend));
             return dateSend.AddHours(HourSendVegetarianMessages);
         }
 
-        private static List<SolarLunarViewModel> GetFirstAndFifteenLunerOfMonths(DateTime dateTime, IEnumerable<Holiday> holidays)
+        private static List<SolarLunarViewModel> GetFirstAndFifteenLunerOfMonths(DateTime dateTime, IEnumerable<WorkingSchedule> workingSchedules)
         {
             List<SolarLunarViewModel> solarLunarViewModels = new();
             DateTime currentDate = DateTime.Now;
@@ -229,7 +233,7 @@
                     SolarYear = currentDate.Year
                 });
                 var dateCheck = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day);
-                if (!IsDayOff(dateCheck) && !IsHoliday(holidays, dateCheck) && IsFirstAndFifteenLuner(lunar))
+                if (!IsHolidayOrDayOff(workingSchedules, dateCheck) && IsFirstAndFifteenLuner(lunar))
                 {
                     solarLunarViewModels.Add(new SolarLunarViewModel
                     {
@@ -248,8 +252,7 @@
             return solarLunarViewModels;
         }
 
-        private static bool IsDayOff(DateTime dateTime) => (int)dateTime.DayOfWeek == (int)DayOfWeek.Saturday || (int)dateTime.DayOfWeek == (int)DayOfWeek.Sunday;
-        private static bool IsHoliday(IEnumerable<Holiday> holidays, DateTime dateTime) => holidays.Any(x => dateTime >= x.FromDate && dateTime <= x.ToDate);
+        private static bool IsHolidayOrDayOff(IEnumerable<WorkingSchedule> workingSchedules, DateTime dateTime) => workingSchedules.Any(x => dateTime == x.WorkDate);
         private static bool IsFirstAndFifteenLuner(Lunar lunar) => lunar.LunarDay == 1 || lunar.LunarDay == FifteenLunar;
     }
 }

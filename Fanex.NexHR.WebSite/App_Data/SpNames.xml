@@ -161,7 +161,8 @@
         <Setting Key="Holiday_Insert" SpName="Holiday_Insert" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Holiday_Update" SpName="Holiday_Update" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Holiday_Delete" SpName="Holiday_Delete" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Holiday_GetByYear" SpName="Holiday_GetByYear" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Holiday_GetByYear" SpName="Holiday_GetByYear" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="EmployeeCalendar_GetWorkDate" SpName="EmployeeCalendar_GetWorkDate" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Holiday_GetById" SpName="Holiday_GetById" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Memo">
