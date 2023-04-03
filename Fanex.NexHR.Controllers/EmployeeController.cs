@@ -35,6 +35,7 @@
         private readonly IWebHostEnvironment environment;
         private readonly AppSetting appSetting;
 
+#pragma warning disable S107 // Methods should not have too many parameters
         public EmployeeController(ISessionService sessionService,
             IEmployeeService employeeService,
             ITeamService teamService,
@@ -45,6 +46,7 @@
             IMailEmployeeService mailEmployeeService,
             IWebHostEnvironment environment,
             AppSetting appSetting) : base(sessionService)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             this.employeeService = employeeService;
             this.teamService = teamService;

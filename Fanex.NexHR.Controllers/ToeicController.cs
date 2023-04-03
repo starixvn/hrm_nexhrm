@@ -1,11 +1,5 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Core;
     using Criteria.Employee;
     using Criteria.Toeic;
@@ -18,6 +12,12 @@
     using Newtonsoft.Json;
     using Resources;
     using Services.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
     using ViewModels.Toeic;
 
     public class ToeicController : BaseController
@@ -31,6 +31,7 @@
         private readonly IWebHostEnvironment environment;
         private readonly EmailSettings emailSettings;
 
+#pragma warning disable S107 // Methods should not have too many parameters
         public ToeicController(
             ISessionService sessionService,
             IEmployeeService employeeService,
@@ -41,6 +42,7 @@
             IBaseService baseService,
             IWebHostEnvironment environment,
             EmailSettings emailSettings) : base(sessionService)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             this.employeeService = employeeService;
             this.emailService = emailService;

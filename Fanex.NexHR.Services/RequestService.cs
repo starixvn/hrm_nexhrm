@@ -37,6 +37,7 @@
         private const string EmailTemplatePath = "EmailTemplates/AutoJobDeduct.Request.txt";
         private const string stringTime = "HH:mm";
 
+#pragma warning disable S107 // Methods should not have too many parameters
         public RequestService(
             IRequestRepository requestRepository,
             IEmailService emailService,
@@ -46,6 +47,7 @@
             EmailSettings emailSettings,
             IBaseService baseService,
             ILogServiceProvider logService)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             this.requestRepository = requestRepository;
             this.emailService = emailService;
