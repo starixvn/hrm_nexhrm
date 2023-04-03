@@ -1,12 +1,13 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
     using Criteria.SkypeAccount;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.LateInEarlyOut;
     using Models.Request;
     using Models.SkypeAccount;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using ViewModels;
     using ViewModels.CheckInOutRequest;
 
@@ -27,5 +28,6 @@
         Task SendMessageProcessRequest(RequestEntity request, string command);
 
         Task SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request, IList<Employee> leaders);
+        Task<CommandResult> SendMessageDeductLateInEarlyOutToEmp(LateInEarlyOutModel lateInEarlyOutModel);
     }
 }

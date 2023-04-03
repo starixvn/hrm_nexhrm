@@ -6,6 +6,7 @@
     using Criteria.Request;
     using Data.Repository;
     using Fanex.NexHR.Models.Core;
+    using Fanex.NexHR.Models.LateInEarlyOut;
     using Interfaces;
     using Microsoft.AspNetCore.Hosting;
     using Models;
@@ -33,6 +34,7 @@
         private readonly EmailSettings emailSettings;
         private readonly ILogServiceProvider logService;
 
+        private const string EmailTemplatePath = "EmailTemplates/AutoJobDeduct.Request.txt";
         private const string stringTime = "HH:mm";
 
         public RequestService(
@@ -321,6 +323,22 @@
                     SendMailToLeaders(leaders.ToList(), model, forDate);
                 }
             }
+        }
+
+        public void SendMailDeductLateInEarlyOutToEmp(LateInEarlyOutModel lateInEarlyOutModel)
+        {
+            string templatePath = Path.Combine(environment.ContentRootPath, EmailTemplatePath);
+            string body = string.Format(
+                   Utilities.ReadTextFile(templatePath),
+                   lateInEarlyOutModel.NickName,
+                   emailSettings.CompanyMailSign);
+
+            emailService.SendEmail(
+                emailSettings.Email,
+                string.Join(";", lateInEarlyOutModel.Email),
+                string.Empty,
+                Messages.SubjectEmailAutoDeduct,
+                body);
         }
 
         private void SendMailToManagers(

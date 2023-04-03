@@ -1,12 +1,13 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
+    using Core.Enums;
+    using Criteria.Request;
+    using Fanex.NexHR.Models.LateInEarlyOut;
+    using Models;
+    using Models.Request;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Core.Enums;
-    using Criteria.Request;
-    using Models;
-    using Models.Request;
     using ViewModels;
     using ViewModels.CheckInOutRequest;
 
@@ -31,6 +32,7 @@
         Task<IEnumerable<Employee>> GetLeaderForCheckInOut(CheckInOutRequestViewModel model);
 
         Task SendMailForLeave(LeaveRequestViewModel model);
+        void SendMailDeductLateInEarlyOutToEmp(LateInEarlyOutModel lateInEarlyOutModel);
 
         Task<LeaveBalanceInMonth> GetAnnualLeaveBalanceInMonth(GetLeaveBalanceInMonthCriteria criteria);
     }

@@ -1,5 +1,19 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using Core;
+    using Core.Enums;
+    using Criteria.SkypeAccount;
+    using Fanex.NexHR.Criteria.Employee;
+    using Fanex.NexHR.Criteria.ScheduledMessage;
+    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.LateInEarlyOut;
+    using Fanex.NexHR.Resources;
+    using Interfaces;
+    using Models.NexBot;
+    using Models.Request;
+    using Models.SkypeAccount;
+    using Newtonsoft.Json;
+    using Repositories.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Globalization;
@@ -7,17 +21,6 @@
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
-    using Core;
-    using Core.Enums;
-    using Criteria.SkypeAccount;
-    using Fanex.NexHR.Criteria.Employee;
-    using Fanex.NexHR.Models;
-    using Interfaces;
-    using Models.NexBot;
-    using Models.Request;
-    using Models.SkypeAccount;
-    using Newtonsoft.Json;
-    using Repositories.Interfaces;
     using ViewModels;
     using ViewModels.CheckInOutRequest;
 
@@ -27,12 +30,14 @@
         private readonly INexbotRepository nexbotRepository;
         private readonly IBaseService baseService;
         private readonly NexBotSettings nexBotSettings;
+        private readonly IScheduledMessageRepository scheduledMessageRepository;
         private readonly ILogServiceProvider logService;
         private readonly string BaseUrl;
 
         public NexbotService(IHttpClientFactory httpClientFactory,
             INexbotRepository nexbotRepository,
             IBaseService baseService,
+            IScheduledMessageRepository scheduledMessageRepository,
             AppSetting appSetting,
             NexBotSettings nexBotSettings,
             ILogServiceProvider logService)
@@ -40,6 +45,7 @@
             httpClient = httpClientFactory.CreateClient();
             this.nexbotRepository = nexbotRepository;
             this.nexBotSettings = nexBotSettings;
+            this.scheduledMessageRepository = scheduledMessageRepository;
             this.baseService = baseService;
             BaseUrl = appSetting.BaseUrl;
             this.logService = logService;
@@ -270,6 +276,20 @@
             {
                 logService.LogException(ex);
             }
+        }
+
+        public async Task<CommandResult> SendMessageDeductLateInEarlyOutToEmp(LateInEarlyOutModel lateInEarlyOutModel)
+        {
+            var conversations = await scheduledMessageRepository.GetConversationsAsync(new GetConversationsCriteria { EmployeeId = lateInEarlyOutModel.EmpId }).ConfigureAwait(false);
+            var result = false;
+            if (conversations.Any())
+            {
+                string message = string.Format(Messages.MessageAutoDeduct, lateInEarlyOutModel.NickName);
+                result = await SendMessageAsync(conversations.Where(x =>
+                    x.ConversationName.ToLower(CultureInfo.InvariantCulture).Equals(lateInEarlyOutModel.NickName.ToLower(CultureInfo.InvariantCulture)))
+                    .Select(m => m.SkypeConversationId).First(), message);
+            }
+            return new CommandResult { Code = result ? 0 : 1 };
         }
 
         private string GenerateCheckInOutRequestMessage(CheckInOutRequestViewModel request, string leaderName)

@@ -4,65 +4,49 @@
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.AnnualLeave;
     using Fanex.NexHR.Criteria.LateInEarlyOut;
-    using Fanex.NexHR.Criteria.ScheduledMessage;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Core;
     using Fanex.NexHR.Models.LateInEarlyOut;
-    using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Resources;
     using Interfaces;
-    using Microsoft.AspNetCore.Hosting;
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
-    using System.IO;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
 
     public class BotLateInEarlyOutViolateOnMonthWarningSerivce : IBotLateInLateOutAutoJobService
     {
+        private readonly string BaseUrl;
         private const int ViolatedTime = 4;
+        private const int IdEmpDeductLateInEarlyOut = 279;
         private const string FormatShortDate = "MMM, yyyy";
         private const string FormatLongDate = "dd MMM, yyyy";
-        private const string EmailTemplatePath = "EmailTemplates/AutoJobDeduct.Request.txt";
-        private const int IdEmpDeductLateInEarlyOut = 279;
-        private readonly EmailSettings emailSettings;
-        private readonly string BaseUrl;
         private readonly IMessageCategoryLogService messageCategoryLog;
         private readonly ILogServiceProvider logService;
         private readonly INexbotService nexbotService;
         private readonly ILateInEarlyOutService lateInEarlyOutService;
-        private readonly IScheduledMessageRepository scheduledMessageRepository;
-        private readonly IEmailService emailService;
         private readonly AppSetting appSetting;
-        private readonly IWebHostEnvironment environment;
+        private readonly IRequestService requestService;
         private readonly IBaseService baseService;
 
         public BotLateInEarlyOutViolateOnMonthWarningSerivce(
             IMessageCategoryLogService messageCategoryLog,
             INexbotService nexbotService,
+            IRequestService requestService,
             ILateInEarlyOutService lateInEarlyOutService,
-            IScheduledMessageRepository scheduledMessageRepository,
             IBaseService baseService,
-            IEmailService emailService,
-            EmailSettings emailSettings,
             ILogServiceProvider logService,
-            IWebHostEnvironment environment,
             AppSetting appSetting
         )
         {
             this.messageCategoryLog = messageCategoryLog;
             this.nexbotService = nexbotService;
+            this.requestService = requestService;
             this.lateInEarlyOutService = lateInEarlyOutService;
-            this.scheduledMessageRepository = scheduledMessageRepository;
             this.baseService = baseService;
-            this.emailService = emailService;
             this.appSetting = appSetting;
-            this.environment = environment;
             this.logService = logService;
-            this.emailSettings = emailSettings;
             BaseUrl = appSetting.BaseUrl;
         }
 
@@ -162,8 +146,8 @@
                 {
                     try
                     {
-                        _ = await SendMessageDeduct(item);
-                        SendMailDeductToEmp(item);
+                        _ = await nexbotService.SendMessageDeductLateInEarlyOutToEmp(item);
+                        requestService.SendMailDeductLateInEarlyOutToEmp(item);
                     }
                     catch (Exception ex)
                     {
@@ -172,36 +156,6 @@
                 }
             }
             return result;
-        }
-
-        private async Task<CommandResult> SendMessageDeduct(LateInEarlyOutModel item)
-        {
-            var conversations = await scheduledMessageRepository.GetConversationsAsync(new GetConversationsCriteria { EmployeeId = item.EmpId }).ConfigureAwait(false);
-            var result = new CommandResult { Code = 0 };
-            if (conversations.Any())
-            {
-                string message = string.Format(Messages.MessageAutoDeduct, item.NickName);
-                result = await SendMessageDeductToConversation(conversations.Where(x =>
-                    x.ConversationName.ToLower(CultureInfo.InvariantCulture).Equals(item.NickName.ToLower(CultureInfo.InvariantCulture)))
-                    .Select(m => m.SkypeConversationId), message).ConfigureAwait(false);
-            }
-            return result;
-        }
-
-        private void SendMailDeductToEmp(LateInEarlyOutModel item)
-        {
-            string templatePath = Path.Combine(environment.ContentRootPath, EmailTemplatePath);
-            string body = string.Format(
-                   Utilities.ReadTextFile(templatePath),
-                   item.NickName,
-                   emailSettings.CompanyMailSign);
-
-            emailService.SendEmail(
-                emailSettings.Email,
-                string.Join(";", item.Email),
-                string.Empty,
-                Messages.SubjectEmailAutoDeduct,
-                body);
         }
 
         private async Task SendMessageViolateOnMonthToEmployees(IEnumerable<LateInEarlyOutViolateModel> violaters)
