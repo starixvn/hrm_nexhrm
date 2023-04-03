@@ -310,13 +310,13 @@
             return result;
         }
 
-        public async Task<CommandResult> SendMessageDeductLateInEarlyOutToHrTeam(IEnumerable<LateInEarlyOutModel> deductedEmployees)
+        public async Task<CommandResult> SendMessageDeductLateInEarlyOutToHrTeam(IEnumerable<LateInEarlyOutModel> lateInEarlyOutModels)
         {
             var result = false;
             try
             {
                 var conversations = await scheduledMessageRepository.GetTeamHrConversationsAsync(new GetTeamHrConversationCriteria()).ConfigureAwait(false);
-                var users = String.Join(", ", deductedEmployees.Select(x => x.NickName));
+                var users = String.Join(", ", lateInEarlyOutModels.Select(x => x.NickName));
                 foreach (var item in conversations)
                 {
                     var message = string.Format(Messages.MessageHRAutoDeduct, item.ConversationName, users);

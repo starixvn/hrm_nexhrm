@@ -4,13 +4,14 @@
 
     public class GetWorkDateEmployeeCalendarCriteria : CriteriaBase
     {
+        private const int MinYear = 2000;
         public int EmpId { get; set; }
 
         public int Year { get; set; }
 
         public override bool IsValid()
         {
-            return Year >= 2000;
+            return Year >= MinYear;
         }
 
         public override string GetSettingKey()
