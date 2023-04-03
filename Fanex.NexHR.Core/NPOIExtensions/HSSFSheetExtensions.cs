@@ -1,9 +1,9 @@
 ﻿namespace Fanex.NexHR.Core.NPOIExtensions
 {
-    using System;
-    using System.Collections.Generic;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using System;
+    using System.Collections.Generic;
 
     public static class HSSFSheetExtensions
     {
@@ -191,11 +191,6 @@
             {
                 row.RemoveCell(removeCell);
             }
-        }
-
-        public static void CloneCell(this ISheet sheet, ICell newCell, ICell sourceCell)
-        {
-            sheet.CloneCell(newCell, sourceCell);
         }
 
         public static ICell GetCell(this ISheet sheet, int rowIndex, int colIndex)
