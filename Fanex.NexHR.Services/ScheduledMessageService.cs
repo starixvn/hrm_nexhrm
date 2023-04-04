@@ -21,7 +21,6 @@
         private readonly IHolidayService holidayService;
         private const string FirstLunar = "01";
         private const int FifteenLunar = 15;
-        private const int HourSendVegetarianMessages = 11;
         private const int IdEmpCreateVegetarianMessages = 125;
         private const int NumMonthOfScheduleVegetarianMessages = 2;
         public ScheduledMessageService(IScheduledMessageRepository scheduledMessageRepository,
@@ -190,9 +189,9 @@
                 if (sendDate == DateTime.Now)
                 {
                     var dateContent = new DateTime(item.Solar.SolarYear, item.Solar.SolarMonth, item.Solar.SolarDay);
-                    string content = String.Format(Labels.VegetarianMessages, ((int)dateContent.DayOfWeek + 1),
+                    string message = String.Format(Labels.VegetarianMessages, ((int)dateContent.DayOfWeek + 1),
                                             dateContent.ToString("dd/MM/yyyy"), item.Lunar.LunarDay == 1 ? FirstLunar : item.Lunar.LunarDay);
-
+                    result = await nexbotService.SendMessageScheduledVegetarianToAllEmp(message);
                 }
             }
             return result;
