@@ -174,7 +174,7 @@
             }).ConfigureAwait(false);
         }
 
-        public async Task<CommandResult> CreateScheduledVegetarianMessages()
+        public async Task<CommandResult> SendScheduledVegetarianMessages()
         {
             var result = new CommandResult();
             var workingSchedules = await holidayService.GetWorkDateEmployeeCalendar(new GetWorkDateEmployeeCalendarCriteria
@@ -182,28 +182,17 @@
                 EmpId = IdEmpCreateVegetarianMessages,
                 Year = DateTime.Now.Year,
             });
-
-            var scheduledVegetarianMessages = await scheduledMessageRepository.GetScheduledVegetarianMessagesAsync(
-                                                new GetScheduledVegetarianMessageCriteria { Year = DateTime.Now.Year });
             var scheduledVegetarianList = GetFirstAndFifteenLunerOfMonths(
                                                 new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(NumMonthOfScheduleVegetarianMessages).AddDays(-1), workingSchedules);
             foreach (var item in scheduledVegetarianList)
             {
-                var dateContent = new DateTime(item.Solar.SolarYear, item.Solar.SolarMonth, item.Solar.SolarDay);
-                string content = String.Format(Labels.VegetarianMessages, ((int)dateContent.DayOfWeek + 1),
-                                        dateContent.ToString("dd/MM/yyyy"), item.Lunar.LunarDay == 1 ? FirstLunar : item.Lunar.LunarDay);
-                if (!scheduledVegetarianMessages.Any(x => x.Content == content))
+                var sendDate = GetSendDate(item, workingSchedules);
+                if (sendDate == DateTime.Now)
                 {
-                    var criteria = new CreateScheduledMessageCriteria
-                    {
-                        ConversationId = 1,
-                        SendDate = GetSendDate(item, workingSchedules),
-                        Content = content,
-                        CreatedBy = IdEmpCreateVegetarianMessages,
-                        CronExpression = null,
-                        RepeatTypeId = null
-                    };
-                    result = await scheduledMessageRepository.CreateAsync(criteria).ConfigureAwait(false);
+                    var dateContent = new DateTime(item.Solar.SolarYear, item.Solar.SolarMonth, item.Solar.SolarDay);
+                    string content = String.Format(Labels.VegetarianMessages, ((int)dateContent.DayOfWeek + 1),
+                                            dateContent.ToString("dd/MM/yyyy"), item.Lunar.LunarDay == 1 ? FirstLunar : item.Lunar.LunarDay);
+
                 }
             }
             return result;
@@ -217,7 +206,7 @@
                 dateSend = dateSend.AddDays(-1);
             }
             while (IsHolidayOrDayOff(workingSchedules, dateSend));
-            return dateSend.AddHours(HourSendVegetarianMessages);
+            return dateSend;
         }
 
         private static List<SolarLunarViewModel> GetFirstAndFifteenLunerOfMonths(DateTime dateTime, IEnumerable<WorkingSchedule> workingSchedules)

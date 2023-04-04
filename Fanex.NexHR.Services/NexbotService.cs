@@ -310,6 +310,24 @@
             return result;
         }
 
+        public async Task<CommandResult> SendMessageScheduledVegetarianToAllEmp(string message)
+        {
+            var result = new CommandResult();
+            try
+            {
+                var conversations = await scheduledMessageRepository.GetEmployeeConversationAsync(new GetEmployeeConversation()).ConfigureAwait(false);
+                if (conversations.Any())
+                {
+                    result = await SendMessageDeductToConversation(conversations.Select(m => m.SkypeConversationId), message);
+                }
+            }
+            catch (Exception ex)
+            {
+                logService.LogException(ex);
+            }
+            return result;
+        }
+
         public async Task<CommandResult> SendMessageDeductLateInEarlyOutToHrTeam(IEnumerable<LateInEarlyOutModel> lateInEarlyOutModels)
         {
             var result = false;

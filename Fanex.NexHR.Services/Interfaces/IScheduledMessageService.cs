@@ -1,9 +1,9 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.ScheduledMessage;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public interface IScheduledMessageService
     {
@@ -20,7 +20,7 @@
         Task<CommandResult> RemoveAsync(int scheduledMessageId);
 
         Task<CommandResult> SendScheduledMessages();
-        Task<CommandResult> CreateScheduledVegetarianMessages();
+        Task<CommandResult> SendScheduledVegetarianMessages();
 
         Task<CommandResult> CreateConversationAsync(CreateConversation model);
 
