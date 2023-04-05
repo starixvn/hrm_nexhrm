@@ -19,7 +19,7 @@
         [HttpPost]
         public async Task<IActionResult> CreateScheduledVegetarianMessages()
         {
-            var result = await scheduledMessageService.CreateScheduledVegetarianMessages().ConfigureAwait(false);
+            var result = await scheduledMessageService.SendScheduledVegetarianMessages().ConfigureAwait(false);
             return Ok(result);
         }
     }
