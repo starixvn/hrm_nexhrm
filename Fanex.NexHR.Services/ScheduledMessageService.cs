@@ -181,8 +181,8 @@
                 EmpId = IdEmpCreateVegetarianMessages,
                 Year = DateTime.Now.Year,
             });
-            var scheduledVegetarianList = GetFirstAndFifteenLunerOfMonths(
-                                                new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(NumMonthOfScheduleVegetarianMessages).AddDays(-1), workingSchedules);
+            var scheduledVegetarianList = GetFirstAndFifteenLunerOfMonths(new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)
+                                                .AddMonths(NumMonthOfScheduleVegetarianMessages).AddDays(-1), workingSchedules);
             foreach (var item in scheduledVegetarianList)
             {
                 var sendDate = GetSendDate(item, workingSchedules);

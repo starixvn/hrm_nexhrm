@@ -17,7 +17,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateScheduledVegetarianMessages()
+        public async Task<IActionResult> SendScheduledVegetarianMessages()
         {
             var result = await scheduledMessageService.SendScheduledVegetarianMessages().ConfigureAwait(false);
             return Ok(result);
