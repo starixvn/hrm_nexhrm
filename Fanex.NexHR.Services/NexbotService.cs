@@ -294,7 +294,8 @@
             var result = new CommandResult();
             try
             {
-                var conversations = await scheduledMessageRepository.GetEmployeeConversationByIdAsync(new GetEmployeeConversationByIdCriteria { EmpId = lateInEarlyOutModel.EmpId }).ConfigureAwait(false);
+                var conversations = await scheduledMessageRepository.GetEmployeeConversationByIdAsync(
+                    new GetEmployeeConversationByIdCriteria { EmpId = lateInEarlyOutModel.EmpId }).ConfigureAwait(false);
                 if (conversations.Any())
                 {
                     string message = string.Format(Messages.MessageAutoDeduct, lateInEarlyOutModel.NickName);
