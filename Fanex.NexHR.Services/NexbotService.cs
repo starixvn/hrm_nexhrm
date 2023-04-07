@@ -294,13 +294,11 @@
             var result = new CommandResult();
             try
             {
-                var conversations = await scheduledMessageRepository.GetConversationsAsync(new GetConversationsCriteria { EmployeeId = lateInEarlyOutModel.EmpId }).ConfigureAwait(false);
+                var conversations = await scheduledMessageRepository.GetEmployeeConversationByIdAsync(new GetEmployeeConversationByIdCriteria { EmpId = lateInEarlyOutModel.EmpId }).ConfigureAwait(false);
                 if (conversations.Any())
                 {
                     string message = string.Format(Messages.MessageAutoDeduct, lateInEarlyOutModel.NickName);
-                    result = await SendMessageDeductToConversation(conversations.Where(x =>
-                        x.ConversationName.ToLower(CultureInfo.InvariantCulture).Equals(lateInEarlyOutModel.NickName.ToLower(CultureInfo.InvariantCulture)))
-                        .Select(m => m.SkypeConversationId), message);
+                    result = await SendMessageDeductToConversation(conversations.Select(m => m.SkypeConversationId), message);
                 }
             }
             catch (Exception ex)
@@ -315,7 +313,7 @@
             var result = new CommandResult();
             try
             {
-                var conversations = await scheduledMessageRepository.GetEmployeeConversationAsync(new GetEmployeeConversation()).ConfigureAwait(false);
+                var conversations = await scheduledMessageRepository.GetEmployeeConversationAsync(new GetEmployeeConversationCriteria()).ConfigureAwait(false);
                 if (conversations.Any())
                 {
                     result = await SendMessageDeductToConversation(conversations.Select(m => m.SkypeConversationId), message);

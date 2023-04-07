@@ -2,7 +2,7 @@
 {
     using Fanex.Data.Repository;
 
-    public class GetEmployeeConversation : CriteriaBase
+    public class GetEmployeeConversationCriteria : CriteriaBase
     {
         public override string GetSettingKey() => "EmployeeConversation_Get";
 

@@ -420,6 +420,7 @@
 		<Setting Key="Conversation_GetTeamHr" SpName="Conversation_GetTeamHr" DbName="nexhr" Plain="0"></Setting>
 		<Setting Key="ScheduledVegetarianMessage_Get" SpName="ScheduledVegetarianMessage_Get" DbName="nexhr" Plain="0"></Setting>
 		<Setting Key="EmployeeConversation_Get" SpName="EmployeeConversation_Get" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="EmployeeConversation_GetById" SpName="EmployeeConversation_GetById" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="TimeSheet">
         <Setting Key="EmployeeAttendance_GetEmployeeReachedWorkingTime" SpName="EmployeeAttendance_GetEmployeeReachedWorkingTime" DbName="nexhr" Plain="0"></Setting>
