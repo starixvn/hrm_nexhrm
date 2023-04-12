@@ -32,15 +32,12 @@ main {
   .row .col.s1 {
     width: 10%;
   }
-
   .row .col.s2 {
     width: 15%;
   }
-
   .row .col.s3 {
     width: 20%;
   }
-
   .row .col.s4 {
     width: 25%;
   }
@@ -49,7 +46,6 @@ main {
   .row .col.s1 {
     width: 20%;
   }
-
   .row .col.s4 {
     width: 44%;
   }
@@ -460,7 +456,6 @@ input.readonly-input {
   .content {
     padding-top: 0.8rem;
   }
-
   span.req {
     border-radius: 0;
     padding: 0.3rem 0.9rem;
@@ -469,7 +464,6 @@ input.readonly-input {
   span.req.leave {
     background: #F19826;
   }
-
   .row .col {
     padding-left: 0;
     padding-right: 0;
@@ -546,18 +540,18 @@ input.readonly-input {
 }
 @media only screen and (max-width: 993px) {
   .form input[type=text],
-.form input[type=password],
-.form input[type=email],
-.form input[type=url],
-.form input[type=time],
-.form input[type=date],
-.form input[type=datetime-local],
-.form input[type=tel],
-.form input[type=number],
-.form input[type=search],
-.form select,
-.form textarea,
-.form .dropdown-content li span {
+  .form input[type=password],
+  .form input[type=email],
+  .form input[type=url],
+  .form input[type=time],
+  .form input[type=date],
+  .form input[type=datetime-local],
+  .form input[type=tel],
+  .form input[type=number],
+  .form input[type=search],
+  .form select,
+  .form textarea,
+  .form .dropdown-content li span {
     font-size: 16px !important;
   }
 }
@@ -1478,7 +1472,6 @@ input#fileName::-webkit-file-upload-button:focus, input#fileName::-webkit-file-u
   .nav-wrapper .drop-down {
     display: none;
   }
-
   .navbar-fixed .button-collapse.active .icon-close {
     display: block;
   }
@@ -1491,7 +1484,6 @@ input#fileName::-webkit-file-upload-button:focus, input#fileName::-webkit-file-u
   .navbar-fixed .button-collapse .icon-close {
     display: none;
   }
-
   #nav-mobile.side-nav.fixed {
     margin-top: 57px;
   }
@@ -1522,7 +1514,6 @@ input#fileName::-webkit-file-upload-button:focus, input#fileName::-webkit-file-u
   #nav-mobile.side-nav li ul.collapsible ul li {
     margin-bottom: 1px;
   }
-
   .navbar-fixed .top-nav {
     padding: 0;
     font-size: 2.6rem;
@@ -1532,7 +1523,6 @@ input#fileName::-webkit-file-upload-button:focus, input#fileName::-webkit-file-u
   .navbar-fixed nav .logo {
     margin: 0;
   }
-
   nav {
     height: 57px;
   }
@@ -1662,7 +1652,7 @@ input#fileName::-webkit-file-upload-button:focus, input#fileName::-webkit-file-u
   border-color: #fff;
 }
 .table.table-custom thead tr th.col-sorter .sorter {
-  background: url("Images/sort-icon.png") no-repeat 0 -0.5rem;
+  background: url("../Images/sort-icon.png") no-repeat 0 -0.5rem;
   width: 1rem;
   height: 1.6rem;
   cursor: pointer;

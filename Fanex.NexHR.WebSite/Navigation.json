@@ -376,5 +376,14 @@
         "Roles": "HR",
         "Id": 43,
         "ParentId": 39
+    },
+    {
+        "Title": "Course And Certificate",
+        "Controller": "courseandcertificate",
+        "Action": "Index",
+        "Icon": "clipboard-text",
+        "Roles": "HR",
+        "Id": 44,
+        "ParentId": 13
     }
 ]

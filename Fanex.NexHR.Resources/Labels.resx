@@ -1774,4 +1774,7 @@ Nếu bạn có nhu cầu ăn chay thứ {0} ngày {1} (nhằm {2} âm lịch) v
 
 Nếu bạn không muốn nhận loại thông báo này trong tương lai vui lòng gõ câu lệnh sau: _stop_remind_vegetarian_meal_</value>
   </data>
+  <data name="CourseAndCertificate" xml:space="preserve">
+    <value>Course And Certificate</value>
+  </data>
 </root>

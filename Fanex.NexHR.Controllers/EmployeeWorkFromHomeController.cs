@@ -1,15 +1,14 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Threading.Tasks;
     using Fanex.NexHR.Controllers.Attributes;
-    using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.EmployeeWorkFromHome;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels.EmployeeWorkFromHome;
     using Microsoft.AspNetCore.Mvc;
+    using System;
+    using System.Threading.Tasks;
 
     public class EmployeeWorkFromHomeController : BaseController
     {
@@ -34,7 +33,6 @@
                 FromDate = DateTime.Now,
                 ToDate = DateTime.Now,
                 Teams = await teamService.GetTeam(),
-                StatusId = (byte)RequestStatuse.All
             };
             return View(model);
         }

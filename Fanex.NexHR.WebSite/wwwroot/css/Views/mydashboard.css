@@ -109,7 +109,7 @@
   padding: 3px 6px;
   border-radius: 3px;
   margin-right: 2px;
-  background-color: #f15151;
+  background-color: rgb(241, 81, 81);
 }
 .todoBlock .tasks .tracker {
   font-weight: 700;
@@ -215,7 +215,7 @@
   border-radius: 3px;
 }
 .redmine-tooltip .priority.immediate {
-  background-color: #ee3737;
+  background-color: rgb(238, 55, 55);
 }
 .redmine-tooltip .priority.urgent {
   background-color: rgba(243, 92, 92, 0.75);
@@ -655,11 +655,9 @@
   .card-container-base.my-members .card .card-content .card-title {
     color: inherit;
   }
-
   .collection .collection-item.avatar .circle {
     display: none;
   }
-
   .dashboardCalendar .fc-toolbar {
     padding: 1rem 1.3rem !important;
   }

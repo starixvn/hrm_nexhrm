@@ -11,6 +11,25 @@
     text-transform: uppercase;
 }
 
+.course {
+    table {
+        width: 800px;
+        overflow-y: scroll;
+        max-height: 250px;
+        display: block;
+    }
+
+    thead th {
+        position: sticky;
+        top: 0;
+    }
+
+    th {
+        width: 196px;
+        background-color: #24272f;
+    }
+}
+
 .pinfo {
     .accinfo {
         line-height: 2 !important;

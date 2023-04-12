@@ -280,7 +280,6 @@ html {
   .container {
     padding: 0 4rem;
   }
-
   .login__left {
     display: block;
     margin: 0;
@@ -288,7 +287,6 @@ html {
   .login__left img {
     width: 50rem;
   }
-
   .login__form {
     margin-right: 0;
   }
@@ -299,7 +297,6 @@ html {
     padding: 3.2rem 0;
     justify-content: center;
   }
-
   .login__left {
     position: absolute;
     left: 50%;
@@ -314,11 +311,9 @@ html {
     margin: 0 auto;
     display: block;
   }
-
   .login__logo .img-res {
     width: 25rem;
   }
-
   .login__form {
     margin: 0;
     background: #ffffff;
@@ -330,7 +325,6 @@ html {
   .login__btn {
     max-width: 100%;
   }
-
   .login__form {
     width: 100%;
     box-shadow: none;
@@ -342,12 +336,10 @@ html {
   .login__form form .custom-check {
     margin-top: 0;
   }
-
   .login__flex {
     display: block;
     padding: 3.2rem 0;
   }
-
   .login__left {
     display: block;
     margin: 0 0 2.1rem 0;
@@ -357,19 +349,15 @@ html {
     margin: 0 auto;
     display: block;
   }
-
   .login__logo {
     margin-bottom: 2.9rem;
   }
-
   .login__form form .field-validation-error[data-valmsg-for=errorSummary] {
     margin-bottom: 1.6rem;
   }
-
   .styled-checkbox ~ label:before {
     margin-right: 1.3rem;
   }
-
   .login__btn {
     margin-top: 2.7rem;
   }

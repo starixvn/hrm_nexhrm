@@ -1,0 +1,112 @@
+﻿@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.EmployeeWorkFromHome
+@model EmployeeWorkFromHomeFilterViewModel
+@{
+    ViewBag.Title = Labels.CourseAndCertificate;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/contextmenu.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/simplepagination.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/EmployeeWorkFromHome/employee.workfromhome.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Employee/_employee.search.in.company.js" asp-append-version="true"></script>
+        <script src="~/js/Libs/jquery.contextMenu.min.js" asp-append-version="true"></script>
+        <script src="~/js/Libs/jquery.simplePagination.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/employeeworkfromhome.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/contextmenu.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/simplepagination.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form form-stl-table">
+                        <form asp-controller="EmployeeWorkFromHome" asp-action="index" method="post">
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.Team</label>
+                                    </div>
+                                    <div class="left select--m team">
+                                        <select asp-for="TeamId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
+                                            <option value="">All teams</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.Employee</label>
+                                    </div>
+                                    <div class="left input--m">
+                                        <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark" />
+                                        <input type="hidden" asp-for="EmployeeId" />
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>Type</label>
+                                    </div>
+                                    <div class="left select--datepicker status">
+                                        <select name="statusId" id="statusId">
+                                            <option value="0">Course</option>
+                                            <option value="1">@Labels.Rejected</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.FromDate</label>
+                                    </div>
+                                    <div class="left datepicker-button select--m">
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                        <date-picker name="FromDate"
+                                                     value="@Model.FromDate">
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.ToDate</label>
+                                    </div>
+                                    <div class="left datepicker-button select--m">
+                                        <date-picker name="ToDate"
+                                                     value="@Model.ToDate">
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col m-l--l">
+                                    <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light m-r--b" />
+                                    <a class="btn-request waves-effect waves-light m-r--m left" href="javascript:;" id="btn-approve">Approve</a>
+                                    <a class="btn-request waves-effect waves-light m-r--m left" href="javascript:;" id="btn-reject">Reject</a>
+                                    <a class="btn btn-request waves-effect waves-light" id="add-workfromhome" href="@Url.Action("Create")">
+                                        <span class="fa fa-plus"></span>
+                                        @Labels.AddEmployeeWorkFromHome
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="p-x--s">
+                        <div id="list-workfromhome" class="over-auto table-resize table-medium"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
