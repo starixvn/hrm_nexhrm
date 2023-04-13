@@ -1,6 +1,6 @@
 'use strict';
-/*global _global, floatThead*/
-/* exported deleteRequest */
+/*global _global, getParam, _messages, initDatePicker, initAutocomplete, floatThead */
+/*exported index, isShowEdit, editTOEIC, isExpiredDate */
 
 function query(isFirstLoad) {
 
@@ -10,12 +10,12 @@ function query(isFirstLoad) {
         initDataFirstQuery(queryString);
     }
     const data = $('.card-container-base form').serialize();
-    var teamParam = $(".team .select-dropdown").val();
-    var statusParam = $(".status .select-dropdown").val();
+    const teamParam = $(".team .select-dropdown").val();
+    const statusParam = $(".status .select-dropdown").val();
 
-    var url = _global.root + 'EmployeeWorkFromHome/GetEmployeeWorkFromHomeGrid?' + data;
+    const url = _global.root + 'EmployeeWorkFromHome/GetEmployeeWorkFromHomeGrid?' + data;
     if (!isFirstLoad) {
-        var orgUrl = _global.root + 'EmployeeWorkFromHome/Index?' + data + "&TeamParam=" + teamParam + "&StatusParam=" + statusParam;
+        const orgUrl = _global.root + 'EmployeeWorkFromHome/Index?' + data + "&TeamParam=" + teamParam + "&StatusParam=" + statusParam;
         window.history.replaceState(null, null, orgUrl);
     }
 
@@ -36,7 +36,7 @@ function query(isFirstLoad) {
                 $('table#data').addClass('table-success'); // class to style mobile
 
                 $('#checkuncheckall').on('click', function () {
-                    var isCheckAll = $('#checkuncheckall').prop('checked');
+                    const isCheckAll = $('#checkuncheckall').prop('checked');
 
                     $('.chk-request').prop('checked', isCheckAll);
                 });
@@ -56,15 +56,15 @@ function query(isFirstLoad) {
 }
 
 function initDataFirstQuery(queryString) {
-    var urlParams = new URLSearchParams(queryString);
-    var TeamId = urlParams.get('TeamId');
-    var Employee = urlParams.get('Employee');
-    var EmployeeId = urlParams.get('EmployeeId');
-    var statusId = urlParams.get('statusId');
-    var FromDate = urlParams.get('FromDate');
-    var ToDate = urlParams.get('ToDate');
-    var teamParam = urlParams.get('TeamParam');
-    var statusParam = urlParams.get('StatusParam');
+    const urlParams = new URLSearchParams(queryString);
+    const TeamId = urlParams.get('TeamId');
+    const Employee = urlParams.get('Employee');
+    const EmployeeId = urlParams.get('EmployeeId');
+    const statusId = urlParams.get('statusId');
+    const FromDate = urlParams.get('FromDate');
+    const ToDate = urlParams.get('ToDate');
+    const teamParam = urlParams.get('TeamParam');
+    const statusParam = urlParams.get('StatusParam');
 
     $("#TeamId").val(TeamId);
     $("#Employee").val(Employee);
@@ -77,167 +77,114 @@ function initDataFirstQuery(queryString) {
     $(".status .select-dropdown").val(statusParam);
 }
 
-function initApproveMultiEvent() {
-    $('#btn-approve').on('click', function () {
-        var requestIds = [];
-        var command = "Approve";
-        $('.chk-request').each(function (index, item) {
-            var checked = $(item).prop('checked');
-            if (checked) {
-                requestIds.push($(item).attr('data-id'));
-            }
-        });
+function initNumberTextbox() {
+    var numbericTextbox = $('input[type=number]');
 
-        if (requestIds.length > 0) {
-            confirm('Are you sure you want to approve checked request?', function () {
-                approveMultiRequest(command, requestIds);
-            });
-        } else {
-            alert('Please choose at least one request to continue!');
+    numbericTextbox.attr('maxlength', '3');
+    numbericTextbox.keydown(function (event) {
+        // Allow: backspace, delete, tab, escape, and enter
+        if (event.keyCode === 46 || event.keyCode === 8 || event.keyCode === 9 || event.keyCode === 27 || event.keyCode === 13 ||
+            // Allow: Ctrl+A
+            (event.keyCode === 65 && event.ctrlKey === true) ||
+            // Allow: home, end, left, right
+            (event.keyCode >= 35 && event.keyCode <= 39)) {
+            // let it happen, don't do anything
+            return;
+        }
+        else {
+            // Ensure that it is a number and stop the keypress
+            if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
+                event.preventDefault();
+            }
         }
     });
 }
 
-function initRejectMultiEvent() {
-    $('#btn-reject').on('click', function () {
-        var requestIds = [];
-        var command = "Reject";
-        $('.chk-request').each(function (index, item) {
-            var checked = $(item).prop('checked');
-            if (checked) {
-                requestIds.push($(item).attr('data-id'));
-            }
-        });
+function initAddNewDialog() {
+    initDatePicker();
+    initAutocomplete('#frmUpdateTOEIC #Employee', '#frmUpdateTOEIC #EmpId', false);
+    initNumberTextbox();
 
-        if (requestIds.length > 0) {
-            confirm('Are you sure you want to reject checked request?', function () {
-                approveMultiRequest(command, requestIds);
-            });
+    $('#dialog-addnew').dialog({
+        modal: true,
+        width: 'auto',
+        buttons: [
+            {
+                text: 'Close',
+                class: 'btn-cancel waves-effect waves-light m-r--m',
+                click: function () {
+                    $(this).dialog('close');
+                }
+            },
+            {
+                text: 'Submit',
+                class: 'btn-submit waves-effect waves-light',
+                click: function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: _global.root + 'CourseAndCertificate/Update',
+                        dataType: 'json',
+                        data: $('#frmUpdateTOEIC').serialize(),
+                        success: function (data) {
+                            if (data) {
+                                let errorCont = $('#divErrorCont');
+                                errorCont.removeClass();
+                                errorCont.html('');
 
+                                if (data.code === 0) {
+                                    errorCont.addClass('success validation-summary-success');
+                                    errorCont.append('Update TOEIC score for Employee successfully');
+                                    setTimeout(function () { $('#dialog-addnew').dialog("close"); query(); }, 3000);
+                                }
+                                else {
+                                    let errors = '<ul>';
+                                    $(data.error).each(function (i, value) {
+                                        errors += '<li>' + value.ErrorMessage + '</li>';
+                                    });
+                                    errors += '</ul>';
 
-        } else {
-            alert('Please choose at least one request to continue!');
-        }
-    });
-}
-
-function approveMultiRequest(command, requestIds) {
-    $.post(_global.root + 'EmployeeWorkFromHome/ProcessRequestMultiple',
-        { command: command, requestIds: requestIds },
-        function (response) {
-            if (response.IsSuccessful) {
-                query(false);
-            } else {
-                alert(response.Message);
-                return;
-            }
-        }
-    );
-}
-
-function initCreateUpdatePage() {
-    var successed = $('#successed').val();
-    if (successed === 'true') {
-        confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
-            function () {
-                document.location = _global.root + 'EmployeeWorkFromHome';
-            }
-        );
-    }
-}
-
-function deleteRequest(id) {
-    confirm('Are you sure you want to remove this employee work from home?', function () {
-        $.post(_global.root + 'EmployeeWorkFromHome/Delete', { id }, function (response) {
-            if (response.IsSuccessful) {
-                query(false);
-            }
-            else {
-                alert(response.Message);
-            }
-        });
-    });
-}
-
-function bindMenuPending() {
-    $('table#data tbody td a.Pending').on('mouseup', function () {
-        $.contextMenu({
-            selector: '.Pending',
-            trigger: 'left',
-            build: function ($trigger, e) {
-                return {
-                    callback: function (key) {
-                        switch (key) {
-                            case 'Approve':
-                                confirm('Are you sure you want to Approve?', function () {
-                                    processRequest(key, e.currentTarget);
-                                });
-                                break;
-                            case 'Reject':
-                                confirm('Are you sure you want to Reject?', function () {
-                                    processRequest(key, e.currentTarget);
-                                });
-                                break;
+                                    errorCont.addClass('validation-summary-errors');
+                                    errorCont.append(errors);
+                                }
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(textStatus + ': ' + errorThrown);
                         }
-                    },
-                    items: {
-                        'Approve': { name: 'Approve', icon: 'approve' },
-                        'Reject': { name: 'Reject', icon: 'reject' }
-                    }
-                };
+                    });
+                }
             }
-        });
-    });
-}
-
-function processRequest(command, eventElement) {
-    var url = command === "Disapprove" ? 'EmployeeWorkFromHome/ProcessDisapproveRequest' : 'EmployeeWorkFromHome/ProcessRequest';
-    $.post(_global.root + url,
-        { command: command, id: $(eventElement).attr('workFromHomeRequestId') },
-        function (response) {
-            if (response.IsSuccessful) {
-                query(false);
-            } else {
-                alert(response.Message);
-                return;
-            }
+        ],
+        show: {
+            effect: 'fade',
+            duration: 300
+        },
+        hide: {
+            effect: 'fade',
+            duration: 200
         }
-    );
-}
-
-
-function bindMenuApproved() {
-    $('table#data tbody td a.Approved').on('mouseup', function () {
-        $.contextMenu({
-            selector: '.Approved',
-            trigger: 'left',
-            build: function ($trigger, e) {
-                return {
-                    callback: function (key) {
-                        confirm('Are you sure you want to Disapprove?', function () {
-                            processRequest(key, e.currentTarget);
-                        });
-                    },
-                    items: {
-                        'Disapprove': { name: 'Disapprove', icon: 'reject' }
-                    }
-                };
-            }
-        });
     });
 }
 
 $(document).ready(function () {
-    if ($('.form-create-update').length > 0) {
-        initCreateUpdatePage();
-    } else {
-        query(true);
+    query(true);
 
-        $('#submit').on('click', function () {
-            query(false);
+    $('#submit').on('click', function () {
+        query(false);
+    });
+
+    $('#btnAddNew').click(function () {
+        $.ajax({
+            type: 'GET',
+            url: _global.root + 'CourseAndCertificate/Update',
+            dataType: 'html',
+            success: function (data) {
+                $('#dialog-addnew').html(data);
+                initAddNewDialog();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus + ': ' + errorThrown);
+            }
         });
-    }
-
-    initApproveMultiEvent();
-    initRejectMultiEvent();
+    });
 });

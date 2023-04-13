@@ -1,8 +1,10 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Models;
     using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels.EmployeeWorkFromHome;
+    using Fanex.NexHR.ViewModels.CourseAndCertificate;
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Threading.Tasks;
@@ -19,15 +21,22 @@
 
         public async Task<IActionResult> Index()
         {
-            var model = new EmployeeWorkFromHomeFilterViewModel
+            var model = new CourseAndCertificateFilterViewModel
             {
                 FromDate = DateTime.Now,
                 ToDate = DateTime.Now,
                 Teams = await teamService.GetTeam(),
-                StatusId = (byte)RequestStatuse.All
+                TypeId = (byte)RequestStatuse.All
             };
             return View(model);
         }
 
+        [HttpGet]
+        [HrmAuthorize(UserRoles = "HR")]
+        public IActionResult Update()
+        {
+            Toeic toeic = null;
+            return PartialView(toeic);
+        }
     }
 }

@@ -696,6 +696,18 @@
         "sourceMap": false
     },
     {
+        "outputFileName": "wwwroot/minify/js/courseandcertificate.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Employee/_employee.search.in.company.js",
+            "wwwroot/js/Views/CourseAndCertificate/courseandcertificate.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
         "outputFileName": "wwwroot/minify/js/teammanagement.min.js",
         "inputFiles": [
             "wwwroot/js/Views/TeamManagement/team.management.js"

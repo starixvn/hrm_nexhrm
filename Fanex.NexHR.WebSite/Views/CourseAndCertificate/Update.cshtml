@@ -1,0 +1,74 @@
+﻿@using Fanex.NexHR.Models
+@using Fanex.NexHR.Resources
+@model Toeic
+@{
+    DateTime currentDate = DateTime.Today;
+}
+<form id="frmUpdateTOEIC" class="form form-update-toeic">
+    <div id="divErrorCont" class="">
+        &nbsp;
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label>Type</label>
+        </div>
+        <div class="left input--m">
+            <select class="typeCourseCertificate" name="typeId" id="typeId">
+                <option value="0">Course</option>
+                <option value="1">Certificate</option>
+                <option value="2">Training</option>
+            </select>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label>@Labels.Employee</label>
+        </div>
+        <div class="left input--m">
+            <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark" />
+            <input asp-for="EmpId" type="hidden" />
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label>Name</label>
+        </div>
+        <div class="left input--m">
+            <input asp-for="Employee" placeholder="Source Name" />
+            <input asp-for="EmpId" type="hidden" />
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label>Study Place</label>
+        </div>
+        <div class="left input--m">
+            <input asp-for="Employee"/>
+            <input asp-for="EmpId" type="hidden" />
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label id="fromdate">Start Date</label>
+        </div>
+        <div class="datepicker-button left select--s">
+            <date-picker name="InputDate" value="@(Model != null ? Model.InputDate : null)">
+            </date-picker>
+            <i class="mdi-action-event calendar-icon left"></i>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label id="todate">End Date</label>
+        </div>
+        <div class="datepicker-button left select--s">
+            <date-picker name="LRExamDate"
+                         min-date="currentDate.AddYears(-100)"
+                         max-date="currentDate"
+                         value="@(Model != null ? Model.LRExamDate : null)">
+            </date-picker>
+            <i class="mdi-action-event calendar-icon left"></i>
+        </div>
+    </div>
+    
+</form>
