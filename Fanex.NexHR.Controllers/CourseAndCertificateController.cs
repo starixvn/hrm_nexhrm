@@ -2,7 +2,7 @@
 {
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.EmployeeExperience;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels.CourseAndCertificate;
     using Microsoft.AspNetCore.Mvc;
@@ -35,8 +35,8 @@
         [HrmAuthorize(UserRoles = "HR")]
         public IActionResult Update()
         {
-            Toeic toeic = null;
-            return PartialView(toeic);
+            EmployeeExperience employeeExperience = null;
+            return PartialView(employeeExperience);
         }
     }
 }

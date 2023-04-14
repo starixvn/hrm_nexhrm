@@ -695,6 +695,73 @@ function initAutocomplete(selectorName, selectorId, isSpecial) {
     });
 }
 
+function initAutocompleteDepartment(selectorName, selectorId, isSpecial, isDisable = null) {
+    $(selectorName).autocomplete({
+        source: function (request, response) {
+            let term = request.term;
+            let index = term.indexOf(' (');
+
+            if (index > 0) {
+                term = term.substr(0, index);
+            }
+            $.ajax({
+                url: _global.root + 'Department/GetDepartments',
+                dataType: 'json',
+                data: {
+                    query: term,
+                    isSpecial: isSpecial,
+                    isDisable,
+                    $top: 10
+                },
+                success: function (data) {
+                    console.log(data)
+                    let listDepartment = data;
+                    if (listDepartment && listDepartment.length > 0) {
+                        response($.map(listDepartment, function (item) {
+                            console.log(item)
+                            return {
+                                label: item.Name,
+                                value: item.Id
+                            };
+                        }));
+                    }
+                    else {
+                        $(selectorId).val('0');
+                    }
+                }
+            });
+        },
+        minLength: 1,
+        select: function (event, ui) {
+            event.preventDefault();
+            let name = ui.item.label;
+            $(selectorName).val(name);
+            $(selectorId).val(ui.item.value);
+        },
+        focus: function (event, ui) {
+            event.preventDefault();
+            let name = ui.item.label;
+            $(selectorName).val(name);
+            $(selectorId).val(ui.item.value);
+        },
+        change: function (event, ui) {
+            event.preventDefault();
+            if (ui && ui.item) {
+                let name = ui.item.label;
+                $(selectorName).val(name);
+                $(selectorId).val(ui.item.value);
+            }
+            else {
+                if ($(selectorName).val() === "") {
+                    $(selectorId).val('');
+                } else {
+                    $(selectorId).val('0');
+                }
+            }
+        }
+    });
+}
+
 function htmlEncode(value) {
     return $('<div/>').text(value).html();
 }

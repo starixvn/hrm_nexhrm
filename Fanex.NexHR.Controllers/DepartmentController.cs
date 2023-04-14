@@ -1,12 +1,12 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Criteria.Department;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Services.Interfaces;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using ViewModels;
 
     public class DepartmentController : BaseController
@@ -28,6 +28,12 @@
 
             ViewBag.Departments = departments;
             return View();
+        }
+
+        public async Task<JsonResult> GetDepartments()
+        {
+            IList<Department> departments = await departmentService.GetAll();
+            return Json(departments);
         }
 
         public async Task<IActionResult> Create()

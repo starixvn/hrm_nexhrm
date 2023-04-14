@@ -100,10 +100,33 @@ function initNumberTextbox() {
     });
 }
 
+function initChangeTextFocusType() {
+    document.querySelector("#typeId").addEventListener("change", () => {
+        const typeid = document.querySelector("#typeId").value;
+        if (typeid === "0" || typeid === "2") {
+            $('#address')[0].innerText = "Study Place";
+            $('#fromdate')[0].innerText = "Start Date";
+            $('#todate')[0].innerText = "End Date";
+        } else {
+            $('#address')[0].innerText = "Issue Place";
+            $('#fromdate')[0].innerText = "Exam Date";
+            $('#todate')[0].innerText = "Expiration Date";
+        }
+    });    
+}
+
 function initAddNewDialog() {
     initDatePicker();
-    initAutocomplete('#frmUpdateTOEIC #Employee', '#frmUpdateTOEIC #EmpId', false);
+    initAutocomplete('#frmUpdateTOEIC #Employee', '#frmUpdateTOEIC #EmployeeId', false);
+    initAutocompleteDepartment('#frmUpdateTOEIC #Department', '#frmUpdateTOEIC #DepartmentId', false);
     initNumberTextbox();
+
+    document.querySelector("#FromDate").addEventListener('change', () => {
+        var a = $(this);
+        console.log(this);
+    })
+
+    initChangeTextFocusType();
 
     $('#dialog-addnew').dialog({
         modal: true,

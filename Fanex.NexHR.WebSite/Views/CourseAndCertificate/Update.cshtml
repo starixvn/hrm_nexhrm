@@ -1,10 +1,11 @@
 ﻿@using Fanex.NexHR.Models
 @using Fanex.NexHR.Resources
-@model Toeic
+@using Fanex.NexHR.Models.EmployeeExperience
+@model EmployeeExperience
 @{
     DateTime currentDate = DateTime.Today;
 }
-<form id="frmUpdateTOEIC" class="form form-update-toeic">
+<form id="frmAddExperience" class="form form-add-experience">
     <div id="divErrorCont" class="">
         &nbsp;
     </div>
@@ -25,8 +26,17 @@
             <label>@Labels.Employee</label>
         </div>
         <div class="left input--m">
-            <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark" />
-            <input asp-for="EmpId" type="hidden" />
+            <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark"/>
+            <input asp-for="EmployeeId" type="hidden"/>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label>Department</label>
+        </div>
+        <div class="left input--m">
+            <input asp-for="Department"/>
+            <input asp-for="DepartmentId" type="hidden" />
         </div>
     </div>
     <div class="row form-input">
@@ -34,17 +44,15 @@
             <label>Name</label>
         </div>
         <div class="left input--m">
-            <input asp-for="Employee" placeholder="Source Name" />
-            <input asp-for="EmpId" type="hidden" />
+            <input asp-for="Name"/>
         </div>
     </div>
     <div class="row form-input">
         <div class="left label--l">
-            <label>Study Place</label>
+            <label id="address">Study Place</label>
         </div>
         <div class="left input--m">
-            <input asp-for="Employee"/>
-            <input asp-for="EmpId" type="hidden" />
+            <input asp-for="Name"/>
         </div>
     </div>
     <div class="row form-input">
@@ -52,7 +60,7 @@
             <label id="fromdate">Start Date</label>
         </div>
         <div class="datepicker-button left select--s">
-            <date-picker name="InputDate" value="@(Model != null ? Model.InputDate : null)">
+            <date-picker name="FromDate" value="@(Model != null ? Model.FromDate : null)">
             </date-picker>
             <i class="mdi-action-event calendar-icon left"></i>
         </div>
@@ -62,10 +70,10 @@
             <label id="todate">End Date</label>
         </div>
         <div class="datepicker-button left select--s">
-            <date-picker name="LRExamDate"
+            <date-picker name="ToDate"
                          min-date="currentDate.AddYears(-100)"
                          max-date="currentDate"
-                         value="@(Model != null ? Model.LRExamDate : null)">
+                         value="@(Model != null ? Model.ToDate : null)">
             </date-picker>
             <i class="mdi-action-event calendar-icon left"></i>
         </div>
