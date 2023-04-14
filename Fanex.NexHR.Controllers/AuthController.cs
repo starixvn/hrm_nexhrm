@@ -56,7 +56,7 @@
                 {
                     string domainUsername = appSetting.DomainName + model.Username.Trim();
                     var employee = await authService.GetEmployeeByDomain(domainUsername);
-                    if (employee != null)
+                    if (employee != null && employee.Enabled && !employee.IsDeleted)
                     {
                         var employeeSetting = await authService.GetEmployeeSetting(employee.Id);
                         sessionService.CurrentEmployee = employee;

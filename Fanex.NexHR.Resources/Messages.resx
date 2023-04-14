@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
+  <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,378 +59,378 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="metadata">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" />
-							</xsd:sequence>
-							<xsd:attribute name="name" use="required" type="xsd:string" />
-							<xsd:attribute name="type" type="xsd:string" />
-							<xsd:attribute name="mimetype" type="xsd:string" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="assembly">
-						<xsd:complexType>
-							<xsd:attribute name="alias" type="xsd:string" />
-							<xsd:attribute name="name" type="xsd:string" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>2.0</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<data name="AdjustSuccessfully" xml:space="preserve">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdjustSuccessfully" xml:space="preserve">
     <value>Adjust successfully</value>
   </data>
-	<data name="ApprovalNotificationChangeShiftSubject" xml:space="preserve">
+  <data name="ApprovalNotificationChangeShiftSubject" xml:space="preserve">
     <value>Change shift request from {0} approved by {1}</value>
   </data>
-	<data name="ApprovalNotificationCheckInSubject" xml:space="preserve">
+  <data name="ApprovalNotificationCheckInSubject" xml:space="preserve">
     <value>Check in request from {0} approved by {1}</value>
   </data>
-	<data name="ApprovalNotificationCheckOutSubject" xml:space="preserve">
+  <data name="ApprovalNotificationCheckOutSubject" xml:space="preserve">
     <value>Check out request from {0} approved by {1}</value>
   </data>
-	<data name="ApprovalNotificationEarlyOutSubject" xml:space="preserve">
+  <data name="ApprovalNotificationEarlyOutSubject" xml:space="preserve">
     <value>Early out request from {0} approved by {1}</value>
   </data>
-	<data name="ApprovalNotificationLateInSubject" xml:space="preserve">
+  <data name="ApprovalNotificationLateInSubject" xml:space="preserve">
     <value>Late in request from {0} approved by {1}</value>
   </data>
-	<data name="ApprovalNotificationLeaveSubject" xml:space="preserve">
+  <data name="ApprovalNotificationLeaveSubject" xml:space="preserve">
     <value>Leave request from {0} approved by {1}</value>
   </data>
-	<data name="ApprovalNotificationSubject" xml:space="preserve">
+  <data name="ApprovalNotificationSubject" xml:space="preserve">
     <value>Approval notification email</value>
   </data>
-	<data name="ChangeShiftEmailSubject" xml:space="preserve">
+  <data name="ChangeShiftEmailSubject" xml:space="preserve">
     <value>Change shift request from</value>
   </data>
-	<data name="CheckInOutEmailSubject" xml:space="preserve">
+  <data name="CheckInOutEmailSubject" xml:space="preserve">
     <value>Check in/out request from</value>
   </data>
-	<data name="DuplicateEmployeeCode" xml:space="preserve">
+  <data name="DuplicateEmployeeCode" xml:space="preserve">
     <value>Duplicate employee code</value>
   </data>
-	<data name="DuplicateTeamCode" xml:space="preserve">
+  <data name="DuplicateTeamCode" xml:space="preserve">
     <value>Duplicate team code</value>
   </data>
-	<data name="ErrorTryAgain" xml:space="preserve">
+  <data name="ErrorTryAgain" xml:space="preserve">
     <value>An error occurred while processing your request. Please try again!</value>
   </data>
-	<data name="InvalidInputData" xml:space="preserve">
+  <data name="InvalidInputData" xml:space="preserve">
     <value>Invalid input data</value>
   </data>
-	<data name="InvalidToDate" xml:space="preserve">
+  <data name="InvalidToDate" xml:space="preserve">
     <value>Invalid ToDate</value>
   </data>
-	<data name="InvalidTOEICInputDate" xml:space="preserve">
+  <data name="InvalidTOEICInputDate" xml:space="preserve">
     <value>Input Date must be less than or equal to current date ({0}).</value>
   </data>
-	<data name="InvalidTOEICLRExamDate" xml:space="preserve">
+  <data name="InvalidTOEICLRExamDate" xml:space="preserve">
     <value>L/R Exam Date must be less than or equal to current date ({0}).</value>
   </data>
-	<data name="InvalidTOEICSWExamDate" xml:space="preserve">
+  <data name="InvalidTOEICSWExamDate" xml:space="preserve">
     <value>S/W Exam Date must be less than or equal to current date ({0}).</value>
   </data>
-	<data name="InvalidTotalDays" xml:space="preserve">
+  <data name="InvalidTotalDays" xml:space="preserve">
     <value>Invalid total days</value>
   </data>
-	<data name="JobTitle" xml:space="preserve">
+  <data name="JobTitle" xml:space="preserve">
     <value>job title</value>
   </data>
-	<data name="LateInEarlyOutEmailSubject" xml:space="preserve">
+  <data name="LateInEarlyOutEmailSubject" xml:space="preserve">
     <value>Late in/early out request from</value>
   </data>
-	<data name="LeaveEmailSubject" xml:space="preserve">
+  <data name="LeaveEmailSubject" xml:space="preserve">
     <value>Leave request from</value>
   </data>
-	<data name="MemoSubject" xml:space="preserve">
+  <data name="MemoSubject" xml:space="preserve">
     <value>Memo subject</value>
   </data>
-	<data name="NoDataIsAvailable" xml:space="preserve">
+  <data name="NoDataIsAvailable" xml:space="preserve">
     <value>No data is available</value>
   </data>
-	<data name="NoFutureCheckInOutRequest" xml:space="preserve">
+  <data name="NoFutureCheckInOutRequest" xml:space="preserve">
     <value>You can't make a check in/out request for a future day</value>
   </data>
-	<data name="NoInformation" xml:space="preserve">
+  <data name="NoInformation" xml:space="preserve">
     <value>No information available</value>
   </data>
-	<data name="ProcessSubject" xml:space="preserve">
+  <data name="ProcessSubject" xml:space="preserve">
     <value>Your {0} request {1} has been {2} by {3}</value>
   </data>
-	<data name="RequestCreated" xml:space="preserve">
+  <data name="RequestCreated" xml:space="preserve">
     <value>Your request have been sent successfully!</value>
   </data>
-	<data name="RequestUpdated" xml:space="preserve">
+  <data name="RequestUpdated" xml:space="preserve">
     <value>Your request has been updated &amp; sent successfully!</value>
   </data>
-	<data name="Saved" xml:space="preserve">
+  <data name="Saved" xml:space="preserve">
     <value>Saved</value>
   </data>
-	<data name="SearchEmployee" xml:space="preserve">
+  <data name="SearchEmployee" xml:space="preserve">
     <value>search employee...</value>
   </data>
-	<data name="SearchEmployeeWatermark" xml:space="preserve">
+  <data name="SearchEmployeeWatermark" xml:space="preserve">
     <value>full name or nick name</value>
   </data>
-	<data name="StopEditRequest" xml:space="preserve">
+  <data name="StopEditRequest" xml:space="preserve">
     <value>You now can't edit your request cause' it was</value>
   </data>
-	<data name="TeamCreated" xml:space="preserve">
+  <data name="TeamCreated" xml:space="preserve">
     <value>Team's created!</value>
   </data>
-	<data name="TeamUpdated" xml:space="preserve">
+  <data name="TeamUpdated" xml:space="preserve">
     <value>Team's updated!</value>
   </data>
-	<data name="ThisContentHasAlreadyBeenDeleted" xml:space="preserve">
+  <data name="ThisContentHasAlreadyBeenDeleted" xml:space="preserve">
     <value>This content has already been deleted</value>
   </data>
-	<data name="ToShiftMustDifferentFromFromShift" xml:space="preserve">
+  <data name="ToShiftMustDifferentFromFromShift" xml:space="preserve">
     <value>ToShift must be different from FromShift</value>
   </data>
-	<data name="UpdatedChangeShiftEmailSubject" xml:space="preserve">
+  <data name="UpdatedChangeShiftEmailSubject" xml:space="preserve">
     <value>[Updated] Change shift request from</value>
   </data>
-	<data name="UpdatedCheckInOutEmailSubject" xml:space="preserve">
+  <data name="UpdatedCheckInOutEmailSubject" xml:space="preserve">
     <value>[Updated] Check in/out request from</value>
   </data>
-	<data name="UpdatedLateInEarlyOutEmailSubject" xml:space="preserve">
+  <data name="UpdatedLateInEarlyOutEmailSubject" xml:space="preserve">
     <value>[Updated] Late in/early out request from</value>
   </data>
-	<data name="UpdatedLeaveEmailSubject" xml:space="preserve">
+  <data name="UpdatedLeaveEmailSubject" xml:space="preserve">
     <value>[Updated] Leave request from</value>
   </data>
-	<data name="InvalidEmployeeID" xml:space="preserve">
+  <data name="InvalidEmployeeID" xml:space="preserve">
     <value>Invalid Employee. Please select a valid employee.</value>
   </data>
-	<data name="EmptyLRAndSW" xml:space="preserve">
+  <data name="EmptyLRAndSW" xml:space="preserve">
     <value>Please input score of L/R or S/W</value>
   </data>
-	<data name="EmptyLRPair" xml:space="preserve">
+  <data name="EmptyLRPair" xml:space="preserve">
     <value>L/R must be input</value>
   </data>
-	<data name="EmptySWPair" xml:space="preserve">
+  <data name="EmptySWPair" xml:space="preserve">
     <value>S/W must be input</value>
   </data>
-	<data name="CreatedSuccessfully" xml:space="preserve">
+  <data name="CreatedSuccessfully" xml:space="preserve">
     <value>Created successfully!</value>
   </data>
-	<data name="SelectParent" xml:space="preserve">
+  <data name="SelectParent" xml:space="preserve">
     <value>Select a parent</value>
   </data>
-	<data name="UpdatedSuccessfully" xml:space="preserve">
+  <data name="UpdatedSuccessfully" xml:space="preserve">
     <value>Updated successfully!</value>
   </data>
-	<data name="SelectDepartment" xml:space="preserve">
+  <data name="SelectDepartment" xml:space="preserve">
     <value>Select a department</value>
   </data>
-	<data name="SelectParentTeam" xml:space="preserve">
+  <data name="SelectParentTeam" xml:space="preserve">
     <value>Select a parent team</value>
   </data>
-	<data name="BalanceDescription" xml:space="preserve">
+  <data name="BalanceDescription" xml:space="preserve">
     <value>The current hour(s) of Late In/Early Out after the last deduction</value>
   </data>
-	<data name="DeductionTakenDescription" xml:space="preserve">
+  <data name="DeductionTakenDescription" xml:space="preserve">
     <value>The grand total hour(s) of  Late In/Early Out, resulted in a deduction taken from Leave Balance</value>
   </data>
-	<data name="RequiredEmployee" xml:space="preserve">
+  <data name="RequiredEmployee" xml:space="preserve">
     <value>Employee list mus be not empty.</value>
   </data>
-	<data name="LateInEarlyOutDeductedDescription" xml:space="preserve">
+  <data name="LateInEarlyOutDeductedDescription" xml:space="preserve">
     <value>The Late In/Early Out deducted from the Total NEX</value>
   </data>
-	<data name="NexBalanceDescription" xml:space="preserve">
+  <data name="NexBalanceDescription" xml:space="preserve">
     <value>Total remaining NEX (hours) after last deduction (Balance = Total NEX - Deducted by LI/EO - Paid - NEX Leave)</value>
   </data>
-	<data name="NexLeaveDescription" xml:space="preserve">
+  <data name="NexLeaveDescription" xml:space="preserve">
     <value>Total off-day taken from the NEX (hours)</value>
   </data>
-	<data name="UsedNEXDescription" xml:space="preserve">
+  <data name="UsedNEXDescription" xml:space="preserve">
     <value>Total NEX hours deducted by Late In/Early Out</value>
   </data>
-	<data name="LeaveRequestLegendText" xml:space="preserve">
+  <data name="LeaveRequestLegendText" xml:space="preserve">
     <value>※ In &lt;span id='lblMonth'&gt;{0}&lt;/span&gt;, you can use up to &lt;span id='lblAnnualLeaveCanBeUsed' class='red-color'&gt;{1}&lt;/span&gt; day (s) AL in a total of &lt;span id = 'lblAnnualLeaveBalance' class='red-color'&gt; {2} &lt;/span&gt; day (s) for &lt;span id='lblYear'&gt;{3}&lt;/span&gt;</value>
   </data>
-	<data name="MultipleOf" xml:space="preserve">
+  <data name="MultipleOf" xml:space="preserve">
     <value>{0} must be a multiple of {1}</value>
   </data>
-	<data name="RemindReachedWorkingTime" xml:space="preserve">
+  <data name="RemindReachedWorkingTime" xml:space="preserve">
     <value>Dear {0},
 You have just reached {1} working hours today. 
 
 If you don't want to receive this category message, please use command: _stop_remind_reachedworkingtime_. 
 Thanks</value>
   </data>
-	<data name="RemarkRequireError" xml:space="preserve">
+  <data name="RemarkRequireError" xml:space="preserve">
     <value>The remark must be required and not be only spaces</value>
   </data>
-	<data name="RemarkNotApprovedByManagementError" xml:space="preserve">
+  <data name="RemarkNotApprovedByManagementError" xml:space="preserve">
     <value>This type of request must be approved by the leader first. Show the person who approved your request by adding "approved by" in the remark(e.g: personal issue - approved by Quinn)</value>
   </data>
-	<data name="SuccessUpdateInformation" xml:space="preserve">
+  <data name="SuccessUpdateInformation" xml:space="preserve">
     <value>Success update information</value>
   </data>
-	<data name="AccountLockedOut" xml:space="preserve">
+  <data name="AccountLockedOut" xml:space="preserve">
     <value>Account is currently locked out</value>
   </data>
-	<data name="IncorrectUsernameOrPassword" xml:space="preserve">
+  <data name="IncorrectUsernameOrPassword" xml:space="preserve">
     <value>Incorrect Username or Password</value>
   </data>
-	<data name="ReminderFirstWorkingDayAnniversaryOf" xml:space="preserve">
+  <data name="ReminderFirstWorkingDayAnniversaryOf" xml:space="preserve">
     <value>Reminder: First working day anniversary of {0}</value>
   </data>
-	<data name="ReminderHappyBirthdayTo" xml:space="preserve">
+  <data name="ReminderHappyBirthdayTo" xml:space="preserve">
     <value>Reminder: Happy birthday to {0}</value>
   </data>
-	<data name="UserNotExists" xml:space="preserve">
-    <value>The user does not exists</value>
+  <data name="UserNotExists" xml:space="preserve">
+    <value>User does not existed or disabled</value>
   </data>
-	<data name="PaidDescription" xml:space="preserve">
+  <data name="PaidDescription" xml:space="preserve">
     <value>Total hours paid</value>
   </data>
-	<data name="AccessLinkToViewMoreCheckInCheckOut" xml:space="preserve">
+  <data name="AccessLinkToViewMoreCheckInCheckOut" xml:space="preserve">
     <value>Please access {0}/report/attendance to view more details. Thanks</value>
   </data>
-	<data name="AnounceNumberEmployeeMissCheckInOut" xml:space="preserve">
+  <data name="AnounceNumberEmployeeMissCheckInOut" xml:space="preserve">
     <value>Hi All. There is/are {0} employee(s) got missing Check in/Check out: {1}</value>
   </data>
-	<data name="EmployeeMissingCheckInOut" xml:space="preserve">
+  <data name="EmployeeMissingCheckInOut" xml:space="preserve">
     <value>_- {0} ({1}) missing {2} on {3}_ {4}</value>
   </data>
-	<data name="ReviewAndMakeCheckInOutRequestAtLink" xml:space="preserve">
+  <data name="ReviewAndMakeCheckInOutRequestAtLink" xml:space="preserve">
     <value>Please review and make a request at: {0}/checkinout/Create?date={1}&amp;type={2}</value>
   </data>
-	<data name="YouForgotCheckInOut" xml:space="preserve">
+  <data name="YouForgotCheckInOut" xml:space="preserve">
     <value>You have forgot _{0}_ on _{1}_ (shift {2}). {3}</value>
   </data>
-	<data name="AccessLinkToViewViolateLateInEarlyOutOnMonth" xml:space="preserve">
+  <data name="AccessLinkToViewViolateLateInEarlyOutOnMonth" xml:space="preserve">
     <value>Please access {0}/report/lateinearlyout to view more details. And don't forget to warning employees who violate more than 4 times on this month. Thanks</value>
   </data>
-	<data name="DearSkypeMessage" xml:space="preserve">
+  <data name="DearSkypeMessage" xml:space="preserve">
     <value>Dear {0},{1}</value>
   </data>
-	<data name="EmployeeLateInEarlyOutViolateOnMonth" xml:space="preserve">
+  <data name="EmployeeLateInEarlyOutViolateOnMonth" xml:space="preserve">
     <value>There is inform that you got {0} time(s) Late in/Early out on {1}.{2}Please notice that. Thanks"</value>
   </data>
-	<data name="EmployeeLateInEarlyOutViolateOnMonthOnceMoreTime" xml:space="preserve">
+  <data name="EmployeeLateInEarlyOutViolateOnMonthOnceMoreTime" xml:space="preserve">
     <value>You got {0} times Late in/Early out on {1}. If you Late in/Early out one more time on this month, you will violate Nexcel's policy.{2}Please notice that. Thanks</value>
   </data>
-	<data name="EmployeeViolateTime" xml:space="preserve">
+  <data name="EmployeeViolateTime" xml:space="preserve">
     <value>_- {0} ({1}) violate {2} time(s)._ {3}</value>
   </data>
-	<data name="ThereIsNumberEmployeeViolateLateInEarlyOutOnMonth" xml:space="preserve">
+  <data name="ThereIsNumberEmployeeViolateLateInEarlyOutOnMonth" xml:space="preserve">
     <value>Hi All. There is/are {0} employee(s) Late in/Early out over 4 times on {1}: {2}</value>
   </data>
-	<data name="AccessLinkAndReviewToTakeDeduction" xml:space="preserve">
+  <data name="AccessLinkAndReviewToTakeDeduction" xml:space="preserve">
     <value>Please access {0}/report/lateinearlyout to review it and take a deduction. Thanks.</value>
   </data>
-	<data name="AccessLinkToViewViolateDiscipline" xml:space="preserve">
+  <data name="AccessLinkToViewViolateDiscipline" xml:space="preserve">
     <value>Please access {0}/report/lateinearlyoutdiscipline to view more details. And don't forget to warning employees who violate the discipline over 3 times. Thanks</value>
   </data>
-	<data name="BalanceCurrentYearHour" xml:space="preserve">
+  <data name="BalanceCurrentYearHour" xml:space="preserve">
     <value>_- {0} ({1}). Balance Current Year: {2} hour(s)._ {3}</value>
   </data>
-	<data name="ThereIsNumberEmployeeNeedToDeductForLateInEarlyOut" xml:space="preserve">
+  <data name="ThereIsNumberEmployeeNeedToDeductForLateInEarlyOut" xml:space="preserve">
     <value>Hi All. There is/are inform {0} employee(s) need to deduct balance for Late in/Early out: {1}</value>
   </data>
-	<data name="ThereIsNumberEmployeeViolateDiscipline" xml:space="preserve">
+  <data name="ThereIsNumberEmployeeViolateDiscipline" xml:space="preserve">
     <value>Hi All. There is/are {0} employee(s) violate Late in/Early out discipline over 3 times from {1} to {2}: {3}</value>
   </data>
-	<data name="InValidToken" xml:space="preserve">
+  <data name="InValidToken" xml:space="preserve">
     <value>Invalid token</value>
   </data>
-	<data name="MissingJwtToken" xml:space="preserve">
+  <data name="MissingJwtToken" xml:space="preserve">
     <value>Missing Jwt Token</value>
   </data>
-	<data name="AccessLinkBioFingerprintAndCard" xml:space="preserve">
+  <data name="AccessLinkBioFingerprintAndCard" xml:space="preserve">
     <value>Please, access {0} to review and take appropriate action. Thanks</value>
   </data>
-	<data name="AnounceBioChangeTime" xml:space="preserve">
+  <data name="AnounceBioChangeTime" xml:space="preserve">
     <value>Hi All, There is/are {0} change(s) of time: {1}</value>
   </data>
-	<data name="AnounceDeviceInjectedBioSystem" xml:space="preserve">
+  <data name="AnounceDeviceInjectedBioSystem" xml:space="preserve">
     <value>Hi All, There is/are {0} device(s) injected into the BIO system: {1}</value>
   </data>
-	<data name="AnounceNewBioFingerprintAndCard" xml:space="preserve">
+  <data name="AnounceNewBioFingerprintAndCard" xml:space="preserve">
     <value>Hi All, There is/are {0} new registered fingerprint(s) and/or card(s) waiting to be approved: {1}</value>
   </data>
-	<data name="DeviceBioChangeTime" xml:space="preserve">
+  <data name="DeviceBioChangeTime" xml:space="preserve">
     <value>_- Device Id: {0}. Device Name: {1}. Time Changed: {2}._ {3}</value>
   </data>
-	<data name="DeviceInjectedBioSystem" xml:space="preserve">
+  <data name="DeviceInjectedBioSystem" xml:space="preserve">
     <value>_- Device Id: {0}. Device Name: {1}_ {2}</value>
   </data>
-	<data name="EmployeeFingerprintAndCard" xml:space="preserve">
+  <data name="EmployeeFingerprintAndCard" xml:space="preserve">
     <value>_- {0} ({1})'s {2}._ {3}</value>
   </data>
-	<data name="Thanks" xml:space="preserve">
+  <data name="Thanks" xml:space="preserve">
     <value>Please review this. Thanks</value>
   </data>
-	<data name="ThankReview" xml:space="preserve">
+  <data name="ThankReview" xml:space="preserve">
     <value>Please, review the change(s). Thanks</value>
   </data>
-	<data name="AnounceFogotLogtime" xml:space="preserve">
+  <data name="AnounceFogotLogtime" xml:space="preserve">
     <value>Hi All. There is/are {0} employee(s) forgot log time on Nexdev: {1}</value>
   </data>
-	<data name="EmployeeFogotLogtime" xml:space="preserve">
+  <data name="EmployeeFogotLogtime" xml:space="preserve">
     <value>_- {0} ({1}) forgot log time on {2}_ {3}</value>
   </data>
-	<data name="FogotLogtime" xml:space="preserve">
+  <data name="FogotLogtime" xml:space="preserve">
     <value>You forgot log time on: {0}</value>
   </data>
-	<data name="RemindLogtime" xml:space="preserve">
+  <data name="RemindLogtime" xml:space="preserve">
     <value>Please log time on {0} or you can log time directly on {1} Dashboard. Thanks</value>
   </data>
-	<data name="ThankNotice" xml:space="preserve">
+  <data name="ThankNotice" xml:space="preserve">
     <value>Please notice that. Thanks</value>
   </data>
-	<data name="NexEmployeeRequireError" xml:space="preserve">
+  <data name="NexEmployeeRequireError" xml:space="preserve">
     <value>Nex Employee must be required and not be only spaces</value>
   </data>
-	<data name="EmployeeTransferExitsts" xml:space="preserve">
+  <data name="EmployeeTransferExitsts" xml:space="preserve">
     <value>This employee has already transfered</value>
   </data>
-	<data name="DisApprovalNotificationLeaveSubject" xml:space="preserve">
+  <data name="DisApprovalNotificationLeaveSubject" xml:space="preserve">
     <value>Leave request from {0} disapproved by {1}</value>
   </data>
 </root>

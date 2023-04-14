@@ -3,18 +3,18 @@
 <div class="notification">
     <a href="#!" class="dropdown-button" data-activates='dropdown-notification'>
         <i class="mdi-social-notifications"></i>
-        @if (Model.QuantityOfNewAlert != string.Empty)
+        @if (!string.IsNullOrEmpty(Model.QuantityOfNewAlert))
             {
             <span class="badge">@Model.QuantityOfNewAlert</span>
         }
     </a>
 </div>
-@if (Model.QuantityOfNewAlert != string.Empty)
+@if (!string.IsNullOrEmpty(Model.QuantityOfNewAlert))
 {
     <ul id='dropdown-notification' class='dropdown-content dropdown-notification'>
         <li class="collection-header">
             <h5 class="txt-uppercase primary-color">Notifications</h5>
-            @*<span class="new badge">@Model.QuantityOfNewAlert</span>*@
+            <span class="new badge">@Model.QuantityOfNewAlert</span>
         </li>
         @if (Model.LateInEarlyOutInYear >= 2)
         {
