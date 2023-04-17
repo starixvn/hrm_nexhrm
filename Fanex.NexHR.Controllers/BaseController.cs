@@ -7,7 +7,7 @@
     using Models;
 
     [HrmAuthorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
-    public class BaseController : Controller
+    public class BaseController : Microsoft.AspNetCore.Mvc.Controller
     {
         private readonly ISessionService sessionService;
 

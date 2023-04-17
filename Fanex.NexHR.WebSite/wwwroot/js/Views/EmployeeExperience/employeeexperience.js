@@ -117,8 +117,8 @@ function initChangeTextFocusType() {
 
 function initAddNewDialog() {
     initDatePicker();
-    initAutocomplete('#frmUpdateTOEIC #Employee', '#frmUpdateTOEIC #EmployeeId', false);
-    initAutocompleteDepartment('#frmUpdateTOEIC #Department', '#frmUpdateTOEIC #DepartmentId', false);
+    initAutocomplete('#frmAddExperience #Employee', '#frmAddExperience #EmployeeId', false);
+    initAutocompleteDepartment('#frmAddExperience #Department', '#frmAddExperience #DepartmentId', false);
     initNumberTextbox();
 
     document.querySelector("#FromDate").addEventListener('change', () => {
@@ -145,9 +145,9 @@ function initAddNewDialog() {
                 click: function () {
                     $.ajax({
                         type: 'POST',
-                        url: _global.root + 'CourseAndCertificate/Update',
+                        url: _global.root + 'EmployeeExperience/Update',
                         dataType: 'json',
-                        data: $('#frmUpdateTOEIC').serialize(),
+                        data: $('#frmAddExperience').serialize(),
                         success: function (data) {
                             if (data) {
                                 let errorCont = $('#divErrorCont');
@@ -199,7 +199,7 @@ $(document).ready(function () {
     $('#btnAddNew').click(function () {
         $.ajax({
             type: 'GET',
-            url: _global.root + 'CourseAndCertificate/Update',
+            url: _global.root + 'EmployeeExperience/Update',
             dataType: 'html',
             success: function (data) {
                 $('#dialog-addnew').html(data);

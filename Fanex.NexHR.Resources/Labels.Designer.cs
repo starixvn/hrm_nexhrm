@@ -898,15 +898,6 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Course And Certificate.
-        /// </summary>
-        public static string CourseAndCertificate {
-            get {
-                return ResourceManager.GetString("CourseAndCertificate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to CPU.
         /// </summary>
         public static string CPU {
@@ -1497,6 +1488,15 @@ namespace Fanex.NexHR.Resources {
         public static string EmployeeCard {
             get {
                 return ResourceManager.GetString("EmployeeCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Employee Experience.
+        /// </summary>
+        public static string EmployeeExperience {
+            get {
+                return ResourceManager.GetString("EmployeeExperience", resourceCulture);
             }
         }
         

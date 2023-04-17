@@ -5,7 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
     using System.IO;
 
-    public class AvatarController : Controller
+    public class AvatarController : Microsoft.AspNetCore.Mvc.Controller
     {
         private readonly IWebHostEnvironment environment;
 

@@ -2,17 +2,16 @@
 {
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Models.EmployeeExperience;
     using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels.CourseAndCertificate;
+    using Fanex.NexHR.ViewModels.EmployeeExperience;
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Threading.Tasks;
 
-    public class CourseAndCertificateController : BaseController
+    public class EmployeeExperienceController : BaseController
     {
         private readonly ITeamService teamService;
-        public CourseAndCertificateController(ISessionService sessionService,
+        public EmployeeExperienceController(ISessionService sessionService,
             ITeamService teamService
             ) : base(sessionService)
         {
@@ -21,7 +20,7 @@
 
         public async Task<IActionResult> Index()
         {
-            var model = new CourseAndCertificateFilterViewModel
+            var model = new EmployeeExperienceFilterViewModel
             {
                 FromDate = DateTime.Now,
                 ToDate = DateTime.Now,
@@ -35,7 +34,7 @@
         [HrmAuthorize(UserRoles = "HR")]
         public IActionResult Update()
         {
-            EmployeeExperience employeeExperience = null;
+            EmployeeExperienceInsertViewModel employeeExperience = null;
             return PartialView(employeeExperience);
         }
     }

@@ -587,7 +587,6 @@
 
   <ItemGroup>
     <Folder Include="logs\" />
-    <Folder Include="wwwroot\js\Views\CourseAndCertificate\" />
     <Folder Include="wwwroot\minify\css\" />
     <Folder Include="wwwroot\minify\js\" />
   </ItemGroup>

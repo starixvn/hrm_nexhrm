@@ -696,10 +696,10 @@
         "sourceMap": false
     },
     {
-        "outputFileName": "wwwroot/minify/js/courseandcertificate.min.js",
+        "outputFileName": "wwwroot/minify/js/employeeexperience.min.js",
         "inputFiles": [
             "wwwroot/js/Views/Employee/_employee.search.in.company.js",
-            "wwwroot/js/Views/CourseAndCertificate/courseandcertificate.js"
+            "wwwroot/js/Views/EmployeeExperience/employeeexperience.js"
         ],
         "minify": {
             "enabled": true,

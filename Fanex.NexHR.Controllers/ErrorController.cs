@@ -2,7 +2,7 @@
 
 namespace Fanex.NexHR.Controllers
 {
-    public class ErrorController : Controller
+    public class ErrorController : Microsoft.AspNetCore.Mvc.Controller
     {
         public IActionResult AccessDenied()
         {
