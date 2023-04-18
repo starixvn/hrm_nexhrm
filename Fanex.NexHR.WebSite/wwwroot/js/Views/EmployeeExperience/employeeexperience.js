@@ -11,11 +11,11 @@ function query(isFirstLoad) {
     }
     const data = $('.card-container-base form').serialize();
     const teamParam = $(".team .select-dropdown").val();
-    const statusParam = $(".status .select-dropdown").val();
+    const typeParam = $(".type .select-dropdown").val();
 
-    const url = _global.root + 'EmployeeWorkFromHome/GetEmployeeWorkFromHomeGrid?' + data;
+    const url = _global.root + 'EmployeeExperience/GetEmployeeExperience?' + data;
     if (!isFirstLoad) {
-        const orgUrl = _global.root + 'EmployeeWorkFromHome/Index?' + data + "&TeamParam=" + teamParam + "&StatusParam=" + statusParam;
+        const orgUrl = _global.root + 'EmployeeExperience/Index?' + data + "&TeamParam=" + teamParam + "&typeParam=" + typeParam;
         window.history.replaceState(null, null, orgUrl);
     }
 
@@ -29,23 +29,15 @@ function query(isFirstLoad) {
             }
         },
         success: function (data) {
-            $('#list-workfromhome').html(data);
+            $('#list-data').html(data);
             if ($('table#data').length > 0) {
-                bindMenuPending();
-                bindMenuApproved();
                 $('table#data').addClass('table-success'); // class to style mobile
-
-                $('#checkuncheckall').on('click', function () {
-                    const isCheckAll = $('#checkuncheckall').prop('checked');
-
-                    $('.chk-request').prop('checked', isCheckAll);
-                });
             }
 
             floatThead('table#data');
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert(textStatus + ': ' + errorThrown);
+        error: function (jqXHR, texttype, errorThrown) {
+            alert(texttype + ': ' + errorThrown);
         },
         complete: function () {
             if (!isFirstLoad) {
@@ -60,44 +52,21 @@ function initDataFirstQuery(queryString) {
     const TeamId = urlParams.get('TeamId');
     const Employee = urlParams.get('Employee');
     const EmployeeId = urlParams.get('EmployeeId');
-    const statusId = urlParams.get('statusId');
+    const Type = urlParams.get('Type');
     const FromDate = urlParams.get('FromDate');
     const ToDate = urlParams.get('ToDate');
     const teamParam = urlParams.get('TeamParam');
-    const statusParam = urlParams.get('StatusParam');
+    const typeParam = urlParams.get('TypeParam');
 
     $("#TeamId").val(TeamId);
     $("#Employee").val(Employee);
     $("#EmployeeId").val(EmployeeId);
-    $("#statusId").val(statusId);
+    $("#Type").val(Type);
     $("#FromDate").val(FromDate);
     $("#ToDate").val(ToDate);
 
     $(".team .select-dropdown").val(teamParam);
-    $(".status .select-dropdown").val(statusParam);
-}
-
-function initNumberTextbox() {
-    var numbericTextbox = $('input[type=number]');
-
-    numbericTextbox.attr('maxlength', '3');
-    numbericTextbox.keydown(function (event) {
-        // Allow: backspace, delete, tab, escape, and enter
-        if (event.keyCode === 46 || event.keyCode === 8 || event.keyCode === 9 || event.keyCode === 27 || event.keyCode === 13 ||
-            // Allow: Ctrl+A
-            (event.keyCode === 65 && event.ctrlKey === true) ||
-            // Allow: home, end, left, right
-            (event.keyCode >= 35 && event.keyCode <= 39)) {
-            // let it happen, don't do anything
-            return;
-        }
-        else {
-            // Ensure that it is a number and stop the keypress
-            if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
-                event.preventDefault();
-            }
-        }
-    });
+    $(".typeEmployeeExperience .select-dropdown").val(typeParam);
 }
 
 function initChangeTextFocusType() {
@@ -119,13 +88,6 @@ function initAddNewDialog() {
     initDatePicker();
     initAutocomplete('#frmAddExperience #Employee', '#frmAddExperience #EmployeeId', false);
     initAutocompleteDepartment('#frmAddExperience #Department', '#frmAddExperience #DepartmentId', false);
-    initNumberTextbox();
-
-    document.querySelector("#FromDate").addEventListener('change', () => {
-        var a = $(this);
-        console.log(this);
-    })
-
     initChangeTextFocusType();
 
     $('#dialog-addnew').dialog({
@@ -145,7 +107,7 @@ function initAddNewDialog() {
                 click: function () {
                     $.ajax({
                         type: 'POST',
-                        url: _global.root + 'EmployeeExperience/Update',
+                        url: _global.root + 'EmployeeExperience/Insert',
                         dataType: 'json',
                         data: $('#frmAddExperience').serialize(),
                         success: function (data) {
@@ -154,9 +116,9 @@ function initAddNewDialog() {
                                 errorCont.removeClass();
                                 errorCont.html('');
 
-                                if (data.code === 0) {
+                                if (data.Code === 0) {
                                     errorCont.addClass('success validation-summary-success');
-                                    errorCont.append('Update TOEIC score for Employee successfully');
+                                    errorCont.append('Insert successfully');
                                     setTimeout(function () { $('#dialog-addnew').dialog("close"); query(); }, 3000);
                                 }
                                 else {
@@ -199,7 +161,7 @@ $(document).ready(function () {
     $('#btnAddNew').click(function () {
         $.ajax({
             type: 'GET',
-            url: _global.root + 'EmployeeExperience/Update',
+            url: _global.root + 'EmployeeExperience/Insert',
             dataType: 'html',
             success: function (data) {
                 $('#dialog-addnew').html(data);

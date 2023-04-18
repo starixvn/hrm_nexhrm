@@ -468,6 +468,7 @@
         <Setting Key="EmployeeExperience_Get" SpName="EmployeeExperience_Get" DbName="nexhr" Plain="1"></Setting>
         <Setting Key="EmployeeExperience_Insert" SpName="EmployeeExperience_Insert" DbName="nexhr" Plain="1"></Setting>
         <Setting Key="EmployeeExperience_Update" SpName="EmployeeExperience_Update" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="EmployeeExperience_GetById" SpName="EmployeeExperience_GetById" DbName="nexhr" Plain="1"></Setting>
     </Function>
     <Function Name="Work From Home Request">
         <Setting Key="WorkFromHomeRequest_Get" SpName="WorkFromHomeRequest_Get" DbName="nexhr" Plain="1"></Setting>

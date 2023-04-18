@@ -1,6 +1,5 @@
 ﻿namespace Fanex.NexHR.WebSite
 {
-    using System.Text;
     using Fanex.Data.Repository;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Models.Core;
@@ -16,6 +15,7 @@
     using Microsoft.AspNetCore.Mvc.Infrastructure;
     using Microsoft.IdentityModel.Tokens;
     using StackExchange.Redis;
+    using System.Text;
 
     public static class DIExtensions
     {
@@ -107,6 +107,7 @@
             services.AddSingleton<IAuthService, AuthService>();
             services.AddSingleton<ILogServiceProvider, LogServiceProvider>();
             services.AddSingleton<IEmployeeService, EmployeeService>();
+            services.AddSingleton<IEmployeeExperienceService, EmployeeExperienceService>();
             services.AddSingleton<ITeamService, TeamService>();
             services.AddSingleton<IRequestService, RequestService>();
             services.AddSingleton<INotificationService, NotificationService>();

@@ -1,11 +1,11 @@
 ﻿@using Fanex.NexHR.Models
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.ViewModels.EmployeeExperience
-@model EmployeeExperienceInsertViewModel
+@model EmployeeExperienceViewModel
 @{
-    DateTime currentDate = DateTime.Today;
+    DateTime currentDate = DateTime.Today; 
 }
-<form id="frmAddExperience" class="form form-add-experience">
+<form id="frmUpdateExperience" class="form form-update-experience">
     <div id="divErrorCont" class="">
         &nbsp;
     </div>
@@ -14,10 +14,10 @@
             <label>Type</label>
         </div>
         <div class="left input--m">
-            <select class="typeCourseCertificate" name="typeId" id="typeId">
-                <option value="0">Course</option>
-                <option value="1">Certificate</option>
-                <option value="2">Training</option>
+            <select class="typeExperience" name="Type" id="typeId">
+                <option selected="@(Model.Type == "Course")" value="Course">Course</option>
+                <option selected="@(Model.Type == "Certificate")" value="Certificate">Certificate</option>
+                <option selected="@(Model.Type == "Training")" value="Training">Training</option>
             </select>
         </div>
     </div>
@@ -26,8 +26,8 @@
             <label>@Labels.Employee</label>
         </div>
         <div class="left input--m">
-            <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark"/>
-            <input asp-for="EmployeeId" type="hidden"/>
+            <input asp-for="Employee" disabled value="@Model.Employee" placeholder="@Messages.SearchEmployeeWatermark"/>
+            <input asp-for="EmployeeId" type="hidden" />
         </div>
     </div>
     <div class="row form-input">
@@ -35,7 +35,7 @@
             <label>Department</label>
         </div>
         <div class="left input--m">
-            <input asp-for="Department"/>
+            <input asp-for="Department" value="@Model.Department" />
             <input asp-for="DepartmentId" type="hidden" />
         </div>
     </div>
@@ -44,7 +44,7 @@
             <label>Name</label>
         </div>
         <div class="left input--m">
-            <input asp-for="Name"/>
+            <input asp-for="Name" value="@Model.Name" />
         </div>
     </div>
     <div class="row form-input">
@@ -52,7 +52,7 @@
             <label id="address">Study Place</label>
         </div>
         <div class="left input--m">
-            <input asp-for="Name"/>
+            <input asp-for="Organization" value="@Model.Organization" />
         </div>
     </div>
     <div class="row form-input">
@@ -60,7 +60,10 @@
             <label id="fromdate">Start Date</label>
         </div>
         <div class="datepicker-button left select--s">
-            <date-picker name="FromDate" value="@(Model != null ? Model.FromDate : null)">
+            <date-picker name="StartDate"
+                         min-date="currentDate.AddYears(-100)"
+                         max-date="currentDate"
+                         value="@Model.StartDate">
             </date-picker>
             <i class="mdi-action-event calendar-icon left"></i>
         </div>
@@ -70,13 +73,13 @@
             <label id="todate">End Date</label>
         </div>
         <div class="datepicker-button left select--s">
-            <date-picker name="ToDate"
+            <date-picker sname="EndDate"
                          min-date="currentDate.AddYears(-100)"
                          max-date="currentDate"
-                         value="@(Model != null ? Model.ToDate : null)">
+                         value="@Model.EndDate">
             </date-picker>
             <i class="mdi-action-event calendar-icon left"></i>
         </div>
     </div>
-    
+
 </form>

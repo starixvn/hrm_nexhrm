@@ -1,0 +1,63 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.Models.EmployeeExperience
+@model IList<EmployeeExperience>
+@{
+    var count = 0;
+    const string certificate = "Certificate";
+    const string formatDate = "dd MMMM yyyy";
+}
+<table id="data" class="table bordered striped highlight centered table-custom">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Department</th>
+            <th>@Labels.NickName</th>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Organization</th>
+            <th>Detail</th>
+            <th>@Labels.Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                count++;
+                var detail = item.EmployeeExperienceType.Equals(certificate) ?
+                ("ExamDate: " + @item.ExamDate.ToString(formatDate) + " - " + "ExpirationDate: " + @item.ExpirationDate.ToString(formatDate)) :
+                ("Time: " + @item.StartDate.ToString(formatDate) + " - " + @item.EndDate.ToString(formatDate));
+                <tr>
+                    <td>@count</td>
+                    <td>@item.DepartmentName</td>
+                    <td>@item.NickName</td>
+                    <td>@item.EmployeeExperienceType</td>
+                    <td>@item.EmployeeExperienceName</td>
+                    <td>@item.Organization</td>
+                    <td>@detail</td>
+                    <td class="action-column">
+                        <a href="">
+                            <i class='mdi mdi-border-color mdi-edit mdi-dark' style="top: 5px"></i>
+                        </a>
+                        <a href="javascript:;" onclick="">
+                            <i class='mdi mdi-delete mdi-dark'></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="8"></td>
+            </tr>
+            <tr>
+                <td colspan="8" rowspan="2">
+                    @Messages.NoInformation
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

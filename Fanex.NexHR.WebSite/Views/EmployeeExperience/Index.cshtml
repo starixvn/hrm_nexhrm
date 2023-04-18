@@ -3,6 +3,7 @@
 @using Fanex.NexHR.ViewModels.EmployeeExperience
 @model EmployeeExperienceFilterViewModel
 @{
+    DateTime currentDate = DateTime.Today;
     ViewBag.Title = Labels.EmployeeExperience;
 }
 @section Styles {
@@ -58,11 +59,11 @@
                                     <div class="left label--m">
                                         <label>Type</label>
                                     </div>
-                                    <div class="left select--datepicker status">
-                                        <select name="statusId" id="statusId">
-                                            <option value="0">Course</option>
-                                            <option value="1">Certificate</option>
-                                            <option value="2">Training</option>
+                                    <div class="left select--datepicker type">
+                                        <select name="Type" id="Type">
+                                            <option value="Course">Course</option>
+                                            <option value="Certificate">Certificate</option>
+                                            <option value="Training">Training</option>
                                         </select>
                                     </div>
                                 </div>
@@ -84,7 +85,9 @@
                                     <div class="left datepicker-button select--m">
                                         <i class="mdi-action-event calendar-icon left"></i>
                                         <date-picker name="FromDate"
-                                                     value="@Model.FromDate">
+                                                     min-date="currentDate.AddYears(-100)"
+                                                     max-date="currentDate"
+                                                     value="currentDate">
                                         </date-picker>
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
@@ -95,7 +98,9 @@
                                     </div>
                                     <div class="left datepicker-button select--m">
                                         <date-picker name="ToDate"
-                                                     value="@Model.ToDate">
+                                                     min-date="currentDate.AddYears(-100)"
+                                                     max-date="currentDate"
+                                                     value="currentDate">
                                         </date-picker>
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>

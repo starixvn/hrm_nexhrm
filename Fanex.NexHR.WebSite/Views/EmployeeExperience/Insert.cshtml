@@ -1,0 +1,85 @@
+﻿@using Fanex.NexHR.Models
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.EmployeeExperience
+@model EmployeeExperienceViewModel
+@{
+    DateTime currentDate = DateTime.Today;
+}
+<form id="frmAddExperience" class="form form-add-experience">
+    <div id="divErrorCont" class="">
+        &nbsp;
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label>Type</label>
+        </div>
+        <div class="left input--m">
+            <select class="typeExperience" name="Type" id="typeId">
+                <option value="Course">Course</option>
+                <option value="Certificate">Certificate</option>
+                <option value="Training">Training</option>
+            </select>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label>@Labels.Employee</label>
+        </div>
+        <div class="left input--m">
+            <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark"/>
+            <input asp-for="EmployeeId" type="hidden"/>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label>Department</label>
+        </div>
+        <div class="left input--m">
+            <input asp-for="Department"/>
+            <input asp-for="DepartmentId" type="hidden" />
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label>Name</label>
+        </div>
+        <div class="left input--m">
+            <input asp-for="Name"/>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label id="address">Study Place</label>
+        </div>
+        <div class="left input--m">
+            <input asp-for="Organization" />
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label id="fromdate">Start Date</label>
+        </div>
+        <div class="datepicker-button left select--s">
+            <date-picker name="StartDate"
+                         min-date="currentDate.AddYears(-100)"
+                         max-date="currentDate" 
+                         value="currentDate">
+            </date-picker>
+            <i class="mdi-action-event calendar-icon left"></i>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label id="todate">End Date</label>
+        </div>
+        <div class="datepicker-button left select--s">
+            <date-picker sname="EndDate"
+                         min-date="currentDate.AddYears(-100)"
+                         max-date="currentDate"
+                         value="currentDate">
+            </date-picker>
+            <i class="mdi-action-event calendar-icon left"></i>
+        </div>
+    </div>
+    
+</form>

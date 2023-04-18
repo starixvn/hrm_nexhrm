@@ -19,7 +19,7 @@
         [Display(Name = "Team")]
         public IList<Team> Teams { get; set; }
 
-        public byte TypeId { get; set; }
+        public string Type { get; set; }
 
         public string Keyword { get; set; }
     }

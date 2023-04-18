@@ -5,13 +5,13 @@
 
     public class GetEmployeeExperienceCriteria : CriteriaBase
     {
-        public int GroupId { get; set; }
+        public int? GroupId { get; set; }
 
-        public int EmpId { get; set; }
+        public int? EmpId { get; set; }
 
-        public int Type { get; set; }
+        public string Type { get; set; }
 
-        public int Name { get; set; }
+        public string Name { get; set; }
 
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
