@@ -21,10 +21,10 @@
             return employeeExperiences.ToList();
         }
 
-        public async Task<IEnumerable<EmployeeExperience>> GetById(GetEmployeeExperienceByIdCriteria criteria)
+        public async Task<EmployeeExperience> GetById(GetEmployeeExperienceByIdCriteria criteria)
         {
             var employeeExperiences = await baseService.GetDataAsync<EmployeeExperience>(criteria);
-            return employeeExperiences.ToList();
+            return employeeExperiences.First();
         }
     }
 }

@@ -1,6 +1,6 @@
 'use strict';
-/*global _global, getParam, _messages, initDatePicker, initAutocomplete, floatThead */
-/*exported index, isShowEdit, editTOEIC, isExpiredDate */
+/*global _global, getParam, _messages, initDatePicker, initAutocomplete, floatThead*/
+/*exported deleteRequest */
 
 function query(isFirstLoad) {
 
@@ -30,6 +30,8 @@ function query(isFirstLoad) {
         },
         success: function (data) {
             $('#list-data').html(data);
+            initActions();
+
             if ($('table#data').length > 0) {
                 $('table#data').addClass('table-success'); // class to style mobile
             }
@@ -44,6 +46,30 @@ function query(isFirstLoad) {
                 $('.loading-process').fadeOut(300);
             }
         }
+    });
+}
+
+function initActions() {
+    $('.btn_update').on('click', function () {
+        const id = $(this).data('id');
+        $.ajax({
+            type: 'GET',
+            url: _global.root + 'EmployeeExperience/Update?id=' + id,
+            dataType: 'html',
+            success: function (data) {
+                $('#dialog-update').html(data);
+                initUpdateDialog();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus + ': ' + errorThrown);
+            }
+        });
+    });
+
+
+
+    $('#submit').on('click', function () {
+        query(false);
     });
 }
 
@@ -70,18 +96,97 @@ function initDataFirstQuery(queryString) {
 }
 
 function initChangeTextFocusType() {
+    const typeid = document.querySelector("#typeId").value;
+    if (typeid === "Certificate") {
+        $('#address')[0].innerText = "Issue Place";
+        $('#fromdate')[0].innerText = "Exam Date";
+        $('#todate')[0].innerText = "Expiration Date";
+    } else {
+        $('#address')[0].innerText = "Study Place";
+        $('#fromdate')[0].innerText = "Start Date";
+        $('#todate')[0].innerText = "End Date";
+    }
+}
+
+function initUpdateDialog() {
+    initDatePicker();
+    initAutocompleteDepartment('#frmUpdateExperience #Department', '#frmUpdateExperience #DepartmentId', false);
+    initChangeTextFocusType();
+
     document.querySelector("#typeId").addEventListener("change", () => {
-        const typeid = document.querySelector("#typeId").value;
-        if (typeid === "0" || typeid === "2") {
-            $('#address')[0].innerText = "Study Place";
-            $('#fromdate')[0].innerText = "Start Date";
-            $('#todate')[0].innerText = "End Date";
-        } else {
-            $('#address')[0].innerText = "Issue Place";
-            $('#fromdate')[0].innerText = "Exam Date";
-            $('#todate')[0].innerText = "Expiration Date";
-        }
+        initChangeTextFocusType();
     });    
+
+    const typeid = document.querySelector("#typeId").value;
+    if (typeid === "Certificate") {
+        $('#address')[0].innerText = "Issue Place";
+        $('#fromdate')[0].innerText = "Exam Date";
+        $('#todate')[0].innerText = "Expiration Date";
+    } else {
+        $('#address')[0].innerText = "Study Place";
+        $('#fromdate')[0].innerText = "Start Date";
+        $('#todate')[0].innerText = "End Date";
+    }
+
+    $('#dialog-update').dialog({
+        modal: true,
+        width: 'auto',
+        buttons: [
+            {
+                text: 'Close',
+                class: 'btn-cancel waves-effect waves-light m-r--m',
+                click: function () {
+                    $(this).dialog('close');
+                }
+            },
+            {
+                text: 'Submit',
+                class: 'btn-submit waves-effect waves-light',
+                click: function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: _global.root + 'EmployeeExperience/Update',
+                        dataType: 'json',
+                        data: $('#frmUpdateExperience').serialize(),
+                        success: function (data) {
+                            if (data) {
+                                let errorCont = $('#divErrorCont');
+                                errorCont.removeClass();
+                                errorCont.html('');
+
+                                if (data.Code === 0) {
+                                    errorCont.addClass('success validation-summary-success');
+                                    errorCont.append('Update successfully');
+                                    setTimeout(function () { $('#dialog-update').dialog("close"); query(); }, 3000);
+                                }
+                                else {
+                                    let errors = '<ul>';
+                                    $(data.error).each(function (i, value) {
+                                        errors += '<li>' + value.ErrorMessage + '</li>';
+                                    });
+                                    errors += '</ul>';
+
+                                    errorCont.addClass('validation-summary-errors');
+                                    errorCont.append(errors);
+                                }
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(textStatus + ': ' + errorThrown);
+                        }
+                    });
+                }
+            }
+        ],
+        show: {
+            effect: 'fade',
+            duration: 300
+        },
+        hide: {
+            effect: 'fade',
+            duration: 200
+        }
+    });
 }
 
 function initAddNewDialog() {
@@ -148,6 +253,20 @@ function initAddNewDialog() {
             effect: 'fade',
             duration: 200
         }
+    });
+}
+
+function deleteRequest(id) {
+    confirm('Are you sure you want to delete?', function () {
+        $.post(_global.root + 'EmployeeExperience/Delete', { id: id }, function (data) {
+            if (data.IsSuccessful) {
+                alert("Delete successfully!");
+                query(false);
+            }
+            else {
+                alert(data.Message);
+            }
+        });
     });
 }
 

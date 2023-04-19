@@ -61,6 +61,7 @@
                                     </div>
                                     <div class="left select--datepicker type">
                                         <select name="Type" id="Type">
+                                            <option value="0">All</option>
                                             <option value="Course">Course</option>
                                             <option value="Certificate">Certificate</option>
                                             <option value="Training">Training</option>
@@ -87,7 +88,7 @@
                                         <date-picker name="FromDate"
                                                      min-date="currentDate.AddYears(-100)"
                                                      max-date="currentDate"
-                                                     value="currentDate">
+                                                     value="currentDate.AddDays(-7)">
                                         </date-picker>
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
@@ -116,6 +117,7 @@
                         <div id="list-data" class="over-auto table-resize table-medium"></div>
                     </div>
                     <div id="dialog-addnew" title="Add New">&nbsp;</div>
+                    <div id="dialog-update" title="Update">&nbsp;</div>
                 </div>
             </div>
         </div>

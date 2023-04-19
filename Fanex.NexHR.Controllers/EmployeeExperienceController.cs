@@ -44,12 +44,11 @@
             {
                 GroupId = model.TeamId,
                 EmpId = model.EmployeeId,
-                Type = model.Type,
+                Type = model.Type == "0" ? null : model.Type,
                 Name = model.Keyword,
                 FromDate = model.FromDate,
                 ToDate = model.ToDate.AddDays(1)
             });
-            ViewBag.Type = model.Type;
             return PartialView("Views/EmployeeExperience/_EmployeeExperienceGrid.cshtml", employeeExperience);
         }
 
@@ -90,7 +89,23 @@
         public async Task<IActionResult> Update(int id)
         {
             var employeeExperience = await employeeExperienceService.GetById(new GetEmployeeExperienceByIdCriteria { Id = id });
-            return PartialView(employeeExperience);
+            var model = new EmployeeExperienceViewModel();
+            if (employeeExperience != null)
+            {
+                model.Id = employeeExperience.Id;
+                model.EmployeeId = employeeExperience.EmpId;
+                model.Employee = employeeExperience.NickName + " (" + employeeExperience.FullName + ")";
+                model.Department = employeeExperience.DepartmentName;
+                model.DepartmentId = employeeExperience.DepartmentId;
+                model.Type = employeeExperience.EmployeeExperienceType;
+                model.Name = employeeExperience.EmployeeExperienceName;
+                model.Organization = employeeExperience.Organization;
+                model.StartDate = employeeExperience.EmployeeExperienceType.Equals(Certificate) ?
+                    employeeExperience.ExamDate : employeeExperience.StartDate;
+                model.EndDate = employeeExperience.EmployeeExperienceType.Equals(Certificate) ?
+                    employeeExperience.ExpirationDate : employeeExperience.EndDate;
+            }
+            return PartialView(model);
         }
 
         [HttpPost]

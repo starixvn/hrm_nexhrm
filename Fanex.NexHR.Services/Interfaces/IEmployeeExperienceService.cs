@@ -8,6 +8,6 @@
     public interface IEmployeeExperienceService
     {
         Task<IEnumerable<EmployeeExperience>> GetAll(GetEmployeeExperienceCriteria criteria);
-        Task<IEnumerable<EmployeeExperience>> GetById(GetEmployeeExperienceByIdCriteria criteria);
+        Task<EmployeeExperience> GetById(GetEmployeeExperienceByIdCriteria criteria);
     }
 }

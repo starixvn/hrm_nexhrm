@@ -38,10 +38,10 @@
                     <td>@item.Organization</td>
                     <td>@detail</td>
                     <td class="action-column">
-                        <a href="">
+                        <a class="btn_update" data-id="@item.Id">
                             <i class='mdi mdi-border-color mdi-edit mdi-dark' style="top: 5px"></i>
                         </a>
-                        <a href="javascript:;" onclick="">
+                        <a href="javascript:;" onclick="deleteRequest(@item.Id);">
                             <i class='mdi mdi-delete mdi-dark'></i>
                         </a>
                     </td>

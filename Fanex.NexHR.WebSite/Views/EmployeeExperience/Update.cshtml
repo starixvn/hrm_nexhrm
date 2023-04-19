@@ -28,6 +28,7 @@
         <div class="left input--m">
             <input asp-for="Employee" disabled value="@Model.Employee" placeholder="@Messages.SearchEmployeeWatermark"/>
             <input asp-for="EmployeeId" type="hidden" />
+            <input asp-for="Id" type="hidden" value="@Model.Id" />
         </div>
     </div>
     <div class="row form-input">
@@ -73,7 +74,7 @@
             <label id="todate">End Date</label>
         </div>
         <div class="datepicker-button left select--s">
-            <date-picker sname="EndDate"
+            <date-picker name="EndDate"
                          min-date="currentDate.AddYears(-100)"
                          max-date="currentDate"
                          value="@Model.EndDate">
