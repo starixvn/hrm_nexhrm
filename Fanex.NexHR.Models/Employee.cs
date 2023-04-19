@@ -130,6 +130,8 @@
 
         public DateTime GroupDate { get; set; }
 
+        public IList<EmployeeExperience> EmployeeExperiences { get; set; }
+
         public IList<short> RoleList
         {
             get

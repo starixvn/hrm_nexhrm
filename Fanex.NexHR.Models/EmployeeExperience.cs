@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Fanex.NexHR.Models.EmployeeExperience
+namespace Fanex.NexHR.Models
 {
     public class EmployeeExperience
     {

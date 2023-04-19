@@ -4,10 +4,12 @@
 @using Fanex.NexHR.Core.Enums
 @using Fanex.NexHR.Services.Interfaces
 @inject ISessionService sessionService;
-
 @model Fanex.NexHR.Models.Employee
 @{
     var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+    var count = 0;
+    const string certificate = "Certificate";
+    const string formatDate = "dd MMMM yyyy";
 }
 @if (Model != null)
 {
@@ -167,53 +169,56 @@ else
                                 }
                             </div>
                         </div>
-                        <div class="coursereport m-t--l p-x--s">
-                            <div class="boxtitle">
-                                Course & Certificate
-                            </div>
-                            <div class="course">
-                                <table class="table bordered striped highlight centered table-custom">
-                                    <thead>
-                                        <tr>
-                                            <th width="8%">
-                                                Department
-                                            </th>
-                                            <th width="23%">
-                                                Name
-                                            </th>
-                                            <th width="23%">
-                                                Detail
-                                            </th>
-                                            <th width="23%">
-                                                Study Place
-                                            </th>
-                                            <th width="23%">
-                                                Issued Place
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                SD
-                                            </td>
-                                            <td>
-                                                AWS Cloud Practitioner
-                                            </td>
-                                            <td>
-                                                01-01-2023
-                                            </td>
-                                            <td>
-                                                https://www.udemy.com/
-                                            </td>
-                                            <td>
-                                                https://www.udemy.com/
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="experiencereport m-t--l p-x--s">
+                        <div class="boxtitle">
+                            Experience
                         </div>
+                        <div class="experience">
+                            <table class="table bordered striped highlight centered table-custom">
+                                <thead>
+                                    <tr>
+                                        <th width="4%">#</th>
+                                        <th width="17%">Department</th>
+                                        <th width="10%">Type</th>
+                                        <th width="23%">Name</th>
+                                        <th width="23%">Detail</th>
+                                        <th width="23%">Organization</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.EmployeeExperiences != null && Model.EmployeeExperiences.Count > 0)
+                                    {
+                                        foreach (var item in Model.EmployeeExperiences)
+                                        {
+                                            count++;
+                                            var detail = item.EmployeeExperienceType.Equals(certificate) ?
+                                            ("Exam Date: " + @item.ExamDate.ToString(formatDate) + " - " + "Expiration Date: " + @item.ExpirationDate.ToString(formatDate)) :
+                                            ("Time: " + @item.StartDate.ToString(formatDate) + " - " + @item.EndDate.ToString(formatDate));
+                                            <tr>
+                                                <td>@count</td>
+                                                <td>@item.DepartmentName</td>
+                                                <td>@item.EmployeeExperienceType</td>
+                                                <td>@item.EmployeeExperienceName</td>
+                                                <td>@detail</td>
+                                                <td>@item.Organization</td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="6"></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6" rowspan="2">
+                                                @Messages.NoInformation
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     }
                     else
                     {

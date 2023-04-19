@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using Fanex.NexHR.Criteria.EmployeeExperience;
-    using Fanex.NexHR.Models.EmployeeExperience;
+    using Fanex.NexHR.Models;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -9,5 +9,6 @@
     {
         Task<IEnumerable<EmployeeExperience>> GetAll(GetEmployeeExperienceCriteria criteria);
         Task<EmployeeExperience> GetById(GetEmployeeExperienceByIdCriteria criteria);
+        Task<IList<EmployeeExperience>> GetByEmpId(GetEmployeeExperienceByEmpIdCriteria criteria);
     }
 }

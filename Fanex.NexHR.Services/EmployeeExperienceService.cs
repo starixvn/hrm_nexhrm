@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using Fanex.NexHR.Criteria.EmployeeExperience;
-    using Fanex.NexHR.Models.EmployeeExperience;
+    using Fanex.NexHR.Models;
     using Fanex.NexHR.Services.Interfaces;
     using System.Collections.Generic;
     using System.Linq;
@@ -25,6 +25,12 @@
         {
             var employeeExperiences = await baseService.GetDataAsync<EmployeeExperience>(criteria);
             return employeeExperiences.First();
+        }
+
+        public async Task<IList<EmployeeExperience>> GetByEmpId(GetEmployeeExperienceByEmpIdCriteria criteria)
+        {
+            var employeeExperiences = await baseService.GetDataAsync<EmployeeExperience>(criteria);
+            return employeeExperiences.ToList();
         }
     }
 }

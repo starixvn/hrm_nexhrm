@@ -143,5 +143,16 @@
             });
             return result;
         }
+
+        [HttpGet]
+        [HrmAuthorize(UserRoles = "HR")]
+        public async Task<IActionResult> GetEmployeeExperienceByEmp(int empId)
+        {
+            var employeeExperience = await employeeExperienceService.GetByEmpId(new GetEmployeeExperienceByEmpIdCriteria
+            {
+                EmpId = empId
+            });
+            return PartialView("Views/Employee/_ExperienceGrid.cshtml", employeeExperience);
+        }
     }
 }

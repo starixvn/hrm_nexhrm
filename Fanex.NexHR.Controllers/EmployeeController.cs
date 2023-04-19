@@ -5,6 +5,7 @@
     using Core.Model;
     using Criteria.Employee;
     using Fanex.NexHR.Controllers.Attributes;
+    using Fanex.NexHR.Criteria.EmployeeExperience;
     using Fanex.NexHR.Criteria.HistoryWork;
     using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Resources;
@@ -32,6 +33,7 @@
         private readonly IBaseService baseService;
         private readonly IHistoryWorkService historyWorkService;
         private readonly IMailEmployeeService mailEmployeeService;
+        private readonly IEmployeeExperienceService employeeExperienceService;
         private readonly IWebHostEnvironment environment;
         private readonly AppSetting appSetting;
 
@@ -44,6 +46,7 @@
             IBaseService baseService,
             IHistoryWorkService historyWorkService,
             IMailEmployeeService mailEmployeeService,
+            IEmployeeExperienceService employeeExperienceService,
             IWebHostEnvironment environment,
             AppSetting appSetting) : base(sessionService)
 #pragma warning restore S107 // Methods should not have too many parameters
@@ -56,6 +59,7 @@
             this.historyWorkService = historyWorkService;
             this.mailEmployeeService = mailEmployeeService;
             this.environment = environment;
+            this.employeeExperienceService = employeeExperienceService;
             this.appSetting = appSetting;
         }
 
@@ -585,6 +589,10 @@
                 EmployeeId = CurrentUser.Id
             };
             Employee employee = await employeeService.GetEmployeeById(criteria);
+            employee.EmployeeExperiences = await employeeExperienceService.GetByEmpId(new GetEmployeeExperienceByEmpIdCriteria
+            {
+                EmpId = CurrentUser.Id
+            });
             return View(employee);
         }
 

@@ -1,6 +1,6 @@
 ﻿@using Fanex.NexHR.Core
 @using Fanex.NexHR.Resources
-@using Fanex.NexHR.Models.EmployeeExperience
+@using Fanex.NexHR.Models
 @model IList<EmployeeExperience>
 @{
     var count = 0;
@@ -27,7 +27,7 @@
             {
                 count++;
                 var detail = item.EmployeeExperienceType.Equals(certificate) ?
-                ("ExamDate: " + @item.ExamDate.ToString(formatDate) + " - " + "ExpirationDate: " + @item.ExpirationDate.ToString(formatDate)) :
+                ("Exam Date: " + @item.ExamDate.ToString(formatDate) + " - " + "Expiration Date: " + @item.ExpirationDate.ToString(formatDate)) :
                 ("Time: " + @item.StartDate.ToString(formatDate) + " - " + @item.EndDate.ToString(formatDate));
                 <tr>
                     <td>@count</td>
@@ -38,7 +38,7 @@
                     <td>@item.Organization</td>
                     <td>@detail</td>
                     <td class="action-column">
-                        <a class="btn_update" data-id="@item.Id">
+                        <a href="javascript:;" class="btn_update" data-id="@item.Id">
                             <i class='mdi mdi-border-color mdi-edit mdi-dark' style="top: 5px"></i>
                         </a>
                         <a href="javascript:;" onclick="deleteRequest(@item.Id);">

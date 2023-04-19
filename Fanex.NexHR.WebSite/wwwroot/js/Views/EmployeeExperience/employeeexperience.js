@@ -3,8 +3,6 @@
 /*exported deleteRequest */
 
 function query(isFirstLoad) {
-
-
     const queryString = window.location.search;
     if (queryString && isFirstLoad) {
         initDataFirstQuery(queryString);
@@ -64,12 +62,6 @@ function initActions() {
                 alert(textStatus + ': ' + errorThrown);
             }
         });
-    });
-
-
-
-    $('#submit').on('click', function () {
-        query(false);
     });
 }
 
