@@ -29,6 +29,9 @@
         ViolateLateInEarlyOutDiscipline = 8,
 
         [Display(Name = "Reminder Reached Working Time")]
-        ReachedWorkingTime = 9
+        ReachedWorkingTime = 9,
+
+        [Display(Name = "Reminder Vegetarian Meal")]
+        VegetarianRestration = 10
     }
 }

@@ -1,10 +1,14 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using Fanex.Caching;
+    using Fanex.NexHR.Core;
+    using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Holiday;
     using Fanex.NexHR.Criteria.ScheduledMessage;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Calendar;
     using Fanex.NexHR.Models.ScheduledMessage;
+    using Fanex.NexHR.Models.SkypeAccount;
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
@@ -19,17 +23,22 @@
         private readonly IScheduledMessageRepository scheduledMessageRepository;
         private readonly INexbotService nexbotService;
         private readonly IHolidayService holidayService;
+        private readonly AppSetting appSetting;
         private const string FirstLunar = "01";
         private const int FifteenLunar = 15;
         private const int IdEmpCreateVegetarianMessages = 125;
         private const int NumMonthOfScheduleVegetarianMessages = 2;
+        private const string CacheKeyIgnoredReminder = "UserIgnoredReminderVegetarianRestration";
+
         public ScheduledMessageService(IScheduledMessageRepository scheduledMessageRepository,
             IHolidayService holidayService,
-            INexbotService nexbotService)
+            INexbotService nexbotService,
+            AppSetting appSetting)
         {
             this.scheduledMessageRepository = scheduledMessageRepository;
             this.holidayService = holidayService;
             this.nexbotService = nexbotService;
+            this.appSetting = appSetting;
         }
 
         public async Task<CommandResult> CreateAsync(CreateScheduledMessage model)
@@ -173,9 +182,8 @@
             }).ConfigureAwait(false);
         }
 
-        public async Task<CommandResult> SendScheduledVegetarianMessages()
+        public async Task SendScheduledVegetarianMessages()
         {
-            var result = new CommandResult();
             var workingSchedules = await holidayService.GetWorkDateEmployeeCalendar(new GetWorkDateEmployeeCalendarCriteria
             {
                 EmpId = IdEmpCreateVegetarianMessages,
@@ -190,11 +198,25 @@
                 {
                     var dateContent = new DateTime(item.Solar.SolarYear, item.Solar.SolarMonth, item.Solar.SolarDay);
                     string message = String.Format(Labels.VegetarianMessages, ((int)dateContent.DayOfWeek + 1),
-                                            dateContent.ToString("dd/MM/yyyy"), item.Lunar.LunarDay == 1 ? FirstLunar : item.Lunar.LunarDay);
-                    result = await nexbotService.SendMessageScheduledVegetarianToAllEmp(message);
+                                            dateContent.ToDateMonthYearFormatedDate(), item.Lunar.LunarDay == 1 ? FirstLunar : item.Lunar.LunarDay);
+                    await SendReminderVegetarianRestrationToAllEmp(message, dateContent);
                 }
             }
-            return result;
+        }
+
+        private async Task SendReminderVegetarianRestrationToAllEmp(string message, DateTime onDate)
+        {
+            var employeeConversations = await scheduledMessageRepository.GetEmployeeConversationAsync(new GetEmployeeConversationCriteria()).ConfigureAwait(false);
+            var ignoredUser = await GetUserIgnoreVegetarianRestration();
+
+            employeeConversations = employeeConversations.Where(t => !ignoredUser.Any(x => x.ConversationId == t.ConversationId)).ToList();
+            if (employeeConversations.Any())
+            {
+                foreach (var employeeConversation in employeeConversations)
+                {
+                    await nexbotService.SendRegistVegetarianMealAsync(employeeConversation.ConversationId, employeeConversation.Id, appSetting.FBCompanyId, onDate, message);
+                }       
+            }
         }
 
         private static DateTime GetSendDate(SolarLunarViewModel solarLunarViewModel, IEnumerable<WorkingSchedule> workingSchedules)
@@ -238,6 +260,23 @@
             }
             while (currentDate <= dateTime);
             return solarLunarViewModels;
+        }
+
+        private async Task<IList<ConversationUser>> GetUserIgnoreVegetarianRestration()
+        {
+            var conversations = ConfiguredCacheService.Get<IList<ConversationUser>>(CacheKeyIgnoredReminder);
+            if (conversations == null || !conversations.Any())
+            {
+                conversations = await nexbotService.GetIgnoredSkypeAccountByMessageCategoryAsync(MessageCategory.VegetarianRestration);
+
+                if (conversations != null && conversations.Any())
+                {
+                    ConfiguredCacheService.Set(CacheKeyIgnoredReminder, conversations,
+                        new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromHours(1)));
+                }
+            }
+
+            return conversations;
         }
 
         private static bool IsHolidayOrDayOff(IEnumerable<WorkingSchedule> workingSchedules, DateTime dateTime) => workingSchedules.Any(x => dateTime == x.WorkDate);

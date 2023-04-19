@@ -6,6 +6,7 @@
     using Fanex.NexHR.Models.LateInEarlyOut;
     using Models.Request;
     using Models.SkypeAccount;
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using ViewModels;
@@ -22,6 +23,8 @@
         Task<IList<ConversationUser>> GetRegisteredConversationAsync(MessageCategory messageCategory);
 
         Task<IEnumerable<EmployeeSkypeAccount>> GetEmployeeSkypeAccountAsync(GetEmployeeSkypeAccountCriteria criteria);
+
+        Task SendRegistVegetarianMealAsync(string conversationId, int empId, int companyId, DateTime onDate, string message);
 
         Task SendMessageForLeaveRequest(LeaveRequestViewModel request);
 

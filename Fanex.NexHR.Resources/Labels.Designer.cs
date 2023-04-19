@@ -4779,9 +4779,9 @@ namespace Fanex.NexHR.Resources {
         /// <summary>
         ///   Looks up a localized string similar to 🥦🥬 Đặt cơm chay 🥦🥬
         ///
-        ///Các bạn có nhu cầu ăn chay thứ {0} ngày {1} (nhằm {2} âm lịch) vui lòng đặt trước trên hệ thống F&amp;B để Bếp chuẩn bị được tốt hơn.
+        ///Nếu bạn có nhu cầu ăn chay thứ {0} ngày {1} (nhằm {2} âm lịch) vui lòng đặt trước bằng cách nhấn vào nút [Đặt Cơm Chay] bên dưới hoặc vào hệ thống F&amp;B để đăng ký để Bếp chuẩn bị được tốt hơn.
         ///
-        ///Thank you ❤️.
+        ///Nếu bạn không muốn nhận loại thông báo này trong tương lai vui lòng gõ câu lệnh sau: _stop_remind_vegetarian_meal_.
         /// </summary>
         public static string VegetarianMessages {
             get {

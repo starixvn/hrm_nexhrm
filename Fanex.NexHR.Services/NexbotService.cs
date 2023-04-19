@@ -32,7 +32,7 @@
         private readonly NexBotSettings nexBotSettings;
         private readonly IScheduledMessageRepository scheduledMessageRepository;
         private readonly ILogServiceProvider logService;
-        private readonly string BaseUrl;
+        private readonly AppSetting appSetting;
 
         public NexbotService(IHttpClientFactory httpClientFactory,
             INexbotRepository nexbotRepository,
@@ -47,7 +47,7 @@
             this.nexBotSettings = nexBotSettings;
             this.scheduledMessageRepository = scheduledMessageRepository;
             this.baseService = baseService;
-            BaseUrl = appSetting.BaseUrl;
+            this.appSetting = appSetting;
             this.logService = logService;
         }
 
@@ -64,10 +64,10 @@
 
         private async Task<HttpRequestMessage> CreateRequestAsync(string endPointPath, HttpMethod method)
         {
-            var token = await GetTokenAsync();
+            //var token = await GetTokenAsync();
             Uri url = new($"{nexBotSettings.BotServiceUrl}{endPointPath}");
             var request = new HttpRequestMessage(method, url);
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            //request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
             return request;
         }
 
@@ -132,10 +132,28 @@
                     {"conversationId", conversationId },
                     {"requestId", requestId.ToString() },
                     {"message", message },
-                    {"callBackUrl", $"{BaseUrl}/api" },
+                    {"callBackUrl", $"{appSetting.BaseUrl}/api" },
                 };
 
                 await SendHttpClientAsync<Task>("/request/approve", HttpMethod.Post, data);
+            }
+        }
+
+        public async Task SendRegistVegetarianMealAsync(string conversationId, int empId, int companyId, DateTime onDate, string message)
+        {
+            if (!nexBotSettings.DisabledSendSkype)
+            {
+                var data = new Dictionary<string, string>
+                {
+                    {"conversationId", conversationId },
+                    {"empId", empId.ToString() },
+                    {"companyId", companyId.ToString() },
+                    {"onDate", onDate.ToString("yyyy-MM-dd") },
+                    {"message", message },
+                    {"callBackUrl", $"{appSetting.FBUrl}/api" },
+                };
+
+                await SendHttpClientAsync<Task>("/messages/registvegetarianmeal", HttpMethod.Post, data);
             }
         }
 
@@ -208,7 +226,7 @@
             message += $"_- Date: {forDate}_ {Constants.NewLine}";
             message += $"_- Type: {request.LeaveTypeName}_ {Constants.NewLine}";
             message += $"_- Remark: {request.Remark}_ {Constants.NewLine}";
-            message += $"Please process this request at: {BaseUrl}/request/member.  {Constants.NewLine}";
+            message += $"Please process this request at: {appSetting.BaseUrl}/request/member.  {Constants.NewLine}";
             message += "Any questions, please contact HR department.";
             return message;
         }
@@ -269,7 +287,7 @@
                 : "on " + request.FromDate.ToDateMonthYearFormatedDate();
             var message = $"Dear {request.Requester.NickName},{Constants.NewLine}";
             message += $"Your {request.RequestType.Name.ToLowerInvariant()} request _{forDate}_ has been {action} by _{request.ModifiedBy.DisplayName}._{Constants.NewLine}";
-            message += $"For more detail, please visit: {BaseUrl}. Thanks";
+            message += $"For more detail, please visit: {appSetting.BaseUrl}. Thanks";
             return message;
         }
 
@@ -317,7 +335,7 @@
                 var conversations = await scheduledMessageRepository.GetEmployeeConversationAsync(new GetEmployeeConversationCriteria()).ConfigureAwait(false);
                 if (conversations.Any())
                 {
-                    result = await SendMessageDeductToConversation(conversations.Select(m => m.SkypeConversationId), message);
+                    // result = await SendMessageDeductToConversation(conversations.Select(m => m.SkypeConversationId), message);
                 }
             }
             catch (Exception ex)
@@ -326,6 +344,8 @@
             }
             return result;
         }
+
+       
 
         public async Task<CommandResult> SendMessageDeductLateInEarlyOutToHrTeam(IEnumerable<LateInEarlyOutModel> lateInEarlyOutModels)
         {
@@ -358,7 +378,7 @@
             message += $"_- Date: {request.WorkDate.ToDateMonthYearFormatedDate()}_{Constants.NewLine}";
             message += $"_- Shift: {request.Shift}_{Constants.NewLine}";
             message += $"_- Time: {time}_{Constants.NewLine}";
-            message += $"Please process this request at: {BaseUrl}/request/member. {Constants.NewLine}";
+            message += $"Please process this request at: {appSetting.BaseUrl}/request/member. {Constants.NewLine}";
             message += $"Any questions, please contact HR department. Thanks";
             return message;
         }

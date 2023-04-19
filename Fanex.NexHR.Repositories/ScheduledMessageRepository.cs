@@ -19,11 +19,11 @@
             }
         }
 
-        public async Task<IEnumerable<Conversation>> GetEmployeeConversationAsync(GetEmployeeConversationCriteria criteria)
+        public async Task<IEnumerable<Employee>> GetEmployeeConversationAsync(GetEmployeeConversationCriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                return await db.QueryAsync<Conversation>(criteria);
+                return await db.QueryAsync<Employee>(criteria);
             }
         }
 
