@@ -1,0 +1,61 @@
+.detail {
+    display: flex;
+    align-items: center;
+
+    .fromdate {
+        margin-left: 15%;
+        background: #15af93;
+        width: 88px;
+        line-height: 2.5rem;
+        border-radius: 5px;
+        color: white;
+    }
+
+    .linedate {
+        margin: 0px 16px;
+        line-height: 2.5rem;
+        font-size: 19px;
+    }
+
+    .todate {
+        background: red;
+        width: 88px;
+        border-radius: 5px;
+        line-height: 2.5rem;
+        color: white;
+    }
+
+    .tooltip {
+        position: relative;
+        display: inline-block;
+    }
+
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 100px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        /* Position the tooltip */
+        position: absolute;
+        z-index: 99999;
+        bottom: 100%;
+        left: 62%;
+        margin-left: -60px;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }
+}
+
+.experience {
+    table {
+        width: 70% !important;
+
+        .fromdate {
+            margin-left: 7%;
+        }
+    }
+}

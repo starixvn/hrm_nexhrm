@@ -142,7 +142,7 @@ function initUpdateDialog() {
                         data: $('#frmUpdateExperience').serialize(),
                         success: function (data) {
                             if (data) {
-                                let errorCont = $('#divErrorCont');
+                                let errorCont = $('#frmUpdateExperience #divErrorCont');
                                 errorCont.removeClass();
                                 errorCont.html('');
 
@@ -209,7 +209,7 @@ function initAddNewDialog() {
                         data: $('#frmAddExperience').serialize(),
                         success: function (data) {
                             if (data) {
-                                let errorCont = $('#divErrorCont');
+                                let errorCont = $('#frmAddExperience #divErrorCont');
                                 errorCont.removeClass();
                                 errorCont.html('');
 

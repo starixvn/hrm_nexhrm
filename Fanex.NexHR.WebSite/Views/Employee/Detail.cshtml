@@ -9,7 +9,7 @@
     var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
     var count = 0;
     const string certificate = "Certificate";
-    const string formatDate = "dd MMMM yyyy";
+    const string formatDate = "dd MMM, yyyy";
 }
 @if (Model != null)
 {
@@ -20,6 +20,7 @@ else
     ViewBag.Title = string.Empty;
 }
 @section Styles {
+    <link rel="stylesheet" href="~/css/Views/employee-experience.css" asp-append-version="true">
     <link rel="stylesheet" href="~/minify/css/myprofile.min.css" asp-append-version="true">
 }
 
@@ -177,12 +178,12 @@ else
                             <table class="table bordered striped highlight centered table-custom">
                                 <thead>
                                     <tr>
-                                        <th width="4%">#</th>
-                                        <th width="17%">Department</th>
-                                        <th width="10%">Type</th>
-                                        <th width="23%">Name</th>
-                                        <th width="23%">Detail</th>
-                                        <th width="23%">Organization</th>
+                                        <th style="width:4%">#</th>
+                                        <th style="width:17%">Department</th>
+                                        <th style="width:10%">Type</th>
+                                        <th style="width:23%">Name</th>
+                                        <th style="width:23%">Detail</th>
+                                        <th style="width:23%">Organization</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -191,15 +192,26 @@ else
                                         foreach (var item in Model.EmployeeExperiences)
                                         {
                                             count++;
-                                            var detail = item.EmployeeExperienceType.Equals(certificate) ?
-                                            ("Exam Date: " + @item.ExamDate.ToString(formatDate) + " - " + "Expiration Date: " + @item.ExpirationDate.ToString(formatDate)) :
-                                            ("Time: " + @item.StartDate.ToString(formatDate) + " - " + @item.EndDate.ToString(formatDate));
+                                            var fromDate = item.EmployeeExperienceType.Equals(certificate) ? item.ExamDate.ToString(formatDate) : item.StartDate.ToString(formatDate);
+                                            var toDate = item.EmployeeExperienceType.Equals(certificate) ? item.ExpirationDate.ToString(formatDate) : item.EndDate.ToString(formatDate);
+                                            var titleFromDate = item.EmployeeExperienceType.Equals(certificate) ? "Exam Date" : "Start Date";
+                                            var titleToDate = item.EmployeeExperienceType.Equals(certificate) ? "Expiration Date" : "End Date";
                                             <tr>
                                                 <td>@count</td>
                                                 <td>@item.DepartmentName</td>
                                                 <td>@item.EmployeeExperienceType</td>
                                                 <td>@item.EmployeeExperienceName</td>
-                                                <td>@detail</td>
+                                                <td class="detail">
+                                                    <div class="fromdate tooltip">
+                                                        @fromDate
+                                                        <span class="tooltiptext">@titleFromDate</span>
+                                                    </div>
+                                                    <div class="linedate">-</div>
+                                                    <div class="todate tooltip">
+                                                        @toDate
+                                                        <span class="tooltiptext">@titleToDate</span>
+                                                    </div>
+                                                </td>
                                                 <td>@item.Organization</td>
                                             </tr>
                                         }

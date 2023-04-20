@@ -323,6 +323,10 @@
         public async Task<IActionResult> Detail(int employeeId)
         {
             Employee employee = await GetEmployeeById(employeeId);
+            employee.EmployeeExperiences = await employeeExperienceService.GetByEmpId(new GetEmployeeExperienceByEmpIdCriteria
+            {
+                EmpId = employeeId
+            });
             return View(employee);
         }
 

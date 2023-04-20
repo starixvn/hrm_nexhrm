@@ -30,5 +30,9 @@
   {
     "outputFile": "wwwroot/css/nex-login.css",
     "inputFile": "wwwroot/css/nex-login.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Views/employee-experience.css",
+    "inputFile": "wwwroot/css/Views/employee-experience.scss"
   }
 ]

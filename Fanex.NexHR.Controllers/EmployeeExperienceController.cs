@@ -100,9 +100,9 @@
                 model.Type = employeeExperience.EmployeeExperienceType;
                 model.Name = employeeExperience.EmployeeExperienceName;
                 model.Organization = employeeExperience.Organization;
-                model.StartDate = employeeExperience.EmployeeExperienceType.Equals(Certificate) ?
+                model.ExamDate = employeeExperience.EmployeeExperienceType.Equals(Certificate) ?
                     employeeExperience.ExamDate : employeeExperience.StartDate;
-                model.EndDate = employeeExperience.EmployeeExperienceType.Equals(Certificate) ?
+                model.ExpirationDate = employeeExperience.EmployeeExperienceType.Equals(Certificate) ?
                     employeeExperience.ExpirationDate : employeeExperience.EndDate;
             }
             return PartialView(model);
@@ -123,10 +123,10 @@
                     Name = model.Name,
                     ModifyBy = CurrentUser.Id,
                     Organization = model.Organization,
-                    StartDate = !model.Type.Equals(Certificate) ? model.StartDate : (DateTime?)null,
-                    EndDate = !model.Type.Equals(Certificate) ? model.EndDate : (DateTime?)null,
-                    ExamDate = model.Type.Equals(Certificate) ? model.StartDate : (DateTime?)null,
-                    ExpirationDate = model.Type.Equals(Certificate) ? model.EndDate : (DateTime?)null
+                    StartDate = !model.Type.Equals(Certificate) ? model.ExamDate : (DateTime?)null,
+                    EndDate = !model.Type.Equals(Certificate) ? model.ExpirationDate : (DateTime?)null,
+                    ExamDate = model.Type.Equals(Certificate) ? model.ExamDate : (DateTime?)null,
+                    ExpirationDate = model.Type.Equals(Certificate) ? model.ExpirationDate : (DateTime?)null
                 };
                 result = await baseService.ExecuteNonQueryAsync(criteria);
             }

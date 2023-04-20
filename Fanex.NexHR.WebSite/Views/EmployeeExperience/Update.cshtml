@@ -61,7 +61,7 @@
             <label id="fromdate">Start Date</label>
         </div>
         <div class="datepicker-button left select--s">
-            <date-picker name="StartDate"
+            <date-picker name="ExamDate"
                          min-date="currentDate.AddYears(-100)"
                          max-date="currentDate"
                          value="@Model.StartDate">
@@ -74,13 +74,12 @@
             <label id="todate">End Date</label>
         </div>
         <div class="datepicker-button left select--s">
-            <date-picker name="EndDate"
+            <date-picker name="ExpirationDate"
                          min-date="currentDate.AddYears(-100)"
                          max-date="currentDate"
-                         value="@Model.EndDate">
+                         value="@Model.ExpirationDate">
             </date-picker>
             <i class="mdi-action-event calendar-icon left"></i>
         </div>
     </div>
-
 </form>
