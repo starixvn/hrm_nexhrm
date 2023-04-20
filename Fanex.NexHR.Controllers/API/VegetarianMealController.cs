@@ -6,18 +6,18 @@
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
 
-   // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class ScheduledVegetarianMessagesController : ControllerBase
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public class VegetarianMealController : ControllerBase
     {
         private readonly IScheduledMessageService scheduledMessageService;
 
-        public ScheduledVegetarianMessagesController(IScheduledMessageService scheduledMessageService)
+        public VegetarianMealController(IScheduledMessageService scheduledMessageService)
         {
             this.scheduledMessageService = scheduledMessageService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> SendScheduledVegetarianMessages()
+        [HttpPost]
+        public async Task<IActionResult> ReminderVegetarianMeal()
         {
             await scheduledMessageService.SendScheduledVegetarianMessages().ConfigureAwait(false);
             return Ok();

@@ -1,5 +1,11 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Net.Http;
+    using System.Threading.Tasks;
     using Core;
     using Core.Enums;
     using Criteria.SkypeAccount;
@@ -14,13 +20,6 @@
     using Models.SkypeAccount;
     using Newtonsoft.Json;
     using Repositories.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-    using System.Net.Http;
-    using System.Net.Http.Headers;
-    using System.Threading.Tasks;
     using ViewModels;
     using ViewModels.CheckInOutRequest;
 
@@ -62,31 +61,11 @@
             return false;
         }
 
-        private async Task<HttpRequestMessage> CreateRequestAsync(string endPointPath, HttpMethod method)
+        private HttpRequestMessage CreateRequestAsync(string endPointPath, HttpMethod method)
         {
-            //var token = await GetTokenAsync();
             Uri url = new($"{nexBotSettings.BotServiceUrl}{endPointPath}");
             var request = new HttpRequestMessage(method, url);
-            //request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
             return request;
-        }
-
-        private async Task<string> GetTokenAsync()
-        {
-            Uri url = new(nexBotSettings.TokenUrl);
-            var authData = new Dictionary<string, string>
-            {
-                {"grant_type", "client_credentials"  },
-                {"client_id", nexBotSettings.ClientId  },
-                {"client_secret", nexBotSettings.ClientPassword  },
-                {"scope", $"{nexBotSettings.ClientId}/.default"  },
-            };
-
-            using var authDataContent = new FormUrlEncodedContent(authData);
-            using var response = await httpClient.PostAsync(url, authDataContent);
-            var responseData = await response.Content.ReadAsStringAsync();
-            var token = JsonConvert.DeserializeObject<Token>(responseData);
-            return token?.AccessToken;
         }
 
         public async Task<bool> SendMessageToBotAsync(string conversationId, string message)
@@ -94,7 +73,7 @@
             var isSuccessful = false;
             if (!nexBotSettings.DisabledSendSkype)
             {
-                var request = await CreateRequestAsync("/messages/forward", HttpMethod.Post);
+                var request = CreateRequestAsync("/messages/forward", HttpMethod.Post);
                 var data = new Dictionary<string, string>
                 {
                     { "conversationId", conversationId },
@@ -327,33 +306,13 @@
             return result;
         }
 
-        public async Task<CommandResult> SendMessageScheduledVegetarianToAllEmp(string message)
-        {
-            var result = new CommandResult();
-            try
-            {
-                var conversations = await scheduledMessageRepository.GetEmployeeConversationAsync(new GetEmployeeConversationCriteria()).ConfigureAwait(false);
-                if (conversations.Any())
-                {
-                    // result = await SendMessageDeductToConversation(conversations.Select(m => m.SkypeConversationId), message);
-                }
-            }
-            catch (Exception ex)
-            {
-                logService.LogException(ex);
-            }
-            return result;
-        }
-
-       
-
         public async Task<CommandResult> SendMessageDeductLateInEarlyOutToHrTeam(IEnumerable<LateInEarlyOutModel> lateInEarlyOutModels)
         {
             var result = false;
             try
             {
                 var conversations = await scheduledMessageRepository.GetTeamHrConversationsAsync(new GetTeamHrConversationCriteria()).ConfigureAwait(false);
-                var users = String.Join(", ", lateInEarlyOutModels.Select(x => x.NickName));
+                var users = string.Join(", ", lateInEarlyOutModels.Select(x => x.NickName));
                 foreach (var item in conversations)
                 {
                     var message = string.Format(Messages.MessageHRAutoDeduct, item.ConversationName, users);
@@ -387,7 +346,7 @@
         {
             ValidateEndPoint(endPoint);
 
-            using var request = await CreateRequestAsync(endPoint, method);
+            using var request = CreateRequestAsync(endPoint, method);
             if (data is not null)
             {
                 request.Content = new FormUrlEncodedContent(data);

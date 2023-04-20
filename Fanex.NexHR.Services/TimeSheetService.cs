@@ -14,6 +14,7 @@
     public class TimeSheetService : ITimeSheetService
     {
         private const string CacheKeyIgnoredReminder = "UserIgnoredReminderReachedWorkingTime";
+        private const int itemEachBatch = 10;
 
         private readonly INexbotService nexbotService;
         private readonly IBaseService baseService;
@@ -27,24 +28,43 @@
         public async Task SendReminderReachedWorkingTime()
         {
             var criteria = new GetEmployeeReachedWorkingTimeCriteria();
-            var workinghours = await baseService.GetDataAsync<WorkingHour>(criteria);
+            var workingHours = await baseService.GetDataAsync<WorkingHour>(criteria);
             var today = DateTime.Now.Date;
 
-            if (workinghours != null && workinghours.Any())
+            if (workingHours != null && workingHours.Any())
             {
                 var ignoredUser = await GetUserIgnoreReminderReachedWorkingTime();
-                workinghours = workinghours.Where(t => !ignoredUser.Any(x => x.ConversationId == t.SkypeConversationId)).ToList();
+                workingHours = workingHours.Where(t => !ignoredUser.Any(x => x.ConversationId == t.SkypeConversationId)).ToList();
 
-                if (workinghours.Any())
+                if (workingHours.Any())
                 {
-                    foreach (var workinghour in workinghours)
-                    {
-                        await nexbotService.SendMessageAsync(workinghour.SkypeConversationId, workinghour.MessageContent);
-                    }
+                    await SendMessage(workingHours);
 
-                    var employeeIds = string.Join(",", workinghours.Select(t => t.EmployeeId));
+                    var employeeIds = string.Join(",", workingHours.Select(t => t.EmployeeId));
                     await WriteLogForSentSuccessful(employeeIds, today);
                 }
+            }
+        }
+
+        private async Task SendMessage(IEnumerable<WorkingHour> workingHours)
+        {
+            var batches = new List<List<WorkingHour>>();
+
+            int totalBatch = (int)Math.Ceiling((double)workingHours.Count() / itemEachBatch);
+            for (int i = 0; i < totalBatch; i++)
+            {
+                batches.Add(workingHours.Skip(i * itemEachBatch).Take(itemEachBatch).ToList());
+            }
+
+            foreach (var batch in batches)
+            {
+                var tasks = new List<Task>();
+                foreach (var workinghour in batch)
+                {
+                    tasks.Add(nexbotService.SendMessageAsync(workinghour.SkypeConversationId, workinghour.MessageContent));
+                }
+
+                await Task.WhenAll(tasks);
             }
         }
 

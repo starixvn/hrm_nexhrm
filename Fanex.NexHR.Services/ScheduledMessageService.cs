@@ -28,6 +28,7 @@
         private const int FifteenLunar = 15;
         private const int IdEmpCreateVegetarianMessages = 125;
         private const int NumMonthOfScheduleVegetarianMessages = 2;
+        private const int itemEachBatch = 10;
         private const string CacheKeyIgnoredReminder = "UserIgnoredReminderVegetarianRestration";
 
         public ScheduledMessageService(IScheduledMessageRepository scheduledMessageRepository,
@@ -197,7 +198,7 @@
                 if (sendDate == DateTime.Now.Date)
                 {
                     var dateContent = new DateTime(item.Solar.SolarYear, item.Solar.SolarMonth, item.Solar.SolarDay);
-                    string message = String.Format(Labels.VegetarianMessages, ((int)dateContent.DayOfWeek + 1),
+                    string message = string.Format(Labels.VegetarianMessages, ((int)dateContent.DayOfWeek + 1),
                                             dateContent.ToDateMonthYearFormatedDate(), item.Lunar.LunarDay == 1 ? FirstLunar : item.Lunar.LunarDay);
                     await SendReminderVegetarianRestrationToAllEmp(message, dateContent);
                 }
@@ -208,14 +209,29 @@
         {
             var employeeConversations = await scheduledMessageRepository.GetEmployeeConversationAsync(new GetEmployeeConversationCriteria()).ConfigureAwait(false);
             var ignoredUser = await GetUserIgnoreVegetarianRestration();
-
+            
             employeeConversations = employeeConversations.Where(t => !ignoredUser.Any(x => x.ConversationId == t.ConversationId)).ToList();
+            
             if (employeeConversations.Any())
             {
-                foreach (var employeeConversation in employeeConversations)
+                var batches = new List<List<Employee>>();
+                
+                int totalBatch = (int)Math.Ceiling((double)employeeConversations.Count() / itemEachBatch);
+                for (int i = 0; i < totalBatch; i++)
                 {
-                    await nexbotService.SendRegistVegetarianMealAsync(employeeConversation.ConversationId, employeeConversation.Id, appSetting.FBCompanyId, onDate, message);
-                }       
+                    batches.Add(employeeConversations.Skip(i * itemEachBatch).Take(itemEachBatch).ToList());
+                }
+
+                foreach (var batch in batches)
+                {
+                    var tasks = new List<Task>();
+                    foreach (var employeeConversation in batch)
+                    {
+                        tasks.Add(nexbotService.SendRegistVegetarianMealAsync(employeeConversation.ConversationId, employeeConversation.Id, appSetting.FBCompanyId, onDate, message));
+                    }
+
+                    await Task.WhenAll(tasks);
+                }
             }
         }
 

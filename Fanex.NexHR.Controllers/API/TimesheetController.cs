@@ -10,20 +10,15 @@
     public class TimesheetController : ControllerBase
     {
         private readonly ITimeSheetService timeSheetService;
-        private readonly ILogServiceProvider logServiceProvider;
 
-        public TimesheetController(ITimeSheetService timeSheetService,
-            ILogServiceProvider logServiceProvider)
+        public TimesheetController(ITimeSheetService timeSheetService)
         {
             this.timeSheetService = timeSheetService;
-            this.logServiceProvider = logServiceProvider;
         }
 
         [HttpGet]
         public async Task<IActionResult> ReminderReachedWorkingTime()
         {
-            logServiceProvider.LogFile("Call API ReminderReachedWorkingTime");
-
             await timeSheetService.SendReminderReachedWorkingTime();
             return Ok();
         }
