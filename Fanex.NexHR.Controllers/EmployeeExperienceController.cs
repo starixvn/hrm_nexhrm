@@ -9,6 +9,7 @@
     using System;
     using System.Threading.Tasks;
 
+    [HrmAuthorize(UserRoles = "HR")]
     public class EmployeeExperienceController : BaseController
     {
         private readonly ITeamService teamService;
@@ -25,26 +26,26 @@
             this.employeeExperienceService = employeeExperienceService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var model = new EmployeeExperienceFilterViewModel
             {
                 FromDate = DateTime.Now,
                 ToDate = DateTime.Now,
-                Teams = await teamService.GetTeam(),
+                Teams = await teamService.GetTeam()
             };
             return View(model);
         }
 
         [HttpGet]
-        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> GetEmployeeExperience(EmployeeExperienceFilterViewModel model)
         {
             var employeeExperience = await employeeExperienceService.GetAll(new GetEmployeeExperienceCriteria
             {
                 GroupId = model.TeamId,
                 EmpId = model.EmployeeId,
-                Type = model.Type == "0" ? null : model.Type,
+                Type = model.Type == "All" ? null : model.Type,
                 Name = model.Keyword,
                 FromDate = model.FromDate,
                 ToDate = model.ToDate.AddDays(1)
@@ -53,14 +54,12 @@
         }
 
         [HttpGet]
-        [HrmAuthorize(UserRoles = "HR")]
         public IActionResult Insert()
         {
             return PartialView();
         }
 
         [HttpPost]
-        [HrmAuthorize(UserRoles = "HR")]
         public async Task<CommandResult> Insert(EmployeeExperienceViewModel model)
         {
             var result = new CommandResult();
@@ -85,7 +84,6 @@
         }
 
         [HttpGet]
-        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Update(int id)
         {
             var employeeExperience = await employeeExperienceService.GetById(new GetEmployeeExperienceByIdCriteria { Id = id });
@@ -109,7 +107,6 @@
         }
 
         [HttpPost]
-        [HrmAuthorize(UserRoles = "HR")]
         public async Task<CommandResult> Update(EmployeeExperienceViewModel model)
         {
             var result = new CommandResult();
@@ -134,7 +131,6 @@
         }
 
         [HttpPost]
-        [HrmAuthorize(UserRoles = "HR")]
         public async Task<CommandResult> Delete(int id)
         {
             var result = await baseService.ExecuteNonQueryAsync(new DeleteEmployeeExperienceCriteria
@@ -142,17 +138,6 @@
                 Id = id
             });
             return result;
-        }
-
-        [HttpGet]
-        [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> GetEmployeeExperienceByEmp(int empId)
-        {
-            var employeeExperience = await employeeExperienceService.GetByEmpId(new GetEmployeeExperienceByEmpIdCriteria
-            {
-                EmpId = empId
-            });
-            return PartialView("Views/Employee/_ExperienceGrid.cshtml", employeeExperience);
         }
     }
 }
