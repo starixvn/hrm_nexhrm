@@ -1,11 +1,5 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-    using System.Net.Http;
-    using System.Threading.Tasks;
     using Core;
     using Core.Enums;
     using Criteria.SkypeAccount;
@@ -20,6 +14,12 @@
     using Models.SkypeAccount;
     using Newtonsoft.Json;
     using Repositories.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Net.Http;
+    using System.Threading.Tasks;
     using ViewModels;
     using ViewModels.CheckInOutRequest;
 
@@ -295,8 +295,8 @@
                     new GetEmployeeConversationByIdCriteria { EmpId = lateInEarlyOutModel.EmpId }).ConfigureAwait(false);
                 if (conversations.Any())
                 {
-                    string message = string.Format(Messages.MessageAutoDeduct, lateInEarlyOutModel.NickName);
-                    result = await SendMessageDeductToConversation(conversations.Select(m => m.SkypeConversationId), message);
+                    string message = string.Format(Messages.MessageAutoDeductLateInEarlyOut, lateInEarlyOutModel.NickName);
+                    result = await SendMessageDeductToConversation(conversations.Select(m => m.ConversationId), message);
                 }
             }
             catch (Exception ex)
@@ -315,8 +315,8 @@
                 var users = string.Join(", ", lateInEarlyOutModels.Select(x => x.NickName));
                 foreach (var item in conversations)
                 {
-                    var message = string.Format(Messages.MessageHRAutoDeduct, item.ConversationName, users);
-                    result = await SendMessageAsync(item.SkypeConversationId, message).ConfigureAwait(false);
+                    var message = string.Format(Messages.MessageHRAutoDeductLateInEarlyOut, item.NickName, users);
+                    result = await SendMessageAsync(item.ConversationId, message).ConfigureAwait(false);
                 }
             }
             catch (Exception ex)

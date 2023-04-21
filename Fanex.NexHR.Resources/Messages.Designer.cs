@@ -297,9 +297,9 @@ namespace Fanex.NexHR.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Deduct 0.5 day leave for 4 hours late in/early out.
         /// </summary>
-        public static string DescriptionAutoDeduct {
+        public static string DescriptionAutoDeductLateInEarlyOut {
             get {
-                return ResourceManager.GetString("DescriptionAutoDeduct", resourceCulture);
+                return ResourceManager.GetString("DescriptionAutoDeductLateInEarlyOut", resourceCulture);
             }
         }
         
@@ -596,9 +596,9 @@ namespace Fanex.NexHR.Resources {
         ///Please be informed that your total late in/early out is up to 4 hours. Your Annual Leave will be deducted a half day. 
         ///Thank you..
         /// </summary>
-        public static string MessageAutoDeduct {
+        public static string MessageAutoDeductLateInEarlyOut {
             get {
-                return ResourceManager.GetString("MessageAutoDeduct", resourceCulture);
+                return ResourceManager.GetString("MessageAutoDeductLateInEarlyOut", resourceCulture);
             }
         }
         
@@ -607,9 +607,9 @@ namespace Fanex.NexHR.Resources {
         ///Please be informed that total hour late in/early out of {1} was deducted.
         ///Thank you..
         /// </summary>
-        public static string MessageHRAutoDeduct {
+        public static string MessageHRAutoDeductLateInEarlyOut {
             get {
-                return ResourceManager.GetString("MessageHRAutoDeduct", resourceCulture);
+                return ResourceManager.GetString("MessageHRAutoDeductLateInEarlyOut", resourceCulture);
             }
         }
         

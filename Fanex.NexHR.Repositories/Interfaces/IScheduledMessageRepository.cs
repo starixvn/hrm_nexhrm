@@ -10,7 +10,7 @@
     {
         Task<IEnumerable<Conversation>> GetConversationsAsync(GetConversationsCriteria criteria);
         Task<IEnumerable<Employee>> GetEmployeeConversationAsync(GetEmployeeConversationCriteria criteria);
-        Task<IEnumerable<Conversation>> GetEmployeeConversationByIdAsync(GetEmployeeConversationByIdCriteria criteria);
+        Task<IEnumerable<Employee>> GetEmployeeConversationByIdAsync(GetEmployeeConversationByIdCriteria criteria);
 
         Task<CommandResult> CreateAsync(CreateScheduledMessageCriteria criteria);
 
@@ -34,6 +34,6 @@
 
         Task<CommandResult> EditConversationAsync(EditConversationCriteria criteria);
         Task<IEnumerable<ScheduledMessage>> GetScheduledVegetarianMessagesAsync(GetScheduledVegetarianMessageCriteria criteria);
-        Task<IEnumerable<Conversation>> GetTeamHrConversationsAsync(GetTeamHrConversationCriteria criteria);
+        Task<IEnumerable<Employee>> GetTeamHrConversationsAsync(GetTeamHrConversationCriteria criteria);
     }
 }

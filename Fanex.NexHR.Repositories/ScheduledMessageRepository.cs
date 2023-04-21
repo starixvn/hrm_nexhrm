@@ -27,11 +27,11 @@
             }
         }
 
-        public async Task<IEnumerable<Conversation>> GetEmployeeConversationByIdAsync(GetEmployeeConversationByIdCriteria criteria)
+        public async Task<IEnumerable<Employee>> GetEmployeeConversationByIdAsync(GetEmployeeConversationByIdCriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                return await db.QueryAsync<Conversation>(criteria);
+                return await db.QueryAsync<Employee>(criteria);
             }
         }
 
@@ -132,11 +132,11 @@
             }
         }
 
-        public async Task<IEnumerable<Conversation>> GetTeamHrConversationsAsync(GetTeamHrConversationCriteria criteria)
+        public async Task<IEnumerable<Employee>> GetTeamHrConversationsAsync(GetTeamHrConversationCriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                return await db.QueryAsync<Conversation>(criteria);
+                return await db.QueryAsync<Employee>(criteria);
             }
         }
     }

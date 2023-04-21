@@ -134,7 +134,7 @@
                 var insertLeaveDeductionCriteria = new InsertLeaveDeductionCriteria
                 {
                     EmployeeId = item.EmpId,
-                    Description = Messages.DescriptionAutoDeduct,
+                    Description = Messages.DescriptionAutoDeductLateInEarlyOut,
                     DeductDate = DateTime.Now,
                     IsAnnual = true,
                     TotalDays = Convert.ToDecimal(0.5),
