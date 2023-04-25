@@ -1,7 +1,7 @@
 ﻿@using Fanex.NexHR.Core
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.Models
-@model IList<EmployeeExperience>
+@model IList<CourseAndCertificate>
 @{
     var count = 0;
     const string certificate = "Certificate";
@@ -26,16 +26,16 @@
             foreach (var item in Model)
             {
                 count++;
-                var fromDate = item.EmployeeExperienceType.Equals(certificate) ? item.ExamDate.ToString(formatDate) : item.StartDate.ToString(formatDate);
-                var toDate = item.EmployeeExperienceType.Equals(certificate) ? item.ExpirationDate.ToString(formatDate) : item.EndDate.ToString(formatDate);
-                var titleFromDate = item.EmployeeExperienceType.Equals(certificate) ? "Exam Date" :  "Start Date";
-                var titleToDate = item.EmployeeExperienceType.Equals(certificate) ? "Expiration Date" : "End Date";
+                var fromDate = item.Type.Equals(certificate) ? item.ExamDate.ToString(formatDate) : item.StartDate.ToString(formatDate);
+                var toDate = item.Type.Equals(certificate) ? item.ExpirationDate.ToString(formatDate) : item.EndDate.ToString(formatDate);
+                var titleFromDate = item.Type.Equals(certificate) ? "Exam Date" : "Start Date";
+                var titleToDate = item.Type.Equals(certificate) ? "Expiration Date" : "End Date";
                 <tr>
                     <td>@count</td>
-                    <td>@item.DepartmentName</td>
+                    <td>@item.Department</td>
                     <td>@item.NickName</td>
-                    <td>@item.EmployeeExperienceType</td>
-                    <td>@item.EmployeeExperienceName</td>
+                    <td>@item.Type</td>
+                    <td>@item.Name</td>
                     <td>@item.Organization</td>
                     <td class="detail">
                         <div class="fromdate tooltip">

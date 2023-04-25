@@ -11,9 +11,9 @@ function query(isFirstLoad) {
     const teamParam = $(".team .select-dropdown").val();
     const typeParam = $(".type .select-dropdown").val();
 
-    const url = _global.root + 'EmployeeExperience/GetEmployeeExperience?' + data;
+    const url = _global.root + 'CourseAndCertificate/GetCourseAndCertificate?' + data;
     if (!isFirstLoad) {
-        const orgUrl = _global.root + 'EmployeeExperience/Index?' + data + "&TeamParam=" + teamParam + "&typeParam=" + typeParam;
+        const orgUrl = _global.root + 'CourseAndCertificate/Index?' + data + "&TeamParam=" + teamParam + "&typeParam=" + typeParam;
         window.history.replaceState(null, null, orgUrl);
     }
 
@@ -52,7 +52,7 @@ function initActions() {
         const id = $(this).data('id');
         $.ajax({
             type: 'GET',
-            url: _global.root + 'EmployeeExperience/Update?id=' + id,
+            url: _global.root + 'CourseAndCertificate/Update?id=' + id,
             dataType: 'html',
             success: function (data) {
                 $('#dialog-update').html(data);
@@ -84,7 +84,7 @@ function initDataFirstQuery(queryString) {
     $("#ToDate").val(ToDate);
 
     $(".team .select-dropdown").val(teamParam);
-    $(".typeEmployeeExperience .select-dropdown").val(typeParam);
+    $(".typeCourseAndCertificate .select-dropdown").val(typeParam);
 }
 
 function initChangeTextFocusType() {
@@ -100,7 +100,6 @@ function initChangeTextFocusType() {
 
 function initUpdateDialog() {
     initDatePicker();
-    initAutocompleteDepartment('#frmUpdateExperience #Department', '#frmUpdateExperience #DepartmentId', false);
     initChangeTextFocusType();
 
     document.querySelector("#typeId").addEventListener("change", () => {
@@ -134,12 +133,12 @@ function initUpdateDialog() {
                     if (isValidUpdate()) {
                         $.ajax({
                             type: 'POST',
-                            url: _global.root + 'EmployeeExperience/Update',
+                            url: _global.root + 'CourseAndCertificate/Update',
                             dataType: 'json',
-                            data: $('#frmUpdateExperience').serialize(),
+                            data: $('#frmUpdateCourseAndCertificate').serialize(),
                             success: function (data) {
                                 if (data) {
-                                    let errorCont = $('#frmUpdateExperience #divErrorCont');
+                                    let errorCont = $('#frmUpdateCourseAndCertificate #divErrorCont');
                                     errorCont.removeClass();
                                     errorCont.html('');
 
@@ -180,17 +179,17 @@ function initUpdateDialog() {
 }
 
 function isValidUpdate() {
-    const department = document.querySelector("#frmUpdateExperience #DepartmentId").value;
-    const name = document.querySelector("#frmUpdateExperience #Name").value;
-    const place = document.querySelector("#frmUpdateExperience #Organization").value;
-    const examDate = document.querySelector("#frmUpdateExperience #ExamDate").value;
-    const expirationDate = document.querySelector("#frmUpdateExperience #ExpirationDate").value;
+    const department = document.querySelector("#frmUpdateCourseAndCertificate #DepartmentId").value;
+    const name = document.querySelector("#frmUpdateCourseAndCertificate #Name").value;
+    const place = document.querySelector("#frmUpdateCourseAndCertificate #Organization").value;
+    const examDate = document.querySelector("#frmUpdateCourseAndCertificate #ExamDate").value;
+    const expirationDate = document.querySelector("#frmUpdateCourseAndCertificate #ExpirationDate").value;
     let ErrorMessage = [];
     if (!department) {
         ErrorMessage.push('Department is required!');
     }
     if (!name) {
-        ErrorMessage.push('Experience Name is required!');
+        ErrorMessage.push('Name is required!');
     }
     if (!place) {
         ErrorMessage.push('Organization is required!');
@@ -199,8 +198,8 @@ function isValidUpdate() {
         ErrorMessage.push('From Date must be less than or equal To Date!');
     }
     if (ErrorMessage.length > 0) {
-        let errorCont = $('#frmUpdateExperience #divErrorCont');
-        let ul = document.querySelector("#frmUpdateExperience #divErrorCont ul");
+        let errorCont = $('#frmUpdateCourseAndCertificate #divErrorCont');
+        let ul = document.querySelector("#frmUpdateCourseAndCertificate #divErrorCont ul");
         if (ul != null) {
             ul.remove();
         }
@@ -216,12 +215,12 @@ function isValidUpdate() {
 }
 
 function isValidInsert() {
-    const employeeId = document.querySelector("#frmAddExperience #EmployeeId").value;
-    const department = document.querySelector("#frmAddExperience #DepartmentId").value;
-    const name = document.querySelector("#frmAddExperience #Name").value;
-    const place = document.querySelector("#frmAddExperience #Organization").value;
-    const examDate = document.querySelector("#frmAddExperience #StartDate").value;
-    const expirationDate = document.querySelector("#frmAddExperience #EndDate").value;
+    const employeeId = document.querySelector("#frmAddCourseAndCertificate #EmployeeId").value;
+    const department = document.querySelector("#frmAddCourseAndCertificate #DepartmentId").value;
+    const name = document.querySelector("#frmAddCourseAndCertificate #Name").value;
+    const place = document.querySelector("#frmAddCourseAndCertificate #Organization").value;
+    const examDate = document.querySelector("#frmAddCourseAndCertificate #StartDate").value;
+    const expirationDate = document.querySelector("#frmAddCourseAndCertificate #EndDate").value;
     let ErrorMessage = [];
     if (!employeeId) {
         ErrorMessage.push('Employee is required!');
@@ -230,7 +229,7 @@ function isValidInsert() {
         ErrorMessage.push('Department is required!');
     }
     if (!name) {
-        ErrorMessage.push('Experience Name is required!');
+        ErrorMessage.push('Name is required!');
     }
     if (!place) {
         ErrorMessage.push('Organization is required!');
@@ -239,8 +238,8 @@ function isValidInsert() {
         ErrorMessage.push('From Date must be less than or equal To Date!');
     }
     if (ErrorMessage.length > 0) {
-        let errorCont = $('#frmAddExperience #divErrorCont');
-        let ul = document.querySelector("#frmAddExperience #divErrorCont ul");
+        let errorCont = $('#frmAddCourseAndCertificate #divErrorCont');
+        let ul = document.querySelector("#frmAddCourseAndCertificate #divErrorCont ul");
         if (ul != null) {
             ul.remove();
         }
@@ -257,8 +256,7 @@ function isValidInsert() {
 
 function initAddNewDialog() {
     initDatePicker();
-    initAutocomplete('#frmAddExperience #Employee', '#frmAddExperience #EmployeeId', false);
-    initAutocompleteDepartment('#frmAddExperience #Department', '#frmAddExperience #DepartmentId', false);
+    initAutocomplete('#frmAddCourseAndCertificate #Employee', '#frmAddCourseAndCertificate #EmployeeId', false);
     initChangeTextFocusType();
 
     $('#dialog-addnew').dialog({
@@ -279,12 +277,12 @@ function initAddNewDialog() {
                     if (isValidInsert()) {
                         $.ajax({
                             type: 'POST',
-                            url: _global.root + 'EmployeeExperience/Insert',
+                            url: _global.root + 'CourseAndCertificate/Insert',
                             dataType: 'json',
-                            data: $('#frmAddExperience').serialize(),
+                            data: $('#frmAddCourseAndCertificate').serialize(),
                             success: function (data) {
                                 if (data) {
-                                    let errorCont = $('#frmAddExperience #divErrorCont');
+                                    let errorCont = $('#frmAddCourseAndCertificate #divErrorCont');
                                     errorCont.removeClass();
                                     errorCont.html('');
 
@@ -326,7 +324,7 @@ function initAddNewDialog() {
 
 function deleteRequest(id) {
     confirm('Are you sure you want to delete?', function () {
-        $.post(_global.root + 'EmployeeExperience/Delete', { id: id }, function (data) {
+        $.post(_global.root + 'CourseAndCertificate/Delete', { id: id }, function (data) {
             if (data.IsSuccessful) {
                 alert("Delete successfully!");
                 query(false);
@@ -350,7 +348,7 @@ $(document).ready(function () {
     $('#btnAddNew').click(function () {
         $.ajax({
             type: 'GET',
-            url: _global.root + 'EmployeeExperience/Insert',
+            url: _global.root + 'CourseAndCertificate/Insert',
             dataType: 'html',
             success: function (data) {
                 $('#dialog-addnew').html(data);

@@ -44,9 +44,9 @@
   visibility: visible;
 }
 
-.experience table {
+.courseAndCertificate table {
   width: 70% !important;
 }
-.experience table .fromdate {
+.courseAndCertificate table .fromdate {
   margin-left: 7%;
 }

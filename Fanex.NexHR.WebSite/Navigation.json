@@ -378,8 +378,8 @@
         "ParentId": 39
     },
     {
-        "Title": "Employee Experience",
-        "Controller": "employeeexperience",
+        "Title": "Course And Certificate",
+        "Controller": "CourseAndCertificate",
         "Action": "Index",
         "Icon": "clipboard-text",
         "Roles": "HR",

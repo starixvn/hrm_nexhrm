@@ -5,7 +5,7 @@
     using Core.Model;
     using Criteria.Employee;
     using Fanex.NexHR.Controllers.Attributes;
-    using Fanex.NexHR.Criteria.EmployeeExperience;
+    using Fanex.NexHR.Criteria.CourseAndCertificate;
     using Fanex.NexHR.Criteria.HistoryWork;
     using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Resources;
@@ -33,7 +33,7 @@
         private readonly IBaseService baseService;
         private readonly IHistoryWorkService historyWorkService;
         private readonly IMailEmployeeService mailEmployeeService;
-        private readonly IEmployeeExperienceService employeeExperienceService;
+        private readonly ICourseAndCertificateService courseAndCertificateService;
         private readonly IWebHostEnvironment environment;
         private readonly AppSetting appSetting;
 
@@ -46,7 +46,7 @@
             IBaseService baseService,
             IHistoryWorkService historyWorkService,
             IMailEmployeeService mailEmployeeService,
-            IEmployeeExperienceService employeeExperienceService,
+            ICourseAndCertificateService courseAndCertificateService,
             IWebHostEnvironment environment,
             AppSetting appSetting) : base(sessionService)
 #pragma warning restore S107 // Methods should not have too many parameters
@@ -59,7 +59,7 @@
             this.historyWorkService = historyWorkService;
             this.mailEmployeeService = mailEmployeeService;
             this.environment = environment;
-            this.employeeExperienceService = employeeExperienceService;
+            this.courseAndCertificateService = courseAndCertificateService;
             this.appSetting = appSetting;
         }
 
@@ -323,7 +323,7 @@
         public async Task<IActionResult> Detail(int employeeId)
         {
             Employee employee = await GetEmployeeById(employeeId);
-            employee.EmployeeExperiences = await employeeExperienceService.GetByEmpId(new GetEmployeeExperienceByEmpIdCriteria
+            employee.CourseAndCertificates = await courseAndCertificateService.GetByEmpId(new GetCourseAndCertificateByEmpIdCriteria
             {
                 EmpId = employeeId
             });
@@ -593,7 +593,7 @@
                 EmployeeId = CurrentUser.Id
             };
             Employee employee = await employeeService.GetEmployeeById(criteria);
-            employee.EmployeeExperiences = await employeeExperienceService.GetByEmpId(new GetEmployeeExperienceByEmpIdCriteria
+            employee.CourseAndCertificates = await courseAndCertificateService.GetByEmpId(new GetCourseAndCertificateByEmpIdCriteria
             {
                 EmpId = CurrentUser.Id
             });

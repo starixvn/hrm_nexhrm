@@ -107,7 +107,7 @@
             services.AddSingleton<IAuthService, AuthService>();
             services.AddSingleton<ILogServiceProvider, LogServiceProvider>();
             services.AddSingleton<IEmployeeService, EmployeeService>();
-            services.AddSingleton<IEmployeeExperienceService, EmployeeExperienceService>();
+            services.AddSingleton<ICourseAndCertificateService, CourseAndCertificateService>();
             services.AddSingleton<ITeamService, TeamService>();
             services.AddSingleton<IRequestService, RequestService>();
             services.AddSingleton<INotificationService, NotificationService>();

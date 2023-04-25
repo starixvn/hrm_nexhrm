@@ -1,35 +1,35 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
     using Fanex.NexHR.Controllers.Attributes;
-    using Fanex.NexHR.Criteria.EmployeeExperience;
+    using Fanex.NexHR.Criteria.CourseAndCertificate;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services.Interfaces;
-    using Fanex.NexHR.ViewModels.EmployeeExperience;
+    using Fanex.NexHR.ViewModels.CourseAndCertificate;
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Threading.Tasks;
 
     [HrmAuthorize(UserRoles = "HR")]
-    public class EmployeeExperienceController : BaseController
+    public class CourseAndCertificateController : BaseController
     {
         private readonly ITeamService teamService;
         private readonly IBaseService baseService;
-        private readonly IEmployeeExperienceService employeeExperienceService;
+        private readonly ICourseAndCertificateService courseAndCertificateService;
         private const string Certificate = "Certificate";
-        public EmployeeExperienceController(ISessionService sessionService,
+        public CourseAndCertificateController(ISessionService sessionService,
             ITeamService teamService,
-            IEmployeeExperienceService employeeExperienceService,
+            ICourseAndCertificateService courseAndCertificateService,
             IBaseService baseService) : base(sessionService)
         {
             this.baseService = baseService;
             this.teamService = teamService;
-            this.employeeExperienceService = employeeExperienceService;
+            this.courseAndCertificateService = courseAndCertificateService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = new EmployeeExperienceFilterViewModel
+            var model = new CourseAndCertificateFilterViewModel
             {
                 FromDate = DateTime.Now,
                 ToDate = DateTime.Now,
@@ -39,9 +39,9 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetEmployeeExperience(EmployeeExperienceFilterViewModel model)
+        public async Task<IActionResult> GetCourseAndCertificate(CourseAndCertificateFilterViewModel model)
         {
-            var employeeExperience = await employeeExperienceService.GetAll(new GetEmployeeExperienceCriteria
+            var courseAndCertificate = await courseAndCertificateService.GetAll(new GetCourseAndCertificateCriteria
             {
                 GroupId = model.TeamId,
                 EmpId = model.EmployeeId,
@@ -50,7 +50,7 @@
                 FromDate = model.FromDate,
                 ToDate = model.ToDate.AddDays(1)
             });
-            return PartialView("Views/EmployeeExperience/_EmployeeExperienceGrid.cshtml", employeeExperience);
+            return PartialView("Views/CourseAndCertificate/_CourseAndCertificateGrid.cshtml", courseAndCertificate);
         }
 
         [HttpGet]
@@ -60,15 +60,15 @@
         }
 
         [HttpPost]
-        public async Task<CommandResult> Insert(EmployeeExperienceViewModel model)
+        public async Task<CommandResult> Insert(CourseAndCertificateViewModel model)
         {
             var result = new CommandResult();
             if (model != null)
             {
-                var criteria = new InsertEmployeeExperienceCriteria
+                var criteria = new InsertCourseAndCertificateCriteria
                 {
                     EmpId = model.EmployeeId,
-                    DepartmentId = model.DepartmentId,
+                    Department = model.Department,
                     Type = model.Type,
                     Name = model.Name,
                     CreatedBy = CurrentUser.Id,
@@ -86,36 +86,35 @@
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            var employeeExperience = await employeeExperienceService.GetById(new GetEmployeeExperienceByIdCriteria { Id = id });
-            var model = new EmployeeExperienceViewModel();
-            if (employeeExperience != null)
+            var courseAndCertificate = await courseAndCertificateService.GetById(new GetCourseAndCertificateByIdCriteria { Id = id });
+            var model = new CourseAndCertificateViewModel();
+            if (courseAndCertificate != null)
             {
-                model.Id = employeeExperience.Id;
-                model.EmployeeId = employeeExperience.EmpId;
-                model.Employee = employeeExperience.NickName + " (" + employeeExperience.FullName + ")";
-                model.Department = employeeExperience.DepartmentName;
-                model.DepartmentId = employeeExperience.DepartmentId;
-                model.Type = employeeExperience.EmployeeExperienceType;
-                model.Name = employeeExperience.EmployeeExperienceName;
-                model.Organization = employeeExperience.Organization;
-                model.ExamDate = employeeExperience.EmployeeExperienceType.Equals(Certificate) ?
-                    employeeExperience.ExamDate : employeeExperience.StartDate;
-                model.ExpirationDate = employeeExperience.EmployeeExperienceType.Equals(Certificate) ?
-                    employeeExperience.ExpirationDate : employeeExperience.EndDate;
+                model.Id = courseAndCertificate.Id;
+                model.EmployeeId = courseAndCertificate.EmpId;
+                model.Employee = courseAndCertificate.NickName + " (" + courseAndCertificate.FullName + ")";
+                model.Department = courseAndCertificate.Department;
+                model.Type = courseAndCertificate.Type;
+                model.Name = courseAndCertificate.Name;
+                model.Organization = courseAndCertificate.Organization;
+                model.ExamDate = courseAndCertificate.Type.Equals(Certificate) ?
+                    courseAndCertificate.ExamDate : courseAndCertificate.StartDate;
+                model.ExpirationDate = courseAndCertificate.Type.Equals(Certificate) ?
+                    courseAndCertificate.ExpirationDate : courseAndCertificate.EndDate;
             }
             return PartialView(model);
         }
 
         [HttpPost]
-        public async Task<CommandResult> Update(EmployeeExperienceViewModel model)
+        public async Task<CommandResult> Update(CourseAndCertificateViewModel model)
         {
             var result = new CommandResult();
             if (model != null)
             {
-                var criteria = new UpdateEmployeeExperienceCriteria
+                var criteria = new UpdateCourseAndCertificateCriteria
                 {
                     Id = model.Id,
-                    DepartmentId = model.DepartmentId,
+                    Department = model.Department,
                     Type = model.Type,
                     Name = model.Name,
                     ModifyBy = CurrentUser.Id,
@@ -133,7 +132,7 @@
         [HttpPost]
         public async Task<CommandResult> Delete(int id)
         {
-            var result = await baseService.ExecuteNonQueryAsync(new DeleteEmployeeExperienceCriteria
+            var result = await baseService.ExecuteNonQueryAsync(new DeleteCourseAndCertificateCriteria
             {
                 Id = id
             });

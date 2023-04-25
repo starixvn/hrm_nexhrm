@@ -1,9 +1,9 @@
-﻿namespace Fanex.NexHR.Criteria.EmployeeExperience
+﻿namespace Fanex.NexHR.Criteria.CourseAndCertificate
 {
     using Fanex.Data.Repository;
     using System;
 
-    public class GetEmployeeExperienceCriteria : CriteriaBase
+    public class GetCourseAndCertificateCriteria : CriteriaBase
     {
         public int? GroupId { get; set; }
 
@@ -18,7 +18,7 @@
 
         public override string GetSettingKey()
         {
-            return "EmployeeExperience_Get";
+            return "CourseAndCertificate_Get";
         }
 
         public override bool IsValid()

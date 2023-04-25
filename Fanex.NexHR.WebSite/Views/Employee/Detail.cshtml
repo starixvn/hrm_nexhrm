@@ -20,7 +20,7 @@ else
     ViewBag.Title = string.Empty;
 }
 @section Styles {
-    <link rel="stylesheet" href="~/css/Views/employee-experience.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/Views/course-and-certificate.css" asp-append-version="true">
     <link rel="stylesheet" href="~/minify/css/myprofile.min.css" asp-append-version="true">
 }
 
@@ -170,11 +170,11 @@ else
                                 }
                             </div>
                         </div>
-                        <div class="experiencereport m-t--l p-x--s">
+                        <div class="courseAndCertificatereport m-t--l p-x--s">
                         <div class="boxtitle">
-                            Experience
+                            Course And Certificate
                         </div>
-                        <div class="experience">
+                            <div class="courseAndCertificate">
                             <table class="table bordered striped highlight centered table-custom">
                                 <thead>
                                     <tr>
@@ -187,20 +187,20 @@ else
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (Model.EmployeeExperiences != null && Model.EmployeeExperiences.Count > 0)
+                                        @if (Model.CourseAndCertificates != null && Model.CourseAndCertificates.Count > 0)
                                     {
-                                        foreach (var item in Model.EmployeeExperiences)
+                                        foreach (var item in Model.CourseAndCertificates)
                                         {
                                             count++;
-                                            var fromDate = item.EmployeeExperienceType.Equals(certificate) ? item.ExamDate.ToString(formatDate) : item.StartDate.ToString(formatDate);
-                                            var toDate = item.EmployeeExperienceType.Equals(certificate) ? item.ExpirationDate.ToString(formatDate) : item.EndDate.ToString(formatDate);
-                                            var titleFromDate = item.EmployeeExperienceType.Equals(certificate) ? "Exam Date" : "Start Date";
-                                            var titleToDate = item.EmployeeExperienceType.Equals(certificate) ? "Expiration Date" : "End Date";
+                                            var fromDate = item.Type.Equals(certificate) ? item.ExamDate.ToString(formatDate) : item.StartDate.ToString(formatDate);
+                                            var toDate = item.Type.Equals(certificate) ? item.ExpirationDate.ToString(formatDate) : item.EndDate.ToString(formatDate);
+                                            var titleFromDate = item.Type.Equals(certificate) ? "Exam Date" : "Start Date";
+                                                var titleToDate = item.Type.Equals(certificate) ? "Expiration Date" : "End Date";
                                             <tr>
                                                 <td>@count</td>
-                                                <td>@item.DepartmentName</td>
-                                                <td>@item.EmployeeExperienceType</td>
-                                                <td>@item.EmployeeExperienceName</td>
+                                                <td>@item.Department</td>
+                                                <td>@item.Type</td>
+                                                <td>@item.Name</td>
                                                 <td class="detail">
                                                     <div class="fromdate tooltip">
                                                         @fromDate

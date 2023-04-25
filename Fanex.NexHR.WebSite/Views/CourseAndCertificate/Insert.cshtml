@@ -1,42 +1,32 @@
 ﻿@using Fanex.NexHR.Models
 @using Fanex.NexHR.Resources
-@using Fanex.NexHR.ViewModels.EmployeeExperience
-@model EmployeeExperienceViewModel
+@using Fanex.NexHR.ViewModels.CourseAndCertificate
+@model CourseAndCertificateViewModel
 @{
-    DateTime currentDate = DateTime.Today; 
+    DateTime currentDate = DateTime.Today;
 }
-<form id="frmUpdateExperience" class="form form-update-experience">
+<form id="frmAddCourseAndCertificate" class="form form-add-course-and-certificate">
     <div id="divErrorCont" class="">
-    </div>
-    <div class="row form-input">
-        <div class="left label--l">
-            <label>Type</label>
-        </div>
-        <div class="left input--m">
-            <select class="typeExperience" name="Type" id="typeId">
-                <option selected="@(Model.Type == "Course")" value="Course">Course</option>
-                <option selected="@(Model.Type == "Certificate")" value="Certificate">Certificate</option>
-                <option selected="@(Model.Type == "Training")" value="Training">Training</option>
-            </select>
-        </div>
     </div>
     <div class="row form-input">
         <div class="left label--l">
             <label>@Labels.Employee</label>
         </div>
         <div class="left input--m">
-            <input asp-for="Employee" disabled value="@Model.Employee" placeholder="@Messages.SearchEmployeeWatermark"/>
+            <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark" />
             <input asp-for="EmployeeId" type="hidden" />
-            <input asp-for="Id" type="hidden" value="@Model.Id" />
         </div>
     </div>
     <div class="row form-input">
         <div class="left label--l">
-            <label>Department</label>
+            <label>Type</label>
         </div>
         <div class="left input--m">
-            <input asp-for="Department" value="@Model.Department" />
-            <input asp-for="DepartmentId" type="hidden" />
+            <select class="typeCourseAndCertificate" name="Type" id="typeId">
+                <option value="Course">Course</option>
+                <option value="Certificate">Certificate</option>
+                <option value="Training">Training</option>
+            </select>
         </div>
     </div>
     <div class="row form-input">
@@ -44,7 +34,15 @@
             <label>Name</label>
         </div>
         <div class="left input--m">
-            <input asp-for="Name" value="@Model.Name" />
+            <input asp-for="Name" />
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label>Department</label>
+        </div>
+        <div class="left input--m">
+            <input asp-for="Department"/>
         </div>
     </div>
     <div class="row form-input">
@@ -52,7 +50,15 @@
             <label>Organization</label>
         </div>
         <div class="left input--m">
-            <input asp-for="Organization" value="@Model.Organization" />
+            <input asp-for="Organization" />
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label>Description</label>
+        </div>
+        <div class="left input--m">
+            <textarea asp-for="Description" />
         </div>
     </div>
     <div class="row form-input">
@@ -60,10 +66,10 @@
             <label id="fromdate">Start Date</label>
         </div>
         <div class="datepicker-button left select--s">
-            <date-picker name="ExamDate"
+            <date-picker name="StartDate"
                          min-date="currentDate.AddYears(-100)"
-                         max-date="currentDate"
-                         value="@Model.StartDate">
+                         max-date="currentDate" 
+                         value="currentDate">
             </date-picker>
             <i class="mdi-action-event calendar-icon left"></i>
         </div>
@@ -73,10 +79,10 @@
             <label id="todate">End Date</label>
         </div>
         <div class="datepicker-button left select--s">
-            <date-picker name="ExpirationDate"
+            <date-picker name="EndDate"
                          min-date="currentDate.AddYears(-100)"
                          max-date="currentDate"
-                         value="@Model.ExpirationDate">
+                         value="currentDate">
             </date-picker>
             <i class="mdi-action-event calendar-icon left"></i>
         </div>

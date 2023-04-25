@@ -32,7 +32,7 @@
     "inputFile": "wwwroot/css/nex-login.scss"
   },
   {
-    "outputFile": "wwwroot/css/Views/employee-experience.css",
-    "inputFile": "wwwroot/css/Views/employee-experience.scss"
+    "outputFile": "wwwroot/css/Views/course-and-certificate.css",
+    "inputFile": "wwwroot/css/Views/course-and-certificate.scss"
   }
 ]

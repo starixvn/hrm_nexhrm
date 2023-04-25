@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace Fanex.NexHR.Criteria.EmployeeExperience
+namespace Fanex.NexHR.Criteria.CourseAndCertificate
 {
-    public class InsertEmployeeExperienceCriteria : BaseCommand
+    public class InsertCourseAndCertificateCriteria : BaseCommand
     {
         public int EmpId { get; set; }
         public int CreatedBy { get; set; }
-        public int DepartmentId { get; set; }
+        public string Department { get; set; }
         public string Type { get; set; }
         public string Name { get; set; }
         public string Organization { get; set; }
@@ -14,7 +14,7 @@ namespace Fanex.NexHR.Criteria.EmployeeExperience
         public DateTime? EndDate { get; set; }
         public DateTime? ExamDate { get; set; }
         public DateTime? ExpirationDate { get; set; }
-        public override string GetSettingKey() => "EmployeeExperience_Insert";
+        public override string GetSettingKey() => "CourseAndCertificate_Insert";
 
         public override bool IsValid() => EmpId > 0;
     }
