@@ -40,10 +40,10 @@
     </div>
     <div class="row form-input">
         <div class="left label--l">
-            <label>Department</label>
+            <label>ConductedBy</label>
         </div>
         <div class="left input--m">
-            <input asp-for="Department" value="@Model.Department" />
+            <input asp-for="ConductedBy" value="@Model.ConductedBy" />
         </div>
     </div>
     <div class="row form-input">
@@ -59,7 +59,7 @@
             <label>Description</label>
         </div>
         <div class="left input--m">
-            <input asp-for="Description" value="@Model.Description" />
+            <textarea class="description" asp-for="Description">@Model.Description</textarea>
         </div>
     </div>
     <div class="row form-input">
@@ -70,7 +70,7 @@
             <date-picker name="ExamDate"
                          min-date="currentDate.AddYears(-100)"
                          max-date="currentDate"
-                         value="@Model.StartDate">
+                         value="@Model.ExamDate">
             </date-picker>
             <i class="mdi-action-event calendar-icon left"></i>
         </div>

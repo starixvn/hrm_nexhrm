@@ -11,12 +11,13 @@
     <thead>
         <tr>
             <th style="width:4%">#</th>
-            <th style="width:15%">Department</th>
-            <th style="width:8%">@Labels.NickName</th>
-            <th style="width:8%">Type</th>
-            <th style="width:20%">Name</th>
-            <th style="width:20%">Organization</th>
-            <th style="width:20%">Detail</th>
+            <th style="width:12%">Full Name</th>
+            <th style="width:7%">@Labels.NickName</th>
+            <th style="width:7%">Team</th>
+            <th style="width:7%">Type</th>
+            <th style="width:18%">Name</th>
+            <th style="width:16%">Organization</th>
+            <th style="width:24%">Detail</th>
             <th style="width:5%">@Labels.Action</th>
         </tr>
     </thead>
@@ -28,24 +29,36 @@
                 count++;
                 var fromDate = item.Type.Equals(certificate) ? item.ExamDate.ToString(formatDate) : item.StartDate.ToString(formatDate);
                 var toDate = item.Type.Equals(certificate) ? item.ExpirationDate.ToString(formatDate) : item.EndDate.ToString(formatDate);
-                var titleFromDate = item.Type.Equals(certificate) ? "Exam Date" : "Start Date";
-                var titleToDate = item.Type.Equals(certificate) ? "Expiration Date" : "End Date";
+                var titleFromDate = item.Type.Equals(certificate) ? "Test Date:" : "Start Date:";
+                var titleToDate = item.Type.Equals(certificate) ? ", Expiration Date: " : ", End Date: ";
                 <tr>
                     <td>@count</td>
-                    <td>@item.Department</td>
+                    <td>@item.FullName</td>
                     <td>@item.NickName</td>
+                    <td>@item.TeamCode</td>
                     <td>@item.Type</td>
                     <td>@item.Name</td>
                     <td>@item.Organization</td>
-                    <td class="detail">
-                        <div class="fromdate tooltip">
-                            @fromDate
-                            <span class="tooltiptext">@titleFromDate</span>
+                    <td>
+                        @if (item.ConductedBy != null)
+                        {
+                            <div class="detail">
+                                <p>- Conducted By:</p>
+                                <p class="bold">@item.ConductedBy</p>
+                            </div>
+                        }
+                        <div class="detail">
+                            <p>- @titleFromDate</p>
+                            <p class="bold">@fromDate</p>
+                            <p>@titleToDate</p>
+                            <p class="bold">@toDate</p>
                         </div>
-                        <div class="linedate">-</div>
-                        <div class="todate tooltip">@toDate
-                            <span class="tooltiptext">@titleToDate</span>
-                        </div>
+                        @if(item.Description != null)
+                        {
+                            <div class="detail">
+                                <p>- @item.Description</p>
+                            </div>
+                        }
                     </td>
                     <td class="action-column">
                         <a href="javascript:;" class="btn_update" data-id="@item.Id">

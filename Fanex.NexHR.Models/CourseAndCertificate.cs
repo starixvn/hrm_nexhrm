@@ -8,8 +8,10 @@ namespace Fanex.NexHR.Models
         public int EmpId { get; set; }
         public string NickName { get; set; }
         public string FullName { get; set; }
-        public string Department { get; set; }
+        public string ConductedBy { get; set; }
+        public string Description { get; set; }
         public string TeamName { get; set; }
+        public string TeamCode { get; set; }
         public string Type { get; set; }
         public string Name { get; set; }
         public DateTime StartDate { get; set; }

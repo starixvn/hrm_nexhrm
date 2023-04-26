@@ -68,10 +68,11 @@
                 var criteria = new InsertCourseAndCertificateCriteria
                 {
                     EmpId = model.EmployeeId,
-                    Department = model.Department,
+                    ConductedBy = model.ConductedBy,
                     Type = model.Type,
                     Name = model.Name,
                     CreatedBy = CurrentUser.Id,
+                    Description = model.Description,
                     Organization = model.Organization,
                     StartDate = !model.Type.Equals(Certificate) ? model.StartDate : (DateTime?)null,
                     EndDate = !model.Type.Equals(Certificate) ? model.EndDate : (DateTime?)null,
@@ -93,10 +94,11 @@
                 model.Id = courseAndCertificate.Id;
                 model.EmployeeId = courseAndCertificate.EmpId;
                 model.Employee = courseAndCertificate.NickName + " (" + courseAndCertificate.FullName + ")";
-                model.Department = courseAndCertificate.Department;
+                model.ConductedBy = courseAndCertificate.ConductedBy;
                 model.Type = courseAndCertificate.Type;
                 model.Name = courseAndCertificate.Name;
                 model.Organization = courseAndCertificate.Organization;
+                model.Description = courseAndCertificate.Description;
                 model.ExamDate = courseAndCertificate.Type.Equals(Certificate) ?
                     courseAndCertificate.ExamDate : courseAndCertificate.StartDate;
                 model.ExpirationDate = courseAndCertificate.Type.Equals(Certificate) ?
@@ -114,11 +116,12 @@
                 var criteria = new UpdateCourseAndCertificateCriteria
                 {
                     Id = model.Id,
-                    Department = model.Department,
+                    ConductedBy = model.ConductedBy,
                     Type = model.Type,
                     Name = model.Name,
                     ModifyBy = CurrentUser.Id,
                     Organization = model.Organization,
+                    Description = model.Description,
                     StartDate = !model.Type.Equals(Certificate) ? model.ExamDate : (DateTime?)null,
                     EndDate = !model.Type.Equals(Certificate) ? model.ExpirationDate : (DateTime?)null,
                     ExamDate = model.Type.Equals(Certificate) ? model.ExamDate : (DateTime?)null,

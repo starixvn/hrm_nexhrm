@@ -88,27 +88,38 @@ function initDataFirstQuery(queryString) {
 }
 
 function initChangeTextFocusType() {
-    const typeid = document.querySelector("#typeId").value;
+    const typeid = document.querySelector("#frmAddCourseAndCertificate #typeId").value;
     if (typeid === "Certificate") {
-        $('#fromdate')[0].innerText = "Exam Date";
-        $('#todate')[0].innerText = "Expiration Date";
+        $('#frmAddCourseAndCertificate #fromdate')[0].innerText = "Test Date";
+        $('#frmAddCourseAndCertificate #todate')[0].innerText = "Expiration Date";
     } else {
-        $('#fromdate')[0].innerText = "Start Date";
-        $('#todate')[0].innerText = "End Date";
+        $('#frmAddCourseAndCertificate #fromdate')[0].innerText = "Start Date";
+        $('#frmAddCourseAndCertificate #todate')[0].innerText = "End Date";
+    }
+}
+
+function initChangeTextFocusTypeUpdate() {
+    const typeid = document.querySelector("#frmUpdateCourseAndCertificate #typeId").value;
+    if (typeid === "Certificate") {
+        $('#frmUpdateCourseAndCertificate #fromdate')[0].innerText = "Test Date";
+        $('#frmUpdateCourseAndCertificate #todate')[0].innerText = "Expiration Date";
+    } else {
+        $('#frmUpdateCourseAndCertificate #fromdate')[0].innerText = "Start Date";
+        $('#frmUpdateCourseAndCertificate #todate')[0].innerText = "End Date";
     }
 }
 
 function initUpdateDialog() {
     initDatePicker();
-    initChangeTextFocusType();
+    initChangeTextFocusTypeUpdate();
 
-    document.querySelector("#typeId").addEventListener("change", () => {
-        initChangeTextFocusType();
+    document.querySelector("#frmUpdateCourseAndCertificate #typeId").addEventListener("change", () => {
+        initChangeTextFocusTypeUpdate();
     });    
 
     const typeid = document.querySelector("#typeId").value;
     if (typeid === "Certificate") {
-        $('#fromdate')[0].innerText = "Exam Date";
+        $('#fromdate')[0].innerText = "Test Date";
         $('#todate')[0].innerText = "Expiration Date";
     } else {
         $('#fromdate')[0].innerText = "Start Date";
@@ -131,6 +142,7 @@ function initUpdateDialog() {
                 class: 'btn-submit waves-effect waves-light',
                 click: function () {
                     if (isValidUpdate()) {
+                        document.querySelector(".ui-dialog-buttonpane .btn-submit").style.display = 'none';
                         $.ajax({
                             type: 'POST',
                             url: _global.root + 'CourseAndCertificate/Update',
@@ -148,6 +160,7 @@ function initUpdateDialog() {
                                         setTimeout(function () { $('#dialog-update').dialog("close"); query(); }, 3000);
                                     }
                                     else {
+                                        document.querySelector(".ui-dialog-buttonpane .btn-submit").style.display = '';
                                         let errors = '<ul>';
                                         $(data.error).each(function (i, value) {
                                             errors += '<li>' + value.ErrorMessage + '</li>';
@@ -179,15 +192,11 @@ function initUpdateDialog() {
 }
 
 function isValidUpdate() {
-    const department = document.querySelector("#frmUpdateCourseAndCertificate #DepartmentId").value;
     const name = document.querySelector("#frmUpdateCourseAndCertificate #Name").value;
     const place = document.querySelector("#frmUpdateCourseAndCertificate #Organization").value;
     const examDate = document.querySelector("#frmUpdateCourseAndCertificate #ExamDate").value;
     const expirationDate = document.querySelector("#frmUpdateCourseAndCertificate #ExpirationDate").value;
     let ErrorMessage = [];
-    if (!department) {
-        ErrorMessage.push('Department is required!');
-    }
     if (!name) {
         ErrorMessage.push('Name is required!');
     }
@@ -216,7 +225,6 @@ function isValidUpdate() {
 
 function isValidInsert() {
     const employeeId = document.querySelector("#frmAddCourseAndCertificate #EmployeeId").value;
-    const department = document.querySelector("#frmAddCourseAndCertificate #DepartmentId").value;
     const name = document.querySelector("#frmAddCourseAndCertificate #Name").value;
     const place = document.querySelector("#frmAddCourseAndCertificate #Organization").value;
     const examDate = document.querySelector("#frmAddCourseAndCertificate #StartDate").value;
@@ -224,9 +232,6 @@ function isValidInsert() {
     let ErrorMessage = [];
     if (!employeeId) {
         ErrorMessage.push('Employee is required!');
-    }
-    if (!department) {
-        ErrorMessage.push('Department is required!');
     }
     if (!name) {
         ErrorMessage.push('Name is required!');
@@ -257,8 +262,9 @@ function isValidInsert() {
 function initAddNewDialog() {
     initDatePicker();
     initAutocomplete('#frmAddCourseAndCertificate #Employee', '#frmAddCourseAndCertificate #EmployeeId', false);
-    initChangeTextFocusType();
-
+    $("#frmAddCourseAndCertificate #typeId").on("change", () => {
+        initChangeTextFocusType();
+    }); 
     $('#dialog-addnew').dialog({
         modal: true,
         width: 'auto',
@@ -275,6 +281,7 @@ function initAddNewDialog() {
                 class: 'btn-submit waves-effect waves-light',
                 click: function () {
                     if (isValidInsert()) {
+                        document.querySelector(".ui-dialog-buttonpane .btn-submit").style.display = 'none';
                         $.ajax({
                             type: 'POST',
                             url: _global.root + 'CourseAndCertificate/Insert',
@@ -292,6 +299,7 @@ function initAddNewDialog() {
                                         setTimeout(function () { $('#dialog-addnew').dialog("close"); query(); }, 3000);
                                     }
                                     else {
+                                        document.querySelector(".ui-dialog-buttonpane .btn-submit").style.display = '';
                                         let errors = '<ul>';
                                         $(data.error).each(function (i, value) {
                                             errors += '<li>' + value.ErrorMessage + '</li>';
