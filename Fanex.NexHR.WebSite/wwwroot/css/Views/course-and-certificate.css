@@ -27,3 +27,55 @@
 .courseAndCertificate table .fromdate {
   margin-left: 7%;
 }
+
+.courseAndCertificatereport .training {
+  margin-left: 10px;
+}
+.courseAndCertificatereport .training label {
+  color: #4c5e70;
+  font-weight: bold;
+  line-height: 2.5rem;
+}
+.courseAndCertificatereport .training .detail {
+  border-left: 2px solid #FF6699;
+  width: 45%;
+  margin-left: 10px !important;
+  background: #eeeeef none repeat scroll 0 0;
+}
+.courseAndCertificatereport .training .detail p:first-child {
+  margin-left: 10px;
+}
+.courseAndCertificatereport .course {
+  margin-left: 10px;
+}
+.courseAndCertificatereport .course label {
+  color: #4c5e70;
+  font-weight: bold;
+  line-height: 2.5rem;
+}
+.courseAndCertificatereport .course .detail {
+  border-left: 2px solid #FFCC33;
+  width: 58%;
+  margin-left: 10px !important;
+  background: #eeeeef none repeat scroll 0 0;
+}
+.courseAndCertificatereport .course .detail p:first-child {
+  margin-left: 10px;
+}
+.courseAndCertificatereport .certificate {
+  margin-left: 10px;
+}
+.courseAndCertificatereport .certificate label {
+  color: #4c5e70;
+  font-weight: bold;
+  line-height: 2.5rem;
+}
+.courseAndCertificatereport .certificate .detail {
+  border-left: 2px solid #15b092;
+  width: 60%;
+  margin-left: 10px !important;
+  background: #eeeeef none repeat scroll 0 0;
+}
+.courseAndCertificatereport .certificate .detail p:first-child {
+  margin-left: 10px;
+}

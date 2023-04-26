@@ -130,7 +130,11 @@
 
         public DateTime GroupDate { get; set; }
 
+        public IList<CourseAndCertificate> Trainings { get; set; }
+
+        public IList<CourseAndCertificate> Courses { get; set; }
         public IList<CourseAndCertificate> CourseAndCertificates { get; set; }
+        public IList<CourseAndCertificate> Certificates { get; set; }
 
         public IList<short> RoleList
         {

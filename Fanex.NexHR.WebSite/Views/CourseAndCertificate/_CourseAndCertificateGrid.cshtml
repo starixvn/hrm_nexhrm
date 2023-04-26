@@ -33,12 +33,12 @@
                 var titleToDate = item.Type.Equals(certificate) ? ", Expiration Date: " : ", End Date: ";
                 <tr>
                     <td>@count</td>
-                    <td>@item.FullName</td>
+                    <td style="text-align: left;">@item.FullName</td>
                     <td>@item.NickName</td>
                     <td>@item.TeamCode</td>
                     <td>@item.Type</td>
-                    <td>@item.Name</td>
-                    <td>@item.Organization</td>
+                    <td style="text-align: left;">@item.Name</td>
+                    <td style="text-align: left;">@item.Organization</td>
                     <td>
                         @if (item.ConductedBy != null)
                         {

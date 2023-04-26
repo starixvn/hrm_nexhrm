@@ -33,3 +33,68 @@
         }
     }
 }
+
+.courseAndCertificatereport {
+    .training {
+        margin-left: 10px;
+
+        label {
+            color: #4c5e70;
+            font-weight: bold;
+            line-height: 2.5rem;
+        }
+
+        .detail {
+            border-left: 2px solid #FF6699;
+            width: 45%;
+            margin-left: 10px !important;
+            background: #eeeeef none repeat scroll 0 0;
+
+            p:first-child {
+                margin-left: 10px;
+            }
+        }
+    }
+
+    .course {
+        margin-left: 10px;
+
+        label {
+            color: #4c5e70;
+            font-weight: bold;
+            line-height: 2.5rem;
+        }
+
+        .detail {
+            border-left: 2px solid #FFCC33;
+            width: 58%;
+            margin-left: 10px !important;
+            background: #eeeeef none repeat scroll 0 0;
+
+            p:first-child {
+                margin-left: 10px;
+            }
+        }
+    }
+
+    .certificate {
+        margin-left: 10px;
+
+        label {
+            color: #4c5e70;
+            font-weight: bold;
+            line-height: 2.5rem;
+        }
+
+        .detail {
+            border-left: 2px solid #15b092;
+            width: 60%;
+            margin-left: 10px !important;
+            background: #eeeeef none repeat scroll 0 0;
+
+            p:first-child {
+                margin-left: 10px;
+            }
+        }
+    }
+}

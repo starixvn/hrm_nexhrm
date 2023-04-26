@@ -181,19 +181,59 @@
                     </div>
                     <div class="courseAndCertificatereport m-t--l p-x--s">
                         <div class="boxtitle">
-                            Course And Certificate
+                            @Labels.TrainingInformation
                         </div>
-                        <div class="courseAndCertificate">
-                            <p>-</p>
-                            <p>Certificate</p>
-                            <p>AWS Certified Cloud Practition</p>
-                            <p>Software development</p>
-                            <p>Exam Date</p>
-                            <p>01 Jan, 2001</p>
-                            <p>Expiration Date</p>
-                            <p>19 Apr, 2023</p>
-                            <p>Organization</p>
-                            <p>AWS</p>
+                        <div class="training">
+                            @if (Model.Trainings != null && Model.Trainings.Count > 0)
+                            {
+                                <label>Internal Training:</label>
+                                foreach (var item in Model.Trainings)
+                                {
+                                    <div class="detail">
+                                        <p style="width:46.6%;">@item.Name</p>
+                                        <p>Conducted by:</p>
+                                        <p style="width:18.3%" class="bold">@item.ConductedBy</p>
+                                        <p>Start Date:</p>
+                                        <p class="bold">@item.StartDate.ToString("dd MMM, yyyy")</p>
+                                    </div>
+                                }
+                            }
+                        </div>
+                        <div class="course">
+                            @if (Model.Courses != null && Model.Courses.Count > 0)
+                            {
+                                <label>Training Courses:</label>
+                                foreach (var item in Model.Courses)
+                                {
+                                    <div class="detail">
+                                        <p style="width: 36.2%;">@item.Name</p>
+                                        <p>Organization:</p>
+                                        <p style="width: 14.8%" class="bold">@item.Organization</p>
+                                        <p>Start Date:</p>
+                                        <p style="width: 14.8%" class="bold">@item.StartDate.ToString("dd MMM, yyyy")</p>
+                                        <p>End Date:</p>
+                                        <p class="bold">@item.StartDate.ToString("dd MMM, yyyy")</p>
+                                    </div>
+                                }
+                            }
+                        </div>
+                        <div class="certificate">
+                            @if (Model.Certificates != null && Model.Certificates.Count > 0)
+                            {
+                                <label>Certificates:</label>
+                                foreach (var item in Model.Certificates)
+                                {
+                                    <div class="detail">
+                                        <p style="width: 35%;">@item.Name</p>
+                                        <p>Organization:</p>
+                                        <p style="width: 14.5%" class="bold">@item.Organization</p>
+                                        <p>Test Date:</p>
+                                        <p style="width: 14.5%" class="bold">@item.ExamDate.ToString("dd MMM, yyyy")</p>
+                                        <p>Expiration Date</p>
+                                        <p class="bold">@item.ExpirationDate.ToString("dd MMM, yyyy")</p>
+                                    </div>
+                                }
+                            }
                         </div>
                     </div>
                 </div>

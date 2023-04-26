@@ -325,7 +325,7 @@
             Employee employee = await GetEmployeeById(employeeId);
             employee.CourseAndCertificates = await courseAndCertificateService.GetByEmpId(new GetCourseAndCertificateByEmpIdCriteria
             {
-                EmpId = employeeId
+                EmpId = CurrentUser.Id
             });
             return View(employee);
         }
@@ -593,10 +593,13 @@
                 EmployeeId = CurrentUser.Id
             };
             Employee employee = await employeeService.GetEmployeeById(criteria);
-            employee.CourseAndCertificates = await courseAndCertificateService.GetByEmpId(new GetCourseAndCertificateByEmpIdCriteria
+            var courseAndCertificates = await courseAndCertificateService.GetByEmpId(new GetCourseAndCertificateByEmpIdCriteria
             {
                 EmpId = CurrentUser.Id
             });
+            employee.Trainings = courseAndCertificates.Where(x => x.Type == "Training").ToList();
+            employee.Courses = courseAndCertificates.Where(x => x.Type == "Course").ToList();
+            employee.Certificates = courseAndCertificates.Where(x => x.Type == "Certificate").ToList();
             return View(employee);
         }
 
