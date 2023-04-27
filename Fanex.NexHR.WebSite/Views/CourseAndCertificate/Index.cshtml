@@ -109,7 +109,10 @@
                                 </div>
                                 <div class="col m-l--l">
                                     <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light m-r--b" />
-                                    <a class="btn-request waves-effect waves-light m-r--m left" href="javascript:;" id="btnAddNew">Add New</a>
+                                    @if (ViewBag.HasHRRole)
+                                    {
+                                        <a class="btn-request waves-effect waves-light m-r--m left" href="javascript:;" id="btnAddNew">Add New</a>
+                                    }
                                 </div>
                             </div>
                         </form>

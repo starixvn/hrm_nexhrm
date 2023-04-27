@@ -323,10 +323,13 @@
         public async Task<IActionResult> Detail(int employeeId)
         {
             Employee employee = await GetEmployeeById(employeeId);
-            employee.CourseAndCertificates = await courseAndCertificateService.GetByEmpId(new GetCourseAndCertificateByEmpIdCriteria
+            var courseAndCertificates = await courseAndCertificateService.GetByEmpId(new GetCourseAndCertificateByEmpIdCriteria
             {
-                EmpId = CurrentUser.Id
+                EmpId = employeeId
             });
+            employee.Trainings = courseAndCertificates.Where(x => x.Type == "Training").ToList();
+            employee.Courses = courseAndCertificates.Where(x => x.Type == "Course").ToList();
+            employee.Certificates = courseAndCertificates.Where(x => x.Type == "Certificate").ToList();
             return View(employee);
         }
 

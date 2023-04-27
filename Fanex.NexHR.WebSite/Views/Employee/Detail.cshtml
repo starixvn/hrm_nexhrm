@@ -7,9 +7,6 @@
 @model Fanex.NexHR.Models.Employee
 @{
     var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
-    var count = 0;
-    const string certificate = "Certificate";
-    const string formatDate = "dd MMM, yyyy";
 }
 @if (Model != null)
 {
@@ -23,6 +20,15 @@ else
     <link rel="stylesheet" href="~/css/Views/course-and-certificate.css" asp-append-version="true">
     <link rel="stylesheet" href="~/minify/css/myprofile.min.css" asp-append-version="true">
 }
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/Employee/employee.training.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/employee.training.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
 
 <div class="row content">
     <div class="col s12 card-container-base">
@@ -173,9 +179,13 @@ else
                         <div class="courseAndCertificatereport m-t--l p-x--s">
                             <div class="boxtitle">
                                 @Labels.TrainingInformation
+                                @if (@isHRRole)
+                                {
+                                    <i data-displayname="@Model.DisplayName" data-id="@Model.Id" id="btn-add-training" class="mdi mdi-library-plus flus"></i>
+                                }
                             </div>
                             <div class="training">
-                                @if (Model.Trainings != null && Model.Trainings.Count > 0)
+                                @if (Model.Trainings.Count > 0)
                                 {
                                     <label>Internal Training:</label>
                                     foreach (var item in Model.Trainings)
@@ -191,7 +201,7 @@ else
                                 }
                             </div>
                             <div class="course">
-                                @if (Model.Courses != null && Model.Courses.Count > 0)
+                                @if (Model.Courses.Count > 0)
                                 {
                                     <label>Training Courses:</label>
                                     foreach (var item in Model.Courses)
@@ -209,7 +219,7 @@ else
                                 }
                             </div>
                             <div class="certificate">
-                                @if (Model.Certificates != null && Model.Certificates.Count > 0)
+                                @if (Model.Certificates.Count > 0)
                                 {
                                     <label>Certificates:</label>
                                     foreach (var item in Model.Certificates)
@@ -226,7 +236,12 @@ else
                                     }
                                 }
                             </div>
+                            @if (Model.Certificates.Count == 0 && Model.Trainings.Count == 0 && Model.Courses.Count == 0)
+                            {
+                                <p class="none-training">@Messages.NoDataIsAvailable</p>
+                            }
                         </div>
+                        <div id="dialog-addnew" title="Add New" style="display:none">&nbsp;</div>
                     }
                     else
                     {

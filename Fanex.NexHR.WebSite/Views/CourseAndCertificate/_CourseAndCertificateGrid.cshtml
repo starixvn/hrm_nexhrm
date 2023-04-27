@@ -18,7 +18,10 @@
             <th style="width:18%">Name</th>
             <th style="width:16%">Organization</th>
             <th style="width:24%">Detail</th>
-            <th style="width:5%">@Labels.Action</th>
+            @if (ViewBag.HasHRRole)
+            {
+                <th style="width:5%">@Labels.Action</th>
+            }
         </tr>
     </thead>
     <tbody>
@@ -60,14 +63,17 @@
                             </div>
                         }
                     </td>
-                    <td class="action-column">
-                        <a href="javascript:;" class="btn_update" data-id="@item.Id">
-                            <i class='mdi mdi-border-color mdi-edit mdi-dark' style="top: 5px"></i>
-                        </a>
-                        <a href="javascript:;" onclick="deleteRequest(@item.Id);">
-                            <i class='mdi mdi-delete mdi-dark'></i>
-                        </a>
-                    </td>
+                    @if (ViewBag.HasHRRole)
+                    {
+                        <td class="action-column">
+                            <a href="javascript:;" class="btn_update" data-id="@item.Id">
+                                <i class='mdi mdi-border-color mdi-edit mdi-dark' style="top: 5px"></i>
+                            </a>
+                            <a href="javascript:;" onclick="deleteRequest(@item.Id);">
+                                <i class='mdi mdi-delete mdi-dark'></i>
+                            </a>
+                        </td>
+                    }
                 </tr>
             }
         }

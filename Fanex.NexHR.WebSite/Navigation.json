@@ -246,7 +246,7 @@
         "Title": "Training Information",
         "Controller": "CourseAndCertificate",
         "Action": "Index",
-        "Icon": "clipboard-text",
+        "Icon": "school",
         "Roles": "Member",
         "Id": 28,
         "ParentId": 25

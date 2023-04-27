@@ -157,7 +157,7 @@ function initUpdateDialog() {
                                     if (data.Code === 0) {
                                         errorCont.addClass('success validation-summary-success');
                                         errorCont.append('Update successfully');
-                                        setTimeout(function () { $('#dialog-update').dialog("close"); query(); }, 3000);
+                                        setTimeout(function () { $('#dialog-update').dialog("close"); query(); }, 1000);
                                     }
                                     else {
                                         document.querySelector(".ui-dialog-buttonpane .btn-submit").style.display = '';
@@ -196,6 +196,7 @@ function isValidUpdate() {
     const place = document.querySelector("#frmUpdateCourseAndCertificate #Organization").value;
     const examDate = document.querySelector("#frmUpdateCourseAndCertificate #ExamDate").value;
     const expirationDate = document.querySelector("#frmUpdateCourseAndCertificate #ExpirationDate").value;
+    const typeid = document.querySelector("#frmUpdateCourseAndCertificate #typeId").value;
     let ErrorMessage = [];
     if (!name) {
         ErrorMessage.push('Name is required!');
@@ -204,7 +205,11 @@ function isValidUpdate() {
         ErrorMessage.push('Organization is required!');
     }
     if (examDate > expirationDate) {
-        ErrorMessage.push('From Date must be less than or equal To Date!');
+        if (typeid === "Certificate") {
+            ErrorMessage.push('Test Date must be less than or equal Expiration Date!');
+        } else {
+            ErrorMessage.push('Start Date must be less than or equal End Date!');
+        }
     }
     if (ErrorMessage.length > 0) {
         let errorCont = $('#frmUpdateCourseAndCertificate #divErrorCont');
@@ -229,6 +234,7 @@ function isValidInsert() {
     const place = document.querySelector("#frmAddCourseAndCertificate #Organization").value;
     const examDate = document.querySelector("#frmAddCourseAndCertificate #StartDate").value;
     const expirationDate = document.querySelector("#frmAddCourseAndCertificate #EndDate").value;
+    const typeid = document.querySelector("#frmAddCourseAndCertificate #typeId").value;
     let ErrorMessage = [];
     if (!employeeId) {
         ErrorMessage.push('Employee is required!');
@@ -240,7 +246,11 @@ function isValidInsert() {
         ErrorMessage.push('Organization is required!');
     }
     if (examDate > expirationDate) {
-        ErrorMessage.push('From Date must be less than or equal To Date!');
+        if (typeid === "Certificate") {
+            ErrorMessage.push('Test Date must be less than or equal Expiration Date!');
+        } else {
+            ErrorMessage.push('Start Date must be less than or equal End Date!');
+        }
     }
     if (ErrorMessage.length > 0) {
         let errorCont = $('#frmAddCourseAndCertificate #divErrorCont');
@@ -296,7 +306,7 @@ function initAddNewDialog() {
                                     if (data.Code === 0) {
                                         errorCont.addClass('success validation-summary-success');
                                         errorCont.append('Insert successfully');
-                                        setTimeout(function () { $('#dialog-addnew').dialog("close"); query(); }, 3000);
+                                        setTimeout(function () { $('#dialog-addnew').dialog("close"); query(); }, 1000);
                                     }
                                     else {
                                         document.querySelector(".ui-dialog-buttonpane .btn-submit").style.display = '';

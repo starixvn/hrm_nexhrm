@@ -17,6 +17,11 @@
         margin-left: 5px !important;
     }
 }
+#frmAddCourseAndCertificate, #frmUpdateCourseAndCertificate {
+    .validation-summary-errors {
+        width: 320px !important;
+    }
+}
 
 .description {
     min-height: 64px;
@@ -96,5 +101,20 @@
                 margin-left: 10px;
             }
         }
+    }
+
+    .none-training {
+        border-left: 2px solid #FF6699;
+        width: 15%;
+        margin-left: 10px !important;
+        background: #eeeeef none repeat scroll 0 0;
+        line-height: 3rem !important;
+        text-align: center;
+    }
+
+    .flus{
+        font-size: 14px;
+        margin-left: 2px;
+        cursor: pointer;
     }
 }

@@ -7,20 +7,23 @@
     using Fanex.NexHR.ViewModels.CourseAndCertificate;
     using Microsoft.AspNetCore.Mvc;
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
 
-    [HrmAuthorize(UserRoles = "HR")]
     public class CourseAndCertificateController : BaseController
     {
         private readonly ITeamService teamService;
+        private readonly IEmployeeService employeeService;
         private readonly IBaseService baseService;
         private readonly ICourseAndCertificateService courseAndCertificateService;
         private const string Certificate = "Certificate";
         public CourseAndCertificateController(ISessionService sessionService,
             ITeamService teamService,
+            IEmployeeService employeeService,
             ICourseAndCertificateService courseAndCertificateService,
             IBaseService baseService) : base(sessionService)
         {
+            this.employeeService = employeeService;
             this.baseService = baseService;
             this.teamService = teamService;
             this.courseAndCertificateService = courseAndCertificateService;
@@ -35,6 +38,8 @@
                 ToDate = DateTime.Now,
                 Teams = await teamService.GetTeam()
             };
+            var userRoles = employeeService.UserRoles(CurrentUser);
+            ViewBag.HasHRRole = userRoles.Any(item => item == "HR");
             return View(model);
         }
 
@@ -50,15 +55,19 @@
                 FromDate = model.FromDate,
                 ToDate = model.ToDate.AddDays(1)
             });
+            var userRoles = employeeService.UserRoles(CurrentUser);
+            ViewBag.HasHRRole = userRoles.Any(item => item == "HR");
             return PartialView("Views/CourseAndCertificate/_CourseAndCertificateGrid.cshtml", courseAndCertificate);
         }
 
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpGet]
         public IActionResult Insert()
         {
             return PartialView();
         }
 
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<CommandResult> Insert(CourseAndCertificateViewModel model)
         {
@@ -84,6 +93,7 @@
             return result;
         }
 
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
@@ -107,6 +117,7 @@
             return PartialView(model);
         }
 
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<CommandResult> Update(CourseAndCertificateViewModel model)
         {
@@ -132,6 +143,7 @@
             return result;
         }
 
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<CommandResult> Delete(int id)
         {
