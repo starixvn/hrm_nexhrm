@@ -18,6 +18,11 @@
 #frmAddCourseAndCertificate .validation-summary-errors, #frmUpdateCourseAndCertificate .validation-summary-errors {
   width: 320px !important;
 }
+#frmAddCourseAndCertificate .textarea, #frmUpdateCourseAndCertificate .textarea {
+  background-color: transparent;
+  resize: none;
+  outline: none;
+}
 
 .description {
   min-height: 64px;

@@ -21,6 +21,12 @@
     .validation-summary-errors {
         width: 320px !important;
     }
+
+    .textarea {
+        background-color: transparent;
+        resize: none;
+        outline: none;
+    }
 }
 
 .description {
