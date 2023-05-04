@@ -10,7 +10,7 @@
     </div>
     <div class="row form-input">
         <div class="left label--l">
-            <label>@Labels.Employee</label>
+            <label>@Labels.Employee <i class="require">*</i></label>
         </div>
         <div class="left input--m">
             <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark" />
@@ -31,7 +31,7 @@
     </div>
     <div class="row form-input">
         <div class="left label--l">
-            <label>Name</label>
+            <label>Name <i class="require">*</i></label>
         </div>
         <div class="left input--m">
             <input asp-for="Name" />
@@ -47,7 +47,7 @@
     </div>
     <div class="row form-input">
         <div class="left label--l">
-            <label>Organization</label>
+            <label>Organization <i class="require">*</i></label>
         </div>
         <div class="left input--m">
             <input asp-for="Organization" />

@@ -449,4 +449,7 @@ Thank you.</value>
 Please be informed that total hour late in/early out of {1} was deducted.
 Thank you.</value>
   </data>
+  <data name="NoInformationAvailable" xml:space="preserve">
+    <value>No information available</value>
+  </data>
 </root>

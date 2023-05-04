@@ -686,6 +686,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No information available.
+        /// </summary>
+        public static string NoInformationAvailable {
+            get {
+                return ResourceManager.GetString("NoInformationAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Total hours paid.
         /// </summary>
         public static string PaidDescription {
