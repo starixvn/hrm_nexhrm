@@ -39,6 +39,54 @@
                             <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--m">
+                                        <label>@Labels.FromDate</label>
+                                    </div>
+                                    <div class="left datepicker-button select--m">
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                        <date-picker name="FromDate"
+                                                     min-date="currentDate.AddYears(-100)"
+                                                     value="currentDate.AddDays(-7)">
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.ToDate</label>
+                                    </div>
+                                    <div class="left datepicker-button select--m">
+                                        <date-picker name="ToDate"
+                                                     min-date="currentDate.AddYears(-100)"
+                                                     value="currentDate">
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>Type</label>
+                                    </div>
+                                    <div class="left select--datepicker type">
+                                        <select name="Type" id="Type">
+                                            <option value="">All</option>
+                                            <option value="Course">Course</option>
+                                            <option value="Certificate">Certificate</option>
+                                            <option value="Training">Training</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>Name</label>
+                                    </div>
+                                    <div class="left input--m">
+                                        <input asp-for="Name" maxlength="200" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
                                         <label>@Labels.Team</label>
                                     </div>
                                     <div class="left select--m team">
@@ -54,57 +102,6 @@
                                     <div class="left input--m">
                                         <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark" />
                                         <input type="hidden" asp-for="EmployeeId" />
-                                    </div>
-                                </div>
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        <label>Type</label>
-                                    </div>
-                                    <div class="left select--datepicker type">
-                                        <select name="Type" id="Type">
-                                            <option value="All">All</option>
-                                            <option value="Course">Course</option>
-                                            <option value="Certificate">Certificate</option>
-                                            <option value="Training">Training</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        <label>Keyword</label>
-                                    </div>
-                                    <div class="left input--m">
-                                        <input asp-for="Keyword"/>
-                                        <input type="hidden" asp-for="Keyword" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row form-input">
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        <label>@Labels.FromDate</label>
-                                    </div>
-                                    <div class="left datepicker-button select--m">
-                                        <i class="mdi-action-event calendar-icon left"></i>
-                                        <date-picker name="FromDate"
-                                                     min-date="currentDate.AddYears(-100)"
-                                                     max-date="currentDate"
-                                                     value="currentDate.AddDays(-7)">
-                                        </date-picker>
-                                        <i class="mdi-action-event calendar-icon left"></i>
-                                    </div>
-                                </div>
-                                <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        <label>@Labels.ToDate</label>
-                                    </div>
-                                    <div class="left datepicker-button select--m">
-                                        <date-picker name="ToDate"
-                                                     min-date="currentDate.AddYears(-100)"
-                                                     max-date="currentDate"
-                                                     value="currentDate">
-                                        </date-picker>
-                                        <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
                                 </div>
                                 <div class="col m-l--l">

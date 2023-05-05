@@ -9,8 +9,9 @@
     <div id="divErrorCont" class="">
     </div>
     <div class="row form-input">
-        <div class="left label--l">
-            <label>@Labels.Employee <i class="require">*</i></label>
+        <div class="display-flex left label--l">
+            <label>@Labels.Employee </label>
+            <i class="require">*</i>
         </div>
         <div class="left input--m">
             <input asp-for="Employee" disabled value="@Model.Employee" placeholder="@Messages.SearchEmployeeWatermark" />
@@ -19,8 +20,9 @@
         </div>
     </div>
     <div class="row form-input">
-        <div class="left label--l">
+        <div class="display-flex left label--l">
             <label>Type</label>
+            <i class="require">*</i>
         </div>
         <div class="left input--m">
             <select class="typeCourseAndCertificate" name="Type" id="typeId">
@@ -31,27 +33,29 @@
         </div>
     </div>
     <div class="row form-input">
-        <div class="left label--l">
-            <label>Name <i class="require">*</i></label>
+        <div class="display-flex left label--l">
+            <label>Name</label>
+            <i class="require">*</i>
         </div>
         <div class="left input--m">
             <input asp-for="Name" value="@Model.Name" />
         </div>
     </div>
     <div class="row form-input">
-        <div class="left label--l">
-            <label>ConductedBy</label>
+        <div class="display-flex left label--l">
+            <label>Organization</label>
+            <i class="require">*</i>
         </div>
         <div class="left input--m">
-            <input asp-for="ConductedBy" value="@Model.ConductedBy" />
+            <input asp-for="Organization" value="@Model.Organization" />
         </div>
     </div>
     <div class="row form-input">
         <div class="left label--l">
-            <label>Organization <i class="require">*</i></label>
+            <label>Conducted By</label>
         </div>
         <div class="left input--m">
-            <input asp-for="Organization" value="@Model.Organization" />
+            <input asp-for="ConductedBy" value="@Model.ConductedBy" />
         </div>
     </div>
     <div class="row form-input">
@@ -63,26 +67,26 @@
         </div>
     </div>
     <div class="row form-input">
-        <div class="left label--l">
+        <div class="display-flex left label--l">
             <label id="fromdate">Start Date</label>
+            <i class="require">*</i>
         </div>
         <div class="datepicker-button left select--s">
             <date-picker name="ExamDate"
                          min-date="currentDate.AddYears(-100)"
-                         max-date="currentDate"
                          value="@Model.ExamDate">
             </date-picker>
             <i class="mdi-action-event calendar-icon left"></i>
         </div>
     </div>
     <div class="row form-input">
-        <div class="left label--l">
+        <div class="display-flex left label--l">
             <label id="todate">End Date</label>
+            <i class="require">*</i>
         </div>
         <div class="datepicker-button left select--s">
             <date-picker name="ExpirationDate"
                          min-date="currentDate.AddYears(-100)"
-                         max-date="currentDate"
                          value="@Model.ExpirationDate">
             </date-picker>
             <i class="mdi-action-event calendar-icon left"></i>

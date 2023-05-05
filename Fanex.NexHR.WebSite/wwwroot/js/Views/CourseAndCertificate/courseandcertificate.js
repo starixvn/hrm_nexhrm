@@ -204,6 +204,20 @@ function isValidUpdate() {
     if (!place) {
         ErrorMessage.push('Organization is required!');
     }
+    if (!examDate) {
+        if (typeid === "Certificate") {
+            ErrorMessage.push('Test Date is required!');
+        } else {
+            ErrorMessage.push('Start Date is required!');
+        }
+    }
+    if (!expirationDate) {
+        if (typeid === "Certificate") {
+            ErrorMessage.push('Expiration Date is required!');
+        } else {
+            ErrorMessage.push('End Date is required!');
+        }
+    }
     if (examDate > expirationDate) {
         if (typeid === "Certificate") {
             ErrorMessage.push('Test Date must be less than or equal Expiration Date!');
@@ -211,6 +225,11 @@ function isValidUpdate() {
             ErrorMessage.push('Start Date must be less than or equal End Date!');
         }
     }
+    sendErrorUpdateMessage(ErrorMessage);
+    return ErrorMessage.length === 0;
+}
+
+function sendErrorUpdateMessage(ErrorMessage) {
     if (ErrorMessage.length > 0) {
         let errorCont = $('#frmUpdateCourseAndCertificate #divErrorCont');
         let ul = document.querySelector("#frmUpdateCourseAndCertificate #divErrorCont ul");
@@ -225,7 +244,6 @@ function isValidUpdate() {
         errorCont.addClass('validation-summary-errors');
         errorCont.append(errors);
     }
-    return ErrorMessage.length === 0;
 }
 
 function isValidInsert() {
@@ -245,6 +263,20 @@ function isValidInsert() {
     if (!place) {
         ErrorMessage.push('Organization is required!');
     }
+    if (!examDate) {
+        if (typeid === "Certificate") {
+            ErrorMessage.push('Test Date is required!');
+        } else {
+            ErrorMessage.push('Start Date is required!');
+        }
+    }
+    if (!expirationDate) {
+        if (typeid === "Certificate") {
+            ErrorMessage.push('Expiration Date is required!');
+        } else {
+            ErrorMessage.push('End Date is required!');
+        }
+    }
     if (examDate > expirationDate) {
         if (typeid === "Certificate") {
             ErrorMessage.push('Test Date must be less than or equal Expiration Date!');
@@ -252,6 +284,11 @@ function isValidInsert() {
             ErrorMessage.push('Start Date must be less than or equal End Date!');
         }
     }
+    sendErrorInserMessage(ErrorMessage);
+    return ErrorMessage.length === 0;
+}
+
+function sendErrorInserMessage(ErrorMessage) {
     if (ErrorMessage.length > 0) {
         let errorCont = $('#frmAddCourseAndCertificate #divErrorCont');
         let ul = document.querySelector("#frmAddCourseAndCertificate #divErrorCont ul");
@@ -266,7 +303,6 @@ function isValidInsert() {
         errorCont.addClass('validation-summary-errors');
         errorCont.append(errors);
     }
-    return ErrorMessage.length === 0;
 }
 
 function initAddNewDialog() {
@@ -354,11 +390,26 @@ function deleteRequest(id) {
     });
 }
 
+function validate() {
+    let fromDate = $("#FromDate").val(),
+        toDate = $("#ToDate").val(),
+        isValid = true;
+
+    if (!fromDate || !toDate) {
+        $('#toast-container').children().remove();
+        Materialize.toast('<i class="mdi mdi-close-circle"></i><span class="m-l--m">From date and to date id require!<span>', 2000);
+
+        isValid = false;
+    }
+
+    return isValid;
+};
+
 $(document).ready(function () {
     query(true);
 
     $('#submit').on('click', function () {
-        if (validateFromDateAndToDate()) {
+        if (validateFromDateAndToDate() && validate()) {
             query(false);
         }
     });

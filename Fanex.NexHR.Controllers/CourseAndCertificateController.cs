@@ -50,8 +50,8 @@
             {
                 GroupId = model.TeamId,
                 EmpId = model.EmployeeId,
-                Type = model.Type == "All" ? null : model.Type,
-                Name = model.Keyword,
+                Type = model.Type,
+                Name = model.Name,
                 FromDate = model.FromDate,
                 ToDate = model.ToDate.AddDays(1)
             });

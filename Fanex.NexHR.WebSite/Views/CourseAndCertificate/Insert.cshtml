@@ -9,8 +9,9 @@
     <div id="divErrorCont" class="">
     </div>
     <div class="row form-input">
-        <div class="left label--l">
-            <label>@Labels.Employee <i class="require">*</i></label>
+        <div class="display-flex left label--l">
+            <label>@Labels.Employee</label>
+            <i class="require">*</i>
         </div>
         <div class="left input--m">
             <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark" />
@@ -18,8 +19,9 @@
         </div>
     </div>
     <div class="row form-input">
-        <div class="left label--l">
+        <div class="display-flex left label--l">
             <label>Type</label>
+            <i class="require">*</i>
         </div>
         <div class="left input--m">
             <select class="typeCourseAndCertificate" name="Type" id="typeId">
@@ -30,27 +32,30 @@
         </div>
     </div>
     <div class="row form-input">
-        <div class="left label--l">
-            <label>Name <i class="require">*</i></label>
+        <div class="display-flex left label--l">
+            <label>Name</label>
+            <i class="require">*</i>
+
         </div>
         <div class="left input--m">
-            <input asp-for="Name" />
+            <input asp-for="Name" maxlength="200" />
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="display-flex left label--l">
+            <label>Organization</label>
+            <i class="require">*</i>
+        </div>
+        <div class="left input--m">
+            <input asp-for="Organization" maxlength="200" />
         </div>
     </div>
     <div class="row form-input">
         <div class="left label--l">
-            <label>ConductedBy</label>
+            <label>Conducted By</label>
         </div>
         <div class="left input--m">
-            <input asp-for="ConductedBy" />
-        </div>
-    </div>
-    <div class="row form-input">
-        <div class="left label--l">
-            <label>Organization <i class="require">*</i></label>
-        </div>
-        <div class="left input--m">
-            <input asp-for="Organization" />
+            <input asp-for="ConductedBy" maxlength="100" />
         </div>
     </div>
     <div class="row form-input">
@@ -58,30 +63,30 @@
             <label>Description</label>
         </div>
         <div class="left input--m">
-            <textarea class="description textarea" asp-for="Description" />
+            <textarea class="description textarea" asp-for="Description" maxlength="500" />
         </div>
     </div>
     <div class="row form-input">
-        <div class="left label--l">
+        <div class="display-flex left label--l">
             <label id="fromdate">Start Date</label>
+            <i class="require">*</i>
         </div>
         <div class="datepicker-button left select--s">
             <date-picker name="StartDate"
                          min-date="currentDate.AddYears(-100)"
-                         max-date="currentDate" 
                          value="currentDate">
             </date-picker>
             <i class="mdi-action-event calendar-icon left"></i>
         </div>
     </div>
     <div class="row form-input">
-        <div class="left label--l">
+        <div class="display-flex left label--l">
             <label id="todate">End Date</label>
+            <i class="require">*</i>
         </div>
         <div class="datepicker-button left select--s">
             <date-picker name="EndDate"
                          min-date="currentDate.AddYears(-100)"
-                         max-date="currentDate"
                          value="currentDate">
             </date-picker>
             <i class="mdi-action-event calendar-icon left"></i>

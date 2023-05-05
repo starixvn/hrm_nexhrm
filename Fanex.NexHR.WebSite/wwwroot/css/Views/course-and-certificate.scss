@@ -16,6 +16,16 @@
         font-weight: bold;
         margin-left: 5px !important;
     }
+
+    .italic {
+        font-weight: 500;
+        font-style: italic;
+        margin-left: 5px !important;
+    }
+}
+
+.display-flex{
+    display: flex;
 }
 #frmAddCourseAndCertificate, #frmUpdateCourseAndCertificate {
     .validation-summary-errors {
@@ -60,19 +70,18 @@
         }
 
         .detail {
-            border-left: 2px solid #FF6699;
-            width: 45%;
-            margin-left: 10px !important;
-            background: #eeeeef none repeat scroll 0 0;
+            border-left: 2px solid #b1b5f0;
+            width: 740px;
+        }
 
-            p:first-child {
-                margin-left: 10px;
-            }
+        .boxtrainingtitle {
+            color: #606af4;
         }
     }
 
     .course {
         margin-left: 10px;
+        margin-top: 10px;
 
         label {
             color: #4c5e70;
@@ -81,19 +90,18 @@
         }
 
         .detail {
-            border-left: 2px solid #FFCC33;
-            width: 58%;
-            margin-left: 10px !important;
-            background: #eeeeef none repeat scroll 0 0;
+            border-left: 2px solid #f6d77c;
+            width: 900px;
+        }
 
-            p:first-child {
-                margin-left: 10px;
-            }
+        .boxtrainingtitle {
+            color: #6b6a01;
         }
     }
 
     .certificate {
         margin-left: 10px;
+        margin-top: 10px;
 
         label {
             color: #4c5e70;
@@ -102,15 +110,28 @@
         }
 
         .detail {
-            border-left: 2px solid #15b092;
-            width: 60%;
-            margin-left: 10px !important;
-            background: #eeeeef none repeat scroll 0 0;
-
-            p:first-child {
-                margin-left: 10px;
-            }
+            border-left: 2px solid #7effe6;
+            width: 930px;
         }
+
+        .boxtrainingtitle {
+            color: #01a1aa;
+        }
+    }
+
+    .detail {
+        margin-left: 10px !important;
+        background: #f9f9ff none repeat scroll 0 0;
+
+        p:first-child {
+            margin-left: 10px;
+        }
+    }
+
+    .boxtrainingtitle {
+        font-size: 12px;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
     }
 
     .none-training {
@@ -122,9 +143,29 @@
         text-align: center;
     }
 
-    .flus{
+    .flus {
         font-size: 14px;
         margin-left: 2px;
         cursor: pointer;
+    }
+
+    .name {
+        width: 350px;
+    }
+
+    .conductedby {
+        width: 122px;
+    }
+
+    .organization {
+        width: 130px;
+    }
+
+    .startdate {
+        width: 100px;
+    }
+
+    .enddate {
+        width: 100px;
     }
 }
