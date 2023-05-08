@@ -10,7 +10,7 @@
     </div>
     <div class="row form-input">
         <div class="display-flex left label--l">
-            <label>@Labels.Employee </label>
+            <label asp-for="Employee">@Labels.Employee </label>
             <i class="require">*</i>
         </div>
         <div class="left input--m">
@@ -34,7 +34,7 @@
     </div>
     <div class="row form-input">
         <div class="display-flex left label--l">
-            <label>Name</label>
+            <label asp-for="Name">Name</label>
             <i class="require">*</i>
         </div>
         <div class="left input--m">
@@ -43,7 +43,7 @@
     </div>
     <div class="row form-input">
         <div class="display-flex left label--l">
-            <label>Organization</label>
+            <label asp-for="Organization">Organization</label>
             <i class="require">*</i>
         </div>
         <div class="left input--m">
@@ -52,7 +52,7 @@
     </div>
     <div class="row form-input">
         <div class="left label--l">
-            <label>Conducted By</label>
+            <label asp-for="ConductedBy">Conducted By</label>
         </div>
         <div class="left input--m">
             <input asp-for="ConductedBy" value="@Model.ConductedBy" />
@@ -60,7 +60,7 @@
     </div>
     <div class="row form-input">
         <div class="left label--l">
-            <label>Description</label>
+            <label asp-for="Description">Description</label>
         </div>
         <div class="left input--m">
             <textarea class="description textarea" asp-for="Description">@Model.Description</textarea>
@@ -68,7 +68,7 @@
     </div>
     <div class="row form-input">
         <div class="display-flex left label--l">
-            <label id="fromdate">Start Date</label>
+            <label asp-for="ExamDate" id="fromdate">Start Date</label>
             <i class="require">*</i>
         </div>
         <div class="datepicker-button left select--s">
@@ -81,7 +81,7 @@
     </div>
     <div class="row form-input">
         <div class="display-flex left label--l">
-            <label id="todate">End Date</label>
+            <label asp-for="ExpirationDate" id="todate">End Date</label>
             <i class="require">*</i>
         </div>
         <div class="datepicker-button left select--s">

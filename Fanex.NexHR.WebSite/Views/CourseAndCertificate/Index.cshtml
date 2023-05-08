@@ -39,7 +39,7 @@
                             <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--m">
-                                        <label>@Labels.FromDate</label>
+                                        <label asp-for="FromDate">@Labels.FromDate</label>
                                     </div>
                                     <div class="left datepicker-button select--m">
                                         <i class="mdi-action-event calendar-icon left"></i>
@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="col m-r--l">
                                     <div class="left label--m">
-                                        <label>@Labels.ToDate</label>
+                                        <label asp-for="ToDate">@Labels.ToDate</label>
                                     </div>
                                     <div class="left datepicker-button select--m">
                                         <date-picker name="ToDate"
@@ -64,7 +64,7 @@
                                 </div>
                                 <div class="col m-r--l">
                                     <div class="left label--m">
-                                        <label>Type</label>
+                                        <label asp-for="Type">Type</label>
                                     </div>
                                     <div class="left select--datepicker type">
                                         <select name="Type" id="Type">
@@ -77,7 +77,7 @@
                                 </div>
                                 <div class="col m-r--l">
                                     <div class="left label--m">
-                                        <label>Name</label>
+                                        <label asp-for="Name">Name</label>
                                     </div>
                                     <div class="left input--m">
                                         <input asp-for="Name" maxlength="200" />
@@ -87,7 +87,7 @@
                             <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--m">
-                                        <label>@Labels.Team</label>
+                                        <label asp-for="TeamId">@Labels.Team</label>
                                     </div>
                                     <div class="left select--m team">
                                         <select asp-for="TeamId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
@@ -97,7 +97,7 @@
                                 </div>
                                 <div class="col m-r--l">
                                     <div class="left label--m">
-                                        <label>@Labels.Employee</label>
+                                        <label asp-for="@Model.Employee">@Labels.Employee</label>
                                     </div>
                                     <div class="left input--m">
                                         <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark" />
