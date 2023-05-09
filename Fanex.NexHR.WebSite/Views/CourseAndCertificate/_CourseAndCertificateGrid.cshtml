@@ -4,8 +4,12 @@
 @model IList<CourseAndCertificate>
 @{
     var count = 0;
-    const string certificate = "Certificate";
-    const string formatDate = "dd MMM, yyyy";
+    const string Certificate = "Certificate";
+    const string FormatDate = "dd MMM yyyy";
+    const string TestDate = "Test Date:";
+    const string ExpirationDate = ", Expiration Date: ";
+    const string StartDate = "Start Date:";
+    const string EndDate = ", End Date: ";
 }
 <table id="data" class="table bordered striped highlight centered table-custom">
     <thead>
@@ -30,10 +34,10 @@
             foreach (var item in Model)
             {
                 count++;
-                var fromDate = item.Type.Equals(certificate) ? item.ExamDate.ToString(formatDate) : item.StartDate.ToString(formatDate);
-                var toDate = item.Type.Equals(certificate) ? item.ExpirationDate.ToString(formatDate) : item.EndDate.ToString(formatDate);
-                var titleFromDate = item.Type.Equals(certificate) ? "Test Date:" : "Start Date:";
-                var titleToDate = item.Type.Equals(certificate) ? ", Expiration Date: " : ", End Date: ";
+                var fromDate = item.Type.Equals(Certificate) ? item.ExamDate.ToString(FormatDate) : item.StartDate.ToString(FormatDate);
+                var toDate = item.Type.Equals(Certificate) ? item.ExpirationDate.ToString(FormatDate) : item.EndDate.ToString(FormatDate);
+                var titleFromDate = item.Type.Equals(Certificate) ? TestDate : StartDate;
+                var titleToDate = item.Type.Equals(Certificate) ? ExpirationDate : EndDate;
                 <tr>
                     <td>@count</td>
                     <td class="content-left">@item.FullName</td>
