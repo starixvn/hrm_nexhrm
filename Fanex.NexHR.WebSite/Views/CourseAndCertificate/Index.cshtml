@@ -64,9 +64,9 @@
                                 </div>
                                 <div class="col m-r--l">
                                     <div class="left label--m">
-                                        <label asp-for="TypeId">@Labels.Team</label>
+                                        <label asp-for="TypeId">Type</label>
                                     </div>
-                                    <div class="left select--m team">
+                                    <div class="left select--m">
                                         <select asp-for="TypeId" asp-items="@(new SelectList(Model.Types, "Id", "Name"))">
                                             <option value="">All</option>
                                         </select>
