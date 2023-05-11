@@ -16,7 +16,7 @@
         private readonly IEmployeeService employeeService;
         private readonly IBaseService baseService;
         private readonly ICourseAndCertificateService courseAndCertificateService;
-        private const int Certificate = 4;
+        private const int Certificate = 5;
         public CourseAndCertificateController(ISessionService sessionService,
             ITeamService teamService,
             IEmployeeService employeeService,

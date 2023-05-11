@@ -4,7 +4,7 @@
 @model IList<CourseAndCertificate>
 @{
     var count = 0;
-    const int Certificate = 4;
+    const string Certificate = "Certificates";
     const string FormatDate = "dd MMM yyyy";
     const string TestDate = "Test Date:";
     const string ExpirationDate = ", Expiration Date: ";
@@ -34,10 +34,10 @@
             foreach (var item in Model)
             {
                 count++;
-                var fromDate = item.TypeId.Equals(Certificate) ? item.ExamDate.ToString(FormatDate) : item.StartDate.ToString(FormatDate);
-                var toDate = item.TypeId.Equals(Certificate) ? item.ExpirationDate.ToString(FormatDate) : item.EndDate.ToString(FormatDate);
-                var titleFromDate = item.TypeId.Equals(Certificate) ? TestDate : StartDate;
-                var titleToDate = item.TypeId.Equals(Certificate) ? ExpirationDate : EndDate;
+                var fromDate = item.TypeName.Equals(Certificate) ? item.ExamDate.ToString(FormatDate) : item.StartDate.ToString(FormatDate);
+                var toDate = item.TypeName.Equals(Certificate) ? item.ExpirationDate.ToString(FormatDate) : item.EndDate.ToString(FormatDate);
+                var titleFromDate = item.TypeName.Equals(Certificate) ? TestDate : StartDate;
+                var titleToDate = item.TypeName.Equals(Certificate) ? ExpirationDate : EndDate;
                 <tr>
                     <td>@count</td>
                     <td class="content-left">@item.FullName</td>
