@@ -2,6 +2,7 @@
 {
     using Fanex.NexHR.Criteria.CourseAndCertificate;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.TrainingAndDevelopment;
     using Fanex.NexHR.Services.Interfaces;
     using System.Collections.Generic;
     using System.Linq;
@@ -31,6 +32,12 @@
         {
             var courseAndCertificate = await baseService.GetDataAsync<CourseAndCertificate>(criteria);
             return courseAndCertificate.ToList();
+        }
+
+        public async Task<IList<TrainingAndDevelopmentType>> GetTrainingAndDevelopmentType()
+        {
+            var trainingAndDevelopments = await baseService.GetDataAsync<TrainingAndDevelopmentType>(new GetTrainingAndDevelopmentType());
+            return trainingAndDevelopments.ToList();
         }
     }
 }

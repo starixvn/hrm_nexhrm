@@ -89,7 +89,7 @@ function initDataFirstQuery(queryString) {
 
 function initChangeTextFocusType() {
     const typeid = document.querySelector("#frmAddCourseAndCertificate #typeId").value;
-    if (typeid === "Certificate") {
+    if (typeid === "4") {
         $('#frmAddCourseAndCertificate #fromdate')[0].innerText = "Test Date";
         $('#frmAddCourseAndCertificate #todate')[0].innerText = "Expiration Date";
     } else {
@@ -100,7 +100,7 @@ function initChangeTextFocusType() {
 
 function initChangeTextFocusTypeUpdate() {
     const typeid = document.querySelector("#frmUpdateCourseAndCertificate #typeId").value;
-    if (typeid === "Certificate") {
+    if (typeid === "4") {
         $('#frmUpdateCourseAndCertificate #fromdate')[0].innerText = "Test Date";
         $('#frmUpdateCourseAndCertificate #todate')[0].innerText = "Expiration Date";
     } else {

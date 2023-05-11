@@ -7,7 +7,7 @@ namespace Fanex.NexHR.Criteria.CourseAndCertificate
         public int EmpId { get; set; }
         public int CreatedBy { get; set; }
         public string ConductedBy { get; set; }
-        public string Type { get; set; }
+        public int TypeId { get; set; }
         public string Name { get; set; }
         public string Organization { get; set; }
         public string Description { get; set; }

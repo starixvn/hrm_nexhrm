@@ -16,7 +16,7 @@
         private readonly IEmployeeService employeeService;
         private readonly IBaseService baseService;
         private readonly ICourseAndCertificateService courseAndCertificateService;
-        private const string Certificate = "Certificate";
+        private const int Certificate = 4;
         public CourseAndCertificateController(ISessionService sessionService,
             ITeamService teamService,
             IEmployeeService employeeService,
@@ -36,7 +36,8 @@
             {
                 FromDate = DateTime.Now,
                 ToDate = DateTime.Now,
-                Teams = await teamService.GetTeam()
+                Teams = await teamService.GetTeam(),
+                Types = await courseAndCertificateService.GetTrainingAndDevelopmentType()
             };
             var userRoles = employeeService.UserRoles(CurrentUser);
             ViewBag.HasHRRole = userRoles.Any(item => item == "HR");
@@ -50,7 +51,7 @@
             {
                 GroupId = model.TeamId,
                 EmpId = model.EmployeeId,
-                Type = model.Type,
+                TypeId = model.TypeId,
                 Name = model.Name,
                 FromDate = model.FromDate,
                 ToDate = model.ToDate.AddDays(1)
@@ -62,8 +63,9 @@
 
         [HrmAuthorize(UserRoles = "HR")]
         [HttpGet]
-        public IActionResult Insert()
+        public async Task<IActionResult> Insert()
         {
+            ViewBag.Types = await courseAndCertificateService.GetTrainingAndDevelopmentType();
             return PartialView();
         }
 
@@ -78,15 +80,15 @@
                 {
                     EmpId = model.EmployeeId,
                     ConductedBy = model.ConductedBy,
-                    Type = model.Type,
+                    TypeId = model.TypeId,
                     Name = model.Name,
                     CreatedBy = CurrentUser.Id,
                     Description = model.Description,
                     Organization = model.Organization,
-                    StartDate = !model.Type.Equals(Certificate) ? model.StartDate : (DateTime?)null,
-                    EndDate = !model.Type.Equals(Certificate) ? model.EndDate : (DateTime?)null,
-                    ExamDate = model.Type.Equals(Certificate) ? model.StartDate : (DateTime?)null,
-                    ExpirationDate = model.Type.Equals(Certificate) ? model.EndDate : (DateTime?)null
+                    StartDate = !model.TypeId.Equals(Certificate) ? model.StartDate : (DateTime?)null,
+                    EndDate = !model.TypeId.Equals(Certificate) ? model.EndDate : (DateTime?)null,
+                    ExamDate = model.TypeId.Equals(Certificate) ? model.StartDate : (DateTime?)null,
+                    ExpirationDate = model.TypeId.Equals(Certificate) ? model.EndDate : (DateTime?)null
                 };
                 result = await baseService.ExecuteNonQueryAsync(criteria);
             }
@@ -105,15 +107,16 @@
                 model.EmployeeId = courseAndCertificate.EmpId;
                 model.Employee = courseAndCertificate.NickName + " (" + courseAndCertificate.FullName + ")";
                 model.ConductedBy = courseAndCertificate.ConductedBy;
-                model.Type = courseAndCertificate.Type;
+                model.TypeId = courseAndCertificate.TypeId;
                 model.Name = courseAndCertificate.Name;
                 model.Organization = courseAndCertificate.Organization;
                 model.Description = courseAndCertificate.Description;
-                model.ExamDate = courseAndCertificate.Type.Equals(Certificate) ?
+                model.ExamDate = courseAndCertificate.TypeId.Equals(Certificate) ?
                     courseAndCertificate.ExamDate : courseAndCertificate.StartDate;
-                model.ExpirationDate = courseAndCertificate.Type.Equals(Certificate) ?
+                model.ExpirationDate = courseAndCertificate.TypeId.Equals(Certificate) ?
                     courseAndCertificate.ExpirationDate : courseAndCertificate.EndDate;
             }
+            ViewBag.Types = await courseAndCertificateService.GetTrainingAndDevelopmentType();
             return PartialView(model);
         }
 
@@ -128,15 +131,15 @@
                 {
                     Id = model.Id,
                     ConductedBy = model.ConductedBy,
-                    Type = model.Type,
+                    TypeId = model.TypeId,
                     Name = model.Name,
                     ModifyBy = CurrentUser.Id,
                     Organization = model.Organization,
                     Description = model.Description,
-                    StartDate = !model.Type.Equals(Certificate) ? model.ExamDate : (DateTime?)null,
-                    EndDate = !model.Type.Equals(Certificate) ? model.ExpirationDate : (DateTime?)null,
-                    ExamDate = model.Type.Equals(Certificate) ? model.ExamDate : (DateTime?)null,
-                    ExpirationDate = model.Type.Equals(Certificate) ? model.ExpirationDate : (DateTime?)null
+                    StartDate = !model.TypeId.Equals(Certificate) ? model.ExamDate : (DateTime?)null,
+                    EndDate = !model.TypeId.Equals(Certificate) ? model.ExpirationDate : (DateTime?)null,
+                    ExamDate = model.TypeId.Equals(Certificate) ? model.ExamDate : (DateTime?)null,
+                    ExpirationDate = model.TypeId.Equals(Certificate) ? model.ExpirationDate : (DateTime?)null
                 };
                 result = await baseService.ExecuteNonQueryAsync(criteria);
             }

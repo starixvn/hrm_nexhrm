@@ -4,6 +4,7 @@
 @model CourseAndCertificateViewModel
 @{
     DateTime currentDate = DateTime.Today;
+    var types = ViewBag.Types;
 }
 <form id="frmAddCourseAndCertificate" class="form form-add-course-and-certificate">
     <div id="divErrorCont" class="">
@@ -24,10 +25,7 @@
             <i class="require">*</i>
         </div>
         <div class="left input--m">
-            <select class="typeCourseAndCertificate" name="Type" id="typeId">
-                <option value="Course">Course</option>
-                <option value="Certificate">Certificate</option>
-                <option value="Training">Training</option>
+            <select class="typeCourseAndCertificate" name="TypeId" id="typeId" asp-items="@(new SelectList(types, "Id", "Name"))">
             </select>
         </div>
     </div>

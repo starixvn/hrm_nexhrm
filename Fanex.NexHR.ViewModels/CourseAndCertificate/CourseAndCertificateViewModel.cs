@@ -8,7 +8,7 @@
         public int EmployeeId { get; set; }
         public string Employee { get; set; }
         public string ConductedBy { get; set; }
-        public string Type { get; set; }
+        public int TypeId { get; set; }
         public string Name { get; set; }
         public string Organization { get; set; }
         public string Description { get; set; }

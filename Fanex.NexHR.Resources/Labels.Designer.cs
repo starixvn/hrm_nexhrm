@@ -4615,11 +4615,11 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Training Information.
+        ///   Looks up a localized string similar to Training And Development.
         /// </summary>
-        public static string TrainingInformation {
+        public static string TrainingAndDevelopment {
             get {
-                return ResourceManager.GetString("TrainingInformation", resourceCulture);
+                return ResourceManager.GetString("TrainingAndDevelopment", resourceCulture);
             }
         }
         

@@ -12,7 +12,8 @@ namespace Fanex.NexHR.Models
         public string Description { get; set; }
         public string TeamName { get; set; }
         public string TeamCode { get; set; }
-        public string Type { get; set; }
+        public int TypeId { get; set; }
+        public string TypeName { get; set; }
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

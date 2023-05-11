@@ -2,6 +2,7 @@
 {
     using Fanex.NexHR.Criteria.CourseAndCertificate;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.TrainingAndDevelopment;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -10,5 +11,6 @@
         Task<IEnumerable<CourseAndCertificate>> GetAll(GetCourseAndCertificateCriteria criteria);
         Task<CourseAndCertificate> GetById(GetCourseAndCertificateByIdCriteria criteria);
         Task<IList<CourseAndCertificate>> GetByEmpId(GetCourseAndCertificateByEmpIdCriteria criteria);
+        Task<IList<TrainingAndDevelopmentType>> GetTrainingAndDevelopmentType();
     }
 }

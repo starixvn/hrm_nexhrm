@@ -4,7 +4,7 @@
 @model CourseAndCertificateFilterViewModel
 @{
     DateTime currentDate = DateTime.Today;
-    ViewBag.Title = Labels.TrainingInformation;
+    ViewBag.Title = Labels.TrainingAndDevelopment;
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/Views/course-and-certificate.css" asp-append-version="true">
@@ -64,14 +64,11 @@
                                 </div>
                                 <div class="col m-r--l">
                                     <div class="left label--m">
-                                        <label asp-for="Type">Type</label>
+                                        <label asp-for="TypeId">@Labels.Team</label>
                                     </div>
-                                    <div class="left select--datepicker type">
-                                        <select name="Type" id="Type">
+                                    <div class="left select--m team">
+                                        <select asp-for="TypeId" asp-items="@(new SelectList(Model.Types, "Id", "Name"))">
                                             <option value="">All</option>
-                                            <option value="Course">Course</option>
-                                            <option value="Certificate">Certificate</option>
-                                            <option value="Training">Training</option>
                                         </select>
                                     </div>
                                 </div>

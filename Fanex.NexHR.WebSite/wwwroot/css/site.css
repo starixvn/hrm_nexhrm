@@ -1070,7 +1070,8 @@ input#fileName::-webkit-file-upload-button:focus, input#fileName::-webkit-file-u
   border-radius: 2px;
   margin-bottom: 15px;
   display: block;
-  width: unset;
+  width: 229px;
+  height: 32px;
 }
 .form-input label {
   margin-top: 5px;

@@ -327,9 +327,9 @@
             {
                 EmpId = employeeId
             });
-            employee.Trainings = courseAndCertificates.Where(x => x.Type == "Training").ToList();
-            employee.Courses = courseAndCertificates.Where(x => x.Type == "Course").ToList();
-            employee.Certificates = courseAndCertificates.Where(x => x.Type == "Certificate").ToList();
+            //employee.Trainings = courseAndCertificates.Where(x => x.Type == "Training").ToList();
+            //employee.Courses = courseAndCertificates.Where(x => x.Type == "Course").ToList();
+            //employee.Certificates = courseAndCertificates.Where(x => x.Type == "Certificate").ToList();
             return View(employee);
         }
 
@@ -600,9 +600,9 @@
             {
                 EmpId = CurrentUser.Id
             });
-            employee.Trainings = courseAndCertificates.Where(x => x.Type == "Training").ToList();
-            employee.Courses = courseAndCertificates.Where(x => x.Type == "Course").ToList();
-            employee.Certificates = courseAndCertificates.Where(x => x.Type == "Certificate").ToList();
+            //employee.Trainings = courseAndCertificates.Where(x => x.Type == "Training").ToList();
+            //employee.Courses = courseAndCertificates.Where(x => x.Type == "Course").ToList();
+            //employee.Certificates = courseAndCertificates.Where(x => x.Type == "Certificate").ToList();
             return View(employee);
         }
 

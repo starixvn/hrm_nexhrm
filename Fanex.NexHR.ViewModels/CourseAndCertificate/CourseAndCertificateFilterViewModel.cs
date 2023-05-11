@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.ViewModels.CourseAndCertificate
 {
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.TrainingAndDevelopment;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -15,11 +16,13 @@
         public string Employee { get; set; }
 
         public int? TeamId { get; set; }
+        public int? TypeId { get; set; }
 
         [Display(Name = "Team")]
         public IList<Team> Teams { get; set; }
 
-        public string Type { get; set; }
+        [Display(Name = "Type")]
+        public IList<TrainingAndDevelopmentType> Types { get; set; }
 
         public string Name { get; set; }
     }
