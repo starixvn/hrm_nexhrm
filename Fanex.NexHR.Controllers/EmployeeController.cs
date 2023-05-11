@@ -323,13 +323,11 @@
         public async Task<IActionResult> Detail(int employeeId)
         {
             Employee employee = await GetEmployeeById(employeeId);
-            var courseAndCertificates = await courseAndCertificateService.GetByEmpId(new GetCourseAndCertificateByEmpIdCriteria
+            employee.CourseAndCertificates = await courseAndCertificateService.GetByEmpId(new GetCourseAndCertificateByEmpIdCriteria
             {
                 EmpId = employeeId
             });
-            //employee.Trainings = courseAndCertificates.Where(x => x.Type == "Training").ToList();
-            //employee.Courses = courseAndCertificates.Where(x => x.Type == "Course").ToList();
-            //employee.Certificates = courseAndCertificates.Where(x => x.Type == "Certificate").ToList();
+            employee.TrainingAndDevelopmentTypes = await courseAndCertificateService.GetTrainingAndDevelopmentType();
             return View(employee);
         }
 
@@ -596,13 +594,11 @@
                 EmployeeId = CurrentUser.Id
             };
             Employee employee = await employeeService.GetEmployeeById(criteria);
-            var courseAndCertificates = await courseAndCertificateService.GetByEmpId(new GetCourseAndCertificateByEmpIdCriteria
+            employee.CourseAndCertificates = await courseAndCertificateService.GetByEmpId(new GetCourseAndCertificateByEmpIdCriteria
             {
                 EmpId = CurrentUser.Id
             });
-            //employee.Trainings = courseAndCertificates.Where(x => x.Type == "Training").ToList();
-            //employee.Courses = courseAndCertificates.Where(x => x.Type == "Course").ToList();
-            //employee.Certificates = courseAndCertificates.Where(x => x.Type == "Certificate").ToList();
+            employee.TrainingAndDevelopmentTypes = await courseAndCertificateService.GetTrainingAndDevelopmentType();
             return View(employee);
         }
 

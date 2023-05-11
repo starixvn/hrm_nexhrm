@@ -64,26 +64,7 @@
 }
 
 .courseAndCertificatereport {
-    .training {
-        margin-left: 10px;
-
-        label {
-            color: #4c5e70;
-            font-weight: bold;
-            line-height: 2.5rem;
-        }
-
-        .detail {
-            border-left: 2px solid #b1b5f0;
-            width: 740px;
-        }
-
-        .boxtrainingtitle {
-            color: #606af4;
-        }
-    }
-
-    .course {
+    .development {
         margin-left: 10px;
         margin-top: 10px;
 
@@ -93,46 +74,34 @@
             line-height: 2.5rem;
         }
 
-        .detail {
-            border-left: 2px solid #f6d77c;
-            width: 900px;
+        .boxdevelopmenttitle {
+            color: #01a1aa;
         }
+    }
 
-        .boxtrainingtitle {
-            color: #6b6a01;
-        }
+    .training {
+        width: 735px;
     }
 
     .certificate {
-        margin-left: 10px;
-        margin-top: 10px;
+        width: 1100px;
+    }
 
-        label {
-            color: #4c5e70;
-            font-weight: bold;
-            line-height: 2.5rem;
-        }
-
-        .detail {
-            border-left: 2px solid #7effe6;
-            width: 930px;
-        }
-
-        .boxtrainingtitle {
-            color: #01a1aa;
-        }
+    .developmentDetail {
+        width: 1065px;
     }
 
     .detail {
         margin-left: 10px !important;
         background: #f4f4f4 none repeat scroll 0 0;
+        border-left: 2px solid #7effe6;
 
         p:first-child {
             margin-left: 10px;
         }
     }
 
-    .boxtrainingtitle {
+    .boxdevelopmenttitle {
         font-size: 12px;
         font-weight: 500;
         margin-bottom: 0.5rem;
@@ -158,11 +127,13 @@
     }
 
     .conductedby {
+        margin-right: 10px;
         width: 122px;
     }
 
     .organization {
-        width: 130px;
+        width: 300px;
+        margin-right: 10px;
     }
 
     .startdate {

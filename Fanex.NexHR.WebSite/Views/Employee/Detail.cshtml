@@ -7,6 +7,9 @@
 @model Fanex.NexHR.Models.Employee
 @{
     var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+    const string Certificates = "Certificates";
+    const string InternalTraining = "Internal Training";
+    const string FormatDate = "dd MMM yyyy";
 }
 @if (Model != null)
 {
@@ -184,65 +187,56 @@ else
                                     <i data-displayname="@Model.DisplayName" data-id="@Model.Id" id="btn-add-training" class="mdi mdi-library-plus flus"></i>
                                 }
                             </div>
-                            <div class="training">
-                                @if (Model.Trainings.Count > 0)
-                                {
-                                    <div class="boxtrainingtitle">
-                                        Internal Training
-                                    </div>
-                                    foreach (var item in Model.Trainings)
+                            @foreach (var item in Model.TrainingAndDevelopmentTypes)
+                            {
+                                var courseAndCertificates = Model.CourseAndCertificates.Where(x => x.TypeId == item.Id).ToList();
+                                <div class="development">
+                                    @if (courseAndCertificates.Count > 0)
                                     {
-                                        <div class="detail">
-                                            <p class="name bold">@item.Name</p>
-                                            <p>Conducted by:</p>
-                                            <p class="conductedby italic">@item.ConductedBy</p>
-                                            <p>Start Date:</p>
-                                            <p class="startdate italic">@item.StartDate.ToString("dd MMM, yyyy")</p>
+                                        <div class="boxdevelopmenttitle">
+                                            @courseAndCertificates[0].TypeName
                                         </div>
+                                        foreach (var courseAndCertificate in courseAndCertificates)
+                                        {
+                                            if (courseAndCertificate.TypeName == InternalTraining)
+                                            {
+                                                <div class="detail training">
+                                                    <p class="name bold">@courseAndCertificate.Name</p>
+                                                    <p>Conducted by:</p>
+                                                    <p class="conductedby italic">@courseAndCertificate.ConductedBy</p>
+                                                    <p>Start Date:</p>
+                                                    <p class="startdate italic">@courseAndCertificate.StartDate.ToString(FormatDate)</p>
+                                                </div>
+                                            }
+                                            else if (courseAndCertificate.TypeName == Certificates)
+                                            {
+                                                <div class="detail certificate">
+                                                    <p class="name bold">@courseAndCertificate.Name</p>
+                                                    <p>Organization:</p>
+                                                    <p class="organization italic">@courseAndCertificate.Organization</p>
+                                                    <p>Test Date:</p>
+                                                    <p class="startdate italic">@courseAndCertificate.ExamDate.ToString(FormatDate)</p>
+                                                    <p>Expiration Date</p>
+                                                    <p class="enddate italic">@courseAndCertificate.ExpirationDate.ToString(FormatDate)</p>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="detail developmentDetail">
+                                                    <p class="name bold">@courseAndCertificate.Name</p>
+                                                    <p>Organization:</p>
+                                                    <p class="organization italic">@courseAndCertificate.Organization</p>
+                                                    <p>Start Date:</p>
+                                                    <p class="startdate italic">@courseAndCertificate.StartDate.ToString(FormatDate)</p>
+                                                    <p>End Date:</p>
+                                                    <p class="enddate italic">@courseAndCertificate.StartDate.ToString(FormatDate)</p>
+                                                </div>
+                                            }
+                                        }
                                     }
-                                }
-                            </div>
-                            <div class="course">
-                                @if (Model.Courses.Count > 0)
-                                {
-                                    <div class="boxtrainingtitle">
-                                        Training Courses
-                                    </div>
-                                    foreach (var item in Model.Courses)
-                                    {
-                                        <div class="detail">
-                                            <p class="name bold">@item.Name</p>
-                                            <p>Organization:</p>
-                                            <p class="organization italic">@item.Organization</p>
-                                            <p>Start Date:</p>
-                                            <p class="startdate italic">@item.StartDate.ToString("dd MMM, yyyy")</p>
-                                            <p>End Date:</p>
-                                            <p class="enddate italic">@item.StartDate.ToString("dd MMM, yyyy")</p>
-                                        </div>
-                                    }
-                                }
-                            </div>
-                            <div class="certificate">
-                                @if (Model.Certificates.Count > 0)
-                                {
-                                    <div class="boxtrainingtitle">
-                                        Certificates
-                                    </div>
-                                    foreach (var item in Model.Certificates)
-                                    {
-                                        <div class="detail">
-                                            <p class="name bold">@item.Name</p>
-                                            <p>Organization:</p>
-                                            <p class="organization italic">@item.Organization</p>
-                                            <p>Test Date:</p>
-                                            <p class="startdate italic">@item.ExamDate.ToString("dd MMM, yyyy")</p>
-                                            <p>Expiration Date</p>
-                                            <p class="enddate italic">@item.ExpirationDate.ToString("dd MMM, yyyy")</p>
-                                        </div>
-                                    }
-                                }
-                            </div>
-                            @if (Model.Certificates.Count == 0 && Model.Trainings.Count == 0 && Model.Courses.Count == 0)
+                                </div>
+                            }
+                            @if (Model.CourseAndCertificates.Count == 0)
                             {
                                 <p class="none-training">@Messages.NoInformationAvailable</p>
                             }

@@ -54,61 +54,36 @@
   text-align: left !important;
 }
 
-.courseAndCertificatereport .training {
-  margin-left: 10px;
-}
-.courseAndCertificatereport .training label {
-  color: #4c5e70;
-  font-weight: bold;
-  line-height: 2.5rem;
-}
-.courseAndCertificatereport .training .detail {
-  border-left: 2px solid #b1b5f0;
-  width: 740px;
-}
-.courseAndCertificatereport .training .boxtrainingtitle {
-  color: #606af4;
-}
-.courseAndCertificatereport .course {
+.courseAndCertificatereport .development {
   margin-left: 10px;
   margin-top: 10px;
 }
-.courseAndCertificatereport .course label {
+.courseAndCertificatereport .development label {
   color: #4c5e70;
   font-weight: bold;
   line-height: 2.5rem;
 }
-.courseAndCertificatereport .course .detail {
-  border-left: 2px solid #f6d77c;
-  width: 900px;
+.courseAndCertificatereport .development .boxdevelopmenttitle {
+  color: #01a1aa;
 }
-.courseAndCertificatereport .course .boxtrainingtitle {
-  color: #6b6a01;
+.courseAndCertificatereport .training {
+  width: 735px;
 }
 .courseAndCertificatereport .certificate {
-  margin-left: 10px;
-  margin-top: 10px;
+  width: 1100px;
 }
-.courseAndCertificatereport .certificate label {
-  color: #4c5e70;
-  font-weight: bold;
-  line-height: 2.5rem;
-}
-.courseAndCertificatereport .certificate .detail {
-  border-left: 2px solid #7effe6;
-  width: 930px;
-}
-.courseAndCertificatereport .certificate .boxtrainingtitle {
-  color: #01a1aa;
+.courseAndCertificatereport .developmentDetail {
+  width: 1065px;
 }
 .courseAndCertificatereport .detail {
   margin-left: 10px !important;
   background: #f4f4f4 none repeat scroll 0 0;
+  border-left: 2px solid #7effe6;
 }
 .courseAndCertificatereport .detail p:first-child {
   margin-left: 10px;
 }
-.courseAndCertificatereport .boxtrainingtitle {
+.courseAndCertificatereport .boxdevelopmenttitle {
   font-size: 12px;
   font-weight: 500;
   margin-bottom: 0.5rem;
@@ -130,10 +105,12 @@
   width: 350px;
 }
 .courseAndCertificatereport .conductedby {
+  margin-right: 10px;
   width: 122px;
 }
 .courseAndCertificatereport .organization {
-  width: 130px;
+  width: 300px;
+  margin-right: 10px;
 }
 .courseAndCertificatereport .startdate {
   width: 100px;
