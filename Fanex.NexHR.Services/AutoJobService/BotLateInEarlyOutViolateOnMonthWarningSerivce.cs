@@ -5,11 +5,9 @@
     using Fanex.NexHR.Criteria.AnnualLeave;
     using Fanex.NexHR.Criteria.LateInEarlyOut;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.Core;
     using Fanex.NexHR.Models.LateInEarlyOut;
     using Fanex.NexHR.Resources;
     using Interfaces;
-    using Microsoft.AspNetCore.Hosting;
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
@@ -24,15 +22,12 @@
         private const int IdEmpDeductLateInEarlyOut = 279;
         private const string FormatShortDate = "MMM, yyyy";
         private const string FormatLongDate = "dd MMM, yyyy";
-        private readonly EmailSettings emailSettings;
         private readonly IMessageCategoryLogService messageCategoryLog;
         private readonly ILogServiceProvider logService;
         private readonly INexbotService nexbotService;
         private readonly ILateInEarlyOutService lateInEarlyOutService;
-        private readonly AppSetting appSetting;
         private readonly IRequestService requestService;
         private readonly IBaseService baseService;
-        private readonly IWebHostEnvironment environment;
 
         public BotLateInEarlyOutViolateOnMonthWarningSerivce(
             IMessageCategoryLogService messageCategoryLog,
@@ -41,9 +36,6 @@
             ILateInEarlyOutService lateInEarlyOutService,
             IBaseService baseService,
             ILogServiceProvider logService,
-            IEmailService emailService,
-            EmailSettings emailSettings,
-            IWebHostEnvironment environment,
             AppSetting appSetting
         )
         {
@@ -52,11 +44,7 @@
             this.requestService = requestService;
             this.lateInEarlyOutService = lateInEarlyOutService;
             this.baseService = baseService;
-            this.appSetting = appSetting;
             this.logService = logService;
-            this.appSetting = appSetting;
-            this.environment = environment;
-            this.emailSettings = emailSettings;
             BaseUrl = appSetting.BaseUrl;
         }
 
