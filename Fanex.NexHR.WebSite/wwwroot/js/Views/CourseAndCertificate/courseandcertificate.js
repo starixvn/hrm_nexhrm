@@ -117,15 +117,6 @@ function initUpdateDialog() {
         initChangeTextFocusTypeUpdate();
     });    
 
-    const typeid = $("#frmUpdateCourseAndCertificate #typeId option:selected").text();
-    if (typeid === "Certificates") {
-        $('#fromdate')[0].innerText = "Test Date";
-        $('#todate')[0].innerText = "Expiration Date";
-    } else {
-        $('#fromdate')[0].innerText = "Start Date";
-        $('#todate')[0].innerText = "End Date";
-    }
-
     $('#dialog-update').dialog({
         modal: true,
         width: 'auto',
