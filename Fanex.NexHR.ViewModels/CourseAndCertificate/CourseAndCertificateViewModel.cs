@@ -12,9 +12,9 @@
         public string Name { get; set; }
         public string Organization { get; set; }
         public string Description { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public DateTime ExamDate { get; set; }
-        public DateTime ExpirationDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public DateTime? ExamDate { get; set; }
+        public DateTime? ExpirationDate { get; set; }
     }
 }

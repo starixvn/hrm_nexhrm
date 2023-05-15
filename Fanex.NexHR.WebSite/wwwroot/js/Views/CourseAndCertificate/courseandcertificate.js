@@ -143,11 +143,37 @@ function initUpdateDialog() {
                 click: function () {
                     if (isValidUpdate()) {
                         document.querySelector(".ui-dialog-buttonpane .btn-submit").style.display = 'none';
+                        const type = $("#frmUpdateCourseAndCertificate #typeId option:selected").text();
+
+                        const formData = new FormData();
+                        formData.append("Id", document.querySelector("#frmUpdateCourseAndCertificate #Id").value);
+                        formData.append("EmployeeId", document.querySelector("#frmUpdateCourseAndCertificate #EmployeeId").value);
+                        formData.append("ConductedBy", document.querySelector("#frmUpdateCourseAndCertificate #ConductedBy").value);
+                        formData.append("TypeId", document.querySelector("#frmUpdateCourseAndCertificate #typeId").value);
+                        formData.append("Name", document.querySelector("#frmUpdateCourseAndCertificate #Name").value);
+                        formData.append("Description", document.querySelector("#frmUpdateCourseAndCertificate #Description").value);
+                        formData.append("Organization", document.querySelector("#frmUpdateCourseAndCertificate #Organization").value);
+                        const fromDate = document.querySelector("#ExamDate").value;
+                        const toDate = document.querySelector("#ExpirationDate").value;
+                        if (type === "Certificates") {
+                            formData.append("StartDate", null);
+                            formData.append("EndDate", null);
+                            formData.append("ExamDate", fromDate);
+                            formData.append("ExpirationDate", toDate);
+                        } else {
+                            formData.append("StartDate", fromDate);
+                            formData.append("EndDate", toDate);
+                            formData.append("ExamDate", null);
+                            formData.append("ExpirationDate", null);
+                        }
+
                         $.ajax({
                             type: 'POST',
                             url: _global.root + 'CourseAndCertificate/Update',
                             dataType: 'json',
-                            data: $('#frmUpdateCourseAndCertificate').serialize(),
+                            processData: false,
+                            contentType: false,
+                            data: formData,
                             success: function (data) {
                                 if (data) {
                                     let errorCont = $('#frmUpdateCourseAndCertificate #divErrorCont');
@@ -196,7 +222,7 @@ function isValidUpdate() {
     const place = document.querySelector("#frmUpdateCourseAndCertificate #Organization").value;
     const examDate = document.querySelector("#frmUpdateCourseAndCertificate #ExamDate").value;
     const expirationDate = document.querySelector("#frmUpdateCourseAndCertificate #ExpirationDate").value;
-    const typeid = $("#frmUpdateCourseAndCertificate #typeId option:selected").text();
+    const type = $("#frmUpdateCourseAndCertificate #typeId option:selected").text();
     let ErrorMessage = [];
     if (!name) {
         ErrorMessage.push('Name is required!');
@@ -205,21 +231,21 @@ function isValidUpdate() {
         ErrorMessage.push('Organization is required!');
     }
     if (!examDate) {
-        if (typeid === "Certificates") {
+        if (type === "Certificates") {
             ErrorMessage.push('Test Date is required!');
         } else {
             ErrorMessage.push('Start Date is required!');
         }
     }
     if (!expirationDate) {
-        if (typeid === "Certificates") {
+        if (type === "Certificates") {
             ErrorMessage.push('Expiration Date is required!');
         } else {
             ErrorMessage.push('End Date is required!');
         }
     }
     if (examDate > expirationDate) {
-        if (typeid === "Certificates") {
+        if (type === "Certificates") {
             ErrorMessage.push('Test Date must be less than or equal Expiration Date!');
         } else {
             ErrorMessage.push('Start Date must be less than or equal End Date!');
@@ -252,7 +278,7 @@ function isValidInsert() {
     const place = document.querySelector("#frmAddCourseAndCertificate #Organization").value;
     const examDate = document.querySelector("#frmAddCourseAndCertificate #StartDate").value;
     const expirationDate = document.querySelector("#frmAddCourseAndCertificate #EndDate").value;
-    const typeid = $("#frmAddCourseAndCertificate #typeId option:selected").text();
+    const type = $("#frmAddCourseAndCertificate #typeId option:selected").text();
     let ErrorMessage = [];
     if (!employeeId) {
         ErrorMessage.push('Employee is required!');
@@ -264,21 +290,21 @@ function isValidInsert() {
         ErrorMessage.push('Organization is required!');
     }
     if (!examDate) {
-        if (typeid === "Certificates") {
+        if (type === "Certificates") {
             ErrorMessage.push('Test Date is required!');
         } else {
             ErrorMessage.push('Start Date is required!');
         }
     }
     if (!expirationDate) {
-        if (typeid === "Certificates") {
+        if (type === "Certificates") {
             ErrorMessage.push('Expiration Date is required!');
         } else {
             ErrorMessage.push('End Date is required!');
         }
     }
     if (examDate > expirationDate) {
-        if (typeid === "Certificates") {
+        if (type === "Certificates") {
             ErrorMessage.push('Test Date must be less than or equal Expiration Date!');
         } else {
             ErrorMessage.push('Start Date must be less than or equal End Date!');
@@ -328,11 +354,37 @@ function initAddNewDialog() {
                 click: function () {
                     if (isValidInsert()) {
                         document.querySelector(".ui-dialog-buttonpane .btn-submit").style.display = 'none';
+                        const type = $("#frmAddCourseAndCertificate #typeId option:selected").text();
+
+                        const formData = new FormData();
+                        formData.append("EmployeeId", document.querySelector("#frmAddCourseAndCertificate #EmployeeId").value);
+                        formData.append("ConductedBy", document.querySelector("#frmAddCourseAndCertificate #ConductedBy").value);
+                        formData.append("TypeId", document.querySelector("#frmAddCourseAndCertificate #typeId").value);
+                        formData.append("Name", document.querySelector("#frmAddCourseAndCertificate #Name").value);
+                        formData.append("Description", document.querySelector("#frmAddCourseAndCertificate #Description").value);
+                        formData.append("Organization", document.querySelector("#frmAddCourseAndCertificate #Organization").value);
+                        const fromDate = document.querySelector("#StartDate").value;
+                        const toDate = document.querySelector("#EndDate").value;
+                        if (type === "Certificates") {
+                            formData.append("StartDate", null);
+                            formData.append("EndDate", null);
+                            formData.append("ExamDate", fromDate);
+                            formData.append("ExpirationDate", toDate);
+                        } else {
+                            formData.append("StartDate", fromDate);
+                            formData.append("EndDate", toDate);
+                            formData.append("ExamDate", null);
+                            formData.append("ExpirationDate", null);
+                        }
+
+
                         $.ajax({
                             type: 'POST',
                             url: _global.root + 'CourseAndCertificate/Insert',
                             dataType: 'json',
-                            data: $('#frmAddCourseAndCertificate').serialize(),
+                            processData: false,
+                            contentType: false,
+                            data: formData,
                             success: function (data) {
                                 if (data) {
                                     let errorCont = $('#frmAddCourseAndCertificate #divErrorCont');

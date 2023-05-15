@@ -1,7 +1,6 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
     using Fanex.NexHR.Controllers.Attributes;
-    using Fanex.NexHR.Core;
     using Fanex.NexHR.Criteria.CourseAndCertificate;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services.Interfaces;
@@ -17,7 +16,7 @@
         private readonly IEmployeeService employeeService;
         private readonly IBaseService baseService;
         private readonly ICourseAndCertificateService courseAndCertificateService;
-        private const int Certificate = Constants.Certificates;
+        private const string Certificate = "Certificates";
         public CourseAndCertificateController(ISessionService sessionService,
             ITeamService teamService,
             IEmployeeService employeeService,
@@ -86,10 +85,10 @@
                     CreatedBy = CurrentUser.Id,
                     Description = model.Description,
                     Organization = model.Organization,
-                    StartDate = !model.TypeId.Equals(Certificate) ? model.StartDate : (DateTime?)null,
-                    EndDate = !model.TypeId.Equals(Certificate) ? model.EndDate : (DateTime?)null,
-                    ExamDate = model.TypeId.Equals(Certificate) ? model.StartDate : (DateTime?)null,
-                    ExpirationDate = model.TypeId.Equals(Certificate) ? model.EndDate : (DateTime?)null
+                    StartDate = model.StartDate,
+                    EndDate = model.EndDate,
+                    ExamDate = model.ExamDate,
+                    ExpirationDate = model.ExpirationDate
                 };
                 result = await baseService.ExecuteNonQueryAsync(criteria);
             }
@@ -112,9 +111,9 @@
                 model.Name = courseAndCertificate.Name;
                 model.Organization = courseAndCertificate.Organization;
                 model.Description = courseAndCertificate.Description;
-                model.ExamDate = courseAndCertificate.TypeId.Equals(Certificate) ?
+                model.ExamDate = courseAndCertificate.TypeName.Equals(Certificate) ?
                     courseAndCertificate.ExamDate : courseAndCertificate.StartDate;
-                model.ExpirationDate = courseAndCertificate.TypeId.Equals(Certificate) ?
+                model.ExpirationDate = courseAndCertificate.TypeName.Equals(Certificate) ?
                     courseAndCertificate.ExpirationDate : courseAndCertificate.EndDate;
             }
             ViewBag.Types = await courseAndCertificateService.GetTrainingAndDevelopmentType();
@@ -137,10 +136,10 @@
                     ModifyBy = CurrentUser.Id,
                     Organization = model.Organization,
                     Description = model.Description,
-                    StartDate = !model.TypeId.Equals(Certificate) ? model.ExamDate : (DateTime?)null,
-                    EndDate = !model.TypeId.Equals(Certificate) ? model.ExpirationDate : (DateTime?)null,
-                    ExamDate = model.TypeId.Equals(Certificate) ? model.ExamDate : (DateTime?)null,
-                    ExpirationDate = model.TypeId.Equals(Certificate) ? model.ExpirationDate : (DateTime?)null
+                    StartDate = model.StartDate,
+                    EndDate = model.EndDate,
+                    ExamDate = model.ExamDate,
+                    ExpirationDate = model.ExpirationDate
                 };
                 result = await baseService.ExecuteNonQueryAsync(criteria);
             }

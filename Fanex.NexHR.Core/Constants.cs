@@ -54,11 +54,5 @@
         public const int RepeatMonth = 5;
         public const int RepeatYear = 6;
         public const int NumberOfDayInWeek = 7;
-
-        public const int InternalTraining = 1;
-        public const int AcademicQualification = 2;
-        public const int ProfessionalQualification = 3;
-        public const int SoftSkills = 4;
-        public const int Certificates = 5;
     }
 }
