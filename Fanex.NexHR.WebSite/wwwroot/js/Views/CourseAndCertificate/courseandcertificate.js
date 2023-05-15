@@ -196,7 +196,7 @@ function isValidUpdate() {
     const place = document.querySelector("#frmUpdateCourseAndCertificate #Organization").value;
     const examDate = document.querySelector("#frmUpdateCourseAndCertificate #ExamDate").value;
     const expirationDate = document.querySelector("#frmUpdateCourseAndCertificate #ExpirationDate").value;
-    const typeid = document.querySelector("#frmUpdateCourseAndCertificate #typeId").value;
+    const typeid = $("#frmUpdateCourseAndCertificate #typeId option:selected").text();
     let ErrorMessage = [];
     if (!name) {
         ErrorMessage.push('Name is required!');
@@ -205,21 +205,21 @@ function isValidUpdate() {
         ErrorMessage.push('Organization is required!');
     }
     if (!examDate) {
-        if (typeid === "Certificate") {
+        if (typeid === "Certificates") {
             ErrorMessage.push('Test Date is required!');
         } else {
             ErrorMessage.push('Start Date is required!');
         }
     }
     if (!expirationDate) {
-        if (typeid === "Certificate") {
+        if (typeid === "Certificates") {
             ErrorMessage.push('Expiration Date is required!');
         } else {
             ErrorMessage.push('End Date is required!');
         }
     }
     if (examDate > expirationDate) {
-        if (typeid === "Certificate") {
+        if (typeid === "Certificates") {
             ErrorMessage.push('Test Date must be less than or equal Expiration Date!');
         } else {
             ErrorMessage.push('Start Date must be less than or equal End Date!');
@@ -252,7 +252,7 @@ function isValidInsert() {
     const place = document.querySelector("#frmAddCourseAndCertificate #Organization").value;
     const examDate = document.querySelector("#frmAddCourseAndCertificate #StartDate").value;
     const expirationDate = document.querySelector("#frmAddCourseAndCertificate #EndDate").value;
-    const typeid = document.querySelector("#frmAddCourseAndCertificate #typeId").value;
+    const typeid = $("#frmAddCourseAndCertificate #typeId option:selected").text();
     let ErrorMessage = [];
     if (!employeeId) {
         ErrorMessage.push('Employee is required!');
@@ -264,21 +264,21 @@ function isValidInsert() {
         ErrorMessage.push('Organization is required!');
     }
     if (!examDate) {
-        if (typeid === "Certificate") {
+        if (typeid === "Certificates") {
             ErrorMessage.push('Test Date is required!');
         } else {
             ErrorMessage.push('Start Date is required!');
         }
     }
     if (!expirationDate) {
-        if (typeid === "Certificate") {
+        if (typeid === "Certificates") {
             ErrorMessage.push('Expiration Date is required!');
         } else {
             ErrorMessage.push('End Date is required!');
         }
     }
     if (examDate > expirationDate) {
-        if (typeid === "Certificate") {
+        if (typeid === "Certificates") {
             ErrorMessage.push('Test Date must be less than or equal Expiration Date!');
         } else {
             ErrorMessage.push('Start Date must be less than or equal End Date!');
