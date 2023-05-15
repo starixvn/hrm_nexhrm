@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
     using Fanex.NexHR.Controllers.Attributes;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Criteria.CourseAndCertificate;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services.Interfaces;
@@ -16,7 +17,7 @@
         private readonly IEmployeeService employeeService;
         private readonly IBaseService baseService;
         private readonly ICourseAndCertificateService courseAndCertificateService;
-        private const int Certificate = 5;
+        private const int Certificate = Constants.Certificates;
         public CourseAndCertificateController(ISessionService sessionService,
             ITeamService teamService,
             IEmployeeService employeeService,
