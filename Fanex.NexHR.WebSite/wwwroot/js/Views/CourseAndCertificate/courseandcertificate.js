@@ -440,7 +440,7 @@ function validate() {
 
     if (!fromDate || !toDate) {
         $('#toast-container').children().remove();
-        Materialize.toast('<i class="mdi mdi-close-circle"></i><span class="m-l--m">From date and to date id require!<span>', 2000);
+        Materialize.toast('<i class="mdi mdi-close-circle"></i><span class="m-l--m">From Date and To Date is require!<span>', 2000);
 
         isValid = false;
     }
