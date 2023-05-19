@@ -7,7 +7,10 @@
             <Mapping DataField="GroupId" ObjectProperty="Id" />
             <Mapping DataField="JobTitleId" ObjectProperty="Id" />
         </Setting>
-        <Setting Key="Employee_GetById" SpName="Employee_GetById" DbName="nexhr" Plain="0">
+      <Setting Key="Employee_GetStaffInfo" SpName="Employee_GetStaffInfo" DbName="nexhr" Plain="0"></Setting>
+      <Setting Key="Employee_GetGeoMapEmployee" SpName="Employee_GetGeoMapEmployee" DbName="nexhr" Plain="0"></Setting>
+
+      <Setting Key="Employee_GetById" SpName="Employee_GetById" DbName="nexhr" Plain="0">
             <Mapping DataField="DOB" ObjectProperty="DateOfBirth" />
             <Mapping DataField="IdCardNumber" ObjectProperty="CardNo" />
             <Mapping DataField="GroupId" ObjectProperty="Id" />

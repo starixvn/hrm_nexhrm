@@ -13,15 +13,15 @@ function autoCompleteEmployee() {
             }
 
             $.ajax({
-                url: _global.root + 'employee/getemployees',
+                url: _global.root + 'employee/GetGeoMapEmployeeSuggestion',
                 data: {
                     query: term,
                     isSpecial: false,
                     $top: 10
                 },
                 success: function (data) {
-                    if (data.Employees && data.Employees.length > 0) {
-                        response($.map(data.Employees, function (item) {
+                    if (data && data.length > 0) {
+                        response($.map(data, function (item) {
                             return {
                                 label: item.NickName + ' (' + item.FullName + ')',
                                 lat: item.GeoMapLatitude,

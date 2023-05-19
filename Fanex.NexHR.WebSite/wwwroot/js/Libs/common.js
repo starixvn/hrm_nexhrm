@@ -630,7 +630,7 @@ function ajaxLoadingProcess() {
     });
 }
 
-function initAutocomplete(selectorName, selectorId, isSpecial, isDisable = null) {
+function initAutocomplete(selectorName, selectorId, isSpecial) {
     $(selectorName).autocomplete({
         source: function (request, response) {
             var term = request.term;
@@ -640,17 +640,15 @@ function initAutocomplete(selectorName, selectorId, isSpecial, isDisable = null)
                 term = term.substr(0, index);
             }
             $.ajax({
-                url: _global.root + 'employee/getemployees',
+                url: _global.root + 'employee/GetEmployeeSuggestion',
                 dataType: 'json',
                 data: {
                     query: term,
                     isSpecial: isSpecial,
-                    isDisable,
                     $top: 10
                 },
                 success: function (data) {
-                    console.log(data)
-                    var listEmployee = data.Employees;
+                    var listEmployee = data;
                     if (listEmployee && listEmployee.length > 0) {
                         response($.map(listEmployee, function (item) {
                             console.log(item)

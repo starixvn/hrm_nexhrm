@@ -1,7 +1,7 @@
 ﻿'use strict';
 /*global _global*/
 function initSearch() {
-    initAutocomplete('#Employee', '#EmployeeId', false, false);
+    initAutocomplete('#Employee', '#EmployeeId', false);
 
     // when user clear the textbox, we must set employeeId field to -1 for seaching all employees
     $('form').submit(function () {

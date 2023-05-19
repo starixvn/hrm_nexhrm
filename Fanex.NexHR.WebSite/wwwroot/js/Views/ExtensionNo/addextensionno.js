@@ -54,16 +54,17 @@ $(document).ready(function () {
         bindingDataToDropdown();
         checkForChecked();
     });
+
     $("#Employee").autocomplete({
         source: function (request, response) {
             $.ajax({
-                url: _global.root + 'employee/getemployees',
+                url: _global.root + 'employee/GetEmployeeSuggestion',
                 data: {
                     query: request.term,
                     isSpecial: false
                 },
                 success: function (data) {
-                    response($.map(data.Employees, function (item) {
+                    response($.map(data, function (item) {
                         return {
                             label: item.NickName + ' (' + item.FullName + ')',
                             value: item.Id,
@@ -86,15 +87,15 @@ $(document).ready(function () {
         focus: function (event, ui) {
             var nickName = ui.item.label;
             $('#Employee').val(nickName);
-            $('#EmpId').val(ui.item != null ? ui.item.value : "");
+            $('#EmpId').val(ui.item !== null ? ui.item.value : "");
             $('#FullName').val(ui.item.fullname);
             $('#NickName').val(ui.item.nickname);
             event.preventDefault();
         },
         change: function (event, ui) {
-            var nickName = ui.item != null ? ui.item.label : "";
+            var nickName = ui.item !== null ? ui.item.label : "";
             $('#Employee').val(nickName);
-            $('#EmpId').val(ui.item != null ? ui.item.value : "");
+            $('#EmpId').val(ui.item !== null ? ui.item.value : "");
             $('#FullName').val(ui.item.fullname);
             $('#NickName').val(ui.item.nickname);
         }

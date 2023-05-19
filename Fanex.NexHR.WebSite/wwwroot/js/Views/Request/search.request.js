@@ -14,12 +14,12 @@ $(document).ready(function () {
             }
 
             $.ajax({
-                url: _global.root + 'employee/GetEmployees',
+                url: _global.root + 'employee/GetEmployeeSuggestion',
                 dataType: 'json',
-                data: { query: term, isSpecial: false },
+                data: { query: term },
                 success: function (data) {
-                    if (data.Employees && data.Employees.length > 0) {
-                        response($.map(data.Employees, function (item) {
+                    if (data && data.length > 0) {
+                        response($.map(data, function (item) {
                             return {
                                 label: item.NickName + ' (' + item.FullName + ')',
                                 value: item.Id

@@ -12,18 +12,14 @@ function index() {
 function query(isFirstLoad) {
     var keyword = $('#Keyword').val();
 
-    var enable = null,
-        isDelete = null,
-        jobTitleId = null;
-
     const queryString = window.location.search;
     if (queryString && isFirstLoad) {
         initDataFirstQuery(queryString);
     }
-    var data = "query=" + keyword + "&teamId=" + $('#TeamId').val() + "&enable=" + enable + "&isDelete=" + isDelete + "&jobTitleId=" + jobTitleId + "&sort=" + JSON.stringify(sorts) + "&isSpecial=false";
+    var data = "query=" + keyword + "&teamId=" + $('#TeamId').val() + "&sort=" + JSON.stringify(sorts);
     var teamName = $(".team .select-dropdown").val();
 
-    var url = _global.root + 'employee/getemployees?' + data;
+    var url = _global.root + 'employee/getstaffinfo?' + data;
     if (!isFirstLoad) {
         var orgUrl = _global.root + 'employee?' + data + "&teamName=" + teamName;
         window.history.replaceState(null, null, orgUrl);
@@ -39,7 +35,7 @@ function query(isFirstLoad) {
         success: function (data) {
             $('table#data tbody').children().remove();
 
-            if (data.Employees.length > 0) {
+            if (data.length > 0) {
                 rowIndex = 1;
 
                 var tmpl = $.templates('#template'),
@@ -47,7 +43,7 @@ function query(isFirstLoad) {
                         index: index,
                         formatDate: formatJsonDate
                     },
-                    html = tmpl.render(data.Employees, helpers);
+                    html = tmpl.render(data, helpers);
 
                 $(html).appendTo('table#data');
 

@@ -127,6 +127,53 @@
             return Json(listEmployee);
         }
 
+        public async Task<JsonResult> GetStaffInfo(
+            string query,
+            int? teamId = null,
+            string sort = null)
+        {
+            var criteria = new GetStaffInfoCriteria
+            {
+                Query = query ?? string.Empty,
+                TeamId = teamId == -1 ? null : teamId,
+                IsSpecial = false
+            };
+
+            var staffs = await baseService.GetDataAsync<StaffInfo>(criteria);
+            staffs = SortStaffInfo(sort, staffs.ToList());
+
+            return Json(staffs);
+        }
+
+        public async Task<JsonResult> GetEmployeeSuggestion(
+            string query,
+            int? teamId = null,
+            bool? isSpecial = null)
+        {
+            var criteria = new GetStaffInfoCriteria
+            {
+                Query = query ?? string.Empty,
+                TeamId = teamId == -1 ? null : teamId,
+                IsSpecial = isSpecial
+            };
+
+            var staffs = await baseService.GetDataAsync<StaffInfo>(criteria);
+
+            return Json(staffs);
+        }
+
+        public async Task<JsonResult> GetGeoMapEmployeeSuggestion(string query)
+        {
+            var criteria = new GetGeoMapInfoCriteria
+            {
+                Query = query ?? string.Empty
+            };
+
+            var staffs = await baseService.GetDataAsync<GeoMapInfo>(criteria);
+
+            return Json(staffs);
+        }
+
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> WorkingHistory(int employeeId)
         {
@@ -749,6 +796,23 @@
             else
             {
                 employeesSorted = employees;
+            }
+
+            return employeesSorted;
+        }
+
+        private static IList<StaffInfo> SortStaffInfo(string sort, IList<StaffInfo> staffInfos)
+        {
+            IList<StaffInfo> employeesSorted;
+
+            if (sort != null)
+            {
+                var sorts = JsonConvert.DeserializeObject<List<SortModel>>(sort);
+                employeesSorted = Utilities.MultipleSort(staffInfos, sorts);
+            }
+            else
+            {
+                employeesSorted = staffInfos;
             }
 
             return employeesSorted;
