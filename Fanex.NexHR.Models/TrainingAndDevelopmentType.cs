@@ -1,4 +1,4 @@
-﻿namespace Fanex.NexHR.Models.TrainingAndDevelopment
+﻿namespace Fanex.NexHR.Models
 {
     public class TrainingAndDevelopmentType
     {

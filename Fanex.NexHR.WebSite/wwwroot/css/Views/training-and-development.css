@@ -24,10 +24,10 @@
   display: flex;
 }
 
-#frmAddCourseAndCertificate .validation-summary-errors, #frmUpdateCourseAndCertificate .validation-summary-errors {
+#frmAddTrainingAndDevelopment .validation-summary-errors, #frmUpdateTrainingAndDevelopment .validation-summary-errors {
   width: 320px !important;
 }
-#frmAddCourseAndCertificate .textarea, #frmUpdateCourseAndCertificate .textarea {
+#frmAddTrainingAndDevelopment .textarea, #frmUpdateTrainingAndDevelopment .textarea {
   background-color: transparent;
   resize: none;
   outline: none;
@@ -39,10 +39,10 @@
   max-width: 229px;
 }
 
-.courseAndCertificate table {
+.TrainingAndDevelopment table {
   width: 70% !important;
 }
-.courseAndCertificate table .fromdate {
+.TrainingAndDevelopment table .fromdate {
   margin-left: 7%;
 }
 
@@ -54,41 +54,41 @@
   text-align: left !important;
 }
 
-.courseAndCertificatereport .development {
+.trainingAndDevelopmentsreport .development {
   margin-left: 10px;
   margin-top: 10px;
 }
-.courseAndCertificatereport .development label {
+.trainingAndDevelopmentsreport .development label {
   color: #4c5e70;
   font-weight: bold;
   line-height: 2.5rem;
 }
-.courseAndCertificatereport .development .boxdevelopmenttitle {
+.trainingAndDevelopmentsreport .development .boxdevelopmenttitle {
   color: #0157aa;
 }
-.courseAndCertificatereport .training {
+.trainingAndDevelopmentsreport .training {
   width: 695px;
 }
-.courseAndCertificatereport .certificate {
+.trainingAndDevelopmentsreport .certificate {
   width: 1060px;
 }
-.courseAndCertificatereport .developmentDetail {
+.trainingAndDevelopmentsreport .developmentDetail {
   width: 1025px;
 }
-.courseAndCertificatereport .detail {
+.trainingAndDevelopmentsreport .detail {
   margin-left: 10px !important;
   background: #f4f4f4 none repeat scroll 0 0;
   border-left: 2px solid #8dc6f5;
 }
-.courseAndCertificatereport .detail p:first-child {
+.trainingAndDevelopmentsreport .detail p:first-child {
   margin-left: 10px;
 }
-.courseAndCertificatereport .boxdevelopmenttitle {
+.trainingAndDevelopmentsreport .boxdevelopmenttitle {
   font-size: 12px;
   font-weight: 500;
   margin-bottom: 0.5rem;
 }
-.courseAndCertificatereport .none-training {
+.trainingAndDevelopmentsreport .none-training {
   border-left: 2px solid #FF6699;
   width: 15%;
   margin-left: 10px !important;
@@ -96,29 +96,29 @@
   line-height: 3rem !important;
   text-align: center;
 }
-.courseAndCertificatereport .flus {
+.trainingAndDevelopmentsreport .flus {
   font-size: 14px;
   margin-left: 2px;
   cursor: pointer;
 }
-.courseAndCertificatereport .name {
+.trainingAndDevelopmentsreport .name {
   width: 310px;
 }
-.courseAndCertificatereport .conductedby {
+.trainingAndDevelopmentsreport .conductedby {
   margin-right: 10px;
   width: 122px;
 }
-.courseAndCertificatereport .organization {
+.trainingAndDevelopmentsreport .organization {
   width: 300px;
   margin-right: 10px;
 }
-.courseAndCertificatereport .startdate {
+.trainingAndDevelopmentsreport .startdate {
   width: 100px;
 }
-.courseAndCertificatereport .testdate {
+.trainingAndDevelopmentsreport .testdate {
   margin-left: 7px !important;
   width: 100px;
 }
-.courseAndCertificatereport .enddate {
+.trainingAndDevelopmentsreport .enddate {
   width: 100px;
 }

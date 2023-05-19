@@ -2,7 +2,6 @@
 {
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Models.TrainingAndDevelopment;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -131,7 +130,7 @@
 
         public DateTime GroupDate { get; set; }
 
-        public IList<CourseAndCertificate> CourseAndCertificates { get; set; }
+        public IList<TrainingAndDevelopment> TrainingAndDevelopments { get; set; }
         public IList<TrainingAndDevelopmentType> TrainingAndDevelopmentTypes { get; set; }
 
         public IList<short> RoleList

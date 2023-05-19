@@ -11,9 +11,9 @@ function query(isFirstLoad) {
     const teamParam = $(".team .select-dropdown").val();
     const typeParam = $(".type .select-dropdown").val();
 
-    const url = _global.root + 'CourseAndCertificate/GetCourseAndCertificate?' + data;
+    const url = _global.root + 'TrainingAndDevelopment/GetTrainingAndDevelopment?' + data;
     if (!isFirstLoad) {
-        const orgUrl = _global.root + 'CourseAndCertificate/Index?' + data + "&TeamParam=" + teamParam + "&typeParam=" + typeParam;
+        const orgUrl = _global.root + 'TrainingAndDevelopment/Index?' + data + "&TeamParam=" + teamParam + "&typeParam=" + typeParam;
         window.history.replaceState(null, null, orgUrl);
     }
 
@@ -52,7 +52,7 @@ function initActions() {
         const id = $(this).data('id');
         $.ajax({
             type: 'GET',
-            url: _global.root + 'CourseAndCertificate/Update?id=' + id,
+            url: _global.root + 'TrainingAndDevelopment/Update?id=' + id,
             dataType: 'html',
             success: function (data) {
                 $('#dialog-update').html(data);
@@ -84,28 +84,28 @@ function initDataFirstQuery(queryString) {
     $("#ToDate").val(ToDate);
 
     $(".team .select-dropdown").val(teamParam);
-    $(".typeCourseAndCertificate .select-dropdown").val(typeParam);
+    $(".typeTrainingAndDevelopment .select-dropdown").val(typeParam);
 }
 
 function initChangeTextFocusType() {
-    const typeid = $("#frmAddCourseAndCertificate #typeId option:selected").text();
+    const typeid = $("#frmAddTrainingAndDevelopment #typeId option:selected").text();
     if (typeid === "Certificates") {
-        $('#frmAddCourseAndCertificate #fromdate')[0].innerText = "Test Date";
-        $('#frmAddCourseAndCertificate #todate')[0].innerText = "Expiration Date";
+        $('#frmAddTrainingAndDevelopment #fromdate')[0].innerText = "Test Date";
+        $('#frmAddTrainingAndDevelopment #todate')[0].innerText = "Expiration Date";
     } else {
-        $('#frmAddCourseAndCertificate #fromdate')[0].innerText = "Start Date";
-        $('#frmAddCourseAndCertificate #todate')[0].innerText = "End Date";
+        $('#frmAddTrainingAndDevelopment #fromdate')[0].innerText = "Start Date";
+        $('#frmAddTrainingAndDevelopment #todate')[0].innerText = "End Date";
     }
 }
 
 function initChangeTextFocusTypeUpdate() {
-    const typeid = $("#frmUpdateCourseAndCertificate #typeId option:selected").text();
+    const typeid = $("#frmUpdateTrainingAndDevelopment #typeId option:selected").text();
     if (typeid === "Certificates") {
-        $('#frmUpdateCourseAndCertificate #fromdate')[0].innerText = "Test Date";
-        $('#frmUpdateCourseAndCertificate #todate')[0].innerText = "Expiration Date";
+        $('#frmUpdateTrainingAndDevelopment #fromdate')[0].innerText = "Test Date";
+        $('#frmUpdateTrainingAndDevelopment #todate')[0].innerText = "Expiration Date";
     } else {
-        $('#frmUpdateCourseAndCertificate #fromdate')[0].innerText = "Start Date";
-        $('#frmUpdateCourseAndCertificate #todate')[0].innerText = "End Date";
+        $('#frmUpdateTrainingAndDevelopment #fromdate')[0].innerText = "Start Date";
+        $('#frmUpdateTrainingAndDevelopment #todate')[0].innerText = "End Date";
     }
 }
 
@@ -113,7 +113,7 @@ function initUpdateDialog() {
     initDatePicker();
     initChangeTextFocusTypeUpdate();
 
-    document.querySelector("#frmUpdateCourseAndCertificate #typeId").addEventListener("change", () => {
+    document.querySelector("#frmUpdateTrainingAndDevelopment #typeId").addEventListener("change", () => {
         initChangeTextFocusTypeUpdate();
     });    
 
@@ -134,16 +134,16 @@ function initUpdateDialog() {
                 click: function () {
                     if (isValidUpdate()) {
                         document.querySelector(".ui-dialog-buttonpane .btn-submit").style.display = 'none';
-                        const type = $("#frmUpdateCourseAndCertificate #typeId option:selected").text();
+                        const type = $("#frmUpdateTrainingAndDevelopment #typeId option:selected").text();
 
                         const formData = new FormData();
-                        formData.append("Id", document.querySelector("#frmUpdateCourseAndCertificate #Id").value);
-                        formData.append("EmployeeId", document.querySelector("#frmUpdateCourseAndCertificate #EmployeeId").value);
-                        formData.append("ConductedBy", document.querySelector("#frmUpdateCourseAndCertificate #ConductedBy").value);
-                        formData.append("TypeId", document.querySelector("#frmUpdateCourseAndCertificate #typeId").value);
-                        formData.append("Name", document.querySelector("#frmUpdateCourseAndCertificate #Name").value);
-                        formData.append("Description", document.querySelector("#frmUpdateCourseAndCertificate #Description").value);
-                        formData.append("Organization", document.querySelector("#frmUpdateCourseAndCertificate #Organization").value);
+                        formData.append("Id", document.querySelector("#frmUpdateTrainingAndDevelopment #Id").value);
+                        formData.append("EmployeeId", document.querySelector("#frmUpdateTrainingAndDevelopment #EmployeeId").value);
+                        formData.append("ConductedBy", document.querySelector("#frmUpdateTrainingAndDevelopment #ConductedBy").value);
+                        formData.append("TypeId", document.querySelector("#frmUpdateTrainingAndDevelopment #typeId").value);
+                        formData.append("Name", document.querySelector("#frmUpdateTrainingAndDevelopment #Name").value);
+                        formData.append("Description", document.querySelector("#frmUpdateTrainingAndDevelopment #Description").value);
+                        formData.append("Organization", document.querySelector("#frmUpdateTrainingAndDevelopment #Organization").value);
                         const fromDate = document.querySelector("#ExamDate").value;
                         const toDate = document.querySelector("#ExpirationDate").value;
                         if (type === "Certificates") {
@@ -160,14 +160,14 @@ function initUpdateDialog() {
 
                         $.ajax({
                             type: 'POST',
-                            url: _global.root + 'CourseAndCertificate/Update',
+                            url: _global.root + 'TrainingAndDevelopment/Update',
                             dataType: 'json',
                             processData: false,
                             contentType: false,
                             data: formData,
                             success: function (data) {
                                 if (data) {
-                                    let errorCont = $('#frmUpdateCourseAndCertificate #divErrorCont');
+                                    let errorCont = $('#frmUpdateTrainingAndDevelopment #divErrorCont');
                                     errorCont.removeClass();
                                     errorCont.html('');
 
@@ -209,11 +209,11 @@ function initUpdateDialog() {
 }
 
 function isValidUpdate() {
-    const name = document.querySelector("#frmUpdateCourseAndCertificate #Name").value;
-    const place = document.querySelector("#frmUpdateCourseAndCertificate #Organization").value;
-    const examDate = document.querySelector("#frmUpdateCourseAndCertificate #ExamDate").value;
-    const expirationDate = document.querySelector("#frmUpdateCourseAndCertificate #ExpirationDate").value;
-    const type = $("#frmUpdateCourseAndCertificate #typeId option:selected").text();
+    const name = document.querySelector("#frmUpdateTrainingAndDevelopment #Name").value;
+    const place = document.querySelector("#frmUpdateTrainingAndDevelopment #Organization").value;
+    const examDate = document.querySelector("#frmUpdateTrainingAndDevelopment #ExamDate").value;
+    const expirationDate = document.querySelector("#frmUpdateTrainingAndDevelopment #ExpirationDate").value;
+    const type = $("#frmUpdateTrainingAndDevelopment #typeId option:selected").text();
     let ErrorMessage = [];
     if (!name) {
         ErrorMessage.push('Name is required!');
@@ -248,8 +248,8 @@ function isValidUpdate() {
 
 function sendErrorUpdateMessage(ErrorMessage) {
     if (ErrorMessage.length > 0) {
-        let errorCont = $('#frmUpdateCourseAndCertificate #divErrorCont');
-        let ul = document.querySelector("#frmUpdateCourseAndCertificate #divErrorCont ul");
+        let errorCont = $('#frmUpdateTrainingAndDevelopment #divErrorCont');
+        let ul = document.querySelector("#frmUpdateTrainingAndDevelopment #divErrorCont ul");
         if (ul != null) {
             ul.remove();
         }
@@ -264,12 +264,12 @@ function sendErrorUpdateMessage(ErrorMessage) {
 }
 
 function isValidInsert() {
-    const employeeId = document.querySelector("#frmAddCourseAndCertificate #EmployeeId").value;
-    const name = document.querySelector("#frmAddCourseAndCertificate #Name").value;
-    const place = document.querySelector("#frmAddCourseAndCertificate #Organization").value;
-    const examDate = document.querySelector("#frmAddCourseAndCertificate #StartDate").value;
-    const expirationDate = document.querySelector("#frmAddCourseAndCertificate #EndDate").value;
-    const type = $("#frmAddCourseAndCertificate #typeId option:selected").text();
+    const employeeId = document.querySelector("#frmAddTrainingAndDevelopment #EmployeeId").value;
+    const name = document.querySelector("#frmAddTrainingAndDevelopment #Name").value;
+    const place = document.querySelector("#frmAddTrainingAndDevelopment #Organization").value;
+    const examDate = document.querySelector("#frmAddTrainingAndDevelopment #StartDate").value;
+    const expirationDate = document.querySelector("#frmAddTrainingAndDevelopment #EndDate").value;
+    const type = $("#frmAddTrainingAndDevelopment #typeId option:selected").text();
     let ErrorMessage = [];
     if (!employeeId) {
         ErrorMessage.push('Employee is required!');
@@ -307,8 +307,8 @@ function isValidInsert() {
 
 function sendErrorInserMessage(ErrorMessage) {
     if (ErrorMessage.length > 0) {
-        let errorCont = $('#frmAddCourseAndCertificate #divErrorCont');
-        let ul = document.querySelector("#frmAddCourseAndCertificate #divErrorCont ul");
+        let errorCont = $('#frmAddTrainingAndDevelopment #divErrorCont');
+        let ul = document.querySelector("#frmAddTrainingAndDevelopment #divErrorCont ul");
         if (ul != null) {
             ul.remove();
         }
@@ -324,8 +324,8 @@ function sendErrorInserMessage(ErrorMessage) {
 
 function initAddNewDialog() {
     initDatePicker();
-    initAutocomplete('#frmAddCourseAndCertificate #Employee', '#frmAddCourseAndCertificate #EmployeeId', false);
-    $("#frmAddCourseAndCertificate #typeId").on("change", () => {
+    initAutocomplete('#frmAddTrainingAndDevelopment #Employee', '#frmAddTrainingAndDevelopment #EmployeeId', false);
+    $("#frmAddTrainingAndDevelopment #typeId").on("change", () => {
         initChangeTextFocusType();
     }); 
     $('#dialog-addnew').dialog({
@@ -345,15 +345,15 @@ function initAddNewDialog() {
                 click: function () {
                     if (isValidInsert()) {
                         document.querySelector(".ui-dialog-buttonpane .btn-submit").style.display = 'none';
-                        const type = $("#frmAddCourseAndCertificate #typeId option:selected").text();
+                        const type = $("#frmAddTrainingAndDevelopment #typeId option:selected").text();
 
                         const formData = new FormData();
-                        formData.append("EmployeeId", document.querySelector("#frmAddCourseAndCertificate #EmployeeId").value);
-                        formData.append("ConductedBy", document.querySelector("#frmAddCourseAndCertificate #ConductedBy").value);
-                        formData.append("TypeId", document.querySelector("#frmAddCourseAndCertificate #typeId").value);
-                        formData.append("Name", document.querySelector("#frmAddCourseAndCertificate #Name").value);
-                        formData.append("Description", document.querySelector("#frmAddCourseAndCertificate #Description").value);
-                        formData.append("Organization", document.querySelector("#frmAddCourseAndCertificate #Organization").value);
+                        formData.append("EmployeeId", document.querySelector("#frmAddTrainingAndDevelopment #EmployeeId").value);
+                        formData.append("ConductedBy", document.querySelector("#frmAddTrainingAndDevelopment #ConductedBy").value);
+                        formData.append("TypeId", document.querySelector("#frmAddTrainingAndDevelopment #typeId").value);
+                        formData.append("Name", document.querySelector("#frmAddTrainingAndDevelopment #Name").value);
+                        formData.append("Description", document.querySelector("#frmAddTrainingAndDevelopment #Description").value);
+                        formData.append("Organization", document.querySelector("#frmAddTrainingAndDevelopment #Organization").value);
                         const fromDate = document.querySelector("#StartDate").value;
                         const toDate = document.querySelector("#EndDate").value;
                         if (type === "Certificates") {
@@ -371,14 +371,14 @@ function initAddNewDialog() {
 
                         $.ajax({
                             type: 'POST',
-                            url: _global.root + 'CourseAndCertificate/Insert',
+                            url: _global.root + 'TrainingAndDevelopment/Create',
                             dataType: 'json',
                             processData: false,
                             contentType: false,
                             data: formData,
                             success: function (data) {
                                 if (data) {
-                                    let errorCont = $('#frmAddCourseAndCertificate #divErrorCont');
+                                    let errorCont = $('#frmAddTrainingAndDevelopment #divErrorCont');
                                     errorCont.removeClass();
                                     errorCont.html('');
 
@@ -421,7 +421,7 @@ function initAddNewDialog() {
 
 function deleteRequest(id) {
     confirm('Are you sure you want to delete?', function () {
-        $.post(_global.root + 'CourseAndCertificate/Delete', { id: id }, function (data) {
+        $.post(_global.root + 'TrainingAndDevelopment/Delete', { id: id }, function (data) {
             if (data.IsSuccessful) {
                 alert("Delete successfully!");
                 query(false);
@@ -460,7 +460,7 @@ $(document).ready(function () {
     $('#btnAddNew').click(function () {
         $.ajax({
             type: 'GET',
-            url: _global.root + 'CourseAndCertificate/Insert',
+            url: _global.root + 'TrainingAndDevelopment/Create',
             dataType: 'html',
             success: function (data) {
                 $('#dialog-addnew').html(data);

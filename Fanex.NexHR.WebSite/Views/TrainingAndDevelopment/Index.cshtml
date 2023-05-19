@@ -1,26 +1,29 @@
 ﻿@using Fanex.NexHR.Core.Enums
 @using Fanex.NexHR.Resources
-@using Fanex.NexHR.ViewModels.CourseAndCertificate
-@model CourseAndCertificateFilterViewModel
+@using Fanex.NexHR.ViewModels.TrainingAndDevelopment
+@using Fanex.NexHR.Services.Interfaces
+@inject ISessionService sessionService;
+@model TrainingAndDevelopmentFilterViewModel
 @{
+    var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
     DateTime currentDate = DateTime.Today;
     ViewBag.Title = Labels.TrainingAndDevelopment;
 }
 @section Styles {
-    <link rel="stylesheet" href="~/css/Views/course-and-certificate.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/Views/training-and-development.css" asp-append-version="true">
     <link rel="stylesheet" href="~/minify/css/contextmenu.min.css" asp-append-version="true">
     <link rel="stylesheet" href="~/minify/css/simplepagination.min.css" asp-append-version="true">
     <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
 }
 @section Scripts {
     <environment include="Development">
-        <script src="~/js/Views/CourseAndCertificate/courseandcertificate.js" asp-append-version="true"></script>
+        <script src="~/js/Views/TrainingAndDevelopment/training-and-development.js" asp-append-version="true"></script>
         <script src="~/js/Views/Employee/_employee.search.in.company.js" asp-append-version="true"></script>
         <script src="~/js/Libs/jquery.contextMenu.min.js" asp-append-version="true"></script>
         <script src="~/js/Libs/jquery.simplePagination.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
-        <script src="~/minify/js/courseandcertificate.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/traininganddevelopment.min.js" asp-append-version="true"></script>
         <script src="~/minify/js/contextmenu.min.js" asp-append-version="true"></script>
         <script src="~/minify/js/simplepagination.min.js" asp-append-version="true"></script>
     </environment>
@@ -35,7 +38,7 @@
                 </div>
                 <div class="card-body">
                     <div class="form form-stl-table">
-                        <form asp-controller="CourseAndCertificate" asp-action="index" method="post">
+                        <form asp-controller="TrainingAndDevelopment" asp-action="index" method="post">
                             <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--m">
@@ -64,7 +67,7 @@
                                 </div>
                                 <div class="col m-r--l">
                                     <div class="left label--m">
-                                        <label asp-for="TypeId">Type</label>
+                                        <label asp-for="TypeId">@Labels.Type</label>
                                     </div>
                                     <div class="left select--m">
                                         <select asp-for="TypeId" asp-items="@(new SelectList(Model.Types, "Id", "Name"))">
@@ -74,7 +77,7 @@
                                 </div>
                                 <div class="col m-r--l">
                                     <div class="left label--m">
-                                        <label asp-for="Name">Name</label>
+                                        <label asp-for="Name">@Labels.Name</label>
                                     </div>
                                     <div class="left input--m">
                                         <input asp-for="Name" maxlength="200" />
@@ -103,9 +106,9 @@
                                 </div>
                                 <div class="col m-l--l">
                                     <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light m-r--b" />
-                                    @if (ViewBag.HasHRRole)
+                                    @if (@isHRRole)
                                     {
-                                        <a class="btn-request waves-effect waves-light m-r--m left" href="javascript:;" id="btnAddNew">Add New</a>
+                                        <a class="btn-request waves-effect waves-light m-r--m left" href="javascript:;" id="btnAddNew">@Labels.AddNew</a>
                                     }
                                 </div>
                             </div>

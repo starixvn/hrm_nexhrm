@@ -1,12 +1,12 @@
-﻿using System;
-
-namespace Fanex.NexHR.Criteria.CourseAndCertificate
+﻿namespace Fanex.NexHR.Criteria.TrainingAndDevelopment
 {
-    public class InsertCourseAndCertificateCriteria : BaseCommand
+    using System;
+
+    public class UpdateTrainingAndDevelopmentCriteria : BaseCommand
     {
-        public int EmpId { get; set; }
-        public int CreatedBy { get; set; }
+        public int Id { get; set; }
         public string ConductedBy { get; set; }
+        public int ModifyBy { get; set; }
         public int TypeId { get; set; }
         public string Name { get; set; }
         public string Organization { get; set; }
@@ -15,8 +15,8 @@ namespace Fanex.NexHR.Criteria.CourseAndCertificate
         public DateTime? EndDate { get; set; }
         public DateTime? ExamDate { get; set; }
         public DateTime? ExpirationDate { get; set; }
-        public override string GetSettingKey() => "CourseAndCertificate_Insert";
+        public override string GetSettingKey() => "CourseAndCertificate_Update";
 
-        public override bool IsValid() => EmpId > 0;
+        public override bool IsValid() => Id > 0 && TypeId > 0 && Name != null && Organization != null;
     }
 }

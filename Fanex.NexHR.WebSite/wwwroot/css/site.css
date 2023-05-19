@@ -1057,7 +1057,7 @@ input#fileName::-webkit-file-upload-button:focus, input#fileName::-webkit-file-u
   left: unset !important;
   border-radius: 2px;
 }
-.form-input .typeCourseAndCertificate {
+.form-input .typeTrainingAndDevelopment {
   -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1);
   -ms-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1);
@@ -1253,7 +1253,7 @@ input#fileName::-webkit-file-upload-button:focus, input#fileName::-webkit-file-u
   margin-bottom: 0;
 }
 
-#frmAddCourseAndCertificate, #frmUpdateCourseAndCertificate {
+#frmAddTrainingAndDevelopment, #frmUpdateTrainingAndDevelopment {
   margin-top: 0;
   margin-bottom: 0;
 }

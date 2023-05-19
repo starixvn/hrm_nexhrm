@@ -2,7 +2,7 @@
 
 namespace Fanex.NexHR.Models
 {
-    public class CourseAndCertificate
+    public class TrainingAndDevelopment
     {
         public int Id { get; set; }
         public int EmpId { get; set; }

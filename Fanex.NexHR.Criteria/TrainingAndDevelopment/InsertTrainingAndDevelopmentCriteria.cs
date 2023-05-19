@@ -1,12 +1,11 @@
-﻿namespace Fanex.NexHR.ViewModels.CourseAndCertificate
+﻿namespace Fanex.NexHR.Criteria.TrainingAndDevelopment
 {
     using System;
 
-    public class CourseAndCertificateViewModel
+    public class InsertTrainingAndDevelopmentCriteria : BaseCommand
     {
-        public int Id { get; set; }
-        public int EmployeeId { get; set; }
-        public string Employee { get; set; }
+        public int EmpId { get; set; }
+        public int CreatedBy { get; set; }
         public string ConductedBy { get; set; }
         public int TypeId { get; set; }
         public string Name { get; set; }
@@ -16,5 +15,8 @@
         public DateTime? EndDate { get; set; }
         public DateTime? ExamDate { get; set; }
         public DateTime? ExpirationDate { get; set; }
+        public override string GetSettingKey() => "CourseAndCertificate_Insert";
+
+        public override bool IsValid() => EmpId > 0 && TypeId > 0 && Name != null && Organization != null;
     }
 }

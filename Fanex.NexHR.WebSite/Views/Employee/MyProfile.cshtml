@@ -11,7 +11,7 @@
     ViewBag.Title = Labels.MyProfile;
 }
 @section Styles {
-    <link rel="stylesheet" href="~/css/Views/course-and-certificate.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/Views/training-and-development.css" asp-append-version="true">
     <link rel="stylesheet" href="~/minify/css/myprofile.min.css" asp-append-version="true">
 }
 
@@ -179,60 +179,60 @@
                             }
                         </div>
                     </div>
-                    <div class="courseAndCertificatereport m-t--l p-x--s">
+                    <div class="trainingAndDevelopmentsreport m-t--l p-x--s">
                         <div class="boxtitle">
                             @Labels.TrainingAndDevelopment
                         </div>
                         @foreach(var item in Model.TrainingAndDevelopmentTypes)
                         {
-                            var courseAndCertificates = Model.CourseAndCertificates.Where(x => x.TypeId == item.Id).ToList();
+                            var trainingAndDevelopments = Model.TrainingAndDevelopments.Where(x => x.TypeId == item.Id).ToList();
                             <div class="development">
-                                @if(courseAndCertificates.Count > 0)
+                                @if(trainingAndDevelopments.Count > 0)
                                 {
                                     <div class="boxdevelopmenttitle">
-                                        @courseAndCertificates[0].TypeName
+                                        @trainingAndDevelopments[0].TypeName
                                     </div>
-                                    foreach (var courseAndCertificate in courseAndCertificates)
+                                    foreach (var trainingAndDevelopment in trainingAndDevelopments)
                                     {
-                                        if (courseAndCertificate.TypeName == InternalTraining)
+                                        if (trainingAndDevelopment.TypeName == InternalTraining)
                                         {
                                             <div class="detail training">
-                                                <p class="name bold">@courseAndCertificate.Name</p>
+                                                <p class="name bold">@trainingAndDevelopment.Name</p>
                                                 <p>Conducted by:</p>
-                                                <p class="conductedby italic">@courseAndCertificate.ConductedBy</p>
+                                                <p class="conductedby italic">@trainingAndDevelopment.ConductedBy</p>
                                                 <p>Start Date:</p>
-                                                <p class="startdate italic">@courseAndCertificate.StartDate.ToString(FormatDate)</p>
+                                                <p class="startdate italic">@trainingAndDevelopment.StartDate.ToString(FormatDate)</p>
                                             </div>
                                         }
-                                        else if (courseAndCertificate.TypeName == Certificates)
+                                        else if (trainingAndDevelopment.TypeName == Certificates)
                                         {
                                             <div class="detail certificate">
-                                                <p class="name bold">@courseAndCertificate.Name</p>
+                                                <p class="name bold">@trainingAndDevelopment.Name</p>
                                                 <p>Organization:</p>
-                                                <p class="organization italic">@courseAndCertificate.Organization</p>
+                                                <p class="organization italic">@trainingAndDevelopment.Organization</p>
                                                 <p>Test Date:</p>
-                                                <p class="testdate italic">@courseAndCertificate.ExamDate.ToString(FormatDate)</p>
+                                                <p class="testdate italic">@trainingAndDevelopment.ExamDate.ToString(FormatDate)</p>
                                                 <p>Expiration Date</p>
-                                                <p class="enddate italic">@courseAndCertificate.ExpirationDate.ToString(FormatDate)</p>
+                                                <p class="enddate italic">@trainingAndDevelopment.ExpirationDate.ToString(FormatDate)</p>
                                             </div>
                                         }
                                         else
                                         {
                                             <div class="detail developmentDetail">
-                                                <p class="name bold">@courseAndCertificate.Name</p>
+                                                <p class="name bold">@trainingAndDevelopment.Name</p>
                                                 <p>Organization:</p>
-                                                <p class="organization italic">@courseAndCertificate.Organization</p>
+                                                <p class="organization italic">@trainingAndDevelopment.Organization</p>
                                                 <p>Start Date:</p>
-                                                <p class="startdate italic">@courseAndCertificate.StartDate.ToString(FormatDate)</p>
+                                                <p class="startdate italic">@trainingAndDevelopment.StartDate.ToString(FormatDate)</p>
                                                 <p>End Date:</p>
-                                                <p class="enddate italic">@courseAndCertificate.StartDate.ToString(FormatDate)</p>
+                                                <p class="enddate italic">@trainingAndDevelopment.StartDate.ToString(FormatDate)</p>
                                             </div>
                                         }
                                     }
                                 }
                             </div>
                         }
-                        @if (Model.CourseAndCertificates.Count == 0)
+                        @if (Model.TrainingAndDevelopments.Count == 0)
                         {
                             <p class="none-training">@Messages.NoInformationAvailable</p>
                         }

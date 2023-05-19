@@ -27,7 +27,7 @@
 .display-flex{
     display: flex;
 }
-#frmAddCourseAndCertificate, #frmUpdateCourseAndCertificate {
+#frmAddTrainingAndDevelopment, #frmUpdateTrainingAndDevelopment {
     .validation-summary-errors {
         width: 320px !important;
     }
@@ -45,7 +45,7 @@
     max-width: 229px;
 }
 
-.courseAndCertificate {
+.TrainingAndDevelopment {
     table {
         width: 70% !important;
 
@@ -63,7 +63,7 @@
     text-align: left !important;
 }
 
-.courseAndCertificatereport {
+.trainingAndDevelopmentsreport {
     .development {
         margin-left: 10px;
         margin-top: 10px;

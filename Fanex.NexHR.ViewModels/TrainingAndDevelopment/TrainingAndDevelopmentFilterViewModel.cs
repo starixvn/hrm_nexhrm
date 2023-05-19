@@ -1,11 +1,10 @@
-﻿namespace Fanex.NexHR.ViewModels.CourseAndCertificate
+﻿namespace Fanex.NexHR.ViewModels.TrainingAndDevelopment
 {
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.TrainingAndDevelopment;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    public class CourseAndCertificateFilterViewModel
+    public class TrainingAndDevelopmentFilterViewModel
     {
         public DateTime FromDate { get; set; }
 

@@ -1,91 +1,91 @@
 ﻿@using Fanex.NexHR.Models
 @using Fanex.NexHR.Resources
-@using Fanex.NexHR.ViewModels.CourseAndCertificate
-@model CourseAndCertificateViewModel
+@using Fanex.NexHR.ViewModels.TrainingAndDevelopment
+@model TrainingAndDevelopmentViewModel
 @{
-    DateTime currentDate = DateTime.Today; 
+    DateTime currentDate = DateTime.Today;
     var types = ViewBag.Types;
 }
-<form id="frmUpdateCourseAndCertificate" class="form form-update-course-and-certificate">
+<form id="frmAddTrainingAndDevelopment" class="form form-add-training-and-development">
     <div id="divErrorCont" class="">
     </div>
     <div class="row form-input">
         <div class="display-flex left label--l">
-            <label asp-for="Employee">@Labels.Employee </label>
+            <label asp-for="Employee">@Labels.Employee</label>
             <i class="require">*</i>
         </div>
         <div class="left input--m">
-            <input asp-for="Employee" disabled value="@Model.Employee" placeholder="@Messages.SearchEmployeeWatermark" />
+            <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark" />
             <input asp-for="EmployeeId" type="hidden" />
-            <input asp-for="Id" type="hidden" value="@Model.Id" />
         </div>
     </div>
     <div class="row form-input">
         <div class="display-flex left label--l">
-            <label>Type</label>
+            <label>@Labels.Type</label>
             <i class="require">*</i>
         </div>
         <div class="left input--m">
-            <select class="typeCourseAndCertificate" name="TypeId" id="typeId" asp-items="@(new SelectList(types, "Id", "Name",Model.TypeId))">
+            <select class="typeTrainingAndDevelopment" name="TypeId" id="typeId" asp-items="@(new SelectList(types, "Id", "Name"))">
             </select>
         </div>
     </div>
     <div class="row form-input">
         <div class="display-flex left label--l">
-            <label asp-for="Name">Name</label>
+            <label asp-for="Name">@Labels.Name</label>
             <i class="require">*</i>
+
         </div>
         <div class="left input--m">
-            <input asp-for="Name" value="@Model.Name" />
+            <input asp-for="Name" maxlength="200" />
         </div>
     </div>
     <div class="row form-input">
         <div class="display-flex left label--l">
-            <label asp-for="Organization">Organization</label>
+            <label asp-for="Organization">@Labels.Organization</label>
             <i class="require">*</i>
         </div>
         <div class="left input--m">
-            <input asp-for="Organization" value="@Model.Organization" />
+            <input asp-for="Organization" maxlength="200" />
         </div>
     </div>
     <div class="row form-input">
         <div class="left label--l">
-            <label asp-for="ConductedBy">Conducted By</label>
+            <label asp-for="ConductedBy">@Labels.ConductedBy</label>
         </div>
         <div class="left input--m">
-            <input asp-for="ConductedBy" value="@Model.ConductedBy" />
+            <input asp-for="ConductedBy" maxlength="100" />
         </div>
     </div>
     <div class="row form-input">
         <div class="left label--l">
-            <label asp-for="Description">Description</label>
+            <label asp-for="Description">@Labels.Description</label>
         </div>
         <div class="left input--m">
-            <textarea class="description textarea" asp-for="Description">@Model.Description</textarea>
+            <textarea class="description textarea" asp-for="Description" maxlength="500" />
         </div>
     </div>
     <div class="row form-input">
         <div class="display-flex left label--l">
-            <label asp-for="ExamDate" id="fromdate">Start Date</label>
+            <label asp-for="StartDate" id="fromdate">@Labels.StartDate</label>
             <i class="require">*</i>
         </div>
         <div class="datepicker-button left select--s">
-            <date-picker name="ExamDate"
+            <date-picker name="StartDate"
                          min-date="currentDate.AddYears(-100)"
-                         value="@Model.ExamDate">
+                         value="currentDate">
             </date-picker>
             <i class="mdi-action-event calendar-icon left"></i>
         </div>
     </div>
     <div class="row form-input">
         <div class="display-flex left label--l">
-            <label asp-for="ExpirationDate" id="todate">End Date</label>
+            <label asp-for="EndDate" id="todate">@Labels.EndDate</label>
             <i class="require">*</i>
         </div>
         <div class="datepicker-button left select--s">
-            <date-picker name="ExpirationDate"
+            <date-picker name="EndDate"
                          min-date="currentDate.AddYears(-100)"
-                         value="@Model.ExpirationDate">
+                         value="currentDate">
             </date-picker>
             <i class="mdi-action-event calendar-icon left"></i>
         </div>

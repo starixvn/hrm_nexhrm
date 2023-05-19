@@ -1777,4 +1777,19 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   <data name="TrainingAndDevelopment" xml:space="preserve">
     <value>Training And Development</value>
   </data>
+  <data name="Organization" xml:space="preserve">
+    <value>Organization</value>
+  </data>
+  <data name="AddNew" xml:space="preserve">
+    <value>Add New</value>
+  </data>
+  <data name="ConductedBy" xml:space="preserve">
+    <value>Conducted By</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>End Date</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
 </root>
