@@ -1,7 +1,7 @@
 ﻿@using Fanex.NexHR.Models
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.ViewModels.TrainingAndDevelopment
-@model TrainingAndDevelopmentViewModel
+@model TrainingAndDevelopmentCreateViewModel
 @{
     DateTime currentDate = DateTime.Today;
     var types = ViewBag.Types;
@@ -36,7 +36,7 @@
 
         </div>
         <div class="left input--m">
-            <input asp-for="Name" maxlength="200" />
+            <input asp-for="Name"/>
         </div>
     </div>
     <div class="row form-input">
@@ -45,7 +45,7 @@
             <i class="require">*</i>
         </div>
         <div class="left input--m">
-            <input asp-for="Organization" maxlength="200" />
+            <input asp-for="Organization"/>
         </div>
     </div>
     <div class="row form-input">
@@ -53,7 +53,7 @@
             <label asp-for="ConductedBy">@Labels.ConductedBy</label>
         </div>
         <div class="left input--m">
-            <input asp-for="ConductedBy" maxlength="100" />
+            <input asp-for="ConductedBy"/>
         </div>
     </div>
     <div class="row form-input">
@@ -61,16 +61,16 @@
             <label asp-for="Description">@Labels.Description</label>
         </div>
         <div class="left input--m">
-            <textarea class="description textarea" asp-for="Description" maxlength="500" />
+            <textarea class="description textarea" asp-for="Description"/>
         </div>
     </div>
     <div class="row form-input">
         <div class="display-flex left label--l">
-            <label asp-for="StartDate" id="fromdate">@Labels.StartDate</label>
+            <label id="fromdate">@Labels.StartDate</label>
             <i class="require">*</i>
         </div>
         <div class="datepicker-button left select--s">
-            <date-picker name="StartDate"
+            <date-picker name="FromDatePopup"
                          min-date="currentDate.AddYears(-100)"
                          value="currentDate">
             </date-picker>
@@ -79,11 +79,11 @@
     </div>
     <div class="row form-input">
         <div class="display-flex left label--l">
-            <label asp-for="EndDate" id="todate">@Labels.EndDate</label>
+            <label id="todate">@Labels.EndDate</label>
             <i class="require">*</i>
         </div>
         <div class="datepicker-button left select--s">
-            <date-picker name="EndDate"
+            <date-picker name="ToDatePopup"
                          min-date="currentDate.AddYears(-100)"
                          value="currentDate">
             </date-picker>

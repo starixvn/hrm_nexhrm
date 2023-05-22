@@ -1,4 +1,8 @@
-﻿.detail {
+﻿#ui-datepicker-div {
+  z-index: 1052 !important;
+}
+
+.detail {
   display: flex;
   align-items: center;
   margin-left: 10px;

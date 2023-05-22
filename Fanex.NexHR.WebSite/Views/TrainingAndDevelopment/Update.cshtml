@@ -1,7 +1,7 @@
 ﻿@using Fanex.NexHR.Models
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.ViewModels.TrainingAndDevelopment
-@model TrainingAndDevelopmentViewModel
+@model TrainingAndDevelopmentUpdateViewModel
 @{
     DateTime currentDate = DateTime.Today; 
     var types = ViewBag.Types;
@@ -66,26 +66,26 @@
     </div>
     <div class="row form-input">
         <div class="display-flex left label--l">
-            <label asp-for="ExamDate" id="fromdate">@Labels.StartDate</label>
+            <label id="fromdate">@Labels.StartDate</label>
             <i class="require">*</i>
         </div>
         <div class="datepicker-button left select--s">
-            <date-picker name="ExamDate"
+            <date-picker name="FromDatePopup"
                          min-date="currentDate.AddYears(-100)"
-                         value="@Model.ExamDate">
+                         value="@Model.FromDate">
             </date-picker>
             <i class="mdi-action-event calendar-icon left"></i>
         </div>
     </div>
     <div class="row form-input">
         <div class="display-flex left label--l">
-            <label asp-for="ExpirationDate" id="todate">@Labels.EndDate</label>
+            <label id="todate">@Labels.EndDate</label>
             <i class="require">*</i>
         </div>
         <div class="datepicker-button left select--s">
-            <date-picker name="ExpirationDate"
+            <date-picker name="ToDatePopup"
                          min-date="currentDate.AddYears(-100)"
-                         value="@Model.ExpirationDate">
+                         value="@Model.ToDate">
             </date-picker>
             <i class="mdi-action-event calendar-icon left"></i>
         </div>

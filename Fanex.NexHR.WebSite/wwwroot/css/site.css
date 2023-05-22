@@ -1220,7 +1220,7 @@ input#fileName::-webkit-file-upload-button:focus, input#fileName::-webkit-file-u
   padding-top: 0;
 }
 
-#dialog-addnew, #dialog-update {
+#dialog-training {
   text-align: left;
   padding-top: 0;
 }

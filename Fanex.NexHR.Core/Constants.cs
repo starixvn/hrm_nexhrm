@@ -54,5 +54,11 @@
         public const int RepeatMonth = 5;
         public const int RepeatYear = 6;
         public const int NumberOfDayInWeek = 7;
+
+        public const int TrainingNameLength = 200;
+        public const int TrainingOrganizationLength = 200;
+        public const int TrainingDescriptionLength = 500;
+        public const int TrainingConductedByLength = 100;
+
     }
 }

@@ -3,10 +3,12 @@
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Criteria.TrainingAndDevelopment;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels.TrainingAndDevelopment;
     using Microsoft.AspNetCore.Mvc;
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
 
     public class TrainingAndDevelopmentController : BaseController
@@ -66,10 +68,14 @@
 
         [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
-        public async Task<CommandResult> Create(TrainingAndDevelopmentViewModel model)
+        public async Task<IActionResult> Create(TrainingAndDevelopmentCreateViewModel model)
         {
-            var result = new CommandResult();
-            if (model != null)
+            var result = new CommandResult
+            {
+                Code = 1,
+                Message = Messages.InvalidInputData
+            };
+            if (model != null && ModelState.IsValid)
             {
                 var criteria = new InsertTrainingAndDevelopmentCriteria
                 {
@@ -80,14 +86,18 @@
                     CreatedBy = CurrentUser.Id,
                     Description = model.Description,
                     Organization = model.Organization,
-                    StartDate = model.StartDate,
-                    EndDate = model.EndDate,
-                    ExamDate = model.ExamDate,
-                    ExpirationDate = model.ExpirationDate
+                    StartDate = model.TypeName.Equals(Certificate) ? (DateTime?)null : model.FromDate,
+                    EndDate = model.TypeName.Equals(Certificate) ? (DateTime?)null : model.ToDate,
+                    ExamDate = !model.TypeName.Equals(Certificate) ? (DateTime?)null : model.FromDate,
+                    ExpirationDate = !model.TypeName.Equals(Certificate) ? (DateTime?)null : model.ToDate
                 };
                 result = await baseService.ExecuteNonQueryAsync(criteria);
+                if (!result.IsSuccessful)
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
+                }
             }
-            return result;
+            return Json(new { isSuccessful = result.IsSuccessful, error = ModelState.Values.SelectMany(v => v.Errors) });
         }
 
         [HrmAuthorize(UserRoles = "HR")]
@@ -95,7 +105,7 @@
         public async Task<IActionResult> Update(int id)
         {
             var trainingAndDevelopment = await trainingAndDevelopmentService.GetById(new GetTrainingAndDevelopmentByIdCriteria { Id = id });
-            var model = new TrainingAndDevelopmentViewModel();
+            var model = new TrainingAndDevelopmentUpdateViewModel();
             if (trainingAndDevelopment != null)
             {
                 model.Id = trainingAndDevelopment.Id;
@@ -106,9 +116,9 @@
                 model.Name = trainingAndDevelopment.Name;
                 model.Organization = trainingAndDevelopment.Organization;
                 model.Description = trainingAndDevelopment.Description;
-                model.ExamDate = trainingAndDevelopment.TypeName.Equals(Certificate) ?
+                model.FromDate = trainingAndDevelopment.TypeName.Equals(Certificate) ?
                     trainingAndDevelopment.ExamDate : trainingAndDevelopment.StartDate;
-                model.ExpirationDate = trainingAndDevelopment.TypeName.Equals(Certificate) ?
+                model.ToDate = trainingAndDevelopment.TypeName.Equals(Certificate) ?
                     trainingAndDevelopment.ExpirationDate : trainingAndDevelopment.EndDate;
             }
             ViewBag.Types = await trainingAndDevelopmentService.GetTrainingAndDevelopmentType();
@@ -117,10 +127,14 @@
 
         [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
-        public async Task<CommandResult> Update(TrainingAndDevelopmentViewModel model)
+        public async Task<IActionResult> Update(TrainingAndDevelopmentUpdateViewModel model)
         {
-            var result = new CommandResult();
-            if (model != null)
+            var result = new CommandResult
+            {
+                Code = 1,
+                Message = Messages.InvalidInputData
+            };
+            if (model != null && ModelState.IsValid)
             {
                 var criteria = new UpdateTrainingAndDevelopmentCriteria
                 {
@@ -131,14 +145,18 @@
                     ModifyBy = CurrentUser.Id,
                     Organization = model.Organization,
                     Description = model.Description,
-                    StartDate = model.StartDate,
-                    EndDate = model.EndDate,
-                    ExamDate = model.ExamDate,
-                    ExpirationDate = model.ExpirationDate
+                    StartDate = model.TypeName.Equals(Certificate) ? (DateTime?)null : model.FromDate,
+                    EndDate = model.TypeName.Equals(Certificate) ? (DateTime?)null : model.ToDate,
+                    ExamDate = !model.TypeName.Equals(Certificate) ? (DateTime?)null : model.FromDate,
+                    ExpirationDate = !model.TypeName.Equals(Certificate) ? (DateTime?)null : model.ToDate
                 };
                 result = await baseService.ExecuteNonQueryAsync(criteria);
+                if (!result.IsSuccessful)
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
+                }
             }
-            return result;
+            return Json(new { isSuccessful = result.IsSuccessful, error = ModelState.Values.SelectMany(v => v.Errors) });
         }
 
         [HrmAuthorize(UserRoles = "HR")]
