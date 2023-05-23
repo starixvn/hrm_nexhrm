@@ -32,19 +32,21 @@
   display: flex;
 }
 
-#frmAddTrainingAndDevelopment, #frmUpdateTrainingAndDevelopment {
-  margin-left: 15px;
-}
 #frmAddTrainingAndDevelopment label, #frmUpdateTrainingAndDevelopment label {
-  margin-left: 5px;
+  margin-left: 10px;
 }
 #frmAddTrainingAndDevelopment .validation-summary-errors, #frmUpdateTrainingAndDevelopment .validation-summary-errors {
-  width: 320px !important;
+  margin-left: 22px;
+  width: 300px !important;
 }
 #frmAddTrainingAndDevelopment .textarea, #frmUpdateTrainingAndDevelopment .textarea {
   background-color: transparent;
   resize: none;
   outline: none;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+  margin-top: unset !important;
 }
 
 .description {

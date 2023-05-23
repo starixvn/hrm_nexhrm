@@ -36,14 +36,13 @@
     display: flex;
 }
 #frmAddTrainingAndDevelopment, #frmUpdateTrainingAndDevelopment {
-    margin-left: 15px;
-
     label{
-        margin-left: 5px;
+        margin-left: 10px;
     }
 
     .validation-summary-errors {
-        width: 320px !important;
+        margin-left: 22px;
+        width: 300px !important;
     }
 
     .textarea {
@@ -51,6 +50,10 @@
         resize: none;
         outline: none;
     }
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+    margin-top: unset !important;
 }
 
 .description {
