@@ -10,8 +10,7 @@ namespace Fanex.NexHR.Core.Attributes
         private const string Certificates = "Certificates";
         private const string ErrorEndDateLessStartDate = "Test Date must be less than or equal Expiration Date.";
         private const string ErrorExpirationDateLessTestDate = "Start Date must be less than or equal End Date.";
-
-        private const string pattern = @"(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)";
+        private const string pattern = @"(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|";
         private const string patternSecond = @"(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)";
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -35,11 +34,7 @@ namespace Fanex.NexHR.Core.Attributes
                     Match matchJoiningDate = Regex.Match(fromDate.ToString("dd/MM/yyyy"), pattern + patternSecond);
                     if (matchJoiningDate.Success && fromDate > toDate)
                     {
-                        var propertyTypeName = validationContext.ObjectType.GetProperty("TypeName");
-                        var objTypeName = propertyTypeName.GetValue(validationContext.ObjectInstance, null);
-                        string strTypeName = objTypeName == null ? "" : objTypeName.ToString();
-                        string errorMessage = strTypeName.Equals(Certificates) ? ErrorEndDateLessStartDate : ErrorExpirationDateLessTestDate;
-                        return new ValidationResult(errorMessage);
+                        return new ValidationResult(GetMessage(validationContext));
                     }
                 }
                 else
@@ -52,6 +47,14 @@ namespace Fanex.NexHR.Core.Attributes
             {
                 return new ValidationResult("Invalid date format");
             }
+        }
+
+        private static string GetMessage(ValidationContext validationContext)
+        {
+            var propertyTypeName = validationContext.ObjectType.GetProperty("TypeName");
+            var objTypeName = propertyTypeName.GetValue(validationContext.ObjectInstance, null);
+            string strTypeName = objTypeName == null ? "" : objTypeName.ToString();
+            return strTypeName.Equals(Certificates) ? ErrorEndDateLessStartDate : ErrorExpirationDateLessTestDate;
         }
     }
 }
