@@ -36,11 +36,11 @@
     display: flex;
 }
 #frmAddTrainingAndDevelopment, #frmUpdateTrainingAndDevelopment {
-    label{
+    label {
         margin-left: 10px;
     }
 
-    .validation-summary-errors {
+    .validation-summary-errors, .validation-summary-success {
         margin-left: 22px;
         width: 300px !important;
     }

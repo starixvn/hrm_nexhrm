@@ -35,7 +35,7 @@
 #frmAddTrainingAndDevelopment label, #frmUpdateTrainingAndDevelopment label {
   margin-left: 10px;
 }
-#frmAddTrainingAndDevelopment .validation-summary-errors, #frmUpdateTrainingAndDevelopment .validation-summary-errors {
+#frmAddTrainingAndDevelopment .validation-summary-errors, #frmAddTrainingAndDevelopment .validation-summary-success, #frmUpdateTrainingAndDevelopment .validation-summary-errors, #frmUpdateTrainingAndDevelopment .validation-summary-success {
   margin-left: 22px;
   width: 300px !important;
 }
