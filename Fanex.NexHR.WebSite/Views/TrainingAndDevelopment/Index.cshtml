@@ -7,6 +7,7 @@
 @{
     var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
     DateTime currentDate = DateTime.Today;
+    ViewBag.Title = Labels.TrainingAndDevelopment;
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/Views/training-and-development.css" asp-append-version="true">
@@ -33,7 +34,7 @@
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
-                    <span class="card-title txt-uppercase left">@Labels.TrainingAndDevelopment</span>
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
                     <div class="form form-stl-table">

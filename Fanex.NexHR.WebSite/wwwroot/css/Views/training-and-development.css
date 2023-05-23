@@ -32,6 +32,12 @@
   display: flex;
 }
 
+#frmAddTrainingAndDevelopment, #frmUpdateTrainingAndDevelopment {
+  margin-left: 15px;
+}
+#frmAddTrainingAndDevelopment label, #frmUpdateTrainingAndDevelopment label {
+  margin-left: 5px;
+}
 #frmAddTrainingAndDevelopment .validation-summary-errors, #frmUpdateTrainingAndDevelopment .validation-summary-errors {
   width: 320px !important;
 }
