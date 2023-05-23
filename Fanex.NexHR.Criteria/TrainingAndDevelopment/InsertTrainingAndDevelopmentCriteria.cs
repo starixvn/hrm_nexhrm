@@ -17,9 +17,10 @@
         public DateTime? ExpirationDate { get; set; }
         public override string GetSettingKey() => "TrainingAndDevelopment_Insert";
 
-        public override bool IsValid() => EmpId > 0 && TypeId > 0 && !string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(Organization)
-                                                    && Isvalid(StartDate, EndDate) || Isvalid(ExamDate, ExpirationDate);
-
-        private static bool Isvalid(DateTime? fromdate, DateTime? todate) => fromdate.HasValue && todate.HasValue && todate >= fromdate;
+        public override bool IsValid() => IsvalidId() && IsvalidContent() && IsvalidDateTime();
+        private bool IsvalidId() => EmpId > 0 && TypeId > 0;
+        private bool IsvalidContent() => !string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(Organization);
+        private bool IsvalidDateTime() => StartDate.HasValue && EndDate.HasValue && EndDate >= StartDate
+                                            || ExamDate.HasValue && ExpirationDate.HasValue && ExpirationDate >= ExamDate;
     }
 }
