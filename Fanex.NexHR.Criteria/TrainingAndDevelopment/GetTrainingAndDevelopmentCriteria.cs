@@ -16,7 +16,7 @@
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
 
-        public override string GetSettingKey() => "CourseAndCertificate_Get";
+        public override string GetSettingKey() => "TrainingAndDevelopment_Get";
 
         public override bool IsValid() => ToDate >= FromDate;
     }

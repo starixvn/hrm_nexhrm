@@ -1,4 +1,8 @@
-﻿#ui-datepicker-div {
+﻿.hidden {
+  display: none;
+}
+
+#ui-datepicker-div {
   z-index: 1052 !important;
 }
 

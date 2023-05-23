@@ -6,7 +6,7 @@
     {
         public int EmpId { get; set; }
 
-        public override string GetSettingKey() => "CourseAndCertificate_GetByEmpId";
+        public override string GetSettingKey() => "TrainingAndDevelopment_GetByEmpId";
 
         public override bool IsValid() => EmpId > 0;
     }

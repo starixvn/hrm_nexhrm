@@ -463,13 +463,13 @@
         <Setting Key="EmployeeWorkFromHome_ApproveAndRejectRequest" SpName="EmployeeWorkFromHome_ApproveAndRejectRequest" DbName="nexhr" Plain="1"></Setting>
         <Setting Key="EmployeeWorkFromHome_DisApproveRequest" SpName="EmployeeWorkFromHome_DisApproveRequest" DbName="nexhr" Plain="1"></Setting>
     </Function>
-	    <Function Name="Course And Certificate">
-        <Setting Key="CourseAndCertificate_Delete" SpName="CourseAndCertificate_Delete" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="CourseAndCertificate_Get" SpName="CourseAndCertificate_Get" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="CourseAndCertificate_GetByEmpId" SpName="CourseAndCertificate_GetByEmpId" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="CourseAndCertificate_GetById" SpName="CourseAndCertificate_GetById" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="CourseAndCertificate_Insert" SpName="CourseAndCertificate_Insert" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="CourseAndCertificate_Update" SpName="CourseAndCertificate_Update" DbName="nexhr" Plain="1"></Setting>
+	    <Function Name="Training And Development">
+        <Setting Key="TrainingAndDevelopment_Delete" SpName="TrainingAndDevelopment_Delete" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="TrainingAndDevelopment_Get" SpName="TrainingAndDevelopment_Get" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="TrainingAndDevelopment_GetByEmpId" SpName="TrainingAndDevelopment_GetByEmpId" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="TrainingAndDevelopment_GetById" SpName="TrainingAndDevelopment_GetById" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="TrainingAndDevelopment_Insert" SpName="TrainingAndDevelopment_Insert" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="TrainingAndDevelopment_Update" SpName="TrainingAndDevelopment_Update" DbName="nexhr" Plain="1"></Setting>
         <Setting Key="TrainingAndDevelopmentType_Get" SpName="TrainingAndDevelopmentType_Get" DbName="nexhr" Plain="1"></Setting>
     </Function>
     <Function Name="Work From Home Request">

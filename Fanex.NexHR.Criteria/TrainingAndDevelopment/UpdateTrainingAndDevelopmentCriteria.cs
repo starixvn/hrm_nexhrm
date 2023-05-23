@@ -15,7 +15,7 @@
         public DateTime? EndDate { get; set; }
         public DateTime? ExamDate { get; set; }
         public DateTime? ExpirationDate { get; set; }
-        public override string GetSettingKey() => "CourseAndCertificate_Update";
+        public override string GetSettingKey() => "TrainingAndDevelopment_Update";
 
         public override bool IsValid() => Id > 0 && TypeId > 0 && !string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(Organization)
                                                  && Isvalid(StartDate, EndDate) || Isvalid(ExamDate, ExpirationDate);
