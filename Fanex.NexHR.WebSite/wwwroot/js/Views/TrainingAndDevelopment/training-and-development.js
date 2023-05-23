@@ -154,7 +154,7 @@ function initUpdateDialog() {
                                 if (data.isSuccessful) {
                                     errorCont.addClass('success validation-summary-success');
                                     errorCont.append('Update successfully');
-                                    //setTimeout(function () { $('#dialog-training').dialog("close"); query(); }, 1000);
+                                    setTimeout(function () { $('#dialog-training').dialog("close"); query(); }, 1000);
                                 }
                                 else {
                                     $(".ui-dialog-buttonset .btn-submit")[0].style.display = '';

@@ -1,8 +1,4 @@
-﻿.hidden {
-  display: none;
-}
-
-#ui-datepicker-div {
+﻿#ui-datepicker-div {
   z-index: 1052 !important;
 }
 
@@ -45,6 +41,9 @@
   outline: none;
 }
 
+.ui-dialog {
+  width: 410px !important;
+}
 .ui-dialog .ui-dialog-buttonpane {
   margin-top: unset !important;
 }
