@@ -36,14 +36,12 @@
     display: flex;
 }
 #frmAddTrainingAndDevelopment, #frmUpdateTrainingAndDevelopment {
-
     label {
-        margin-left: 10px;
+        margin-left: 0.5rem;
     }
 
     .validation-summary-errors, .validation-summary-success {
-        margin-left: 22px;
-        width: 300px !important;
+        margin: 1rem 0.5rem 1.6rem !important;
     }
 
     .textarea {
