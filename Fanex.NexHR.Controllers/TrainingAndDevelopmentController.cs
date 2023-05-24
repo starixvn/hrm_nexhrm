@@ -165,7 +165,8 @@
         {
             var result = await baseService.ExecuteNonQueryAsync(new DeleteTrainingAndDevelopmentCriteria
             {
-                Id = id
+                Id = id,
+                DeletedBy = CurrentUser.Id
             });
             return result;
         }
