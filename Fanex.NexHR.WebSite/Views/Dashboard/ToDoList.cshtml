@@ -4,7 +4,7 @@
 @using Fanex.NexHR.ViewModels
 @model ToDoViewModel
 @inject AppSetting settings;
-@if ((Model.MissingCheckInOutList.Count() == 0) && (Model.PendingRequestsList.Count() == 0) && (Model.InProgressTasks.Count() == 0) && Model.ForgotLogtimeDates.Count() == 0)
+@if ((Model.MissingCheckInOutList.Count() == 0) && Model.EmployeeLatetInEarlyOuts.Count() == 0 && (Model.PendingRequestsList.Count() == 0) && (Model.InProgressTasks.Count() == 0) && Model.ForgotLogtimeDates.Count() == 0)
 {
     <p class="green-border">
         <span class="left-align">
