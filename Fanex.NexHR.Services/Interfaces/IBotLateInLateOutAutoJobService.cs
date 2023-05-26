@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
-    using System.Threading.Tasks;
     using Fanex.NexHR.Models;
+    using System.Threading.Tasks;
 
     public interface IBotLateInLateOutAutoJobService
     {
@@ -11,5 +11,6 @@
 
         Task<CommandResult> SendMessageDeductAsync();
         Task<CommandResult> DeductAsync();
+        Task<CommandResult> SendMessageReminderLateInEarlyOut();
     }
 }

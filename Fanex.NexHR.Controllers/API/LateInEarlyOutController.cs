@@ -1,10 +1,10 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
-    using System.Threading.Tasks;
     using Fanex.NexHR.Services.Interfaces;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using System.Threading.Tasks;
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class LateInEarlyOutController : ControllerBase
@@ -43,6 +43,13 @@
         public async Task<IActionResult> AutoDeduct()
         {
             var result = await botService.DeductAsync().ConfigureAwait(false);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendMessageReminderLateInEarlyOut()
+        {
+            var result = await botService.SendMessageReminderLateInEarlyOut().ConfigureAwait(false);
             return Ok(result);
         }
     }

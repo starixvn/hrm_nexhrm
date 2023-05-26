@@ -256,6 +256,18 @@
             return new CommandResult { Code = result ? 0 : 1 };
         }
 
+        public async Task<CommandResult> SendMessageReminderLateInEarlyOut(IEnumerable<ReminderLateInEarlyOut> reminderLateInEarlyOuts)
+        {
+            var result = false;
+            foreach (var conversation in reminderLateInEarlyOuts)
+            {
+                var message = string.Format(Messages.MessageReminderLateInEarlyOut, conversation.NickName, conversation.AttendanceDate.ToString("dd MMM, yyyy"));
+                //result = await SendMessageAsync(conversation.ConversationId, message).ConfigureAwait(false);
+            }
+
+            return new CommandResult { Code = result ? 0 : 1 };
+        }
+
         private string GenerateProcessRequestMessage(RequestEntity request, string command)
         {
             var action = command == Command.Reject.EnumToString() ? $"{command.ToLowerInvariant()}ed" : $"{command.ToLowerInvariant()}d";

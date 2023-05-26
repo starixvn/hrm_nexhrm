@@ -1,11 +1,11 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
     using Criteria.LateInEarlyOut;
     using Fanex.NexHR.Models.LateInEarlyOut;
     using Fanex.NexHR.Repositories.Interfaces;
     using Interfaces;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using ViewModels.LateInEarlyOut;
 
     public class LateInEarlyOutService : ILateInEarlyOutService
@@ -50,6 +50,11 @@
         public async Task<IEnumerable<LateInEarlyOutModel>> GetLateInEarlyOutDeduction(GetLateInEarlyOutDeductionCriteria criteria)
         {
             return await baseService.GetDataAsync<LateInEarlyOutModel>(criteria).ConfigureAwait(false);
+        }
+
+        public async Task<IEnumerable<ReminderLateInEarlyOut>> GetAllReminderLateInEarlyOut(GetAllReminderLateInEarlyOut criteria)
+        {
+            return await baseService.GetDataAsync<ReminderLateInEarlyOut>(criteria).ConfigureAwait(false);
         }
     }
 }

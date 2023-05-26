@@ -162,6 +162,17 @@
             return result;
         }
 
+        public async Task<CommandResult> SendMessageReminderLateInEarlyOut()
+        {
+            var result = new CommandResult { Code = 0 };
+            var reminderLateInEarlyOuts = await lateInEarlyOutService.GetAllReminderLateInEarlyOut(new GetAllReminderLateInEarlyOut()).ConfigureAwait(false);
+            if (reminderLateInEarlyOuts.Any())
+            {
+                _ = await nexbotService.SendMessageReminderLateInEarlyOut(reminderLateInEarlyOuts);
+            }
+            return result;
+        }
+
         private async Task SendMessageViolateOnMonthToEmployees(IEnumerable<LateInEarlyOutViolateModel> violaters)
         {
             if (violaters.Any())

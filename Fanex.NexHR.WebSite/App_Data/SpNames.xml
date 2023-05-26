@@ -351,7 +351,8 @@
         </Setting>
         <Setting Key="LateInEarlyOut_GetLateInEarlyOutOnMonth" SpName="LateInEarlyOut_GetLateInEarlyOutOnMonth" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="LateInEarlyOut_GetLateInEarlyOutDisciplineViolate" SpName="LateInEarlyOut_GetLateInEarlyOutDisciplineViolate" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="LateInEarlyOut_GetLateInEarlyOutToDeduct" SpName="LateInEarlyOut_GetLateInEarlyOutToDeduct" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="LateInEarlyOut_GetLateInEarlyOutToDeduct" SpName="LateInEarlyOut_GetLateInEarlyOutToDeduct" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="EmployeeAttendance_GetAllReminderLateInEarlyOut" SpName="EmployeeAttendance_GetAllReminderLateInEarlyOut" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="EmployeePostnatal">
         <Setting Key="EmployeePostnatal_Insert" SpName="EmployeePostnatal_Insert" DbName="nexhr" Plain="1"></Setting>
