@@ -262,7 +262,7 @@
             foreach (var conversation in reminderLateInEarlyOuts)
             {
                 var message = string.Format(Messages.MessageReminderLateInEarlyOut, conversation.NickName, conversation.AttendanceDate.ToString("dd MMM, yyyy"));
-                //result = await SendMessageAsync(conversation.ConversationId, message).ConfigureAwait(false);
+                result = await SendMessageAsync(conversation.ConversationId, message).ConfigureAwait(false);
             }
 
             return new CommandResult { Code = result ? 0 : 1 };

@@ -452,4 +452,9 @@ Thank you.</value>
   <data name="NoInformationAvailable" xml:space="preserve">
     <value>No information available</value>
   </data>
+  <data name="MessageReminderLateInEarlyOut" xml:space="preserve">
+    <value>Dear {0},
+
+You have been Late In/Early Out for more than 60 minutes on {1} which was considered a half day leave as stated in the policy.</value>
+  </data>
 </root>
