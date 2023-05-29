@@ -17,11 +17,12 @@
         public DateTime? ExpirationDate { get; set; }
         public override string GetSettingKey() => "TrainingAndDevelopment_Insert";
 
-        public override bool IsValid() => IsvalidId() && IsvalidContent() && (IsvalidDateTime(StartDate, EndDate)
-            || IsvalidDateTime(ExamDate, ExpirationDate) || IsvalidDateTimeCertificate(ExamDate, ExpirationDate));
-        private bool IsvalidId() => EmpId > 0 && TypeId > 0;
-        private bool IsvalidContent() => !string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(Organization);
-        private static bool IsvalidDateTime(DateTime? fromdate, DateTime? todate) => fromdate.HasValue && todate.HasValue && todate >= fromdate;
-        private static bool IsvalidDateTimeCertificate(DateTime? fromdate, DateTime? todate) => !todate.HasValue && fromdate.HasValue;
+        public override bool IsValid() => IsValidId() && IsValidContent() && IsValidAllDateTime();
+        private bool IsValidId() => EmpId > 0 && TypeId > 0;
+        private bool IsValidContent() => !string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(Organization);
+        private static bool IsValidDateTime(DateTime? fromdate, DateTime? todate) => fromdate.HasValue && todate.HasValue && todate >= fromdate;
+        private static bool IsValidDateTimeCertificate(DateTime? fromdate, DateTime? todate) => !todate.HasValue && fromdate.HasValue;
+        private bool IsValidAllDateTime() => IsValidDateTime(StartDate, EndDate)
+            || IsValidDateTime(ExamDate, ExpirationDate) || IsValidDateTimeCertificate(ExamDate, ExpirationDate);
     }
 }
