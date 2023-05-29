@@ -149,21 +149,6 @@
   width: 100px;
 }
 
-@media only screen and (max-width: 1705px) {
-  #filter-todate {
-    margin-right: 400px;
-  }
-}
-@media only screen and (max-width: 1400px) {
-  #filter-todate {
-    margin-right: 200px;
-  }
-}
-@media only screen and (max-width: 1250px) {
-  #filter-todate {
-    margin-right: unset;
-  }
-}
 @media only screen and (max-width: 995px) {
   #btnAddNew {
     flex: unset;
