@@ -95,7 +95,9 @@ function initChangeTextFocusType(frm) {
     if (typeid === Certificates) {
         $(frm + ' #fromdate')[0].innerText = TestDate;
         $(frm + ' #todate')[0].innerText = ExpirationDate;
+        $(frm + " #to-date-require")[0].style.display = 'none';
     } else {
+        $(frm + " #to-date-require")[0].style.display = '';
         $(frm + ' #fromdate')[0].innerText = StartDate;
         $(frm + ' #todate')[0].innerText = EndDate;
     }

@@ -216,8 +216,11 @@ else
                                                     <p class="organization italic">@trainingAndDevelopments.Organization</p>
                                                     <p>Test Date:</p>
                                                     <p class="testdate italic">@trainingAndDevelopments.ExamDate.ToString(FormatDate)</p>
-                                                    <p>Expiration Date</p>
-                                                    <p class="enddate italic">@trainingAndDevelopments.ExpirationDate.ToString(FormatDate)</p>
+                                                    @if (!trainingAndDevelopments.ExpirationDate.Equals(DateTime.MinValue))
+                                                    {
+                                                        <p>Expiration Date</p>
+                                                        <p class="enddate italic">@trainingAndDevelopments.ExpirationDate.ToString(FormatDate)</p>
+                                                    }
                                                 </div>
                                             }
                                             else

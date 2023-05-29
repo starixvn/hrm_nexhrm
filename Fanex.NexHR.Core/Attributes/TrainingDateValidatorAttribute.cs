@@ -17,6 +17,16 @@ namespace Fanex.NexHR.Core.Attributes
         {
             try
             {
+                if (value is null)
+                {
+                    if (IsCertificate(validationContext))
+                    {
+                        var propertyFromDate = validationContext.ObjectType.GetProperty("FromDate");
+                        return propertyFromDate == null ? new ValidationResult("Invalid date format") : ValidationResult.Success;
+                    }
+                    return new ValidationResult("Invalid date format");
+                }
+
                 string strValue = value.ToString();
                 var toDate = DateTime.Parse(strValue);
                 Match match = Regex.Match(toDate.ToString("dd/MM/yyyy"), pattern + patternSecond);
@@ -26,7 +36,6 @@ namespace Fanex.NexHR.Core.Attributes
                     if (propertyFromDate == null)
                     {
                         return new ValidationResult(string.Format("Property '{0}' is Null", "FromDate"));
-
                     }
                     var objFromDate = propertyFromDate.GetValue(validationContext.ObjectInstance, null);
                     string strFromdate = objFromDate == null ? "" : objFromDate.ToString();
@@ -55,6 +64,14 @@ namespace Fanex.NexHR.Core.Attributes
             var objTypeName = propertyTypeName.GetValue(validationContext.ObjectInstance, null);
             string strTypeName = objTypeName == null ? "" : objTypeName.ToString();
             return strTypeName.Equals(Certificates) ? ErrorEndDateLessStartDate : ErrorExpirationDateLessTestDate;
+        }
+
+        private static bool IsCertificate(ValidationContext validationContext)
+        {
+            var propertyTypeName = validationContext.ObjectType.GetProperty("TypeName");
+            var objTypeName = propertyTypeName.GetValue(validationContext.ObjectInstance, null);
+            string strTypeName = objTypeName == null ? "" : objTypeName.ToString();
+            return strTypeName.Equals(Certificates);
         }
     }
 }

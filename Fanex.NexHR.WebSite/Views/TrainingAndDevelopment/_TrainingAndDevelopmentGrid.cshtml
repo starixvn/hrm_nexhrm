@@ -65,8 +65,11 @@
                             <span>
                                 <span>@titleFromDate</span>
                                 <span class="bold">@fromDate</span>
-                                <span>@titleToDate</span>
-                                <span class="bold">@toDate</span>
+                                @if (!toDate.Equals(DateTime.MinValue.ToString(FormatDate)))
+                                {
+                                    <span>@titleToDate</span>
+                                    <span class="bold">@toDate</span>
+                                }
                             </span>
 
                         </div>

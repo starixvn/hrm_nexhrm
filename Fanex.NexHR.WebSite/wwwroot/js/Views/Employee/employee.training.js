@@ -12,7 +12,9 @@ function initChangeTextFocusType() {
     if (typeid === Certificates) {
         $(' #fromdate')[0].innerText = TestDate;
         $('#frmAddTrainingAndDevelopment #todate')[0].innerText = ExpirationDate;
+        $("#frmAddTrainingAndDevelopment #to-date-require")[0].style.display = 'none';
     } else {
+        $("#frmAddTrainingAndDevelopment #to-date-require")[0].style.display = '';
         $('#frmAddTrainingAndDevelopment #fromdate')[0].innerText = StartDate;
         $('#frmAddTrainingAndDevelopment #todate')[0].innerText = EndDate;
     }
