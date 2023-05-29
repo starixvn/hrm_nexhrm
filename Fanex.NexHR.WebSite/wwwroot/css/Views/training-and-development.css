@@ -6,9 +6,25 @@
   display: none;
 }
 
+.detail {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+.detail p {
+  line-height: 2.5rem !important;
+  text-align: left;
+}
 .detail span {
   line-height: 2.5rem !important;
   text-align: left;
+}
+.detail span {
+  line-height: 2.5rem !important;
+  text-align: left;
+}
+.detail .line {
+  margin-right: 15px !important;
 }
 .detail .bold {
   font-weight: bold;

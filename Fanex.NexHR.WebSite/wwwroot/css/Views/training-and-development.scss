@@ -7,9 +7,27 @@
 }
 
 .detail {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+
+    p {
+        line-height: 2.5rem !important;
+        text-align: left;
+    }
+
     span {
         line-height: 2.5rem !important;
         text-align: left;
+    }
+
+    span {
+        line-height: 2.5rem !important;
+        text-align: left;
+    }
+
+    .line {
+        margin-right: 15px !important;
     }
 
     .bold {
