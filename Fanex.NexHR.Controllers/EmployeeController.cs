@@ -98,6 +98,7 @@
             return View(model);
         }
 
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<JsonResult> GetEmployees(
             string query,
             int? teamId = null,
