@@ -2,22 +2,14 @@
     z-index: 1052 !important;
 }
 
-#dialog-training{
+#dialog-training {
     display: none;
 }
 
 .detail {
-    display: flex;
-    align-items: center;
-    margin-left: 10px;
-
-    p {
+    span {
         line-height: 2.5rem !important;
         text-align: left;
-    }
-
-    .line {
-        margin-right: 15px !important;
     }
 
     .bold {
@@ -32,9 +24,10 @@
     }
 }
 
-.display-flex{
+.display-flex {
     display: flex;
 }
+
 #frmAddTrainingAndDevelopment, #frmUpdateTrainingAndDevelopment {
     label {
         margin-left: 0.5rem;
@@ -53,6 +46,7 @@
 
 .ui-dialog {
     width: 410px !important;
+
     .ui-dialog-buttonpane {
         margin-top: unset !important;
     }
@@ -74,7 +68,7 @@
     }
 }
 
-.require{
+.require {
     color: red;
 }
 
@@ -166,5 +160,35 @@
 
     .enddate {
         width: 100px;
+    }
+}
+
+@media only screen and (max-width: 1705px) {
+    #filter-todate {
+        margin-right: 400px;
+    }
+}
+
+@media only screen and (max-width: 1400px) {
+    #filter-todate {
+        margin-right: 200px;
+    }
+}
+
+@media only screen and (max-width: 1250px) {
+    #filter-todate {
+        margin-right: unset;
+    }
+}
+
+@media only screen and (max-width: 995px) {
+    #btnAddNew {
+        flex: unset;
+        height: 32px;
+        margin: 1.6rem auto 0 1rem !important;
+    }
+
+    .btn-submit {
+        margin: 1.6rem 1rem 0 auto !important;
     }
 }

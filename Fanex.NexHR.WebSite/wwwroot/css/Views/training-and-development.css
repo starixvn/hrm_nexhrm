@@ -6,17 +6,9 @@
   display: none;
 }
 
-.detail {
-  display: flex;
-  align-items: center;
-  margin-left: 10px;
-}
-.detail p {
+.detail span {
   line-height: 2.5rem !important;
   text-align: left;
-}
-.detail .line {
-  margin-right: 15px !important;
 }
 .detail .bold {
   font-weight: bold;
@@ -139,4 +131,30 @@
 }
 .trainingAndDevelopmentsreport .enddate {
   width: 100px;
+}
+
+@media only screen and (max-width: 1705px) {
+  #filter-todate {
+    margin-right: 400px;
+  }
+}
+@media only screen and (max-width: 1400px) {
+  #filter-todate {
+    margin-right: 200px;
+  }
+}
+@media only screen and (max-width: 1250px) {
+  #filter-todate {
+    margin-right: unset;
+  }
+}
+@media only screen and (max-width: 995px) {
+  #btnAddNew {
+    flex: unset;
+    height: 32px;
+    margin: 1.6rem auto 0 1rem !important;
+  }
+  .btn-submit {
+    margin: 1.6rem 1rem 0 auto !important;
+  }
 }

@@ -50,25 +50,30 @@
                     <td>@item.TeamCode</td>
                     <td>@item.TypeName</td>
                     <td class="content-left">@item.Name</td>
-                    <td >@item.Organization</td>
-                    <td>
+                    <td>@item.Organization</td>
+                    <td class="content-left">
                         @if (item.ConductedBy != null)
                         {
                             <div class="detail">
-                                <p>@ConductedBy</p>
-                                <p class="bold">@item.ConductedBy</p>
+                                <span>
+                                    <span>@ConductedBy</span>
+                                    <span class="bold">@item.ConductedBy</span>
+                                </span>
                             </div>
                         }
                         <div class="detail">
-                            <p>@titleFromDate</p>
-                            <p class="bold">@fromDate</p>
-                            <p>@titleToDate</p>
-                            <p class="bold">@toDate</p>
+                            <span>
+                                <span>@titleFromDate</span>
+                                <span class="bold">@fromDate</span>
+                                <span>@titleToDate</span>
+                                <span class="bold">@toDate</span>
+                            </span>
+
                         </div>
-                        @if(item.Description != null)
+                        @if (item.Description != null)
                         {
                             <div class="detail">
-                                <p>- @item.Description</p>
+                                <span>- @item.Description</span>
                             </div>
                         }
                     </td>

@@ -45,7 +45,6 @@
                                         <label asp-for="FromDate">@Labels.FromDate</label>
                                     </div>
                                     <div class="left datepicker-button select--m">
-                                        <i class="mdi-action-event calendar-icon left"></i>
                                         <date-picker name="FromDate"
                                                      min-date="currentDate.AddYears(-100)"
                                                      value="currentDate.AddDays(-7)">
@@ -53,7 +52,7 @@
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
                                 </div>
-                                <div class="col m-r--l">
+                                <div id="filter-todate" class="col m-r--l">
                                     <div class="left label--m">
                                         <label asp-for="ToDate">@Labels.ToDate</label>
                                     </div>
