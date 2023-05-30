@@ -34,6 +34,7 @@
         Task<CommandResult> SendMessageDeductLateInEarlyOutToEmp(LateInEarlyOutModel lateInEarlyOutModel);
         Task<CommandResult> SendMessageDeductLateInEarlyOutToHrTeam(IEnumerable<LateInEarlyOutModel> lateInEarlyOutModels);
         Task<CommandResult> SendMessageDeductToConversation(IEnumerable<string> conversations, string message);
-        Task<CommandResult> SendMessageReminderLateInEarlyOut(IEnumerable<ReminderLateInEarlyOut> reminderLateInEarlyOuts);
+        Task<CommandResult> SendMessageReminderLateInEarlyOutToEmp(IEnumerable<ReminderLateInEarlyOut> reminderLateInEarlyOuts);
+        Task<CommandResult> SendMessageReminderLateInEarlyOutToHr(IEnumerable<ReminderLateInEarlyOut> reminderLateInEarlyOuts);
     }
 }

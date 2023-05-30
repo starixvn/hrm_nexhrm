@@ -616,11 +616,24 @@ namespace Fanex.NexHR.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Dear {0},
         ///
-        ///You have been Late In/Early Out for more than 60 minutes on {1} which was considered a half day leave as stated in the policy..
+        ///You have been Late In/Early Out for more than 60 minutes on {1} which was considered a half day leave as stated in the policy.
+        ///
+        ///Thanks.
         /// </summary>
         public static string MessageReminderLateInEarlyOut {
             get {
                 return ResourceManager.GetString("MessageReminderLateInEarlyOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hi {0},
+        ///Please be informed that  {1}  have been Late In/Early Out for more than 60 minutes on {2}.
+        ///Thank you..
+        /// </summary>
+        public static string MessageReminderLateInEarlyOutToHr {
+            get {
+                return ResourceManager.GetString("MessageReminderLateInEarlyOutToHr", resourceCulture);
             }
         }
         

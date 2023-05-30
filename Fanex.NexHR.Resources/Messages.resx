@@ -455,6 +455,13 @@ Thank you.</value>
   <data name="MessageReminderLateInEarlyOut" xml:space="preserve">
     <value>Dear {0},
 
-You have been Late In/Early Out for more than 60 minutes on {1} which was considered a half day leave as stated in the policy.</value>
+You have been Late In/Early Out for more than 60 minutes on {1} which was considered a half day leave as stated in the policy.
+
+Thanks</value>
+  </data>
+  <data name="MessageReminderLateInEarlyOutToHr" xml:space="preserve">
+    <value>Hi {0},
+Please be informed that  {1}  have been Late In/Early Out for more than 60 minutes on {2}.
+Thank you.</value>
   </data>
 </root>

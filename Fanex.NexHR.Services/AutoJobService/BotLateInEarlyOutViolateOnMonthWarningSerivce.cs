@@ -168,7 +168,8 @@
             var reminderLateInEarlyOuts = await lateInEarlyOutService.GetAllReminderLateInEarlyOut(new GetAllReminderLateInEarlyOut()).ConfigureAwait(false);
             if (reminderLateInEarlyOuts.Any())
             {
-                _ = await nexbotService.SendMessageReminderLateInEarlyOut(reminderLateInEarlyOuts);
+                _ = await nexbotService.SendMessageReminderLateInEarlyOutToEmp(reminderLateInEarlyOuts);
+                _ = await nexbotService.SendMessageReminderLateInEarlyOutToHr(reminderLateInEarlyOuts);
             }
             return result;
         }
