@@ -45,12 +45,5 @@
             var result = await botService.DeductAsync().ConfigureAwait(false);
             return Ok(result);
         }
-
-        [HttpPost]
-        public async Task<IActionResult> SendMessageReminderLateInEarlyOut()
-        {
-            var result = await botService.SendMessageReminderLateInEarlyOut().ConfigureAwait(false);
-            return Ok(result);
-        }
     }
 }

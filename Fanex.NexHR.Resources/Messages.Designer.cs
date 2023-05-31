@@ -88,6 +88,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please access {0}/report/attendance to view more details. Thanks.
+        /// </summary>
+        public static string AccessLinkToViewMoreLateInEarlyOut {
+            get {
+                return ResourceManager.GetString("AccessLinkToViewMoreLateInEarlyOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please access {0}/report/lateinearlyoutdiscipline to view more details. And don&apos;t forget to warning employees who violate the discipline over 3 times. Thanks.
         /// </summary>
         public static string AccessLinkToViewViolateDiscipline {
@@ -156,6 +165,15 @@ namespace Fanex.NexHR.Resources {
         public static string AnounceNewBioFingerprintAndCard {
             get {
                 return ResourceManager.GetString("AnounceNewBioFingerprintAndCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hi All. There is/are {0} employee(s) Late In/Early Out for more than 60 minutes: {1}.
+        /// </summary>
+        public static string AnounceNumberEmployeeLateInEarlyOutMoreThanSixtyMinutes {
+            get {
+                return ResourceManager.GetString("AnounceNumberEmployeeLateInEarlyOutMoreThanSixtyMinutes", resourceCulture);
             }
         }
         
@@ -363,6 +381,15 @@ namespace Fanex.NexHR.Resources {
         public static string EmployeeFogotLogtime {
             get {
                 return ResourceManager.GetString("EmployeeFogotLogtime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _- {0} ({1}) has been Late In/Early Out on {2}_ {3}.
+        /// </summary>
+        public static string EmployeeLateInEarlyOutMoreThanSixtyMinutes {
+            get {
+                return ResourceManager.GetString("EmployeeLateInEarlyOutMoreThanSixtyMinutes", resourceCulture);
             }
         }
         
@@ -618,22 +645,11 @@ namespace Fanex.NexHR.Resources {
         ///
         ///You have been Late In/Early Out for more than 60 minutes on {1} which was considered a half day leave as stated in the policy.
         ///
-        ///Thanks.
+        ///Please access {2}/Leave/Create to request leave. Thank you..
         /// </summary>
         public static string MessageReminderLateInEarlyOut {
             get {
                 return ResourceManager.GetString("MessageReminderLateInEarlyOut", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hi {0},
-        ///Please be informed that  {1}  have been Late In/Early Out for more than 60 minutes on {2}.
-        ///Thank you..
-        /// </summary>
-        public static string MessageReminderLateInEarlyOutToHr {
-            get {
-                return ResourceManager.GetString("MessageReminderLateInEarlyOutToHr", resourceCulture);
             }
         }
         

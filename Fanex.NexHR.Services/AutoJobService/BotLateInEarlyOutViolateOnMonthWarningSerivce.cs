@@ -162,16 +162,55 @@
             return result;
         }
 
-        public async Task<CommandResult> SendMessageReminderLateInEarlyOut()
+        public async Task<CommandResult> ReminderLateInEarlyOutMoreThanSixtyMinute()
         {
             var result = new CommandResult { Code = 0 };
             var reminderLateInEarlyOuts = await lateInEarlyOutService.GetAllReminderLateInEarlyOut(new GetAllReminderLateInEarlyOut()).ConfigureAwait(false);
             if (reminderLateInEarlyOuts.Any())
             {
-                _ = await nexbotService.SendMessageReminderLateInEarlyOutToEmp(reminderLateInEarlyOuts);
-                _ = await nexbotService.SendMessageReminderLateInEarlyOutToHr(reminderLateInEarlyOuts);
+                await SendMessageLateInEarlyOutMoreThanSixtyMinuteToGroups(MessageCategory.MissingCheckInCheckOut, reminderLateInEarlyOuts).ConfigureAwait(false);
+                result = await nexbotService.SendMessageReminderLateInEarlyOutMoreThanSixtyMinuteToEmp(reminderLateInEarlyOuts);
             }
             return result;
+        }
+
+        private async Task SendMessageLateInEarlyOutMoreThanSixtyMinuteToGroups(MessageCategory categoryId, IEnumerable<ReminderLateInEarlyOut> reminderLateInEarlyOuts)
+        {
+            var conversations = await nexbotService.GetRegisteredConversationAsync(categoryId);
+            if (conversations.Any())
+            {
+                string msg = GenerateGroupMessageLateInEarlyOutMoreThanSixtyMinute(reminderLateInEarlyOuts);
+
+                foreach (var conversation in conversations)
+                {
+                    await nexbotService.SendMessageAsync(conversation.ConversationId, msg).ConfigureAwait(false);
+                }
+            }
+        }
+
+        private string GenerateGroupMessageLateInEarlyOutMoreThanSixtyMinute(IEnumerable<ReminderLateInEarlyOut> reminderLateInEarlyOuts)
+        {
+            StringBuilder message = new();
+            message.Append(string.Format(
+                Messages.AnounceNumberEmployeeLateInEarlyOutMoreThanSixtyMinutes,
+                reminderLateInEarlyOuts.Count(),
+                Constants.NewLine));
+
+            foreach (var employee in reminderLateInEarlyOuts)
+            {
+                message.Append(string.Format(
+                    Messages.EmployeeLateInEarlyOutMoreThanSixtyMinutes,
+                    employee.FullName,
+                    employee.NickName,
+                    employee.AttendanceDate.ToString(FormatLongDate),
+                    Constants.NewLine));
+            }
+
+            message.Append(string.Format(
+                Messages.AccessLinkToViewMoreLateInEarlyOut,
+                BaseUrl));
+
+            return message.ToString();
         }
 
         private async Task SendMessageViolateOnMonthToEmployees(IEnumerable<LateInEarlyOutViolateModel> violaters)

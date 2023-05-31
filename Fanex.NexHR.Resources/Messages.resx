@@ -457,11 +457,15 @@ Thank you.</value>
 
 You have been Late In/Early Out for more than 60 minutes on {1} which was considered a half day leave as stated in the policy.
 
-Thanks</value>
+Please access {2}/Leave/Create to request leave. Thank you.</value>
   </data>
-  <data name="MessageReminderLateInEarlyOutToHr" xml:space="preserve">
-    <value>Hi {0},
-Please be informed that  {1}  have been Late In/Early Out for more than 60 minutes on {2}.
-Thank you.</value>
+  <data name="AccessLinkToViewMoreLateInEarlyOut" xml:space="preserve">
+    <value>Please access {0}/report/attendance to view more details. Thanks</value>
+  </data>
+  <data name="AnounceNumberEmployeeLateInEarlyOutMoreThanSixtyMinutes" xml:space="preserve">
+    <value>Hi All. There is/are {0} employee(s) Late In/Early Out for more than 60 minutes: {1}</value>
+  </data>
+  <data name="EmployeeLateInEarlyOutMoreThanSixtyMinutes" xml:space="preserve">
+    <value>_- {0} ({1}) has been Late In/Early Out on {2}_ {3}</value>
   </data>
 </root>

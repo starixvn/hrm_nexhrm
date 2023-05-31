@@ -11,6 +11,6 @@
 
         Task<CommandResult> SendMessageDeductAsync();
         Task<CommandResult> DeductAsync();
-        Task<CommandResult> SendMessageReminderLateInEarlyOut();
+        Task<CommandResult> ReminderLateInEarlyOutMoreThanSixtyMinute();
     }
 }

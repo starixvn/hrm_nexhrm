@@ -256,36 +256,16 @@
             return new CommandResult { Code = result ? 0 : 1 };
         }
 
-        public async Task<CommandResult> SendMessageReminderLateInEarlyOutToEmp(IEnumerable<ReminderLateInEarlyOut> reminderLateInEarlyOuts)
+        public async Task<CommandResult> SendMessageReminderLateInEarlyOutMoreThanSixtyMinuteToEmp(IEnumerable<ReminderLateInEarlyOut> reminderLateInEarlyOuts)
         {
             var result = false;
             foreach (var conversation in reminderLateInEarlyOuts)
             {
-                var message = string.Format(Messages.MessageReminderLateInEarlyOut, conversation.NickName, conversation.AttendanceDate.ToString("dd MMM, yyyy"));
+                var message = string.Format(Messages.MessageReminderLateInEarlyOut, conversation.NickName,
+                    conversation.AttendanceDate.ToString("dd MMM, yyyy"), appSetting.BaseUrl);
                 result = await SendMessageAsync(conversation.ConversationId, message).ConfigureAwait(false);
             }
 
-            return new CommandResult { Code = result ? 0 : 1 };
-        }
-
-        public async Task<CommandResult> SendMessageReminderLateInEarlyOutToHr(IEnumerable<ReminderLateInEarlyOut> reminderLateInEarlyOuts)
-        {
-            var result = false;
-            try
-            {
-                var conversations = await scheduledMessageRepository.GetTeamHrConversationsAsync(new GetTeamHrConversationCriteria()).ConfigureAwait(false);
-                var users = string.Join(", ", reminderLateInEarlyOuts.Select(x => x.NickName));
-                foreach (var item in conversations)
-                {
-                    var yesterday = DateTime.Now.AddDays(-1).ToString("dd MMM, yyyy");
-                    var message = string.Format(Messages.MessageReminderLateInEarlyOutToHr, item.NickName, users, yesterday);
-                    result = await SendMessageAsync(item.ConversationId, message).ConfigureAwait(false);
-                }
-            }
-            catch (Exception ex)
-            {
-                logService.LogException(ex);
-            }
             return new CommandResult { Code = result ? 0 : 1 };
         }
 

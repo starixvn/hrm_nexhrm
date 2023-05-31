@@ -1,23 +1,26 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
-    using System.Threading.Tasks;
     using Fanex.NexHR.Services.Interfaces;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using System.Threading.Tasks;
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ReminderController : ControllerBase
     {
         private readonly IMailBirthdayAndFirstWorkingdayReminderService mailReminderService;
         private readonly IBotAutoJobService botService;
+        private readonly IBotLateInLateOutAutoJobService botLateInLateOut;
 
         public ReminderController(
             IMailBirthdayAndFirstWorkingdayReminderService mailReminderService,
+            IBotLateInLateOutAutoJobService botLateInLateOut,
             IBotAutoJobService botService
         )
         {
             this.mailReminderService = mailReminderService;
+            this.botLateInLateOut = botLateInLateOut;
             this.botService = botService;
         }
 
@@ -32,6 +35,14 @@
         public async Task<IActionResult> MissingCheckInCheckOut()
         {
             var result = await botService.SendMessageAsync().ConfigureAwait(false);
+            return Ok(result);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> LateInEarlyOutMoreThanSixtyMinute()
+        {
+            var result = await botLateInLateOut.ReminderLateInEarlyOutMoreThanSixtyMinute().ConfigureAwait(false);
             return Ok(result);
         }
     }
