@@ -19,7 +19,7 @@
     {
         private readonly string BaseUrl;
         private const int ViolatedTime = 4;
-        private const int IdEmpDeductLateInEarlyOut = 279;
+        private const int IdEmpDeductLateInEarlyOut = 507;
         private const string FormatShortDate = "MMM, yyyy";
         private const string FormatLongDate = "dd MMM, yyyy";
         private readonly IMessageCategoryLogService messageCategoryLog;
