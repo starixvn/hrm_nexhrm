@@ -520,6 +520,9 @@
     <None Update="EmailTemplates\AutoJobDeduct.Request.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="EmailTemplates\CheckInOut.Request.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="EmailTemplates\CheckInOutApprovalNotification.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
