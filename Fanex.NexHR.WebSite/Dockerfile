@@ -20,7 +20,7 @@ WORKDIR "/src/Fanex.NexHR.WebSite"
 
 RUN dotnet publish -r linux-x64 --self-contained false -o /app
 
-FROM hub.nexdev.net/rebuild-baseimage/dotnetcore/aspnet:6.0-alpine AS base
+FROM hub.nexdev.net/rebuild-baseimage/dotnetcore/aspnet:6.0-alpine-iculibs AS base
 
 WORKDIR /app
 
