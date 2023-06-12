@@ -22,6 +22,10 @@
         [Display(Name = "Type", ResourceType = typeof(Labels))]
         public int? TypeId { get; set; }
 
+        [Required]
+        [Display(Name = "Publish", ResourceType = typeof(Labels))]
+        public string Publish { get; set; }
+
         public string TypeName { get; set; }
 
         [Required]

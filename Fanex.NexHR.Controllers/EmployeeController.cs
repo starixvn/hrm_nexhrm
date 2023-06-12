@@ -327,7 +327,7 @@
             employee.TrainingAndDevelopments = await trainingAndDevelopmentService.GetByEmpId(new GetTrainingAndDevelopmentByEmpIdCriteria
             {
                 EmpId = employeeId
-            });
+            }, CurrentUser);
             employee.TrainingAndDevelopmentTypes = await trainingAndDevelopmentService.GetTrainingAndDevelopmentType();
             return View(employee);
         }
@@ -598,7 +598,7 @@
             employee.TrainingAndDevelopments = await trainingAndDevelopmentService.GetByEmpId(new GetTrainingAndDevelopmentByEmpIdCriteria
             {
                 EmpId = CurrentUser.Id
-            });
+            }, CurrentUser);
             employee.TrainingAndDevelopmentTypes = await trainingAndDevelopmentService.GetTrainingAndDevelopmentType();
             return View(employee);
         }

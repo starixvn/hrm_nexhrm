@@ -134,6 +134,7 @@ function initUpdateDialog() {
                     formData.append("TypeName", $("#frmUpdateTrainingAndDevelopment #typeId option:selected").text());
                     formData.append("ConductedBy", $("#frmUpdateTrainingAndDevelopment #ConductedBy")[0].value);
                     formData.append("TypeId", $("#frmUpdateTrainingAndDevelopment #typeId")[0].value);
+                    formData.append("Publish", $("#frmUpdateTrainingAndDevelopment #publish")[0].value);
                     formData.append("Name", $("#frmUpdateTrainingAndDevelopment #Name")[0].value);
                     formData.append("Description", $("#frmUpdateTrainingAndDevelopment #Description")[0].value);
                     formData.append("Organization", $("#frmUpdateTrainingAndDevelopment #Organization")[0].value);
@@ -217,6 +218,7 @@ function initAddNewDialog() {
                     formData.append("TypeName", $("#frmAddTrainingAndDevelopment #typeId option:selected").text());
                     formData.append("ConductedBy", $("#frmAddTrainingAndDevelopment #ConductedBy")[0].value);
                     formData.append("TypeId", $("#frmAddTrainingAndDevelopment #typeId")[0].value);
+                    formData.append("Publish", $("#frmAddTrainingAndDevelopment #publish")[0].value);
                     formData.append("Name", $("#frmAddTrainingAndDevelopment #Name")[0].value);
                     formData.append("Description", $("#frmAddTrainingAndDevelopment #Description")[0].value);
                     formData.append("Organization", $("#frmAddTrainingAndDevelopment #Organization")[0].value);

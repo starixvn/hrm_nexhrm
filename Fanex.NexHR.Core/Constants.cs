@@ -33,6 +33,10 @@
         public const string EmailTemplatePathForReminderBirthday = "EmailTemplates/ReminderBirthday.txt";
         public const string EmailTemplatePathForReminderFirstWorkingday = "EmailTemplates/ReminderFirstWorkingday.txt";
 
+        public const string Public = "Public";
+        public const string Protected = "Protected";
+        public const string Private = "Private";
+
         public const int CurrentPage = 1;
         public const int ItemsPerPage = 100;
 
@@ -59,6 +63,5 @@
         public const int TrainingOrganizationLength = 200;
         public const int TrainingDescriptionLength = 500;
         public const int TrainingConductedByLength = 100;
-
     }
 }

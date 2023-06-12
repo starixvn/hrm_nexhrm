@@ -1255,7 +1255,6 @@ input#fileName::-webkit-file-upload-button:focus, input#fileName::-webkit-file-u
 
 #frmAddTrainingAndDevelopment, #frmUpdateTrainingAndDevelopment {
   margin-top: 0;
-  margin-bottom: 0;
 }
 
 #updateform, #addform {

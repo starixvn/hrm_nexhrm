@@ -54,7 +54,7 @@
                 Name = model.Name,
                 FromDate = model.FromDate,
                 ToDate = model.ToDate.AddDays(1)
-            });
+            }, CurrentUser);
             return PartialView("Views/TrainingAndDevelopment/_TrainingAndDevelopmentGrid.cshtml", trainingAndDevelopments);
         }
 
@@ -83,6 +83,7 @@
                     ConductedBy = model.ConductedBy,
                     TypeId = model.TypeId,
                     Name = model.Name,
+                    Publish = model.Publish,
                     CreatedBy = CurrentUser.Id,
                     Description = model.Description,
                     Organization = model.Organization,
@@ -116,6 +117,7 @@
                 model.Name = trainingAndDevelopment.Name;
                 model.Organization = trainingAndDevelopment.Organization;
                 model.Description = trainingAndDevelopment.Description;
+                model.Publish = trainingAndDevelopment.Publish;
                 model.FromDate = trainingAndDevelopment.TypeName.Equals(Certificate) ?
                     trainingAndDevelopment.ExamDate : trainingAndDevelopment.StartDate;
                 model.ToDate = trainingAndDevelopment.TypeName.Equals(Certificate) ?
@@ -142,6 +144,7 @@
                     ConductedBy = model.ConductedBy,
                     TypeId = model.TypeId,
                     Name = model.Name,
+                    Publish = model.Publish,
                     ModifyBy = CurrentUser.Id,
                     Organization = model.Organization,
                     Description = model.Description,

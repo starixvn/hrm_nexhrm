@@ -1,13 +1,22 @@
 ﻿@using Fanex.NexHR.Models
 @using Fanex.NexHR.Resources
+@using Fanex.NexHR.Core
 @using Fanex.NexHR.ViewModels.TrainingAndDevelopment
 @model TrainingAndDevelopmentUpdateViewModel
 @{
     DateTime currentDate = DateTime.Today; 
     var types = ViewBag.Types;
+    var publishSelectList = new SelectList(
+        new List<SelectListItem>
+        {
+            new SelectListItem { Selected = (Model.Publish == Constants.Public), Text =  Constants.Public, Value = Constants.Public},
+            new SelectListItem { Selected = (Model.Publish == Constants.Protected), Text = Constants.Protected, Value =Constants.Protected},
+            new SelectListItem { Selected = (Model.Publish == Constants.Private), Text = Constants.Private, Value = Constants.Private},
+        }, "Value", "Text", Model.Publish);
 }
 <form id="frmUpdateTrainingAndDevelopment" class="form form-update-training-and-development">
     <div id="divErrorCont" class="">
+        &nbsp;
     </div>
     <div class="row form-input">
         <div class="display-flex left label--l">
@@ -27,6 +36,16 @@
         </div>
         <div class="left input--m">
             <select class="typeTrainingAndDevelopment" name="TypeId" id="typeId" asp-items="@(new SelectList(types, "Id", "Name",Model.TypeId))">
+            </select>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="display-flex left label--l">
+            <label>@Labels.Publish</label>
+            <i class="require">*</i>
+        </div>
+        <div class="left input--m">
+            <select class="typeTrainingAndDevelopment" name="Publish" id="publish" asp-items="@publishSelectList">
             </select>
         </div>
     </div>
