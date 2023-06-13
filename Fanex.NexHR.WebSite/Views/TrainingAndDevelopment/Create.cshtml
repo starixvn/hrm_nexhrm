@@ -1,5 +1,6 @@
 ﻿@using Fanex.NexHR.Models
 @using Fanex.NexHR.Resources
+@using Fanex.NexHR.Core
 @using Fanex.NexHR.ViewModels.TrainingAndDevelopment
 @model TrainingAndDevelopmentCreateViewModel
 @{
@@ -37,9 +38,9 @@
         </div>
         <div class="left input--m">
             <select class="typeTrainingAndDevelopment" name="Publish" id="publish">
-                <option value="1">Public</option>
-                <option value="2">Protected</option>
-                <option value="3">Private</option>
+                <option value="@Constants.Public">Public</option>
+                <option value="@Constants.Protected">Protected</option>
+                <option value="@Constants.Private">Private</option>
             </select>
         </div>
     </div>
