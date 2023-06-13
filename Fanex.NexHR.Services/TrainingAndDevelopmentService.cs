@@ -21,8 +21,8 @@
         public async Task<IEnumerable<TrainingAndDevelopment>> GetAll(GetTrainingAndDevelopmentCriteria criteria, Employee currentUser)
         {
             var trainingAndDevelopments = await baseService.GetDataAsync<TrainingAndDevelopment>(criteria);
-            if (Convert.ToInt32(currentUser.Roles) == Convert.ToInt32(Role.HR)
-                && Convert.ToInt32(currentUser.Roles) == Convert.ToInt32(Role.SA))
+            if (Convert.ToInt32(currentUser.Roles) != Convert.ToInt32(Role.HR)
+                && Convert.ToInt32(currentUser.Roles) != Convert.ToInt32(Role.SA))
             {
                 trainingAndDevelopments = CheckRuleShowListTrainingAndDevelopment(trainingAndDevelopments, currentUser);
             }
@@ -38,8 +38,8 @@
         public async Task<IList<TrainingAndDevelopment>> GetByEmpId(GetTrainingAndDevelopmentByEmpIdCriteria criteria, Employee currentUser)
         {
             var trainingAndDevelopments = await baseService.GetDataAsync<TrainingAndDevelopment>(criteria);
-            if (Convert.ToInt32(currentUser.Roles) == Convert.ToInt32(Role.HR)
-                && Convert.ToInt32(currentUser.Roles) == Convert.ToInt32(Role.SA))
+            if (Convert.ToInt32(currentUser.Roles) != Convert.ToInt32(Role.HR)
+                && Convert.ToInt32(currentUser.Roles) != Convert.ToInt32(Role.SA))
             {
                 trainingAndDevelopments = CheckRuleShowListTrainingAndDevelopment(trainingAndDevelopments, currentUser);
             }
@@ -61,12 +61,12 @@
                 {
                     trainingAndDevelopmentFollowRule.Add(item);
                 }
-                else if (item.Publish.Equals(Constants.Protected)
+                if (item.Publish.Equals(Constants.Protected)
                     && (item.LeaderId.Equals(currentUser.Id) || item.EmpId.Equals(currentUser.Id) || item.GroupId.Equals(currentUser.Team.Id)))
                 {
                     trainingAndDevelopmentFollowRule.Add(item);
                 }
-                else if (item.Publish.Equals(Constants.Private) && item.EmpId.Equals(currentUser.Id))
+                if (item.Publish.Equals(Constants.Private) && item.EmpId.Equals(currentUser.Id))
                 {
                     trainingAndDevelopmentFollowRule.Add(item);
                 }
