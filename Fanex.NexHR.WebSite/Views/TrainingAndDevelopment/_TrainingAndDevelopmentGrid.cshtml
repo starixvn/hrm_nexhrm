@@ -7,7 +7,6 @@
 @model IList<TrainingAndDevelopment>
 @{
     var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
-    var isHRRoleHR = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR);
     var count = 0;
     const string Certificate = "Certificates";
     const string FormatDate = "dd MMM yyyy";
@@ -80,7 +79,7 @@
                                 <span>- @item.Description</span>
                             </div>
                         }
-                        @if (isHRRoleHR)
+                        @if (isHRRole)
                         {
                             <div class="detail">
                                 <span>- Publish: </span>
