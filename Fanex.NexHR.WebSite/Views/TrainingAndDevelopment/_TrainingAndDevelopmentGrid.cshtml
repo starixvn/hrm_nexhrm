@@ -25,8 +25,8 @@
             <th style="width:7%">@Labels.Team</th>
             <th style="width:7%">@Labels.Type</th>
             <th style="width:18%">@Labels.Name</th>
-            <th style="width:16%">@Labels.Organization</th>
-            <th style="width:24%">@Labels.Details</th>
+            <th style="width:15%">@Labels.Organization</th>
+            <th style="width:25%">@Labels.Details</th>
             @if (isHRRole)
             {
                 <th style="width:5%">@Labels.Action</th>
@@ -52,40 +52,43 @@
                     <td class="content-left">@item.Name</td>
                     <td>@item.Organization</td>
                     <td class="content-left">
-                        @if (item.ConductedBy != null)
-                        {
-                            <div class="detail">
-                                <span>
-                                    <span>@ConductedBy</span>
-                                    <span class="bold">@item.ConductedBy</span>
-                                </span>
-                            </div>
-                        }
-                        <div class="detail">
-                            <span>
-                                <span>@titleFromDate</span>
-                                <span class="bold">@fromDate</span>
-                                @if (!toDate.Equals(DateTime.MinValue.ToString(FormatDate)))
+                        <div class="row row-detail">
+                            <div class="col col-content-detail">
+                                @if (item.ConductedBy != null)
                                 {
-                                    <span>@titleToDate</span>
-                                    <span class="bold">@toDate</span>
+                                    <div class="detail">
+                                        <span>
+                                            <span>@ConductedBy</span>
+                                            <span class="bold">@item.ConductedBy</span>
+                                        </span>
+                                    </div>
                                 }
-                            </span>
+                                <div class="detail">
+                                    <span>
+                                        <span>@titleFromDate</span>
+                                        <span class="bold">@fromDate</span>
+                                        @if (!toDate.Equals(DateTime.MinValue.ToString(FormatDate)))
+                                        {
+                                            <span>@titleToDate</span>
+                                            <span class="bold">@toDate</span>
+                                        }
+                                    </span>
 
+                                </div>
+                                @if (item.Description != null)
+                                {
+                                    <div class="detail">
+                                        <span>- @item.Description</span>
+                                    </div>
+                                }
+                            </div>
+                            @if (isHRRole)
+                            {
+                                <div class="col col-icon-detail">
+                                    <div title="@item.Publish" class="col icon-publish icon-@item.Publish"  />
+                                </div>
+                            }
                         </div>
-                        @if (item.Description != null)
-                        {
-                            <div class="detail">
-                                <span>- @item.Description</span>
-                            </div>
-                        }
-                        @if (isHRRole)
-                        {
-                            <div class="detail">
-                                <span>- Publish: </span>
-                                <span class="bold">@item.Publish</span>
-                            </div>
-                        }
                     </td>
                     @if (isHRRole)
                     {

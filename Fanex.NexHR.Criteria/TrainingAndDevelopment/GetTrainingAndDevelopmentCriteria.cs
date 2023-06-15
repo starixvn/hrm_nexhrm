@@ -8,6 +8,7 @@
         public int? GroupId { get; set; }
 
         public int? EmpId { get; set; }
+        public int CurrentUserId { get; set; }
 
         public int? TypeId { get; set; }
 
@@ -18,6 +19,6 @@
 
         public override string GetSettingKey() => "TrainingAndDevelopment_Get";
 
-        public override bool IsValid() => ToDate >= FromDate;
+        public override bool IsValid() => ToDate >= FromDate && CurrentUserId > 0;
     }
 }

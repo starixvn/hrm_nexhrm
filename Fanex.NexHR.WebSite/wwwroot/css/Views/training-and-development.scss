@@ -2,6 +2,50 @@
     z-index: 1052 !important;
 }
 
+.row-detail {
+    margin-left: -10px;
+    display: -webkit-inline-box;
+    width: 100%;
+
+    .col-content-detail {
+        margin: unset;
+        width: 95%;
+    }
+
+    .col-icon-detail {
+        margin: unset;
+        width: 5%;
+    }
+}
+
+.icon-publish {
+    width: 20px;
+    height: 20px;
+    margin-left: 94%;
+    margin-left: 2px;
+}
+
+.icon-Public {
+    background: url('../Images/icon-access-public.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.icon-Private {
+    background: url('../Images/icon-access-private.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.icon-Protected {
+    background: url('../Images/icon-access-protected.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
 #dialog-training {
     display: none;
 }

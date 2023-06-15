@@ -53,6 +53,7 @@
                 TypeId = model.TypeId,
                 Name = model.Name,
                 FromDate = model.FromDate,
+                CurrentUserId = CurrentUser.Id,
                 ToDate = model.ToDate.AddDays(1)
             }, CurrentUser);
             return PartialView("Views/TrainingAndDevelopment/_TrainingAndDevelopmentGrid.cshtml", trainingAndDevelopments);
