@@ -993,6 +993,10 @@ input#fileName::-webkit-file-upload-button:focus, input#fileName::-webkit-file-u
   width: 12rem;
 }
 
+.label--mxxl {
+  width: 15rem;
+}
+
 .label--xxl {
   width: 20rem;
 }

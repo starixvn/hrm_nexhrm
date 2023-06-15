@@ -1798,4 +1798,7 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   <data name="Publish" xml:space="preserve">
     <value>Publish</value>
   </data>
+  <data name="EducationBackground" xml:space="preserve">
+    <value>Education Background</value>
+  </data>
 </root>

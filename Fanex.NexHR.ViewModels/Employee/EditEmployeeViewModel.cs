@@ -1,10 +1,10 @@
 ﻿namespace Fanex.NexHR.ViewModels.Employee
 {
+    using Core;
+    using Models;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using Core;
-    using Models;
 
     public class EditEmployeeViewModel
     {
@@ -35,6 +35,7 @@
 
         public int TeamId { get; set; }
 
+        public string EducationBackground { get; set; }
         public int JobTitleId { get; set; }
 
         public decimal AnnualLeaveBalance { get; set; }
@@ -207,6 +208,7 @@
                 GroupDate = employee.GroupDate;
                 ContactPhone = employee.ContactPhone;
                 ContactAddress = employee.ContactAddress;
+                EducationBackground = employee.EducationBackground;
             }
         }
     }

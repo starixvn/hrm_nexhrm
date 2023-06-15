@@ -436,7 +436,7 @@
                 Task.Factory.StartNew(async () =>
                 {
                     var employee = await GetEmployeeById(criteria.EmployeeId);
-                    mailEmployeeService.SendMailUpdateSuccess(employee);
+                    //mailEmployeeService.SendMailUpdateSuccess(employee);
                 });
             }
             else
@@ -729,7 +729,8 @@
                 UserRelationship = model.UserRelationship,
                 ContactPhone = model.ContactPhone,
                 ContactAddress = model.ContactAddress,
-                GroupDate = model.GroupDate
+                GroupDate = model.GroupDate,
+                EducationBackground = model.EducationBackground
             };
 
             return criteria;

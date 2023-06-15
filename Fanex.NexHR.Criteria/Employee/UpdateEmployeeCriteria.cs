@@ -1,7 +1,7 @@
 ﻿namespace Fanex.NexHR.Criteria.Employee
 {
-    using System;
     using Data;
+    using System;
 
     public class UpdateEmployeeCriteria : BaseCommand
     {
@@ -13,6 +13,7 @@
 
         public string FullName { get; set; }
 
+        public string EducationBackground { get; set; }
         public string NickName { get; set; }
 
         public string EmployeeCard { get; set; }

@@ -1456,6 +1456,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Education Background.
+        /// </summary>
+        public static string EducationBackground {
+            get {
+                return ResourceManager.GetString("EducationBackground", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Effected Date.
         /// </summary>
         public static string EffectedDate {
