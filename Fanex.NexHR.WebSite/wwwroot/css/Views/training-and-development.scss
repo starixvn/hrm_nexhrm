@@ -21,7 +21,6 @@
 .icon-publish {
     width: 16px;
     height: 16px;
-    margin-left: 94%;
     margin-left: 2px;
 }
 
@@ -154,16 +153,20 @@
         }
     }
 
+    .icon-publish {
+        margin-right: 10px !important;
+    }
+
     .training {
-        width: 735px;
+        width: 765px;
     }
 
     .certificate {
-        width: 1100px;
+        width: 1130px;
     }
 
     .developmentDetail {
-        width: 1065px;
+        width: 1095px;
     }
 
     .detail {

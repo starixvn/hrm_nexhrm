@@ -132,6 +132,11 @@
                                     <div class="sorter" data-property="JoinedDate">
                                     </div>
                                 </th>
+                                <th class="col-sorter">
+                                    @Labels.GroupDate
+                                    <div class="sorter" data-property="GroupDate">
+                                    </div>
+                                </th>
                                 <th id="resignedDate" class="col-sorter">
                                     @Labels.ResignedDate
                                     <div class="sorter" data-property="ResignedDate">
@@ -182,6 +187,11 @@
         <td>
             {{if JoinedDate != null}}
             {{:~formatDate(JoinedDate, 'dd MMM, yyyy')}}
+            {{/if}}
+        </td>
+        <td>
+            {{if GroupDate != null}}
+            {{:~formatDate(GroupDate, 'dd MMM, yyyy')}}
             {{/if}}
         </td>
         <td class="ResignedDate">

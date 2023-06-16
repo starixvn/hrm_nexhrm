@@ -166,6 +166,17 @@ else
                                         }
                                     </span>
                                 </p>
+                                @if (@isHRRole)
+                                {
+                                    <p class="accinfo">
+                                        <span class="label--l">@Labels.GroupDate:</span> <span class="txt-bold">
+                                            @{
+                                                var groupDate = (DateTime)Model.GroupDate;
+                                                @groupDate.ToString("dd MMM, yyyy")
+                                            }
+                                        </span>
+                                    </p>
+                                }
                                 <p class="accinfo">
                                     <span class="label--l">@Labels.ConfirmedDate:</span> <span class="txt-bold">
                                         @if (Model.ConfirmedDate != null)
@@ -205,6 +216,10 @@ else
                                             {
                                                 <div class="detail training">
                                                     <p class="name bold">@trainingAndDevelopments.Name</p>
+                                                    @if (@isHRRole)
+                                                    {
+                                                        <p title="@trainingAndDevelopments.Publish" class=" icon-publish icon-@trainingAndDevelopments.Publish" />
+                                                    }
                                                     <p>Conducted by:</p>
                                                     <p class="conductedby italic">@trainingAndDevelopments.ConductedBy</p>
                                                     <p>Start Date:</p>
@@ -215,6 +230,10 @@ else
                                             {
                                                 <div class="detail certificate">
                                                     <p class="name bold">@trainingAndDevelopments.Name</p>
+                                                    @if (@isHRRole)
+                                                    {
+                                                        <p title="@trainingAndDevelopments.Publish" class=" icon-publish icon-@trainingAndDevelopments.Publish" />
+                                                    }
                                                     <p>Organization:</p>
                                                     <p class="organization italic">@trainingAndDevelopments.Organization</p>
                                                     <p>Test Date:</p>
@@ -230,6 +249,10 @@ else
                                             {
                                                 <div class="detail developmentDetail">
                                                     <p class="name bold">@trainingAndDevelopments.Name</p>
+                                                    @if (@isHRRole)
+                                                    {
+                                                        <p title="@trainingAndDevelopments.Publish" class=" icon-publish icon-@trainingAndDevelopments.Publish" />
+                                                    }
                                                     <p>Organization:</p>
                                                     <p class="organization italic">@trainingAndDevelopments.Organization</p>
                                                     <p>Start Date:</p>

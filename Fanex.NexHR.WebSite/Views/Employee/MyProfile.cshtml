@@ -1,10 +1,14 @@
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.Models
 @using Fanex.NexHR.Core
+@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Services.Interfaces
+@inject ISessionService sessionService;
 @{
     const string Certificates = "Certificates";
     const string InternalTraining = "Internal Training";
     const string FormatDate = "dd MMM yyyy";
+    var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
 }
 @model Employee
 @{
@@ -165,6 +169,14 @@
                                 </span>
                             </p>
                             <p class="accinfo">
+                                <span class="label--l">@Labels.GroupDate:</span> <span class="txt-bold">
+                                    @{
+                                        var groupDate = (DateTime)Model.GroupDate;
+                                        @groupDate.ToString("dd MMM, yyyy")
+                                    }
+                                </span>
+                            </p>
+                            <p class="accinfo">
                                 <span class="label--l">@Labels.ConfirmedDate:</span> <span class="txt-bold">
                                     @if (Model.ConfirmedDate != null)
                                     {
@@ -201,6 +213,10 @@
                                         {
                                             <div class="detail training">
                                                 <p class="name bold">@trainingAndDevelopment.Name</p>
+                                                @if (@isHRRole)
+                                                {
+                                                    <p title="@trainingAndDevelopment.Publish" class=" icon-publish icon-@trainingAndDevelopment.Publish" />
+                                                }
                                                 <p>Conducted by:</p>
                                                 <p class="conductedby italic">@trainingAndDevelopment.ConductedBy</p>
                                                 <p>Start Date:</p>
@@ -211,6 +227,10 @@
                                         {
                                             <div class="detail certificate">
                                                 <p class="name bold">@trainingAndDevelopment.Name</p>
+                                                @if (@isHRRole)
+                                                {
+                                                    <p title="@trainingAndDevelopment.Publish" class=" icon-publish icon-@trainingAndDevelopment.Publish" />
+                                                }
                                                 <p>Organization:</p>
                                                 <p class="organization italic">@trainingAndDevelopment.Organization</p>
                                                 <p>Test Date:</p>
@@ -226,6 +246,10 @@
                                         {
                                             <div class="detail developmentDetail">
                                                 <p class="name bold">@trainingAndDevelopment.Name</p>
+                                                @if (@isHRRole)
+                                                {
+                                                    <p title="@trainingAndDevelopment.Publish" class=" icon-publish icon-@trainingAndDevelopment.Publish" />
+                                                }
                                                 <p>Organization:</p>
                                                 <p class="organization italic">@trainingAndDevelopment.Organization</p>
                                                 <p>Start Date:</p>
