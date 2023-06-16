@@ -436,7 +436,7 @@
                 Task.Factory.StartNew(async () =>
                 {
                     var employee = await GetEmployeeById(criteria.EmployeeId);
-                    //mailEmployeeService.SendMailUpdateSuccess(employee);
+                    mailEmployeeService.SendMailUpdateSuccess(employee);
                 });
             }
             else
