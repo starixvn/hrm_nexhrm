@@ -48,7 +48,8 @@ function query(jobTitleId, isFirstLoad) {
     var data = "query=" + keyword + "&teamId=" + $('#TeamId').val() + "&isDisable=" + isDisable + "&isDelete=" + isDelete + jobTitleUrl + "&sort=" + JSON.stringify(sorts) + "&isSpecial=" + isSpecial;
     var teamName = $(".team .select-dropdown").val();
     var url = _global.root + 'employee/getemployees?' + data;
-    var actionOrgUrl = isSpecial ? "SpecialUserManagement?" : "UserManagement?"
+
+    var actionOrgUrl = isSpecial === "True" ? "SpecialUserManagement?" : "UserManagement?"
 
     if (!isFirstLoad) {
         var orgUrl = _global.root + 'employee/' + actionOrgUrl + data + "&teamName=" + teamName;
@@ -135,8 +136,6 @@ function initDataFirstQuery(queryString) {
     $('#JobTitleId').val(jobTitleId);
     $(".team .select-dropdown").val(teamName);
 
-    console.log(isDisable)
-    console.log(isDelete)
     if (isDisable === "true") {
         $("#IsDisable").prop("checked", true);
     } else if (isDelete === "true") {
@@ -157,13 +156,14 @@ function eventSorting(jobTitleId) {
         index = sorts.map(function (e) { return e.Property; }).indexOf(property);
 
         if ($this.hasClass('desc')) {
-            $this.removeClass('asc').removeClass('desc').addClass('asc');
+            $this.removeClass('desc').addClass('asc');
             direction = 'asc';
         } else if ($this.hasClass('asc')) {
-            $this.removeClass('asc').removeClass('desc').addClass('desc');
+            $this.removeClass('asc').addClass('desc');
             direction = 'desc';
         } else {
-            $this.removeClass('asc').removeClass('desc').addClass('desc');
+            refreshSorting();
+            $this.addClass('desc');
             direction = 'desc';
         }
 
