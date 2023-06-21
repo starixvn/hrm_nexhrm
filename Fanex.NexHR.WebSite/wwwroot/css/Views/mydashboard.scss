@@ -802,7 +802,28 @@
 
                     thead, tbody {
                         tr {
-                            th, td {
+                            th {
+                                &:nth-child(1) {
+                                    width: 36px;
+                                }
+
+                                &:nth-child(2) {
+                                    display: none;
+                                }
+
+                                &:nth-child(3) {
+                                    width: 80px;
+                                }
+
+                                &:nth-child(1), :nth-child(3) {
+                                    height: 73px; 
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                }
+                            }
+
+                            td {
                                 &:nth-child(1) {
                                     width: 36px;
                                 }
