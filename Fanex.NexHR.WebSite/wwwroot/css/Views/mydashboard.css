@@ -599,6 +599,9 @@
   .card-container-base.card-team-attendance .card-content .card-title-block {
     margin: 0;
   }
+  .card-container-base.card-team-attendance .card-content .card-body {
+    padding: 0;
+  }
   .card-container-base.card-team-attendance .card {
     margin: 0 0 0.8rem;
   }
@@ -610,42 +613,20 @@
     min-width: 75rem;
     margin-bottom: 0.7rem;
   }
-  .card-container-base.card-team-attendance .cover-table-team-attendance table thead tr th:nth-child(1), .card-container-base.card-team-attendance .cover-table-team-attendance table tbody tr th:nth-child(1) {
+  .card-container-base.card-team-attendance .cover-table-team-attendance table thead tr th:nth-child(1), .card-container-base.card-team-attendance .cover-table-team-attendance table thead tr td:nth-child(1), .card-container-base.card-team-attendance .cover-table-team-attendance table tbody tr th:nth-child(1), .card-container-base.card-team-attendance .cover-table-team-attendance table tbody tr td:nth-child(1) {
     width: 36px;
+    position: sticky;
+    left: 0;
   }
-  .card-container-base.card-team-attendance .cover-table-team-attendance table thead tr th:nth-child(2), .card-container-base.card-team-attendance .cover-table-team-attendance table tbody tr th:nth-child(2) {
+  .card-container-base.card-team-attendance .cover-table-team-attendance table thead tr th:nth-child(2), .card-container-base.card-team-attendance .cover-table-team-attendance table thead tr td:nth-child(2), .card-container-base.card-team-attendance .cover-table-team-attendance table tbody tr th:nth-child(2), .card-container-base.card-team-attendance .cover-table-team-attendance table tbody tr td:nth-child(2) {
     display: none;
   }
-  .card-container-base.card-team-attendance .cover-table-team-attendance table thead tr th:nth-child(3), .card-container-base.card-team-attendance .cover-table-team-attendance table tbody tr th:nth-child(3) {
+  .card-container-base.card-team-attendance .cover-table-team-attendance table thead tr th:nth-child(3), .card-container-base.card-team-attendance .cover-table-team-attendance table thead tr td:nth-child(3), .card-container-base.card-team-attendance .cover-table-team-attendance table tbody tr th:nth-child(3), .card-container-base.card-team-attendance .cover-table-team-attendance table tbody tr td:nth-child(3) {
     width: 80px;
+    position: sticky;
+    left: 36px;
   }
-  .card-container-base.card-team-attendance .cover-table-team-attendance table thead tr th:nth-child(1), .card-container-base.card-team-attendance .cover-table-team-attendance table thead tr th :nth-child(3), .card-container-base.card-team-attendance .cover-table-team-attendance table tbody tr th:nth-child(1), .card-container-base.card-team-attendance .cover-table-team-attendance table tbody tr th :nth-child(3) {
-    height: 73px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .card-container-base.card-team-attendance .cover-table-team-attendance table thead tr td:nth-child(1), .card-container-base.card-team-attendance .cover-table-team-attendance table tbody tr td:nth-child(1) {
-    width: 36px;
-  }
-  .card-container-base.card-team-attendance .cover-table-team-attendance table thead tr td:nth-child(2), .card-container-base.card-team-attendance .cover-table-team-attendance table tbody tr td:nth-child(2) {
-    display: none;
-  }
-  .card-container-base.card-team-attendance .cover-table-team-attendance table thead tr td:nth-child(3), .card-container-base.card-team-attendance .cover-table-team-attendance table tbody tr td:nth-child(3) {
-    width: 80px;
-  }
-  .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success {
-    margin-left: 116px;
-  }
-  .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success thead tr th:nth-child(1), .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success thead tr td:nth-child(1), .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success tbody tr th:nth-child(1), .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success tbody tr td:nth-child(1) {
-    left: 16px;
-    position: absolute;
-    top: auto;
-    font-weight: 500;
-  }
-  .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success thead tr th:nth-child(3), .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success thead tr td:nth-child(3), .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success tbody tr th:nth-child(3), .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success tbody tr td:nth-child(3) {
-    left: 52px;
-    position: absolute;
+  .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success thead tr th:nth-child(1), .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success thead tr th:nth-child(3), .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success thead tr td:nth-child(1), .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success thead tr td:nth-child(3), .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success tbody tr th:nth-child(1), .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success tbody tr th:nth-child(3), .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success tbody tr td:nth-child(1), .card-container-base.card-team-attendance .cover-table-team-attendance table.table-success tbody tr td:nth-child(3) {
     top: auto;
     font-weight: 500;
   }

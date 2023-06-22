@@ -786,6 +786,10 @@
                 .card-title-block {
                     margin: 0;
                 }
+
+                .card-body{
+                    padding: 0;
+                }
             }
 
             .card {
@@ -802,9 +806,11 @@
 
                     thead, tbody {
                         tr {
-                            th {
+                            th, td {
                                 &:nth-child(1) {
                                     width: 36px;
+                                    position: sticky;
+                                    left: 0;
                                 }
 
                                 &:nth-child(2) {
@@ -813,27 +819,8 @@
 
                                 &:nth-child(3) {
                                     width: 80px;
-                                }
-
-                                &:nth-child(1), :nth-child(3) {
-                                    height: 73px; 
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                }
-                            }
-
-                            td {
-                                &:nth-child(1) {
-                                    width: 36px;
-                                }
-
-                                &:nth-child(2) {
-                                    display: none;
-                                }
-
-                                &:nth-child(3) {
-                                    width: 80px;
+                                    position: sticky;
+                                    left: 36px;
                                 }
                             }
                         }
@@ -841,21 +828,10 @@
                 }
 
                 table.table-success {
-                    margin-left: 116px;
-
                     thead, tbody {
                         tr {
                             th, td {
-                                &:nth-child(1) {
-                                    left: 16px;
-                                    position: absolute;
-                                    top: auto;
-                                    font-weight: 500;
-                                }
-
-                                &:nth-child(3) {
-                                    left: 52px;
-                                    position: absolute;
+                                &:nth-child(1), &:nth-child(3) {
                                     top: auto;
                                     font-weight: 500;
                                 }
