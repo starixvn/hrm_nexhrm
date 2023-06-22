@@ -231,11 +231,11 @@ html {
     width: 100%;
     padding: 1.6rem 2rem 1.5rem 2rem;
     transition: 0.35s;
+    appearance: none;
 }
 
 .login__btn .submit-form:hover {
     background-color: #FDF0E9;
-    ;
     color: #EF6724;
 }
 
