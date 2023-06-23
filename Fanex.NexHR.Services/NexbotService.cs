@@ -202,7 +202,7 @@
         {
             var forDate = GetDateStringForLeaveRequest(request.FromDate, request.ToDate, request.TotalDays);
             var message = $"Dear {leaderName}, {Constants.NewLine}";
-            message += $"This is inform you about your member, {request.Employee} had a leave request {Constants.NewLine}";
+            message += $"This is inform you about your member, {request.Employee} had a leave request (#{request.Id}): {Constants.NewLine}";
             message += $"_- Date: {forDate}_ {Constants.NewLine}";
             message += $"_- Type: {request.LeaveTypeName}_ {Constants.NewLine}";
             message += $"_- Remark: {request.Remark}_ {Constants.NewLine}";
@@ -350,7 +350,7 @@
                             : RequestType.CheckOut.EnumToString().ToLower(CultureInfo.InvariantCulture);
             string time = request.Hour.ToString().PadLeft(2, '0') + ":" + request.Minute.ToString().PadLeft(2, '0');
             string message = $"Dear {leaderName}, {Constants.NewLine}";
-            message += $"This is to inform you about your member, {request.Employee} had a {type} request:{Constants.NewLine}";
+            message += $"This is to inform you about your member, {request.Employee} had a {type} request (#{request.Id}):{Constants.NewLine}";
             message += $"_- Date: {request.WorkDate.ToDateMonthYearFormatedDate()}_{Constants.NewLine}";
             message += $"_- Shift: {request.Shift}_{Constants.NewLine}";
             message += $"_- Time: {time}_{Constants.NewLine}";
