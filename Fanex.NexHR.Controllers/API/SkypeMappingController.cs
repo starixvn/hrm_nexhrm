@@ -34,21 +34,31 @@
             foreach (var emp in notMapAccounts)
             {
                 var skypeMapped = accounts.FirstOrDefault(a => a.UserName.Equals(emp.Skype));
-
                 if (skypeMapped is not null && !string.IsNullOrWhiteSpace(skypeMapped.ConversationId) && emp.Id > 0)
                 {
-                    logServiceProvider.LogFile(JsonConvert.SerializeObject(new
-                    {
-                        EmpId = emp.Id,
-                        NickName = emp.NickName,
-                        ConversationId = skypeMapped.ConversationId
-                    }));
-
+                    WriteLogFile(emp.Id, emp.NickName, skypeMapped.ConversationId);
                     await UpdateSkypeAccount(emp.Id, skypeMapped.ConversationId);
+                }
+
+                var telegramAccount = accounts.FirstOrDefault(a => a.UserName.Equals(emp.Yahoo));
+                if (telegramAccount is not null && !string.IsNullOrWhiteSpace(telegramAccount.ConversationId) && emp.Id > 0)
+                {
+                    WriteLogFile(emp.Id, emp.NickName, telegramAccount.ConversationId);
+                    await UpdateSkypeAccount(emp.Id, telegramAccount.ConversationId);
                 }
             }
 
             return Ok();
+        }
+
+        private void WriteLogFile(int empId, string nickName, string conversationId)
+        {
+            logServiceProvider.LogFile(JsonConvert.SerializeObject(new
+            {
+                EmpId = empId,
+                nickName,
+                conversationId
+            }));
         }
 
         private async Task UpdateSkypeAccount(int empId, string conversationId)
