@@ -25,17 +25,22 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> ProcessRequest(long requestId, string command, string nickName)
+        public async Task<IActionResult> ProcessRequest(long requestId, string command, string nickName, int processedBy)
         {
-            LogFileHelper.WriteInfo(JsonConvert.SerializeObject(new { RequestId = requestId, Command = command, Nickname = nickName }));
-            var criteria = new GetEmployeeByNickNameCriteria
+            LogFileHelper.WriteInfo(JsonConvert.SerializeObject(new { RequestId = requestId, Command = command, Nickname = nickName, ProcessedBy = processedBy }));
+            
+            if (!string.IsNullOrWhiteSpace(nickName))
             {
-                NickName = nickName
-            };
+                var criteria = new GetEmployeeByNickNameCriteria
+                {
+                    NickName = nickName
+                };
 
-            var approver = await employeeService.GetEmployeeByNickName(criteria);
+                var approver = await employeeService.GetEmployeeByNickName(criteria);
+                processedBy = approver.Id;
+            }
 
-            CommandResult result = await requestService.Process(command, requestId, approver.Id);
+            CommandResult result = await requestService.Process(command, requestId, processedBy);
             return Ok(result);
         }
 

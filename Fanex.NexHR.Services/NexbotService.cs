@@ -102,7 +102,7 @@
                 $"/account/GetRegisteredConversationByMessageCategory?messageCategoryId={(int)messageCategory}",
                 HttpMethod.Get);
 
-        private async Task SendApproveMessageAsync(string conversationId, long requestId, string message)
+        private async Task SendApproveMessageAsync(string conversationId, long requestId, int processedBy, string message)
         {
             if (!nexBotSettings.DisabledSendSkype)
             {
@@ -110,6 +110,7 @@
                 {
                     {"conversationId", conversationId },
                     {"requestId", requestId.ToString() },
+                    {"processedBy", processedBy.ToString() },
                     {"message", message },
                     {"callBackUrl", $"{appSetting.BaseUrl}/api" },
                 };
@@ -192,7 +193,7 @@
                 foreach (var leader in leaders)
                 {
                     var message = GenerateMessageForLeaveRequest(request, leader.NickName);
-                    await SendApproveMessageAsync(leader.ConversationId, request.Id, message);
+                    await SendApproveMessageAsync(leader.ConversationId, request.Id, leader.Id, message);
                 }
             }
         }
@@ -293,7 +294,7 @@
                 foreach (var leader in leaders)
                 {
                     var message = GenerateCheckInOutRequestMessage(request, leader.NickName);
-                    await SendApproveMessageAsync(leader.ConversationId, request.Id, message);
+                    await SendApproveMessageAsync(leader.ConversationId, request.Id, leader.Id, message);
                 }
             }
             catch (Exception ex)
