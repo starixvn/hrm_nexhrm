@@ -166,8 +166,7 @@
         {
             if (model != null)
             {
-                IEnumerable<Employee> managers = await baseService.GetDataAsync<Employee>(new GetManagementsCriteria());
-                managers = managers.ToList();
+                var managers = await baseService.GetDataAsync<EmployeeNotificationInfo>(new GetManagementsCriteria());
                 var templatePath = Path.Combine(environment.ContentRootPath, Constants.EmailTemplatePathForOvertimeRequest);
                 var bodyTemplate = Utilities.ReadTextFile(templatePath);
                 var emloyees = string.Join(

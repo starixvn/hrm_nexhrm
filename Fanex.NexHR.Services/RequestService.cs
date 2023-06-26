@@ -310,13 +310,13 @@
             if (model != null)
             {
                 var criteria = new GetLeadersOfEmployeeCriteria { EmployeeId = model.EmployeeId };
-                IEnumerable<Employee> leaders = await baseService.GetDataAsync<Employee>(criteria);
+                var leaders = await baseService.GetDataAsync<EmployeeNotificationInfo>(criteria);
 
                 string forDate = GetDateStringForLeaveRequest(model.FromDate, model.ToDate, model.TotalDays);
 
                 if (model.IsUnpaidLeave || model.IsAnnualLeaveOver5Day)
                 {
-                    IEnumerable<Employee> managers = await baseService.GetDataAsync<Employee>(new GetManagementsCriteria());
+                    var managers = await baseService.GetDataAsync<EmployeeNotificationInfo>(new GetManagementsCriteria());
 
                     SendMailToManagers(managers.ToList(), leaders.ToList(), model, forDate);
                 }
@@ -344,8 +344,8 @@
         }
 
         private void SendMailToManagers(
-            IList<Employee> managers,
-            IList<Employee> leaders,
+            IList<EmployeeNotificationInfo> managers,
+            IList<EmployeeNotificationInfo> leaders,
             LeaveRequestViewModel model,
             string forDate)
         {
@@ -369,7 +369,7 @@
             }
         }
 
-        private void SendMailToLeaders(IList<Employee> leaders, LeaveRequestViewModel model, string forDate)
+        private void SendMailToLeaders(IList<EmployeeNotificationInfo> leaders, LeaveRequestViewModel model, string forDate)
         {
             if (leaders != null && leaders.Any())
             {

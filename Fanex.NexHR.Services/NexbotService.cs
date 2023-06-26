@@ -169,10 +169,10 @@
         {
             if (request != null)
             {
-                IEnumerable<Employee> leaders;
+                IEnumerable<EmployeeNotificationInfo> leaders;
                 if (request.IsAnnualLeaveOver5Day || request.IsUnpaidLeave)
                 {
-                    leaders = await baseService.GetDataAsync<Employee>(new GetManagementsCriteria());
+                    leaders = await baseService.GetDataAsync<EmployeeNotificationInfo>(new GetManagementsCriteria());
                 }
                 else
                 {
@@ -180,20 +180,20 @@
                     {
                         EmployeeId = request.EmployeeId
                     };
-                    leaders = await baseService.GetDataAsync<Employee>(criteria);
+                    leaders = await baseService.GetDataAsync<EmployeeNotificationInfo>(criteria);
                 }
                 await SendMessageToHandleLeaveRequestMembers(leaders, request);
             }
         }
 
-        private async Task SendMessageToHandleLeaveRequestMembers(IEnumerable<Employee> leaders, LeaveRequestViewModel request)
+        private async Task SendMessageToHandleLeaveRequestMembers(IEnumerable<EmployeeNotificationInfo> leaders, LeaveRequestViewModel request)
         {
             if (leaders != null && leaders.Any())
             {
                 foreach (var leader in leaders)
                 {
                     var message = GenerateMessageForLeaveRequest(request, leader.NickName);
-                    await SendApproveMessageAsync(leader.ConversationId, request.Id, leader.Id, message);
+                    await SendApproveMessageAsync(leader.ConversationId, request.Id, leader.EmpId, message);
                 }
             }
         }
