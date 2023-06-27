@@ -194,7 +194,7 @@ function setDateTimeRange(selectedIndex) {
 function validateFromDateAndToDate() {
     var fromDate = new Date($("#FromDate").val()),
         toDate = new Date($("#ToDate").val()),
-        maxDate = new Date(fromDate.getFullYear() + 1, fromDate.getMonth(), 1),
+        maxDate = new Date(fromDate.getFullYear() + 1, fromDate.getMonth(), fromDate.getDate()),
         isValid = true;
 
     if (toDate.getTime() < fromDate.getTime()) {
