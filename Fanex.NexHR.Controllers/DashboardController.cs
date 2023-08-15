@@ -66,6 +66,7 @@
         public async Task<IActionResult> Index()
         {
             var model = await GetMySpaceModelAsync();
+
             var systemReminder = GetRemind();
             var attendance = GetEmployeeAttendaneAsync();
             var notificationLateInEarlyOut = GetLateInEarlyOutNotification();
