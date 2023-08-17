@@ -147,19 +147,16 @@
             int lunarD = 1;
             offset += 1;
 
-            for (int i = 0; i < 13; i++)
+            int i = 0;
+            int dm = GetBitInt(days, 1, 12 - i) == 1 ? 30 : 29;
+            while (offset > dm && i < 13)
             {
-                int dm = GetBitInt(days, 1, 12 - i) == 1 ? 30 : 29;
-                if (offset > dm)
-                {
-                    lunarM++;
-                    offset -= dm;
-                }
-                else
-                {
-                    break;
-                }
+                lunarM++;
+                offset -= dm;
+                i++;
+                dm = GetBitInt(days, 1, 12 - i) == 1 ? 30 : 29;
             }
+
             lunarD = (int)(offset);
             lunar.LunarYear = lunarY;
             lunar.LunarMonth = lunarM;
