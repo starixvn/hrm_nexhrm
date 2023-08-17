@@ -1776,8 +1776,8 @@ Nhà Bếp có phục vụ ăn chay tất cả các ngày trong tháng 7 âm l�
 
 Nếu bạn không muốn nhận loại thông báo này trong tương lai vui lòng gõ câu lệnh sau: _stop_remind_vegetarian_meal_</value>
   </data>
-  <data name="TrainingAndDevelopment" xml:space="preserve">
-    <value>Training And Development</value>
+  <data name="LearningAndDevelopment" xml:space="preserve">
+    <value>Learning And Development</value>
   </data>
   <data name="Organization" xml:space="preserve">
     <value>Organization</value>

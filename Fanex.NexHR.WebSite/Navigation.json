@@ -243,8 +243,8 @@
         "ParentId": 25
     },
     {
-        "Title": "Training And Development",
-        "Controller": "TrainingAndDevelopment",
+        "Title": "Learning And Development",
+        "Controller": "LearningAndDevelopment",
         "Action": "Index",
         "Icon": "school",
         "Roles": "Member",

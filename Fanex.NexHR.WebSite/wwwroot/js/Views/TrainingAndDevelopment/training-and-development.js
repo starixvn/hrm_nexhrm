@@ -17,9 +17,9 @@ function query(isFirstLoad) {
     const teamParam = $(".team .select-dropdown").val();
     const typeParam = $(".type .select-dropdown").val();
 
-    const url = _global.root + 'TrainingAndDevelopment/GetTrainingAndDevelopment?' + data;
+    const url = _global.root + 'LearningAndDevelopment/GetTrainingAndDevelopment?' + data;
     if (!isFirstLoad) {
-        const orgUrl = _global.root + 'TrainingAndDevelopment/Index?' + data + "&TeamParam=" + teamParam + "&typeParam=" + typeParam;
+        const orgUrl = _global.root + 'LearningAndDevelopment/Index?' + data + "&TeamParam=" + teamParam + "&typeParam=" + typeParam;
         window.history.replaceState(null, null, orgUrl);
     }
 
@@ -39,7 +39,7 @@ function query(isFirstLoad) {
                 const id = $(this).data('id');
                 $.ajax({
                     type: 'GET',
-                    url: _global.root + 'TrainingAndDevelopment/Update?id=' + id,
+                    url: _global.root + 'LearningAndDevelopment/Update?id=' + id,
                     dataType: 'html',
                     success: function (data) {
                         $('#dialog-training').html(data);
@@ -143,7 +143,7 @@ function initUpdateDialog() {
 
                     $.ajax({
                         type: 'POST',
-                        url: _global.root + 'TrainingAndDevelopment/Update',
+                        url: _global.root + 'LearningAndDevelopment/Update',
                         dataType: 'json',
                         processData: false,
                         contentType: false,
@@ -227,7 +227,7 @@ function initAddNewDialog() {
 
                     $.ajax({
                         type: 'POST',
-                        url: _global.root + 'TrainingAndDevelopment/Create',
+                        url: _global.root + 'LearningAndDevelopment/Create',
                         dataType: 'json',
                         processData: false,
                         contentType: false,
@@ -276,7 +276,7 @@ function initAddNewDialog() {
 
 function deleteRequest(id) {
     confirm('Are you sure you want to delete?', function () {
-        $.post(_global.root + 'TrainingAndDevelopment/Delete', { id: id }, function (data) {
+        $.post(_global.root + 'LearningAndDevelopment/Delete', { id: id }, function (data) {
             if (data.IsSuccessful) {
                 alert("Delete successfully!");
                 query(false);
@@ -300,7 +300,7 @@ $(document).ready(function () {
     $('#btnAddNew').click(function () {
         $.ajax({
             type: 'GET',
-            url: _global.root + 'TrainingAndDevelopment/Create',
+            url: _global.root + 'LearningAndDevelopment/Create',
             dataType: 'html',
             success: function (data) {
                 $('#dialog-training').html(data);

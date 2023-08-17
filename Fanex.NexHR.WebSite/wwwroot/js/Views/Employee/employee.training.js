@@ -65,7 +65,7 @@ function initAddNewDialog() {
                     formData.append("ToDate", $("#frmAddTrainingAndDevelopment #ToDatePopup")[0].value);
                     $.ajax({
                         type: 'POST',
-                        url: _global.root + 'TrainingAndDevelopment/Create',
+                        url: _global.root + 'LearningAndDevelopment/Create',
                         dataType: 'json',
                         processData: false,
                         contentType: false,
@@ -119,7 +119,7 @@ $(document).ready(function () {
     $('#btn-add-training').on('click', function () {
         $.ajax({
             type: 'GET',
-            url: _global.root + 'TrainingAndDevelopment/Create',
+            url: _global.root + 'LearningAndDevelopment/Create',
             dataType: 'html',
             success: function (data) {
                 $('#dialog-training').html(data);

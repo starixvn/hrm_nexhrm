@@ -11,14 +11,14 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class TrainingAndDevelopmentController : BaseController
+    public class LearningAndDevelopmentController : BaseController
     {
         private readonly ITeamService teamService;
         private readonly IEmployeeService employeeService;
         private readonly IBaseService baseService;
         private readonly ITrainingAndDevelopmentService trainingAndDevelopmentService;
         private const string Certificate = "Certificates";
-        public TrainingAndDevelopmentController(ISessionService sessionService,
+        public LearningAndDevelopmentController(ISessionService sessionService,
             ITeamService teamService,
             IEmployeeService employeeService,
             ITrainingAndDevelopmentService trainingAndDevelopmentService,
@@ -56,7 +56,7 @@
                 CurrentUserId = CurrentUser.Id,
                 ToDate = model.ToDate.AddDays(1)
             }, CurrentUser);
-            return PartialView("Views/TrainingAndDevelopment/_TrainingAndDevelopmentGrid.cshtml", trainingAndDevelopments);
+            return PartialView("Views/LearningAndDevelopment/_TrainingAndDevelopmentGrid.cshtml", trainingAndDevelopments);
         }
 
         [HrmAuthorize(UserRoles = "HR")]

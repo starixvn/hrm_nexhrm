@@ -2455,6 +2455,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Learning And Development.
+        /// </summary>
+        public static string LearningAndDevelopment {
+            get {
+                return ResourceManager.GetString("LearningAndDevelopment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Leave.
         /// </summary>
         public static string Leave {
@@ -4683,15 +4692,6 @@ namespace Fanex.NexHR.Resources {
         public static string ToTime {
             get {
                 return ResourceManager.GetString("ToTime", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Training And Development.
-        /// </summary>
-        public static string TrainingAndDevelopment {
-            get {
-                return ResourceManager.GetString("TrainingAndDevelopment", resourceCulture);
             }
         }
         
