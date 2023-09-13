@@ -42,9 +42,9 @@
             return employee;
         }
 
-        public async Task<Employee> GetEmployeeByDomainName(GetEmployeeByDomainNameCriteria criteria)
+        public async Task<EmployeeSession> GetEmployeeByDomainName(GetEmployeeByDomainNameCriteria criteria)
         {
-            Employee employee = null;
+            EmployeeSession employee = null;
             if (criteria != null && criteria.IsValid())
             {
                 employee = await employeeRepository.GetByDomainName(criteria);
@@ -233,7 +233,7 @@
             return employees.Length > numberLength ? employees.ToString().Substring(0, employees.Length - numberLength) : string.Empty;
         }
 
-        public IList<string> UserRoles(Employee currentUser)
+        public IList<string> UserRoles(EmployeeSession currentUser)
         {
             const int secondCase = 2;
             const int threeCase = 3;

@@ -15,7 +15,7 @@
         {
             this.baseService = baseService;
         }
-        public async Task<IEnumerable<TrainingAndDevelopment>> GetAll(GetTrainingAndDevelopmentCriteria criteria, Employee currentUser)
+        public async Task<IEnumerable<TrainingAndDevelopment>> GetAll(GetTrainingAndDevelopmentCriteria criteria, EmployeeSession currentUser)
         {
             var trainingAndDevelopments = await baseService.GetDataAsync<TrainingAndDevelopment>(criteria);
             return trainingAndDevelopments.ToList();
@@ -27,7 +27,7 @@
             return trainingAndDevelopments;
         }
 
-        public async Task<IList<TrainingAndDevelopment>> GetByEmpId(GetTrainingAndDevelopmentByEmpIdCriteria criteria, Employee currentUser)
+        public async Task<IList<TrainingAndDevelopment>> GetByEmpId(GetTrainingAndDevelopmentByEmpIdCriteria criteria, EmployeeSession currentUser)
         {
             var trainingAndDevelopments = await baseService.GetDataAsync<TrainingAndDevelopment>(criteria);
             return trainingAndDevelopments.ToList();

@@ -16,7 +16,7 @@
             this.baseService = baseService;
         }
 
-        public async Task<Employee> GetEmployeeByDomain(string domainUserName)
+        public async Task<EmployeeSession> GetEmployeeByDomain(string domainUserName)
         {
             var getEmployeeCriteria = new GetEmployeeByDomainNameCriteria { DomainUserName = domainUserName };
             var employee = await employeeService.GetEmployeeByDomainName(getEmployeeCriteria);

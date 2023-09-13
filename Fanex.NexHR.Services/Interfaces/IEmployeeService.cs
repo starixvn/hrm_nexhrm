@@ -14,7 +14,7 @@
     {
         Task<Employee> GetEmployeeById(GetEmployeeByIdCriteria criteria);
 
-        Task<Employee> GetEmployeeByDomainName(GetEmployeeByDomainNameCriteria criteria);
+        Task<EmployeeSession> GetEmployeeByDomainName(GetEmployeeByDomainNameCriteria criteria);
 
         Task<Employee> GetEmployeeByNickName(GetEmployeeByNickNameCriteria criteria);
 
@@ -46,6 +46,6 @@
 
         Task<IEnumerable<LuminetShift>> GetLuminetShifts();
 
-        IList<string> UserRoles(Employee currentUser);
+        IList<string> UserRoles(EmployeeSession currentUser);
     }
 }

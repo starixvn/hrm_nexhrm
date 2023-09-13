@@ -14,9 +14,9 @@
             session = httpContextAccessor.HttpContext.Session;
         }
 
-        public Employee CurrentEmployee
+        public EmployeeSession CurrentEmployee
         {
-            get => session.Get<Employee>("CurrentUser");
+            get => session.Get<EmployeeSession>("CurrentUser");
             set => session.Set("CurrentUser", value);
         }
 
