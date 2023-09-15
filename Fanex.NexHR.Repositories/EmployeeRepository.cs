@@ -17,11 +17,6 @@
             return await GetEmployeeEntity(criteria);
         }
 
-        public async Task<EmployeeSession> GetByDomainName(ICriteria criteria)
-        {
-            return await GetEmployeeSession(criteria);
-        }
-
         public async Task<Employee> GetByNickName(ICriteria criteria)
         {
             return await GetEmployeeEntity(criteria);
@@ -146,23 +141,6 @@
                         return e;
                     },
                     "MonShiftId, LRExamDate, GroupId, JobtitleId",
-                    criteria);
-
-                return employee;
-            }
-        }
-
-        private static async Task<EmployeeSession> GetEmployeeSession(ICriteria criteria)
-        {
-            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
-            {
-                var employee = await db.QueryEntityAsync<EmployeeSession, Team, EmployeeSession>(
-                    (e, te) =>
-                    {
-                        e.Team = te;
-                        return e;
-                    },
-                    "GroupId",
                     criteria);
 
                 return employee;

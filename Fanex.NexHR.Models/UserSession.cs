@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class EmployeeSession : EntityBase<int>
+    public class UserSession : EntityBase<int>
     {
         public string NickName { get; set; }
 
@@ -19,11 +19,13 @@
 
         public string Roles { get; set; }
 
-        public Team Team { get; set; }
+        public int TeamId { get; set; }
+
+        public string TeamCode { get; set; }
 
         public string DisplayName => NickName + (string.IsNullOrWhiteSpace(FullName) ? string.Empty : " (" + FullName + ")");
 
-        public string CodeOfTeam => Team != null ? Team.Code : string.Empty;
+        public string CodeOfTeam => TeamCode ?? string.Empty;
 
         public IList<short> RoleList
         {
@@ -51,7 +53,7 @@
             }
         }
 
-        public bool HasRolePM => Team != null && Team.Code == "PM";
+        public bool HasRolePM => TeamCode == "PM";
 
         public bool IsInRoles(params Role[] roles)
         {

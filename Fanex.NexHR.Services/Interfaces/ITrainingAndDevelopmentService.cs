@@ -7,9 +7,9 @@
 
     public interface ITrainingAndDevelopmentService
     {
-        Task<IEnumerable<TrainingAndDevelopment>> GetAll(GetTrainingAndDevelopmentCriteria criteria, EmployeeSession currentUser);
+        Task<IEnumerable<TrainingAndDevelopment>> GetAll(GetTrainingAndDevelopmentCriteria criteria, UserSession currentUser);
         Task<TrainingAndDevelopment> GetById(GetTrainingAndDevelopmentByIdCriteria criteria);
-        Task<IList<TrainingAndDevelopment>> GetByEmpId(GetTrainingAndDevelopmentByEmpIdCriteria criteria, EmployeeSession currentUser);
+        Task<IList<TrainingAndDevelopment>> GetByEmpId(GetTrainingAndDevelopmentByEmpIdCriteria criteria, UserSession currentUser);
         Task<IList<TrainingAndDevelopmentType>> GetTrainingAndDevelopmentType();
     }
 }

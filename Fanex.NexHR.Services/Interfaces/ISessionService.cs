@@ -4,7 +4,7 @@
 
     public interface ISessionService
     {
-        EmployeeSession CurrentEmployee { get; set; }
+        UserSession CurrentEmployee { get; set; }
         EmployeeSetting CurrentUserSetting { get; set; }
         void Clear();
     }

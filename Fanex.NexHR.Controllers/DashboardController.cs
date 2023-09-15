@@ -97,7 +97,7 @@
             {
                 FromDate = DateTime.Now,
                 ToDate = DateTime.Now,
-                GroupId = CurrentUser.Team.Id,
+                GroupId = CurrentUser.TeamId,
                 DateOption = 0,
                 ExcludeUserDelete = true,
                 Teams = await teamService.GetTeam(),
@@ -276,7 +276,7 @@
         {
             GetEmployeeWorkloadCriteria criteria = new GetEmployeeWorkloadCriteria
             {
-                TeamId = CurrentUser.Team.Id,
+                TeamId = CurrentUser.TeamId,
                 FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1),
                 ToDate = DateTime.Today
             };
@@ -324,7 +324,7 @@
         [NonAction]
         private bool IsLoadTeamWorkload()
         {
-            return Array.IndexOf(appSetting.IgnoreTeamWorkload.Split(','), CurrentUser.Team.Code) < 0 && CurrentUserSetting.DisplayTeamWorkload;
+            return Array.IndexOf(appSetting.IgnoreTeamWorkload.Split(','), CurrentUser.TeamCode) < 0 && CurrentUserSetting.DisplayTeamWorkload;
         }
 
         private async Task<bool> IsPrivilegeCreateCheckInOut()

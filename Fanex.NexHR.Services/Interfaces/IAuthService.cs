@@ -5,7 +5,7 @@
 
     public interface IAuthService
     {
-        Task<EmployeeSession> GetEmployeeByDomain(string domainUserName);
+        Task<UserSession> GetEmployeeByDomain(string domainUserName);
 
         Task<EmployeeSetting> GetEmployeeSetting(int employeeId);
     }

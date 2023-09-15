@@ -16,7 +16,7 @@
             this.sessionService = sessionService;
         }
 
-        public EmployeeSession CurrentUser
+        public UserSession CurrentUser
         {
             get
             {

@@ -10,8 +10,6 @@
     {
         Task<Employee> GetById(ICriteria criteria);
 
-        Task<EmployeeSession> GetByDomainName(ICriteria criteria);
-
         Task<Employee> GetByNickName(ICriteria criteria);
 
         Task<IList<Employee>> Query(ICriteria criteria);

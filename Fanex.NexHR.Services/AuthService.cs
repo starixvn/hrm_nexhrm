@@ -16,11 +16,11 @@
             this.baseService = baseService;
         }
 
-        public async Task<EmployeeSession> GetEmployeeByDomain(string domainUserName)
+        public async Task<UserSession> GetEmployeeByDomain(string domainUserName)
         {
-            var getEmployeeCriteria = new GetEmployeeByDomainNameCriteria { DomainUserName = domainUserName };
-            var employee = await employeeService.GetEmployeeByDomainName(getEmployeeCriteria);
-            return employee;
+            var getUserCriteria = new GetEmployeeByDomainNameCriteria { DomainUserName = domainUserName };
+            var userSession = await employeeService.GetEmployeeByDomainName(getUserCriteria);
+            return userSession;
         }
 
         public async Task<EmployeeSetting> GetEmployeeSetting(int employeeId)
