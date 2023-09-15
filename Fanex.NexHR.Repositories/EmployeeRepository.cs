@@ -156,7 +156,14 @@
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                var employee = await db.QueryEntityAsync<EmployeeSession>(criteria);
+                var employee = await db.QueryEntityAsync<EmployeeSession, Team, EmployeeSession>(
+                    (e, te) =>
+                    {
+                        e.Team = te;
+                        return e;
+                    },
+                    "GroupId",
+                    criteria);
 
                 return employee;
             }
