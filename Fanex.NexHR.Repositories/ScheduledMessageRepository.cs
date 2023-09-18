@@ -111,8 +111,10 @@
                 {
                     var conversation = multiReader.Read<Conversation>().FirstOrDefault();
                     var permittedEmployees = multiReader.Read<PermittedEmployee>();
-
-                    conversation.PermittedEmployees = permittedEmployees.Where(x => x.ConversationId == conversation.ConversationId);
+                    if (conversation != null)
+                    {
+                        conversation.PermittedEmployees = permittedEmployees.Where(x => x.ConversationId == conversation.ConversationId);
+                    }
 
                     return conversation;
                 }
