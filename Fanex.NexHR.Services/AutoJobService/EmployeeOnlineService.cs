@@ -43,23 +43,28 @@
                     if (!employeeOnlines.Any(t => t.NickName.Equals(nick)) && employees.Any(t => t.NickName.Equals(nick, StringComparison.OrdinalIgnoreCase)))
                     {
                         var isOnline = await CheckIsOnline(computer);
-                        var employee = employees.FirstOrDefault(t => t.NickName.Equals(nick, StringComparison.OrdinalIgnoreCase));
-
-                        employeeOnlines.Add(
-                                new EmployeeOnline
-                                {
-                                    EmpId = employee.Id,
-                                    NickName = employee.NickName,
-                                    IsOnline = isOnline,
-                                    CheckingTime = DateTime.Now,
-                                    PCName = computer
-                                }
-                              );
+                        AddEmployeeOnline(employeeOnlines, employees, nick, isOnline, computer);
                     }
                 }
             }
 
             await UpdateEmployeeOnline(employeeOnlines);
+        }
+
+        private static void AddEmployeeOnline(List<EmployeeOnline> employeeOnlines, IEnumerable<Employee> employees, string nick, bool isOnline, string computer) 
+        {
+            var employee = employees.FirstOrDefault(t => t.NickName.Equals(nick, StringComparison.OrdinalIgnoreCase));
+            if (employee != null)
+            {
+                employeeOnlines.Add(new EmployeeOnline
+                {
+                    EmpId = employee.Id,
+                    NickName = employee.NickName,
+                    IsOnline = isOnline,
+                    CheckingTime = DateTime.Now,
+                    PCName = computer
+                });
+            }
         }
 
         private async Task UpdateEmployeeOnline(IList<EmployeeOnline> employeeOnlines)
