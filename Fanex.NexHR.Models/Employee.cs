@@ -129,6 +129,7 @@
         public DefaultSchedule DefaultSchedule { get; set; }
 
         public DateTime GroupDate { get; set; }
+
         public string EducationBackground { get; set; }
         public IList<TrainingAndDevelopment> TrainingAndDevelopments { get; set; }
         public IList<TrainingAndDevelopmentType> TrainingAndDevelopmentTypes { get; set; }
