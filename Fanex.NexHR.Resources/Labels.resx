@@ -732,8 +732,8 @@
   <data name="S" xml:space="preserve">
     <value>S</value>
   </data>
-  <data name="NickName" xml:space="preserve">
-    <value>Nick Name</value>
+  <data name="EnglishName" xml:space="preserve">
+    <value>English Name</value>
   </data>
   <data name="UpdateTOEICScore" xml:space="preserve">
     <value>Update {0}'s TOEIC Score</value>

@@ -3391,11 +3391,11 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nick Name.
+        ///   Looks up a localized string similar to English Name.
         /// </summary>
-        public static string NickName {
+        public static string EnglishName {
             get {
-                return ResourceManager.GetString("NickName", resourceCulture);
+                return ResourceManager.GetString("EnglishName", resourceCulture);
             }
         }
         

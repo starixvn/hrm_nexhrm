@@ -12,7 +12,7 @@
         [Display(Name = nameof(Labels.FullName), ResourceType = typeof(Labels))]
         public string FullName { get; set; }
 
-        [Display(Name = nameof(Labels.NickName), ResourceType = typeof(Labels))]
+        [Display(Name = nameof(Labels.EnglishName), ResourceType = typeof(Labels))]
         public string NickName { get; set; }
 
         [Required]
