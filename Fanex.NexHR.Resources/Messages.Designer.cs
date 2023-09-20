@@ -865,7 +865,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to full name or nick name.
+        ///   Looks up a localized string similar to full name or english name.
         /// </summary>
         public static string SearchEmployeeWatermark {
             get {

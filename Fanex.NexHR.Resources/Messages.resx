@@ -211,7 +211,7 @@
     <value>search employee...</value>
   </data>
   <data name="SearchEmployeeWatermark" xml:space="preserve">
-    <value>full name or nick name</value>
+    <value>full name or english name</value>
   </data>
   <data name="StopEditRequest" xml:space="preserve">
     <value>You now can't edit your request cause' it was</value>

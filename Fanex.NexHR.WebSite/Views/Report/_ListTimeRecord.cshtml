@@ -25,7 +25,7 @@ else
         <tr>
             <th>@Labels.SymbolCount</th>
             <th>@Labels.Code</th>
-            <th>@Labels.Nick</th>
+            <th>@Labels.EnglishName</th>
             <th>@Labels.Team</th>
             <th>@Labels.TimeRecord</th>
             <th>@Labels.InOut</th>
@@ -109,7 +109,7 @@ else
         @if (Model.Any())
         {
             <tr>
-                <td colspan="6" id="pagination" class="row form-input">
+                <td colspan="12" id="pagination" class="row form-input">
                     <div id="detailtext" class="col m-t--m">
                         @{
                             var from = (pagerOption.CurrentPage - 1) * pagerOption.ItemsPerPage + 1;

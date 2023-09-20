@@ -59,7 +59,7 @@ function query(isFirstLoad) {
                     document.location = _global.root + "request/hrview?" + modelSerialize;
                 });
             } else {
-                $(noInformation(15)).appendTo('table#data');
+                $(noInformation(16)).appendTo('table#data');
             }
 
             floatThead('table#data');
