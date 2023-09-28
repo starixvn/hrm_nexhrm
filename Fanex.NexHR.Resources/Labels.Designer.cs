@@ -1600,6 +1600,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to English Name.
+        /// </summary>
+        public static string EnglishName {
+            get {
+                return ResourceManager.GetString("EnglishName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event Name.
         /// </summary>
         public static string EventName {
@@ -3391,15 +3400,6 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to English Name.
-        /// </summary>
-        public static string EnglishName {
-            get {
-                return ResourceManager.GetString("EnglishName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         public static string No {
@@ -4861,8 +4861,6 @@ namespace Fanex.NexHR.Resources {
         ///   Looks up a localized string similar to 🥦🥬 Đặt cơm chay 🥦🥬
         ///
         ///Nếu bạn có nhu cầu ăn chay thứ {0} ngày {1} (nhằm {2} âm lịch) vui lòng đặt trước bằng cách nhấn vào nút [Đặt Cơm Chay] bên dưới hoặc vào hệ thống F&amp;B để đăng ký để Bếp chuẩn bị được tốt hơn.
-        ///
-        ///Nhà Bếp có phục vụ ăn chay tất cả các ngày trong tháng 7 âm lịch, nhằm ngày 16/8 đến ngày 15/9 dương lịch. Các bạn có kế hoạch đặt chay vui lòng vào hệ thống F&amp;B để đăng ký.
         ///
         ///Nếu bạn không muốn nhận loại thông báo này trong tương lai vui lòng gõ câu lệnh sau: _stop_remind_vegetarian_meal_.
         /// </summary>
