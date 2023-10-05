@@ -12,13 +12,15 @@ COPY ["Fanex.NexHR.Services/Fanex.NexHR.Services.csproj", "Fanex.NexHR.Services/
 COPY ["Fanex.NexHR.ViewModels/Fanex.NexHR.ViewModels.csproj", "Fanex.NexHR.ViewModels/"]
 COPY ["Fanex.NexHR.Controllers/Fanex.NexHR.Controllers.csproj", "Fanex.NexHR.Controllers/"]
 COPY ["nuget.config", ""]
-RUN dotnet restore "Fanex.NexHR.WebSite/Fanex.NexHR.WebSite.csproj"
+RUN --mount=type=cache,target=/root/.nuget/packages \
+dotnet restore "Fanex.NexHR.WebSite/Fanex.NexHR.WebSite.csproj"
 
 COPY . .
 
 WORKDIR "/src/Fanex.NexHR.WebSite"
 
-RUN dotnet publish -r linux-x64 --self-contained false -o /app
+RUN --mount=type=cache,target=/root/.nuget/packages \
+dotnet publish -r linux-x64 --self-contained false -o /app
 
 FROM hub.nexdev.net/base/dotnet/core/aspnet:6.0-alpine AS base
 
