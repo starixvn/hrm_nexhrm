@@ -48,7 +48,7 @@
                 }
             }
 
-            return fingerprintAndCardSummary ?? new List<FingerprintAndCardSummary>();
+            return fingerprintAndCardSummary;
         }
 
         public async Task<IEnumerable<FingerprintAndCardSummary>> GetWarningFingerprintAndCardSummaryAsync(GetFingerprintAndCardSummaryCriteria criteria)
