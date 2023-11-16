@@ -2,7 +2,6 @@ namespace Fanex.NexHR.Controllers
 {
     using Core;
     using System.Collections.Generic;
-    using System.Linq;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
@@ -18,23 +17,30 @@ namespace Fanex.NexHR.Controllers
         private readonly IWebHostEnvironment environment;
         private readonly AppSetting appSetting;
         private readonly IApplicantService applicantService;
+        private readonly IPositionService positionService;
 
         public ApplicantsController(ISessionService sessionService,
             IBaseService baseService,
             IWebHostEnvironment environment,
             AppSetting appSetting,
-            IApplicantService applicantService) : base(sessionService)
+            IApplicantService applicantService,
+            IPositionService positionService) : base(sessionService)
         {
             this.baseService = baseService;
             this.environment = environment;
             this.appSetting = appSetting;
             this.applicantService = applicantService;
+            this.positionService = positionService;
         }
 
-         [HrmAuthorize(UserRoles = "HR")]
-        public IActionResult Index()
+        [HrmAuthorize(UserRoles = "HR")]
+        public async Task<IActionResult> Index()
         {
-            var model = new ApplicantViewModel();
+             var model = new ApplicantViewModel
+            {
+                Positions = await positionService.GetAll()
+            };
+
             return View(model);
         }
 

@@ -140,6 +140,7 @@
             services.AddSingleton<IJobGradeService, JobGradeService>();
              services.AddSingleton<IApplicantService, ApplicantService>();
             services.AddSingleton<ITransferService, TransferService>();
+             services.AddSingleton<IPositionService, PositionService>();
 
             //API Service
             services.AddSingleton<IBotBioTasksService, BioTasksService>();

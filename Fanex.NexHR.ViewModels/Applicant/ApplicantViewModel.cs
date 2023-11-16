@@ -1,6 +1,8 @@
 ﻿namespace Fanex.NexHR.ViewModels.Applicant
 {
     using System;
+    using System.Collections.Generic;
+    using Fanex.NexHR.Models;
 
     public class ApplicantViewModel
     {
@@ -20,5 +22,7 @@
         public DateTime FromDate { get; set; }
 
         public DateTime ToDate { get; set; }
+
+         public IEnumerable<Position> Positions { get; set; }
     }
 }

@@ -9,15 +9,25 @@
 <table id="data-detail" class="table bordered striped highlight table-custom centered">
     <thead>
         <tr>
-            <th>@Labels.SymbolCount</th>
-            <th>@Labels.FullName</th>
-            <th>@Labels.Contact</th>
-            <th>@Labels.Position</th>
-            <th>@Labels.Interview1</th>
-            <th>@Labels.Interview2</th>
-            <th>@Labels.Note</th>
-            <th>@Labels.Source</th>
-            <th>@Labels.CV</th>
+            <th rowspan="2">@Labels.SymbolCount</th>
+            <th rowspan="2">@Labels.FullName</th>
+            <th rowspan="2">@Labels.Phone</th>
+            <th rowspan="2">@Labels.Email</th>
+            <th rowspan="2">@Labels.Position</th>
+            <th colspan="2">@Labels.Interview1</th>
+            <th colspan="2">@Labels.Interview2</th>
+            <th rowspan="2">@Labels.OnBoard</th>
+            <th rowspan="2">@Labels.Note</th>
+            <th rowspan="2">@Labels.Source</th>
+            <th rowspan="2">@Labels.CV</th>
+            <th rowspan="2">@Labels.Edit</th>
+            <th rowspan="2">@Labels.Delete</th>
+        </tr>
+        <tr>
+            <th>@Labels.Date</th>
+            <th>@Labels.Result</th>
+            <th>@Labels.Date</th>
+            <th>@Labels.Result</th>
         </tr>
     </thead>
     <tbody>
@@ -26,22 +36,36 @@
             foreach(var item in Model)
             {
                 <tr>
+                    <td>@(index++)</td>
+                    <td>@item.FullName</td>
+                    <td>@item.Phone</td>
+                    <td>@item.Email</td>
+                    <td>@item.Position</td>
+                    <td>@item.InterviewDate1.ToFormatedDate()</td>
                     <td></td>
+                    <td>@item.InterviewDate2.ToFormatedDate()</td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>@item.JoinDate.ToDateMonthYearFormatedDate()</td>
+                    <td>@item.Notes</td>
+                    <td>@item.Source</td>
+                    <td>@item.CV</td>
+                     <td class="cmd">
+                        <a href="@Url.Action("Edit", "Applicant", @item.Id)">
+                            <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
+                        </a>
+                    </td>
+                    <td class="cmd">
+                        <a href="javascript:;" onclick="deleteApplicant(@item.Id);">
+                            <i class="mdi mdi-delete mdi-dark mdi-18px"></i>
+                        </a>
+                    </td>
                 </tr>
             }
         }
         else
         {
             <tr>
-                <td colspan="9">@Labels.NoData</td>
+                <td colspan="15">@Labels.NoData</td>
             </tr>
         }
     </tbody>

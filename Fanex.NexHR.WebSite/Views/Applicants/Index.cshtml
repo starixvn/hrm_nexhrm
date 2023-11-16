@@ -35,31 +35,39 @@
                                 <div class="left label--s">
                                     <label>@Labels.Position</label>
                                 </div>
-                                <div class="left select--m team">
-                                    <select asp-for="PositionId" asp-items="@(new SelectList(null, "Id", "Name"))">
-                                        <option value="">@Labels.Position</option>
-                                    </select>
+                                <div class="left select--m">
+                                    <select asp-for="PositionId" asp-items="@(new SelectList(Model.Positions, "PositionId", "PositionName"))">
+                                        <option value="">@Labels.All</option>
+                                    </select> 
                                 </div>
                             </div>
-                             @* <div class="col m-r--m">
+                             <div class="col m-r--m">
                                 <div class="left label--s">
                                     <label>@Labels.Status</label>
                                 </div>
-                                <div class="left select--m team">
-                                    <select asp-for="TeamId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
-                                        <option value="">@Labels.Status</option>
-                                    </select>
-                                </div>
+                                <div class="left select--s">
+                                        @{
+                                            var selectList = new List<SelectListItem>
+                                            {
+                                                new SelectListItem {Text = Labels.All, Value = CVStatus.ALL.ToString()},
+                                                new SelectListItem {Text = Labels.OK, Value = CVStatus.OK.ToString()},
+                                                new SelectListItem {Text = Labels.KIV, Value = CVStatus.KIV.ToString()},
+                                                new SelectListItem {Text = Labels.Rejected, Value = CVStatus.Rejected.ToString()}
+                                            };
+                                        }
+                                        <select asp-for="Status" asp-items="@selectList">
+                                        </select>
+                                    </div>
                             </div>
                             <div class="col">
                                 <div class="left label--m">
-                                    <label>@Labels.Name</label>
+                                    <label>@Labels.FullName</label>
                                 </div>
                                 <div class="left input--m">
-                                    <input asp-for="Employee"/>
-                                    <input type="hidden" asp-for="EmployeeId"/>
+                                    <input asp-for="@Model.FullName"/>
+                                    <input type="hidden" asp-for="@Model.FullName"/>
                                 </div>
-                            </div> *@
+                            </div> 
                             <div class="col m-r--l">
                                     <div class="left label--m">
                                         <label asp-for="@Model.FromDate">@Labels.FromDate</label>
@@ -67,7 +75,7 @@
                                     <div class="left datepicker-button select--s">
                                         <date-picker
                                             name="FromDate"
-                                            value="Model.FromDate"
+                                            value="@Model.FromDate"
                                         >
                                         </date-picker>
                                         <i class="mdi-action-event calendar-icon left"></i>
@@ -80,7 +88,7 @@
                                     <div class="left datepicker-button select--s">
                                         <date-picker
                                             name="ToDate"
-                                            value="Model.ToDate"
+                                            value="@Model.ToDate"
                                         >
                                         </date-picker>
                                         <i class="mdi-action-event calendar-icon left"></i>

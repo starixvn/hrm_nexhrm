@@ -5260,5 +5260,37 @@ namespace Fanex.NexHR.Resources {
             }
         }
         
+         /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+         /// <summary>
+        ///   Looks up a localized string similar to KIV.
+        /// </summary>
+        public static string KIV {
+            get {
+                return ResourceManager.GetString("KIV", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to OnBoard.
+        /// </summary>
+        public static string OnBoard {
+            get {
+                return ResourceManager.GetString("OnBoard", resourceCulture);
+            }
+        }
+         /// <summary>
+        ///   Looks up a localized string similar to Result.
+        /// </summary>
+         public static string Result {
+            get {
+                return ResourceManager.GetString("Result", resourceCulture);
+            }
+        }
     }
 }

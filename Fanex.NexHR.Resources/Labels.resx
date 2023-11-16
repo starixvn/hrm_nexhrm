@@ -1855,4 +1855,16 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   <data name="TransferDate" xml:space="preserve">
     <value>Transfer Date</value>
   </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="KIV" xml:space="preserve">
+    <value>KIV</value>
+  </data>
+  <data name="OnBoard" xml:space="preserve">
+    <value>On_Board</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Result</value>
+  </data>
 </root>

@@ -497,4 +497,7 @@
         <Setting Key="Transfer_Insert" SpName="Transfer_Insert" DbName="nexhr" Plain="1"></Setting>
         <Setting Key="Transfer_Update" SpName="Transfer_Update" DbName="nexhr" Plain="1"></Setting>
   </Function>
+    <Function Name="Position">
+        <Setting Key="Position_GetAll" SpName="Position_GetAll" DbName="nexhr" Plain="1"></Setting>
+    </Function>
 </Functions>
