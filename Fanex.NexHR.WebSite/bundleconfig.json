@@ -1075,6 +1075,17 @@
         "sourceMap": false
     },
     {
+        "outputFileName": "wwwroot/minify/js/applicant.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Applicant/applicant.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
       "outputFileName": "wwwroot/minify/js/transfer.min.js",
       "inputFiles": [
           "wwwroot/js/Libs/jquery.validate.unobtrusive.js",

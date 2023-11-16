@@ -200,14 +200,29 @@
     }
 }
 
-#colordef .grid_2 {
-    height: 30px;
-    width: 60px;
-    display: inline-block;
-    margin-right: 5px;
-    text-align: center;
-    line-height: 30px;
+#colordef {
+    .grid_2 {
+      height: 30px;
+      width: 60px;
+      display: inline-block;
+      margin-right: 5px;
+      text-align: center;
+      line-height: 30px;
+    }
+  
+    .m-b--m {
+      margin-bottom: 8px !important;
+    }
 }
+
+.card-container-base .card-content {
+    padding-bottom: 6px !important; 
+
+    .form {
+          margin-top: 8px !important;
+          margin-bottom: 8px !important;
+      }
+  }
 
 .datagrid-body {
     margin: 0;

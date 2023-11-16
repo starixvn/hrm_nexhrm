@@ -10,6 +10,7 @@
         public string FullName { get; set; }
 
         [Required]
+        [Display(Name = "English Name")]
         public string NickName { get; set; }
 
         [Required]

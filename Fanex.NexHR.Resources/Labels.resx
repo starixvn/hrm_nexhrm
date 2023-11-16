@@ -1566,6 +1566,9 @@
   <data name="ContactPhone" xml:space="preserve">
     <value>Contact Phone</value>
   </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
   <data name="UserRelationship" xml:space="preserve">
     <value>Relationship to you</value>
   </data>
@@ -1818,6 +1821,24 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   </data>
   <data name="EffectiveDate" xml:space="preserve">
     <value>Effective Date</value>
+  </data>
+  <data name="Applicants" xml:space="preserve">
+    <value>Applicants</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="NewApplicant" xml:space="preserve">
+    <value>New Applicant</value>
+  </data>
+  <data name="Interview1" xml:space="preserve">
+    <value>Interview 1</value>
+  </data>
+  <data name="Interview2" xml:space="preserve">
+    <value>Interview 2</value>
+  </data>
+  <data name="CV" xml:space="preserve">
+    <value>CV</value>
   </data>
   <data name="NewPromotion" xml:space="preserve">
     <value>New Promotion</value>

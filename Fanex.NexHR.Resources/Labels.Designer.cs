@@ -887,6 +887,15 @@ namespace Fanex.NexHR.Resources {
                 return ResourceManager.GetString("ContactPhone", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Contact.
+        /// </summary>
+        public static string Contact {
+            get {
+                return ResourceManager.GetString("Contact", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Content.
@@ -5182,6 +5191,54 @@ namespace Fanex.NexHR.Resources {
         public static string Yesterday {
             get {
                 return ResourceManager.GetString("Yesterday", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Applicants.
+        /// </summary>
+        public static string Applicants {
+            get {
+                return ResourceManager.GetString("Applicants", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Position.
+        /// </summary>
+        public static string Position {
+            get {
+                return ResourceManager.GetString("Position", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to New Applicant.
+        /// </summary>
+        public static string NewApplicant {
+            get {
+                return ResourceManager.GetString("NewApplicant", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to New Applicant.
+        /// </summary>
+        public static string Interview1 {
+            get {
+                return ResourceManager.GetString("Interview1", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to New Applicant.
+        /// </summary>
+        public static string Interview2 {
+            get {
+                return ResourceManager.GetString("Interview2", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to CV.
+        /// </summary>
+        public static string CV {
+            get {
+                return ResourceManager.GetString("CV", resourceCulture);
             }
         }
 

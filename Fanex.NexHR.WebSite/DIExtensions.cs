@@ -138,6 +138,7 @@
             services.AddSingleton<IMemoService, MemoService>();
             services.AddSingleton<ICompanyEventService, CompanyEventService>();
             services.AddSingleton<IJobGradeService, JobGradeService>();
+             services.AddSingleton<IApplicantService, ApplicantService>();
             services.AddSingleton<ITransferService, TransferService>();
 
             //API Service
@@ -169,6 +170,7 @@
             services.AddSingleton<IAnnualLeaveRepository, AnnualLeaveRepository>();
             services.AddSingleton<IBioRepository, BioRepository>();
             services.AddSingleton<IDepartmentRepository, DepartmentRepository>();
+            services.AddSingleton<IApplicantRepository, ApplicantRepository>();
         }
     }
 }

@@ -171,6 +171,15 @@
         "ParentId": 13
     },
     {
+        "Title": "Applicants",
+        "Controller": "applicants",
+        "Action": "index",
+        "Icon": "clipboard-text",
+        "Roles": "HR",
+        "Id": 44,
+        "ParentId": 13
+    },
+    {
         "Title": "Job Title Management",
         "Controller": "jobtitle",
         "Action": "index",

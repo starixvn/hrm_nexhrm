@@ -1,0 +1,48 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Models.Applicant
+@using Fanex.NexHR.Resources
+@model IList<Applicant>
+@{
+    var index = 1;
+}
+<div id="divErrorCont"></div>
+<table id="data-detail" class="table bordered striped highlight table-custom centered">
+    <thead>
+        <tr>
+            <th>@Labels.SymbolCount</th>
+            <th>@Labels.FullName</th>
+            <th>@Labels.Contact</th>
+            <th>@Labels.Position</th>
+            <th>@Labels.Interview1</th>
+            <th>@Labels.Interview2</th>
+            <th>@Labels.Note</th>
+            <th>@Labels.Source</th>
+            <th>@Labels.CV</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach(var item in Model)
+            {
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="9">@Labels.NoData</td>
+            </tr>
+        }
+    </tbody>
+</table>
