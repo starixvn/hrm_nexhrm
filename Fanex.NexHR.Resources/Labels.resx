@@ -1867,4 +1867,49 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   <data name="Result" xml:space="preserve">
     <value>Result</value>
   </data>
+  <data name="ApplyDate" xml:space="preserve">
+    <value>Apply Date</value>
+  </data>
+  <data name="YearsOfExperience" xml:space="preserve">
+    <value>Years Of Experience</value>
+  </data>
+    <data name="ProfessionalLevel" xml:space="preserve">
+    <value>Professional Level</value>
+  </data>
+  <data name="ProfessionalMajor" xml:space="preserve">
+    <value>Professional Major</value>
+  </data>
+  <data name="ProfessioCVStatusnalMajor" xml:space="preserve">
+    <value>CV Status</value>
+  </data>
+  <data name="ResumeFile" xml:space="preserve">
+    <value>Resume File</value>
+  </data>
+  <data name="InterviewDate1" xml:space="preserve">
+    <value>Interview Date 1</value>
+  </data>
+  <data name="InterviewDate2" xml:space="preserve">
+    <value>Interview Date 2</value>
+  </data>
+  <data name="Recruiter" xml:space="preserve">
+    <value>Recruiter</value>
+  </data>
+  <data name="InterviewerCmt" xml:space="preserve">
+    <value>Interviewer's Comments</value>
+  </data>
+  <data name="Grade" xml:space="preserve">
+    <value>Grade</value>
+  </data>
+  <data name="Interviewers" xml:space="preserve">
+    <value>Interviewers</value>
+  </data>
+  <data name="ExpectedSalary" xml:space="preserve">
+    <value>Expected Salary</value>
+  </data>
+  <data name="OfferedSalary" xml:space="preserve">
+    <value>Offered Salary</value>
+  </data>
+  <data name="FinalCmt" xml:space="preserve">
+    <value>Final Comments</value>
+  </data>
 </root>

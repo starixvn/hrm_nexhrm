@@ -6,11 +6,19 @@ var canNotUpdate = function (id) {
 };
 
 function query(isFirstLoad) {
+    console.log($('#FromDate').val());
+
     $.ajax({
         url: _global.root + 'applicants/index',
         dataType: 'html',
         method: "POST",
-        data: { jobTitle: $('#keyword').val() },
+        data: {
+            FullName: $('#FullName').val(),
+            PositionId: $('#PositionId').val(),
+            Status: $('#Status').val(),
+            FromDate: $('#FromDate').val(),
+            ToDate: $('#ToDate').val()
+        },
         beforeSend: function () {
             if (!isFirstLoad) {
                 $('.loading-process').fadeIn(300);
@@ -32,21 +40,34 @@ function query(isFirstLoad) {
     });
 }
 
-function deleteJobTitle(id) {
+function deleteApplicant(id) {
     confirm('Are you sure you want to delete?', function () {
         $.post(_global.root + 'applicants/Delete',
-        { id: id },
-        function (response) {
-            if (response.IsSuccessful) {
-                query(false);
-            }
-            else {
-                alert(response.Message);
-            }
-        }).error(function () {
-            alert(_messages.errorTryAgain);
-        });
+            { id: id },
+            function (response) {
+                if (response.IsSuccessful) {
+                    query(false);
+                }
+                else {
+                    alert(response.Message);
+                }
+            }).error(function () {
+                alert(_messages.errorTryAgain);
+            });
     });
+
+    // confirm('Are you sure you want to delete this team?', function () {
+    //     $.post(_global.root + 'team/Delete', { id: id },
+    //     function (response) {
+    //         if (response.IsSuccessful) {
+    //             $('#row' + id).remove();
+    //             autoIndex();
+    //         }
+    //         else {
+    //             alert(response.Message);
+    //         }
+    //     });
+    // });
 }
 
 $(document).ready(function () {

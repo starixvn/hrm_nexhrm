@@ -33,7 +33,7 @@
     <tbody>
         @if (Model.Any())
         {
-            foreach(var item in Model)
+            foreach (var item in Model)
             {
                 <tr>
                     <td>@(index++)</td>
@@ -48,8 +48,10 @@
                     <td>@item.JoinDate.ToDateMonthYearFormatedDate()</td>
                     <td>@item.Notes</td>
                     <td>@item.Source</td>
-                    <td>@item.CV</td>
-                     <td class="cmd">
+                    <td>
+                        <a href="/">@Labels.View</a>
+                    </td>
+                    <td class="cmd">
                         <a href="@Url.Action("Edit", "Applicant", @item.Id)">
                             <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
                         </a>

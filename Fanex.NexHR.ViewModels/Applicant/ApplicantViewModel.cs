@@ -24,5 +24,11 @@
         public DateTime ToDate { get; set; }
 
          public IEnumerable<Position> Positions { get; set; }
+
+         public string Phone { get; set; }
+
+          public string Email { get; set; }
+
+          public DateTime ApplyDate { get; set; }
     }
 }

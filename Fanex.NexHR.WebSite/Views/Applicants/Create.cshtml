@@ -1,0 +1,306 @@
+﻿@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.Applicant
+@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Services.Interfaces
+@model ApplicantViewModel
+
+@{
+    ViewBag.Title = Labels.Applicants;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/Applicant/applicant.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/applicant.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base my-request">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@Labels.Create</span>
+                </div>
+                <div class="card-body">
+                    <div class="form form-stl-table">
+                        <form asp-controller="applicants" asp-action="create" method="post" class="form-create-edit">
+                            <div asp-validation-summary="All"></div>
+                            @if (ViewBag.Inserted == true)
+                            {
+                                <input type="hidden" id="successed" value="true" />
+                                <div class="row validation-summary-success">
+                                    <div class="col success green-text">
+                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.TeamCreated
+                                    </div>
+                                </div>
+                            }
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.FullName</label>
+                                    </div>
+                                    <div class="left input--m">
+                                        <input asp-for="@Model.FullName" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.Position</label>
+                                    </div>
+                                    <div class="left select--m">
+                                    <select asp-for="PositionId" asp-items="@(new SelectList(Model.Positions, "PositionId", "PositionName"))">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.Phone</label>
+                                    </div>
+                                    <div class="left input--m">
+                                        <input asp-for="@Model.Phone"/>
+                                        <span asp-validation-for="@Model.Phone"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.Email</label>
+                                    </div>
+                                    <div class="left input--m">
+                                        <input asp-for="@Model.Email"/>
+                                        <span asp-validation-for="@Model.Email"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.ApplyDate</label>
+                                    </div>
+                                    <div class="left datepicker-button select--m">
+                                        <date-picker name="FromDate" value="@Model.FromDate">
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.YearsOfExperience</label>
+                                    </div>
+                                    <div class="left input--m">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.DoB</label>
+                                    </div>
+                                    <div class="left datepicker-button select--m">
+                                        <date-picker name="FromDate" value="@Model.FromDate">
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.ProfessionalLevel</label>
+                                    </div>
+                                    <div class="left input--m">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.ProfessionalMajor</label>
+                                    </div>
+                                    <div class="left input--m">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.CVStatus</label>
+                                    </div>
+                                    <div class="left input--m">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.ResumeFile</label>
+                                    </div>
+                                    <div class="left input--m">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.InterviewDate1</label>
+                                    </div>
+                                    <div class="left datepicker-button select--m">
+                                        <date-picker name="FromDate" value="@Model.FromDate">
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.Result</label>
+                                    </div>
+                                    <div class="left input--m">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.InterviewDate2</label>
+                                    </div>
+                                    <div class="left datepicker-button select--m">
+                                        <date-picker name="FromDate" value="@Model.FromDate">
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.Result</label>
+                                    </div>
+                                    <div class="left input--m">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.JoinedDate</label>
+                                    </div>
+                                    <div class="left datepicker-button select--m">
+                                        <date-picker name="FromDate" value="@Model.FromDate">
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.Source</label>
+                                    </div>
+                                    <div class="left input--m">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.Recruiter</label>
+                                    </div>
+                                    <div class="left input--m">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.EducationBackground</label>
+                                    </div>
+                                    <div class="left input--m">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.InterviewerCmt</label>
+                                    </div>
+                                    <div class="left input--m">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.Grade</label>
+                                    </div>
+                                    <div class="left input--m">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.Interviewers</label>
+                                    </div>
+                                    <div class="left input--m">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.ExpectedSalary</label>
+                                    </div>
+                                    <div class="left input--m">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.OfferedSalary</label>
+                                    </div>
+                                    <div class="left input--m">
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--l">
+                                        <label>@Labels.FinalCmt</label>
+                                    </div>
+                                    <div class="left input--m">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input line-button">
+                                <div class="col">
+                                    <div class="left label--l">&nbsp;</div>
+                                    <div class="left">
+                                        <a class="btn-back waves-effect waves-light" asp-controller="applicants" asp-action="index">@Labels.Back</a>
+                                        <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Save" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -10,6 +10,8 @@ namespace Fanex.NexHR.Controllers
     using ViewModels.Applicant;
     using Models.Applicant;
     using Criteria.Applicant;
+    using System;
+    using Fanex.NexHR.Models;
 
     public class ApplicantsController : BaseController
     {
@@ -36,7 +38,7 @@ namespace Fanex.NexHR.Controllers
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Index()
         {
-             var model = new ApplicantViewModel
+            var model = new ApplicantViewModel
             {
                 Positions = await positionService.GetAll()
             };
@@ -57,13 +59,34 @@ namespace Fanex.NexHR.Controllers
                     ToDate = model.ToDate,
                     Status = model.Status,
                     PositionId = model.PositionId,
-                    FullName = model.FullName,
+                    FullName = model.FullName
                 };
 
                 result = await applicantService.GetAll(criteria);
             }
 
             return PartialView("_ListApplicant", result);
+        }
+
+        [HrmAuthorize(UserRoles = "HR")]
+        public async Task<IActionResult> Create()
+        {
+            var model = new ApplicantViewModel
+            {
+                Positions = await positionService.GetAll()
+            };
+
+            return View(model);
+        }
+
+        [HrmAuthorize(UserRoles = "HR")]
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deleteApplicantCriteria = new DeleteApplicantCriteria { Id = id };
+            CommandResult result = await baseService.ExecuteNonQueryAsync(deleteApplicantCriteria);
+
+            return Json(result);
         }
     }
 }

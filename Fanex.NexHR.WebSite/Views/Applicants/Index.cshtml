@@ -38,65 +38,59 @@
                                 <div class="left select--m">
                                     <select asp-for="PositionId" asp-items="@(new SelectList(Model.Positions, "PositionId", "PositionName"))">
                                         <option value="">@Labels.All</option>
-                                    </select> 
+                                    </select>
                                 </div>
                             </div>
-                             <div class="col m-r--m">
+                            <div class="col m-r--m">
                                 <div class="left label--s">
                                     <label>@Labels.Status</label>
                                 </div>
                                 <div class="left select--s">
-                                        @{
-                                            var selectList = new List<SelectListItem>
-                                            {
-                                                new SelectListItem {Text = Labels.All, Value = CVStatus.ALL.ToString()},
-                                                new SelectListItem {Text = Labels.OK, Value = CVStatus.OK.ToString()},
-                                                new SelectListItem {Text = Labels.KIV, Value = CVStatus.KIV.ToString()},
-                                                new SelectListItem {Text = Labels.Rejected, Value = CVStatus.Rejected.ToString()}
-                                            };
-                                        }
-                                        <select asp-for="Status" asp-items="@selectList">
-                                        </select>
-                                    </div>
+                                    @{
+                                        var selectList = new List<SelectListItem>
+                                        {
+                                            new SelectListItem {Text = Labels.All, Value = "0"},
+                                            new SelectListItem {Text = Labels.OK, Value = "1"},
+                                            new SelectListItem {Text = Labels.KIV, Value = "2"},
+                                            new SelectListItem {Text = Labels.Rejected, Value = "3"}
+                                        };
+                                    }
+                                    <select asp-for="Status" asp-items="@selectList">
+                                    </select>
+                                </div>
                             </div>
                             <div class="col">
                                 <div class="left label--m">
                                     <label>@Labels.FullName</label>
                                 </div>
                                 <div class="left input--m">
-                                    <input asp-for="@Model.FullName"/>
-                                    <input type="hidden" asp-for="@Model.FullName"/>
+                                    <input asp-for="FullName" />
+                                    <input type="hidden" asp-for="@Model.FullName" />
                                 </div>
-                            </div> 
+                            </div>
                             <div class="col m-r--l">
-                                    <div class="left label--m">
-                                        <label asp-for="@Model.FromDate">@Labels.FromDate</label>
-                                    </div>
-                                    <div class="left datepicker-button select--s">
-                                        <date-picker
-                                            name="FromDate"
-                                            value="@Model.FromDate"
-                                        >
-                                        </date-picker>
-                                        <i class="mdi-action-event calendar-icon left"></i>
-                                    </div>
+                                <div class="left label--m">
+                                    <label asp-for="@Model.FromDate">@Labels.FromDate</label>
                                 </div>
-                                <div class="col m-l--xl m-r--l">
-                                    <div class="left label--m">
-                                        <label asp-for="@Model.ToDate">@Labels.ToDate</label>
-                                    </div>
-                                    <div class="left datepicker-button select--s">
-                                        <date-picker
-                                            name="ToDate"
-                                            value="@Model.ToDate"
-                                        >
-                                        </date-picker>
-                                        <i class="mdi-action-event calendar-icon left"></i>
-                                    </div>
+                                <div class="left datepicker-button select--s">
+                                    <date-picker name="FromDate" value="@Model.FromDate">
+                                    </date-picker>
+                                    <i class="mdi-action-event calendar-icon left"></i>
                                 </div>
+                            </div>
+                            <div class="col m-l--xl m-r--l">
+                                <div class="left label--m">
+                                    <label asp-for="@Model.ToDate">@Labels.ToDate</label>
+                                </div>
+                                <div class="left datepicker-button select--s">
+                                    <date-picker name="ToDate" value="@Model.ToDate">
+                                    </date-picker>
+                                    <i class="mdi-action-event calendar-icon left"></i>
+                                </div>
+                            </div>
                             <div class="col">
                                 <input type="button" id="submit" class="btn-submit waves-effect waves-light m-r--m" value="@Labels.Submit" />
-                                <a class="btn-request waves-effect waves-light btn" href="javascript:;" id="btnNewApplicant">
+                                <a asp-controller="applicants" asp-action="create" class="btn-request waves-effect waves-light btn">
                                     <i class="left mdi mdi-plus"></i>@Labels.NewApplicant
                                 </a>
                             </div>
@@ -106,7 +100,7 @@
                     </div>
                 </div>
             </div>
-            </div>
         </div>
     </div>
+</div>
 </div>
