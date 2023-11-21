@@ -441,6 +441,9 @@
   <data name="JoinedDate" xml:space="preserve">
     <value>Joined Date</value>
   </data>
+  <data name="JoinDate" xml:space="preserve">
+    <value>Join Date</value>
+  </data>
   <data name="Nick" xml:space="preserve">
     <value>Nick</value>
   </data>
@@ -1867,6 +1870,12 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   <data name="Result" xml:space="preserve">
     <value>Result</value>
   </data>
+  <data name="Result1" xml:space="preserve">
+    <value>Result 1</value>
+  </data>
+  <data name="Result2" xml:space="preserve">
+    <value>Result 2</value>
+  </data>
   <data name="ApplyDate" xml:space="preserve">
     <value>Apply Date</value>
   </data>
@@ -1879,7 +1888,7 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   <data name="ProfessionalMajor" xml:space="preserve">
     <value>Professional Major</value>
   </data>
-  <data name="ProfessioCVStatusnalMajor" xml:space="preserve">
+  <data name="CVStatus" xml:space="preserve">
     <value>CV Status</value>
   </data>
   <data name="ResumeFile" xml:space="preserve">

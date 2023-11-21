@@ -2844,6 +2844,17 @@ namespace Fanex.NexHR.Resources {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Join Date.
+        /// </summary>
+        public static string JoinDate
+        {
+            get
+            {
+                return ResourceManager.GetString("JoinDate", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Jul.
         /// </summary>
         public static string Jul
@@ -6440,6 +6451,26 @@ namespace Fanex.NexHR.Resources {
             get
             {
                 return ResourceManager.GetString("Result", resourceCulture);
+            }
+        }
+         /// <summary>
+        ///   Looks up a localized string similar to Result1.
+        /// </summary>
+        public static string Result1
+        {
+            get
+            {
+                return ResourceManager.GetString("Result1", resourceCulture);
+            }
+        }
+         /// <summary>
+        ///   Looks up a localized string similar to Result2.
+        /// </summary>
+        public static string Result2
+        {
+            get
+            {
+                return ResourceManager.GetString("Result2", resourceCulture);
             }
         }
         /// <summary>
