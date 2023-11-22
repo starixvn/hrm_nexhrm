@@ -32,7 +32,16 @@
                     <div class="form">
                         <div class="row form-input">
                             <div class="col m-r--m">
-                                <div class="left label--s">
+                                <div class="left label--m">
+                                    <label>@Labels.FullName</label>
+                                </div>
+                                <div class="left input--m">
+                                    <input asp-for="FullName" />
+                                    @* <input type="hidden" asp-for="@Model.FullName" /> *@
+                                </div>
+                            </div>
+                            <div class="col m-r--m">
+                                <div class="left label--m">
                                     <label>@Labels.Position</label>
                                 </div>
                                 <div class="left select--m">
@@ -46,29 +55,14 @@
                                     <label>@Labels.Status</label>
                                 </div>
                                 <div class="left select--s">
-                                    @{
-                                        var selectList = new List<SelectListItem>
-                                        {
-                                            new SelectListItem {Text = Labels.All, Value = "0"},
-                                            new SelectListItem {Text = Labels.OK, Value = "1"},
-                                            new SelectListItem {Text = Labels.KIV, Value = "2"},
-                                            new SelectListItem {Text = Labels.Rejected, Value = "3"}
-                                        };
-                                    }
-                                    <select asp-for="Status" asp-items="@selectList">
+                                    <select asp-for="Status" asp-items="@Model.StatusList">
+                                        <option value="">@Labels.All</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="left label--m">
-                                    <label>@Labels.FullName</label>
-                                </div>
-                                <div class="left input--m">
-                                    <input asp-for="FullName" />
-                                    <input type="hidden" asp-for="@Model.FullName" />
-                                </div>
-                            </div>
-                            <div class="col m-r--l">
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
                                 <div class="left label--m">
                                     <label asp-for="@Model.FromDate">@Labels.FromDate</label>
                                 </div>
@@ -78,7 +72,7 @@
                                     <i class="mdi-action-event calendar-icon left"></i>
                                 </div>
                             </div>
-                            <div class="col m-l--xl m-r--l">
+                            <div class="col m-r--m">
                                 <div class="left label--m">
                                     <label asp-for="@Model.ToDate">@Labels.ToDate</label>
                                 </div>
@@ -88,13 +82,14 @@
                                     <i class="mdi-action-event calendar-icon left"></i>
                                 </div>
                             </div>
-                            <div class="col">
+                             <div class="col">
                                 <input type="button" id="submit" class="btn-submit waves-effect waves-light m-r--m" value="@Labels.Submit" />
-                                <a asp-controller="applicants" asp-action="create" class="btn-request waves-effect waves-light btn">
+                                <a asp-controller="applicants" asp-action="create" class="btn-request waves-effect waves-light btn m-r--m">
                                     <i class="left mdi mdi-plus"></i>@Labels.NewApplicant
                                 </a>
+                                <a asp-controller="position" asp-action="index" class="btn-request waves-effect waves-light btn">@Labels.Position</a>
                             </div>
-                        </div>
+                         </div>
                     </div>
                     <div id="applicants-detail" class="p-x--s">
                     </div>
@@ -102,5 +97,4 @@
             </div>
         </div>
     </div>
-</div>
 </div>

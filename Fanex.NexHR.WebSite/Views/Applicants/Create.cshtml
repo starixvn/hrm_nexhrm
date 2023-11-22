@@ -2,26 +2,10 @@
 @using Fanex.NexHR.ViewModels.Applicant
 @using Fanex.NexHR.Core.Enums
 @using Fanex.NexHR.Services.Interfaces
-@model ApplicantViewModel
+@model CreateApplicantViewModel
 
 @{
     ViewBag.Title = Labels.Applicants;
-    var selectProLevel = new List<SelectListItem>
-    {
-        new SelectListItem {Text = "", Value = "0"},
-        new SelectListItem {Text = "Fresher", Value = "1"},
-        new SelectListItem {Text = "Engineer", Value = "2"},
-        new SelectListItem {Text = "Senior", Value = "3"},
-        new SelectListItem {Text = "Uper Senior", Value = "4"}
-    };
-
-    var selectStatus = new List<SelectListItem>
-    {
-        new SelectListItem {Text = "", Value = "0"},
-        new SelectListItem {Text = Labels.OK, Value = "1"},
-        new SelectListItem {Text = Labels.KIV, Value = "2"},
-        new SelectListItem {Text = Labels.Rejected, Value = "3"}
-    };
 }
 
 @section Styles {
@@ -71,7 +55,6 @@
                                     </div>
                                     <div class="left select--m">
                                         <select asp-for="PositionId" asp-items="@(new SelectList(Model.Positions, "PositionId", "PositionName"))">
-                                            <option value=""></option>
                                         </select>
                                     </div>
                                 </div>
@@ -83,7 +66,6 @@
                                     </div>
                                     <div class="left input--m">
                                         <input type="number" asp-for="@Model.Phone"/>
-                                        <span asp-validation-for="@Model.Phone"></span>
                                     </div>
                                 </div>
                                 <div class="col m-r--m">
@@ -92,7 +74,6 @@
                                     </div>
                                     <div class="left input--m">
                                         <input asp-for="@Model.Email"/>
-                                        <span asp-validation-for="@Model.Email"></span>
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +94,6 @@
                                     </div>
                                     <div class="left input--m">
                                         <input type="number" asp-for="@Model.YearsOfExperience"/>
-                                        <span asp-validation-for="@Model.YearsOfExperience"></span>
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +113,7 @@
                                         <label>@Labels.ProfessionalLevel</label>
                                     </div>
                                     <div class="left select--m">
-                                        <select asp-for="ProfessionalLevel" asp-items="@selectProLevel">
+                                        <select asp-for="ProfessionalLevel" asp-items="@Model.ProLevelList">
                                         </select>
                                     </div>
                                 </div>
@@ -145,7 +125,6 @@
                                     </div>
                                     <div class="left input--m">
                                         <input asp-for="@Model.ProfessionalMajor"/>
-                                        <span asp-validation-for="@Model.ProfessionalMajor"></span>
                                     </div>
                                 </div>
                                 <div class="col m-r--m">
@@ -153,7 +132,8 @@
                                         <label>@Labels.CVStatus</label>
                                     </div>
                                     <div class="left select--m">
-                                        <select asp-for="Status" asp-items="@selectStatus">
+                                        <select asp-for="Status" asp-items="@Model.StatusList">
+                                            <option value=""></option>
                                         </select>
                                     </div>
                                 </div>
@@ -184,7 +164,8 @@
                                         <label>@Labels.Result1</label>
                                     </div>
                                     <div class="left select--m">
-                                        <select asp-for="Result1" asp-items="@selectStatus">
+                                        <select asp-for="Result1" asp-items="@Model.StatusList">
+                                            <option value=""></option>
                                         </select>
                                     </div>
                                 </div>
@@ -205,7 +186,8 @@
                                         <label>@Labels.Result2</label>
                                     </div>
                                     <div class="left select--m">
-                                        <select asp-for="Result2" asp-items="@selectStatus">
+                                        <select asp-for="Result2" asp-items="@Model.StatusList">
+                                            <option value=""></option>
                                         </select>
                                     </div>
                                 </div>
@@ -226,7 +208,8 @@
                                         <label>@Labels.Source</label>
                                     </div>
                                     <div class="left select--m">
-                                        <select asp-for="Source" asp-items="@selectStatus">
+                                        <select asp-for="Source" asp-items="@Model.StatusList">
+                                            <option value=""></option>
                                         </select>
                                     </div>
                                 </div>
@@ -255,7 +238,8 @@
                                         <label>@Labels.Grade</label>
                                     </div>
                                     <div class="left input--m">
-                                        <select asp-for="Grade" asp-items="@selectStatus">
+                                        <select asp-for="Grade" asp-items="@Model.StatusList">
+                                            <option value=""></option>
                                         </select>
                                     </div>
                                 </div>

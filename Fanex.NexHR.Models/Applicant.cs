@@ -26,7 +26,9 @@
 
         public string Notes { get; set; }
 
-        public string Source { get; set; }
+        public int Source { get; set; }
+
+        public string SourceName { get; set; }
 
         public string CV { get; set; }
 

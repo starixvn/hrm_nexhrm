@@ -1,10 +1,6 @@
 ﻿
 'use strict';
 
-var canNotUpdate = function (id) {
-    $('#txtJobTile_' + id).val($('#spanJobTitle_' + id).text());
-};
-
 function query(isFirstLoad) {
     console.log($('#FromDate').val());
 
@@ -71,7 +67,7 @@ function deleteApplicant(id) {
 }
 
 $(document).ready(function () {
-    $('#keyword').keyup(function (event) {
+    $('#FullName').keyup(function (event) {
         if (event.keyCode === 13) {
             query(false);
         }

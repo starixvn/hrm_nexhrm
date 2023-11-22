@@ -4,9 +4,6 @@ namespace Fanex.NexHR.Core.Enums
 
     public enum CVStatus
     {
-        [StringValue("All")]
-        ALL = 0,
-
         [StringValue("OK")]
         OK = 1,
 
