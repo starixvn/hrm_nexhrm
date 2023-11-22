@@ -56,8 +56,6 @@
     <None Include="wwwroot\css\Images\loding.gif" />
     <None Include="wwwroot\css\Images\logo.svg" />
     <None Include="wwwroot\css\Images\logo1.png" />
-    <None Include="wwwroot\css\Images\LogoLuminet.png" />
-    <None Include="wwwroot\css\Images\LogoLuminet.svg" />
     <None Include="wwwroot\css\Images\LumiHRM.png" />
     <None Include="wwwroot\css\Images\NexHRM.png" />
     <None Include="wwwroot\css\Images\Office_building_icon.png" />
@@ -613,6 +611,9 @@
     </Content>
     <Content Update="Navigation.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\css\Images\LogoLuminet.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
