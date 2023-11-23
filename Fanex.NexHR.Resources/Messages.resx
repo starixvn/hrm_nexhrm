@@ -120,6 +120,12 @@
   <data name="AdjustSuccessfully" xml:space="preserve">
     <value>Adjust successfully</value>
   </data>
+  <data name="ApplicantCreated" xml:space="preserve">
+    <value>Applicant's Created!</value>
+  </data>
+  <data name="ApplicantUpdated" xml:space="preserve">
+    <value>Applicant's Updated!</value>
+  </data>
   <data name="ApprovalNotificationChangeShiftSubject" xml:space="preserve">
     <value>Change shift request from {0} approved by {1}</value>
   </data>

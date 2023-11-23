@@ -37,33 +37,18 @@ function query(isFirstLoad) {
 }
 
 function deleteApplicant(id) {
-    confirm('Are you sure you want to delete?', function () {
-        $.post(_global.root + 'applicants/Delete',
-            { id: id },
-            function (response) {
-                if (response.IsSuccessful) {
-                    query(false);
-                }
-                else {
-                    alert(response.Message);
-                }
-            }).error(function () {
-                alert(_messages.errorTryAgain);
-            });
+    confirm('Are you sure you want to delete this applicant?', function () {
+        $.post(_global.root + 'applicants/Delete', { id: id },
+        function (response) {
+            if (response.IsSuccessful) {
+                $('#row' + id).remove();
+                autoIndex();
+            }
+            else {
+                alert(response.Message);
+            }
+        });
     });
-
-    // confirm('Are you sure you want to delete this team?', function () {
-    //     $.post(_global.root + 'team/Delete', { id: id },
-    //     function (response) {
-    //         if (response.IsSuccessful) {
-    //             $('#row' + id).remove();
-    //             autoIndex();
-    //         }
-    //         else {
-    //             alert(response.Message);
-    //         }
-    //     });
-    // });
 }
 
 $(document).ready(function () {
@@ -77,10 +62,25 @@ $(document).ready(function () {
         query(false);
     });
 
-    var q = getParam('query');
-    if (q != null) {
-        $('#keyword').val(q);
-    }
-
     query(true);
+    if ($('.form-create-edit').length > 0) {
+
+        initAutocomplete('#Recruiter', '#RecruiterId', null);
+
+        var successed = $('#successed').val();
+        if (successed === 'true') {
+            confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
+                    function () {
+                        document.location = _global.root + 'Applicants/Index';
+                    }
+                );
+        }
+
+        var data = ["Apple", "Banana", "Cherry", "Date", "ElderberriesElderberry"];
+        $(".mySelect").select2({
+            data: data,
+            allowClear: false,
+            minimumResultsForSearch: 5
+        });
+    }
 });

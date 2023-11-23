@@ -185,7 +185,22 @@ namespace Fanex.NexHR.Resources {
                 return ResourceManager.GetString("AnounceNumberEmployeeMissCheckInOut", resourceCulture);
             }
         }
-        
+        /// <summary>
+        ///   Looks up a localized string similar to Applicant&apos;s created!.
+        /// </summary>
+        public static string ApplicantCreated {
+            get {
+                return ResourceManager.GetString("ApplicantCreated", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Applicant&apos;s updated!.
+        /// </summary>
+        public static string ApplicantUpdated {
+            get {
+                return ResourceManager.GetString("ApplicantUpdated", resourceCulture);
+            }
+        }
         /// <summary>
         ///   Looks up a localized string similar to Change shift request from {0} approved by {1}.
         /// </summary>

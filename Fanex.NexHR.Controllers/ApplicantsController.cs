@@ -14,6 +14,7 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Core.Enums;
     using Microsoft.AspNetCore.Mvc.Rendering;
+    using Fanex.NexHR.Criteria.Team;
 
     public class ApplicantsController : BaseController
     {
@@ -86,7 +87,7 @@ namespace Fanex.NexHR.Controllers
                 result = await applicantService.GetAll(criteria);
                 foreach (var applicant in result)
                 {
-                    applicant.SourceName = GetCVSourceName(applicant.Source); 
+                    applicant.SourceName = applicant.Source != 0 ? GetCVSourceName(applicant.Source) : string.Empty; 
                 }
             }
 
@@ -138,12 +139,12 @@ namespace Fanex.NexHR.Controllers
                         Result2 = model.Result2,
                         JoinDate = model.JoinDate,
                         Source = model.Source,
-                        Recruiter = model.Recruiter,
+                        RecruiterId = model.RecruiterId,
                         EducationBackground = model.EducationBackground,
                         InterviewerComment = model.InterviewerComment,
                         Grade = model.Grade,
                         Note = model.Note,
-                        InterviewerId = model.InterviewerId,
+                        InterviewerIds = model.InterviewerIds,
                         ExpectedSalary = model.ExpectedSalary,
                         OfferSalary = model.OfferSalary,
                         FinalComment = model.FinalComment,
@@ -161,6 +162,43 @@ namespace Fanex.NexHR.Controllers
                         ModelState.AddModelError(string.Empty, result.Message);
                     }
                 }
+
+                model.Positions = await positionService.GetAll();
+                model.StatusList = GetStatusList();
+            }
+
+            return View(model);
+        }
+
+         [HrmAuthorize(UserRoles = "HR")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var criteria = new GetApplicantByIdCriteria
+            {
+                ApplicantId = id
+            };
+            Team team = await teamService.GetById(criteria);
+
+            TeamViewModel model = null;
+            if (team != null)
+            {
+                model = new TeamViewModel
+                {
+                    TeamCode = team.Code,
+                    TeamName = team.Name,
+                    DepartmentId = team.Department?.Id ?? 0,
+                    ParentId = team.Parent?.Id ?? 0,
+                    Leader = team.Leader.DisplayName,
+                    LeaderId = team.Leader.Id,
+                    AssistantLeader = team.AssistantLeader != null ? team.AssistantLeader.DisplayName : string.Empty,
+                    AssistantLeaderId = team.AssistantLeader?.Id ?? 0,
+                };
+            }
+
+            if (model != null)
+            {
+                model.Positions = await positionService.GetAll();
+                model.StatusList = GetStatusList();
             }
 
             return View(model);
