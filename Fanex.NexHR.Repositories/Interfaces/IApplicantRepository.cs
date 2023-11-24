@@ -7,8 +7,6 @@ namespace Fanex.NexHR.Repositories.Interfaces
 
     public interface IApplicantRepository
     {
-        Task<IList<Applicant>> GetAll(ICriteria criteria);
-
         Task<Applicant> GetApplicantById(ICriteria criteria);
     }
 }

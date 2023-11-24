@@ -30,6 +30,14 @@
 
         public string SourceName { get; set; }
 
+        public int Result1 { get; set; }
+
+        public string ResultName1 { get; set; }
+
+        public int Result2 { get; set; }
+
+        public string ResultName2 { get; set; }
+
         public string CV { get; set; }
     }
 }

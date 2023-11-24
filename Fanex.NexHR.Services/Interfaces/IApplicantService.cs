@@ -8,7 +8,7 @@ namespace Fanex.NexHR.Services.Interfaces
 
     public interface IApplicantService
     {
-        Task<IList<Applicant>> GetAll(GetAllApplicantCriteria criteria);
+        Task<IEnumerable<Applicant>> GetAll(GetAllApplicantCriteria criteria);
 
         Task<Applicant> GetById(GetApplicantByIdCriteria criteria);
     }

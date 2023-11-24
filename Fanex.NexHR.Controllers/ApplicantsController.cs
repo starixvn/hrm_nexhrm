@@ -15,6 +15,8 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Core.Enums;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Fanex.NexHR.Criteria.Team;
+    using System.Reflection;
+    using Fanex.NexHR.Core.Attributes;
 
     public class ApplicantsController : BaseController
     {
@@ -72,7 +74,7 @@ namespace Fanex.NexHR.Controllers
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Index(ApplicantViewModel model)
         {
-            IList<Applicant> result = new List<Applicant>();
+            IEnumerable<Applicant> result = new List<Applicant>();
             if (model != null)
             {
                 var criteria = new GetAllApplicantCriteria
@@ -87,17 +89,26 @@ namespace Fanex.NexHR.Controllers
                 result = await applicantService.GetAll(criteria);
                 foreach (var applicant in result)
                 {
-                    applicant.SourceName = applicant.Source != 0 ? GetCVSourceName(applicant.Source) : string.Empty; 
+                    applicant.SourceName = applicant.Source != 0 ? GetName<CVSource>(applicant.Source) : string.Empty; 
+                    applicant.ResultName1 = applicant.Result1 != 0 ? GetName<ResultInterview>(applicant.Result1) : string.Empty; 
+                    applicant.ResultName2 = applicant.Result2 != 0 ? GetName<ResultInterview>(applicant.Result2) : string.Empty; 
                 }
             }
 
             return PartialView("_ListApplicant", result);
         }
 
-        private static string GetCVSourceName(int sourceId)
+        private static string GetName<T>(int id)
         {
-            CVSource source = (CVSource)sourceId;
-            return source.ToString();
+            if (Enum.IsDefined(typeof(T), id))
+            {
+                T enumValue = (T)(object)id;
+                return enumValue.ToString();
+            }
+            else
+            {
+                return $"Invalid {typeof(T).Name}";
+            }
         }
 
         [HrmAuthorize(UserRoles = "HR")]
@@ -111,6 +122,8 @@ namespace Fanex.NexHR.Controllers
 
             return View(model);
         }
+
+       
 
         [HttpPost]
         [HrmAuthorize(UserRoles = "HR")]
@@ -170,39 +183,39 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> Edit(int id)
-        {
-            var criteria = new GetApplicantByIdCriteria
-            {
-                ApplicantId = id
-            };
-            Team team = await teamService.GetById(criteria);
+        //  [HrmAuthorize(UserRoles = "HR")]
+        // public async Task<IActionResult> Edit(int id)
+        // {
+        //     var criteria = new GetApplicantByIdCriteria
+        //     {
+        //         ApplicantId = id
+        //     };
+        //     Team team = await teamService.GetById(criteria);
 
-            TeamViewModel model = null;
-            if (team != null)
-            {
-                model = new TeamViewModel
-                {
-                    TeamCode = team.Code,
-                    TeamName = team.Name,
-                    DepartmentId = team.Department?.Id ?? 0,
-                    ParentId = team.Parent?.Id ?? 0,
-                    Leader = team.Leader.DisplayName,
-                    LeaderId = team.Leader.Id,
-                    AssistantLeader = team.AssistantLeader != null ? team.AssistantLeader.DisplayName : string.Empty,
-                    AssistantLeaderId = team.AssistantLeader?.Id ?? 0,
-                };
-            }
+        //     TeamViewModel model = null;
+        //     if (team != null)
+        //     {
+        //         model = new TeamViewModel
+        //         {
+        //             TeamCode = team.Code,
+        //             TeamName = team.Name,
+        //             DepartmentId = team.Department?.Id ?? 0,
+        //             ParentId = team.Parent?.Id ?? 0,
+        //             Leader = team.Leader.DisplayName,
+        //             LeaderId = team.Leader.Id,
+        //             AssistantLeader = team.AssistantLeader != null ? team.AssistantLeader.DisplayName : string.Empty,
+        //             AssistantLeaderId = team.AssistantLeader?.Id ?? 0,
+        //         };
+        //     }
 
-            if (model != null)
-            {
-                model.Positions = await positionService.GetAll();
-                model.StatusList = GetStatusList();
-            }
+        //     if (model != null)
+        //     {
+        //         model.Positions = await positionService.GetAll();
+        //         model.StatusList = GetStatusList();
+        //     }
 
-            return View(model);
-        }
+        //     return View(model);
+        // }
 
         [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]

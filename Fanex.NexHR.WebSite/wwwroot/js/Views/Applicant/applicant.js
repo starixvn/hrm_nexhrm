@@ -67,6 +67,13 @@ $(document).ready(function () {
 
         initAutocomplete('#Recruiter', '#RecruiterId', null);
 
+        var data = ["Apple", "Banana", "Cherry", "Date", "ElderberriesElderberry"];
+        $("#mySelect").select2({
+            data,
+            allowClear: false,
+            minimumResultsForSearch: 5
+        });
+
         var successed = $('#successed').val();
         if (successed === 'true') {
             confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
@@ -76,11 +83,6 @@ $(document).ready(function () {
                 );
         }
 
-        var data = ["Apple", "Banana", "Cherry", "Date", "ElderberriesElderberry"];
-        $(".mySelect").select2({
-            data: data,
-            allowClear: false,
-            minimumResultsForSearch: 5
-        });
+        
     }
 });

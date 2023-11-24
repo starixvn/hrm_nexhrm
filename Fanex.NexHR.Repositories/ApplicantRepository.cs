@@ -10,16 +10,6 @@ namespace Fanex.NexHR.Repositories
 
     public class ApplicantRepository : IApplicantRepository
     {
-        public async Task<IList<Applicant>> GetAll(ICriteria criteria)
-        {
-            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
-            {
-                 var applicants = await db.QueryAsync<Applicant>(criteria);
-
-                return applicants.ToList();
-            }
-        }
-
         public Task<Applicant> GetApplicantById(ICriteria criteria)
         {
             throw new System.NotImplementedException();

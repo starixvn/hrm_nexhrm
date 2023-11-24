@@ -3,6 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Reflection;
+    using Fanex.NexHR.Core.Attributes;
+    using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
     using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -35,14 +39,32 @@
 
         public  List<SelectListItem> StatusList { get; set; }
 
-         public  List<SelectListItem> ProLevelList => new List<SelectListItem>
+        public  List<SelectListItem> ProLevelList => GenerateSelectList<ProfessionalLevel>();
+
+        public List<SelectListItem> ResultList => GenerateSelectList<ResultInterview>();
+
+        public List<SelectListItem> SourceList => GenerateSelectList<CVSource>();
+
+        public List<SelectListItem> GradeList => GenerateSelectList<CVGrade>();
+
+        private List<SelectListItem> GenerateSelectList<TEnum>()
         {
-            new SelectListItem {Text = "", Value = ""},
-            new SelectListItem {Text = "Fresher", Value = "1"},
-            new SelectListItem {Text = "Engineer", Value = "2"},
-            new SelectListItem {Text = "Senior", Value = "3"},
-            new SelectListItem {Text = "Uper Senior", Value = "4"}
-        };
+            Type enumType = typeof(TEnum);
+            var enumValues = Enum.GetValues(enumType);
+
+            return enumValues.Cast<TEnum>()
+                .Select(enumValue =>
+                {
+                    MemberInfo memberInfo = enumType.GetMember(enumValue.ToString())[0];
+                    StringValueAttribute attribute = memberInfo.GetCustomAttribute<StringValueAttribute>();
+
+                    string text = attribute?.Value ?? enumValue.ToString();
+                    string value = Convert.ToInt32(enumValue).ToString();
+
+                    return new SelectListItem { Text = text, Value = value };
+                })
+                .ToList();
+        }
 
         public DateTime DOB { get; set; }
 

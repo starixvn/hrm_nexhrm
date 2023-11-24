@@ -2,35 +2,27 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Fanex.NexHR.Criteria.Applicant;
 using Fanex.NexHR.Services.Interfaces;
-using Fanex.NexHR.Repositories;
-using Fanex.NexHR.Repositories.Interfaces;
 using Fanex.NexHR.Models.Applicant;
 using Fanex.NexHR.Criteria.Team;
-
 
 namespace Fanex.NexHR.Services
 {
     public class ApplicantService : IApplicantService
     {
-        private readonly IApplicantRepository applicantRepository;
         private readonly IBaseService baseService;
 
-        public ApplicantService(
-            IApplicantRepository applicantRepository,
-            IBaseService baseService
-        )
+        public ApplicantService(IBaseService baseService)
         {
-            this.applicantRepository = applicantRepository ?? new ApplicantRepository();
             this.baseService = baseService;
         }
 
-        public async Task<IList<Applicant>> GetAll(GetAllApplicantCriteria criteria)
+        public async Task<IEnumerable<Applicant>> GetAll(GetAllApplicantCriteria criteria)
         {
-            IList<Applicant> applicants = null;
+            IEnumerable<Applicant> applicants = null;
 
             if (criteria != null && criteria.IsValid())
             {
-                applicants = await applicantRepository.GetAll(criteria);
+                applicants = await baseService.GetDataAsync<Applicant>(criteria);
             }
 
             return applicants ?? new List<Applicant>();

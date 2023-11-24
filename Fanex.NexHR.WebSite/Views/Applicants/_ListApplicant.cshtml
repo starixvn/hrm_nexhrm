@@ -1,7 +1,7 @@
 ﻿@using Fanex.NexHR.Core
 @using Fanex.NexHR.Models.Applicant
 @using Fanex.NexHR.Resources
-@model IList<Applicant>
+@model IEnumerable<Applicant>
 @{
     var index = 1;
 }
@@ -42,9 +42,9 @@
                     <td>@item.Email</td>
                     <td>@item.Position</td>
                     <td>@item.InterviewDate1.ToFormatedDate()</td>
-                    <td></td>
+                    <td>@item.ResultName1</td>
                     <td>@item.InterviewDate2.ToFormatedDate()</td>
-                    <td></td>
+                    <td>@item.ResultName2</td>
                     <td>@item.JoinDate.ToDateMonthYearFormatedDate()</td>
                     <td>@item.Notes</td>
                     <td>@item.SourceName</td>
