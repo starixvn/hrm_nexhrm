@@ -1,4 +1,4 @@
-﻿namespace Fanex.NexHR.Criteria.Team
+﻿namespace Fanex.NexHR.Criteria.Applicant
 {
     using Data.Repository;
 

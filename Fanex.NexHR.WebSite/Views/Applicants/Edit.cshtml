@@ -55,6 +55,7 @@
                                     </div>
                                     <div class="left select--m">
                                         <select asp-for="PositionId" asp-items="@(new SelectList(Model.Positions, "PositionId", "PositionName"))">
+                                             <option value=""></option>
                                         </select>
                                     </div>
                                 </div>
@@ -78,7 +79,28 @@
                                 </div>
                             </div>
                             <div class="row form-input">
+                                 <div class="col m-r--m">
+                                    <div class="left label--mxxl">
+                                        <label>@Labels.DoB</label>
+                                    </div>
+                                    <div class="left datepicker-button select--m">
+                                        <date-picker name="DOB" value="@Model.DOB">
+                                        </date-picker>
+                                        <i class="mdi-action-event calendar-icon left"></i>
+                                    </div>
+                                </div>
+                                
                                 <div class="col m-r--m">
+                                    <div class="left label--mxxl">
+                                        <label>@Labels.YearsOfExperience</label>
+                                    </div>
+                                    <div class="left input--m">
+                                        <input asp-for="@Model.YearsOfExperience"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                               <div class="col m-r--m">
                                     <div class="left label--mxxl">
                                         <label>@Labels.ApplyDate</label>
                                     </div>
@@ -90,30 +112,11 @@
                                 </div>
                                 <div class="col m-r--m">
                                     <div class="left label--mxxl">
-                                        <label>@Labels.YearsOfExperience</label>
-                                    </div>
-                                    <div class="left input--m">
-                                        <input asp-for="@Model.YearsOfExperience"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row form-input">
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.DoB</label>
-                                    </div>
-                                    <div class="left datepicker-button select--m">
-                                        <date-picker name="DoB" value="@Model.DOB">
-                                        </date-picker>
-                                        <i class="mdi-action-event calendar-icon left"></i>
-                                    </div>
-                                </div>
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
                                         <label>@Labels.ProfessionalLevel</label>
                                     </div>
                                     <div class="left select--m">
                                         <select asp-for="ProfessionalLevel" asp-items="@Model.ProLevelList">
+                                            <option value=""></option>
                                         </select>
                                     </div>
                                 </div>
@@ -141,16 +144,6 @@
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--mxxl">
-                                        <label>@Labels.ResumeFile</label>
-                                    </div>
-                                    <div class="left input--m">
-                                        <input type="file" name="fileUpload" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row form-input">
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
                                         <label>@Labels.InterviewDate1</label>
                                     </div>
                                     <div class="left datepicker-button select--m">
@@ -164,7 +157,7 @@
                                         <label>@Labels.Result1</label>
                                     </div>
                                     <div class="left select--m">
-                                        <select asp-for="Result1" asp-items="@Model.StatusList">
+                                        <select asp-for="Result1" asp-items="@Model.ResultList">
                                             <option value=""></option>
                                         </select>
                                     </div>
@@ -186,7 +179,7 @@
                                         <label>@Labels.Result2</label>
                                     </div>
                                     <div class="left select--m">
-                                        <select asp-for="Result2" asp-items="@Model.StatusList">
+                                        <select asp-for="Result2" asp-items="@Model.ResultList">
                                             <option value=""></option>
                                         </select>
                                     </div>
@@ -208,7 +201,7 @@
                                         <label>@Labels.Source</label>
                                     </div>
                                     <div class="left select--m">
-                                        <select asp-for="Source" asp-items="@Model.StatusList">
+                                        <select asp-for="Source" asp-items="@Model.SourceList">
                                             <option value=""></option>
                                         </select>
                                     </div>
@@ -230,7 +223,7 @@
                                         <label>@Labels.Grade</label>
                                     </div>
                                     <div class="left input--m">
-                                        <select asp-for="Grade" asp-items="@Model.StatusList">
+                                        <select asp-for="Grade" asp-items="@Model.GradeList">
                                             <option value=""></option>
                                         </select>
                                     </div>
@@ -245,6 +238,14 @@
                                         <input asp-for="@Model.EducationBackground"/>
                                     </div>
                                 </div>
+                                 <div class="col m-r--m">
+                                    <div class="left label--mxxl">
+                                        <label>@Labels.ResumeFile</label>
+                                    </div>
+                                    <div class="left input--m">
+                                        <input type="file" name="fileUpload" multiple/>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row form-input">
                                  <div class="col m-r--m">
@@ -252,18 +253,8 @@
                                         <label>@Labels.Interviewers</label>
                                     </div>
                                     <div class="left input--l">
-                                        @* <input asp-for="@Model.Interviewer"/>
-                                        <input type="hidden" asp-for="Interviewer"/>
-                                        <input type="hidden" asp-for="InterviewerId"/> *@
-                                        @* <select asp-for="@Model.Interviewer" class="mySelect for" multiple="multiple">
-                                        </select> *@
+                                        @* <select asp-for="InterviewerId" asp-items="@Model.Employees" class="select-2"></select> *@
                                     </div>
-
-                                    @* <div class="left input--m">
-                                            <input asp-for="Leader" placeholder="@Messages.SearchEmployeeWatermark"/>
-                                            <input type="hidden" asp-for="Leader"/>
-                                            <input type="hidden" asp-for="LeaderId"/>
-                                    </div> *@
                                 </div>
                             </div>
                             <div class="row form-input">
@@ -295,8 +286,6 @@
                                         <textarea asp-for="@Model.FinalComment" class="materialize-textarea" value="@Model.FinalComment"></textarea>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--mxxl">
                                         <label>@Labels.ExpectedSalary</label>

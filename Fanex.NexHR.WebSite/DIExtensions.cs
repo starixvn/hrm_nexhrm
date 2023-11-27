@@ -171,7 +171,6 @@
             services.AddSingleton<IAnnualLeaveRepository, AnnualLeaveRepository>();
             services.AddSingleton<IBioRepository, BioRepository>();
             services.AddSingleton<IDepartmentRepository, DepartmentRepository>();
-            services.AddSingleton<IApplicantRepository, ApplicantRepository>();
         }
     }
 }

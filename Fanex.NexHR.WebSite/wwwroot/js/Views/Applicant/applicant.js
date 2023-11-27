@@ -2,8 +2,6 @@
 'use strict';
 
 function query(isFirstLoad) {
-    console.log($('#FromDate').val());
-
     $.ajax({
         url: _global.root + 'applicants/index',
         dataType: 'html',
@@ -63,18 +61,14 @@ $(document).ready(function () {
     });
 
     query(true);
+
     if ($('.form-create-edit').length > 0) {
 
         initAutocomplete('#Recruiter', '#RecruiterId', null);
 
-        var data = ["Apple", "Banana", "Cherry", "Date", "ElderberriesElderberry"];
-        $("#mySelect").select2({
-            data,
-            allowClear: false,
-            minimumResultsForSearch: 5
-        });
+        // $('.select-2').select2({ closeOnSelect: false, multiple: true });
 
-        var successed = $('#successed').val();
+        let successed = $('#successed').val();
         if (successed === 'true') {
             confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
                     function () {
@@ -82,7 +76,5 @@ $(document).ready(function () {
                     }
                 );
         }
-
-        
     }
 });

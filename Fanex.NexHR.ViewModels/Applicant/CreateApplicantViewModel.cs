@@ -12,12 +12,13 @@
 
     public class CreateApplicantViewModel
     {
-
         public CreateApplicantViewModel()
         {
             DOB = new DateTime(1990, 1, 1);
             ApplyDate = DateTime.Now;
         }
+
+        public int Id { get; set; }
 
         [Required]
         [Display(Name = "Full Name")]
@@ -93,6 +94,10 @@
         public int? RecruiterId { get; set; }
 
         public string Recruiter { get; set; }
+        
+        public string FullNameRecruiter { get; set; }
+
+        public string NickNameRecruiter { get; set; }
 
         public string EducationBackground { get; set; }
 
@@ -102,7 +107,7 @@
 
         public string Note { get; set; }
 
-        public int? InterviewerIds { get; set; }
+        public int[] InterviewerIds { get; set; }
 
         public string OfferSalary { get; set; }
 
@@ -113,5 +118,7 @@
         public string Interviewer { get; set; }
 
         public int InterviewerId { get; set; }
+
+        public SelectList Employees { get; set; }
     }
 }

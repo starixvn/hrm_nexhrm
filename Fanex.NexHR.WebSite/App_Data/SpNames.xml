@@ -501,6 +501,7 @@
         <Setting Key="Position_GetAll" SpName="Position_GetAll" DbName="nexhr" Plain="1"></Setting>
         <Setting Key="Applicant_GetById" SpName="Applicant_GetById" DbName="nexhr" Plain="1"></Setting>
         <Setting Key="Applicant_Insert" SpName="Applicant_Insert" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="Applicant_Update" SpName="Applicant_Update" DbName="nexhr" Plain="1"></Setting>
         <Setting Key="Applicant_Delete" SpName="Applicant_Delete" DbName="nexhr" Plain="1"></Setting>
     </Function>
 </Functions>

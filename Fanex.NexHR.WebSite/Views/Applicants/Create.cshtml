@@ -55,6 +55,7 @@
                                     </div>
                                     <div class="left select--m">
                                         <select asp-for="PositionId" asp-items="@(new SelectList(Model.Positions, "PositionId", "PositionName"))">
+                                             <option value=""></option>
                                         </select>
                                     </div>
                                 </div>
@@ -78,16 +79,17 @@
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col m-r--m">
+                                 <div class="col m-r--m">
                                     <div class="left label--mxxl">
                                         <label>@Labels.DoB</label>
                                     </div>
                                     <div class="left datepicker-button select--m">
-                                        <date-picker name="DoB" value="@Model.DOB">
+                                        <date-picker name="DOB" value="@Model.DOB">
                                         </date-picker>
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
                                 </div>
+                                
                                 <div class="col m-r--m">
                                     <div class="left label--mxxl">
                                         <label>@Labels.YearsOfExperience</label>
@@ -98,7 +100,7 @@
                                 </div>
                             </div>
                             <div class="row form-input">
-                                <div class="col m-r--m">
+                               <div class="col m-r--m">
                                     <div class="left label--mxxl">
                                         <label>@Labels.ApplyDate</label>
                                     </div>
@@ -155,7 +157,7 @@
                                         <label>@Labels.Result1</label>
                                     </div>
                                     <div class="left select--m">
-                                        <select asp-for="Result1" asp-items="@Model.StatusList">
+                                        <select asp-for="Result1" asp-items="@Model.ResultList">
                                             <option value=""></option>
                                         </select>
                                     </div>
@@ -177,7 +179,7 @@
                                         <label>@Labels.Result2</label>
                                     </div>
                                     <div class="left select--m">
-                                        <select asp-for="Result2" asp-items="@Model.StatusList">
+                                        <select asp-for="Result2" asp-items="@Model.ResultList">
                                             <option value=""></option>
                                         </select>
                                     </div>
@@ -236,12 +238,12 @@
                                         <input asp-for="@Model.EducationBackground"/>
                                     </div>
                                 </div>
-                                <div class="col m-r--m">
+                                 <div class="col m-r--m">
                                     <div class="left label--mxxl">
                                         <label>@Labels.ResumeFile</label>
                                     </div>
                                     <div class="left input--m">
-                                        <input type="file" name="fileUpload" />
+                                        <input type="file" name="fileUpload" multiple/>
                                     </div>
                                 </div>
                             </div>
@@ -251,8 +253,7 @@
                                         <label>@Labels.Interviewers</label>
                                     </div>
                                     <div class="left input--l">
-                                        <select id="mySelect" multiple="multiple" style="width: 100%">
-                                        </select>
+                                        @* <select asp-for="InterviewerId" asp-items="@Model.Employees" class="select-2"></select> *@
                                     </div>
                                 </div>
                             </div>
