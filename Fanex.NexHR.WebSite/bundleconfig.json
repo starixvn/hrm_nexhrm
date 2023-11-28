@@ -1077,7 +1077,9 @@
     {
         "outputFileName": "wwwroot/minify/js/applicant.min.js",
         "inputFiles": [
+            "wwwroot/js/Libs/select2.js",
             "wwwroot/js/Views/Applicant/applicant.js"
+
         ],
         "minify": {
             "enabled": true,

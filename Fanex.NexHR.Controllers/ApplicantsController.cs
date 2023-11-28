@@ -166,7 +166,7 @@ namespace Fanex.NexHR.Controllers
                         InterviewerComment = model.InterviewerComment,
                         Grade = model.Grade,
                         Note = model.Note,
-                        InterviewerIds = model.InterviewerIds,
+                        InterviewerIds = model.InterviewerIds != null ? string.Join(",", model.InterviewerIds) : null,
                         ExpectedSalary = model.ExpectedSalary,
                         OfferSalary = model.OfferSalary,
                         FinalComment = model.FinalComment,
@@ -200,7 +200,7 @@ namespace Fanex.NexHR.Controllers
                 ApplicantId = id
             };
 
-            CreateApplicantViewModel applicant = await applicantService.GetById(criteria);
+            EditApplicantViewModel applicant = await applicantService.GetById(criteria);
             if (applicant != null)
             {
                 applicant.Positions = await positionService.GetAll();
@@ -214,7 +214,7 @@ namespace Fanex.NexHR.Controllers
 
         [HttpPost]
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> Edit(CreateApplicantViewModel model)
+        public async Task<IActionResult> Edit(EditApplicantViewModel model)
         {
             if (model != null)
             {
@@ -270,8 +270,8 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Delete(int id)
         {
             var deleteApplicantCriteria = new DeleteApplicantCriteria { Id = id };

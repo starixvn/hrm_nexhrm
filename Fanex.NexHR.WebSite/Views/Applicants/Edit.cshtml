@@ -2,7 +2,7 @@
 @using Fanex.NexHR.ViewModels.Applicant
 @using Fanex.NexHR.Core.Enums
 @using Fanex.NexHR.Services.Interfaces
-@model CreateApplicantViewModel
+@model EditApplicantViewModel
 
 @{
     ViewBag.Title = Labels.Applicants;
@@ -13,6 +13,7 @@
 }
 @section Scripts {
     <environment include="Development">
+        <script src="~/js/Libs/select2.js" asp-append-version="true"></script>
         <script src="~/js/Views/Applicant/applicant.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
@@ -263,11 +264,9 @@
                                         <label>@Labels.InterviewerCmt</label>
                                     </div>
                                     <div class="left input--l">
-                                        <textarea asp-for="@Model.FinalComment" class="materialize-textarea" value="@Model.FinalComment"></textarea>
+                                        <textarea asp-for="@Model.InterviewerComment" class="materialize-textarea" value="@Model.InterviewerComment"></textarea>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--mxxl">
                                         <label>@Labels.Note</label>

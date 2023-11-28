@@ -24,7 +24,7 @@
         [DataType(DataType.Date)]
         public DateTime? JoinDate { get; set; }
 
-        public string Notes { get; set; }
+        public string Note { get; set; }
 
         public int Source { get; set; }
 

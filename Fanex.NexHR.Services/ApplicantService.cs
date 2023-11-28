@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Fanex.NexHR.Criteria.Applicant;
 using Fanex.NexHR.Services.Interfaces;
 using Fanex.NexHR.Models.Applicant;
-using Fanex.NexHR.Criteria.Team;
 using Fanex.NexHR.ViewModels.Applicant;
 
 namespace Fanex.NexHR.Services
@@ -29,12 +28,12 @@ namespace Fanex.NexHR.Services
             return applicants ?? new List<Applicant>();
         }
 
-        public async Task<CreateApplicantViewModel> GetById(GetApplicantByIdCriteria criteria)
+        public async Task<EditApplicantViewModel> GetById(GetApplicantByIdCriteria criteria)
         {
-             CreateApplicantViewModel applicant = null;
+             EditApplicantViewModel applicant = null;
             if (criteria != null && criteria.IsValid())
             {
-                applicant = await baseService.GetDataEntityAsync<CreateApplicantViewModel>(criteria);
+                applicant = await baseService.GetDataEntityAsync<EditApplicantViewModel>(criteria);
             }
 
             return applicant;

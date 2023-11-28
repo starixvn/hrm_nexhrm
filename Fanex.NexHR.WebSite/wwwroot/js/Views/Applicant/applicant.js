@@ -66,7 +66,7 @@ $(document).ready(function () {
 
         initAutocomplete('#Recruiter', '#RecruiterId', null);
 
-        // $('.select-2').select2({ closeOnSelect: false, multiple: true });
+        $('.select-2').select2({ closeOnSelect: false });
 
         let successed = $('#successed').val();
         if (successed === 'true') {

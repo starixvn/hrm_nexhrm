@@ -18,8 +18,6 @@
             ApplyDate = DateTime.Now;
         }
 
-        public int Id { get; set; }
-
         [Required]
         [Display(Name = "Full Name")]
         public string FullName { get; set; }

@@ -27,7 +27,7 @@
             <th>@Labels.Date</th>
             <th>@Labels.Result</th>
             <th>@Labels.Date</th>
-            <th>@Labels.Result</th>
+            <th style="border-right: none">@Labels.Result</th>
         </tr>
     </thead>
     <tbody>
@@ -35,7 +35,8 @@
         {
             foreach (var item in Model)
             {
-                <tr id="row@(item.Id)">
+                string hightlight = (item.ResultName1 == "KIV" || item.ResultName2 == "KIV") ? "background-color: #f5e7e1;" : "";
+                <tr id="row@(item.Id)" style="@hightlight">
                     <td>@(index++)</td>
                     <td>@item.FullName</td>
                     <td>@item.Phone</td>
@@ -46,7 +47,7 @@
                     <td>@item.InterviewDate2.ToFormatedDate()</td>
                     <td>@item.ResultName2</td>
                     <td>@item.JoinDate.ToDateMonthYearFormatedDate()</td>
-                    <td>@item.Notes</td>
+                    <td>@item.Note</td>
                     <td>@item.SourceName</td>
                     <td>
                         <a href="/">@Labels.View</a>

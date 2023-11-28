@@ -10,6 +10,6 @@ namespace Fanex.NexHR.Services.Interfaces
     {
         Task<IEnumerable<Applicant>> GetAll(GetAllApplicantCriteria criteria);
 
-        Task<CreateApplicantViewModel> GetById(GetApplicantByIdCriteria criteria);
+        Task<EditApplicantViewModel> GetById(GetApplicantByIdCriteria criteria);
     }
 }

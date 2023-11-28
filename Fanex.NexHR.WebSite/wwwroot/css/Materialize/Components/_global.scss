@@ -341,7 +341,7 @@ table {
   &.highlight > tbody > tr {
     @include transition(background-color .25s ease);
     &:hover {
-      background-color: $table-hover-color;
+      background-color: $table-hover-color !important;
     }
   }
 

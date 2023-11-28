@@ -10,15 +10,18 @@
 
 @section Styles {
     <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/conversationmanagement.min.css" asp-append-version="true">
 }
 @section Scripts {
     <environment include="Development">
+        <script src="~/js/Libs/select2.js" asp-append-version="true"></script>
         <script src="~/js/Views/Applicant/applicant.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
         <script src="~/minify/js/applicant.min.js" asp-append-version="true"></script>
     </environment>
 }
+
 
 <div class="row content">
     <div class="col s12 card-container-base my-request">
@@ -253,7 +256,7 @@
                                         <label>@Labels.Interviewers</label>
                                     </div>
                                     <div class="left input--l">
-                                        @* <select asp-for="InterviewerId" asp-items="@Model.Employees" class="select-2"></select> *@
+                                        <select asp-for="InterviewerIds" asp-items="@Model.Employees" class="select-2"></select>
                                     </div>
                                 </div>
                             </div>
@@ -263,11 +266,9 @@
                                         <label>@Labels.InterviewerCmt</label>
                                     </div>
                                     <div class="left input--l">
-                                        <textarea asp-for="@Model.FinalComment" class="materialize-textarea" value="@Model.FinalComment"></textarea>
+                                        <textarea asp-for="@Model.InterviewerComment" class="materialize-textarea" value="@Model.InterviewerComment"></textarea>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--mxxl">
                                         <label>@Labels.Note</label>
