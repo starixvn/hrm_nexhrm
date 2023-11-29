@@ -115,8 +115,6 @@
 
         public string Interviewer { get; set; }
 
-        public int InterviewerId { get; set; }
-
         public SelectList Employees { get; set; }
     }
 }

@@ -15,6 +15,7 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Core.Enums;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Fanex.NexHR.Criteria.Employee;
+    using System.Linq;
 
     public class ApplicantsController : BaseController
     {
@@ -200,14 +201,24 @@ namespace Fanex.NexHR.Controllers
                 ApplicantId = id
             };
 
+            var employees = await employeeService.Query(new GetEmployeeCriteria
+            {
+                Query = string.Empty,
+                IsDelete = false,
+                IsDisable = false,
+                PageSize = int.MaxValue,
+                PageNumber = 1
+            });
+
             EditApplicantViewModel applicant = await applicantService.GetById(criteria);
             if (applicant != null)
             {
                 applicant.Positions = await positionService.GetAll();
                 applicant.StatusList = GetStatusList();
                 applicant.Recruiter = applicant.NickNameRecruiter + (string.IsNullOrWhiteSpace(applicant.FullNameRecruiter) ? string.Empty : " (" + applicant.FullNameRecruiter + ")");
+                applicant.InterviewerIds = !string.IsNullOrEmpty(applicant.InterviewerIdString) ? applicant.InterviewerIdString.Split(',').Select(int.Parse).ToArray() : null;
+                applicant.Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName));
             }
-
 
             return View(applicant);
         }
@@ -245,7 +256,7 @@ namespace Fanex.NexHR.Controllers
                         InterviewerComment = model.InterviewerComment,
                         Grade = model.Grade,
                         Note = model.Note,
-                        InterviewerIds = model.Interviewer,
+                        InterviewerIds = model.InterviewerIds != null ? string.Join(",", model.InterviewerIds) : null,
                         ExpectedSalary = model.ExpectedSalary,
                         OfferSalary = model.OfferSalary,
                         FinalComment = model.FinalComment
