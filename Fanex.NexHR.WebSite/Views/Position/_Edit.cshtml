@@ -1,0 +1,54 @@
+﻿@using Fanex.NexHR.Resources
+@model Fanex.NexHR.ViewModels.EditPositionViewModel
+
+@using (Html.AjaxBeginForm("Edit", null, new AjaxOptions
+{
+    HttpMethod = "POST",
+    OnSuccess = "position.onEditSuccess"
+}, new { id = "edit-form" }))
+{
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="All"></div>
+    <input type="hidden" asp-for="@Model.PositionId"/>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                <label>@Labels.Name</label>
+            </div>
+            <div class="left select--l">
+                <input asp-for="@Model.PositionName"/>
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                <label>@Labels.Code</label>
+            </div>
+            <div class="left select--l">
+                <input asp-for="@Model.PositionCode"/>
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                <label>Active</label>
+            </div>
+            <div class="left">
+                <input class="filled-in" asp-for="IsActive" type="checkbox" value="true">
+                <label for="IsActive"></label>
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                <label>Display Order</label>
+            </div>
+            <div class="left select--l">
+                <input asp-for="@Model.DisplayOrder" type="number" min="0"/>
+            </div>
+        </div>
+    </div>
+}

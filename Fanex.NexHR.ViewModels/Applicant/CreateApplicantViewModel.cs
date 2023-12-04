@@ -8,6 +8,7 @@
     using Fanex.NexHR.Core.Attributes;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class CreateApplicantViewModel
@@ -116,5 +117,8 @@
         public string Interviewer { get; set; }
 
         public SelectList Employees { get; set; }
+
+        public IFormFile FileUpload { get; set; }
+
     }
 }

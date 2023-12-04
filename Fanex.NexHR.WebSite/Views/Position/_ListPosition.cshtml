@@ -1,0 +1,66 @@
+﻿@using Fanex.NexHR.Models
+@using Fanex.NexHR.Resources
+@model IList<Position>
+    @section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/Position/position.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/position.min.js" asp-append-version="true"></script>
+    </environment>
+}
+<table id="data" class="table bordered striped highlight centered table-custom">
+    <thead>
+        <tr>
+            <th>@Labels.SymbolCount</th>
+            <th>@Labels.Name</th>
+            <th>@Labels.Code</th>
+            <th>@Labels.Active</th>
+            <th> Display Order</th>
+            <th>@Labels.Edit</th>
+            <th>@Labels.Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            var index = 0;
+            foreach (var item in Model)
+            {
+                index++;
+                <tr id="row_@item.PositionId">
+                    <td>@index</td>
+                    <td class="align-left">@item.PositionName</td>
+                    <td class="align-left">@item.PositionCode</td>
+                    <td>
+                        <input checked="@item.IsActive" class=" filled-in" id="IsActive-@item.PositionId" name="IsActive-@item.PositionId" onclick="return false" type="checkbox" value="true">
+                        <label for="IsActive-@item.PositionId"></label>
+                    </td>
+                    <td>@item.DisplayOrder</td>
+                    <td class="cmd">
+                        <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog" href="@Url.Action("Edit", new { id = item.PositionId })"
+                            data-ajax-success="position.onLoadingEditFormSuccess">
+                                <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
+                        </a>
+                    </td>
+                    <td class="cmd">
+                        <a href="javascript:;" onclick="deletePosition(@item.PositionId);">
+                            <i class="mdi mdi-delete mdi-dark mdi-18px"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="6"></td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    @Messages.NoInformation
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,42 @@
+﻿@using Fanex.NexHR.Resources
+@model Fanex.NexHR.ViewModels.CreatePositionViewModel
+
+@using (Html.AjaxBeginForm("Create", null, new AjaxOptions
+{
+    HttpMethod = "POST",
+    OnSuccess = "position.onCreateSuccess"
+}, new { id = "create-form" }))
+{
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="All"></div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                <label>@Labels.Name</label>
+            </div>
+            <div class="left select--l">
+                <input asp-for="@Model.PositionName"/>
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                <label>@Labels.Code</label>
+            </div>
+            <div class="left select--l">
+                <input asp-for="@Model.PositionCode"/>
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                <label>Display Order</label>
+            </div>
+            <div class="left select--l">
+                <input asp-for="@Model.DisplayOrder" type="number" min="0"/>
+            </div>
+        </div>
+    </div>
+}

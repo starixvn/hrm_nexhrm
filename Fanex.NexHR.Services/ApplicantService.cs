@@ -30,7 +30,8 @@ namespace Fanex.NexHR.Services
 
         public async Task<EditApplicantViewModel> GetById(GetApplicantByIdCriteria criteria)
         {
-             EditApplicantViewModel applicant = null;
+            EditApplicantViewModel applicant = null;
+            
             if (criteria != null && criteria.IsValid())
             {
                 applicant = await baseService.GetDataEntityAsync<EditApplicantViewModel>(criteria);

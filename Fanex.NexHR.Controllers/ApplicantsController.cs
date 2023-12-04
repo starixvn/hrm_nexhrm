@@ -1,6 +1,5 @@
 namespace Fanex.NexHR.Controllers
 {
-    using Core;
     using System.Collections.Generic;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
@@ -16,12 +15,15 @@ namespace Fanex.NexHR.Controllers
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Fanex.NexHR.Criteria.Employee;
     using System.Linq;
+    using Microsoft.AspNetCore.Http;
+    using System.IO;
+    using System.Text;
+    using Fanex.NexHR.Criteria.Position;
 
     public class ApplicantsController : BaseController
     {
         private readonly IBaseService baseService;
         private readonly IWebHostEnvironment environment;
-        private readonly AppSetting appSetting;
         private readonly IApplicantService applicantService;
         private readonly IPositionService positionService;
         private readonly IEmployeeService employeeService;
@@ -29,14 +31,12 @@ namespace Fanex.NexHR.Controllers
         public ApplicantsController(ISessionService sessionService,
             IBaseService baseService,
             IWebHostEnvironment environment,
-            AppSetting appSetting,
             IApplicantService applicantService,
             IPositionService positionService,
             IEmployeeService employeeService) : base(sessionService)
         {
             this.baseService = baseService;
             this.environment = environment;
-            this.appSetting = appSetting;
             this.applicantService = applicantService;
             this.positionService = positionService;
             this.employeeService = employeeService;
@@ -47,11 +47,18 @@ namespace Fanex.NexHR.Controllers
         {
             var model = new ApplicantViewModel
             {
-                Positions = await positionService.GetAll(),
+                Positions = await GetPositions(),
                 StatusList = GetStatusList()
             };
 
             return View(model);
+        }
+
+        private async Task<List<Position>> GetPositions()
+        {
+            var criteria = new GetAllPositionCriteria();
+            var position = await positionService.GetAll(criteria);
+            return position.ToList(); 
         }
 
         private static List<SelectListItem> GetStatusList()
@@ -124,10 +131,10 @@ namespace Fanex.NexHR.Controllers
                 PageSize = int.MaxValue,
                 PageNumber = 1
             });
-
+            var criteria = new GetAllPositionCriteria();
             var model = new CreateApplicantViewModel
             {
-                Positions = await positionService.GetAll(),
+                Positions = await GetPositions(),
                 StatusList = GetStatusList(),
                 Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName))
             };
@@ -143,6 +150,7 @@ namespace Fanex.NexHR.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    var cv = UploadFileAsync(model.FileUpload).Result;
                     var criteria = new InsertApplicantCriteria
                     {
                         FullName = model.FullName,
@@ -155,7 +163,7 @@ namespace Fanex.NexHR.Controllers
                         ProfessionalLevel = model.ProfessionalLevel,
                         ProfessionalMajor = model.ProfessionalMajor,
                         Status = model.Status,
-                        Resume = model.Resume,
+                        Resume = cv,
                         InterviewDate1 = model.InterviewDate1,
                         Result1 = model.Result1,
                         InterviewDate2 = model.InterviewDate2,
@@ -186,14 +194,14 @@ namespace Fanex.NexHR.Controllers
                     }
                 }
 
-                model.Positions = await positionService.GetAll();
+                model.Positions = await GetPositions();
                 model.StatusList = GetStatusList();
             }
 
             return View(model);
         }
 
-         [HrmAuthorize(UserRoles = "HR")]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Edit(int id)
         {
             var criteria = new GetApplicantByIdCriteria
@@ -213,7 +221,7 @@ namespace Fanex.NexHR.Controllers
             EditApplicantViewModel applicant = await applicantService.GetById(criteria);
             if (applicant != null)
             {
-                applicant.Positions = await positionService.GetAll();
+                applicant.Positions = await GetPositions();
                 applicant.StatusList = GetStatusList();
                 applicant.Recruiter = applicant.NickNameRecruiter + (string.IsNullOrWhiteSpace(applicant.FullNameRecruiter) ? string.Empty : " (" + applicant.FullNameRecruiter + ")");
                 applicant.InterviewerIds = !string.IsNullOrEmpty(applicant.InterviewerIdString) ? applicant.InterviewerIdString.Split(',').Select(int.Parse).ToArray() : null;
@@ -221,6 +229,16 @@ namespace Fanex.NexHR.Controllers
             }
 
             return View(applicant);
+        }
+
+        private void CreateOrOpenDirectory(string dir)
+        {
+            string[] filePath = { environment.WebRootPath, dir };
+            var path = Path.Combine(filePath);
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
         }
 
         [HttpPost]
@@ -231,9 +249,11 @@ namespace Fanex.NexHR.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    var cv = UploadFileAsync(model.FileUpload).Result;
+
                     var criteria = new UpdateApplicantCriteria
                     {
-                        Id =  model.Id,
+                        Id = model.Id,
                         FullName = model.FullName,
                         PositionId = model.PositionId,
                         Phone = model.Phone,
@@ -244,7 +264,7 @@ namespace Fanex.NexHR.Controllers
                         ProfessionalLevel = model.ProfessionalLevel,
                         ProfessionalMajor = model.ProfessionalMajor,
                         Status = model.Status,
-                        Resume = model.Resume,
+                        Resume = cv,
                         InterviewDate1 = model.InterviewDate1,
                         Result1 = model.Result1,
                         InterviewDate2 = model.InterviewDate2,
@@ -274,11 +294,51 @@ namespace Fanex.NexHR.Controllers
                     }
                 }
 
-                model.Positions = await positionService.GetAll();
+                model.Positions = await GetPositions();
                 model.StatusList = GetStatusList();
             }
 
             return View(model);
+        }
+
+        private async Task<string> UploadFileAsync(IFormFile file)
+        {
+            var attachedFilePath = new StringBuilder();
+
+            if (file == null)
+            {
+                return attachedFilePath.ToString();
+            }
+
+            var dir = $"file/uploads/cv";
+            CreateOrOpenDirectory(dir);
+
+            string savedFilePath = await SaveFileAsync(file, dir);
+            attachedFilePath.Append("/" + savedFilePath);
+
+            return file.FileName;
+        }
+
+        private async Task<string> SaveFileAsync(IFormFile file, string dir)
+        {
+            if (file == null)
+            {
+                return null;
+            }
+
+            var fileName = Path.GetFileName(file.FileName);
+            var pathAttach = new StringBuilder($"{dir}/{fileName}");
+
+            //fileName = ChangeNameForDuplicatedFile(pathAttach.ToString(), fileName);
+
+            string[] filePath = { environment.WebRootPath, pathAttach.ToString() };
+            var path = Path.Combine(filePath);
+
+            var stream = new FileStream(path, FileMode.Create);
+
+            await file.CopyToAsync(stream);
+
+            return pathAttach.ToString();
         }
 
         [HttpPost]

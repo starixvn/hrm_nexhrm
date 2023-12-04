@@ -4,6 +4,7 @@
 @model IEnumerable<Applicant>
 @{
     var index = 1;
+    string dirCV = "file/uploads/cv";
 }
 <div id="divErrorCont"></div>
 <table id="data-detail" class="table bordered striped highlight table-custom centered">
@@ -50,7 +51,10 @@
                     <td>@item.Note</td>
                     <td>@item.SourceName</td>
                     <td>
-                        <a href="/">@Labels.View</a>
+                        @if (!string.IsNullOrEmpty(item.Resume))
+                        {
+                            <a href="@($"{dirCV}/{item.Resume}")">@Labels.View</a>
+                        }
                     </td>
                     <td class="cmd">
                         <a href="@Url.Action("Edit", "Applicants", new { @item.Id})">

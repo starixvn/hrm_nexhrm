@@ -501,6 +501,7 @@
     <None Include="wwwroot\js\Views\SkypeAccount\skype-account.js" />
     <None Include="wwwroot\js\Views\TeamManagement\team.management.js" />
     <None Include="wwwroot\js\Views\Applicant\applicant.js" />
+    <None Include="wwwroot\js\Views\Position\position.js" />
   </ItemGroup>
 
   <ItemGroup>

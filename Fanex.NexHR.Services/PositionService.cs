@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Fanex.NexHR.Criteria.Position;
 using Fanex.NexHR.Services.Interfaces;
 using Fanex.NexHR.Models;
+using Fanex.NexHR.ViewModels;
 
 namespace Fanex.NexHR.Services
 {
@@ -16,11 +17,20 @@ namespace Fanex.NexHR.Services
             this.baseService = baseService;
         }
 
-        public async Task<IEnumerable<Position>> GetAll()
+        public async Task<IEnumerable<Position>> GetAll(GetAllPositionCriteria criteria)
         {
-            var criteria = new GetAllPositionCriteria();
             IEnumerable<Position> positions = await baseService.GetDataAsync<Position>(criteria);
             return positions;
+        }
+
+        public async Task<EditPositionViewModel> GetById(GetPositionByIdCriteria criteria)
+        {
+            EditPositionViewModel position = null;
+            if (criteria != null && criteria.IsValid())
+            {
+                position = await baseService.GetDataEntityAsync<EditPositionViewModel>(criteria);
+            }
+            return position;
         }
     }
 }

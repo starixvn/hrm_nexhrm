@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.SignalR;
-
-namespace Fanex.NexHR.ViewModels.Applicant
+﻿namespace Fanex.NexHR.ViewModels.Applicant
 {
     public class EditApplicantViewModel : CreateApplicantViewModel
     {

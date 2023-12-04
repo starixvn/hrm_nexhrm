@@ -1100,5 +1100,17 @@
           "renameLocals": true
       },
       "sourceMap": false
-}
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/position.min.js",
+        "inputFiles": [
+            "wwwroot/js/Libs/jquery.validate.unobtrusive.js",
+            "wwwroot/js/Views/Applicant/position.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    }
 ]

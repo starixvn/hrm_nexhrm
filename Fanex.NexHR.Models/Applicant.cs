@@ -38,6 +38,6 @@
 
         public string ResultName2 { get; set; }
 
-        public string CV { get; set; }
+        public string Resume { get; set; }
     }
 }

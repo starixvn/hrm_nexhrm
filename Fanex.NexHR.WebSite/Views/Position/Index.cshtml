@@ -1,0 +1,61 @@
+﻿@using Fanex.NexHR.Models
+@using Fanex.NexHR.Resources
+@model IList<Position>
+@{
+    ViewBag.Title = Labels.Position;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/minify/css/scheduledmessage.min.css" asp-append-version="true">
+}
+
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Libs/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Position/position.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/position.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form">
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--m">
+                                    <label>@Labels.Keyword</label>
+                                </div>
+                                <div class="left input--m">
+                                    <input type="text" name="Keyword" id="Keyword" placeholder="name or code" value=""/>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <input type="button" id="submit" class="btn-submit waves-effect waves-light m-r--m" value="@Labels.Submit" />
+                                @Html.AjaxActionLink("New Position", "Create", null, new AjaxOptions {
+                                    InsertionMode = InsertionMode.Replace,
+                                    UpdateTargetId = "dialog",
+                                    OnSuccess = "position.onLoadingCreateFormSuccess"
+                                }, new { @class= "btn-request waves-effect waves-light m-r--s" })
+                            </div>
+                            <div class="col">
+                                <a asp-controller="Applicants" asp-action="Index" class="btn-back waves-effect waves-light m-r--s">@Labels.Back</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="position-detail" class="p-x--s">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dialog">
+</div>

@@ -37,15 +37,15 @@ function query(isFirstLoad) {
 function deleteApplicant(id) {
     confirm('Are you sure you want to delete this applicant?', function () {
         $.post(_global.root + 'applicants/Delete', { id: id },
-        function (response) {
-            if (response.IsSuccessful) {
-                $('#row' + id).remove();
-                autoIndex();
-            }
-            else {
-                alert(response.Message);
-            }
-        });
+            function (response) {
+                if (response.IsSuccessful) {
+                    $('#row' + id).remove();
+                    autoIndex();
+                }
+                else {
+                    alert(response.Message);
+                }
+            });
     });
 }
 
@@ -68,13 +68,23 @@ $(document).ready(function () {
 
         $('.select-2').select2({ closeOnSelect: false });
 
+        $('.delete-resume').on('click', function () {
+            $(this).closest('.resume-container').remove();
+        });
+
+        $('.resume-container a').on('click', function (e) {
+            e.preventDefault();
+            var newLocation = $(this).attr('href');
+            window.location.href = newLocation;
+        });
+
         let successed = $('#successed').val();
         if (successed === 'true') {
             confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
-                    function () {
-                        document.location = _global.root + 'Applicants/Index';
-                    }
-                );
+                function () {
+                    document.location = _global.root + 'Applicants';
+                }
+            );
         }
     }
 });

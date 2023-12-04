@@ -6,6 +6,7 @@
 
 @{
     ViewBag.Title = Labels.Applicants;
+    string dirCV = "file/uploads/cv";
 }
 
 @section Styles {
@@ -31,7 +32,7 @@
                 </div>
                 <div class="card-body">
                     <div class="form form-stl-table">
-                        <form asp-controller="applicants" asp-action="edit" method="post" class="form-create-edit">
+                        <form asp-controller="applicants" asp-action="edit" method="post" class="form-create-edit" enctype="multipart/form-data">
                             <div asp-validation-summary="All"></div>
                             @if (ViewBag.Inserted == true)
                             {
@@ -57,7 +58,7 @@
                                     </div>
                                     <div class="left select--m">
                                         <select asp-for="PositionId" asp-items="@(new SelectList(Model.Positions, "PositionId", "PositionName"))">
-                                             <option value=""></option>
+                                            <option value=""></option>
                                         </select>
                                     </div>
                                 </div>
@@ -68,7 +69,7 @@
                                         <label>@Labels.Phone</label>
                                     </div>
                                     <div class="left input--m">
-                                        <input asp-for="@Model.Phone"/>
+                                        <input asp-for="@Model.Phone" />
                                     </div>
                                 </div>
                                 <div class="col m-r--m">
@@ -76,12 +77,12 @@
                                         <label>@Labels.Email</label>
                                     </div>
                                     <div class="left input--m">
-                                        <input asp-for="@Model.Email"/>
+                                        <input asp-for="@Model.Email" />
                                     </div>
                                 </div>
                             </div>
                             <div class="row form-input">
-                                 <div class="col m-r--m">
+                                <div class="col m-r--m">
                                     <div class="left label--mxxl">
                                         <label>@Labels.DoB</label>
                                     </div>
@@ -91,18 +92,18 @@
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col m-r--m">
                                     <div class="left label--mxxl">
                                         <label>@Labels.YearsOfExperience</label>
                                     </div>
                                     <div class="left input--m">
-                                        <input asp-for="@Model.YearsOfExperience"/>
+                                        <input asp-for="@Model.YearsOfExperience" type="number" min = "1" max = "50" step = "1" MaxLength = "2"/>
                                     </div>
                                 </div>
                             </div>
                             <div class="row form-input">
-                               <div class="col m-r--m">
+                                <div class="col m-r--m">
                                     <div class="left label--mxxl">
                                         <label>@Labels.ApplyDate</label>
                                     </div>
@@ -129,7 +130,7 @@
                                         <label>@Labels.ProfessionalMajor</label>
                                     </div>
                                     <div class="left input--m">
-                                        <input asp-for="@Model.ProfessionalMajor"/>
+                                        <input asp-for="@Model.ProfessionalMajor" />
                                     </div>
                                 </div>
                                 <div class="col m-r--m">
@@ -215,9 +216,9 @@
                                         <label>@Labels.Recruiter</label>
                                     </div>
                                     <div class="left input--m">
-                                        <input asp-for="@Model.Recruiter"/>
-                                        <input type="hidden" asp-for="Recruiter"/>
-                                        <input type="hidden" asp-for="RecruiterId"/>
+                                        <input asp-for="@Model.Recruiter" />
+                                        <input type="hidden" asp-for="Recruiter" />
+                                        <input type="hidden" asp-for="RecruiterId" />
                                     </div>
                                 </div>
                                 <div class="col m-r--m">
@@ -231,26 +232,36 @@
                                     </div>
                                 </div>
                             </div>
-                             <div class="row form-input">
+                            <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--mxxl">
                                         <label>@Labels.EducationBackground</label>
                                     </div>
                                     <div class="left input--l">
-                                        <input asp-for="@Model.EducationBackground"/>
+                                        <input asp-for="@Model.EducationBackground" />
                                     </div>
                                 </div>
-                                 <div class="col m-r--m">
+                                <div class="col m-r--m">
                                     <div class="left label--mxxl">
                                         <label>@Labels.ResumeFile</label>
                                     </div>
-                                    <div class="left input--m">
-                                        <input type="file" name="fileUpload" multiple/>
+                                    <div class="left input--mxxl">
+                                        <input type="file" name="FileUpload" class="form-control" asp-for="FileUpload" accept=".pdf,.doc,.docx,.png,.jpeg" />
+                                        @if (!string.IsNullOrEmpty(Model.Resume))
+                                        {
+                                            string resumeUrl = $"{dirCV}/{Model.Resume}";
+                                            <div class="resume-container">
+                                                <a href="@resumeUrl">
+                                                    @Model.Resume
+                                                </a>
+                                                <i class="mdi mdi-delete mdi-dark mdi-18px delete-resume"></i>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                             </div>
                             <div class="row form-input">
-                                 <div class="col m-r--m">
+                                <div class="col m-r--m">
                                     <div class="left label--mxxl">
                                         <label>@Labels.Interviewers</label>
                                     </div>
@@ -277,7 +288,7 @@
                                     </div>
                                 </div>
                             </div>
-                             <div class="row form-input">
+                            <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--mxxl">
                                         <label>@Labels.FinalCmt</label>
@@ -291,7 +302,7 @@
                                         <label>@Labels.ExpectedSalary</label>
                                     </div>
                                     <div class="left input--m">
-                                        <input asp-for="@Model.ExpectedSalary"/>
+                                        <input asp-for="@Model.ExpectedSalary" />
                                     </div>
                                 </div>
                                 <div class="col m-r--m">
@@ -299,7 +310,7 @@
                                         <label>@Labels.OfferedSalary</label>
                                     </div>
                                     <div class="left input--m">
-                                        <input asp-for="@Model.OfferSalary"/>
+                                        <input asp-for="@Model.OfferSalary" />
                                     </div>
                                 </div>
                             </div>

@@ -4,6 +4,9 @@
 
     public class GetAllPositionCriteria : CriteriaBase
     {
+
+        public string Keyword { get; set; }
+
         public override string GetSettingKey()
         {
             return "Position_GetAll";
