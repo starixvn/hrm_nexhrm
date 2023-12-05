@@ -1,0 +1,3 @@
+﻿table input[type="checkbox"] + label {
+  height: initial;
+  padding-top: 12px; }

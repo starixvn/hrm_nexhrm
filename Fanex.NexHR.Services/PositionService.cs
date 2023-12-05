@@ -4,6 +4,7 @@ using Fanex.NexHR.Criteria.Position;
 using Fanex.NexHR.Services.Interfaces;
 using Fanex.NexHR.Models;
 using Fanex.NexHR.ViewModels;
+using System.Linq;
 
 namespace Fanex.NexHR.Services
 {
@@ -20,7 +21,7 @@ namespace Fanex.NexHR.Services
         public async Task<IEnumerable<Position>> GetAll(GetAllPositionCriteria criteria)
         {
             IEnumerable<Position> positions = await baseService.GetDataAsync<Position>(criteria);
-            return positions;
+            return positions.OrderBy(x => x.DisplayOrder).ToList();
         }
 
         public async Task<EditPositionViewModel> GetById(GetPositionByIdCriteria criteria)

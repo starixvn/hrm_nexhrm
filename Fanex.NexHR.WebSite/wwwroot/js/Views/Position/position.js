@@ -7,7 +7,7 @@ function query(isFirstLoad) {
         dataType: 'html',
         method: "POST",
         data: {
-            FullName: $('#keyword').val()
+            keyword: $('#Keyword').val()
         },
         beforeSend: function () {
             if (!isFirstLoad) {
@@ -46,7 +46,7 @@ function deletePosition(id) {
 }
 
 function init() {
-    $('#Name').keyup(function (event) {
+    $('#Keyword').keyup(function (event) {
         if (event.keyCode === 13) {
             query(false);
         }
@@ -86,26 +86,37 @@ var position = (function ($) {
     var $createForm;
     var $editForm;
 
+    $.validator.addMethod("validateSpace", function (value, element, field) {
+        return value.trim().length > 0; 
+    }, "The {0} field is required.");
+
     function initCreateDialog() {
         $createForm = $('#create-form');
         $.validator.unobtrusive.parse($createForm);
+        $("#PositionName").rules("add", {
+            validateSpace: "Name"
+        });
+
+        $("#PositionCode").rules("add", {
+            validateSpace: "Code"
+        });
         $dialog.dialog({
             modal: true,
             width: 'auto',
             title: 'Create New Position',
             buttons: [
                 {
-                    text: 'Save',
-                    class: 'btn-submit waves-effect waves-light btn-dialog',
-                    click: function () {
-                        $('#create-form').submit();
-                    }
-                },
-                {
                     text: 'Cancel',
                     class: 'btn-cancel waves-effect waves-light m-r--m btn-dialog',
                     click: function () {
                         $(this).dialog('close');
+                    }
+                },
+                {
+                    text: 'Save',
+                    class: 'btn-submit waves-effect waves-light btn-dialog',
+                    click: function () {
+                        $('#create-form').submit();
                     }
                 }
             ],
@@ -123,6 +134,13 @@ var position = (function ($) {
     function initEditDialog() {
         $editForm = $('#edit-form');
         $.validator.unobtrusive.parse($editForm);
+        $("#PositionName").rules("add", {
+            validateSpace: "Name"
+        });
+
+        $("#PositionCode").rules("add", {
+            validateSpace: "Code"
+        });
 
         $dialog.dialog({
             modal: true,
@@ -130,19 +148,20 @@ var position = (function ($) {
             title: 'Edit Position',
             buttons: [
                 {
-                    text: 'Save',
-                    class: 'btn-submit waves-effect waves-light btn-dialog',
-                    click: function () {
-                        $editForm.submit();
-                    }
-                },
-                {
                     text: 'Cancel',
                     class: 'btn-cancel waves-effect waves-light m-r--m btn-dialog',
                     click: function () {
                         $(this).dialog('close');
                     }
+                },
+                {
+                    text: 'Save',
+                    class: 'btn-submit waves-effect waves-light btn-dialog',
+                    click: function () {
+                        $editForm.submit();
+                    }
                 }
+
             ],
             show: {
                 effect: 'fade',

@@ -37,13 +37,13 @@
                         <label for="IsActive-@item.PositionId"></label>
                     </td>
                     <td>@item.DisplayOrder</td>
-                    <td class="cmd">
+                    <td>
                         <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog" href="@Url.Action("Edit", new { id = item.PositionId })"
                             data-ajax-success="position.onLoadingEditFormSuccess">
                                 <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
                         </a>
                     </td>
-                    <td class="cmd">
+                    <td>
                         <a href="javascript:;" onclick="deletePosition(@item.PositionId);">
                             <i class="mdi mdi-delete mdi-dark mdi-18px"></i>
                         </a>
@@ -54,10 +54,10 @@
         else
         {
             <tr>
-                <td colspan="6"></td>
+                <td colspan="7"></td>
             </tr>
             <tr>
-                <td colspan="6">
+                <td colspan="7">
                     @Messages.NoInformation
                 </td>
             </tr>

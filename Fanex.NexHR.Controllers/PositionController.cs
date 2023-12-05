@@ -1,6 +1,5 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Fanex.NexHR.Controllers.Attributes;

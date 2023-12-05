@@ -40,6 +40,10 @@
     "inputFile": "wwwroot/css/Views/promotion.scss"
   },
   {
+    "outputFile": "wwwroot/css/Views/position.css",
+    "inputFile": "wwwroot/css/Views/position.scss"
+  },
+  {
     "outputFile": "wwwroot/css/Views/transfer.css",
     "inputFile": "wwwroot/css/Views/transfer.scss"
   }

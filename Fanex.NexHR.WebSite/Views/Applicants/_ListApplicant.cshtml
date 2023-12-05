@@ -56,12 +56,12 @@
                             <a href="@($"{dirCV}/{item.Resume}")">@Labels.View</a>
                         }
                     </td>
-                    <td class="cmd">
+                    <td>
                         <a href="@Url.Action("Edit", "Applicants", new { @item.Id})">
                             <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
                         </a>
                     </td>
-                    <td class="cmd">
+                    <td>
                         <a href="javascript:;" onclick="deleteApplicant(@item.Id);">
                             <i class="mdi mdi-delete mdi-dark mdi-18px"></i>
                         </a>
