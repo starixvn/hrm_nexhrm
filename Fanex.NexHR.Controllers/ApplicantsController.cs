@@ -58,7 +58,7 @@ namespace Fanex.NexHR.Controllers
         {
             var criteria = new GetAllPositionCriteria();
             var position = await positionService.GetAll(criteria);
-            return position.ToList(); 
+            return position.ToList();
         }
 
         private static List<SelectListItem> GetStatusList()
@@ -131,13 +131,14 @@ namespace Fanex.NexHR.Controllers
                 PageSize = int.MaxValue,
                 PageNumber = 1
             });
-            var criteria = new GetAllPositionCriteria();
             var model = new CreateApplicantViewModel
             {
                 Positions = await GetPositions(),
                 StatusList = GetStatusList(),
                 Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName))
             };
+
+            ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.CodeOfTeam.Equals("HR");
 
             return View(model);
         }
@@ -150,7 +151,7 @@ namespace Fanex.NexHR.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var cv = UploadFileAsync(model.FileUpload).Result;
+                    var cv =  UploadFileAsync(model.FileUpload).Result;
                     var criteria = new InsertApplicantCriteria
                     {
                         FullName = model.FullName,
@@ -194,6 +195,7 @@ namespace Fanex.NexHR.Controllers
                     }
                 }
 
+                ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.CodeOfTeam.Equals("HR");
                 model.Positions = await GetPositions();
                 model.StatusList = GetStatusList();
             }
@@ -227,6 +229,8 @@ namespace Fanex.NexHR.Controllers
                 applicant.InterviewerIds = !string.IsNullOrEmpty(applicant.InterviewerIdString) ? applicant.InterviewerIdString.Split(',').Select(int.Parse).ToArray() : null;
                 applicant.Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName));
             }
+
+             ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.CodeOfTeam.Equals("HR");
 
             return View(applicant);
         }
@@ -294,6 +298,7 @@ namespace Fanex.NexHR.Controllers
                     }
                 }
 
+                ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.CodeOfTeam.Equals("HR");
                 model.Positions = await GetPositions();
                 model.StatusList = GetStatusList();
             }
@@ -327,13 +332,10 @@ namespace Fanex.NexHR.Controllers
             }
 
             var fileName = Path.GetFileName(file.FileName);
+            fileName = CheckDuplicatedFileName(dir, fileName);
             var pathAttach = new StringBuilder($"{dir}/{fileName}");
-
-            //fileName = ChangeNameForDuplicatedFile(pathAttach.ToString(), fileName);
-
             string[] filePath = { environment.WebRootPath, pathAttach.ToString() };
             var path = Path.Combine(filePath);
-
             var stream = new FileStream(path, FileMode.Create);
 
             await file.CopyToAsync(stream);
@@ -341,12 +343,27 @@ namespace Fanex.NexHR.Controllers
             return pathAttach.ToString();
         }
 
+        private static string CheckDuplicatedFileName(string dir, string fileName)
+        {
+            string filePath = Path.Combine(dir, fileName);
+
+            return System.IO.File.Exists(Path.Combine(filePath))
+                ? $"{Guid.NewGuid().ToString()}-{fileName}"
+                : fileName;
+        }
+
         [HttpPost]
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, string fileName)
         {
             var deleteApplicantCriteria = new DeleteApplicantCriteria { Id = id };
             CommandResult result = await baseService.ExecuteNonQueryAsync(deleteApplicantCriteria);
+
+            if (result.IsSuccessful && !string.IsNullOrEmpty(fileName))
+            {
+                string filePath = Path.Combine(environment.WebRootPath, "file/uploads/cv", fileName);
+                System.IO.File.Delete(filePath);
+            }
 
             return Json(result);
         }

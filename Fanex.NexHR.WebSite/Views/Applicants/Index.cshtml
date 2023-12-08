@@ -14,7 +14,7 @@
 }
 @section Scripts {
     <environment include="Development">
-        <script src="~/js/Views/Applicant/applicant.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Applicant/applicant.index.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
         <script src="~/minify/js/applicant.min.js" asp-append-version="true"></script>
@@ -22,7 +22,7 @@
 }
 
 <div class="row content">
-    <div class="col s12 card-container-base my-request">
+    <div class="col s12 card-container-base over-auto">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
@@ -81,16 +81,16 @@
                                     <i class="mdi-action-event calendar-icon left"></i>
                                 </div>
                             </div>
-                             <div class="col">
+                            <div class="col">
                                 <input type="button" id="submit" class="btn-submit waves-effect waves-light m-r--m" value="@Labels.Submit" />
                                 <a asp-controller="applicants" asp-action="create" class="btn-request waves-effect waves-light btn m-r--m">
                                     <i class="left mdi mdi-plus"></i>@Labels.NewApplicant
                                 </a>
                                 <a asp-controller="position" asp-action="index" class="btn-request waves-effect waves-light btn">@Labels.Position</a>
                             </div>
-                         </div>
+                        </div>
                     </div>
-                    <div id="applicants-detail" class="p-x--s">
+                    <div id="applicants-detail" class="p-x--s over-auto">
                     </div>
                 </div>
             </div>

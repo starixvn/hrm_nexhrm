@@ -1077,8 +1077,19 @@
     {
         "outputFileName": "wwwroot/minify/js/applicant.min.js",
         "inputFiles": [
+            "wwwroot/js/Views/Applicant/applicant.index.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/minify/js/applicantedit.min.js",
+        "inputFiles": [
             "wwwroot/js/Libs/select2.js",
-            "wwwroot/js/Views/Applicant/applicant.js"
+            "wwwroot/js/Views/Applicant/applicant.edit.js"
 
         ],
         "minify": {

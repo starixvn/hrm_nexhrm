@@ -1,12 +1,7 @@
 ﻿@using Fanex.NexHR.Resources
 @model Fanex.NexHR.ViewModels.CreatePositionViewModel
 
-@using (Html.AjaxBeginForm("Create", null, new AjaxOptions
-{
-    HttpMethod = "POST",
-    OnSuccess = "position.onCreateSuccess"
-}, new { id = "create-form" }))
-{
+<form asp-action="Create" asp-controller="Position" method="post" id="create-form">
     @Html.AntiForgeryToken()
     <div asp-validation-summary="All"></div>
     <div class="row form-input">
@@ -39,4 +34,4 @@
             </div>
         </div>
     </div>
-}
+</form>
