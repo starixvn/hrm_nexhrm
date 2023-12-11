@@ -81,118 +81,99 @@ function showErrorMessage(message) {
     });
 }
 
-var position = (function ($) {
-    var $dialog = $('#dialog');
-    var $createForm;
-    var $editForm;
-
-    $.validator.addMethod("validateSpace", function (value, element, field) {
-        return value.trim().length > 0; 
-    }, "The {0} field is required.");
-
-    function initCreateDialog() {
-        $createForm = $('#create-form');
-        $.validator.unobtrusive.parse($createForm);
-        $("#PositionName").rules("add", {
-            validateSpace: "Name"
-        });
-
-        $("#PositionCode").rules("add", {
-            validateSpace: "Code"
-        });
-        $dialog.dialog({
-            modal: true,
-            width: 'auto',
-            title: 'Create New Position',
-            buttons: [
-                {
-                    text: 'Cancel',
-                    class: 'btn-cancel waves-effect waves-light m-r--m btn-dialog',
-                    click: function () {
-                        $(this).dialog('close');
-                    }
-                },
-                {
-                    text: 'Save',
-                    class: 'btn-submit waves-effect waves-light btn-dialog',
-                    click: function () {
-                        $('#create-form').submit();
-                    }
+function initDialog(title, form) {
+    // $.validator.addMethod("validateSpace", function (value, element, field) {
+    //     return value.trim().length > 0; 
+    // }, "The {0} field is required.");
+   
+    $('#dialog').dialog({
+        modal: true,
+        width: 'auto',
+        title: title,
+        buttons: [
+            {
+                text: 'Cancel',
+                class: 'btn-cancel waves-effect waves-light m-r--m btn-dialog',
+                click: function () {
+                    $(this).dialog('close');
                 }
-            ],
-            show: {
-                effect: 'fade',
-                duration: 300
             },
-            hide: {
-                effect: 'fade',
-                duration: 200
-            }
-        });
-    }
-
-    function initEditDialog() {
-        $editForm = $('#edit-form');
-        $.validator.unobtrusive.parse($editForm);
-        $("#PositionName").rules("add", {
-            validateSpace: "Name"
-        });
-
-        $("#PositionCode").rules("add", {
-            validateSpace: "Code"
-        });
-
-        $dialog.dialog({
-            modal: true,
-            width: 'auto',
-            title: 'Edit Position',
-            buttons: [
-                {
-                    text: 'Cancel',
-                    class: 'btn-cancel waves-effect waves-light m-r--m btn-dialog',
-                    click: function () {
-                        $(this).dialog('close');
-                    }
-                },
-                {
-                    text: 'Save',
-                    class: 'btn-submit waves-effect waves-light btn-dialog',
-                    click: function () {
-                        $editForm.submit();
-                    }
+            {
+                text: 'Save',
+                class: 'btn-submit waves-effect waves-light btn-dialog',
+                click: function () {
+                    var formData = new FormData(form[0]);
+                    $.ajax({
+                        url: form.attr('action'),
+                        type: form.attr('method'),
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (data) {
+                            onSuccess(data);
+                        },
+                        error: function () {
+                            alert(_messages.errorTryAgain);
+                        }
+                    });
                 }
-
-            ],
-            show: {
-                effect: 'fade',
-                duration: 300
-            },
-            hide: {
-                effect: 'fade',
-                duration: 200
             }
-        });
-    }
-
-    function onCreateEditSuccess(response) {
-        if (response.IsSuccessful) {
-            $dialog.dialog('close');
-            query(false);
-        } else {
-            showErrorMessage(response.Message);
+        ],
+        show: {
+            effect: 'fade',
+            duration: 300
+        },
+        hide: {
+            effect: 'fade',
+            duration: 200
         }
-    }
+    });
+}
 
-    return {
-        init: init,
-        onLoadingCreateFormSuccess: initCreateDialog,
-        onLoadingEditFormSuccess: initEditDialog,
-        onCreateSuccess: onCreateEditSuccess,
-        onEditSuccess: onCreateEditSuccess
+function onSuccess(response) {
+    if (response.IsSuccessful) {
+        $('#dialog').dialog('close');
+        query(false);
+    } else {
+        showErrorMessage(response.Message);
     }
-
-}(jQuery));
+}
 
 $(document).ready(function () {
-    position.init();
+    init();
+
+    $('#newPosition').click(function(e) {
+        var title="Create New Position";
+        var form = $('#create-form');
+        e.preventDefault();
+        $.ajax({
+            url: _global.root + 'position/create',
+            type: 'GET',
+            data: initDialog(title, form),
+            success: function (data) {
+                $('#dialog').html(data);
+            },
+            error: function () {
+                alert(_messages.errorTryAgain);
+            },
+        });
+    });
+
+    $('#editPosition').click(function(e) {
+        var title="Edit Position";
+        var form = $('#edit-form');
+        var Id = parseInt($('#positionId').val());
+        e.preventDefault();
+        $.ajax({
+            url: _global.root + 'position/edit' + Id,
+            type: 'GET',
+            data: initDialog(title, form),
+            success: function (data) {
+                $('#dialog').html(data);
+            },
+            error: function () {
+                alert(_messages.errorTryAgain);
+            },
+        });
+    });
 });

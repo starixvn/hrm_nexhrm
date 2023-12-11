@@ -50,13 +50,13 @@
 
         [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
-        public async Task<IActionResult> Create(string positionName, string positionCode, int? displayOrder)
+        public async Task<IActionResult> Create(CreatePositionViewModel model)
         {
             var position = new InsertPositionCriteria
             {
-                Name = positionName,
-                Code = positionCode,
-                DisplayOrder = displayOrder,
+                Name = model.PositionName,
+                Code = model.PositionCode,
+                DisplayOrder = model.DisplayOrder,
                 ModifiedBy = CurrentUser.Id
             };
             CommandResult result = await baseService.ExecuteNonQueryAsync(position);

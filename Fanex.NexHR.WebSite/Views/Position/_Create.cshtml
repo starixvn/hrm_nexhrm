@@ -1,8 +1,7 @@
 ﻿@using Fanex.NexHR.Resources
 @model Fanex.NexHR.ViewModels.CreatePositionViewModel
 
-<form asp-action="Create" asp-controller="Position" method="post" id="create-form">
-    @Html.AntiForgeryToken()
+<form id="create-form" method="post" asp-action="create" >
     <div asp-validation-summary="All"></div>
     <div class="row form-input">
         <div class="col">

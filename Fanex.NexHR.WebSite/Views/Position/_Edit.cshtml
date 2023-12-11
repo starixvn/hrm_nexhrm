@@ -1,13 +1,7 @@
 ﻿@using Fanex.NexHR.Resources
 @model Fanex.NexHR.ViewModels.EditPositionViewModel
 
-@using (Html.AjaxBeginForm("Edit", null, new AjaxOptions
-{
-    HttpMethod = "POST",
-    OnSuccess = "position.onEditSuccess"
-}, new { id = "edit-form" }))
-{
-    @Html.AntiForgeryToken()
+<form id="edit-form" method="post" asp-action="edit" >
     <div asp-validation-summary="All"></div>
     <input type="hidden" asp-for="@Model.PositionId"/>
     <div class="row form-input">
@@ -51,4 +45,4 @@
             </div>
         </div>
     </div>
-}
+</form>

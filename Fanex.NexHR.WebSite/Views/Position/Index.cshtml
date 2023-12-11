@@ -38,12 +38,11 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <input type="button" id="submit" class="btn-submit waves-effect waves-light m-r--m" value="@Labels.Submit" />
-                                @Html.AjaxActionLink("New Position", "Create", null, new AjaxOptions {
-                                    InsertionMode = InsertionMode.Replace,
-                                    UpdateTargetId = "dialog",
-                                    OnSuccess = "position.onLoadingCreateFormSuccess"
-                                }, new { @class= "btn-request waves-effect waves-light m-r--s" })
+                                <input type="button" id="submit" class="btn-submit waves-effect waves-light m-r--m" value="@Labels.Submit"/>
+                                <button class="btn-request waves-effect waves-light btn m-r--m" id="newPosition">
+                                    <i class="mdi mdi-plus left"></i>
+                                    New Position
+                                </button>
                             </div>
                             <div class="col">
                                 <a asp-controller="Applicants" asp-action="Index" class="btn-back waves-effect waves-light m-r--s">@Labels.Back</a>

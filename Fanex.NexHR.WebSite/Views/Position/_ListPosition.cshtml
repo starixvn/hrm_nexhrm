@@ -38,9 +38,8 @@
                     </td>
                     <td>@item.DisplayOrder</td>
                     <td>
-                        <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog" href="@Url.Action("Edit", new { id = item.PositionId })"
-                            data-ajax-success="position.onLoadingEditFormSuccess">
-                                <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
+                        <a id="editPosition" href="javascript:;" >
+                            <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
                         </a>
                     </td>
                     <td>
