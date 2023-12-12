@@ -4,3 +4,20 @@ table {
         padding-top: 12px;
     }
 }
+
+@media (max-width: 1024px) {
+    .group-button{
+        display: flex;
+        padding-right: 6px !important;
+    }
+    
+    .form-input{
+        margin-bottom: 12px;
+    }
+}
+
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+    .btn-submit, .btn-request, .btn-back{
+        margin-top: 0 !important;
+    }
+}

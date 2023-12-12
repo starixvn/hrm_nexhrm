@@ -81,99 +81,78 @@ function showErrorMessage(message) {
     });
 }
 
-function initDialog(title, form) {
-    // $.validator.addMethod("validateSpace", function (value, element, field) {
-    //     return value.trim().length > 0; 
-    // }, "The {0} field is required.");
-   
-    $('#dialog').dialog({
-        modal: true,
-        width: 'auto',
-        title: title,
-        buttons: [
-            {
-                text: 'Cancel',
-                class: 'btn-cancel waves-effect waves-light m-r--m btn-dialog',
-                click: function () {
-                    $(this).dialog('close');
-                }
-            },
-            {
-                text: 'Save',
-                class: 'btn-submit waves-effect waves-light btn-dialog',
-                click: function () {
-                    var formData = new FormData(form[0]);
-                    $.ajax({
-                        url: form.attr('action'),
-                        type: form.attr('method'),
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function (data) {
-                            onSuccess(data);
-                        },
-                        error: function () {
-                            alert(_messages.errorTryAgain);
-                        }
-                    });
-                }
-            }
-        ],
-        show: {
-            effect: 'fade',
-            duration: 300
-        },
-        hide: {
-            effect: 'fade',
-            duration: 200
-        }
-    });
-}
+var position = (function ($) {
+    var $dialog = $('#dialog');
 
-function onSuccess(response) {
-    if (response.IsSuccessful) {
-        $('#dialog').dialog('close');
-        query(false);
-    } else {
-        showErrorMessage(response.Message);
+    $.validator.addMethod("validateSpace", function (value, element, field) {
+        return value.trim().length > 0; 
+    }, "The {0} field is required.");
+
+    function initializeDialog($form, title) {
+        $.validator.unobtrusive.parse($form);
+        $form.find("#PositionName, #PositionCode").each(function () {
+            $(this).rules("add", {
+                validateSpace: this.id.replace("Position", "")
+            });
+        });
+    
+        $dialog.dialog({
+            modal: true,
+            width: 'auto',
+            title: title,
+            buttons: [
+                {
+                    text: 'Cancel',
+                    class: 'btn-cancel waves-effect waves-light m-r--m btn-dialog',
+                    click: function () {
+                        $(this).dialog('close');
+                    }
+                },
+                {
+                    text: 'Save',
+                    class: 'btn-submit waves-effect waves-light btn-dialog',
+                    click: function () {
+                        $form.submit();
+                    }
+                }
+            ],
+            show: {
+                effect: 'fade',
+                duration: 300
+            },
+            hide: {
+                effect: 'fade',
+                duration: 200
+            }
+        });
     }
-}
+    
+    function initCreateDialog() {
+        initializeDialog($('#create-form'), 'Create New Position');
+    }
+    
+    function initEditDialog() {
+        initializeDialog($('#edit-form'), 'Edit Position');
+    }
+
+    function onSuccess(response) {
+        if (response.IsSuccessful) {
+            $dialog.dialog('close');
+            query(false);
+        } else {
+            showErrorMessage(response.Message);
+        }
+    }
+
+    return {
+        init: init,
+        onLoadingCreateFormSuccess: initCreateDialog,
+        onLoadingEditFormSuccess: initEditDialog,
+        onSuccess: onSuccess
+    }
+
+}(jQuery));
 
 $(document).ready(function () {
-    init();
-
-    $('#newPosition').click(function(e) {
-        var title="Create New Position";
-        var form = $('#create-form');
-        e.preventDefault();
-        $.ajax({
-            url: _global.root + 'position/create',
-            type: 'GET',
-            data: initDialog(title, form),
-            success: function (data) {
-                $('#dialog').html(data);
-            },
-            error: function () {
-                alert(_messages.errorTryAgain);
-            },
-        });
-    });
-
-    $('#editPosition').click(function(e) {
-        var title="Edit Position";
-        var form = $('#edit-form');
-        var Id = parseInt($('#positionId').val());
-        e.preventDefault();
-        $.ajax({
-            url: _global.root + 'position/edit' + Id,
-            type: 'GET',
-            data: initDialog(title, form),
-            success: function (data) {
-                $('#dialog').html(data);
-            },
-            error: function () {
-                alert(_messages.errorTryAgain);
-            },
-        });
-    });
+    position.init();
 });

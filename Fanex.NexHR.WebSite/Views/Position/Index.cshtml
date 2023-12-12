@@ -11,6 +11,7 @@
 
 @section Scripts {
     <environment include="Development">
+        <script src="~/js/Libs/jquery.unobtrusive-ajax.js" asp-append-version="true"></script>
         <script src="~/js/Libs/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
         <script src="~/js/Views/Position/position.js" asp-append-version="true"></script>
     </environment>
@@ -37,12 +38,13 @@
                                     <input type="text" name="Keyword" id="Keyword" placeholder="name or code" value=""/>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col group-button">
                                 <input type="button" id="submit" class="btn-submit waves-effect waves-light m-r--m" value="@Labels.Submit"/>
-                                <button class="btn-request waves-effect waves-light btn m-r--m" id="newPosition">
+                                <a class="btn-request waves-effect waves-light btn m-r--m" href="@Url.Action("Create")"
+                                    data-ajax="true"  ata-ajax-mode="replace" data-ajax-update="#dialog" data-ajax-success="position.onLoadingCreateFormSuccess">
                                     <i class="mdi mdi-plus left"></i>
                                     New Position
-                                </button>
+                                </a>
                             </div>
                             <div class="col">
                                 <a asp-controller="Applicants" asp-action="Index" class="btn-back waves-effect waves-light m-r--s">@Labels.Back</a>

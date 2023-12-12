@@ -1,7 +1,7 @@
 ﻿@using Fanex.NexHR.Resources
 @model Fanex.NexHR.ViewModels.EditPositionViewModel
 
-<form id="edit-form" method="post" asp-action="edit" >
+<form id="edit-form" asp-action="edit" data-ajax="true" data-ajax-method="post" data-ajax-success="position.onSuccess">
     <div asp-validation-summary="All"></div>
     <input type="hidden" asp-for="@Model.PositionId"/>
     <div class="row form-input">

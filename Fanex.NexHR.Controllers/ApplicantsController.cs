@@ -57,8 +57,9 @@ namespace Fanex.NexHR.Controllers
         private async Task<List<Position>> GetPositions()
         {
             var criteria = new GetAllPositionCriteria();
-            var position = await positionService.GetAll(criteria);
-            return position.ToList();
+            var positions = await positionService.GetAll(criteria);
+            var activePositions = positions.Where(p => p.IsActive).ToList();
+            return activePositions;
         }
 
         private static List<SelectListItem> GetStatusList()

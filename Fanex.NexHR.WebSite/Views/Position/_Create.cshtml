@@ -1,7 +1,7 @@
 ﻿@using Fanex.NexHR.Resources
 @model Fanex.NexHR.ViewModels.CreatePositionViewModel
 
-<form id="create-form" method="post" asp-action="create" >
+<form id="create-form" asp-action="create" data-ajax="true" data-ajax-method="post" data-ajax-success="position.onSuccess">
     <div asp-validation-summary="All"></div>
     <div class="row form-input">
         <div class="col">
