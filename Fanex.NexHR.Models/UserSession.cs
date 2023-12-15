@@ -23,6 +23,8 @@
 
         public string TeamCode { get; set; }
 
+         public bool IsLeaderHR { get; set; }
+
         public string DisplayName => NickName + (string.IsNullOrWhiteSpace(FullName) ? string.Empty : " (" + FullName + ")");
 
         public string CodeOfTeam => TeamCode ?? string.Empty;

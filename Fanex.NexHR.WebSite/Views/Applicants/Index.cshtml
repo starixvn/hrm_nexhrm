@@ -11,6 +11,7 @@
 
 @section Styles {
     <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/Views/applicant.min.css" asp-append-version="true">
 }
 @section Scripts {
     <environment include="Development">
@@ -29,7 +30,7 @@
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    <div class="form">
+                    <div class="form form-stl-table">
                         <div class="row form-input">
                             <div class="col m-r--m">
                                 <div class="left label--m">
@@ -81,10 +82,10 @@
                                     <i class="mdi-action-event calendar-icon left"></i>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col group-button">
                                 <input type="button" id="submit" class="btn-submit waves-effect waves-light m-r--m" value="@Labels.Submit" />
                                 <a asp-controller="applicants" asp-action="create" class="btn-request waves-effect waves-light btn m-r--m">
-                                    <i class="left mdi mdi-plus"></i>@Labels.NewApplicant
+                                    <i class="mdi mdi-plus"></i>@Labels.NewApplicant
                                 </a>
                                 <a asp-controller="position" asp-action="index" class="btn-request waves-effect waves-light btn">@Labels.Position</a>
                             </div>

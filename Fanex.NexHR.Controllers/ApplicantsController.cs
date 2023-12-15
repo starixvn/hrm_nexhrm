@@ -139,7 +139,7 @@ namespace Fanex.NexHR.Controllers
                 Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName))
             };
 
-            ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.CodeOfTeam.Equals("HR");
+            ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.IsLeaderHR;
 
             return View(model);
         }
@@ -152,7 +152,7 @@ namespace Fanex.NexHR.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var cv =  UploadFileAsync(model.FileUpload).Result;
+                    var cv = UploadFileAsync(model.FileUpload).Result;
                     var criteria = new InsertApplicantCriteria
                     {
                         FullName = model.FullName,
@@ -196,7 +196,7 @@ namespace Fanex.NexHR.Controllers
                     }
                 }
 
-                ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.CodeOfTeam.Equals("HR");
+                ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.IsLeaderHR;
                 model.Positions = await GetPositions();
                 model.StatusList = GetStatusList();
             }
@@ -231,7 +231,7 @@ namespace Fanex.NexHR.Controllers
                 applicant.Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName));
             }
 
-             ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.CodeOfTeam.Equals("HR");
+            ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.IsLeaderHR;
 
             return View(applicant);
         }
@@ -254,7 +254,7 @@ namespace Fanex.NexHR.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var cv = UploadFileAsync(model.FileUpload).Result;
+                    var cv = model.FileUpload != null ? await UploadFileAsync(model.FileUpload) : model.Resume ;
 
                     var criteria = new UpdateApplicantCriteria
                     {
@@ -299,7 +299,7 @@ namespace Fanex.NexHR.Controllers
                     }
                 }
 
-                ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.CodeOfTeam.Equals("HR");
+                ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.IsLeaderHR;
                 model.Positions = await GetPositions();
                 model.StatusList = GetStatusList();
             }
@@ -309,48 +309,49 @@ namespace Fanex.NexHR.Controllers
 
         private async Task<string> UploadFileAsync(IFormFile file)
         {
-            var attachedFilePath = new StringBuilder();
-
             if (file == null)
             {
-                return attachedFilePath.ToString();
+                return string.Empty;
             }
-
-            var dir = $"file/uploads/cv";
+            var dir = "file/uploads/cv";
             CreateOrOpenDirectory(dir);
+            string savedFilePath = await SaveFile(file, dir);
 
-            string savedFilePath = await SaveFileAsync(file, dir);
-            attachedFilePath.Append("/" + savedFilePath);
-
-            return file.FileName;
+            return savedFilePath;
         }
 
-        private async Task<string> SaveFileAsync(IFormFile file, string dir)
+        private async Task<string> SaveFile(IFormFile file, string dir)
         {
             if (file == null)
             {
                 return null;
             }
-
             var fileName = Path.GetFileName(file.FileName);
-            fileName = CheckDuplicatedFileName(dir, fileName);
-            var pathAttach = new StringBuilder($"{dir}/{fileName}");
-            string[] filePath = { environment.WebRootPath, pathAttach.ToString() };
-            var path = Path.Combine(filePath);
-            var stream = new FileStream(path, FileMode.Create);
+            var pathAttachFinal = CheckDuplicatedFileName(dir, fileName);
+            var path = Path.Combine(environment.WebRootPath,"file/uploads/cv", pathAttachFinal);
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
 
-            await file.CopyToAsync(stream);
-
-            return pathAttach.ToString();
+            return pathAttachFinal;
         }
 
-        private static string CheckDuplicatedFileName(string dir, string fileName)
+        private string CheckDuplicatedFileName(string dir, string fileName)
         {
-            string filePath = Path.Combine(dir, fileName);
+            var pathAttach = $"{dir}/{fileName}";
+            var filePath = Path.Combine(environment.WebRootPath, pathAttach);
 
-            return System.IO.File.Exists(Path.Combine(filePath))
-                ? $"{Guid.NewGuid().ToString()}-{fileName}"
-                : fileName;
+            if (System.IO.File.Exists(filePath))
+            {
+                var baseFileName = Path.GetFileNameWithoutExtension(pathAttach);
+                var fileExtension = Path.GetExtension(pathAttach);
+                var newFileName = $"{baseFileName}({DateTime.Now:yyyy-MM-dd-HHmmss}){fileExtension}";
+
+                return newFileName;
+            }
+
+            return fileName;
         }
 
         [HttpPost]
@@ -364,9 +365,20 @@ namespace Fanex.NexHR.Controllers
             {
                 string filePath = Path.Combine(environment.WebRootPath, "file/uploads/cv", fileName);
                 System.IO.File.Delete(filePath);
+
+                DeleteFile(fileName);
             }
 
             return Json(result);
+        }
+
+        private void DeleteFile(string fileName)
+        {
+            string filePath = Path.Combine(environment.WebRootPath, "file/uploads/cv", fileName);
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
         }
     }
 }

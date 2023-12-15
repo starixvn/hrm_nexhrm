@@ -1,7 +1,17 @@
 .card-body{
     padding-top: 0;
     padding-bottom: 0;
+
+    thead {
+        position: sticky;
+        top: 64px;
+    }
 }
+
+.form{
+    margin: 8px 0;
+}
+
 .form-file{
     margin-bottom: 15px;
 
@@ -12,17 +22,21 @@
     .file-upload{
         cursor: pointer;
     }
+
+    .selected-file{
+        width: 89px;
+    }
 }
 
 .form-salary{
     background-color: #f5e7e1;
     display: flex;
-    align-items: center;
     padding: 14px 0 10px;
     margin-bottom: 15px;
 
     input, textarea{
         background-color: #fff;
+        margin-bottom: 0;
     }
 }
 
@@ -36,4 +50,61 @@ input[type=email]{
     border: 1px solid #d0d0d0;
     visibility: unset !important;
     border-radius: 2px;
+}
+
+.mdi-plus{
+    margin-right: 6px;
+}
+
+@media only screen and (max-width: 993px){
+    .group-button{
+        margin-bottom: 0 !important;
+
+        i, a {
+            margin-top: 0;
+        }
+    }
+
+    .form-salary{
+        flex-direction: column;
+        padding-top: 8px !important;
+    }
+
+    .form-file .file-input{
+        margin-top: 8px;
+        flex-direction: column;
+    }
+
+    .form-stl-table .form-input .col{
+        align-items: center;
+    }
+
+    input[type=email], .form-input textarea{
+        box-sizing: border-box;
+        height: 3.2rem;
+        box-shadow: none;
+        margin: 0;
+    }
+
+    .select2-container{
+        margin-bottom: 0;
+    }
+
+    .select2{
+        width: 100% !important;
+    }
+
+    .btn-submit{
+        margin: 0;
+
+        input{
+            width: 80px;
+            font-size: 13px !important;
+        }
+    }
+
+    .btn-back{
+        font-size: 13px !important;
+        text-align: center;
+    }
 }

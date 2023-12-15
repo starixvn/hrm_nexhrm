@@ -304,7 +304,7 @@
                                         <label>@Labels.ResumeFile</label>
                                     </div>
                                     <div class="left file-input">
-                                        <input type="file" name="FileUpload" class="file-upload" asp-for="FileUpload" accept=".pdf,.doc,.docx,.png,.jpeg" onchange="handleFileSelection(event)" />
+                                        <input type="file" name="FileUpload" class="file-upload @(!string.IsNullOrEmpty(Model.Resume) ? "selected-file" : "")" asp-for="FileUpload" accept=".pdf,.doc,.docx,.png,.jpeg"/>
                                         @if (!string.IsNullOrEmpty(Model.Resume))
                                         {
                                             string resumeUrl = $"{dirCV}/{Model.Resume}";
@@ -314,6 +314,7 @@
                                                 </a>
                                                 <i class="mdi mdi-delete mdi-dark mdi-18px delete-resume"></i>
                                             </div>
+                                            <input type="hidden" asp-for="@Model.Resume"/>
                                         }
                                     </div>
                                 </div>

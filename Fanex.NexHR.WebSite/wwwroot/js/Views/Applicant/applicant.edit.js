@@ -1,26 +1,9 @@
 'use strict';
 
-function handleFileSelection(event) {
-    const fileInput = event.target;
-    
-    if (fileInput.files.length === 0) {
-      console.log('No file selected');
-    } else {
-      // Perform actions when a file is selected
-      const selectedFile = fileInput.files[0];
-      console.log('Selected file:', selectedFile);
-      // ...
-    }
-  }
-
 $(document).ready(function () {
     initAutocomplete('#Recruiter', '#RecruiterId', null);
 
     $('.select-2').select2({ closeOnSelect: false });
-
-    $('.delete-resume').on('click', function () {
-        $(this).closest('.resume-container').remove();
-    });
 
     $('.resume-container a').on('click', function (e) {
         e.preventDefault();
@@ -36,4 +19,23 @@ $(document).ready(function () {
             }
         );
     }
+
+    const fileUpload = document.getElementById('FileUpload');
+    const oldFile = document.getElementsByClassName('resume-container')[0];
+    const newFile = document.getElementsByClassName('selected-file')[0];
+
+    fileUpload.addEventListener('change', (event) => {
+    const selectedFile = event.target.files[0];
+        if (selectedFile) {
+            oldFile ? oldFile.style.display = 'none' : null;
+            newFile ? newFile.style.width = 'auto' : null;
+        }
+    });
+
+    $('.delete-resume').on('click', function() {
+    $(this).closest('.resume-container').remove();
+        newFile.style.width = 'auto';
+        var resumeInput = document.getElementById('Resume');
+        resumeInput.value = null;
+    });
 });
