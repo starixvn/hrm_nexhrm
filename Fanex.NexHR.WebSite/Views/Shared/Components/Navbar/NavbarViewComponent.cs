@@ -11,17 +11,14 @@
     {
         private readonly IActionContextAccessor actionContextAccessor;
         private readonly ISessionService sessionService;
-        private readonly IConfiguration configuration;
         private readonly IWebHostEnvironment hostEnvironment;
 
         public NavbarViewComponent(IActionContextAccessor actionContextAccessor,
             ISessionService sessionService,
-            IConfiguration configuration,
             IWebHostEnvironment hostEnvironment)
         {
             this.actionContextAccessor = actionContextAccessor;
             this.sessionService = sessionService;
-            this.configuration = configuration;
             this.hostEnvironment = hostEnvironment;
         }
 

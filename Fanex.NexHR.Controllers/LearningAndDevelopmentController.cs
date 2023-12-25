@@ -14,17 +14,14 @@
     public class LearningAndDevelopmentController : BaseController
     {
         private readonly ITeamService teamService;
-        private readonly IEmployeeService employeeService;
         private readonly IBaseService baseService;
         private readonly ITrainingAndDevelopmentService trainingAndDevelopmentService;
         private const string Certificate = "Certificates";
         public LearningAndDevelopmentController(ISessionService sessionService,
             ITeamService teamService,
-            IEmployeeService employeeService,
             ITrainingAndDevelopmentService trainingAndDevelopmentService,
             IBaseService baseService) : base(sessionService)
         {
-            this.employeeService = employeeService;
             this.baseService = baseService;
             this.teamService = teamService;
             this.trainingAndDevelopmentService = trainingAndDevelopmentService;

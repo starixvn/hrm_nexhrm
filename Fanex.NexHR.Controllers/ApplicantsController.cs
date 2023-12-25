@@ -152,7 +152,7 @@ namespace Fanex.NexHR.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var cv = UploadFileAsync(model.FileUpload).Result;
+                    var cv = await UploadFileAsync(model.FileUpload);
                     var criteria = new InsertApplicantCriteria
                     {
                         FullName = model.FullName,
