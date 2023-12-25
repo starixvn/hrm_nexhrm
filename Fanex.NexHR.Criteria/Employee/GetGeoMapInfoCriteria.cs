@@ -1,6 +1,5 @@
 ﻿namespace Fanex.NexHR.Criteria.Employee
 {
-    using Data;
     using Data.Repository;
 
     public class GetGeoMapInfoCriteria : CriteriaBase
