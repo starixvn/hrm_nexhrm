@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-namespace Fanex.NexHR.Criteria.WorkFromHomeRequest
+﻿namespace Fanex.NexHR.Criteria.WorkFromHomeRequest
 {
     using System;
     using Fanex.Data.Repository;

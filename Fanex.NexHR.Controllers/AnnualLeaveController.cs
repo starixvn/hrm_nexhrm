@@ -358,26 +358,6 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Employee(AnnualLeaveBalanceViewModel model)
-        {
-            IList<AnnualLeaveTransaction> annualLeaveTransactions = new List<AnnualLeaveTransaction>();
-            if (model != null)
-            {
-                var criteria = new GetAnnualLeaveTransactionCriteria
-                {
-                    EmployeeId = model.EmployeeId,
-                    Year = model.YearEdit,
-                    ExcludedRequestTransactions = model.ExcludedRequestTrans
-                };
-
-                annualLeaveTransactions = await annualLeaveService.GetAnnualLeaveTransactions(criteria);
-                ViewBag.ExcludedRequestTrans = model.ExcludedRequestTrans;
-            }
-
-            return PartialView("_Employee", annualLeaveTransactions);
-        }
-
-        [HttpPost]
         public async Task<ActionResult> ViewHistoryAnnualByMonth(AnnualLeaveBalanceViewModel model)
         {
             IList<AnnualLeaveTransaction> annualLeaveTransactions = new List<AnnualLeaveTransaction>();
@@ -419,6 +399,26 @@
             }
 
             return View("Employee", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Employee(AnnualLeaveBalanceViewModel model)
+        {
+            IList<AnnualLeaveTransaction> annualLeaveTransactions = new List<AnnualLeaveTransaction>();
+            if (model != null)
+            {
+                var criteria = new GetAnnualLeaveTransactionCriteria
+                {
+                    EmployeeId = model.EmployeeId,
+                    Year = model.YearEdit,
+                    ExcludedRequestTransactions = model.ExcludedRequestTrans
+                };
+
+                annualLeaveTransactions = await annualLeaveService.GetAnnualLeaveTransactions(criteria);
+                ViewBag.ExcludedRequestTrans = model.ExcludedRequestTrans;
+            }
+
+            return PartialView("_Employee", annualLeaveTransactions);
         }
 
         public async Task<IActionResult> Index()

@@ -2,14 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using Core;
     using Fanex.NexHR.Services.ExportExcel;
     using Models;
     using Models.Calendar;
     using Models.Report;
-    using Resources;
 
     public static class ExportService
     {

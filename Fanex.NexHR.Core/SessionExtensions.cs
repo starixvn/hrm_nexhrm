@@ -1,6 +1,5 @@
 ﻿namespace Fanex.NexHR.Core
 {
-    using System.Text;
     using Microsoft.AspNetCore.Http;
     using Newtonsoft.Json;
 

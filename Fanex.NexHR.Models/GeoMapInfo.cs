@@ -1,6 +1,5 @@
 ﻿namespace Fanex.NexHR.Models
 {
-    using System;
     using System.ComponentModel.DataAnnotations;
 
     public class GeoMapInfo

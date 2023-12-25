@@ -1,6 +1,5 @@
 ﻿namespace Fanex.NexHR.Criteria.Overtime
 {
-    using Data.Repository;
     using System;
 
     public class InsertConversionCriteria : BaseCommand

@@ -375,7 +375,7 @@
             {
                 string body = string.Format(
                     model.EmailTemplate,
-                    leaders.First().NickName,
+                    leaders[0].NickName,
                     model.Employee,
                     forDate,
                     model.LeaveTypeName,
@@ -398,7 +398,7 @@
             {
                 var content = new
                 {
-                    Leader = leaders.First().NickName,
+                    Leader = leaders[0].NickName,
                     Member = model.Employee,
                     Type = model.CheckInOutType == (short)RequestType.CheckIn
                             ? RequestType.CheckIn.EnumToString().ToLower(CultureInfo.InvariantCulture)
