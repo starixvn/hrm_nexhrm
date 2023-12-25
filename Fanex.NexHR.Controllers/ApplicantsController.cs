@@ -17,7 +17,6 @@ namespace Fanex.NexHR.Controllers
     using System.Linq;
     using Microsoft.AspNetCore.Http;
     using System.IO;
-    using System.Text;
     using Fanex.NexHR.Criteria.Position;
 
     public class ApplicantsController : BaseController
@@ -27,6 +26,7 @@ namespace Fanex.NexHR.Controllers
         private readonly IApplicantService applicantService;
         private readonly IPositionService positionService;
         private readonly IEmployeeService employeeService;
+        private const string DirectoryPath = "file/uploads/cv";
 
         public ApplicantsController(ISessionService sessionService,
             IBaseService baseService,
@@ -52,32 +52,6 @@ namespace Fanex.NexHR.Controllers
             };
 
             return View(model);
-        }
-
-        private async Task<List<Position>> GetPositions()
-        {
-            var criteria = new GetAllPositionCriteria();
-            var positions = await positionService.GetAll(criteria);
-            var activePositions = positions.Where(p => p.IsActive).ToList();
-            return activePositions;
-        }
-
-        private static List<SelectListItem> GetStatusList()
-        {
-            var statusList = new List<SelectListItem>();
-
-            foreach (CVStatus status in Enum.GetValues(typeof(CVStatus)))
-            {
-                var item = new SelectListItem
-                {
-                    Text = status.ToString(),
-                    Value = ((int)status).ToString()
-                };
-
-                statusList.Add(item);
-            }
-
-            return statusList;
         }
 
         [HttpPost]
@@ -106,6 +80,32 @@ namespace Fanex.NexHR.Controllers
             }
 
             return PartialView("_ListApplicant", result);
+        }
+
+        private async Task<List<Position>> GetPositions()
+        {
+            var criteria = new GetAllPositionCriteria();
+            var positions = await positionService.GetAll(criteria);
+            var activePositions = positions.Where(p => p.IsActive).ToList();
+            return activePositions;
+        }
+
+        private static List<SelectListItem> GetStatusList()
+        {
+            var statusList = new List<SelectListItem>();
+
+            foreach (CVStatus status in Enum.GetValues(typeof(CVStatus)))
+            {
+                var item = new SelectListItem
+                {
+                    Text = status.ToString(),
+                    Value = ((int)status).ToString()
+                };
+
+                statusList.Add(item);
+            }
+
+            return statusList;
         }
 
         private static string GetName<T>(int id)
@@ -236,16 +236,6 @@ namespace Fanex.NexHR.Controllers
             return View(applicant);
         }
 
-        private void CreateOrOpenDirectory(string dir)
-        {
-            string[] filePath = { environment.WebRootPath, dir };
-            var path = Path.Combine(filePath);
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-        }
-
         [HttpPost]
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Edit(EditApplicantViewModel model)
@@ -254,7 +244,7 @@ namespace Fanex.NexHR.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var cv = model.FileUpload != null ? await UploadFileAsync(model.FileUpload) : model.Resume ;
+                    var cv = model.FileUpload != null ? await UploadFileAsync(model.FileUpload) : model.Resume;
 
                     var criteria = new UpdateApplicantCriteria
                     {
@@ -307,28 +297,37 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
+        private void CreateOrOpenDirectory()
+        {
+            string[] filePath = { environment.WebRootPath, DirectoryPath };
+            var path = Path.Combine(filePath);
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
+
         private async Task<string> UploadFileAsync(IFormFile file)
         {
             if (file == null)
             {
                 return string.Empty;
             }
-            var dir = "file/uploads/cv";
-            CreateOrOpenDirectory(dir);
-            string savedFilePath = await SaveFile(file, dir);
+            CreateOrOpenDirectory();
+            string savedFilePath = await SaveFile(file);
 
             return savedFilePath;
         }
 
-        private async Task<string> SaveFile(IFormFile file, string dir)
+        private async Task<string> SaveFile(IFormFile file)
         {
             if (file == null)
             {
                 return null;
             }
             var fileName = Path.GetFileName(file.FileName);
-            var pathAttachFinal = CheckDuplicatedFileName(dir, fileName);
-            var path = Path.Combine(environment.WebRootPath,"file/uploads/cv", pathAttachFinal);
+            var pathAttachFinal = CheckDuplicatedFileName(fileName);
+            var path = Path.Combine(environment.WebRootPath, DirectoryPath, pathAttachFinal);
             using (var stream = new FileStream(path, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
@@ -337,16 +336,16 @@ namespace Fanex.NexHR.Controllers
             return pathAttachFinal;
         }
 
-        private string CheckDuplicatedFileName(string dir, string fileName)
+        private string CheckDuplicatedFileName(string fileName)
         {
-            var pathAttach = $"{dir}/{fileName}";
+            var pathAttach = $"{DirectoryPath}/{fileName}";
             var filePath = Path.Combine(environment.WebRootPath, pathAttach);
 
             if (System.IO.File.Exists(filePath))
             {
                 var baseFileName = Path.GetFileNameWithoutExtension(pathAttach);
                 var fileExtension = Path.GetExtension(pathAttach);
-                var newFileName = $"{baseFileName}({DateTime.Now:yyyy-MM-dd-HHmmss}){fileExtension}";
+                var newFileName = $"{baseFileName}({DateTimeOffset.Now.ToString("yyyy-MM-dd-HHmmss")}){fileExtension}";
 
                 return newFileName;
             }
@@ -363,7 +362,7 @@ namespace Fanex.NexHR.Controllers
 
             if (result.IsSuccessful && !string.IsNullOrEmpty(fileName))
             {
-                string filePath = Path.Combine(environment.WebRootPath, "file/uploads/cv", fileName);
+                string filePath = Path.Combine(environment.WebRootPath, DirectoryPath, fileName);
                 System.IO.File.Delete(filePath);
 
                 DeleteFile(fileName);
@@ -374,7 +373,7 @@ namespace Fanex.NexHR.Controllers
 
         private void DeleteFile(string fileName)
         {
-            string filePath = Path.Combine(environment.WebRootPath, "file/uploads/cv", fileName);
+            string filePath = Path.Combine(environment.WebRootPath, DirectoryPath, fileName);
             if (System.IO.File.Exists(filePath))
             {
                 System.IO.File.Delete(filePath);
