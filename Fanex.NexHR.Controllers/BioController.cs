@@ -93,7 +93,7 @@
                 });
             }
 
-            var errors = ModelState.Where(x => x.Value.Errors.Any()).ToDictionary(x => x.Key, x => x.Value.Errors.First().ErrorMessage);
+            var errors = ModelState.Where(x => x.Value.Errors.Any()).ToDictionary(x => x.Key, x => x.Value.Errors[0].ErrorMessage);
 
             return Json(new { isSuccessful = false, errors });
         }
@@ -119,8 +119,8 @@
         {
             var viewModel = new BioStationTimeChangeViewModel
             {
-                From = DateTime.Now.AddMonths(-1),
-                To = DateTime.Now
+                From = DateTimeOffset.Now.AddMonths(-1).DateTime,
+                To = DateTimeOffset.Now.DateTime
             };
 
             return View(viewModel);

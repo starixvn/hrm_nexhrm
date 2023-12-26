@@ -37,8 +37,8 @@
             PostnatalViewModel model = new PostnatalViewModel
             {
                 EmpId = CurrentUser.Id,
-                FromDate = DateTime.Now,
-                ToDate = DateTime.Now,
+                FromDate = DateTimeOffset.Now.DateTime,
+                ToDate = DateTimeOffset.Now.DateTime,
                 Types = 0,
                 Minutes = ThirtyMinutes
             };

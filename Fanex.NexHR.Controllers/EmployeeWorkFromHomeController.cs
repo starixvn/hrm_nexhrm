@@ -30,8 +30,8 @@
         {
             var model = new EmployeeWorkFromHomeFilterViewModel
             {
-                FromDate = DateTime.Now,
-                ToDate = DateTime.Now,
+                FromDate = DateTimeOffset.Now.DateTime,
+                ToDate = DateTimeOffset.Now.DateTime,
                 Teams = await teamService.GetTeam(),
             };
             return View(model);
@@ -62,8 +62,8 @@
         {
             var model = new EmployeeWorkFromHomeViewModel
             {
-                FromDate = DateTime.Now,
-                ToDate = DateTime.Now
+                FromDate = DateTimeOffset.Now.DateTime,
+                ToDate = DateTimeOffset.Now.DateTime
             };
             return View(model);
         }
@@ -164,7 +164,7 @@
                         WorkFromHomeRequestId = id,
                         StatusId = (byte)(command == Labels.Approve ? 2 : 3),
                         ProcessedBy = CurrentUser.Id,
-                        ProcessedDate = DateTime.Now
+                        ProcessedDate = DateTimeOffset.Now.DateTime
                     };
                     var result = await baseService.ExecuteNonQueryAsync(criteria);
                     if (!result.IsSuccessful)
@@ -187,7 +187,7 @@
                 WorkFromHomeRequestId = id,
                 StatusId = (byte)(command == Labels.Approve ? 2 : 3),
                 ProcessedBy = CurrentUser.Id,
-                ProcessedDate = DateTime.Now
+                ProcessedDate = DateTimeOffset.Now.DateTime
             };
             var result = await baseService.ExecuteNonQueryAsync(criteria);
             return Json(result);
@@ -201,7 +201,7 @@
             {
                 WorkFromHomeRequestId = id,
                 ProcessedBy = CurrentUser.Id,
-                ProcessedDate = DateTime.Now
+                ProcessedDate = DateTimeOffset.Now.DateTime
             };
             var result = await baseService.ExecuteNonQueryAsync(criteria);
             return Json(result);

@@ -26,12 +26,12 @@
                 const short typeOfNone = 2;
                 criteria.InOutType = typeOfNone;
                 criteria.ModifiedBy = CurrentUser.Id;
-                criteria.ModifiedDate = DateTime.Now;
+                criteria.ModifiedDate = DateTimeOffset.Now.DateTime;
             }
             else
             {
                 criteria.ModifiedBy = CurrentUser.Id;
-                criteria.ModifiedDate = DateTime.Now;
+                criteria.ModifiedDate = DateTimeOffset.Now.DateTime;
             }
 
             CommandResult commandResult = await baseService.ExecuteNonQueryAsync(criteria);
@@ -50,12 +50,12 @@
                     const short typeOfNone = 2;
                     criteria.InOutType = typeOfNone;
                     criteria.ModifiedBy = CurrentUser.Id;
-                    criteria.ModifiedDate = DateTime.Now;
+                    criteria.ModifiedDate = DateTimeOffset.Now.DateTime;
                 }
                 else
                 {
                     criteria.ModifiedBy = CurrentUser.Id;
-                    criteria.ModifiedDate = DateTime.Now;
+                    criteria.ModifiedDate = DateTimeOffset.Now.DateTime;
                 }
 
                 commandResult = await baseService.ExecuteNonQueryAsync(criteria);

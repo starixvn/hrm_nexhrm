@@ -281,8 +281,8 @@
             var criteria = new GetMyOvertimeCriteria
             {
                 EmployeeId = CurrentUser.Id,
-                FromDate = new DateTime(year, 1, 1),
-                ToDate = new DateTime(year, 12, 31)
+                FromDate = new DateTimeOffset(year, 1, 1,0,0,0,TimeSpan.Zero).DateTime,
+                ToDate = new DateTimeOffset(year, 12, 31,0,0,0,TimeSpan.Zero).DateTime
             };
             IList<EmployeeOvertime> employeeOvertimes = await overtimeService.GetMyOvertime(criteria);
 
@@ -337,7 +337,7 @@
             OvertimeSummaryViewModel summary = new OvertimeSummaryViewModel
             {
                 Teams = await teamService.GetTeam(),
-                Year = DateTime.Now.Year
+                Year = DateTimeOffset.Now.DateTime.Year
             };
 
             return View(summary);

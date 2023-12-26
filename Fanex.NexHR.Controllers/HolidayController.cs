@@ -27,7 +27,7 @@
 
         public IActionResult Index(int? year)
         {
-            ViewBag.year = year ?? DateTime.Now.Year;
+            ViewBag.year = year ?? DateTimeOffset.Now.DateTime.Year;
             return View();
         }
 
@@ -49,8 +49,8 @@
             HolidayViewModel newHoliday = new HolidayViewModel
             {
                 Name = string.Empty,
-                FromDate = DateTime.Now,
-                ToDate = DateTime.Now,
+                FromDate = DateTimeOffset.Now.DateTime,
+                ToDate = DateTimeOffset.Now.DateTime
             };
 
             return View(newHoliday);

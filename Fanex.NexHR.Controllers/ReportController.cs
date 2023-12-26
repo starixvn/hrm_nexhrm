@@ -51,12 +51,12 @@
             var employeeAttendanceViewModel = model;
             if (employeeAttendanceViewModel != null)
             {
-                if (employeeAttendanceViewModel.FromDate == DateTime.MinValue)
+                if (employeeAttendanceViewModel.FromDate == DateTimeOffset.MinValue.DateTime)
                 {
                     employeeAttendanceViewModel = new EmployeeAttendanceViewModel
                     {
-                        FromDate = DateTime.Now,
-                        ToDate = DateTime.Now,
+                        FromDate = DateTimeOffset.Now.DateTime,
+                        ToDate = DateTimeOffset.Now.DateTime,
                         DateOption = 0,
                         ExcludeUserDelete = true
                     };
@@ -155,7 +155,7 @@
         {
             var model = new TimesheetViewModel
             {
-                Year = DateTime.Now.Year,
+                Year = DateTimeOffset.Now.DateTime.Year,
                 EmpId = CurrentUser.Id,
                 IsHavePrivilegeCreateCheckInOutRecord = await IsPrivilegeCreateCheckInOut()
             };
@@ -169,7 +169,7 @@
             var criteria = new InsertCheckInOutRecordCriteria
             {
                 EmpId = CurrentUser.Id,
-                RecordTime = DateTime.Now,
+                RecordTime = DateTimeOffset.Now.DateTime,
                 InOutType = 0,
                 IPAddress = GetClientIpAddress(),
                 Platform = Request.Headers["User-Agent"]
@@ -184,7 +184,7 @@
             var criteria = new InsertCheckInOutRecordCriteria
             {
                 EmpId = CurrentUser.Id,
-                RecordTime = DateTime.Now,
+                RecordTime = DateTimeOffset.Now.DateTime,
                 InOutType = 1,
                 IPAddress = GetClientIpAddress(),
                 Platform = Request.Headers["User-Agent"]
@@ -207,7 +207,7 @@
                 IPAddress = GetClientIpAddress(),
                 Platform = Request.Headers["User-Agent"],
                 ModifiedBy = CurrentUser.Id,
-                ModifiedDate = DateTime.Now,
+                ModifiedDate = DateTimeOffset.Now.DateTime,
                 IsEditCheckInOutOnline = true
             };
             CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
@@ -244,7 +244,7 @@
             {
                 var getEmployeeAttendanceReportCriteria = new GetEmployeeAttendanceReportByTypeCriteria
                 {
-                    FromDate = new DateTime(model.Year, model.Month, 1),
+                    FromDate = new DateTimeOffset(model.Year, model.Month, 1,0,0,0,TimeSpan.Zero).DateTime,
                     ToDate = new DateTime(model.Year, model.Month, DateTime.DaysInMonth(model.Year, model.Month)),
                     ReportType = model.RequestType,
                     EmployeeId = model.EmpId
@@ -254,7 +254,7 @@
                 foreach (var attendance in employeeAttendances)
                 {
                     var parseAttendanceDate = (DateTime)attendance.AttendanceDate;
-                    var isOverOneWeek = DateTime.Now >= parseAttendanceDate.AddDays(7);
+                    var isOverOneWeek = DateTimeOffset.Now.DateTime >= parseAttendanceDate.AddDays(7);
                     attendance.IsWorkFromHome = attendance.IsWorkFromHome && isEditableSettingCheckInOut && !isOverOneWeek;
                 }
             }
@@ -266,12 +266,12 @@
         [HrmAuthorize(UserRoles = "HR")]
         public IActionResult HrRequestMonitoring()
         {
-            var year = DateTime.Now.Year;
-            var month = DateTime.Now.Month;
+            var year = DateTimeOffset.Now.DateTime.Year;
+            var month = DateTimeOffset.Now.DateTime.Month;
 
             var model = new RequestsMonitoringViewModel
             {
-                FromDate = new DateTime(year, month, 1),
+                FromDate = new DateTimeOffset(year, month, 1,0,0,0,TimeSpan.Zero).DateTime,
                 ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
                 RequestType = 0,
                 MaxRequest = 2,
@@ -293,12 +293,12 @@
         [HrmAuthorize(UserRoles = "AssistantLeader")]
         public IActionResult LeaderRequestMonitoring()
         {
-            var year = DateTime.Now.Year;
-            var month = DateTime.Now.Month;
+            var year = DateTimeOffset.Now.DateTime.Year;
+            var month = DateTimeOffset.Now.DateTime.Month;
 
             var model = new RequestsMonitoringViewModel
             {
-                FromDate = new DateTime(year, month, 1),
+                FromDate = new DateTimeOffset(year, month, 1,0,0,0,TimeSpan.Zero).DateTime,
                 ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
                 RequestType = 0,
                 MaxRequest = 1,
@@ -343,8 +343,8 @@
 
             var model = new TotalWorkingHoursViewModel
             {
-                FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1),
-                ToDate = DateTime.Now,
+                FromDate = new DateTimeOffset(DateTimeOffset.Now.DateTime.Year, DateTimeOffset.Now.DateTime.Month, 1,0,0,0,TimeSpan.Zero).DateTime,
+                ToDate = DateTimeOffset.Now.DateTime,
                 DateOption = 5,
                 IsExportExcel = false,
                 Teams = teams
@@ -360,13 +360,13 @@
             var totalWorkingHoursViewModel = model;
             if (totalWorkingHoursViewModel == null)
             {
-                int year = DateTime.Now.Year;
-                int month = DateTime.Now.Month;
+                int year = DateTimeOffset.Now.DateTime.Year;
+                int month = DateTimeOffset.Now.DateTime.Month;
 
                 totalWorkingHoursViewModel = new TotalWorkingHoursViewModel
                 {
-                    FromDate = new DateTime(year, month, 1),
-                    ToDate = DateTime.Now,
+                    FromDate = new DateTimeOffset(year, month, 1,0,0,0,TimeSpan.Zero).DateTime,
+                    ToDate = DateTimeOffset.Now.DateTime,
                     DateOption = dayOptions,
                     IsExportExcel = false
                 };
@@ -411,14 +411,14 @@
             var model = empId != 0
                 ? new LateInEarlyOutViewModel
                 {
-                    Year = DateTime.Now.Year,
+                    Year = DateTimeOffset.Now.DateTime.Year,
                     Teams = teams,
                     EmployeeId = empId,
                     Employee = nickname
                 }
                 : new LateInEarlyOutViewModel
                 {
-                    Year = DateTime.Now.Year,
+                    Year = DateTimeOffset.Now.DateTime.Year,
                     Teams = teams,
                 };
 
@@ -603,8 +603,8 @@
 
             if (!fromDate.HasValue || !toDate.HasValue)
             {
-                from = DateTime.Now.Date;
-                to = DateTime.Now.Date;
+                from = DateTimeOffset.Now.DateTime.Date;
+                to = DateTimeOffset.Now.DateTime.Date;
             }
             else
             {
@@ -683,7 +683,7 @@
         {
             IList<Team> teams = await teamService.GetTeam();
 
-            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            DateTime date = new DateTimeOffset(DateTimeOffset.Now.DateTime.Year, DateTimeOffset.Now.DateTime.Month, 1,0,0,0,TimeSpan.Zero).DateTime;
             var model = new WorkingHoursStatisticViewModel
             {
                 FromDate = date,
@@ -710,8 +710,8 @@
         {
             var critera = new GetHeadCountByYearCriteria
             {
-                StartDateOfYear = new DateTime(year, 1, 1),
-                EndDateOfYear = new DateTime(year, 12, 31)
+                StartDateOfYear = new DateTimeOffset(year,1,1,0,0,0,TimeSpan.Zero).DateTime,
+                EndDateOfYear = new DateTimeOffset(year,12,31,0,0,0,TimeSpan.Zero).DateTime
             };
 
             var model = new HeadCountModel
@@ -730,7 +730,7 @@
             var model = new YearlyNexRequestViewModel
             {
                 Teams = teams,
-                Year = DateTime.Now.Year
+                Year = DateTimeOffset.Now.DateTime.Year
             };
 
             return View(model);

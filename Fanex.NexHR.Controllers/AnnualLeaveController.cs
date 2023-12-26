@@ -281,7 +281,7 @@
         {
             return PartialView(new LeaveConversionViewModel
             {
-                OnDate = DateTime.Now,
+                OnDate = DateTimeOffset.Now.DateTime,
                 TotalDays = decimal.Parse("0.5"),
                 Description = Labels.LeaveConversionDescription
             });

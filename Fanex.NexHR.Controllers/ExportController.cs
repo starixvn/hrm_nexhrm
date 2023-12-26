@@ -51,8 +51,8 @@
         public async Task<IActionResult> TotalWorkingHours(TotalWorkingHoursViewModel model)
         {
             const int dateOption = 5;
-            var year = DateTime.Now.Year;
-            var month = DateTime.Now.Month;
+            var year = DateTimeOffset.Now.DateTime.Year;
+            var month = DateTimeOffset.Now.DateTime.Month;
 
             var totalWorkingHoursViewModel = model;
 
@@ -82,7 +82,7 @@
                 listTotalWorkingHours = Utilities.MultipleSort(listTotalWorkingHours, sorts);
             }
 
-            string fileName = "TotalWorkingHours_" + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year + ".xlsx";
+            string fileName = "TotalWorkingHours_" + DateTimeOffset.Now.DateTime.Day + DateTimeOffset.Now.DateTime.Month + DateTimeOffset.Now.DateTime.Year + ".xlsx";
             string templatePath = Path.Combine(environment.ContentRootPath, TotalWorkingHoursTemplatePath);
             var bytes = ExportService.ExportTotalWorkingHours(listTotalWorkingHours, totalWorkingHoursViewModel.FromDate, totalWorkingHoursViewModel.ToDate, templatePath);
 
@@ -177,7 +177,7 @@
                 GroupId = model.TeamId
             };
 
-            string fileName = "WorkingHoursStatistic_" + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year + ".xlsx";
+            string fileName = "WorkingHoursStatistic_" + DateTimeOffset.Now.DateTime.Day + DateTimeOffset.Now.DateTime.Month + DateTimeOffset.Now.DateTime.Year + ".xlsx";
             IList<WorkingHoursStatistic> listTotalWorkingHours = await reportService.GetWorkingHoursStatistic(getWorkingHoursCriteria);
             string templatePath = Path.Combine(environment.ContentRootPath, WorkingHoursStatisticTemplatePath);
             var bytes = ExportService.ExportWorkingHoursStatistic(listTotalWorkingHours, getWorkingHoursCriteria.FromDateLastMonth, getWorkingHoursCriteria.ToDate, templatePath);
@@ -187,7 +187,7 @@
 
         public async Task<IActionResult> LeaveScheduleReport(WorkingCalendarViewModel model)
         {
-            DateTime date = new DateTime(model.Year, model.Month, 1);
+            DateTime date = new DateTimeOffset(model.Year, model.Month, 1,0,0,0,TimeSpan.Zero).DateTime;
             var criteria = new GetLeaveScheduleCriteria
             {
                 FromDate = date,
@@ -209,8 +209,8 @@
         {
             var criteria = new GetHeadCountByYearCriteria
             {
-                StartDateOfYear = new DateTime(year, 1, 1),
-                EndDateOfYear = new DateTime(year, 12, 31)
+                StartDateOfYear = new DateTimeOffset(year, 1,1,0,0,0,TimeSpan.Zero).DateTime,
+                EndDateOfYear = new DateTimeOffset(year, 1,1,0,0,0,TimeSpan.Zero).UtcDateTime
             };
 
             var headCount = await reportService.GetTeamHeadCountInYear(criteria);
