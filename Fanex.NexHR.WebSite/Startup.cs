@@ -3,7 +3,6 @@
     using AspNetCore.Unobtrusive.Ajax;
     using Fanex.Data;
     using Fanex.Data.SqlServer;
-    using StackExchange.Redis;
 
     public class Startup
     {

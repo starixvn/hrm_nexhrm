@@ -10,6 +10,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Newtonsoft.Json;
+    using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
     using Resources;
     using Services.Interfaces;
     using System;
@@ -177,13 +178,13 @@
                     var toeicScoreCriteria = new UpdateToeicScoreCriteria
                     {
                         CreatedBy = CurrentUser.Id,
-                        CreatedDate = DateTime.Now,
+                        CreatedDate = DateTimeOffset.Now.DateTime,
                         EmpId = model.EmpId,
                         InputDate = model.InputDate,
                         Listening = model.Listening,
                         LRExamDate = model.LRExamDate,
                         ModifiedBy = CurrentUser.Id,
-                        ModifiedDate = DateTime.Now,
+                        ModifiedDate = DateTimeOffset.Now.DateTime,
                         OldListening = model.OldListening,
                         OldReading = model.OldReading,
                         OldSpeaking = model.OldSpeaking,

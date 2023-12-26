@@ -89,7 +89,7 @@
             {
                 foreach (var permission in permissionRoles)
                 {
-                    if (roleList.Any(r => r.Equals(permission, StringComparison.OrdinalIgnoreCase)))
+                    if (roleList.Exists(r => r.Equals(permission, StringComparison.OrdinalIgnoreCase)))
                     {
                         return true;
                     }

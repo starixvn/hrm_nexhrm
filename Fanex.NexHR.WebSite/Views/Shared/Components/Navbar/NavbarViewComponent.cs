@@ -41,12 +41,12 @@
                 roleList.Add((Role)role);
             }
 
-            if (!roleList.Any(r => r == Role.AssistantLeader) && roleList.Any(r => r == Role.Leader))
+            if (!roleList.Exists(r => r == Role.AssistantLeader) && roleList.Exists(r => r == Role.Leader))
             {
                 roleList.Add(Role.AssistantLeader);
             }
 
-            if (!roleList.Any(r => r == Role.Member))
+            if (!roleList.Exists(r => r == Role.Member))
             {
                 roleList.Add(Role.Member);
             }

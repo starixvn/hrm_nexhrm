@@ -8,7 +8,7 @@ namespace Fanex.NexHR.ViewModels.Overtime
     {
         public OvertimeConversionCreateViewModel()
         {
-            this.DeductDate = DateTime.Now;
+            this.DeductDate = DateTimeOffset.Now.DateTime;
         }
 
         [Required]

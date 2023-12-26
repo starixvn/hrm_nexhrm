@@ -15,8 +15,8 @@
         public RequestViewModel()
         {
             StatusId = (byte)RequestStatuse.Pending;
-            FromDate = DateTime.Now;
-            ToDate = DateTime.Now;
+            FromDate = DateTimeOffset.Now.DateTime;
+            ToDate = DateTimeOffset.Now.DateTime;
             DateOption = 1;
             TeamId = -1;
             EmployeeId = -1;

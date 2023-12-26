@@ -11,7 +11,7 @@
     public class SyncDataController : ControllerBase
     {
         private readonly ISyncDataService syncDataService;
-        private readonly DateTime DefaultModifiedDate = new DateTime(2010, 1, 1);
+        private readonly DateTime DefaultModifiedDate = new DateTimeOffset(2010, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
         private const string ModifiedDateTimeFormat = "yyyy-MM-dd HH:mm:ss:fff";
 
         public SyncDataController(ISyncDataService syncDataService)

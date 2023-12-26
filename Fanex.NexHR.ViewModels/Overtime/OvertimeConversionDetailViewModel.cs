@@ -9,7 +9,7 @@
         public OvertimeConversionDetailViewModel()
         {
             this.FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            this.ToDate = DateTime.Now;
+            this.ToDate = DateTimeOffset.Now.DateTime;
         }
         public int EmployeeId { get; set; }
 

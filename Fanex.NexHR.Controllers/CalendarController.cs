@@ -66,7 +66,7 @@
 
         public async Task<JsonResult> GetWorkingSchedule(int employeeId, DateTime date)
         {
-            var fromdate = new DateTime(date.Year, date.Month, 1);
+            var fromdate = new DateTimeOffset(date.Year, date.Month, 1,0,0,0,TimeSpan.Zero).DateTime;
             var criteria = new GetWorkingScheduleCriteria
             {
                 FromDate = fromdate,
@@ -93,9 +93,9 @@
                 }
 
                 model.Teams = await teamService.GetTeam();
-                model.Month = model.Month == 0 ? DateTime.Now.Month : model.Month;
-                model.Year = model.Year == 0 ? DateTime.Now.Year : model.Year;
-                DateTime date = new DateTime(model.Year, model.Month, 1);
+                model.Month = model.Month == 0 ? DateTimeOffset.Now.DateTime.Month : model.Month;
+                model.Year = model.Year == 0 ? DateTimeOffset.Now.DateTime.Year : model.Year;
+                DateTime date = new DateTimeOffset(model.Year, model.Month, 1,0,0,0,TimeSpan.Zero).DateTime;
                 var criteria = new GetWorkingScheduleCriteria
                 {
                     FromDate = date,
@@ -121,8 +121,8 @@
                 }
 
                 model.Teams = await teamService.GetTeam();
-                model.Month = model.Month == 0 ? DateTime.Now.Month : model.Month;
-                model.Year = model.Year == 0 ? DateTime.Now.Year : model.Year;
+                model.Month = model.Month == 0 ? DateTimeOffset.Now.DateTime.Month: model.Month;
+                model.Year = model.Year == 0 ? DateTimeOffset.Now.DateTime.Year : model.Year;
             }
 
             return View(model);
@@ -130,7 +130,8 @@
 
         public async Task<IActionResult> GetEmployeeLeaveSchedule(WorkingCalendarViewModel model)
         {
-            DateTime date = new DateTime(model.Year, model.Month, 1);
+            DateTime date = new DateTimeOffset(model.Year, model.Month, 1,0,0,0,TimeSpan.Zero).DateTime;
+
             var criteria = new GetLeaveScheduleCriteria
             {
                 FromDate = date,
@@ -148,8 +149,8 @@
         {
             return PartialView(new AddEmployeeCalendarViewModel
             {
-                FromDate = DateTime.Now.Date,
-                ToDate = DateTime.Now.Date,
+                FromDate = DateTimeOffset.Now.DateTime.Date,
+                ToDate = DateTimeOffset.Now.DateTime.Date,
             });
         }
     }

@@ -95,8 +95,8 @@
         private async Task<EmployeeAttendanceViewModel> GetEmployeeAttendaneAsync()
             => new EmployeeAttendanceViewModel
             {
-                FromDate = DateTime.Now,
-                ToDate = DateTime.Now,
+                FromDate = DateTimeOffset.Now.DateTime,
+                ToDate = DateTimeOffset.Now.DateTime,
                 GroupId = CurrentUser.TeamId,
                 DateOption = 0,
                 ExcludeUserDelete = true,
@@ -108,7 +108,7 @@
         {
             GetAllEmployeeCriteria criteria = new GetAllEmployeeCriteria
             {
-                Date = DateTime.Now.Date
+                Date = DateTimeOffset.Now.DateTime.Date
             };
 
             return await lateinearlyoutService.GetAllEmployee(criteria);
@@ -118,7 +118,7 @@
         {
             var criteria = new GetBirthdayAndFirstWorkingdayCriteria
             {
-                OnDate = DateTime.Now.Date
+                OnDate = DateTimeOffset.Now.DateTime.Date
             };
 
             var lstEmployee = await employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
@@ -152,7 +152,7 @@
 
         public IActionResult LogtimeIssue(int issueId, string issueName)
         {
-            var today = DateTime.Now;
+            var today = DateTimeOffset.Now.DateTime;
             var model = new LogTimeIssue
             {
                 IssueId = issueId,
@@ -175,7 +175,7 @@
                 ModelState.AddModelError("Hours", Labels.LogtimeHoursErrrorMessage);
             }
 
-            if (model.SpentOn.Date > DateTime.Now.Date)
+            if (model.SpentOn.Date > DateTimeOffset.Now.DateTime.Date)
             {
                 ModelState.AddModelError("SpentOn", Labels.SpentOnErrorMessage);
             }
@@ -215,7 +215,7 @@
                 Hours = issue.Hours,
                 Comments = issue.Comments,
                 Activity = issue.Activity,
-                CreatedDate = DateTime.Now
+                CreatedDate = DateTimeOffset.Now.DateTime
             };
 
             await baseService.ExecuteNonQueryAsync(criteria);
@@ -236,8 +236,8 @@
             {
                 ActorId = CurrentUser.Id,
                 Role = (short)Role.AssistantLeader,
-                FromDate = DateTime.Now.AddMonths(-3),
-                ToDate = DateTime.Now,
+                FromDate = DateTimeOffset.Now.AddMonths(-3).DateTime,
+                ToDate = DateTimeOffset.Now.DateTime,
                 GroupId = null,
                 Status = 1,
                 ExcludeEmployeeId = CurrentUser.Id,

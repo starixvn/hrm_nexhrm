@@ -132,7 +132,7 @@
             return View(new AddAnnualLeaveTransactionViewModel
             {
                 EmployeeId = employeeId,
-                AffectedFrom = DateTime.Now,
+                AffectedFrom = DateTimeOffset.Now.DateTime
             });
         }
 
@@ -171,7 +171,7 @@
         {
             return PartialView(new LeaveConversionViewModel
             {
-                OnDate = DateTime.Now,
+                OnDate = DateTimeOffset.Now.DateTime,
                 TotalDays = decimal.Parse("0.5"),
                 Description = Labels.LeaveConversionDescription
             });
@@ -181,7 +181,7 @@
         {
             return PartialView(new LeaveDeductionViewModel
             {
-                DeductDate = DateTime.Now,
+                DeductDate = DateTimeOffset.Now.DateTime,
                 TotalDays = decimal.Parse("0.5"),
                 Description = Labels.LeaveDeductionDescription,
                 IsAnnual = true
@@ -320,7 +320,7 @@
         {
             return PartialView(new LeaveDeductionViewModel
             {
-                DeductDate = DateTime.Now,
+                DeductDate = DateTimeOffset.Now.DateTime,
                 TotalDays = decimal.Parse("0.5"),
                 Description = Labels.LeaveDeductionDescription,
                 IsAnnual = true
@@ -425,7 +425,7 @@
         {
             var model = new LeaveSummaryViewModel
             {
-                Year = DateTime.Now.Year,
+                Year = DateTimeOffset.Now.DateTime.Year,
                 EmployeeId = -1,
                 Teams = await teamService.GetTeam(),
                 ShowOpenAndCloseAnnualBalance = await GetOpenAndCloseAnnualBalance()
@@ -520,7 +520,7 @@
         {
             return PartialView(new AddMultiAnnualLeaveTransactionViewModel
             {
-                AffectedFrom = DateTime.Now
+                AffectedFrom = DateTimeOffset.Now.DateTime
             });
         }
 
@@ -529,7 +529,7 @@
         {
             return PartialView(new AddMultiAnnualLeaveTransactionViewModel
             {
-                AffectedFrom = DateTime.Now
+                AffectedFrom = DateTimeOffset.Now.DateTime
             });
         }
 

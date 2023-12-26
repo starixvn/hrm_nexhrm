@@ -7,7 +7,7 @@
     {
         public OvertimeConversionEditViewModel()
         {
-            this.DeductDate = DateTime.Now;
+            this.DeductDate = DateTimeOffset.Now.DateTime;
         }
 
         [Required]
