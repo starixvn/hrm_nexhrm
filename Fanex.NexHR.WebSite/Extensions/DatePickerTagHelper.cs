@@ -32,11 +32,11 @@
                 ? string.Join(",", InvaidDates.Select(d => d.ToString("dd MMM yyyy")))
                 : string.Empty;
 
-            var minDateString = MinDate != null && MinDate != DateTime.MinValue
+            var minDateString = MinDate != null && MinDate != DateTimeOffset.MinValue.DateTime
                 ? ((DateTime)MinDate).ToString("yyyy/MM/dd")
                 : "null";
 
-            var maxDateString = MaxDate != null && MaxDate != DateTime.MinValue
+            var maxDateString = MaxDate != null && MaxDate != DateTimeOffset.MinValue.DateTime
                 ? ((DateTime)MaxDate).ToString("yyyy/MM/dd")
                 : "null";
 

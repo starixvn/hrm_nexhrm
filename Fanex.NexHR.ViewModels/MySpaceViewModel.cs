@@ -496,7 +496,7 @@
             {
                 var displayValue = "None";
 
-                if ((CheckInTime - new DateTime(year, 1, 1)).Days != 0)
+                if ((CheckInTime - new DateTime(year, 1, 1)).Days != 0)//
                 {
                     displayValue = CheckInTime.ToShortTimeString();
                 }

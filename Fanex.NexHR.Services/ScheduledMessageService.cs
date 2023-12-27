@@ -258,7 +258,7 @@
                     SolarMonth = currentDate.Month,
                     SolarYear = currentDate.Year
                 });
-                var dateCheck = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day);
+                var dateCheck = new DateTimeOffset(currentDate.Year, currentDate.Month, currentDate.Day, 0, 0, 0, TimeSpan.Zero).DateTime;
                 if (!IsHolidayOrDayOff(workingSchedules, dateCheck) && IsFirstAndFifteenLuner(lunar))
                 {
                     solarLunarViewModels.Add(new SolarLunarViewModel

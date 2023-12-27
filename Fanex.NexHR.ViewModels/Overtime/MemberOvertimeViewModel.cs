@@ -8,10 +8,10 @@
     {
         public MemberOvertimeViewModel()
         {
-            FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            FromDate = new DateTimeOffset(DateTimeOffset.Now.DateTime.Year, DateTimeOffset.Now.DateTime.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
             ToDate = DateTimeOffset.Now.DateTime;
             Status = 0;
-            FromDateOT = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            FromDateOT = new DateTimeOffset(DateTimeOffset.Now.DateTime.Year, DateTimeOffset.Now.DateTime.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
             ToDateOT = DateTimeOffset.Now.DateTime;
         }
 

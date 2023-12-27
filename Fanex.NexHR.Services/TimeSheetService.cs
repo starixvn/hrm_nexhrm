@@ -29,7 +29,7 @@
         {
             var criteria = new GetEmployeeReachedWorkingTimeCriteria();
             var workingHours = await baseService.GetDataAsync<WorkingHour>(criteria);
-            var today = DateTime.Now.Date;
+            var today = DateTimeOffset.Now.DateTime.Date;
 
             if (workingHours != null && workingHours.Any())
             {

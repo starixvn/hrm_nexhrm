@@ -15,8 +15,8 @@
     {
         public CreateApplicantViewModel()
         {
-            DOB = new DateTime(1990, 1, 1);
-            ApplyDate = DateTime.Now;
+            DOB = new DateTimeOffset(1990, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
+            ApplyDate = DateTimeOffset.Now.DateTime;
         }
 
         [Required]

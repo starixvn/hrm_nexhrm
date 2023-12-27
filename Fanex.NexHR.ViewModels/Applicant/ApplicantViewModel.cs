@@ -7,10 +7,12 @@
 
     public class ApplicantViewModel
     {
+        private const int months = 6; 
+
         public ApplicantViewModel()
         {
-            FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month - 6, 1);
-            ToDate = DateTime.Now;
+            FromDate = new DateTimeOffset(DateTimeOffset.Now.DateTime.Year, DateTimeOffset.Now.DateTime.Month - months, 1,  0, 0, 0, TimeSpan.Zero).DateTime;
+            ToDate = DateTimeOffset.Now.DateTime;
         }
         public string FullName { get; set; }
 
