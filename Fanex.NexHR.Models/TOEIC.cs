@@ -26,7 +26,7 @@
         {
             get
             {
-                if (!_listeningReadingExamDate.HasValue || _listeningReadingExamDate.Value == DateTime.MinValue
+                if (!_listeningReadingExamDate.HasValue || _listeningReadingExamDate.Value == DateTimeOffset.MinValue.DateTime
                     || _listeningReadingExamDate.Value.Year == year)
                 {
                     _listeningReadingExamDate = null;
@@ -55,7 +55,7 @@
         {
             get
             {
-                if (!_speakingWritingExamDate.HasValue || _speakingWritingExamDate.Value == DateTime.MinValue)
+                if (!_speakingWritingExamDate.HasValue || _speakingWritingExamDate.Value == DateTimeOffset.MinValue.DateTime)
                 {
                     _speakingWritingExamDate = null;
                 }
@@ -112,7 +112,7 @@
                 if (MinimumScore.HasValue && InputDate.HasValue)
                 {
                     return (!LRTotal.HasValue || (MinimumScore + rangeNotRemind) > LRTotal.Value) 
-                        && (InputDate.Value < DateTime.Now);
+                        && (InputDate.Value < DateTimeOffset.Now.DateTime);
                 }
 
                 return false;

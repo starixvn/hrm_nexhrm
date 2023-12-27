@@ -40,7 +40,7 @@
                 if (computerArr.Length > 1)
                 {
                     var nick = computerArr[1];
-                    if (!employeeOnlines.Any(t => t.NickName.Equals(nick)) && employees.Any(t => t.NickName.Equals(nick, StringComparison.OrdinalIgnoreCase)))
+                    if (!employeeOnlines.Exists(t => t.NickName.Equals(nick)) && employees.Any(t => t.NickName.Equals(nick, StringComparison.OrdinalIgnoreCase)))
                     {
                         var isOnline = await CheckIsOnline(computer);
                         AddEmployeeOnline(employeeOnlines, employees, nick, isOnline, computer);
@@ -61,7 +61,7 @@
                     EmpId = employee.Id,
                     NickName = employee.NickName,
                     IsOnline = isOnline,
-                    CheckingTime = DateTime.Now,
+                    CheckingTime = DateTimeOffset.Now.DateTime,
                     PCName = computer
                 });
             }

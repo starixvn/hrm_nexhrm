@@ -254,7 +254,7 @@
 
         public async Task<IList<DateTime>> GetHaveNotLogTimeDates(string domainUser, int currentUserId)
         {
-            var toDate = DateTime.Now.AddDays(-1);
+            var toDate = DateTimeOffset.Now.DateTime.AddDays(-1);
             var fromDate = toDate.AddDays(-6);
             var currentUser = await GetCurrentRedmineId(domainUser);
 
@@ -272,7 +272,7 @@
 
         private async Task GetForgotDates(RedmineUser employee)
         {
-            var toDate = DateTime.Now.AddDays(-1);
+            var toDate = DateTimeOffset.Now.DateTime.AddDays(-1);
             var fromDate = toDate.AddDays(-6);
             var logtimeDates = await GetTimeEntries(employee.RedmineId, fromDate, toDate);
             var workingDates = await GetWorkedDatesOfUser(fromDate, toDate, employee.EmpId);

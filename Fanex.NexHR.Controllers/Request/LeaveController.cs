@@ -52,8 +52,8 @@
             var criteria = new GetRequestCriteria
             {
                 Role = (short)Role.Member,
-                FromDate = new DateTime(year, 1, 1),
-                ToDate = new DateTime(year, 12, 31),
+                FromDate = new DateTimeOffset(year, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
+                ToDate = new DateTimeOffset(year, 12, 31, 0, 0, 0, TimeSpan.Zero).DateTime,
                 EmployeeId = CurrentUser.Id,
                 GroupId = null,
                 Status = null,
@@ -73,8 +73,8 @@
             {
                 Employee = CurrentUser.DisplayName,
                 EmployeeId = CurrentUser.Id,
-                FromDate = fromDate ?? DateTime.Now.Date,
-                ToDate = toDate ?? DateTime.Now.Date,
+                FromDate = fromDate ?? DateTimeOffset.Now.DateTime.Date,
+                ToDate = toDate ?? DateTimeOffset.Now.DateTime.Date,
                 TotalDays = 1,
                 LeaveTypes = await leaveTypeService.GetAll(),
                 UnavailDates = await requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null),
@@ -112,7 +112,7 @@
                 RequestType = (short)RequestType.Leave,
                 IsPlanned = leaveRequestViewModel.IsPlanned,
                 Remark = leaveRequestViewModel.Remark,
-                CreatedDate = DateTime.Now,
+                CreatedDate = DateTimeOffset.Now.DateTime,
                 CreatedBy = CurrentUser.Id,
                 FromDate = leaveRequestViewModel.FromDate,
                 ToDate = leaveRequestViewModel.ToDate,
@@ -205,7 +205,7 @@
                     Remark = viewModel.Remark,
                     ModifiedBy = viewModel.EmployeeId,
                     FromDate = viewModel.FromDate,
-                    ModifiedDate = DateTime.Now,
+                    ModifiedDate = DateTimeOffset.Now.DateTime,
                     ToDate = viewModel.ToDate,
                     LeaveTypeId = viewModel.LeaveTypeId,
                     TotalDays = viewModel.TotalDays

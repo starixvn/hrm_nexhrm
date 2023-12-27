@@ -18,7 +18,7 @@ namespace Fanex.NexHR.Core
     /// retrieved via dependency injection.
 #endif
     /// </summary>
-    internal static class HttpContextHelper
+    public static class HttpContextHelper
     {
         private const string Message = "Prefer accessing HttpContext via injection";
 

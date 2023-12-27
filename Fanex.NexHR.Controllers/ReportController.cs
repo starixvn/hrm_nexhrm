@@ -244,7 +244,7 @@
             {
                 var getEmployeeAttendanceReportCriteria = new GetEmployeeAttendanceReportByTypeCriteria
                 {
-                    FromDate = new DateTimeOffset(model.Year, model.Month, 1,0,0,0,TimeSpan.Zero).DateTime,
+                    FromDate = new DateTimeOffset(model.Year, model.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
                     ToDate = new DateTime(model.Year, model.Month, DateTime.DaysInMonth(model.Year, model.Month)),
                     ReportType = model.RequestType,
                     EmployeeId = model.EmpId
@@ -271,7 +271,7 @@
 
             var model = new RequestsMonitoringViewModel
             {
-                FromDate = new DateTimeOffset(year, month, 1,0,0,0,TimeSpan.Zero).DateTime,
+                FromDate = new DateTimeOffset(year, month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
                 ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
                 RequestType = 0,
                 MaxRequest = 2,
@@ -298,7 +298,7 @@
 
             var model = new RequestsMonitoringViewModel
             {
-                FromDate = new DateTimeOffset(year, month, 1,0,0,0,TimeSpan.Zero).DateTime,
+                FromDate = new DateTimeOffset(year, month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
                 ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
                 RequestType = 0,
                 MaxRequest = 1,
@@ -343,7 +343,7 @@
 
             var model = new TotalWorkingHoursViewModel
             {
-                FromDate = new DateTimeOffset(DateTimeOffset.Now.DateTime.Year, DateTimeOffset.Now.DateTime.Month, 1,0,0,0,TimeSpan.Zero).DateTime,
+                FromDate = new DateTimeOffset(DateTimeOffset.Now.DateTime.Year, DateTimeOffset.Now.DateTime.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
                 ToDate = DateTimeOffset.Now.DateTime,
                 DateOption = 5,
                 IsExportExcel = false,
@@ -365,7 +365,7 @@
 
                 totalWorkingHoursViewModel = new TotalWorkingHoursViewModel
                 {
-                    FromDate = new DateTimeOffset(year, month, 1,0,0,0,TimeSpan.Zero).DateTime,
+                    FromDate = new DateTimeOffset(year, month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
                     ToDate = DateTimeOffset.Now.DateTime,
                     DateOption = dayOptions,
                     IsExportExcel = false
@@ -683,7 +683,7 @@
         {
             IList<Team> teams = await teamService.GetTeam();
 
-            DateTime date = new DateTimeOffset(DateTimeOffset.Now.DateTime.Year, DateTimeOffset.Now.DateTime.Month, 1,0,0,0,TimeSpan.Zero).DateTime;
+            DateTime date = new DateTimeOffset(DateTimeOffset.Now.DateTime.Year, DateTimeOffset.Now.DateTime.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
             var model = new WorkingHoursStatisticViewModel
             {
                 FromDate = date,
@@ -710,8 +710,8 @@
         {
             var critera = new GetHeadCountByYearCriteria
             {
-                StartDateOfYear = new DateTimeOffset(year,1,1,0,0,0,TimeSpan.Zero).DateTime,
-                EndDateOfYear = new DateTimeOffset(year,12,31,0,0,0,TimeSpan.Zero).DateTime
+                StartDateOfYear = new DateTimeOffset(year, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
+                EndDateOfYear = new DateTimeOffset(year, 12, 31, 0, 0, 0, TimeSpan.Zero).DateTime
             };
 
             var model = new HeadCountModel

@@ -87,7 +87,7 @@
                 emails = emails.Replace(";;", ";");
             }
 
-            return emails.TrimEnd(new[] { ',', ';' });
+            return emails.TrimEnd(',', ';');
         }
     }
 }

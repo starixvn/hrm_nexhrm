@@ -94,12 +94,12 @@
                     FullName = GetStringFromReader(reader, "FullNameProcessedBy"),
                     Email = GetStringFromReader(reader, "EmailProcessedBy")
                 },
-                ModifiedDate = !reader.IsDBNull(reader.GetOrdinal("ProcessedDate")) ? reader.GetDateTime(reader.GetOrdinal("ProcessedDate")) : new DateTime(),
+                ModifiedDate = !reader.IsDBNull(reader.GetOrdinal("ProcessedDate")) ? reader.GetDateTime(reader.GetOrdinal("ProcessedDate")) : new DateTimeOffset().DateTime,
                 FromShift = new Shift { Name = GetStringFromReader(reader, "FromShift") },
                 ToShift = new Shift { Name = GetStringFromReader(reader, "ToShift") },
                 TotalMins = !reader.IsDBNull(reader.GetOrdinal("TotalMins")) ? reader.GetInt32(reader.GetOrdinal("TotalMins")) : 0,
                 FromDate = reader.GetDateTime(reader.GetOrdinal("FromDate")),
-                ToDate = !reader.IsDBNull(reader.GetOrdinal("ToDate")) ? reader.GetDateTime(reader.GetOrdinal("ToDate")) : new DateTime(),
+                ToDate = !reader.IsDBNull(reader.GetOrdinal("ToDate")) ? reader.GetDateTime(reader.GetOrdinal("ToDate")) : new DateTimeOffset().DateTime,
                 TotalDays = !reader.IsDBNull(reader.GetOrdinal("TotalDays")) ? reader.GetDecimal(reader.GetOrdinal("TotalDays")) : 0,
                 LeaveType = new LeaveType
                 {

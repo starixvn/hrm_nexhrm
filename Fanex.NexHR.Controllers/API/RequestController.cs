@@ -28,7 +28,7 @@
         public async Task<IActionResult> ProcessRequest(long requestId, string command, string nickName, int processedBy)
         {
             LogFileHelper.WriteInfo(JsonConvert.SerializeObject(new { RequestId = requestId, Command = command, Nickname = nickName, ProcessedBy = processedBy }));
-            
+
             if (!string.IsNullOrWhiteSpace(nickName))
             {
                 var criteria = new GetEmployeeByNickNameCriteria

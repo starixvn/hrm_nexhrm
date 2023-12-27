@@ -54,8 +54,8 @@
             var criteria = new GetRequestCriteria
             {
                 Role = (short)Role.Member,
-                FromDate = new DateTime(year, 1, 1),
-                ToDate = new DateTime(year, 12, 31),
+                FromDate = new DateTimeOffset(year, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
+                ToDate = new DateTimeOffset(year, 12, 31, 0, 0, 0, TimeSpan.Zero).DateTime,
                 EmployeeId = CurrentUser.Id,
                 GroupId = null,
                 Status = null,
@@ -111,7 +111,7 @@
                     RequestType = model.CheckInOutType,
                     IsPlanned = false,
                     IsCrossDate = model.IsCrossDate,
-                    CreatedDate = DateTime.Now,
+                    CreatedDate = DateTimeOffset.Now.DateTime,
                     CreatedBy = model.By,
                     FromDate = model.WorkDate
                 };
@@ -157,7 +157,7 @@
                         await nexbotService.SendMessageForCheckInOutRequest(model, leaders.ToList());
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     logService.LogException(ex);
                 }
@@ -207,7 +207,7 @@
                     Remark = model.Remark,
                     ModifiedBy = model.EmployeeId,
                     FromDate = model.WorkDate,
-                    ModifiedDate = DateTime.Now,
+                    ModifiedDate = DateTimeOffset.Now.DateTime,
                     FromShift = null,
                     ToDate = null,
                     ToShift = null,
@@ -253,7 +253,7 @@
             var getShiftByDateCriteria = new GetShiftByDateCriteria
             {
                 EmployeeId = CurrentUser.Id,
-                Date = date ?? DateTime.Now
+                Date = date ?? DateTimeOffset.Now.DateTime
             };
 
             Shift shift = await shiftService.GetByDate(getShiftByDateCriteria);

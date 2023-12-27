@@ -642,8 +642,8 @@
             {
                 LumiGroups = luminetGroups.ToList(),
                 LumiShifts = luminetShifts.ToList(),
-                LastWorkingDate = DateTime.Now,
-                AffectedDate = DateTime.Now
+                LastWorkingDate = DateTimeOffset.Now.DateTime,
+                AffectedDate = DateTimeOffset.Now.DateTime
             };
 
             return View(model);

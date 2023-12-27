@@ -6,7 +6,7 @@
     {
         public OvertimeRecord()
         {
-            Date = DateTime.Now;
+            Date = DateTimeOffset.Now.DateTime;
             Hour = 1;
         }
 

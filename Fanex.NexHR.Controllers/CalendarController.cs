@@ -66,7 +66,7 @@
 
         public async Task<JsonResult> GetWorkingSchedule(int employeeId, DateTime date)
         {
-            var fromdate = new DateTimeOffset(date.Year, date.Month, 1,0,0,0,TimeSpan.Zero).DateTime;
+            var fromdate = new DateTimeOffset(date.Year, date.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
             var criteria = new GetWorkingScheduleCriteria
             {
                 FromDate = fromdate,
@@ -95,7 +95,7 @@
                 model.Teams = await teamService.GetTeam();
                 model.Month = model.Month == 0 ? DateTimeOffset.Now.DateTime.Month : model.Month;
                 model.Year = model.Year == 0 ? DateTimeOffset.Now.DateTime.Year : model.Year;
-                DateTime date = new DateTimeOffset(model.Year, model.Month, 1,0,0,0,TimeSpan.Zero).DateTime;
+                DateTime date = new DateTimeOffset(model.Year, model.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
                 var criteria = new GetWorkingScheduleCriteria
                 {
                     FromDate = date,
@@ -121,7 +121,7 @@
                 }
 
                 model.Teams = await teamService.GetTeam();
-                model.Month = model.Month == 0 ? DateTimeOffset.Now.DateTime.Month: model.Month;
+                model.Month = model.Month == 0 ? DateTimeOffset.Now.DateTime.Month : model.Month;
                 model.Year = model.Year == 0 ? DateTimeOffset.Now.DateTime.Year : model.Year;
             }
 
@@ -130,7 +130,7 @@
 
         public async Task<IActionResult> GetEmployeeLeaveSchedule(WorkingCalendarViewModel model)
         {
-            DateTime date = new DateTimeOffset(model.Year, model.Month, 1,0,0,0,TimeSpan.Zero).DateTime;
+            DateTime date = new DateTimeOffset(model.Year, model.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
 
             var criteria = new GetLeaveScheduleCriteria
             {

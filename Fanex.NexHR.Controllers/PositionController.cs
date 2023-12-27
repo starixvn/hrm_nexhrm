@@ -33,10 +33,10 @@
         public async Task<IActionResult> Index(string keyword)
         {
 
-             var criteria = new GetAllPositionCriteria
-             {
+            var criteria = new GetAllPositionCriteria
+            {
                 Keyword = keyword
-             };
+            };
             IEnumerable<Position> positions = await positionService.GetAll(criteria);
 
             return PartialView("_ListPosition", positions);
@@ -86,7 +86,7 @@
                 PositionId = model.PositionId,
                 PositionName = model.PositionName,
                 PositionCode = model.PositionCode,
-                IsActive =  model.IsActive,
+                IsActive = model.IsActive,
                 DisplayOrder = model.DisplayOrder,
                 ModifiedBy = CurrentUser.Id
             };

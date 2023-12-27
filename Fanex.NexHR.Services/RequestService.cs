@@ -201,7 +201,7 @@
                     {
                         RequestId = id,
                         ModifiedBy = processBy,
-                        ModifiedDate = DateTime.Now
+                        ModifiedDate = DateTimeOffset.Now.DateTime
                     };
                     break;
 
@@ -210,7 +210,7 @@
                     {
                         RequestId = id,
                         ProcessedBy = processBy,
-                        ProcessedDate = DateTime.Now
+                        ProcessedDate = DateTimeOffset.Now.DateTime
                     };
                     break;
 
@@ -219,7 +219,7 @@
                     {
                         RequestId = id,
                         ApprovedBy = processBy,
-                        ApprovedDate = DateTime.Now
+                        ApprovedDate = DateTimeOffset.Now.DateTime
                     };
                     break;
             }
@@ -263,13 +263,13 @@
 
         public async Task<decimal> GetNumberRequestInMonth(int employeeId, RequestType requestType)
         {
-            int year = DateTime.Now.Year;
-            int month = DateTime.Now.Month;
+            int year = DateTimeOffset.Now.DateTime.Year;
+            int month = DateTimeOffset.Now.DateTime.Month;
 
             var criteria = new GetNumberRequestInMonthCriteria
             {
                 EmpId = employeeId,
-                FromDate = new DateTime(year, month, 1),
+                FromDate = new DateTimeOffset(year, month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
                 ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
                 RequestType = (int)requestType
             };

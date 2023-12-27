@@ -111,7 +111,7 @@
             int daysInMonth = DateTime.DaysInMonth(fromDate.Year, fromDate.Month);
             for (int i = 1; i <= daysInMonth; i++)
             {
-                listDates.Add(new DateTime(fromDate.Year, fromDate.Month, i));
+                listDates.Add(new DateTimeOffset(fromDate.Year, fromDate.Month, i, 0, 0, 0, TimeSpan.Zero).DateTime);
             }
             return listDates;
         }

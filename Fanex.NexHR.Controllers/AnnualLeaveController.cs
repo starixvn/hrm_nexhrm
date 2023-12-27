@@ -562,7 +562,7 @@
             var resetAnnualLeaves = new ResetAnnualLeavesCriteria
             {
                 Description = descriptionReset,
-                FromDate = new DateTime(ShowOpenAndCloseAnnualBalance.FromDate.Year, 12, 31),
+                FromDate = new DateTimeOffset(ShowOpenAndCloseAnnualBalance.FromDate.Year, 12, 31, 0, 0, 0, TimeSpan.Zero).DateTime,
                 ResetDays = minbalance,
                 CreatedBy = CurrentUser.Id,
                 LeaveSummaries = leaveSummariesFilter
@@ -601,8 +601,8 @@
         {
             var criteria = new GetOpenAndCloseAnnualBalanceCriteria
             {
-                OpenDate = new DateTime(ShowOpenAndCloseAnnualBalance.ToDate.Year, 1, 1),
-                CloseDate = new DateTime(ShowOpenAndCloseAnnualBalance.FromDate.Year, 12, 31)
+                OpenDate = new DateTimeOffset(ShowOpenAndCloseAnnualBalance.ToDate.Year, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
+                CloseDate = new DateTimeOffset(ShowOpenAndCloseAnnualBalance.FromDate.Year, 12, 31, 0, 0, 0, TimeSpan.Zero).DateTime,
             };
 
             ShowOpenAndCloseAnnualBalance model = await annualLeaveService.GetOpenAndCloseAnnualBalance(criteria);

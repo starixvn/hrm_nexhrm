@@ -53,8 +53,8 @@
             var result = new CommandResult { Code = 0 };
             var criteria = new GetLateInEarlyOutViolaterOnCurrentMonthCriteria
             {
-                Month = DateTime.Now.Day == 1 ? (DateTime.Now.Month - 1) : DateTime.Now.Month,
-                Year = DateTime.Now.Year
+                Month = DateTimeOffset.Now.DateTime.Day == 1 ? (DateTimeOffset.Now.DateTime.Month - 1) : DateTimeOffset.Now.DateTime.Month,
+                Year = DateTimeOffset.Now.DateTime.Year
             };
 
             var violaters = await lateInEarlyOutService.GetLateInEarlyOutViolateOnMonth(criteria).ConfigureAwait(false);
@@ -105,7 +105,7 @@
         public async Task<CommandResult> SendMessageDeductAsync()
         {
             var result = new CommandResult { Code = 0 };
-            var criteria = new GetLateInEarlyOutDeductionCriteria { Year = DateTime.Now.Year };
+            var criteria = new GetLateInEarlyOutDeductionCriteria { Year = DateTimeOffset.Now.DateTime.Year };
             var deductedEmployees = await lateInEarlyOutService.GetLateInEarlyOutDeduction(criteria).ConfigureAwait(false);
 
             if (deductedEmployees.Any())
@@ -124,7 +124,7 @@
         public async Task<CommandResult> DeductAsync()
         {
             var result = new CommandResult { Code = 0 };
-            var criteria = new GetLateInEarlyOutDeductionCriteria { Year = DateTime.Now.Year };
+            var criteria = new GetLateInEarlyOutDeductionCriteria { Year = DateTimeOffset.Now.DateTime.Year };
             var deductedEmployees = await lateInEarlyOutService.GetLateInEarlyOutDeduction(criteria).ConfigureAwait(false);
 
             foreach (var item in deductedEmployees)
@@ -133,7 +133,7 @@
                 {
                     EmployeeId = item.EmpId,
                     Description = Messages.DescriptionAutoDeductLateInEarlyOut,
-                    DeductDate = DateTime.Now,
+                    DeductDate = DateTimeOffset.Now.DateTime,
                     IsAnnual = true,
                     TotalDays = Convert.ToDecimal(0.5),
                     CreatedBy = IdEmpDeductLateInEarlyOut
@@ -254,7 +254,7 @@
                 msg = msg + string.Format(
                     Messages.EmployeeLateInEarlyOutViolateOnMonth,
                     violater.TimeOnMonth,
-                    DateTime.Now.ToString(FormatShortDate),
+                    DateTimeOffset.Now.DateTime.ToString(FormatShortDate),
                     Constants.NewLine);
             }
             else
@@ -262,7 +262,7 @@
                 msg += string.Format(
                     Messages.EmployeeLateInEarlyOutViolateOnMonthOnceMoreTime,
                     violater.TimeOnMonth,
-                    DateTime.Now.ToString(FormatShortDate),
+                    DateTimeOffset.Now.DateTime.ToString(FormatShortDate),
                     Constants.NewLine);
             }
 
@@ -287,7 +287,7 @@
             StringBuilder message = new StringBuilder();
             message.Append(string.Format(
                 Messages.ThereIsNumberEmployeeViolateLateInEarlyOutOnMonth,
-                violaters.Count(), DateTime.Now.ToString(FormatShortDate),
+                violaters.Count(), DateTimeOffset.Now.DateTime.ToString(FormatShortDate),
                 Constants.NewLine));
 
             foreach (var violater in violaters)

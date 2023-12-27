@@ -58,7 +58,7 @@
 
             totalWorkingHoursViewModel ??= new TotalWorkingHoursViewModel
             {
-                FromDate = new DateTime(year, month, 1),
+                FromDate = new DateTimeOffset(year, month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
                 ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
                 DateOption = dateOption,
             };
@@ -187,7 +187,7 @@
 
         public async Task<IActionResult> LeaveScheduleReport(WorkingCalendarViewModel model)
         {
-            DateTime date = new DateTimeOffset(model.Year, model.Month, 1,0,0,0,TimeSpan.Zero).DateTime;
+            DateTime date = new DateTimeOffset(model.Year, model.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
             var criteria = new GetLeaveScheduleCriteria
             {
                 FromDate = date,
@@ -209,8 +209,8 @@
         {
             var criteria = new GetHeadCountByYearCriteria
             {
-                StartDateOfYear = new DateTimeOffset(year, 1,1,0,0,0,TimeSpan.Zero).DateTime,
-                EndDateOfYear = new DateTimeOffset(year, 1,1,0,0,0,TimeSpan.Zero).UtcDateTime
+                StartDateOfYear = new DateTimeOffset(year, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
+                EndDateOfYear = new DateTimeOffset(year, 1, 1, 0, 0, 0, TimeSpan.Zero).UtcDateTime
             };
 
             var headCount = await reportService.GetTeamHeadCountInYear(criteria);

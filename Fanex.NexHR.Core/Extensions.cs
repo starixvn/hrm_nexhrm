@@ -50,7 +50,7 @@
 
                 if (attributes.Length > 0)
                 {
-                    return ((DisplayAttribute)attributes.First()).GetName();
+                    return ((DisplayAttribute)attributes[0]).GetName();
                 }
             }
 
@@ -64,9 +64,9 @@
 
         public static DateTime GetMaxDate(this DateTime date)
         {
-            if (date.AddMonths(1).Year > DateTime.Now.Year)
+            if (date.AddMonths(1).Year > DateTimeOffset.Now.DateTime.Year)
             {
-                return DateTime.Now.AddYears(1);
+                return DateTimeOffset.Now.DateTime.AddYears(1);
             }
 
             return date;
@@ -95,7 +95,7 @@
                 });
             }
 
-            var toYear = DateTime.Now.GetMaxDate().Year + 1;
+            var toYear = DateTimeOffset.Now.DateTime.GetMaxDate().Year + 1;
 
             for (var index = toYear; index >= fromYear; index--)
             {

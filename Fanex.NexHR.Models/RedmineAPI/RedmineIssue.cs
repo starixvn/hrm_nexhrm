@@ -32,7 +32,7 @@ namespace Fanex.NexHR.Models.RedmineAPI
             {
                 if (DueDate.HasValue)
                 {
-                    return DueDate < DateTime.Now.Date;
+                    return DueDate < DateTimeOffset.Now.DateTime.Date;
                 }
 
                 return false;

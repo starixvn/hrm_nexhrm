@@ -20,16 +20,20 @@ namespace Fanex.NexHR.Models.AnnualLeave
 
         private const byte MaxDay = 31;
 
-        public static DateTime FromDate => DateTime.Now.Month > 1 ? new DateTime(DateTime.Now.Year, MaxMonth, 1) : new DateTime(DateTime.Now.Year - 1, MaxMonth, 1);
+        public static DateTime FromDate => DateTimeOffset.Now.DateTime.Month > 1
+        ? new DateTimeOffset(DateTimeOffset.Now.DateTime.Year, MaxMonth, 1, 0, 0, 0, TimeSpan.Zero).DateTime
+        : new DateTimeOffset(DateTimeOffset.Now.DateTime.Year - 1, MaxMonth, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
 
-        public static DateTime ToDate => DateTime.Now.Month > 1 ? new DateTime(DateTime.Now.Year + 1, 1, MaxDay) : new DateTime(DateTime.Now.Year, 1, MaxDay);
+        public static DateTime ToDate => DateTimeOffset.Now.DateTime.Month > 1 
+        ? new DateTimeOffset(DateTimeOffset.Now.DateTime.Year + 1, 1, MaxDay, 0, 0, 0, TimeSpan.Zero).DateTime
+        : new DateTimeOffset(DateTimeOffset.Now.DateTime.Year, 1, MaxDay, 0, 0, 0, TimeSpan.Zero).DateTime;
 
         public bool IsOpenedBalance { get; set; }
 
         public bool IsClosedBalance { get; set; }
 
-        public bool IsShowOpenBalance => !IsOpenedBalance && DateTime.Now.Date >= FromDate && DateTime.Now.Date <= ToDate;
+        public bool IsShowOpenBalance => !IsOpenedBalance && DateTimeOffset.Now.DateTime.Date >= FromDate && DateTimeOffset.Now.DateTime.Date <= ToDate;
 
-        public bool IsShowCloseBalance => !IsClosedBalance && DateTime.Now.Date >= FromDate && DateTime.Now.Date <= ToDate;
+        public bool IsShowCloseBalance => !IsClosedBalance && DateTimeOffset.Now.DateTime.Date >= FromDate && DateTimeOffset.Now.DateTime.Date <= ToDate;
     }
 }
