@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
     using System;
+    using System.Globalization;
     using System.Threading.Tasks;
     using Fanex.NexHR.Services.Interfaces;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -66,7 +67,7 @@
                 return DefaultModifiedDate;
             }
 
-            DateTime outputDateTime = DateTime.ParseExact(dateTimeString.Replace("T", " "), ModifiedDateTimeFormat, null);
+            DateTime outputDateTime = DateTime.ParseExact(dateTimeString.Replace("T", " "), ModifiedDateTimeFormat, CultureInfo.InvariantCulture);
 
             return outputDateTime;
         }

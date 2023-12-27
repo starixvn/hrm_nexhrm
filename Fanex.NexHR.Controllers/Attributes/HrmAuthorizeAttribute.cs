@@ -83,7 +83,7 @@
 
         private static bool IsValidRole(List<string> roleList, string[] permissionRoles)
         {
-            bool isSARole = roleList.Any(r => r.Equals(Utilities.GetDescription(Role.SA), StringComparison.OrdinalIgnoreCase));
+            bool isSARole = roleList.Exists(r => r.Equals(Utilities.GetDescription(Role.SA), StringComparison.OrdinalIgnoreCase));
 
             if (!isSARole)
             {

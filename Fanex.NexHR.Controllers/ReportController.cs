@@ -245,7 +245,7 @@
                 var getEmployeeAttendanceReportCriteria = new GetEmployeeAttendanceReportByTypeCriteria
                 {
                     FromDate = new DateTimeOffset(model.Year, model.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
-                    ToDate = new DateTime(model.Year, model.Month, DateTime.DaysInMonth(model.Year, model.Month)),
+                    ToDate = new DateTimeOffset(model.Year, model.Month, DateTime.DaysInMonth(model.Year, model.Month), 0, 0, 0, TimeSpan.Zero).DateTime,
                     ReportType = model.RequestType,
                     EmployeeId = model.EmpId
                 };
@@ -272,7 +272,7 @@
             var model = new RequestsMonitoringViewModel
             {
                 FromDate = new DateTimeOffset(year, month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
-                ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
+                ToDate = new DateTimeOffset(year, month, DateTime.DaysInMonth(year, month), 0 , 0, 0, TimeSpan.Zero).DateTime,
                 RequestType = 0,
                 MaxRequest = 2,
                 DateOption = 0,
@@ -299,7 +299,7 @@
             var model = new RequestsMonitoringViewModel
             {
                 FromDate = new DateTimeOffset(year, month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
-                ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
+                ToDate = new DateTimeOffset(year, month, DateTime.DaysInMonth(year, month), 0, 0, 0, TimeSpan.Zero).DateTime,
                 RequestType = 0,
                 MaxRequest = 1,
                 DateOption = 0,
@@ -521,13 +521,13 @@
             IList<LateInEarlyOutDiscipline> lateInEarlyOutDisciplines = new List<LateInEarlyOutDiscipline>();
             if (model != null)
             {
-                var toDate = new DateTime(model.ToYear, model.ToMonth, DateTime.DaysInMonth(model.ToYear, model.ToMonth));
+                var toDate = new DateTimeOffset(model.ToYear, model.ToMonth, DateTime.DaysInMonth(model.ToYear, model.ToMonth), 0, 0, 0, TimeSpan.Zero).DateTime;
                 var criteria = new GetLateInEarlyOutSummaryCriteria
                 {
                     EmployeeId = model.EmployeeId > 0 ? new int?(model.EmployeeId) : null,
                     GroupId = model.TeamId,
                     FromDate = toDate.AddYears(-1).AddDays(1),
-                    ToDate = new DateTime(model.ToYear, model.ToMonth, DateTime.DaysInMonth(model.ToYear, model.ToMonth)),
+                    ToDate = new DateTimeOffset(model.ToYear, model.ToMonth, DateTime.DaysInMonth(model.ToYear, model.ToMonth), 0, 0, 0, TimeSpan.Zero).DateTime,
                     IsUserWarning = true
                 };
 
