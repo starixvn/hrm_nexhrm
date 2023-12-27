@@ -425,7 +425,7 @@
         {
             var model = new LeaveSummaryViewModel
             {
-                Year = DateTimeOffset.Now.DateTime.Year,
+                Year = DateTimeOffset.Now.Year,
                 EmployeeId = -1,
                 Teams = await teamService.GetTeam(),
                 ShowOpenAndCloseAnnualBalance = await GetOpenAndCloseAnnualBalance()

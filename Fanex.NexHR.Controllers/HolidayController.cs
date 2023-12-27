@@ -27,7 +27,7 @@
 
         public IActionResult Index(int? year)
         {
-            ViewBag.year = year ?? DateTimeOffset.Now.DateTime.Year;
+            ViewBag.year = year ?? DateTimeOffset.Now.Year;
             return View();
         }
 

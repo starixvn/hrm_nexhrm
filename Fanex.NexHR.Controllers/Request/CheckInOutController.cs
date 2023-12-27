@@ -76,7 +76,7 @@
             {
                 Employee = CurrentUser.DisplayName,
                 EmployeeId = CurrentUser.Id,
-                WorkDate = date ?? DateTime.Today,
+                WorkDate = date ?? DateTimeOffset.Now.DateTime.Date,
                 CheckInOutType = type ?? (short)RequestType.CheckIn,
                 UnavailDates = await requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null),
                 TotalRequest = await requestService.GetNumberRequestInMonth(CurrentUser.Id, RequestType.CheckIn),

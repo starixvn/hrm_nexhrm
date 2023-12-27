@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
     using Attributes;
     using Enums;
     using Microsoft.AspNetCore.Mvc.Rendering;
@@ -64,7 +63,7 @@
 
         public static DateTime GetMaxDate(this DateTime date)
         {
-            if (date.AddMonths(1).Year > DateTimeOffset.Now.DateTime.Year)
+            if (date.AddMonths(1).Year > DateTimeOffset.Now.Year)
             {
                 return DateTimeOffset.Now.DateTime.AddYears(1);
             }

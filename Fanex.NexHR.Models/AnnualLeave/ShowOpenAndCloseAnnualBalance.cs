@@ -20,13 +20,13 @@ namespace Fanex.NexHR.Models.AnnualLeave
 
         private const byte MaxDay = 31;
 
-        public static DateTime FromDate => DateTimeOffset.Now.DateTime.Month > 1
-        ? new DateTimeOffset(DateTimeOffset.Now.DateTime.Year, MaxMonth, 1, 0, 0, 0, TimeSpan.Zero).DateTime
-        : new DateTimeOffset(DateTimeOffset.Now.DateTime.Year - 1, MaxMonth, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
+        public static DateTime FromDate => DateTimeOffset.Now.Month > 1
+        ? new DateTimeOffset(DateTimeOffset.Now.Year, MaxMonth, 1, 0, 0, 0, TimeSpan.Zero).DateTime
+        : new DateTimeOffset(DateTimeOffset.Now.Year - 1, MaxMonth, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
 
-        public static DateTime ToDate => DateTimeOffset.Now.DateTime.Month > 1 
-        ? new DateTimeOffset(DateTimeOffset.Now.DateTime.Year + 1, 1, MaxDay, 0, 0, 0, TimeSpan.Zero).DateTime
-        : new DateTimeOffset(DateTimeOffset.Now.DateTime.Year, 1, MaxDay, 0, 0, 0, TimeSpan.Zero).DateTime;
+        public static DateTime ToDate => DateTimeOffset.Now.Month > 1 
+        ? new DateTimeOffset(DateTimeOffset.Now.Year + 1, 1, MaxDay, 0, 0, 0, TimeSpan.Zero).DateTime
+        : new DateTimeOffset(DateTimeOffset.Now.Year, 1, MaxDay, 0, 0, 0, TimeSpan.Zero).DateTime;
 
         public bool IsOpenedBalance { get; set; }
 

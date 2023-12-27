@@ -9,7 +9,7 @@ namespace Fanex.NexHR.ViewModels.Overtime
     {
         public HROvertimeViewModel()
         {
-            this.FromDate = new DateTimeOffset(DateTimeOffset.Now.DateTime.Year, DateTimeOffset.Now.DateTime.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
+            this.FromDate = new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
             this.ToDate = DateTimeOffset.Now.DateTime;
         }
 

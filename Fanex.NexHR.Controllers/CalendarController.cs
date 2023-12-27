@@ -93,8 +93,8 @@
                 }
 
                 model.Teams = await teamService.GetTeam();
-                model.Month = model.Month == 0 ? DateTimeOffset.Now.DateTime.Month : model.Month;
-                model.Year = model.Year == 0 ? DateTimeOffset.Now.DateTime.Year : model.Year;
+                model.Month = model.Month == 0 ? DateTimeOffset.Now.Month : model.Month;
+                model.Year = model.Year == 0 ? DateTimeOffset.Now.Year : model.Year;
                 DateTime date = new DateTimeOffset(model.Year, model.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
                 var criteria = new GetWorkingScheduleCriteria
                 {
@@ -121,8 +121,8 @@
                 }
 
                 model.Teams = await teamService.GetTeam();
-                model.Month = model.Month == 0 ? DateTimeOffset.Now.DateTime.Month : model.Month;
-                model.Year = model.Year == 0 ? DateTimeOffset.Now.DateTime.Year : model.Year;
+                model.Month = model.Month == 0 ? DateTimeOffset.Now.Month : model.Month;
+                model.Year = model.Year == 0 ? DateTimeOffset.Now.Year : model.Year;
             }
 
             return View(model);

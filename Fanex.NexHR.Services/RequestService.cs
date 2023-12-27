@@ -263,8 +263,8 @@
 
         public async Task<decimal> GetNumberRequestInMonth(int employeeId, RequestType requestType)
         {
-            int year = DateTimeOffset.Now.DateTime.Year;
-            int month = DateTimeOffset.Now.DateTime.Month;
+            int year = DateTimeOffset.Now.Year;
+            int month = DateTimeOffset.Now.Month;
 
             var criteria = new GetNumberRequestInMonthCriteria
             {

@@ -53,8 +53,8 @@
             var result = new CommandResult { Code = 0 };
             var criteria = new GetLateInEarlyOutViolaterOnCurrentMonthCriteria
             {
-                Month = DateTimeOffset.Now.DateTime.Day == 1 ? (DateTimeOffset.Now.DateTime.Month - 1) : DateTimeOffset.Now.DateTime.Month,
-                Year = DateTimeOffset.Now.DateTime.Year
+                Month = DateTimeOffset.Now.Day == 1 ? (DateTimeOffset.Now.Month - 1) : DateTimeOffset.Now.Month,
+                Year = DateTimeOffset.Now.Year
             };
 
             var violaters = await lateInEarlyOutService.GetLateInEarlyOutViolateOnMonth(criteria).ConfigureAwait(false);
@@ -105,7 +105,7 @@
         public async Task<CommandResult> SendMessageDeductAsync()
         {
             var result = new CommandResult { Code = 0 };
-            var criteria = new GetLateInEarlyOutDeductionCriteria { Year = DateTimeOffset.Now.DateTime.Year };
+            var criteria = new GetLateInEarlyOutDeductionCriteria { Year = DateTimeOffset.Now.Year };
             var deductedEmployees = await lateInEarlyOutService.GetLateInEarlyOutDeduction(criteria).ConfigureAwait(false);
 
             if (deductedEmployees.Any())
@@ -124,7 +124,7 @@
         public async Task<CommandResult> DeductAsync()
         {
             var result = new CommandResult { Code = 0 };
-            var criteria = new GetLateInEarlyOutDeductionCriteria { Year = DateTimeOffset.Now.DateTime.Year };
+            var criteria = new GetLateInEarlyOutDeductionCriteria { Year = DateTimeOffset.Now.Year };
             var deductedEmployees = await lateInEarlyOutService.GetLateInEarlyOutDeduction(criteria).ConfigureAwait(false);
 
             foreach (var item in deductedEmployees)

@@ -11,8 +11,8 @@
 
         public ApplicantViewModel()
         {
-            FromDate = new DateTimeOffset(DateTimeOffset.Now.DateTime.Year, DateTimeOffset.Now.DateTime.Month - months, 1,  0, 0, 0, TimeSpan.Zero).DateTime;
-            ToDate = DateTimeOffset.Now.DateTime;
+            FromDate = new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month - months, 1,  0, 0, 0, TimeSpan.Zero).DateTime;
+            ToDate = DateTimeOffset.Now.DateTime.Date;
         }
         public string FullName { get; set; }
 

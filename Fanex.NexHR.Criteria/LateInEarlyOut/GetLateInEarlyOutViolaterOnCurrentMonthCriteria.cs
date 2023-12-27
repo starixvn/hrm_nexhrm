@@ -11,6 +11,6 @@
 
         public override string GetSettingKey() => "LateInEarlyOut_GetLateInEarlyOutOnMonth";
 
-        public override bool IsValid() => Year <= DateTimeOffset.Now.DateTime.Year;
+        public override bool IsValid() => Year <= DateTimeOffset.Now.Year;
     }
 }

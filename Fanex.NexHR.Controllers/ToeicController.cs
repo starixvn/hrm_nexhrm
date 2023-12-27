@@ -257,18 +257,18 @@
 
         private void CheckTOEICDate(Toeic model)
         {
-            if (model.LRExamDate.HasValue && model.LRExamDate.Value > DateTime.Today)
+            if (model.LRExamDate.HasValue && model.LRExamDate.Value > DateTimeOffset.Now.DateTime.Date)
             {
                 ModelState.AddModelError(
                     string.Empty,
-                    string.Format(Messages.InvalidTOEICLRExamDate, DateTime.Today.ToString("dd MMM, yyyy")));
+                    string.Format(Messages.InvalidTOEICLRExamDate, DateTimeOffset.Now.DateTime.Date.ToString("dd MMM, yyyy")));
             }
 
-            if (model.SWExamDate.HasValue && model.SWExamDate.Value > DateTime.Today)
+            if (model.SWExamDate.HasValue && model.SWExamDate.Value > DateTimeOffset.Now.DateTime.Date)
             {
                 ModelState.AddModelError(
                     string.Empty,
-                    string.Format(Messages.InvalidTOEICSWExamDate, DateTime.Today.ToString("dd MMM, yyyy")));
+                    string.Format(Messages.InvalidTOEICSWExamDate, DateTimeOffset.Now.DateTime.Date.ToString("dd MMM, yyyy")));
             }
         }
 

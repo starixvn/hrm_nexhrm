@@ -11,6 +11,6 @@
 
         public override string GetSettingKey() => "Report_GetHeadCountByYear";
 
-        public override bool IsValid() => EndDateOfYear.Year <= DateTimeOffset.Now.DateTime.Year && StartDateOfYear < EndDateOfYear;
+        public override bool IsValid() => EndDateOfYear.Year <= DateTimeOffset.Now.Year && StartDateOfYear < EndDateOfYear;
     }
 }

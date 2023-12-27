@@ -155,7 +155,7 @@
         {
             var model = new TimesheetViewModel
             {
-                Year = DateTimeOffset.Now.DateTime.Year,
+                Year = DateTimeOffset.Now.Year,
                 EmpId = CurrentUser.Id,
                 IsHavePrivilegeCreateCheckInOutRecord = await IsPrivilegeCreateCheckInOut()
             };
@@ -266,8 +266,8 @@
         [HrmAuthorize(UserRoles = "HR")]
         public IActionResult HrRequestMonitoring()
         {
-            var year = DateTimeOffset.Now.DateTime.Year;
-            var month = DateTimeOffset.Now.DateTime.Month;
+            var year = DateTimeOffset.Now.Year;
+            var month = DateTimeOffset.Now.Month;
 
             var model = new RequestsMonitoringViewModel
             {
@@ -293,8 +293,8 @@
         [HrmAuthorize(UserRoles = "AssistantLeader")]
         public IActionResult LeaderRequestMonitoring()
         {
-            var year = DateTimeOffset.Now.DateTime.Year;
-            var month = DateTimeOffset.Now.DateTime.Month;
+            var year = DateTimeOffset.Now.Year;
+            var month = DateTimeOffset.Now.Month;
 
             var model = new RequestsMonitoringViewModel
             {
@@ -343,7 +343,7 @@
 
             var model = new TotalWorkingHoursViewModel
             {
-                FromDate = new DateTimeOffset(DateTimeOffset.Now.DateTime.Year, DateTimeOffset.Now.DateTime.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
+                FromDate = new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
                 ToDate = DateTimeOffset.Now.DateTime,
                 DateOption = 5,
                 IsExportExcel = false,
@@ -360,8 +360,8 @@
             var totalWorkingHoursViewModel = model;
             if (totalWorkingHoursViewModel == null)
             {
-                int year = DateTimeOffset.Now.DateTime.Year;
-                int month = DateTimeOffset.Now.DateTime.Month;
+                int year = DateTimeOffset.Now.Year;
+                int month = DateTimeOffset.Now.Month;
 
                 totalWorkingHoursViewModel = new TotalWorkingHoursViewModel
                 {
@@ -411,14 +411,14 @@
             var model = empId != 0
                 ? new LateInEarlyOutViewModel
                 {
-                    Year = DateTimeOffset.Now.DateTime.Year,
+                    Year = DateTimeOffset.Now.Year,
                     Teams = teams,
                     EmployeeId = empId,
                     Employee = nickname
                 }
                 : new LateInEarlyOutViewModel
                 {
-                    Year = DateTimeOffset.Now.DateTime.Year,
+                    Year = DateTimeOffset.Now.Year,
                     Teams = teams,
                 };
 
@@ -500,7 +500,7 @@
         public async Task<IActionResult> LateInEarlyOutDiscipline()
         {
             IList<Team> teams = await teamService.GetTeam();
-            var today = DateTime.Today;
+            var today = DateTimeOffset.Now.DateTime.Date;
 
             var model = new LateInEarlyOutSummaryViewModel
             {
@@ -543,8 +543,8 @@
             DateTime to;
             if (!fromDate.HasValue || !toDate.HasValue)
             {
-                from = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
-                to = DateTime.Today;
+                from = new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
+                to = DateTimeOffset.Now.DateTime.Date;
             }
             else
             {
@@ -683,7 +683,7 @@
         {
             IList<Team> teams = await teamService.GetTeam();
 
-            DateTime date = new DateTimeOffset(DateTimeOffset.Now.DateTime.Year, DateTimeOffset.Now.DateTime.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
+            DateTime date = new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
             var model = new WorkingHoursStatisticViewModel
             {
                 FromDate = date,
@@ -730,7 +730,7 @@
             var model = new YearlyNexRequestViewModel
             {
                 Teams = teams,
-                Year = DateTimeOffset.Now.DateTime.Year
+                Year = DateTimeOffset.Now.Year
             };
 
             return View(model);
