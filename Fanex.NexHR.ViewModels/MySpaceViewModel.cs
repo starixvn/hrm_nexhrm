@@ -496,7 +496,7 @@
             {
                 var displayValue = "None";
 
-                if ((CheckInTime - new DateTime(year, 1, 1)).Days != 0)
+                if ((CheckInTime - new DateTimeOffset(year, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime).Days != 0)
                 {
                     displayValue = CheckInTime.ToShortTimeString();
                 }
@@ -511,7 +511,7 @@
             {
                 var displayValue = "None";
 
-                if ((CheckOutTime - new DateTime(year, 1, 1)).Days != 0)
+                if ((CheckOutTime - new DateTimeOffset(year, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime).Days != 0)
                 {
                     displayValue = CheckOutTime.ToShortTimeString();
                 }

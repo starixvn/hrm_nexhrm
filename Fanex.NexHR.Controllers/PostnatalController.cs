@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
     using Criteria.Postnatal;
@@ -78,8 +79,8 @@
             GetByIdPostnatalCriteria criteria = new GetByIdPostnatalCriteria
             {
                 EmployeeId = empId,
-                FromDate = DateTime.Parse(from),
-                ToDate = DateTime.Parse(to)
+                FromDate = DateTime.Parse(from, CultureInfo.InvariantCulture),
+                ToDate = DateTime.Parse(to, CultureInfo.InvariantCulture)
             };
             PostnatalViewModel employee = await postnatalService.GetById(criteria);
             if (employee != null)

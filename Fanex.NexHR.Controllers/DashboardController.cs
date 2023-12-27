@@ -281,7 +281,10 @@
                 ToDate = DateTimeOffset.Now.DateTime.Date
             };
             IList<Workload> listWorkload = await employeeService.GetWorkloadDefaultByTeam(criteria);
-            await GetWorkloadByTeam(listWorkload, new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1), DateTimeOffset.Now.DateTime.Date.AddDays(-1));
+            await GetWorkloadByTeam(
+                listWorkload,
+                new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
+                DateTimeOffset.Now.DateTime.Date.AddDays(-1));
 
             return PartialView("_ListTeamWorkload", listWorkload);
         }

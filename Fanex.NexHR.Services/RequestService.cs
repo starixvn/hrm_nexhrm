@@ -270,7 +270,7 @@
             {
                 EmpId = employeeId,
                 FromDate = new DateTimeOffset(year, month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
-                ToDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
+                ToDate = new DateTimeOffset(year, month, DateTime.DaysInMonth(year, month), 0, 0, 0, TimeSpan.Zero).DateTime,
                 RequestType = (int)requestType
             };
 
