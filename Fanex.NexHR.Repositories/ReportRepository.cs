@@ -56,8 +56,6 @@
                             ? 0
                             : 1;
                     }
-
-
                 }
 
                 PropertyInfo totalitem = GetTotalItemPropertyInfo(criteria);
@@ -74,9 +72,7 @@
 
         private static PropertyInfo GetTotalItemPropertyInfo(ICriteria criteria)
         {
-            return criteria.GetType()
-                .GetProperties()
-                .FirstOrDefault(prop =>
+            return Array.Find(criteria.GetType().GetProperties(), prop =>
                     Attribute.IsDefined(prop, typeof(OutputAttribute))
                     && prop.Name.ToLower(CultureInfo.InvariantCulture).Equals(totalItem));
         }
@@ -143,10 +139,9 @@
                         splitOn: stringSplitOn,
                         parameterSet: criteria);
 
-                PropertyInfo totalitem = criteria.GetType()
-                    .GetProperties()
-                    .FirstOrDefault(prop => Attribute.IsDefined(prop, typeof(OutputAttribute))
-                                            && prop.Name.ToLower(CultureInfo.InvariantCulture).Equals(totalItem));
+                PropertyInfo totalitem = Array.Find(criteria.GetType().GetProperties(), prop =>
+                                        Attribute.IsDefined(prop, typeof(OutputAttribute))
+                                        && prop.Name.ToLower(CultureInfo.InvariantCulture).Equals(totalItem));
 
                 if (totalitem != null)
                 {

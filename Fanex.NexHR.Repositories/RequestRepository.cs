@@ -32,10 +32,9 @@
                     }
                 }
 
-                PropertyInfo totalitem = criteria.GetType()
-                    .GetProperties()
-                    .FirstOrDefault(prop => Attribute.IsDefined(prop, typeof(OutputAttribute)) &&
-                                            prop.Name.ToLower(CultureInfo.InvariantCulture).Equals("totalitem"));
+                PropertyInfo totalitem = Array.Find(criteria.GetType().GetProperties(), prop =>
+                                        Attribute.IsDefined(prop, typeof(OutputAttribute))
+                                        && prop.Name.ToLower(CultureInfo.InvariantCulture).Equals("totalitem"));
 
                 if (totalitem != null)
                 {
