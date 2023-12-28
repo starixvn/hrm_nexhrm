@@ -224,13 +224,10 @@
         {
             foreach (LateInEarlyOutDiscipline lateinEarlyOut in lateinEarlyOuts)
             {
-                foreach (LateInEarlyOutDisciplineDetail lateInEarlyOutDetail in lateInEarlyOutDetails)
-                {
-                    if (lateInEarlyOutDetail.EmpId.Equals(lateinEarlyOut.Employee.Id))
+                foreach (LateInEarlyOutDisciplineDetail lateInEarlyOutDetail in lateInEarlyOutDetails.Where(x => x.EmpId.Equals(lateinEarlyOut.Employee.Id)))
                     {
                         lateinEarlyOut.LateInEarlyOutDisciplineDetails.Add(lateInEarlyOutDetail);
                     }
-                }
             }
         }
 

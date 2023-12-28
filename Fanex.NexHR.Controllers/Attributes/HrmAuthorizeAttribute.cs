@@ -87,12 +87,10 @@
 
             if (!isSARole)
             {
-                foreach (var permission in permissionRoles)
+                bool existsInRoleList = permissionRoles.Any(permission => roleList.Exists(r => r.Equals(permission, StringComparison.OrdinalIgnoreCase)));
+                if (existsInRoleList)
                 {
-                    if (roleList.Exists(r => r.Equals(permission, StringComparison.OrdinalIgnoreCase)))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
 

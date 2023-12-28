@@ -229,13 +229,10 @@
             if (!string.IsNullOrWhiteSpace(jsonObject))
             {
                 IEnumerable<LateInEarlyOutViolateModel> oldViolaters = JsonConvert.DeserializeObject<IEnumerable<LateInEarlyOutViolateModel>>(jsonObject);
-                foreach (var violater in violaters)
+                foreach (var violater in violaters.Where(x => oldViolaters.Any(o => o.EmpId == x.EmpId && x.TimeOnMonth != o.TimeOnMonth)))
                 {
-                    if (oldViolaters.Any(o => o.EmpId == violater.EmpId && violater.TimeOnMonth != o.TimeOnMonth))
-                    {
-                        string message = GeneratePersonalMessageLateInEarlyOutViolateOnMonth(violater);
-                        await nexbotService.SendMessageAsync(violater.ConversationId, message).ConfigureAwait(false);
-                    }
+                    string message = GeneratePersonalMessageLateInEarlyOutViolateOnMonth(violater);
+                    await nexbotService.SendMessageAsync(violater.ConversationId, message).ConfigureAwait(false);
                 }
             }
             else
