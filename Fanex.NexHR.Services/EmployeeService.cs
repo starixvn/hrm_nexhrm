@@ -206,14 +206,10 @@
                 .OrderBy(t => t.Employee.NickName)
                 .ToList();
 
-            foreach (DashBoardCompanySpace workFromHome in workFromHomes)
+             foreach (DashBoardCompanySpace workFromHome in workFromHomes.Where(x => !leaveDay.Any(leave => leave.Employee.Id == x.Employee.Id)))
             {
-                var wfhAndLeaveRequest = leaveDay.Where(x => workFromHome.Employee.Id == x.Employee.Id).ToList();
-                if (!wfhAndLeaveRequest.Any())
-                {
-                    employees.Append(workFromHome.Employee.NickName);
-                    employees.Append(", ");
-                }
+                employees.Append(workFromHome.Employee.NickName);
+                employees.Append(", ");
             }
             var leaveHalfDay = leaveDay.Where(x => x.LeaveDay.Equals(numberEqual));
             var workFromHomesHalfDay = workFromHomes.Where(x => leaveHalfDay.Any(y => y.Employee.Id == x.Employee.Id)).ToList();
