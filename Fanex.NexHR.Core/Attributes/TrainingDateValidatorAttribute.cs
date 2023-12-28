@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
@@ -30,7 +31,7 @@ namespace Fanex.NexHR.Core.Attributes
                 }
 
                 string strValue = value.ToString();
-                var toDate = DateTime.Parse(strValue);
+                var toDate = DateTime.Parse(strValue, CultureInfo.InvariantCulture);
                 Match match = Regex.Match(toDate.ToString("dd/MM/yyyy"), pattern + patternSecond);
                 if (match.Success)
                 {
@@ -77,7 +78,7 @@ namespace Fanex.NexHR.Core.Attributes
         {
             var objFromDate = propertyFromDate.GetValue(validationContext.ObjectInstance, null);
             string strFromdate = objFromDate == null ? "" : objFromDate.ToString();
-            var fromDate = DateTime.Parse(strFromdate);
+            var fromDate = DateTime.Parse(strFromdate, CultureInfo.InvariantCulture);
             return fromDate;
         }
     }

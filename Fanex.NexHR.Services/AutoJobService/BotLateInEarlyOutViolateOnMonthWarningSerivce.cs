@@ -77,7 +77,9 @@
         public async Task<CommandResult> SendMessageViolateDisciplineAsync()
         {
             var result = new CommandResult { Code = 0 };
-            var toDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
+            var toDate = new DateTimeOffset(DateTimeOffset.Now.Year,
+                                            DateTimeOffset.Now.Month,
+                                            DateTime.DaysInMonth(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month), 0, 0, 0, TimeSpan.Zero).DateTime;
             var fromDate = toDate.AddYears(-1).AddDays(1);
 
             var criteria = new GetViolateLateInEarlyOutDisciplineCriteria

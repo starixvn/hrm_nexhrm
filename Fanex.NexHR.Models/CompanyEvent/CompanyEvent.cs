@@ -35,7 +35,9 @@
             {
                 return string.IsNullOrWhiteSpace(FromTime) 
                     ? FromDate 
-                    : new DateTime(FromDate.Year, FromDate.Month, FromDate.Day, int.Parse(FromTime.Substring(0, TimeStringLength)), int.Parse(FromTime.Substring(MinuteIndex, TimeStringLength)), 0);
+                    : new DateTimeOffset(FromDate.Year, FromDate.Month, FromDate.Day,
+                        int.Parse(FromTime.Substring(0, TimeStringLength)),
+                        int.Parse(FromTime.Substring(MinuteIndex, TimeStringLength)), 0, TimeSpan.Zero).DateTime;
             }
         }
 
@@ -45,7 +47,9 @@
             {
                 return string.IsNullOrWhiteSpace(ToTime)
                     ? ToDate
-                    : new DateTime(ToDate.Year, ToDate.Month, ToDate.Day, int.Parse(ToTime.Substring(0, TimeStringLength)), int.Parse(ToTime.Substring(MinuteIndex, TimeStringLength)), 0);
+                    : new DateTimeOffset(ToDate.Year, ToDate.Month, ToDate.Day,
+                        int.Parse(ToTime.Substring(0, TimeStringLength)),
+                        int.Parse(ToTime.Substring(MinuteIndex, TimeStringLength)), 0, TimeSpan.Zero).DateTime;
             }
         }
     }

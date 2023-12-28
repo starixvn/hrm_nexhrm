@@ -49,8 +49,8 @@
         {
             var model = new WorkFromHomeRequestViewModel
             {
-                FromDate = DateTime.Now,
-                ToDate = DateTime.Now
+                FromDate = DateTimeOffset.Now.DateTime,
+                ToDate = DateTimeOffset.Now.DateTime
             };
             return View(model);
         }
