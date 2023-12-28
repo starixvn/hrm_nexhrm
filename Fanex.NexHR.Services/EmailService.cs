@@ -3,6 +3,8 @@
     using System;
     using System.Net;
     using System.Net.Mail;
+    using System.Net.Security;
+    using System.Security.Cryptography.X509Certificates;
     using System.Text;
     using Core;
     using Fanex.NexHR.Models.Core;
@@ -45,7 +47,7 @@
                 msg.BodyEncoding = Encoding.UTF8;
                 msg.Priority = MailPriority.Normal;
 
-                ServicePointManager.ServerCertificateValidationCallback += (_, _, _, _) => true;
+                ServicePointManager.ServerCertificateValidationCallback = ValidateRemoteCertificate;
 
                 client.SendAsync(msg, null);
 
@@ -56,6 +58,11 @@
                 logServiceProvider.LogFile("==========================Email error==============================");
                 logServiceProvider.LogFile(ex.Message);
             }
+        }
+
+        private static bool ValidateRemoteCertificate(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors policyErrors)
+        {
+            return policyErrors == SslPolicyErrors.None;
         }
 
         private static void GetMailFromString(string mailString, MailAddressCollection mails)
