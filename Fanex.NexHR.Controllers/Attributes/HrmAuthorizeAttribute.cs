@@ -56,8 +56,8 @@
         private string[] GetPermissionRoles()
         {
             var permissionRoles = UserRoles.Split(",");
-            if (permissionRoles.Any(r => r.Equals(Role.AssistantLeader.ToString(), StringComparison.OrdinalIgnoreCase)) &&
-                !permissionRoles.Any(r => r.Equals(Role.Leader.ToString(), StringComparison.OrdinalIgnoreCase)))
+            if (Array.Exists(permissionRoles, r => r.Equals(Role.AssistantLeader.ToString(), StringComparison.OrdinalIgnoreCase)) &&
+                !Array.Exists(permissionRoles, r => r.Equals(Role.Leader.ToString(), StringComparison.OrdinalIgnoreCase)))
             {
                 permissionRoles = permissionRoles.Concat(new[] { Role.Leader.ToString() }).ToArray();
             }

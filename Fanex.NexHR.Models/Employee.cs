@@ -242,7 +242,7 @@
                 return false;
             }
 
-            return roles.Any(role => RoleList.Contains((short)role));
+            return Array.Exists(roles, role => RoleList.Contains((short)role));
         }
 
         public static bool IsInRoles(IList<string> roles)
