@@ -21,7 +21,6 @@ namespace Fanex.NexHR.Core
     {
         #region Attributes
 
-        private readonly string _fileName;
         private readonly ISheet _templateSheet;
         private readonly ISheet _sheet;
         private int _rowId;
@@ -30,15 +29,14 @@ namespace Fanex.NexHR.Core
 
         #region Constructors
 
-        public ExcelTemplateWriter(FileStream fs, string excelFileName = "Report.xls", string sheetName = "Result")
-            : this(new HSSFWorkbook(fs), excelFileName, sheetName)
+        public ExcelTemplateWriter(FileStream fs, string sheetName = "Result")
+            : this(new HSSFWorkbook(fs), sheetName)
         {
             fs.Close();
         }
 
-        public ExcelTemplateWriter(HSSFWorkbook template, string excelFileName, string sheetName)
+        public ExcelTemplateWriter(HSSFWorkbook template, string sheetName)
         {
-            _fileName = excelFileName;
             _templateSheet = template.GetSheetAt(0);
             _sheet = template.CreateSheet(sheetName);
         }

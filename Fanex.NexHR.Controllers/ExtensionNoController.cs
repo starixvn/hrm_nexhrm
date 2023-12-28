@@ -245,14 +245,9 @@
         {
             if (!model.IsInternal)
             {
-                foreach (var modelError in ModelState)
+                foreach (var modelError in ModelState.Select(x => x.Key).Where(y => y.Contains("EmpId")))
                 {
-                    string propertyName = modelError.Key;
-
-                    if (propertyName.Contains("EmpId"))
-                    {
-                        ModelState[propertyName].Errors.Clear();
-                    }
+                    ModelState[modelError].Errors.Clear();
                 }
             }
         }

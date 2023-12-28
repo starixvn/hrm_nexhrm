@@ -87,7 +87,7 @@
 
             if (!isSARole)
             {
-                bool existsInRoleList = permissionRoles.Any(permission => roleList.Exists(r => r.Equals(permission, StringComparison.OrdinalIgnoreCase)));
+                bool existsInRoleList = Array.Exists(permissionRoles, permission => roleList.Exists(r => r.Equals(permission, StringComparison.OrdinalIgnoreCase)));
                 if (existsInRoleList)
                 {
                     return true;
