@@ -26,12 +26,16 @@
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.ASCII.GetBytes(authSettings.Secret);
+                #pragma warning disable S6566 // Use "DateTimeOffset" instead of "DateTime"
+                var expires = DateTime.UtcNow.AddMinutes(20);
+                #pragma warning restore S6566 // Use "DateTimeOffset" instead of "DateTime"
+
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new[] {
                         new Claim(ClaimTypes.Name, username)
                     }),
-                    Expires = DateTime.UtcNow.AddMinutes(20),
+                    Expires = expires,
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
                 };
                 var sercurityToken = tokenHandler.CreateToken(tokenDescriptor);
