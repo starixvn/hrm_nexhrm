@@ -26,7 +26,7 @@
             List<Employee> employeesFirstWorkingday = null;
             var criteria = new GetBirthdayAndFirstWorkingdayCriteria
             {
-                OnDate = DateTimeOffset.Now.DateTime.Date
+                OnDate = DateTimeOffset.Now.Date
             };
 
             var lstEmployee = await employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria).ConfigureAwait(false);

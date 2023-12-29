@@ -195,7 +195,7 @@
             foreach (var item in scheduledVegetarianList)
             {
                 var sendDate = GetSendDate(item, workingSchedules);
-                if (sendDate == DateTimeOffset.Now.DateTime.Date)
+                if (sendDate == DateTimeOffset.Now.Date)
                 {
                     var dateContent = new DateTimeOffset(item.Solar.SolarYear, item.Solar.SolarMonth, item.Solar.SolarDay, 0, 0, 0, TimeSpan.Zero).DateTime;
                     string message = string.Format(Labels.VegetarianMessages, ((int)dateContent.DayOfWeek + 1),

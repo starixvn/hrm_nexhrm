@@ -106,9 +106,9 @@
 
         private async Task<IEnumerable<ViewModels.LateInEarlyOut.LateInEarlyOutViewModel>> GetLateInEarlyOutNotification()
         {
-            GetAllEmployeeCriteria criteria = new GetAllEmployeeCriteria
+            var criteria = new GetAllEmployeeCriteria
             {
-                Date = DateTimeOffset.Now.DateTime.Date
+                Date = DateTimeOffset.Now.Date
             };
 
             return await lateinearlyoutService.GetAllEmployee(criteria);
@@ -118,7 +118,7 @@
         {
             var criteria = new GetBirthdayAndFirstWorkingdayCriteria
             {
-                OnDate = DateTimeOffset.Now.DateTime.Date
+                OnDate = DateTimeOffset.Now.Date
             };
 
             var lstEmployee = await employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
@@ -175,7 +175,7 @@
                 ModelState.AddModelError("Hours", Labels.LogtimeHoursErrrorMessage);
             }
 
-            if (model.SpentOn.Date > DateTimeOffset.Now.DateTime.Date)
+            if (model.SpentOn.Date > DateTimeOffset.Now.Date)
             {
                 ModelState.AddModelError("SpentOn", Labels.SpentOnErrorMessage);
             }
@@ -223,7 +223,7 @@
 
         private async Task<IEnumerable<MissingCheckInOutModel>> GetMissingCheckInOut(int? employeeId)
         {
-            GetMissingCheckInOutEmployeesCriteria criteria = new GetMissingCheckInOutEmployeesCriteria
+            var criteria = new GetMissingCheckInOutEmployeesCriteria
             {
                 EmpId = employeeId
             };
@@ -265,7 +265,7 @@
 
         public async Task<IActionResult> GetNotification(int employeeId)
         {
-            GetAllNotificationCriteria criteria = new GetAllNotificationCriteria { EmpId = employeeId };
+            var criteria = new GetAllNotificationCriteria { EmpId = employeeId };
 
             var noti = await notificationService.GetViolationByEmpId(criteria);
 
@@ -274,17 +274,17 @@
 
         public async Task<IActionResult> GetTeamWorkload()
         {
-            GetEmployeeWorkloadCriteria criteria = new GetEmployeeWorkloadCriteria
+            var criteria = new GetEmployeeWorkloadCriteria
             {
                 TeamId = CurrentUser.TeamId,
                 FromDate = new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
-                ToDate = DateTimeOffset.Now.DateTime.Date
+                ToDate = DateTimeOffset.Now.Date
             };
             IList<Workload> listWorkload = await employeeService.GetWorkloadDefaultByTeam(criteria);
             await GetWorkloadByTeam(
                 listWorkload,
                 new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
-                DateTimeOffset.Now.DateTime.Date.AddDays(-1));
+                DateTimeOffset.Now.Date.AddDays(-1));
 
             return PartialView("_ListTeamWorkload", listWorkload);
         }
@@ -314,7 +314,7 @@
         }
 
         [NonAction]
-        private double GetTotalHourLogTime(IList<TimeEntry> timeEntries)
+        private static double GetTotalHourLogTime(IList<TimeEntry> timeEntries)
         {
             double total = 0;
             foreach (var timeEntry in timeEntries)

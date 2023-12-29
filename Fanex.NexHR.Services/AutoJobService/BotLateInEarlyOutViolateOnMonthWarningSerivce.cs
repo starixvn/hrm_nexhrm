@@ -228,8 +228,9 @@
         {
             if (!string.IsNullOrWhiteSpace(jsonObject))
             {
-                IEnumerable<LateInEarlyOutViolateModel> oldViolaters = JsonConvert.DeserializeObject<IEnumerable<LateInEarlyOutViolateModel>>(jsonObject);
-                foreach (var violater in violaters.Where(x => oldViolaters.Any(o => o.EmpId == x.EmpId && x.TimeOnMonth != o.TimeOnMonth)))
+                var oldViolaters = JsonConvert.DeserializeObject<IEnumerable<LateInEarlyOutViolateModel>>(jsonObject);
+                var existViolaters = violaters.Where(x => oldViolaters.Any(o => o.EmpId == x.EmpId && x.TimeOnMonth != o.TimeOnMonth)).ToList();
+                foreach (var violater in existViolaters)
                 {
                     string message = GeneratePersonalMessageLateInEarlyOutViolateOnMonth(violater);
                     await nexbotService.SendMessageAsync(violater.ConversationId, message).ConfigureAwait(false);
@@ -283,7 +284,7 @@
 
         private string GenerateViolateOnMonthGroupMessage(IEnumerable<LateInEarlyOutViolateModel> violaters)
         {
-            StringBuilder message = new StringBuilder();
+            var message = new StringBuilder();
             message.Append(string.Format(
                 Messages.ThereIsNumberEmployeeViolateLateInEarlyOutOnMonth,
                 violaters.Count(), DateTimeOffset.Now.DateTime.ToString(FormatShortDate),

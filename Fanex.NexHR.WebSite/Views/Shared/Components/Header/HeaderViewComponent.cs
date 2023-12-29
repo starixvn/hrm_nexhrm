@@ -1,5 +1,9 @@
 ﻿namespace Fanex.NexHR.WebSite.Views.Shared.Components.Header
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Fanex.NexHR.Criteria;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services.Interfaces;
@@ -18,11 +22,11 @@
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            List<Employee> employeesBirthday = new List<Employee>();
-            List<Employee> employeesFirstWorkingday = new List<Employee>();
+            var employeesBirthday = new List<Employee>();
+            var employeesFirstWorkingday = new List<Employee>();
             var criteria = new GetBirthdayAndFirstWorkingdayCriteria
             {
-                OnDate = DateTimeOffset.Now.DateTime.Date
+                OnDate = DateTimeOffset.Now.Date
             };
 
             var lstEmployee = await employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria).ConfigureAwait(false);

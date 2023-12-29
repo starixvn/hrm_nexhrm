@@ -500,7 +500,7 @@
         public async Task<IActionResult> LateInEarlyOutDiscipline()
         {
             IList<Team> teams = await teamService.GetTeam();
-            var today = DateTimeOffset.Now.DateTime.Date;
+            var today = DateTimeOffset.Now.Date;
 
             var model = new LateInEarlyOutSummaryViewModel
             {
@@ -544,7 +544,7 @@
             if (!fromDate.HasValue || !toDate.HasValue)
             {
                 from = new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
-                to = DateTimeOffset.Now.DateTime.Date;
+                to = DateTimeOffset.Now.Date;
             }
             else
             {
@@ -603,8 +603,8 @@
 
             if (!fromDate.HasValue || !toDate.HasValue)
             {
-                from = DateTimeOffset.Now.DateTime.Date;
-                to = DateTimeOffset.Now.DateTime.Date;
+                from = DateTimeOffset.Now.Date;
+                to = DateTimeOffset.Now.Date;
             }
             else
             {

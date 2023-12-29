@@ -16,7 +16,8 @@
         private readonly IBaseService baseService;
         private readonly ICompanyEventService eventService;
 
-        public CompanyEventController(ISessionService sessionService,
+        public CompanyEventController(
+            ISessionService sessionService,
             IBaseService baseService,
             ICompanyEventService eventService) : base(sessionService)
         {
@@ -40,7 +41,7 @@
 
             var lastDay = new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, TimeSpan.Zero).AddDays(-1).AddMonths(7).DateTime;
 
-            GetAllEventCriteria criteria = new GetAllEventCriteria
+            var criteria = new GetAllEventCriteria
             {
                 FromDate = firstDay,
                 ToDate = lastDay
@@ -65,7 +66,7 @@
         {
             if (model != null && ModelState.IsValid)
             {
-                InsertEventCriteria criteria = new InsertEventCriteria
+                var criteria = new InsertEventCriteria
                 {
                     Title = model.Title,
                     FromDate = model.FromDate,
@@ -131,10 +132,10 @@
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Delete(int id)
         {
-            CommandResult result = new CommandResult();
+            var result = new CommandResult();
             if (id > 0)
             {
-                DeleteEventCriteria criteria = new DeleteEventCriteria { Id = id };
+                var criteria = new DeleteEventCriteria { Id = id };
                 result = await baseService.ExecuteNonQueryAsync(criteria);
             }
             else
@@ -148,7 +149,7 @@
 
         private async Task<CompanyEvent> GetDetail(int id)
         {
-            CompanyEvent model = new CompanyEvent();
+            var model = new CompanyEvent();
             if (id > 0)
             {
                 var criteria = new GetEventByIdCriteria { Id = id };

@@ -53,8 +53,8 @@
             var result = new CommandResult { Code = 0 };
             var criteria = new GetWarningBioTimeChangeCriteria
             {
-                FromDate = DateTimeOffset.Now.DateTime.Date.AddDays(-1),
-                ToDate = DateTimeOffset.Now.DateTime.Date.AddDays(1)
+                FromDate = DateTimeOffset.Now.Date.AddDays(-1),
+                ToDate = DateTimeOffset.Now.Date.AddDays(1)
             };
             var warningTimeChanges = await baseService.GetDataAsync<BioTimeChange>(criteria).ConfigureAwait(false);
 

@@ -245,7 +245,8 @@
         {
             if (!model.IsInternal)
             {
-                foreach (var modelError in ModelState.Select(x => x.Key).Where(y => y.Contains("EmpId")))
+                var keys = ModelState.Select(x => x.Key).Where(y => y.Contains("EmpId")).ToList();
+                foreach (var modelError in keys)
                 {
                     ModelState[modelError].Errors.Clear();
                 }

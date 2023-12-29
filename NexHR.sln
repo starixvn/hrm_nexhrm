@@ -1,15 +1,8 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3A0210FE-616F-4A2C-90B3-59C26F3D3DB1}"
-	ProjectSection(SolutionItems) = preProject
-		Dependencies\RazorEngine.dll = Dependencies\RazorEngine.dll
-		Dependencies\Simplicode.Imaging.dll = Dependencies\Simplicode.Imaging.dll
-		WebEssentials-Settings.json = WebEssentials-Settings.json
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{4DFF8D32-1A49-4BC7-A4EC-2CEDB5AFC70C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{5F490EB2-2747-4165-A0D0-6F920A02A7F0}"
@@ -17,11 +10,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{5DAA8E26-3353-4C6C-84DA-78261FEE6D7B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{2E6B8649-5225-47A3-A3F8-9FB7197F3A33}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeAnalysis", "CodeAnalysis", "{06DF0F58-4553-4B75-A315-51A4AC5F7633}"
-	ProjectSection(SolutionItems) = preProject
-		CodeAnalysis\CodeAnalysisConfiguration.xml = CodeAnalysis\CodeAnalysisConfiguration.xml
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.NexHR.Core", "Fanex.NexHR.Core\Fanex.NexHR.Core.csproj", "{2493CFDA-E539-4F5C-BE9D-4AE823E42473}"
 EndProject
@@ -41,7 +29,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fanex.NexHR.Criteria", "Fan
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SonarQube", "SonarQube", "{EDA43C3D-A86E-43C8-BB30-8F1A5FA2A482}"
 	ProjectSection(SolutionItems) = preProject
-		SonarQube\GlobalSuppressions.cs = SonarQube\GlobalSuppressions.cs
 		SonarQube\NexHRMCSharp.ruleset = SonarQube\NexHRMCSharp.ruleset
 		SonarQube\SolutionBinding.sqconfig = SonarQube\SolutionBinding.sqconfig
 	EndProjectSection

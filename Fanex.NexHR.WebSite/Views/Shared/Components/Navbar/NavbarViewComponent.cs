@@ -1,8 +1,13 @@
 ﻿namespace Fanex.NexHR.WebSite.Views.Shared.Components.Navbar
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels.Navigation;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Infrastructure;
     using Newtonsoft.Json;

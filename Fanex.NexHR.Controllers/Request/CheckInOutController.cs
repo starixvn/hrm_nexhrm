@@ -72,11 +72,11 @@
 
         public async Task<IActionResult> Create(short? type = 1, DateTime? date = null, bool isCrossDate = false)
         {
-            CheckInOutRequestViewModel viewModel = new CheckInOutRequestViewModel
+            var viewModel = new CheckInOutRequestViewModel
             {
                 Employee = CurrentUser.DisplayName,
                 EmployeeId = CurrentUser.Id,
-                WorkDate = date ?? DateTimeOffset.Now.DateTime.Date,
+                WorkDate = date ?? DateTimeOffset.Now.Date,
                 CheckInOutType = type ?? (short)RequestType.CheckIn,
                 UnavailDates = await requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null),
                 TotalRequest = await requestService.GetNumberRequestInMonth(CurrentUser.Id, RequestType.CheckIn),

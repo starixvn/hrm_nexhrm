@@ -1,6 +1,9 @@
 namespace Fanex.NexHR.Controllers
 {
+    using System;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
@@ -9,14 +12,11 @@ namespace Fanex.NexHR.Controllers
     using ViewModels.Applicant;
     using Models.Applicant;
     using Criteria.Applicant;
-    using System;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Core.Enums;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Fanex.NexHR.Criteria.Employee;
-    using System.Linq;
     using Microsoft.AspNetCore.Http;
-    using System.IO;
     using Fanex.NexHR.Criteria.Position;
 
     public class ApplicantsController : BaseController
@@ -26,7 +26,7 @@ namespace Fanex.NexHR.Controllers
         private readonly IApplicantService applicantService;
         private readonly IPositionService positionService;
         private readonly IEmployeeService employeeService;
-        private const string DirectoryPath = "file/uploads/cv";
+        private const string UploadsFilePath = "file/uploads/cv";
 
         public ApplicantsController(ISessionService sessionService,
             IBaseService baseService,
@@ -299,7 +299,7 @@ namespace Fanex.NexHR.Controllers
 
         private void CreateOrOpenDirectory()
         {
-            string[] filePath = { environment.WebRootPath, DirectoryPath };
+            string[] filePath = { environment.WebRootPath, UploadsFilePath };
             var path = Path.Combine(filePath);
             if (!Directory.Exists(path))
             {
@@ -327,7 +327,7 @@ namespace Fanex.NexHR.Controllers
             }
             var fileName = Path.GetFileName(file.FileName);
             var pathAttachFinal = CheckDuplicatedFileName(fileName);
-            var path = Path.Combine(environment.WebRootPath, DirectoryPath, pathAttachFinal);
+            var path = Path.Combine(environment.WebRootPath, UploadsFilePath, pathAttachFinal);
             using (var stream = new FileStream(path, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
@@ -338,7 +338,7 @@ namespace Fanex.NexHR.Controllers
 
         private string CheckDuplicatedFileName(string fileName)
         {
-            var pathAttach = $"{DirectoryPath}/{fileName}";
+            var pathAttach = $"{UploadsFilePath}/{fileName}";
             var filePath = Path.Combine(environment.WebRootPath, pathAttach);
 
             if (System.IO.File.Exists(filePath))
@@ -362,7 +362,7 @@ namespace Fanex.NexHR.Controllers
 
             if (result.IsSuccessful && !string.IsNullOrEmpty(fileName))
             {
-                string filePath = Path.Combine(environment.WebRootPath, DirectoryPath, fileName);
+                string filePath = Path.Combine(environment.WebRootPath, UploadsFilePath, fileName);
                 System.IO.File.Delete(filePath);
 
                 DeleteFile(fileName);
@@ -373,7 +373,7 @@ namespace Fanex.NexHR.Controllers
 
         private void DeleteFile(string fileName)
         {
-            string filePath = Path.Combine(environment.WebRootPath, DirectoryPath, fileName);
+            string filePath = Path.Combine(environment.WebRootPath, UploadsFilePath, fileName);
             if (System.IO.File.Exists(filePath))
             {
                 System.IO.File.Delete(filePath);

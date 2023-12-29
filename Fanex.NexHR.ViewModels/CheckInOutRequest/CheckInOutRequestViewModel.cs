@@ -64,7 +64,7 @@
         {
             IList<ValidationResult> result = new List<ValidationResult>();
 
-            if (WorkDate.Date > DateTimeOffset.Now.DateTime.Date)
+            if (WorkDate.Date > DateTimeOffset.Now.Date)
             {
                 var validation = new ValidationResult(
                     Messages.NoFutureCheckInOutRequest,

@@ -46,15 +46,8 @@
                     foreach (EmployeeAttendanceModel attendance in attendances)
                     {
                         attendance.Requests = GetAttendanceRequests(requests, attendance);
-                        attendance.IsMissingCheckin = attendance.IsMissingCheckin == 0 ||
-                                                      attendance.Requests.Any(t => t.RequestType.Id == 1)
-                            ? 0
-                            : 1;
-
-                        attendance.IsMissingCheckOut = attendance.IsMissingCheckOut == 0 ||
-                                                       attendance.Requests.Any(t => t.RequestType.Id == requestTypeId)
-                            ? 0
-                            : 1;
+                        attendance.IsMissingCheckin = attendance.IsMissingCheckin == 0 || attendance.Requests.Any(t => t.RequestType.Id == 1) ? 0 : 1;
+                        attendance.IsMissingCheckOut = attendance.IsMissingCheckOut == 0 || attendance.Requests.Any(t => t.RequestType.Id == requestTypeId) ? 0 : 1;
                     }
                 }
 
@@ -208,8 +201,7 @@
                             "Id, GroupId")
                         .ToList();
 
-                    IList<LateInEarlyOutDisciplineDetail> lateInEarlyOutDetails =
-                        multi.Read<LateInEarlyOutDisciplineDetail>().ToList();
+                    var lateInEarlyOutDetails = multi.Read<LateInEarlyOutDisciplineDetail>().ToList();
 
                     GroupLateInEarlyOutSummaryDetailByEmployeeId(lateinEarlyOuts, lateInEarlyOutDetails);
                 }
@@ -224,10 +216,11 @@
         {
             foreach (LateInEarlyOutDiscipline lateinEarlyOut in lateinEarlyOuts)
             {
-                foreach (LateInEarlyOutDisciplineDetail lateInEarlyOutDetail in lateInEarlyOutDetails.Where(x => x.EmpId.Equals(lateinEarlyOut.Employee.Id)))
-                    {
-                        lateinEarlyOut.LateInEarlyOutDisciplineDetails.Add(lateInEarlyOutDetail);
-                    }
+                var details = lateInEarlyOutDetails.Where(x => x.EmpId.Equals(lateinEarlyOut.Employee.Id)).ToList();
+                foreach (var detail in details)
+                {
+                    lateinEarlyOut.LateInEarlyOutDisciplineDetails.Add(detail);
+                }
             }
         }
 

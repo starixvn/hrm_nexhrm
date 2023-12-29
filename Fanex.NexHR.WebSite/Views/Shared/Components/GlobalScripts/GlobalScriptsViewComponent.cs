@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.WebSite.Views.Shared.Components.GlobalScripts
 {
+    using System.Threading.Tasks;
     using Fanex.NexHR.Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
 

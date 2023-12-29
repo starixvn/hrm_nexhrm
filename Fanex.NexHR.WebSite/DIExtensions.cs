@@ -1,5 +1,7 @@
 ﻿namespace Fanex.NexHR.WebSite
 {
+    using System;
+    using System.Text;
     using Fanex.Data.Repository;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Models.Core;
@@ -12,10 +14,12 @@
     using Fanex.NexHR.Services.Email;
     using Fanex.NexHR.Services.Interfaces;
     using Microsoft.AspNetCore.DataProtection;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc.Infrastructure;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
     using StackExchange.Redis;
-    using System.Text;
 
     public static class DIExtensions
     {

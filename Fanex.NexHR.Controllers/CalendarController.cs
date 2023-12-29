@@ -18,7 +18,8 @@
         private readonly ITeamService teamService;
         private readonly IBaseService baseService;
 
-        public CalendarController(ISessionService sessionService,
+        public CalendarController(
+            ISessionService sessionService,
             ICalendarService calendarService,
             ITeamService teamService,
             IBaseService baseService) : base(sessionService)
@@ -47,7 +48,7 @@
         [HttpPost]
         public async Task<IActionResult> InsertEmployeeCalendar(AddEmployeeCalendarViewModel model)
         {
-            CommandResult result = new CommandResult();
+            var result = new CommandResult();
             if (model != null)
             {
                 var criteria = new InsertEmployeeCalendarCriteria
@@ -95,7 +96,7 @@
                 model.Teams = await teamService.GetTeam();
                 model.Month = model.Month == 0 ? DateTimeOffset.Now.Month : model.Month;
                 model.Year = model.Year == 0 ? DateTimeOffset.Now.Year : model.Year;
-                DateTime date = new DateTimeOffset(model.Year, model.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
+                var date = new DateTimeOffset(model.Year, model.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
                 var criteria = new GetWorkingScheduleCriteria
                 {
                     FromDate = date,
@@ -130,7 +131,7 @@
 
         public async Task<IActionResult> GetEmployeeLeaveSchedule(WorkingCalendarViewModel model)
         {
-            DateTime date = new DateTimeOffset(model.Year, model.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
+            var date = new DateTimeOffset(model.Year, model.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
 
             var criteria = new GetLeaveScheduleCriteria
             {
@@ -149,8 +150,8 @@
         {
             return PartialView(new AddEmployeeCalendarViewModel
             {
-                FromDate = DateTimeOffset.Now.DateTime.Date,
-                ToDate = DateTimeOffset.Now.DateTime.Date,
+                FromDate = DateTimeOffset.Now.Date,
+                ToDate = DateTimeOffset.Now.Date,
             });
         }
     }

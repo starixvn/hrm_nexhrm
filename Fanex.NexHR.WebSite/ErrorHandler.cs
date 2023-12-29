@@ -1,6 +1,9 @@
 ﻿namespace Fanex.NexHR.WebSite
 {
+    using System;
+    using System.Threading.Tasks;
     using Fanex.NexHR.Services.Interfaces;
+    using Microsoft.AspNetCore.Http;
 
     public class ErrorHandler
     {

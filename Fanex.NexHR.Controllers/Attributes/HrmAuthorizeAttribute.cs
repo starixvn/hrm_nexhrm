@@ -39,7 +39,7 @@
             var sessionService = context.HttpContext.RequestServices.GetService<ISessionService>();
 
             var userRoles = sessionService.CurrentEmployee.RoleList;
-            List<string> roleList = new List<string>();
+            var roleList = new List<string>();
             foreach (var role in userRoles)
             {
                 roleList.Add(((Role)role).ToString());
@@ -87,8 +87,8 @@
 
             if (!isSARole)
             {
-                bool existsInRoleList = Array.Exists(permissionRoles, permission => roleList.Exists(r => r.Equals(permission, StringComparison.OrdinalIgnoreCase)));
-                if (existsInRoleList)
+                bool isExist = Array.Exists(permissionRoles, permission => roleList.Exists(r => r.Equals(permission, StringComparison.OrdinalIgnoreCase)));
+                if (isExist)
                 {
                     return true;
                 }

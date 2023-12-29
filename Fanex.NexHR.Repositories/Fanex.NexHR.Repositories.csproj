@@ -1,47 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <OutputType>Library</OutputType>
-    <SccProjectName>
-    </SccProjectName>
-    <SccLocalPath>
-    </SccLocalPath>
-    <SccAuxPath>
-    </SccAuxPath>
-    <SccProvider>
-    </SccProvider>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
-    <CodeAnalysisRuleSet>Fanex.NexHR.Repositories.Debug.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <CodeAnalysisRuleSet>Fanex.NexHR.Repositories.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="..\SonarQube\GlobalSuppressions.cs">
-      <Link>GlobalSuppressions.cs</Link>
-    </Compile>
-    <Compile Update="EmployeeRepository.cs">
-      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
-    </Compile>
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.NexHR.Core\Fanex.NexHR.Core.csproj" />
     <ProjectReference Include="..\Fanex.NexHR.Criteria\Fanex.NexHR.Criteria.csproj" />
     <ProjectReference Include="..\Fanex.NexHR.Models\Fanex.NexHR.Models.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Fanex.Data.Repository" Version="4.2.2" />
+    <PackageReference Include="Fanex.Data.Repository" Version="4.2.3" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.41.0.50478">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.330701">
-      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
 </Project>

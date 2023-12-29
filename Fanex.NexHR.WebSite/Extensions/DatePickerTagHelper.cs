@@ -1,5 +1,8 @@
 ﻿namespace Fanex.NexHR.WebSite.Extensions
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using Microsoft.AspNetCore.Razor.TagHelpers;
 
@@ -22,7 +25,7 @@
         public string Format { get; set; } = "dd MMM, yyyy";
 
         [HtmlAttributeName("disabled-dates")]
-        public IEnumerable<DateTime>? InvaidDates { get; set; }
+        public IEnumerable<DateTime> InvaidDates { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

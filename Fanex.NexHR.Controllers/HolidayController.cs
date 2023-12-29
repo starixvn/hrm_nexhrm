@@ -46,7 +46,7 @@
         [HrmAuthorize(UserRoles = "HR")]
         public IActionResult Create()
         {
-            HolidayViewModel newHoliday = new HolidayViewModel
+            var newHoliday = new HolidayViewModel
             {
                 Name = string.Empty,
                 FromDate = DateTimeOffset.Now.DateTime,
@@ -60,7 +60,7 @@
         [HttpPost]
         public async Task<IActionResult> Create(HolidayViewModel holiday)
         {
-            CommandResult result = new CommandResult();
+            var result = new CommandResult();
             if (holiday != null && ModelState.IsValid)
             {
                 var criteria = new InsertNewHolidayCriteria
@@ -114,7 +114,7 @@
         [HttpPost]
         public async Task<IActionResult> Edit(HolidayViewModel holiday)
         {
-            CommandResult result = new CommandResult();
+            var result = new CommandResult();
             if (holiday != null)
             {
                 if (ModelState.IsValid)

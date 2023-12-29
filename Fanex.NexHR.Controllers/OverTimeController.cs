@@ -197,13 +197,12 @@
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            CommandResult result;
             var criteria = new DeleteOvertimeCriteria
             {
                 Id = id,
                 ModifiedId = CurrentUser.Id
             };
-            result = await baseService.ExecuteNonQueryAsync(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
             return Json(result);
         }
 
@@ -334,7 +333,7 @@
 
         public async Task<IActionResult> OvertimeSummary()
         {
-            OvertimeSummaryViewModel summary = new OvertimeSummaryViewModel
+            var summary = new OvertimeSummaryViewModel
             {
                 Teams = await teamService.GetTeam(),
                 Year = DateTimeOffset.Now.Year
@@ -352,7 +351,7 @@
                 employeeId = empId;
             }
 
-            OvertimeSummaryCriteria criteria = new OvertimeSummaryCriteria
+            var criteria = new OvertimeSummaryCriteria
             {
                 EmployeeId = employeeId,
                 TeamId = teamId,
@@ -395,7 +394,7 @@
 
         public IActionResult CreateOvertimeConversion()
         {
-            OvertimeConversionCreateViewModel model = new OvertimeConversionCreateViewModel();
+            var model = new OvertimeConversionCreateViewModel();
             return PartialView("_CreateOvertimeConversion", model);
         }
 
@@ -433,7 +432,7 @@
 
         public IActionResult EditOvertimeConversion()
         {
-            OvertimeConversionEditViewModel model = new OvertimeConversionEditViewModel();
+            var model = new OvertimeConversionEditViewModel();
             return PartialView("_EditOvertimeConversion", model);
         }
 
@@ -469,13 +468,12 @@
         [HttpPost]
         public async Task<IActionResult> DeleteOvertimeConversion(int id)
         {
-            CommandResult result;
             var criteria = new DeleteConversionCriteria
             {
                 Id = id,
                 ModifiedBy = CurrentUser.Id
             };
-            result = await baseService.ExecuteNonQueryAsync(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
             return Json(result);
         }
 

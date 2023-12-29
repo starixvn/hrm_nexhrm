@@ -4,7 +4,6 @@
     using Data.Repository;
     using Models.AnnualLeave;
     using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     public interface IAnnualLeaveRepository
     {

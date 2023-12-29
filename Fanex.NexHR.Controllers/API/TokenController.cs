@@ -31,7 +31,7 @@
                     Subject = new ClaimsIdentity(new[] {
                         new Claim(ClaimTypes.Name, username)
                     }),
-                    Expires = DateTimeOffset.UtcNow.AddMinutes(20).DateTime,
+                    Expires = DateTime.UtcNow.AddMinutes(20),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
                 };
                 var sercurityToken = tokenHandler.CreateToken(tokenDescriptor);
