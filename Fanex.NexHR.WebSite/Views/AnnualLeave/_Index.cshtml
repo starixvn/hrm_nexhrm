@@ -53,14 +53,7 @@
                 <th rowspan="2">#</th>
             }
             <th rowspan="2">@Labels.EnglishName</th>
-            @if (year == 2022)
-            {
-                <th rowspan="2">@year</th>
-            }
-            else
-            {
-                <th colspan="2">@Labels.AnnualLeave</th>
-            }
+            <th rowspan="2">@year</th>
             <th colspan="12">
                 Take Annual Leave @year
             </th>
@@ -75,11 +68,6 @@
             }
         </tr>
         <tr>
-            @if (year != 2022)
-            {
-                <th>@(year - 1)</th>
-                <th>@year</th>
-            }
             <th>@Labels.Jan</th>
             <th>@Labels.Feb</th>
             <th>@Labels.Mar</th>
@@ -130,10 +118,6 @@
                             <td>@(index++)</td>
                         }
                         <td class="tooltip" title="@leaveSummary.Employee.FullName">@leaveSummary.Employee.NickName</td>
-                        @if (year != 2022)
-                        {
-                            DisplayNumber(notMonthColumn, leaveSummary.AnnualLeaveLastYear, leaveSummary.Employee);
-                        }
                         @{
                             DisplayNumber(annualCurrentYear, leaveSummary.AnnualLeaveCurrentYear, leaveSummary.Employee);
                             DisplayNumber((int)Months.January, leaveSummary.Jan, leaveSummary.Employee);
@@ -169,27 +153,13 @@
     }
     else
     {
-        if (year != 2022)
-        {
-            <tr>
-                <td colspan="18"></td>
-            </tr>
-            <tr>
-                <td colspan="18" rowspan="2">
-                    @Messages.NoInformation
-                </td>
-            </tr>
-        }
-        else
-        {
-            <tr>
-                <td colspan="17"></td>
-            </tr>
-            <tr>
-                <td colspan="17" rowspan="2">
-                    @Messages.NoInformation
-                </td>
-            </tr>
-        }
+        <tr>
+            <td colspan="17"></td>
+        </tr>
+        <tr>
+            <td colspan="17" rowspan="2">
+                @Messages.NoInformation
+            </td>
+        </tr>      
     }
 </table>
