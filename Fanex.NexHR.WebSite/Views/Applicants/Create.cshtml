@@ -279,20 +279,22 @@
                                             <textarea asp-for="@Model.FinalComment" class="materialize-textarea" value="@Model.FinalComment"></textarea>
                                         </div>
                                     </div>
-                                    <div class="col m-r--m">
-                                        <div class="left label--mxxl">
-                                            <label>@Labels.ExpectedSalary</label>
+                                    <div class="group-salary">
+                                        <div class="col m-r--m">
+                                            <div class="left label--mxxl">
+                                                <label>@Labels.ExpectedSalary</label>
+                                            </div>
+                                            <div class="left input--m">
+                                                <input asp-for="@Model.ExpectedSalary" />
+                                            </div>
                                         </div>
-                                        <div class="left input--m">
-                                            <input asp-for="@Model.ExpectedSalary" />
-                                        </div>
-                                    </div>
-                                    <div class="col m-r--m">
-                                        <div class="left label--mxxl">
-                                            <label>@Labels.OfferedSalary</label>
-                                        </div>
-                                        <div class="left input--m">
-                                            <input asp-for="@Model.OfferSalary" />
+                                        <div class="col m-r--m">
+                                            <div class="left label--mxxl">
+                                                <label>@Labels.OfferedSalary</label>
+                                            </div>
+                                            <div class="left input--m">
+                                                <input asp-for="@Model.OfferSalary" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

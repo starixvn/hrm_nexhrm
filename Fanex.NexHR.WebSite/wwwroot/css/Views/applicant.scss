@@ -28,20 +28,31 @@
     }
 }
 
+.materialize-textarea{
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+}
+
 .form-salary{
     background-color: #f5e7e1;
     display: flex;
-    padding: 14px 0 10px;
+    padding: 10px 0;
     margin-bottom: 15px;
 
     input, textarea{
         background-color: #fff;
         margin-bottom: 0;
     }
-}
 
-.materialize-textarea{
-    margin-bottom: 0;
+    textarea {
+        height: auto;
+    }
+
+    .group-salary{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
 }
 
 input[type=email]{
@@ -54,6 +65,12 @@ input[type=email]{
 
 .mdi-plus{
     margin-right: 6px;
+}
+
+@media only screen and (max-width: 1366px){
+    .form-salary{
+        margin-right: auto;
+    }
 }
 
 @media only screen and (max-width: 993px){

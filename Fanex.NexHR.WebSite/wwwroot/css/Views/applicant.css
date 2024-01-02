@@ -17,17 +17,24 @@
   .form-file .selected-file {
     width: 89px; }
 
+.materialize-textarea {
+  padding-top: 6px !important;
+  padding-bottom: 6px !important; }
+
 .form-salary {
   background-color: #f5e7e1;
   display: flex;
-  padding: 14px 0 10px;
+  padding: 10px 0;
   margin-bottom: 15px; }
   .form-salary input, .form-salary textarea {
     background-color: #fff;
     margin-bottom: 0; }
-
-.materialize-textarea {
-  margin-bottom: 0; }
+  .form-salary textarea {
+    height: auto; }
+  .form-salary .group-salary {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; }
 
 input[type=email] {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1);
@@ -38,6 +45,10 @@ input[type=email] {
 
 .mdi-plus {
   margin-right: 6px; }
+
+@media only screen and (max-width: 1366px) {
+  .form-salary {
+    margin-right: auto; } }
 
 @media only screen and (max-width: 993px) {
   .group-button {

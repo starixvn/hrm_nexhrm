@@ -39,16 +39,16 @@
                 string hightlight = (item.ResultName1 == "KIV" || item.ResultName2 == "KIV") ? "background-color: #f5e7e1;" : "";
                 <tr id="row@(item.Id)" style="@hightlight">
                     <td>@(index++)</td>
-                    <td>@item.FullName</td>
+                    <td class="align-left">@item.FullName</td>
                     <td>@item.Phone</td>
-                    <td>@item.Email</td>
-                    <td>@item.Position</td>
+                    <td class="align-left">@item.Email</td>
+                    <td class="align-left">@item.Position</td>
                     <td>@item.InterviewDate1.ToFormatedDate()</td>
                     <td>@item.ResultName1</td>
                     <td>@item.InterviewDate2.ToFormatedDate()</td>
                     <td>@item.ResultName2</td>
                     <td>@item.JoinDate.ToDateMonthYearFormatedDate()</td>
-                    <td>@item.Note</td>
+                    <td class="align-left">@item.Note</td>
                     <td>@item.SourceName</td>
                     <td>
                         @if (!string.IsNullOrEmpty(item.Resume))
