@@ -7,11 +7,9 @@
 
     public class ApplicantViewModel
     {
-        private const int months = 6; 
-
         public ApplicantViewModel()
         {
-            FromDate = new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month - months, 1,  0, 0, 0, TimeSpan.Zero).DateTime;
+            FromDate = new DateTimeOffset(DateTimeOffset.Now.Year - 1, DateTimeOffset.Now.Month, 1,  0, 0, 0, TimeSpan.Zero).DateTime;
             ToDate = DateTimeOffset.Now.Date;
         }
         

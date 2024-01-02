@@ -171,7 +171,7 @@
         "ParentId": 13
     },
     {
-        "Title": "Applicants",
+        "Title": "Applicants Management",
         "Controller": "applicants",
         "Action": "index",
         "Icon": "clipboard-text",
