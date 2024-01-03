@@ -121,6 +121,39 @@ namespace Fanex.NexHR.Controllers
             }
         }
 
+        
+        [HrmAuthorize(UserRoles = "HR")]
+        public async Task<IActionResult> Detail(int id)
+        {
+            var criteria = new GetApplicantByIdCriteria
+            {
+                ApplicantId = id
+            };
+
+            var employees = await employeeService.Query(new GetEmployeeCriteria
+            {
+                Query = string.Empty,
+                IsDelete = false,
+                IsDisable = false,
+                PageSize = int.MaxValue,
+                PageNumber = 1
+            });
+
+            EditApplicantViewModel applicant = await applicantService.GetById(criteria);
+            if (applicant != null)
+            {
+                applicant.Positions = await GetPositions();
+                applicant.StatusList = GetStatusList();
+                applicant.Recruiter = applicant.NickNameRecruiter + (string.IsNullOrWhiteSpace(applicant.FullNameRecruiter) ? string.Empty : " (" + applicant.FullNameRecruiter + ")");
+                applicant.InterviewerIds = !string.IsNullOrEmpty(applicant.InterviewerIdString) ? applicant.InterviewerIdString.Split(',').Select(int.Parse).ToArray() : null;
+                applicant.Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName));
+            }
+
+            ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.IsLeaderHR;
+
+            return View(applicant);
+        }
+
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Create()
         {

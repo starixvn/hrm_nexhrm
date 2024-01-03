@@ -39,7 +39,8 @@
                 string hightlight = (item.ResultName1 == "KIV" || item.ResultName2 == "KIV") ? "background-color: #f5e7e1;" : "";
                 <tr id="row@(item.Id)" style="@hightlight">
                     <td>@(index++)</td>
-                    <td class="align-left">@item.FullName</td>
+                    <td class="align-left">
+                        <a href="@Url.Action("Detail", "Applicants", new { id = item.Id })">@item.FullName</a></td>
                     <td>@item.Phone</td>
                     <td class="align-left">@item.Email</td>
                     <td class="align-left">@item.Position</td>
