@@ -1,0 +1,65 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.Models
+@using Fanex.NexHR.Services.Interfaces
+@inject ISessionService sessionService;
+@model IList<Promotion>
+@{
+    var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+    var count = 0;
+}
+<table id="data" class="table bordered striped highlight centered table-custom">
+    <thead>
+        <tr>
+            <th style="width:4%">#</th>
+            <th style="width:12%">@Labels.FullName</th>
+            <th style="width:7%">@Labels.EnglishName</th>
+            <th style="width:7%">@Labels.Team</th>
+            <th style="width:7%">@Labels.CurrentGrade</th>
+            <th style="width:7%">@Labels.PromotedGrade</th>
+            <th style="width:15%">@Labels.EffectedDate</th>
+            @if (isHRRole)
+            {
+                <th style="width:10%">@Labels.Action</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>@count</td>
+                    <td class="content-left">@item.FullName</td>
+                    <td>@item.NickName</td>
+                    <td>@item.TeamCode</td>
+                    <td>@item.CurrentGrade</td>
+                    <td>@item.PromotedGrade</td>
+                    <td>@item.AffectedDate.ToString("dd MMM, yyyy")</td>
+                    @if (isHRRole)
+                    {
+                        <td class="action-column">
+                            <a href="javascript:;" class="btn_update" data-id="@item.Id">
+                                <i class='mdi mdi-border-color mdi-edit mdi-dark' style="top: 5px"></i>
+                            </a>
+                            <a href="javascript:;" onclick="deletePromotion(@item.Id);">
+                                <i class='mdi mdi-delete mdi-dark'></i>
+                            </a>
+                        </td>
+                    }
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="8" rowspan="2">
+                    @Messages.NoInformation
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

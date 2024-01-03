@@ -5121,5 +5121,32 @@ namespace Fanex.NexHR.Resources {
                 return ResourceManager.GetString("Yesterday", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Promotion.
+        /// </summary>
+        public static string Promotion {
+            get {
+                return ResourceManager.GetString("Promotion", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Current Grade.
+        /// </summary>
+        public static string CurrentGrade {
+            get {
+                return ResourceManager.GetString("CurrentGrade", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Promoted Grade.
+        /// </summary>
+        public static string PromotedGrade {
+            get {
+                return ResourceManager.GetString("PromotedGrade", resourceCulture);
+            }
+        }
     }
 }

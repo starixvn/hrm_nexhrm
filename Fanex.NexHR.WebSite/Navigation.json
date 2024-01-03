@@ -252,6 +252,15 @@
         "ParentId": 25
     },
     {
+        "Title": "Promotion Record",
+        "Controller": "Promotion",
+        "Action": "Index",
+        "Icon": "file-document-box",
+        "Roles": "Member",
+        "Id": 45,
+        "ParentId": 25
+    },
+    {
         "Title": "Working Calendar",
         "Controller": "calendar",
         "Action": "workingcalendars",

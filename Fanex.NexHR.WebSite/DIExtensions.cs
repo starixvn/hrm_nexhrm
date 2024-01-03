@@ -108,6 +108,7 @@
             services.AddSingleton<ILogServiceProvider, LogServiceProvider>();
             services.AddSingleton<IEmployeeService, EmployeeService>();
             services.AddSingleton<ITrainingAndDevelopmentService, TrainingAndDevelopmentService>();
+            services.AddSingleton<IPromotionService, PromotionService>();
             services.AddSingleton<ITeamService, TeamService>();
             services.AddSingleton<IRequestService, RequestService>();
             services.AddSingleton<INotificationService, NotificationService>();

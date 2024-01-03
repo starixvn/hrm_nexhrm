@@ -1807,4 +1807,13 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   <data name="EmployeeJobGrade" xml:space="preserve">
     <value>Employee Job Grade</value>
   </data>
+   <data name="Promotion" xml:space="preserve">
+    <value>Promotion</value>
+  </data>
+  <data name="CurrentGrade" xml:space="preserve">
+    <value>Current Grade</value>
+  </data>
+  <data name="PromotedGrade" xml:space="preserve">
+    <value>Promoted Grade</value>
+  </data>
 </root>
