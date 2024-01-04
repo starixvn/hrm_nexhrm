@@ -23,8 +23,14 @@
 
         public async Task<Promotion> GetById(GetPromotionByIdCriteria criteria)
         {
-            var trainingAndDevelopments = await baseService.GetDataEntityAsync<Promotion>(criteria);
-            return trainingAndDevelopments;
+            var promotion = await baseService.GetDataEntityAsync<Promotion>(criteria);
+            return promotion;
+        }
+
+        public async Task<IList<JobGrade>> GetJobGrade()
+        {
+            var jobGrade = await baseService.GetDataAsync<JobGrade>(new GetJobGradeCriteria());
+            return jobGrade.ToList();
         }
     }
 }

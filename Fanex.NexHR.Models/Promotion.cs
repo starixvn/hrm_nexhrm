@@ -18,6 +18,10 @@
 
         public string PromotedGrade { get; set; }
 
+        public int OldJobGradeId { get; set; }
+
+        public int JobGradeId { get; set; }
+
         public DateTime AffectedDate { get; set; }
 
     }

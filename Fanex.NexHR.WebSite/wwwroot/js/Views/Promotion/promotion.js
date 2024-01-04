@@ -9,7 +9,7 @@ function query(isFirstLoad) {
         data: {
             FromDate: $('#FromDate').val(),
             ToDate: $('#ToDate').val(),
-            EmpId: $('#EmployeeId').val(),
+            EmployeeId: $('#EmployeeId').val(),
             TeamId: $('#TeamId').val()
         },
         beforeSend: function () {
@@ -48,10 +48,108 @@ function deletePromotion(id) {
     });
 }
 
-$(document).ready(function () {
+function showErrorMessage(message) {
+    $('<div>' + '<p>' + message + '</p>').dialog({
+        title: 'NexHRM',
+        modal: true,
+        resizable: false,
+        buttons: [
+            {
+                text: 'OK',
+                class: 'btn-ok waves-effect waves-light',
+                click: function () {
+                    $(this).dialog('close');
+                    return true;
+                }
+            }
+        ],
+        show: 'fade',
+        hide: 'fade',
+        minHeight: 50,
+        dialogClass: 'modal-shadow'
+    });
+}
+
+function init() {
     $('#submit').on('click', function () {
         query(false);
     });
 
     query(true);
+}
+
+var promotion = (function ($) {
+    var $dialog = $('#dialog-promotion');
+
+    $.validator.addMethod("validateSpace", function (value) {
+        return value.trim().length > 0; 
+    }, "The {0} field is required.");
+
+    function initializeDialog($form, title) {
+        // $.validator.unobtrusive.parse($form);
+        // $("#EmployeeId").rules("add", {
+        //     validateSpace: "Employee"
+        // });
+
+        initDatePicker();
+        initAutocomplete('form #Employee', 'form #EmployeeId', false);
+        $dialog.dialog({
+            modal: true,
+            width: 'auto',
+            title: title,
+            buttons: [
+                {
+                    text: 'Cancel',
+                    class: 'btn-cancel waves-effect waves-light m-r--m btn-dialog',
+                    click: function () {
+                        $(this).dialog('close');
+                    }
+                },
+                {
+                    text: 'Save',
+                    class: 'btn-submit waves-effect waves-light btn-dialog',
+                    click: function () {
+                        $form.submit();
+                    }
+                }
+            ],
+            show: {
+                effect: 'fade',
+                duration: 300
+            },
+            hide: {
+                effect: 'fade',
+                duration: 200
+            }
+        });
+    }
+    
+    function initCreateDialog() {
+        initializeDialog($('#create-form'), 'Create New Promotion');
+    }
+    
+    function initEditDialog() {
+        initializeDialog($('#edit-form'), 'Edit Promotion');
+    }
+
+    function onSuccess(response) {
+        if (response.IsSuccessful) {
+            $dialog.dialog('close');
+            query(false);
+        } else {
+            showErrorMessage(response.Message);
+        }
+    }
+
+    return {
+        init: init,
+        onLoadingCreateFormSuccess: initCreateDialog,
+        onLoadingEditFormSuccess: initEditDialog,
+        onSuccess: onSuccess
+    }
+
+}(jQuery));
+
+$(document).ready(function () {
+    promotion.init();
 });

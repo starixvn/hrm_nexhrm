@@ -1,0 +1,53 @@
+﻿@using Fanex.NexHR.Resources
+@model Fanex.NexHR.ViewModels.Promotion.CreatePromotionViewModel
+
+@{
+    DateTime currentDate = DateTime.Today;
+    var jobGrade = ViewBag.JobGrade;
+}
+
+<form id="create-form" asp-action="create" data-ajax="true" data-ajax-method="post" data-ajax-success="promotion.onSuccess">
+    <div asp-validation-summary="All"></div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                <label>@Labels.Employee</label>
+            </div>
+            <div class="left input--m">
+                <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark" />
+                <input asp-for="EmployeeId" type="hidden" />
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                <label>@Labels.CurrentGrade</label>
+            </div>
+            <div class="left select--m">
+                <select name="OldJobGradeId" id="OldJobGradeId" asp-items="@(new SelectList(jobGrade, "Id", "Name"))"></select>
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                <label>@Labels.PromotedGrade</label>
+            </div>
+            <div class="left select--m">
+                <select name="JobGradeId" id="JobGradeId" asp-items="@(new SelectList(jobGrade, "Id", "Name"))"></select>
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                <label>@Labels.EffectiveDate</label>
+            </div>
+            <div class="datepicker-button left">
+                <date-picker name="EffectiveDate" value="currentDate"></date-picker>
+                <i class="mdi-action-event calendar-icon left"></i>
+            </div>
+        </div>
+    </div>
+</form>

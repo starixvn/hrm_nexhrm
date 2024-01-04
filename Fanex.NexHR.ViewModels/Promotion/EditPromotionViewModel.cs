@@ -7,6 +7,6 @@
     {
         [Required]
         [Display(Name = "Id", ResourceType = typeof(Labels))]
-        public int? Id { get; set; }
+        public int Id { get; set; }
     }
 }

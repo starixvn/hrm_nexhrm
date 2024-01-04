@@ -1816,4 +1816,10 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   <data name="PromotedGrade" xml:space="preserve">
     <value>Promoted Grade</value>
   </data>
+  <data name="EffectiveDate" xml:space="preserve">
+    <value>Effective Date</value>
+  </data>
+  <data name="NewPromotion" xml:space="preserve">
+    <value>New Promotion</value>
+  </data>
 </root>

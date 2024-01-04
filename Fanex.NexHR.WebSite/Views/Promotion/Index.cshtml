@@ -11,9 +11,11 @@
 }
 @section Styles {
     <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/Views/promotion.min.css" asp-append-version="true">
 }
 @section Scripts {
     <environment include="Development">
+        <script src="~/js/Libs/jquery.unobtrusive-ajax.js" asp-append-version="true"></script>
         <script src="~/js/Views/Promotion/promotion.js" asp-append-version="true"></script>
         <script src="~/js/Views/Employee/_employee.search.in.company.js" asp-append-version="true"></script>
     </environment>
@@ -31,7 +33,7 @@
                 </div>
                 <div class="card-body">
                     <div class="form form-stl-table">
-                        <form asp-controller="Promotion" asp-action="index" method="get">
+                        <div class="form">
                             <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--m">
@@ -71,19 +73,21 @@
                                     </div>
                                     <div class="left input--m">
                                         <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark" />
-                                        <input type="hidden" asp-for="EmpId" />
+                                        <input type="hidden" asp-for="EmployeeId" />
                                     </div>
                                 </div>
                                 <div class="col m-l--l">
                                     <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light m-r--b" />
                                     @if (@isHRRole)
                                     {
-                                        <a class="btn-request waves-effect waves-light m-r--m left" href="javascript:;" id="btnAddNew">@Labels.AddNew</a>
+                                        <a class="btn-request waves-effect waves-light btn m-r--m" href="@Url.Action("Create")"
+                                           data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog-promotion" data-ajax-success="promotion.onLoadingCreateFormSuccess">
+                                            @Labels.NewPromotion
+                                        </a>
                                     }
                                 </div>
                             </div>
-
-                        </form>
+                        </div>
                     </div>
                     <div class="p-x--s">
                         <div id="list-promotion" class="over-auto table-resize table-medium"></div>

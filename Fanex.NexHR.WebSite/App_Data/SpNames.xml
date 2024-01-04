@@ -489,5 +489,6 @@
         <Setting Key="Promotion_Insert" SpName="Promotion_Insert" DbName="nexhr" Plain="1"></Setting>
         <Setting Key="Promotion_Update" SpName="Promotion_Update" DbName="nexhr" Plain="1"></Setting>
         <Setting Key="Promotion_Delete" SpName="Promotion_Delete" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="JobGrade_GetAll" SpName="JobGrade_GetAll" DbName="nexhr" Plain="1"></Setting>
     </Function>
 </Functions>

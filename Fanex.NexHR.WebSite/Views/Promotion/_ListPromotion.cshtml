@@ -7,7 +7,7 @@
 @model IList<Promotion>
 @{
     var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
-    var count = 0;
+    var index = 1;
 }
 <table id="data" class="table bordered striped highlight centered table-custom">
     <thead>
@@ -18,7 +18,7 @@
             <th style="width:7%">@Labels.Team</th>
             <th style="width:7%">@Labels.CurrentGrade</th>
             <th style="width:7%">@Labels.PromotedGrade</th>
-            <th style="width:15%">@Labels.EffectedDate</th>
+            <th style="width:15%">@Labels.EffectiveDate</th>
             @if (isHRRole)
             {
                 <th style="width:10%">@Labels.Action</th>
@@ -30,10 +30,9 @@
         {
             foreach (var item in Model)
             {
-                count++;
-                <tr>
-                    <td>@count</td>
-                    <td class="content-left">@item.FullName</td>
+                <tr id="row@(item.Id)" >
+                    <td>@(index++)</td>
+                    <td class="align-left">@item.FullName</td>
                     <td>@item.NickName</td>
                     <td>@item.TeamCode</td>
                     <td>@item.CurrentGrade</td>
@@ -42,8 +41,9 @@
                     @if (isHRRole)
                     {
                         <td class="action-column">
-                            <a href="javascript:;" class="btn_update" data-id="@item.Id">
-                                <i class='mdi mdi-border-color mdi-edit mdi-dark' style="top: 5px"></i>
+                            <a class="btn-edit" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog-promotion" href="@Url.Action("Edit", new { id = item.Id })"
+                                data-ajax-success="promotion.onLoadingEditFormSuccess">
+                                <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
                             </a>
                             <a href="javascript:;" onclick="deletePromotion(@item.Id);">
                                 <i class='mdi mdi-delete mdi-dark'></i>
@@ -55,8 +55,9 @@
         }
         else
         {
+            var colspan = isHRRole ? 8 : 7;
             <tr>
-                <td colspan="8" rowspan="2">
+                <td colspan="@colspan">
                     @Messages.NoInformation
                 </td>
             </tr>

@@ -10,5 +10,7 @@
         Task<IEnumerable<Promotion>> GetAll(GetPromotionCriteria criteria);
 
         Task<Promotion> GetById(GetPromotionByIdCriteria criteria);
+
+        Task<IList<JobGrade>> GetJobGrade();
     }
 }

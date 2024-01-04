@@ -5148,5 +5148,23 @@ namespace Fanex.NexHR.Resources {
                 return ResourceManager.GetString("PromotedGrade", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Effective Date.
+        /// </summary>
+        public static string EffectiveDate {
+            get {
+                return ResourceManager.GetString("EffectiveDate", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to NewPromotion.
+        /// </summary>
+        public static string NewPromotion {
+            get {
+                return ResourceManager.GetString("NewPromotion", resourceCulture);
+            }
+        }
     }
 }
