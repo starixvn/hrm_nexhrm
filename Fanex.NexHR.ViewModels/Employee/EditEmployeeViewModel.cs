@@ -113,6 +113,18 @@
 
         public string LastUrl { get; set; }
 
+        public string ConversationId { get; set; }
+
+        public int JobGradeId { get; set; }
+
+        public string JobGradeCode { get; set; }
+
+        public string JobGradeName { get; set; }
+
+        public DateTime AffectedDate { get; set; }
+
+        public string Note { get; set; }
+
         public IList<Team> Teams { get; set; }
 
         public IEnumerable<JobTitle> JobTitles { get; set; }
@@ -209,6 +221,11 @@
                 ContactPhone = employee.ContactPhone;
                 ContactAddress = employee.ContactAddress;
                 EducationBackground = employee.EducationBackground;
+                JobGradeId = employee.JobGradeId;
+                JobGradeCode  = employee.JobGradeCode;
+                JobGradeName = employee.JobGradeName;
+                AffectedDate = employee.AffectedDate;
+                Note = employee.Note;
             }
         }
     }

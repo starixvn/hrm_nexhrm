@@ -126,6 +126,16 @@
 
         public string ConversationId { get; set; }
 
+        public int JobGradeId { get; set; }
+
+        public string JobGradeCode { get; set; }
+
+        public string JobGradeName { get; set; }
+
+        public DateTime AffectedDate { get; set; }
+
+        public string Note { get; set; }
+
         public DefaultSchedule DefaultSchedule { get; set; }
 
         public DateTime GroupDate { get; set; }

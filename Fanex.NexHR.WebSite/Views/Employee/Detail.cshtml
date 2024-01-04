@@ -153,6 +153,14 @@ else
                                         }</span>
                                 </p>
                                 <p class="accinfo">
+                                    <span class="label--l">@Labels.JobGrade:</span> <span class="txt-bold">
+                                        @if (Model.JobGradeCode != null)
+                                        {
+                                            @Model.JobGradeCode
+                                        }
+                                    </span>
+                                </p>
+                                <p class="accinfo">
                                     <span class="label--l">@Labels.Team:</span> <span class="txt-bold">@Model.Team.Name</span>
                                 </p>
                                 <p class="accinfo">
