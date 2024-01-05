@@ -1,0 +1,34 @@
+﻿@using Fanex.NexHR.Models
+@using Fanex.NexHR.Resources
+@model Fanex.NexHR.ViewModels.JobGrade.UpdateJobGradeViewModel
+
+@{
+     var jobGrade = ViewBag.JobGrade;
+}
+
+<form id="frmUpdateJobGrade" class="form job-grade">
+    <div id="divErrorCont" class="">
+        &nbsp;
+    </div>
+    <div class="row form-input">
+        <div class="col employee-name">
+            <div class="left label--l">
+                <label>@Labels.Employee</label>
+            </div>
+            <div class="left input--m">
+                @Model.Employee
+                <input asp-for="EmployeeId" type="hidden"/>
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                <label>@Labels.CurrentGrade</label>
+            </div>
+            <div class="left select--m">
+                <select name="JobGradeId" id="JobGradeId" asp-items="@(new SelectList(jobGrade, "Id", "Name"))"></select>
+            </div>
+        </div>
+    </div>
+</form>

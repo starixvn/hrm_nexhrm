@@ -141,6 +141,66 @@ function initDialog(divContent) {
     });
 }
 
+function initDialogJobGrade(divContent) {
+    divContent.dialog({
+        modal: true,
+        width: 'auto',
+        buttons: [
+            {
+                text: 'Close',
+                class: 'btn-cancel waves-effect waves-light m-r--m',
+                click: function () {
+                    $(this).dialog('close');
+                }
+            },
+            {
+                text: 'Submit',
+                class: 'btn-submit waves-effect waves-light',
+                click: function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: _global.root + 'JobGrade/Update',
+                        dataType: 'json',
+                        data: $('#frmUpdateJobGrade').serialize(),
+                        success: function (data) {
+                            var errorCont = $('#divErrorCont');
+                            errorCont.removeClass();
+                            errorCont.html('');
+
+                            if (data.Code === 0) {
+                                errorCont.addClass('success validation-summary-success');
+                                errorCont.append('Update Job Grade successfully');
+                                setTimeout(function () { $('#dialog-jobGrade').dialog("close"); query(); }, 3000);
+                            }
+                            else {
+                                var errors = '<ul>';
+                                $(data.error).each(function (i, value) {
+                                    errors += '<li>' + value.ErrorMessage + '</li>';
+                                });
+                                errors += '</ul>';
+
+                                errorCont.addClass('validation-summary-errors');
+                                errorCont.append(errors);
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(textStatus + ': ' + errorThrown);
+                        }
+                    });
+                }
+            }
+        ],
+        show: {
+            effect: "blind",
+            duration: 200
+        },
+        hide: {
+            effect: "blind",
+            duration: 100
+        }
+    });
+}
+
 function initNumberTextbox() {
     var numbericTextbox = $('#frmUpdateTOEIC input[type=number]');
 
@@ -232,6 +292,32 @@ function initEventForUpdateToeic() {
         }
     });
 }
+
+
+function initEventForUpdateJobGrade() {
+    $('#jobGrade').on('click', function () {
+        var id = parseInt($('#Id').val());
+        if (id > 0) {
+            $.ajax({
+                type: 'GET',
+                url: _global.root + 'JobGrade/Update?id=' + id + '&name=' + $('#NickName').val(),
+                dataType: 'html',
+                success: function (data) {
+                    if (data) {
+                        var divContent = $('#dialog-jobGrade');
+                        divContent.html('');
+                        divContent.append(data);
+                        initDialogJobGrade(divContent);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(textStatus + ': ' + errorThrown);
+                }
+            });
+        }
+    });
+}
+
 
 function calculateToeicScore() {
     var listening = $('form').find('input[name=Listening]').val();
@@ -486,6 +572,8 @@ $(document).ready(function () {
 
     /// TOEIC
     initEventForUpdateToeic();
+
+    initEventForUpdateJobGrade();
 
     /// Geo map
     $('#geolocationMap').hide();

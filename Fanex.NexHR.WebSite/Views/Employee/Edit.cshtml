@@ -190,8 +190,14 @@
                                                 <label>@Labels.JobGrade</label>
                                             </div>
                                             <div class="left input--l">
-                                                <span class="m-r--s black-text" title="@Labels.EffectiveDate from: @Model.AffectedDate.ToDateMonthYearFormatedDate()">@Model.JobGradeCode</span>
-                                                @*<a class="btn-ok waves-effect waves-light" href="#">@Labels.Update</a>*@
+                                                @if (Model.JobGradeCode != null)
+                                                {
+                                                    <span class="m-r--s black-text" title="@Labels.EffectiveDate from: @Model.AffectedDate.ToDateMonthYearFormatedDate()">@Model.JobGradeCode</span>
+                                                }
+                                                else
+                                                {
+                                                    <a class="btn-ok waves-effect waves-light" id="jobGrade" href="javascript:;">@Labels.Update</a>
+                                                }
                                             </div>
                                         </div>
                                     </div>
@@ -699,6 +705,7 @@
                                 </div>
                             }
                             <div id="dialog-toeic" title="Update TOEIC Score">&nbsp;</div>
+                            <div id="dialog-jobGrade" title="Update Job Grade">&nbsp;</div>
                         }
                         else
                         {

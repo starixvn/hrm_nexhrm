@@ -1,7 +1,9 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
     using System.Threading.Tasks;
+    using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Criteria.JobGrade;
+    using Fanex.NexHR.Models;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels.JobGrade;
     using Microsoft.AspNetCore.Mvc;
@@ -10,14 +12,21 @@
     {
         private readonly IJobGradeService jobGradeService;
         private readonly ITeamService teamService;
+        private readonly IPromotionService promotionService;
+        private readonly IBaseService baseService;
+
 
         public JobGradeController(
             ISessionService sessionService,
             IJobGradeService jobGradeService,
+            IPromotionService promotionService,
+            IBaseService baseService,
             ITeamService teamService) : base(sessionService)
         {
             this.jobGradeService = jobGradeService;
             this.teamService = teamService;
+            this.promotionService = promotionService;
+            this.baseService = baseService;
         }
 
         [HttpGet]
@@ -40,6 +49,37 @@
             var employeeJobGrades = await jobGradeService.GetEmployeeJobGrade(criteria);
 
             return PartialView("Views/JobGrade/_JobGradeGrid.cshtml", employeeJobGrades);
+        }
+
+        [HttpGet]
+        [HrmAuthorize(UserRoles = "HR")]
+        public async Task<IActionResult> Update(int id, string name)
+        {
+
+            var model = new UpdateJobGradeViewModel
+            {
+                Employee = name,
+                EmployeeId = id
+            };
+            ViewBag.JobGrade = await promotionService.GetJobGrade();
+
+            return PartialView(model);
+        }
+
+        [HttpPost]
+        [HrmAuthorize(UserRoles = "HR")]
+        public async Task<IActionResult> Update(UpdateJobGradeViewModel model)
+        {
+            var criteria = new UpdateJobGradeCriteria
+            {
+                EmpId = model.EmployeeId,
+                JobGradeId = model.JobGradeId,
+                ModifiedBy = CurrentUser.Id
+            };
+
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+
+            return Json(result);
         }
     }
 }

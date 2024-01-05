@@ -1,7 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Promotion
 {
     using System;
-    using NPOI.HSSF.Record;
 
     public class InsertPromotionCriteria : BaseCommand
     {

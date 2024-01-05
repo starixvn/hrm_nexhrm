@@ -482,6 +482,8 @@
     </Function>
   <Function Name="Job Grade">
     <Setting Key="EmployeeJobGrade_Get" SpName="EmployeeJobGrade_Get" DbName="nexhr" Plain="1"></Setting>
+    <Setting Key="JobGrade_Insert" SpName="JobGrade_Insert" DbName="nexhr" Plain="1"></Setting>
+
   </Function>
     <Function Name="Promotion">
         <Setting Key="Promotion_Get" SpName="Promotion_Get" DbName="nexhr" Plain="1"></Setting>

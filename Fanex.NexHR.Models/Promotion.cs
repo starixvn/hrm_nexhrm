@@ -6,6 +6,8 @@
     {
         public int Id { get; set; }
 
+        public int EmployeeId { get; set; }
+
         public string FullName { get; set; }
 
         public string NickName { get; set; }

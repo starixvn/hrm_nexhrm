@@ -6,6 +6,8 @@
     {
         public int Id { get; set; }
 
+        public int EmpId { get; set; }
+
         public int JobGradeId { get; set; }
 
         public int OldJobGradeId { get; set; }

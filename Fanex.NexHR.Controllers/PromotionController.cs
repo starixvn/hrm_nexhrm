@@ -101,6 +101,7 @@ namespace Fanex.NexHR.Controllers
             if (promotion != null)
             {
                 model.Id = promotion.Id;
+                model.EmployeeId = promotion.EmployeeId;
                 model.OldJobGradeId = promotion.OldJobGradeId;
                 model.JobGradeId = promotion.JobGradeId;
                 model.EffectiveDate = promotion.AffectedDate;
@@ -118,6 +119,7 @@ namespace Fanex.NexHR.Controllers
             var criteria = new UpdatePromotionCriteria
             {
                 Id = model.Id,
+                EmpId = model.EmployeeId,
                 JobGradeId = model.JobGradeId,
                 OldJobGradeId = model.OldJobGradeId,
                 EffectiveDate = model.EffectiveDate,
