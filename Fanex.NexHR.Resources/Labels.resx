@@ -427,7 +427,7 @@
     <value>Code</value>
   </data>
   <data name="DoB" xml:space="preserve">
-    <value>DoB</value>
+    <value>D.O.B</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
@@ -1807,7 +1807,7 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   <data name="EmployeeJobGrade" xml:space="preserve">
     <value>Employee Job Grade</value>
   </data>
-   <data name="Promotion" xml:space="preserve">
+  <data name="Promotion" xml:space="preserve">
     <value>Promotion</value>
   </data>
   <data name="CurrentGrade" xml:space="preserve">
@@ -1821,5 +1821,11 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   </data>
   <data name="NewPromotion" xml:space="preserve">
     <value>New Promotion</value>
+  </data>
+  <data name="SocialInsuranceNo" xml:space="preserve">
+    <value>Social Insurance No.</value>
+  </data>
+  <data name="Relationship" xml:space="preserve">
+    <value>Relationship</value>
   </data>
 </root>

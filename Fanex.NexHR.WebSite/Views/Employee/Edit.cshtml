@@ -190,8 +190,8 @@
                                                 <label>@Labels.JobGrade</label>
                                             </div>
                                             <div class="left input--l">
-                                                <span class="m-r--s black-text">@Model.JobGradeCode</span>
-                                                <a class="btn-ok waves-effect waves-light" href="#">@Labels.Update</a>
+                                                <span class="m-r--s black-text" title="@Labels.EffectiveDate from: @Model.AffectedDate.ToDateMonthYearFormatedDate()">@Model.JobGradeCode</span>
+                                                @*<a class="btn-ok waves-effect waves-light" href="#">@Labels.Update</a>*@
                                             </div>
                                         </div>
                                     </div>
@@ -563,6 +563,16 @@
                                                  value="@Model.PassportExp">
                                             </date-picker>
                                             <i class="mdi-action-event calendar-icon left"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-input">
+                                    <div class="col">
+                                        <div class="left label--mxxl">
+                                            <label>@Labels.SocialInsuranceNo</label>
+                                        </div>
+                                        <div class="left input--l">
+                                            <input asp-for="SocialInsuranceNo" />
                                         </div>
                                     </div>
                                 </div>

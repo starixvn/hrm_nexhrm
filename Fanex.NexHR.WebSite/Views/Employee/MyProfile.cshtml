@@ -50,7 +50,7 @@
                                                 <span class="label--mxxl">@Labels.StaffCode:</span> <span>@Model.Code</span>
                                             </p>
                                             <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.CPU:</span> <span>@Model.DomainUsername</span>
+                                                <span class="label--mxxl">@Labels.Domain:</span> <span>@Model.DomainUsername</span>
                                             </p>
                                             <p class="accinfo">
                                                 <span class="label--mxxl">@Labels.Email:</span> <span><a href="mailto:@Model.Email">@Model.Email</a></span>
@@ -77,7 +77,7 @@
                                                 <span class="label--mxxl">@Labels.ContactName:</span> <span>@Model.ContactName</span>
                                             </p>
                                             <p class="accinfo">
-                                                <span class="label--mxxl">Relationship:</span> <span>@Model.UserRelationship</span>
+                                                <span class="label--mxxl">@Labels.Relationship:</span> <span>@Model.UserRelationship</span>
                                             </p>
                                             <p class="accinfo">
                                                 <span class="label--mxxl">@Labels.ContactPhone:</span> <span>@Model.ContactPhone</span>
@@ -90,28 +90,28 @@
                                     <div class="col">
                                         <div class="pinfo">
                                             <p class="accinfo">
-                                                <span class="label--l">@Labels.FullName:</span> <span class="txt-bold">@Model.FullName</span>
+                                                <span class="label--mxxl">@Labels.FullName:</span> <span class="txt-bold">@Model.FullName</span>
                                             </p>
                                             <p class="accinfo">
-                                                <span class="label--l">@Labels.EnglishName:</span> <span class="txt-bold">@Model.NickName</span>
+                                                <span class="label--mxxl">@Labels.EnglishName:</span> <span class="txt-bold">@Model.NickName</span>
                                             </p>
                                             <p class="accinfo">
-                                                <span class="label--l">D.O.B:</span> <span class="txt-bold">@Model.DateOfBirth.ToString("dd MMM, yyyy")</span>
+                                                <span class="label--mxxl">@Labels.DoB:</span> <span class="txt-bold">@Model.DateOfBirth.ToString("dd MMM, yyyy")</span>
                                             </p>
                                             <p class="accinfo">
-                                                <span class="label--l">@Labels.PlaceOfBirth:</span> <span class="txt-bold">@Model.PlaceOfBirth</span>
+                                                <span class="label--mxxl">@Labels.PlaceOfBirth:</span> <span class="txt-bold">@Model.PlaceOfBirth</span>
                                             </p>
                                             <p class="accinfo">
-                                                <span class="label--l">@Labels.Gender:</span> <span class="txt-bold">@(Model.Gender == 1 ? "Male" : "Female")</span>
+                                                <span class="label--mxxl">@Labels.Gender:</span> <span class="txt-bold">@(Model.Gender == 1 ? "Male" : "Female")</span>
                                             </p>
                                             <p class="accinfo">
-                                                <span class="label--l">@Labels.Marriage:</span> <span class="txt-bold">@(Model.Mariage ? "Yes" : "No")</span>
+                                                <span class="label--mxxl">@Labels.Marriage:</span> <span class="txt-bold">@(Model.Mariage ? "Yes" : "No")</span>
                                             </p>
                                             <p class="accinfo">
-                                                <span class="label--l">@Labels.IdNo:</span> <span class="txt-bold">@Model.CardNo</span>
+                                                <span class="label--mxxl">@Labels.IdNo:</span> <span class="txt-bold">@Model.CardNo</span>
                                             </p>
                                             <p class="accinfo">
-                                                <span class="label--l">@Labels.IssuedDate:</span> <span class="txt-bold">
+                                                <span class="label--mxxl">@Labels.IssuedDate:</span> <span class="txt-bold">
                                                     @if(Model.IssuedDate != null)
                                                     {
                                                         var issuedDate = (DateTime)Model.IssuedDate;
@@ -120,13 +120,13 @@
                                                 </span>
                                             </p>
                                             <p class="accinfo">
-                                                <span class="label--l">@Labels.IssuingAuthority:</span> <span class="txt-bold">@Model.IssuedPlace</span>
+                                                <span class="label--mxxl">@Labels.IssuingAuthority:</span> <span class="txt-bold">@Model.IssuedPlace</span>
                                             </p>
                                             <p class="accinfo">
-                                                <span class="label--l">@Labels.PassportNo:</span> <span class="txt-bold">@Model.PassportNo</span>
+                                                <span class="label--mxxl">@Labels.PassportNo:</span> <span class="txt-bold">@Model.PassportNo</span>
                                             </p>
                                             <p class="accinfo">
-                                                <span class="label--l">@Labels.PassportExp:</span> <span class="txt-bold">
+                                                <span class="label--mxxl">@Labels.PassportExp:</span> <span class="txt-bold">
                                                     @if(Model.PassportExp != null)
                                                     {
                                                         var passportExp = (DateTime)Model.PassportExp;
@@ -134,6 +134,10 @@
                                                     }
                                                 </span>
                                             </p>
+                                            <p class="accinfo">
+                                                <span class="label--mxxl">@Labels.SocialInsuranceNo:</span> <span class="txt-bold">@Model.SocialInsuranceNo</span>
+                                            </p>
+                                            
                                         </div>
                                     </div>
                                 </div>

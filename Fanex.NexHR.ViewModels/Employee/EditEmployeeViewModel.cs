@@ -125,6 +125,8 @@
 
         public string Note { get; set; }
 
+        public string SocialInsuranceNo { get; set; }
+
         public IList<Team> Teams { get; set; }
 
         public IEnumerable<JobTitle> JobTitles { get; set; }
@@ -226,6 +228,7 @@
                 JobGradeName = employee.JobGradeName;
                 AffectedDate = employee.AffectedDate;
                 Note = employee.Note;
+                SocialInsuranceNo = employee.SocialInsuranceNo;
             }
         }
     }

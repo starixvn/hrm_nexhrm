@@ -136,6 +136,8 @@
 
         public string Note { get; set; }
 
+        public string SocialInsuranceNo { get; set; }
+
         public DefaultSchedule DefaultSchedule { get; set; }
 
         public DateTime GroupDate { get; set; }

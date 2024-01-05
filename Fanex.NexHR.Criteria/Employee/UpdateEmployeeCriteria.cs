@@ -66,6 +66,8 @@
 
         public string PassportNo { get; set; }
 
+        public string SocialInsuranceNo { get; set; }
+
         public DateTime? PassportExp { get; set; }
 
         public int ModifiedBy { get; set; }

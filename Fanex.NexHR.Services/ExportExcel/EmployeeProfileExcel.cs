@@ -11,7 +11,7 @@ namespace Fanex.NexHR.Services.ExportExcel
         private readonly IList<Employee> employee;
         private const byte RowStartHeader = 3;
         private const byte RowStartBody = 4;
-        private const byte TotalCols = 30;
+        private const byte TotalCols = 31;
         private int rowIndex = RowStartBody;
         private const string fomatDate = "dd/MM/yyyy";
         private int rowNumber = 1;
@@ -69,6 +69,7 @@ namespace Fanex.NexHR.Services.ExportExcel
             worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.PermanentAddress);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.PassportNo);
             worksheet.Cells[rowIndex, colIndex++].Value = employee.PassportExp?.ToString(fomatDate);
+            worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.SocialInsuranceNo);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatToeicScore(employee.ToeicScore?.Listening);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatToeicScore(employee.ToeicScore?.Reading);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatToeicScore(employee.ToeicScore?.Speaking);

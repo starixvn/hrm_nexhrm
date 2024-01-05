@@ -717,6 +717,7 @@
                 NickName = model.NickName,
                 PassportExp = model.PassportExp,
                 PassportNo = model.PassportNo,
+                SocialInsuranceNo = model.SocialInsuranceNo,
                 Phone = model.Phone,
                 ResignedDate = model.ResignedDate,
                 Roles = model.Roles,

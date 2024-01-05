@@ -1033,6 +1033,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current Grade.
+        /// </summary>
+        public static string CurrentGrade {
+            get {
+                return ResourceManager.GetString("CurrentGrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current Jobtitle.
         /// </summary>
         public static string CurrentJobtitle {
@@ -1330,7 +1339,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DoB.
+        ///   Looks up a localized string similar to D.O.B.
         /// </summary>
         public static string DoB {
             get {
@@ -1470,6 +1479,15 @@ namespace Fanex.NexHR.Resources {
         public static string EffectedDate {
             get {
                 return ResourceManager.GetString("EffectedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Effective Date.
+        /// </summary>
+        public static string EffectiveDate {
+            get {
+                return ResourceManager.GetString("EffectiveDate", resourceCulture);
             }
         }
         
@@ -3283,6 +3301,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Promotion.
+        /// </summary>
+        public static string NewPromotion {
+            get {
+                return ResourceManager.GetString("NewPromotion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Request.
         /// </summary>
         public static string NewRequest {
@@ -3850,6 +3877,24 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Promoted Grade.
+        /// </summary>
+        public static string PromotedGrade {
+            get {
+                return ResourceManager.GetString("PromotedGrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Promotion.
+        /// </summary>
+        public static string Promotion {
+            get {
+                return ResourceManager.GetString("Promotion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Public Holiday.
         /// </summary>
         public static string PublicHoliday {
@@ -3927,6 +3972,15 @@ namespace Fanex.NexHR.Resources {
         public static string Rejected {
             get {
                 return ResourceManager.GetString("Rejected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Relationship.
+        /// </summary>
+        public static string Relationship {
+            get {
+                return ResourceManager.GetString("Relationship", resourceCulture);
             }
         }
         
@@ -4332,6 +4386,15 @@ namespace Fanex.NexHR.Resources {
         public static string SkypeName {
             get {
                 return ResourceManager.GetString("SkypeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Social Insurance No..
+        /// </summary>
+        public static string SocialInsuranceNo {
+            get {
+                return ResourceManager.GetString("SocialInsuranceNo", resourceCulture);
             }
         }
         
@@ -5119,51 +5182,6 @@ namespace Fanex.NexHR.Resources {
         public static string Yesterday {
             get {
                 return ResourceManager.GetString("Yesterday", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Promotion.
-        /// </summary>
-        public static string Promotion {
-            get {
-                return ResourceManager.GetString("Promotion", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Current Grade.
-        /// </summary>
-        public static string CurrentGrade {
-            get {
-                return ResourceManager.GetString("CurrentGrade", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Promoted Grade.
-        /// </summary>
-        public static string PromotedGrade {
-            get {
-                return ResourceManager.GetString("PromotedGrade", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Effective Date.
-        /// </summary>
-        public static string EffectiveDate {
-            get {
-                return ResourceManager.GetString("EffectiveDate", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to NewPromotion.
-        /// </summary>
-        public static string NewPromotion {
-            get {
-                return ResourceManager.GetString("NewPromotion", resourceCulture);
             }
         }
     }
