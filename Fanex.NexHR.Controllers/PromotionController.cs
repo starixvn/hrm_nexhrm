@@ -8,6 +8,7 @@ namespace Fanex.NexHR.Controllers
     using System.Threading.Tasks;
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Resources;
 
     public class PromotionController : BaseController
     {
@@ -66,6 +67,12 @@ namespace Fanex.NexHR.Controllers
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Create(CreatePromotionViewModel model)
         {
+             var result = new CommandResult
+            {
+                Code = 1,
+                Message = Messages.InvalidInputData
+            };
+
             if (model != null && ModelState.IsValid)
             {
                 var criteria = new InsertPromotionCriteria
@@ -76,20 +83,14 @@ namespace Fanex.NexHR.Controllers
                     EffectiveDate = model.EffectiveDate,
                     ModifiedBy = CurrentUser.Id
                 };
-
-                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
-
-                if (result.IsSuccessful)
-                {
-                    ViewBag.Inserted = true;
-                }
-                else
+                result = await baseService.ExecuteNonQueryAsync(criteria);
+                if (!result.IsSuccessful)
                 {
                     ModelState.AddModelError(string.Empty, result.Message);
                 }
             }
 
-            return View(model);
+             return Json(result);
         }
 
         [HttpGet]

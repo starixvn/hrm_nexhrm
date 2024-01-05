@@ -4,6 +4,7 @@
 
 #dialog-promotion {
     width: 400px;
+    padding: 12px 0;
 
     select {
         display: block;
@@ -25,5 +26,11 @@
 
     .employee-name{
         margin-bottom: 15px;
+    }
+
+    .validation-summary-valid{
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }

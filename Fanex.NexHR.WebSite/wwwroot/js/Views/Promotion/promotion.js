@@ -132,10 +132,23 @@ var promotion = (function ($) {
         initializeDialog($('#edit-form'), 'Edit Promotion');
     }
 
-    function onSuccess(response) {
+    function onInsertSuccess(response) {
+        let valid = $('.validation-summary-valid');
         if (response.IsSuccessful) {
-            $dialog.dialog('close');
-            query(false);
+            valid.addClass('success validation-summary-success');
+            valid.append('Insert successfully');
+            setTimeout(function () { $dialog.dialog("close"); query(false); }, 1000);
+        } else {
+            showErrorMessage(response.Message);
+        }
+    }
+
+    function onUpdateSuccess(response) {
+        let valid = $('.validation-summary-valid');
+        if (response.IsSuccessful) {
+            valid.addClass('success validation-summary-success');
+            valid.append('Update successfully');
+            setTimeout(function () { $dialog.dialog("close"); query(false); }, 1000);
         } else {
             showErrorMessage(response.Message);
         }
@@ -145,7 +158,8 @@ var promotion = (function ($) {
         init: init,
         onLoadingCreateFormSuccess: initCreateDialog,
         onLoadingEditFormSuccess: initEditDialog,
-        onSuccess: onSuccess
+        onInsertSuccess: onInsertSuccess,
+        onUpdateSuccess: onUpdateSuccess
     }
 
 }(jQuery));

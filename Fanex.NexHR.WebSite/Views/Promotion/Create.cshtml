@@ -6,7 +6,7 @@
     var jobGrade = ViewBag.JobGrade;
 }
 
-<form id="create-form" asp-action="create" data-ajax="true" data-ajax-method="post" data-ajax-success="promotion.onSuccess">
+<form id="create-form" asp-action="create" data-ajax="true" data-ajax-method="post" data-ajax-success="promotion.onInsertSuccess">
     <div asp-validation-summary="All"></div>
     <div class="row form-input">
         <div class="col">
