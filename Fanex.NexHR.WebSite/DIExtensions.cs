@@ -136,6 +136,8 @@
             services.AddSingleton<ILookupDataService, LookupDataService>();
             services.AddSingleton<IMemoService, MemoService>();
             services.AddSingleton<ICompanyEventService, CompanyEventService>();
+            services.AddSingleton<IJobGradeService, JobGradeService>();
+            
             //API Service
             services.AddSingleton<IBotBioTasksService, BioTasksService>();
             services.AddSingleton<IEmployeeOnlineService, EmployeeOnlineService>();

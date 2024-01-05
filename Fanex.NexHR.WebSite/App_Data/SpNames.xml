@@ -480,4 +480,7 @@
         <Setting Key="WorkFromHomeRequest_Update" SpName="WorkFromHomeRequest_Update" DbName="nexhr" Plain="1"></Setting>
         <Setting Key="WorkFromHomeRequest_Delete" SpName="WorkFromHomeRequest_Delete" DbName="nexhr" Plain="1"></Setting>
     </Function>
+  <Function Name="Job Grade">
+    <Setting Key="EmployeeJobGrade_Get" SpName="EmployeeJobGrade_Get" DbName="nexhr" Plain="1"></Setting>
+  </Function>
 </Functions>

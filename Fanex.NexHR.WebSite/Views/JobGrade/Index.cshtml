@@ -1,0 +1,80 @@
+﻿@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.JobGrade
+@using Fanex.NexHR.Services.Interfaces
+@inject ISessionService sessionService;
+@model JobGradeFilterViewModel
+@{
+    var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+    DateTime currentDate = DateTime.Today;
+    ViewBag.Title = "Employee Job Grade";
+}
+@section Styles {
+   
+    <link rel="stylesheet" href="~/minify/css/contextmenu.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/simplepagination.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
+}
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Views/Employee/_employee.search.in.company.js" asp-append-version="true"></script>
+        <script src="~/js/Libs/jquery.contextMenu.min.js" asp-append-version="true"></script>
+        <script src="~/js/Libs/jquery.simplePagination.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+
+        <script src="~/minify/js/contextmenu.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/simplepagination.min.js" asp-append-version="true"></script>
+    </environment>
+}
+
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form form-stl-table">
+                        <form asp-controller="JobGrade" asp-action="index" method="get">
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label asp-for="TeamId">@Labels.Team</label>
+                                    </div>
+                                    <div class="left select--m team">
+                                        <select asp-for="TeamId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
+                                            <option value="">All teams</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label asp-for="@Model.Employee">@Labels.Employee</label>
+                                    </div>
+                                    <div class="left input--m">
+                                        <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark" />
+                                        <input type="hidden" asp-for="EmployeeId" />
+                                    </div>
+                                </div>
+                                <div class="col m-l--l">
+                                    <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light m-r--b" />
+                                    @if (@isHRRole)
+                                    {
+                                        <a class="btn-request waves-effect waves-light m-r--m left" href="javascript:;" id="btnAddNew">@Labels.AddNew</a>
+                                    }
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                    <div class="p-x--s">
+                        <div id="list-data" class="over-auto table-resize table-medium"></div>
+                    </div>
+                    <div id="dialog-training">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
