@@ -13,7 +13,10 @@
     -ms-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1);
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1); }
   #dialog-promotion .left {
-    display: flex; }
+    display: flex;
+    text-align: left; }
+  #dialog-promotion .datepicker-button {
+    width: auto; }
   #dialog-promotion date-picker {
     width: 211px; }
   #dialog-promotion .employee-name {
@@ -25,3 +28,16 @@
   #dialog-promotion .validation-summary-errors ul li {
     list-style-type: none;
     text-align: left; }
+
+@media only screen and (max-width: 993px) {
+  .table-resize table thead tr th {
+    height: 54px !important; }
+  .btn-submit {
+    margin-left: 0;
+    margin-right: 0; }
+  input#Employee {
+    margin-bottom: 15px; }
+  date-picker {
+    width: 220px !important; }
+  i.left {
+    margin-right: 22px; } }
