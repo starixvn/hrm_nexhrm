@@ -132,27 +132,24 @@ var promotion = (function ($) {
         initializeDialog($('#edit-form'), 'Edit Promotion');
     }
 
-    function onInsertSuccess(response) {
+    function handleSuccess(response, successMessage) {
         let valid = $('.validation-summary-valid');
         if (response.IsSuccessful) {
-            valid.addClass('success validation-summary-success');
-            valid.append('Insert successfully');
-            setTimeout(function () { $dialog.dialog("close"); query(false); }, 1000);
+          valid.addClass('success validation-summary-success');
+          valid.append(successMessage);
+          setTimeout(function () { $dialog.dialog('close'); query(false); }, 1000);
         } else {
-            showErrorMessage(response.Message);
+          showErrorMessage(response.Message);
         }
-    }
-
-    function onUpdateSuccess(response) {
-        let valid = $('.validation-summary-valid');
-        if (response.IsSuccessful) {
-            valid.addClass('success validation-summary-success');
-            valid.append('Update successfully');
-            setTimeout(function () { $dialog.dialog("close"); query(false); }, 1000);
-        } else {
-            showErrorMessage(response.Message);
-        }
-    }
+      }
+      
+      function onInsertSuccess(response) {
+        handleSuccess(response, 'Insert successfully');
+      }
+      
+      function onUpdateSuccess(response) {
+        handleSuccess(response, 'Update successfully');
+      }
 
     return {
         init: init,
