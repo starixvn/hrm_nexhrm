@@ -81,16 +81,8 @@ function init() {
 var promotion = (function ($) {
     var $dialog = $('#dialog-promotion');
 
-    $.validator.addMethod("validateSpace", function (value) {
-        return value.trim().length > 0; 
-    }, "The {0} field is required.");
-
     function initializeDialog($form, title) {
-        // $.validator.unobtrusive.parse($form);
-        // $("#EmployeeId").rules("add", {
-        //     validateSpace: "Employee"
-        // });
-
+        $.validator.unobtrusive.parse($form);
         initDatePicker();
         initAutocomplete('form #Employee', 'form #EmployeeId', false);
         $dialog.dialog({

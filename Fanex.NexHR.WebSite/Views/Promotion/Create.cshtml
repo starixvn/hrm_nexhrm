@@ -14,7 +14,7 @@
                 <label>@Labels.Employee</label>
             </div>
             <div class="left input--m">
-                <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark" />
+                <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark" data-val="true" data-val-required="The Employee field is required!" />
                 <input asp-for="EmployeeId" type="hidden" />
             </div>
         </div>

@@ -67,7 +67,7 @@ namespace Fanex.NexHR.Controllers
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Create(CreatePromotionViewModel model)
         {
-             var result = new CommandResult
+            var result = new CommandResult
             {
                 Code = 1,
                 Message = Messages.InvalidInputData
@@ -90,7 +90,7 @@ namespace Fanex.NexHR.Controllers
                 }
             }
 
-             return Json(result);
+            return Json(result);
         }
 
         [HttpGet]

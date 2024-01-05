@@ -30,7 +30,7 @@
         {
             foreach (var item in Model)
             {
-                <tr id="row@(item.Id)" >
+                <tr id="row@(item.Id)">
                     <td>@(index++)</td>
                     <td class="align-left">@item.FullName</td>
                     <td>@item.NickName</td>
@@ -42,7 +42,7 @@
                     {
                         <td class="action-column">
                             <a class="btn-edit" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog-promotion" href="@Url.Action("Edit", new { id = item.Id })"
-                                data-ajax-success="promotion.onLoadingEditFormSuccess">
+                               data-ajax-success="promotion.onLoadingEditFormSuccess">
                                 <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
                             </a>
                             <a href="javascript:;" onclick="deletePromotion(@item.Id);">

@@ -22,3 +22,6 @@
     display: flex;
     justify-content: center;
     align-items: center; }
+  #dialog-promotion .validation-summary-errors ul li {
+    list-style-type: none;
+    text-align: left; }
