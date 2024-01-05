@@ -35,7 +35,7 @@ function query(isFirstLoad) {
 
 function deletePromotion(id) {
     confirm('Are you sure you want to delete this promotion?', function () {
-        $.post(_global.root + 'Promotion/Delete', { id: id},
+        $.post(_global.root + 'Promotion/Delete', { id: id },
             function (response) {
                 if (response.IsSuccessful) {
                     $('#row' + id).remove();
@@ -115,33 +115,38 @@ var promotion = (function ($) {
             }
         });
     }
-    
+
     function initCreateDialog() {
         initializeDialog($('#create-form'), 'Create New Promotion');
     }
-    
+
     function initEditDialog() {
         initializeDialog($('#edit-form'), 'Edit Promotion');
     }
 
     function handleSuccess(response, successMessage) {
+        let errorDiv = $('.validation-summary-errors');
         let valid = $('.validation-summary-valid');
         if (response.IsSuccessful) {
-          valid.addClass('success validation-summary-success');
-          valid.append(successMessage);
-          setTimeout(function () { $dialog.dialog('close'); query(false); }, 1000);
+            if (errorDiv.length > 0) {
+                errorDiv.remove();
+                valid = $('<div class="validation-summary-valid"></div>').prependTo('#create-form');
+            }
+            valid.addClass('success validation-summary-success');
+            valid.append(successMessage);
+            setTimeout(function () { $dialog.dialog('close'); query(false); }, 1000);
         } else {
-          showErrorMessage(response.Message);
+            showErrorMessage(response.Message);
         }
-      }
-      
-      function onInsertSuccess(response) {
+    }
+
+    function onInsertSuccess(response) {
         handleSuccess(response, 'Insert successfully');
-      }
-      
-      function onUpdateSuccess(response) {
+    }
+
+    function onUpdateSuccess(response) {
         handleSuccess(response, 'Update successfully');
-      }
+    }
 
     return {
         init: init,
