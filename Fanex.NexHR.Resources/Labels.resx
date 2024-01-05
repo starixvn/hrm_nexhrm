@@ -1804,4 +1804,7 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   <data name="JobGrade" xml:space="preserve">
     <value>Job Grade</value>
   </data>
+  <data name="EmployeeJobGrade" xml:space="preserve">
+    <value>Employee Job Grade</value>
+  </data>
 </root>

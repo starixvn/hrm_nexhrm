@@ -1528,6 +1528,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Employee Job Grade.
+        /// </summary>
+        public static string EmployeeJobGrade {
+            get {
+                return ResourceManager.GetString("EmployeeJobGrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Employee&apos;s Leave Request.
         /// </summary>
         public static string EmployeeLeaveRequest {

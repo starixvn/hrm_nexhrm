@@ -11,6 +11,16 @@ namespace Fanex.NexHR.Models
         public string FullName { get; set; }
         public string TeamName { get; set; }
         public string TeamCode { get; set; }
-    
+
+        public int JobGradeId { get; set; }
+
+        public string JobGradeCode { get; set; }
+
+        public string JobGradeName { get; set; }
+
+        public DateTime? AffectedDate { get; set; }
+
+        public string Note { get; set; } 
+
     }
 }

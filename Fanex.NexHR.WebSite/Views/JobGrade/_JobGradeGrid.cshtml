@@ -3,10 +3,9 @@
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.Models
 @using Fanex.NexHR.Services.Interfaces
-@inject ISessionService sessionService;
+
 @model IList<EmployeeJobGrade>
 @{
-    var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
     var count = 0;
 }
 <table id="data" class="table bordered striped highlight centered table-custom">
@@ -16,46 +15,37 @@
             <th style="width:12%">@Labels.FullName</th>
             <th style="width:7%">@Labels.EnglishName</th>
             <th style="width:7%">@Labels.Team</th>
-           
-            @if (isHRRole)
-            {
-                <th style="width:5%">@Labels.Action</th>
-            }
+            <th style="width:7%">@Labels.JobGrade</th>
+            <th style="width:7%">@Labels.AffectedDate</th>
+            <th style="width:7%">@Labels.Note</th>
+            <th style="width:7%">@Labels.History</th>
         </tr>
     </thead>
     <tbody>
-        @if (Model != null && Model.Count > 0)
+        @if (Model != null && Model.Any())
         {
             foreach (var item in Model)
             {
                 count++;
                 <tr>
                     <td>@count</td>
-                    <td class="content-left">@item.FullName</td>
+                    <td class="align-left">@item.FullName</td>
                     <td>@item.NickName</td>
                     <td>@item.TeamCode</td>
-                   
-                    @if (isHRRole)
-                    {
-                        <td class="action-column">
-                            <a href="javascript:;" class="btn_update" data-id="@item.Id">
-                                <i class='mdi mdi-border-color mdi-edit mdi-dark' style="top: 5px"></i>
-                            </a>
-                            <a href="javascript:;" onclick="deleteRequest(@item.Id);">
-                                <i class='mdi mdi-delete mdi-dark'></i>
-                            </a>
-                        </td>
-                    }
+                    <td>@item.JobGradeCode</td>
+                    <td>@item.AffectedDate.ToDateMonthYearFormatedDate()</td>
+                    <td>@item.Note</td>
+                    <td>-</td>
                 </tr>
             }
         }
         else
         {
             <tr>
-                <td colspan="9"></td>
+                <td colspan="7"></td>
             </tr>
             <tr>
-                <td colspan="9" rowspan="2">
+                <td colspan="7" rowspan="2">
                     @Messages.NoInformation
                 </td>
             </tr>

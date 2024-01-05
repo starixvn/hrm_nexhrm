@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Fanex.NexHR.Criteria.JobGrade;
@@ -17,8 +18,16 @@
 
         public async Task<IEnumerable<EmployeeJobGrade>> GetEmployeeJobGrade(GetEmployeeJobGradeCriteria criteria)
         {
-            var employeeJobGrades = await baseService.GetDataAsync<EmployeeJobGrade>(criteria);
-            return employeeJobGrades;
+            try
+            {
+                var employeeJobGrades = await baseService.GetDataAsync<EmployeeJobGrade>(criteria);
+                return employeeJobGrades;
+            }
+            catch (Exception ex)
+            {
+                return new List<EmployeeJobGrade>();
+            }
+            
         }
     }
 }
