@@ -170,6 +170,12 @@ function initDialogJobGrade(divContent) {
                             if (data.Code === 0) {
                                 errorCont.addClass('success validation-summary-success');
                                 errorCont.append('Update Job Grade successfully');
+                                var jobGradeCodeElement = document.getElementById('JobGradeCode');
+                                var jobGradeIdElement = document.getElementById('JobGradeId');
+                                var selectedOption = jobGradeIdElement.options[jobGradeIdElement.selectedIndex];
+                                jobGradeCodeElement.removeAttribute('hidden');
+                                jobGradeCodeElement.textContent = selectedOption.text;
+                                document.getElementById('jobGrade').remove();
                                 setTimeout(function () { $('#dialog-jobGrade').dialog("close"); query(); }, 3000);
                             }
                             else {
