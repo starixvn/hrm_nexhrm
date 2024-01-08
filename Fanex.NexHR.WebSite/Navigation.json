@@ -144,6 +144,15 @@
         "ParentId": 13
     },
     {
+        "Title": "Promotion Record",
+        "Controller": "Promotion",
+        "Action": "Index",
+        "Icon": "file-document-box",
+        "Roles": "Member",
+        "Id": 45,
+        "ParentId": 13
+    },
+    {
         "Title": "Team Management",
         "Controller": "team",
         "Action": "index",
@@ -249,15 +258,6 @@
         "Icon": "school",
         "Roles": "Member",
         "Id": 28,
-        "ParentId": 25
-    },
-    {
-        "Title": "Promotion Record",
-        "Controller": "Promotion",
-        "Action": "Index",
-        "Icon": "file-document-box",
-        "Roles": "Member",
-        "Id": 45,
         "ParentId": 25
     },
     {
