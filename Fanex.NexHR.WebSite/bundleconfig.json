@@ -731,6 +731,17 @@
     "sourceMap": false
   },
   {
+        "outputFileName": "wwwroot/minify/js/employee.profile.min.js",
+        "inputFiles": [
+            "wwwroot/js/Views/Employee/employee.profile.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
     "outputFileName": "wwwroot/minify/js/teammanagement.min.js",
     "inputFiles": [
       "wwwroot/js/Views/TeamManagement/team.management.js"

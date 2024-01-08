@@ -6,9 +6,13 @@
     using Criteria.Employee;
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Criteria.HistoryWork;
+    using Fanex.NexHR.Criteria.JobGrade;
     using Fanex.NexHR.Criteria.LookupData;
+    using Fanex.NexHR.Criteria.Request;
     using Fanex.NexHR.Criteria.TrainingAndDevelopment;
+    using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Resources;
+    using Fanex.NexHR.Services;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -603,6 +607,17 @@
             }, CurrentUser);
             employee.TrainingAndDevelopmentTypes = await trainingAndDevelopmentService.GetTrainingAndDevelopmentType();
             return View(employee);
+        }
+
+        public async Task<IActionResult> ViewHistoryJobGrade(int id)
+        {
+            var criteria = new GetEmployeeJobGradeCriteria
+            {
+                EmployeeId = id,
+                IsOnlyCurrentUsed = false
+            };
+            var employeeJobGrades = await baseService.GetDataAsync<EmployeeJobGrade>(criteria);
+            return PartialView("ViewHistoryJobGrade", employeeJobGrades); 
         }
 
         [HrmAuthorize(UserRoles = "AssistantLeader,HR")]

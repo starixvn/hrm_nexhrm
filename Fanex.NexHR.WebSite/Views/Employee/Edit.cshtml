@@ -12,9 +12,11 @@
 <environment include="Development">
     <script src="~/js/Libs/birthdaypicker.js" asp-append-version="true"></script>
     <script src="~/js/Views/Employee/employee.edit.js" asp-append-version="true"></script>
+    <script src="~/js/Views/Employee/employee.profile.js" asp-append-version="true"></script>
 </environment>
 <environment exclude="Development">
     <script src="~/minify/js/employeeedit.min.js" asp-append-version="true"></script>
+    <script src="~/minify/js/employee.profile.min.js" asp-append-version="true"></script>
 </environment>
 }
 
@@ -31,6 +33,8 @@
 </head>
 <body>
     <div class="row content">
+        <input type="hidden" asp-for="@Model.Id" />
+        <div id="dialog-show-history-jobgrade" class="full-view-width over-auto"></div>
         <div class="col s12 card-container-base">
             <div class="card">
                 <div class="card-content">
@@ -190,13 +194,17 @@
                                                 <label>@Labels.JobGrade</label>
                                             </div>
                                             <div class="left input--l">
+                                                <span class="txt-bold tooltip" title="@($"Affected Date: {Model.AffectedDate.ToString("dd MMM, yyyy")}")">
+                                                    @if (Model.JobGradeCode != null)
+                                                    {
+                                                        @Model.JobGradeCode
+                                                    }
+                                                </span>
                                                 @if (Model.JobGradeCode != null)
                                                 {
-                                                    <span class="m-r--s black-text" title="@Labels.EffectiveDate from: @Model.AffectedDate.ToDateMonthYearFormatedDate()">@Model.JobGradeCode</span>
-                                                }
-                                                else
-                                                {
-                                                    <a class="btn-ok waves-effect waves-light" id="jobGrade" href="javascript:;">@Labels.Update</a>
+                                                    <a class="viewhistoryjobgrade" href="javascript:;" style="margin-left:5px;">
+                                                        <i class="mdi mdi-information-outline mdi-dark tooltip" title="View history"></i>
+                                                    </a>
                                                 }
                                             </div>
                                         </div>

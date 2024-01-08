@@ -949,6 +949,10 @@ a:active, a:focus {
     color: #fc9715;
 }
 
+.mdi-information-outline:hover {
+    color: #fc9715;
+}
+
 .mdi-delete:hover {
     color: #ff0a09;
 }

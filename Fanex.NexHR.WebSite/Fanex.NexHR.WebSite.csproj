@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\avatars\03000.jpg" />
+    <Content Remove="wwwroot\js\Views\Employee\employee.profile.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -438,6 +439,7 @@
     <None Include="wwwroot\js\Views\Dashboard\teamattendance.js" />
     <None Include="wwwroot\js\Views\EmployeeTransfer\transferemployee.js" />
     <None Include="wwwroot\js\Views\EmployeeWorkFromHome\employee.workfromhome.js" />
+    <None Include="wwwroot\js\Views\Employee\employee.profile.js" />
     <None Include="wwwroot\js\Views\Employee\employee.birthday.js" />
     <None Include="wwwroot\js\Views\Employee\employee.defaultschedule.js" />
     <None Include="wwwroot\js\Views\Employee\employee.edit.js" />

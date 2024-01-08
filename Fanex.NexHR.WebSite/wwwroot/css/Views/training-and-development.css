@@ -94,7 +94,7 @@
 }
 
 .ui-dialog {
-  width: 410px !important;
+    width: auto !important;
 }
 .ui-dialog .ui-dialog-buttonpane {
   margin-top: unset !important;

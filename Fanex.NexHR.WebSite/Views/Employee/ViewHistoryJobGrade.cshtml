@@ -1,0 +1,44 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Models
+@using Fanex.NexHR.Resources
+@model IEnumerable<EmployeeJobGrade>
+<table class="table bordered striped highlight centered table-custom">
+    <thead>
+        <tr>
+            <th>@Labels.SymbolCount</th>
+            <th>@Labels.Employee</th>
+            <th>@Labels.JobGrade</th>
+            <th>@Labels.AffectedDate</th>
+            <th>@Labels.Note</th>
+        </tr>
+    </thead>
+    @if (Model.Any())
+    {
+        <tbody>
+            @{
+                int index = 1;
+            }
+            @foreach (EmployeeJobGrade jobGrade in Model)
+            {
+                <tr id="row@(jobGrade.JobGradeId)">
+                    <td>@(index++)</td>
+                    <td class ="tooltip" title="@jobGrade.FullName">@jobGrade.NickName</td>
+                    <td>@jobGrade.JobGradeName</td>
+                    <td>@jobGrade.AffectedDate.ToString("dd MMM, yyyy")</td>
+                    <td>@jobGrade.Note</td>
+                </tr>
+            }
+        </tbody>
+    }
+    else
+    {
+        <tr>
+            <td colspan="5"></td>
+        </tr>
+        <tr>
+            <td colspan="5" rowspan="2">
+                @Messages.NoInformation
+            </td>
+        </tr>
+    }
+</table>
