@@ -300,7 +300,7 @@ function initEventForUpdateJobGrade() {
         if (id > 0) {
             $.ajax({
                 type: 'GET',
-                url: _global.root + 'JobGrade/Update?id=' + id + '&name=' + $('#NickName').val(),
+                url: _global.root + 'JobGrade/Update?id=' + id + '&nickname=' + $('#NickName').val() + '&fullName=' + $('#FullName').val(),
                 dataType: 'html',
                 success: function (data) {
                     if (data) {
