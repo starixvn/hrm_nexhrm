@@ -148,7 +148,7 @@
         "Controller": "Promotion",
         "Action": "Index",
         "Icon": "file-document-box",
-        "Roles": "Member",
+        "Roles": "HR",
         "Id": 45,
         "ParentId": 13
     },

@@ -57,6 +57,7 @@ namespace Fanex.NexHR.Controllers
         }
 
         [HttpGet]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Create()
         {
             ViewBag.JobGrade = await promotionService.GetJobGrade();
@@ -95,6 +96,7 @@ namespace Fanex.NexHR.Controllers
         }
 
         [HttpGet]
+        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Edit(int id)
         {
             var promotion = await promotionService.GetById(new GetPromotionByIdCriteria { Id = id });
