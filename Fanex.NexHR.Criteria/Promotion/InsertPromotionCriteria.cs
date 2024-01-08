@@ -14,6 +14,8 @@
 
         public int ModifiedBy { get; set; }
 
+        public string Note { get; set; }
+
         public override string GetSettingKey() => "Promotion_Insert";
 
         public override bool IsValid() => EmpId > 0 && ModifiedBy > 0 && IsValidJobGrade();

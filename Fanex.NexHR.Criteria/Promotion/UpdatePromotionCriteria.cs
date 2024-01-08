@@ -14,6 +14,8 @@
 
         public DateTime EffectiveDate { get; set; }
 
+        public string Note { get; set; }
+
         public int ModifiedBy { get; set; }
 
         public override string GetSettingKey() => "Promotion_Update";

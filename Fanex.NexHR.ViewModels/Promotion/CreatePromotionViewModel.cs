@@ -17,5 +17,7 @@
         public int JobGradeId { get; set; }
 
         public DateTime EffectiveDate { get; set; }
+
+        public string Note { get; set; }
     }
 }

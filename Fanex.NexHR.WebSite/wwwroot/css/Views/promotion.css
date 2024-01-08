@@ -27,6 +27,9 @@
   #dialog-promotion .validation-summary-errors ul li {
     list-style-type: none;
     text-align: left; }
+  #dialog-promotion textarea {
+    height: auto;
+    outline: none; }
 
 @media only screen and (max-width: 993px) {
   .table-resize table thead tr th {

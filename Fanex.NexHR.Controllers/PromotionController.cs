@@ -81,6 +81,7 @@ namespace Fanex.NexHR.Controllers
                     JobGradeId = model.JobGradeId,
                     OldJobGradeId = model.OldJobGradeId,
                     EffectiveDate = model.EffectiveDate,
+                    Note = model.Note,
                     ModifiedBy = CurrentUser.Id
                 };
                 result = await baseService.ExecuteNonQueryAsync(criteria);
@@ -105,6 +106,7 @@ namespace Fanex.NexHR.Controllers
                 model.OldJobGradeId = promotion.OldJobGradeId;
                 model.JobGradeId = promotion.JobGradeId;
                 model.EffectiveDate = promotion.AffectedDate;
+                model.Note = promotion.Note;
                 model.Employee = promotion.NickName + " (" + promotion.FullName + ")";
             }
             ViewBag.JobGrade = await promotionService.GetJobGrade();
@@ -123,6 +125,7 @@ namespace Fanex.NexHR.Controllers
                 JobGradeId = model.JobGradeId,
                 OldJobGradeId = model.OldJobGradeId,
                 EffectiveDate = model.EffectiveDate,
+                Note = model.Note,
                 ModifiedBy = CurrentUser.Id
             };
 

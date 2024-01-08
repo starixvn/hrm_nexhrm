@@ -18,10 +18,11 @@
             <th style="width:7%">@Labels.Team</th>
             <th style="width:7%">@Labels.CurrentGrade</th>
             <th style="width:7%">@Labels.PromotedGrade</th>
-            <th style="width:15%">@Labels.EffectiveDate</th>
+            <th style="width:7%">@Labels.EffectiveDate</th>
             @if (isHRRole)
             {
-                <th style="width:10%">@Labels.Action</th>
+                <th style="width:10%">@Labels.Remark</th>
+                <th style="width:5%">@Labels.Action</th>
             }
         </tr>
     </thead>
@@ -40,6 +41,7 @@
                     <td>@item.AffectedDate.ToString("dd MMM, yyyy")</td>
                     @if (isHRRole)
                     {
+                        <td class="align-left">@item.Note</td>
                         <td class="action-column">
                             <a class="btn-edit" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog-promotion" href="@Url.Action("Edit", new { id = item.Id })"
                                data-ajax-success="promotion.onLoadingEditFormSuccess">
@@ -55,7 +57,7 @@
         }
         else
         {
-            var colspan = isHRRole ? 8 : 7;
+            var colspan = isHRRole ? 9 : 7;
             <tr>
                 <td colspan="@colspan">
                     @Messages.NoInformation
