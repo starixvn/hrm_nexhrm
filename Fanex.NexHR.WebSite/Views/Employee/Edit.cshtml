@@ -194,16 +194,9 @@
                                                 <label>@Labels.JobGrade</label>
                                             </div>
                                             <div class="left input--l">
-                                                
-                                                    @if (Model.JobGradeCode != null)
-                                                    {
-                                                    
-                                                    <span class="txt-bold tooltip" title="@($"Affected Date: {Model.AffectedDate.ToDateMonthYearFormatedDate()}")">@Model.JobGradeCode</span>
-
-                                                    }
-                                                </span>
                                                 @if (Model.JobGradeCode != null)
                                                 {
+                                                    <span class="txt-bold tooltip" title="@($"Affected Date: {Model.AffectedDate.ToDateMonthYearFormatedDate()}")">@Model.JobGradeCode</span>
                                                     <a class="viewhistoryjobgrade" href="javascript:;" style="margin-left:5px;">
                                                         <i class="mdi mdi-information-outline mdi-dark tooltip" title="View history"></i>
                                                     </a>
