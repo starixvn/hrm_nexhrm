@@ -24,7 +24,7 @@
                     <td>@(index++)</td>
                     <td class ="tooltip" title="@jobGrade.FullName">@jobGrade.NickName</td>
                     <td>@jobGrade.JobGradeName</td>
-                    <td>@jobGrade.AffectedDate.ToString("dd MMM, yyyy")</td>
+                    <td>@jobGrade.AffectedDate?.ToString("dd MMM, yyyy")</td>
                     <td>@jobGrade.Note</td>
                 </tr>
             }
