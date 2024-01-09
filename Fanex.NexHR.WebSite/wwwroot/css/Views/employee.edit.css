@@ -81,6 +81,13 @@
       display: flex;
       justify-content: center;
       align-items: center; }
+    #dialog-jobGrade .job-grade textarea {
+      height: auto;
+      outline: none; }
+    #dialog-jobGrade .job-grade .datepicker-button {
+      width: auto; }
+      #dialog-jobGrade .job-grade .datepicker-button date-picker {
+        width: 211px; }
 
 .fileUpload {
   position: relative;

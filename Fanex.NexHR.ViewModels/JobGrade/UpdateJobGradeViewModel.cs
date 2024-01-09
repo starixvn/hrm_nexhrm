@@ -1,4 +1,6 @@
-﻿namespace Fanex.NexHR.ViewModels.JobGrade
+﻿using System;
+
+namespace Fanex.NexHR.ViewModels.JobGrade
 {
     public class UpdateJobGradeViewModel
     {
@@ -7,5 +9,9 @@
         public string Employee { get; set; }
 
         public int JobGradeId { get; set; }
+
+        public DateTime EffectiveDate{ get; set; }
+
+        public string Note { get; set; }
     }
 }

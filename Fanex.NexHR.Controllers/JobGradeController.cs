@@ -74,6 +74,8 @@
             {
                 EmpId = model.EmployeeId,
                 JobGradeId = model.JobGradeId,
+                EffectiveDate = model.EffectiveDate,
+                Note = model.Note,
                 ModifiedBy = CurrentUser.Id
             };
 

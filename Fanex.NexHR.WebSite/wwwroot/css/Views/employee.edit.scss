@@ -117,6 +117,19 @@
             justify-content: center;
             align-items: center;
         }
+
+        textarea{
+            height: auto;
+            outline: none;
+        }
+
+        .datepicker-button{
+            width: auto;
+
+            date-picker{
+                width: 211px;
+            }
+        }
     }
 }
 

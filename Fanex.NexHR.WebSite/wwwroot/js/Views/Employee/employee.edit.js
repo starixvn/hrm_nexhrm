@@ -313,6 +313,7 @@ function initEventForUpdateJobGrade() {
                         var divContent = $('#dialog-jobGrade');
                         divContent.html('');
                         divContent.append(data);
+                        initDatePicker();
                         initDialogJobGrade(divContent);
                     }
                 },

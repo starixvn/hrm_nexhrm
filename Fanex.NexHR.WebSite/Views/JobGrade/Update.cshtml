@@ -3,6 +3,7 @@
 @model Fanex.NexHR.ViewModels.JobGrade.UpdateJobGradeViewModel
 
 @{
+    DateTime currentDate = DateTime.Today;
      var jobGrade = ViewBag.JobGrade;
 }
 
@@ -29,6 +30,27 @@
             <div class="left select--m">
                 <select name="JobGradeId" id="JobGradeId" asp-items="@(new SelectList(jobGrade, "Id", "Name"))"></select>
             </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                <label>@Labels.EffectiveDate</label>
+            </div>
+            <div class="datepicker-button left">
+                <date-picker name="EffectiveDate" value="currentDate"></date-picker>
+                <i class="mdi-action-event calendar-icon left"></i>
+            </div>
+        </div>
+    </div>
+     <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                <label>@Labels.Remark</label>
+            </div>
+            <div class="left input--m">
+            <textarea class="textarea" asp-for="Note"/>
+        </div>
         </div>
     </div>
 </form>
