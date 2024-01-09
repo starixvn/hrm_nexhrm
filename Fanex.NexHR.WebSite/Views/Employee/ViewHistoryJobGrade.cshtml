@@ -1,15 +1,29 @@
 ﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Core.Enums;
 @using Fanex.NexHR.Models
 @using Fanex.NexHR.Resources
+@using Fanex.NexHR.Services.Interfaces;
 @model IEnumerable<EmployeeJobGrade>
+@inject ISessionService sessionService;
+@{
+    var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+}
+<style>
+    .ui-dialog .ui-dialog-content {
+        padding:unset !important;
+    }
+</style>
+
 <table class="table bordered striped highlight centered table-custom">
     <thead>
         <tr>
             <th>@Labels.SymbolCount</th>
-            <th>@Labels.Employee</th>
+            <th>@Labels.EffectiveDate</th>
             <th>@Labels.JobGrade</th>
-            <th>@Labels.AffectedDate</th>
-            <th>@Labels.Note</th>
+            @if (@isHRRole)
+            {
+                <th>@Labels.Remark</th>
+            }    
         </tr>
     </thead>
     @if (Model.Any())
@@ -22,10 +36,12 @@
             {
                 <tr id="row@(jobGrade.JobGradeId)">
                     <td>@(index++)</td>
-                    <td class ="tooltip" title="@jobGrade.FullName">@jobGrade.NickName</td>
-                    <td>@jobGrade.JobGradeName</td>
                     <td>@jobGrade.AffectedDate?.ToString("dd MMM, yyyy")</td>
-                    <td>@jobGrade.Note</td>
+                    <td>@jobGrade.JobGradeName</td> 
+                    @if (@isHRRole)
+                    {
+                        <td>@jobGrade.Note</td>
+                    }
                 </tr>
             }
         </tbody>
@@ -33,10 +49,10 @@
     else
     {
         <tr>
-            <td colspan="5"></td>
+            <td colspan="4"></td>
         </tr>
         <tr>
-            <td colspan="5" rowspan="2">
+            <td colspan="4" rowspan="2">
                 @Messages.NoInformation
             </td>
         </tr>

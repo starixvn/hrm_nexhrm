@@ -2,6 +2,7 @@
 
 $(document).ready(function () {
     var empId = $('#Id').val();
+    var empNickName = $('#NickName').val();
 
     $('.viewhistoryjobgrade').click(function () {
         var url = '/employee/ViewHistoryJobGrade/' + empId;
@@ -12,7 +13,7 @@ $(document).ready(function () {
                 modal: true,
                 height: 'auto',
                 width: 'auto',
-                title: 'Job Grade History',
+                title: empNickName + "'s Job Grade",
                 show: {
                     effect: 'fade',
                     duration: 300

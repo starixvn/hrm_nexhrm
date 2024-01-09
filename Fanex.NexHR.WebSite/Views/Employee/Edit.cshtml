@@ -34,6 +34,7 @@
 <body>
     <div class="row content">
         <input type="hidden" asp-for="@Model.Id" />
+        <input type="hidden" asp-for="@Model.NickName" />
         <div id="dialog-show-history-jobgrade" class="full-view-width over-auto"></div>
         <div class="col s12 card-container-base">
             <div class="card">
@@ -196,7 +197,7 @@
                                             <div class="left input--l">
                                                 @if (Model.JobGradeCode != null)
                                                 {
-                                                    <span class="txt-bold tooltip" title="@($"Affected Date: {Model.AffectedDate.ToDateMonthYearFormatedDate()}")">@Model.JobGradeCode</span>
+                                                    <span class="txt-bold tooltip" title="@($"{Labels.EffectiveDate}: {Model.AffectedDate.ToDateMonthYearFormatedDate()}")">@Model.JobGradeCode</span>
                                                     <a class="viewhistoryjobgrade" href="javascript:;" style="margin-left:5px;">
                                                         <i class="mdi mdi-information-outline mdi-dark tooltip" title="View history"></i>
                                                     </a>
