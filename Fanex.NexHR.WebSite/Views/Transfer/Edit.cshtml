@@ -1,0 +1,29 @@
+﻿@using Fanex.NexHR.Resources
+@model Fanex.NexHR.ViewModels.Transfer.EditTransferViewModel
+
+<form id="edit-form" asp-action="edit" data-ajax="true" data-ajax-method="post" data-ajax-success="transfer.onUpdateSuccess">
+    <div asp-validation-summary="All"></div>
+    <input type="hidden" asp-for="@Model.Id" />
+    <div class="row form-input">
+        <div class="col employee-name">
+            <div class="left label--l">
+                <label>@Labels.Employee</label>
+            </div>
+            <div class="left input--m">
+                @Model.Employee
+                <input asp-for="@Model.EmployeeId" type="hidden" />
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                <label>@Labels.TransferDate</label>
+            </div>
+            <div class="datepicker-button left">
+                <date-picker name="TransferDate" value="@Model.TransferDate"></date-picker>
+                <i class="mdi-action-event calendar-icon left"></i>
+            </div>
+        </div>
+    </div>
+</form>

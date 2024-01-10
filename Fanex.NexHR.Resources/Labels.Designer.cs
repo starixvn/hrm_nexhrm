@@ -5184,5 +5184,24 @@ namespace Fanex.NexHR.Resources {
                 return ResourceManager.GetString("Yesterday", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to NewTransfer.
+        /// </summary>
+        public static string NewTransfer {
+            get {
+                return ResourceManager.GetString("NewTransfer", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to TransferDate.
+        /// </summary>
+        public static string TransferDate {
+            get {
+                return ResourceManager.GetString("TransferDate", resourceCulture);
+            }
+        }
+        
     }
 }

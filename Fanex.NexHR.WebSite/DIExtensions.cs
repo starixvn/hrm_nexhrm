@@ -138,7 +138,8 @@
             services.AddSingleton<IMemoService, MemoService>();
             services.AddSingleton<ICompanyEventService, CompanyEventService>();
             services.AddSingleton<IJobGradeService, JobGradeService>();
-            
+            services.AddSingleton<ITransferService, TransferService>();
+
             //API Service
             services.AddSingleton<IBotBioTasksService, BioTasksService>();
             services.AddSingleton<IEmployeeOnlineService, EmployeeOnlineService>();

@@ -1073,5 +1073,19 @@
             "renameLocals": true
         },
         "sourceMap": false
-  }
+    },
+    {
+      "outputFileName": "wwwroot/minify/js/transfer.min.js",
+      "inputFiles": [
+          "wwwroot/js/Libs/jquery.validate.unobtrusive.js",
+          "wwwroot/js/Libs/jquery.unobtrusive-ajax.js",
+          "wwwroot/js/Views/Employee/_employee.search.in.company.js",
+          "wwwroot/js/Views/Promotion/transfer.js"
+      ],
+      "minify": {
+          "enabled": true,
+          "renameLocals": true
+      },
+      "sourceMap": false
+}
 ]

@@ -1,0 +1,64 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.Models
+@using Fanex.NexHR.Services.Interfaces
+@inject ISessionService sessionService;
+@model IList<Transfer>
+@{
+    var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+    var index = 1;
+}
+<table id="data" class="table bordered striped highlight centered table-custom">
+    <thead>
+        <tr>
+            <th style="width:4%">#</th>
+            <th style="width:10%">@Labels.FullName</th>
+            <th style="width:7%">@Labels.EnglishName</th>
+            <th style="width:10%">@Labels.CurrentTeam</th>
+            <th style="width:10%">@Labels.NewTeam</th>
+            <th style="width:7%">@Labels.TransferDate</th>
+            @if (isHRRole)
+            {
+                <th style="width:6%">@Labels.Action</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr id="row@(item.Id)">
+                    <td>@(index++)</td>
+                    <td class="align-left">@item.FullName</td>
+                    <td>@item.NickName</td>
+                    <td>@item.TeamName</td>
+                    <td>@item.TeamName</td>
+                    <td>@item.AffectedDate.ToString("dd MMM, yyyy")</td>
+                    @if (isHRRole)
+                    {
+                        <td class="action-column">
+                            <a class="btn-edit" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog-promotion" href="@Url.Action("Edit", new { id = item.Id })"
+                               data-ajax-success="transfer.onLoadingEditFormSuccess">
+                                <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
+                            </a>
+                            <a href="javascript:;" onclick="deleteTransfer(@item.Id);">
+                                <i class='mdi mdi-delete mdi-dark'></i>
+                            </a>
+                        </td>
+                    }
+                </tr>
+            }
+        }
+        else
+        {
+            var colspan = isHRRole ? 7 : 6;
+            <tr>
+                <td colspan="@colspan">
+                    @Messages.NoInformation
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

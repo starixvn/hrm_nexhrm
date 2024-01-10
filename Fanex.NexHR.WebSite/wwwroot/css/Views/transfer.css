@@ -1,0 +1,26 @@
+﻿#dialog-transfer {
+  padding: 12px 0; }
+  #dialog-transfer select {
+    display: block;
+    border: 1px solid #d0d0d0;
+    margin-bottom: 15px;
+    -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+    -ms-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1); }
+  #dialog-transfer .left {
+    display: flex;
+    text-align: left; }
+  #dialog-transfer .datepicker-button {
+    width: auto; }
+  #dialog-transfer date-picker {
+    width: 211px; }
+  #dialog-transfer .employee-name {
+    margin-bottom: 15px; }
+  #dialog-transfer .validation-summary-valid {
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+  #dialog-transfer .validation-summary-errors ul li {
+    list-style-type: none;
+    text-align: left; }

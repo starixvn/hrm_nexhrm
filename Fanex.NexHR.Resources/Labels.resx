@@ -1579,16 +1579,16 @@
     <value>Current Team</value>
   </data>
   <data name="UpdateJobtitleOrTeam" xml:space="preserve">
-    <value>Update Jobtitle or Team</value>
+    <value>Update Job Title or Team</value>
   </data>
   <data name="UpdateJobtitle" xml:space="preserve">
-    <value>Update Jobtitle</value>
+    <value>Update Job Title</value>
   </data>
   <data name="UpdateTeam" xml:space="preserve">
     <value>Update Team</value>
   </data>
   <data name="NewJobtitleorTeam" xml:space="preserve">
-    <value>New Jobtitle or Team</value>
+    <value>New Job Title or Team</value>
   </data>
   <data name="AffectedDate" xml:space="preserve">
     <value>Affected Date</value>
@@ -1827,5 +1827,11 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   </data>
   <data name="Relationship" xml:space="preserve">
     <value>Relationship</value>
+  </data>
+  <data name="NewTransfer" xml:space="preserve">
+    <value>New Transfer</value>
+  </data>
+  <data name="TransferDate" xml:space="preserve">
+    <value>Transfer Date</value>
   </data>
 </root>

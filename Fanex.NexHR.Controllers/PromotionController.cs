@@ -13,17 +13,14 @@ namespace Fanex.NexHR.Controllers
     public class PromotionController : BaseController
     {
         private readonly ITeamService teamService;
-        private readonly IEmployeeService employeeService;
         private readonly IBaseService baseService;
         private readonly IPromotionService promotionService;
 
         public PromotionController(ISessionService sessionService,
             ITeamService teamService,
-            IEmployeeService employeeService,
             IPromotionService promotionService,
             IBaseService baseService) : base(sessionService)
         {
-            this.employeeService = employeeService;
             this.baseService = baseService;
             this.teamService = teamService;
             this.promotionService = promotionService;

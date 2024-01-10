@@ -1,0 +1,43 @@
+﻿@using Fanex.NexHR.Resources
+@model Fanex.NexHR.ViewModels.Transfer.CreateTransferViewModel
+
+@{
+    DateTime currentDate = DateTime.Today;
+    var teams = ViewBag.Teams;
+}
+
+<form id="create-form" asp-action="create" data-ajax="true" data-ajax-method="post" data-ajax-success="transfer.onInsertSuccess">
+    <div asp-validation-summary="All"></div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                <label>@Labels.Employee</label>
+            </div>
+            <div class="left input--m">
+                <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark" data-val="true" data-val-required="The Employee field is required!" />
+                <input asp-for="EmployeeId" type="hidden" />
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                <label>@Labels.NewTeam</label>
+            </div>
+            <div class="left select--m">
+                <select asp-for="TeamId" asp-items="@(new SelectList(teams, "Id", "Name"))"></select>
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                <label>@Labels.TransferDate</label>
+            </div>
+            <div class="datepicker-button left">
+                <date-picker name="TransferDate" value="currentDate"></date-picker>
+                <i class="mdi-action-event calendar-icon left"></i>
+            </div>
+        </div>
+    </div>
+</form>

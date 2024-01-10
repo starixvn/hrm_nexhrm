@@ -1,0 +1,27 @@
+﻿namespace Fanex.NexHR.Criteria.Transfer
+{
+    using System;
+
+    public class UpdateTransferCriteria : BaseCommand
+    {
+        public int Id { get; set; }
+
+        public int EmpId { get; set; }
+
+        public int JobGradeId { get; set; }
+
+        public int OldJobGradeId { get; set; }
+
+        public DateTime EffectiveDate { get; set; }
+
+        public string Note { get; set; }
+
+        public int ModifiedBy { get; set; }
+
+        public override string GetSettingKey() => "Transfer_Update";
+
+        public override bool IsValid() => ModifiedBy > 0 && IsValidJobGrade();
+
+        private bool IsValidJobGrade() => JobGradeId > 0 && OldJobGradeId > 0 && JobGradeId != OldJobGradeId ;
+    }
+}

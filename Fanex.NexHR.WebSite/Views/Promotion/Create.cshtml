@@ -25,7 +25,7 @@
                 <label>@Labels.CurrentGrade</label>
             </div>
             <div class="left select--m">
-                <select name="OldJobGradeId" id="OldJobGradeId" asp-items="@(new SelectList(jobGrade, "Id", "Name"))"></select>
+                <select asp-for="OldJobGradeId" asp-items="@(new SelectList(jobGrade, "Id", "Name"))"></select>
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
                 <label>@Labels.PromotedGrade</label>
             </div>
             <div class="left select--m">
-                <select name="JobGradeId" id="JobGradeId" asp-items="@(new SelectList(jobGrade, "Id", "Name"))"></select>
+                <select asp-for="JobGradeId" asp-items="@(new SelectList(jobGrade, "Id", "Name"))"></select>
             </div>
         </div>
     </div>
@@ -56,8 +56,8 @@
                 <label>@Labels.Remark</label>
             </div>
             <div class="left input--m">
-            <textarea class="textarea" asp-for="Note"/>
-        </div>
+                <textarea class="textarea" asp-for="Note" />
+            </div>
         </div>
     </div>
 </form>
