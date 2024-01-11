@@ -12,7 +12,7 @@
 
         public string Employee { get; set; }
 
-        public int TeamId { get; set; }
+        public int GroupId { get; set; }
 
         public DateTime TransferDate { get; set; }
     }

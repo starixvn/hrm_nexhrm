@@ -76,7 +76,7 @@ namespace Fanex.NexHR.Controllers
                 var criteria = new InsertTransferCriteria
                 {
                     EmpId = model.EmployeeId,
-                    GroupId = model.TeamId,
+                    GroupId = model.GroupId,
                     TransferDate = model.TransferDate,
                     ModifiedBy = CurrentUser.Id
                 };
@@ -86,6 +86,47 @@ namespace Fanex.NexHR.Controllers
                     ModelState.AddModelError(string.Empty, result.Message);
                 }
             }
+
+            return Json(result);
+        }
+
+        [HttpGet]
+        [HrmAuthorize(UserRoles = "HR")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var transfer = await transferService.GetById(new GetTransferByIdCriteria { Id = id });
+            var model = new EditTransferViewModel();
+            if (transfer != null)
+            {
+                model.Id = transfer.Id;
+                model.EmployeeId = transfer.EmployeeId;
+                model.Employee = transfer.NickName + " (" + transfer.FullName + ")";
+                model.GroupId = transfer.GroupId;
+                model.GroupName = transfer.GroupName;
+                model.OldGroupId = transfer.OldGroupId;
+                model.OldGroupName = transfer.OldGroupName;
+                model.TransferDate = transfer.AffectedDate;
+            }
+            ViewBag.Teams = await teamService.GetTeam();
+
+            return PartialView(model);
+        }
+
+        [HttpPost]
+        [HrmAuthorize(UserRoles = "HR")]
+        public async Task<IActionResult> Edit(EditTransferViewModel model)
+        {
+            var criteria = new UpdateTransferCriteria
+            {
+                Id = model.Id,
+                EmpId = model.EmployeeId,
+                GroupId = model.GroupId,
+                OldGroupId = model.OldGroupId,
+                TransferDate = model.TransferDate,
+                ModifiedBy = CurrentUser.Id
+            };
+
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
 
             return Json(result);
         }

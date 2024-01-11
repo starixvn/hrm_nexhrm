@@ -8,5 +8,11 @@
         [Required]
         [Display(Name = "Id", ResourceType = typeof(Labels))]
         public int Id { get; set; }
+
+        public int OldGroupId { get; set; }
+
+        public string OldGroupName { get; set; }
+        
+        public string GroupName { get; set; }
     }
 }

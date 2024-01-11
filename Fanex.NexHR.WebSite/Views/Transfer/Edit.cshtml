@@ -1,6 +1,10 @@
 ﻿@using Fanex.NexHR.Resources
 @model Fanex.NexHR.ViewModels.Transfer.EditTransferViewModel
 
+@{
+    var teams = ViewBag.Teams;
+}
+
 <form id="edit-form" asp-action="edit" data-ajax="true" data-ajax-method="post" data-ajax-success="transfer.onUpdateSuccess">
     <div asp-validation-summary="All"></div>
     <input type="hidden" asp-for="@Model.Id" />
@@ -12,6 +16,27 @@
             <div class="left input--m">
                 @Model.Employee
                 <input asp-for="@Model.EmployeeId" type="hidden" />
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col field-team">
+            <div class="left label--l">
+                <label>@Labels.CurrentTeam</label>
+            </div>
+            <div class="left input--m">
+                 @Model.OldGroupName
+                 <input asp-for="@Model.OldGroupId" type="hidden" />
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                <label>@Labels.NewTeam</label>
+            </div>
+            <div class="left select--m">
+                <select asp-for="GroupId" asp-items="@(new SelectList(teams, "Id", "Name"))"></select>
             </div>
         </div>
     </div>

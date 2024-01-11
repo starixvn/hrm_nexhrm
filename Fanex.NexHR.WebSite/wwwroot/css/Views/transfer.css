@@ -1,4 +1,7 @@
-﻿#dialog-transfer {
+﻿.btn-edit {
+  margin-right: 12px; }
+
+#dialog-transfer {
   padding: 12px 0; }
   #dialog-transfer select {
     display: block;
@@ -15,7 +18,7 @@
     width: auto; }
   #dialog-transfer date-picker {
     width: 211px; }
-  #dialog-transfer .employee-name {
+  #dialog-transfer .employee-name, #dialog-transfer .field-team {
     margin-bottom: 15px; }
   #dialog-transfer .validation-summary-valid {
     display: flex;
@@ -24,3 +27,14 @@
   #dialog-transfer .validation-summary-errors ul li {
     list-style-type: none;
     text-align: left; }
+
+@media only screen and (max-width: 993px) {
+  .btn-submit {
+    margin-left: 0;
+    margin-right: 0; }
+  input#Employee {
+    margin-bottom: 15px; }
+  date-picker {
+    width: 220px !important; }
+  i.left {
+    margin-right: 22px; } }

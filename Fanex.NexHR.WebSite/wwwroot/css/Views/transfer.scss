@@ -1,3 +1,7 @@
+.btn-edit{
+    margin-right: 12px;
+}
+
 #dialog-transfer {
     padding: 12px 0;
 
@@ -24,7 +28,7 @@
         width: 211px;
     }
 
-    .employee-name{
+    .employee-name, .field-team{
         margin-bottom: 15px;
     }
 
@@ -40,25 +44,22 @@
     }
 }
 
-// @media only screen and (max-width: 993px){
-//     .table-resize table thead tr th {
-//         height: 54px !important;
-//     }
+@media only screen and (max-width: 993px){
 
-//     .btn-submit{
-//         margin-left: 0;
-//         margin-right: 0;
-//     }
+    .btn-submit{
+        margin-left: 0;
+        margin-right: 0;
+    }
 
-//     input#Employee {
-//         margin-bottom: 15px;
-//     }
+    input#Employee {
+        margin-bottom: 15px;
+    }
 
-//     date-picker{
-//         width: 220px !important;
-//     }
+    date-picker{
+        width: 220px !important;
+    }
 
-//     i.left {
-//         margin-right: 22px;
-//     }
-// }
+    i.left {
+        margin-right: 22px;
+    }
+}

@@ -20,7 +20,7 @@
 
         public override string GetSettingKey() => "Promotion_Update";
 
-        public override bool IsValid() => ModifiedBy > 0 && IsValidJobGrade();
+        public override bool IsValid() => Id > 0 && EmpId > 0 && ModifiedBy > 0 && IsValidJobGrade();
 
         private bool IsValidJobGrade() => JobGradeId > 0 && OldJobGradeId > 0 && JobGradeId != OldJobGradeId ;
     }

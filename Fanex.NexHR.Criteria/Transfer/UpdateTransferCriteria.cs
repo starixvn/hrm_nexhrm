@@ -8,20 +8,18 @@
 
         public int EmpId { get; set; }
 
-        public int JobGradeId { get; set; }
+        public int GroupId { get; set; }
 
-        public int OldJobGradeId { get; set; }
+        public int OldGroupId { get; set; }
 
-        public DateTime EffectiveDate { get; set; }
-
-        public string Note { get; set; }
+        public DateTime TransferDate { get; set; }
 
         public int ModifiedBy { get; set; }
 
         public override string GetSettingKey() => "Transfer_Update";
 
-        public override bool IsValid() => ModifiedBy > 0 && IsValidJobGrade();
+        public override bool IsValid() => Id > 0  && EmpId > 0 && ModifiedBy > 0 && IsValidGroup();
 
-        private bool IsValidJobGrade() => JobGradeId > 0 && OldJobGradeId > 0 && JobGradeId != OldJobGradeId ;
+        private bool IsValidGroup() => GroupId > 0 && OldGroupId > 0;
     }
 }
