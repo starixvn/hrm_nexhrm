@@ -6,17 +6,13 @@
     {
         public int EmpId { get; set; }
 
-        public int? HistoryId { get; set; }
-
         public int ModifiedBy { get; set; }
-
-        public DateTime ModifiedDate { get; set; }
 
         public DateTime AffectedDate { get; set; }
 
-        public string JobtitleName { get; set; }
+        public int JobTitleId { get; set; }
 
-        public string GroupName { get; set; }
+        public int GroupId { get; set; }
 
         public override string GetSettingKey()
         {
@@ -25,7 +21,7 @@
 
         public override bool IsValid()
         {
-            return true;
+            return EmpId > 0 && GroupId > 0 && JobTitleId > 0;
         }
     }
 }

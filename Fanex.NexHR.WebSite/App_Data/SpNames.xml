@@ -67,7 +67,6 @@
         <Setting Key="Employee_GetEmployeeWorkLoad" SpName="Report_GetEmployeeWorkLoad" DbName="nexhr" Plain="1">
         </Setting>
         <Setting Key="EmployeeAttendance_GetMissingCheckInCheckOut" SpName="EmployeeAttendance_GetMissingCheckInCheckOut" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="HistoryWork_GetByEmpId" SpName="HistoryWork_GetByEmpId" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="HistoryWork_Insert" SpName="HistoryWork_Insert" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="HistoryWork_GetJobtitleAndTeam" SpName="HistoryWork_GetJobtitleAndTeam" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="HistoryWork_Update" SpName="HistoryWork_Update" DbName="nexhr" Plain="0"></Setting>

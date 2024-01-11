@@ -168,7 +168,6 @@
             services.AddSingleton<IScheduledMessageRepository, ScheduledMessageRepository>();
             services.AddSingleton<IAnnualLeaveRepository, AnnualLeaveRepository>();
             services.AddSingleton<IBioRepository, BioRepository>();
-            services.AddSingleton<IHistoryWorkRepository, HistoryWorkRepository>();
             services.AddSingleton<IDepartmentRepository, DepartmentRepository>();
         }
     }

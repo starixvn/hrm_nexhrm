@@ -5,7 +5,7 @@
 
     public class FilterHistoryWorkCriteria : CriteriaBase
     {     
-        public int EmpId { get; set; }
+        public int? EmpId { get; set; }
 
         public DateTime FromDate { get; set; }
 

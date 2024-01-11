@@ -4,15 +4,15 @@
 
     public class UpdateHistoryWorkCriteria : BaseCommand
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         public DateTime AffectedDate { get; set; }
 
-        public DateTime ModifiedDate { get; set; }
+        public int ModifiedBy { get; set; }
 
-        public string JobtitleName { get; set; }
+        public int JobTitleId { get; set; }
 
-        public string GroupName { get; set; }
+        public int GroupId { get; set; }
 
         public override string GetSettingKey()
         {

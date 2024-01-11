@@ -1,8 +1,9 @@
 ﻿@using Fanex.NexHR.Resources
-@using Fanex.NexHR.ViewModels.Employee
-@model WorkingHistoryViewModel
+@using Fanex.NexHR.ViewModels.HistoryWork
+@model CreateHistoryWorkViewModel
 @{
     Layout = null;
+    Model.AffectedDate =  DateTime.Today;
 }
 <style>
     select { display: block;}
@@ -11,7 +12,7 @@
     <div id="divErrorCont" class=""></div>
     <div class="row form-input">
         <div class="left label--l">
-            <label>@Labels.Date</label>
+            <label>@Labels.AffectedDate</label>
             <input type="hidden" value="@Model.EmpId" name="EmpId" />
         </div>
         <div class="datepicker-button left select--m">
@@ -28,7 +29,7 @@
             <label>@Labels.NewTeam</label>
         </div>
         <div class="left select--m" style="border: 1px solid #d0d0d0; border-radius: 3px; margin: 0 0 15px 0;">
-            <select asp-for="GroupName" asp-items="@(new SelectList(Model.Teams, "Name", "Name", Model.Employee.Team.Name))">
+            <select asp-for="GroupId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
             </select>
         </div>
     </div>
@@ -37,7 +38,7 @@
             <label>@Labels.NewJobTitle</label>
         </div>
         <div class="left select--m" style="border: 1px solid #d0d0d0;border-radius: 3px;">
-            <select asp-for="JobtitleName" asp-items="@(new SelectList(Model.JobTitles, "Name", "Name", Model.Employee.JobTitle.Name))">
+            <select asp-for="JobTitleId" asp-items="@(new SelectList(Model.JobTitles, "Id", "Name"))">
             </select>
         </div>
     </div>

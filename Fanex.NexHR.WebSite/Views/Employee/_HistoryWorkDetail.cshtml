@@ -29,13 +29,13 @@
             @{int index = 1;}
             @foreach (var history in Model)
             {
-                <tr id="history">
-                    <td>@(index++)<input type="hidden" id="employeeId" value="@ViewBag.empid" /></td>
+                <tr id="row@(history.Id)">
+                    <td>@(index++)</td>
                     <td class="align-left">@history.GroupName</td>
-                    <td class="align-left">@history.JobtitleName</td>
+                    <td class="align-left">@history.JobTitleName</td>
                     <td>@history.AffectedDate.ToDateMonthYearFormatedDate()</td>
                     <td>@history.ModifiedDate.ToShortFormatedDate()</td>
-                    <td>@history.NickName</td>
+                    <td>@history.ModifiedBy</td>
                     <td class="cmd">
                         @if (DateTime.Today.AddMonths(-1) < history.ModifiedDate)
                         {
@@ -71,10 +71,7 @@
     else
     {
         <tr>
-            <td colspan="9"></td>
-        </tr>
-        <tr>
-            <td colspan="9" rowspan="2">
+            <td colspan="8">
                 @Messages.NoInformation
             </td>
         </tr>

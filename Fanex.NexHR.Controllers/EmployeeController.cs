@@ -13,6 +13,7 @@
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services;
+    using Fanex.NexHR.ViewModels.HistoryWork;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -187,23 +188,18 @@
         public async Task<IActionResult> WorkingHistory(int employeeId)
         {
             const int startYear = 2011;
-            var history = new WorkingHistoryViewModel { EmpId = employeeId };
-            var criteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId };
-            history.Employee = await employeeService.GetEmployeeById(criteria);
-            history.FromDate = new DateTime(startYear, 1, 1);
+            var history = new FilterHistoryWorkViewModel 
+            { 
+                EmpId = employeeId,
+                FromDate = new DateTime(startYear, 1, 1),
+                Employee = await employeeService.GetEmployeeById(new GetEmployeeByIdCriteria { EmployeeId = employeeId })
+            };
 
             return View(history);
         }
 
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> HistoryWorkDetail(WorkingHistoryViewModel model)
-        {
-            IList<HistoryWork> filterHistory = await GetFilterHistoryWork(model);
-
-            return PartialView("_HistoryWorkDetail", filterHistory);
-        }
-
-        private async Task<IList<HistoryWork>> GetFilterHistoryWork(WorkingHistoryViewModel model)
+        public async Task<IActionResult> HistoryWorkDetail(FilterHistoryWorkViewModel model)
         {
             var criteria = new FilterHistoryWorkCriteria
             {
@@ -211,29 +207,28 @@
                 FromDate = model.FromDate,
                 ToDate = model.ToDate,
             };
+            var listHistoryWork = await historyWorkService.GetAll(criteria);
 
-            IList<HistoryWork> filterHistoryWork = await historyWorkService.GetFilterHistoryWork(criteria);
-
-            ViewBag.empid = model.EmpId;
-            return filterHistoryWork;
+            return PartialView("_HistoryWorkDetail", listHistoryWork);
         }
 
         [HttpGet]
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> InsertHistoryWork(int employeeId)
+        public async Task<IActionResult> InsertHistoryWork(int empId)
         {
-            var history = new WorkingHistoryViewModel { EmpId = employeeId };
-            history.Teams = await teamService.GetTeam();
-            history.Employee = await GetEmployeeById(employeeId);
-            var lookupDataJobTitleCriteria = new GetJobTitleCriteria { JobTitle = "" };
-            history.JobTitles = await jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
+            var history = new CreateHistoryWorkViewModel
+            {
+                EmpId = empId,
+                Teams = await teamService.GetTeam(),
+                JobTitles = await jobTitleService.GetJobTitle(new GetJobTitleCriteria { JobTitle = "" }),
+            };
 
             return View(history);
         }
 
         [HttpPost]
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> InsertHistoryWork(WorkingHistoryViewModel model)
+        public async Task<IActionResult> InsertHistoryWork(CreateHistoryWorkViewModel model)
         {
             var result = new CommandResult
             {
@@ -241,16 +236,15 @@
                 Message = Messages.InvalidInputData
             };
 
-            if (model != null && model.EmpId > 0)
+            if (model != null)
             {
                 var history = new InsertHistoryWorkCriteria
                 {
                     EmpId = model.EmpId,
                     ModifiedBy = CurrentUser.Id,
                     AffectedDate = model.AffectedDate,
-                    ModifiedDate = DateTime.Now,
-                    JobtitleName = model.JobtitleName,
-                    GroupName = model.GroupName
+                    JobTitleId = model.JobTitleId,
+                    GroupId = model.GroupId
                 };
 
                 result = await baseService.ExecuteNonQueryAsync(history);
@@ -261,30 +255,27 @@
 
         [HttpGet]
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> EditHistoryWork(int? id)
+        public async Task<IActionResult> EditHistoryWork(int id)
         {
-            var history = new WorkingHistoryViewModel { };
-
-            if (id.HasValue && id.Value > 0)
+            var history = await historyWorkService.GetById(new GetHistoryWorkByIdCriteria{ Id = id });
+            var model = new EditHistoryWorkViewModel();
+            if (history != null)
             {
-                var criteria = new EditHistoryWorkCriteria
-                {
-                    Id = id.Value
-                };
-
-                history = await historyWorkService.GetHistoryWorkInfo(criteria);
-                history.Teams = await teamService.GetTeam();
-                var lookupDataJobTitleCriteria = new GetJobTitleCriteria { JobTitle = "" };
-                history.JobTitles = await jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
-                history.Id = id;
+                model.Id = history.Id;
+                model.EmpId = history.EmpId;
+                model.GroupId = history.GroupId;
+                model.JobTitleId = history.JobTitleId;
+                model.AffectedDate = history.AffectedDate;
+                model.Teams = await teamService.GetTeam();
+                model.JobTitles = await jobTitleService.GetJobTitle(new GetJobTitleCriteria { JobTitle = "" });
             }
 
-            return PartialView(history);
+            return PartialView(model);
         }
 
         [HttpPost]
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> EditHistoryWork(WorkingHistoryViewModel model)
+        public async Task<IActionResult> EditHistoryWork(EditHistoryWorkViewModel model)
         {
             var result = new CommandResult
             {
@@ -298,16 +289,16 @@
                 {
                     Id = model.Id,
                     AffectedDate = model.AffectedDate,
-                    ModifiedDate = model.ModifiedDate,
-                    JobtitleName = model.JobtitleName,
-                    GroupName = model.GroupName
+                    JobTitleId = model.JobTitleId,
+                    GroupId = model.GroupId,
+                    ModifiedBy = CurrentUser.Id,
                 };
 
                 result = await baseService.ExecuteNonQueryAsync(history);
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, result.Message);
+                if (!result.IsSuccessful)
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
+                }
             }
 
             return Json(result);

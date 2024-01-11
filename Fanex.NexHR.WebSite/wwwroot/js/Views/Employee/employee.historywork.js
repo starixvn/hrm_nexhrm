@@ -2,7 +2,7 @@
 
 function initAddHistoryWorkDialog() {
     initDatePicker();
-    var empId = parseInt($('#empId').val());
+    var empId = parseInt($('#EmpId').val());
 
     $('#dialog-history').dialog({
         modal: true,
@@ -27,8 +27,8 @@ function initAddHistoryWorkDialog() {
                             {
                                 EmpId: empId,
                                 AffectedDate: $("#AffectedDate").val(),
-                                GroupName: $("#GroupName").val(),
-                                Jobtitlename: $("#JobtitleName").val(),
+                                GroupId: $("#GroupId").val(),
+                                JobTitleId: $("#JobTitleId").val(),
                             },
                         success: function (){
                             if (data) {
@@ -187,13 +187,12 @@ function query(isFirstLoad) {
     });
 }
 
-function deleteHistoryWork(id,EmpId) {
+function deleteHistoryWork(id) {
     confirm('Are you sure you want to delete this History Work?', function () {
         $.post(_global.root + 'employee/DeleteHistoryWork', { id: id },
             function (response) {
                 if (response.IsSuccessful) {
                     $('#row' + id).remove();
-                    document.location = _global.root + 'employee/workinghistory?employeeId=' + EmpId;
                 }
                 else {
                     alert(response.Message);

@@ -2,7 +2,7 @@
 {
     using Fanex.Data.Repository;
 
-    public class EditHistoryWorkCriteria : CriteriaBase
+    public class GetHistoryWorkByIdCriteria : CriteriaBase
     {
         public int Id { get; set; }
 

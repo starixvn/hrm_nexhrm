@@ -10,17 +10,19 @@
         [DataType(DataType.Date)]
         public DateTime AffectedDate { get; set; }
 
-        public int ModifiedBy { get; set; }
-
         [DataType(DataType.Date)]
         public DateTime ModifiedDate { get; set; }
 
-        public string JobtitleName { get; set; }
+        public int JobTitleId { get; set; }
+
+        public string JobTitleName { get; set; }
+
+        public int GroupId { get; set; }
 
         public string GroupName { get; set; }
 
         public Employee Employee { get; set; }
 
-        public string NickName { get; set; }
+        public string ModifiedBy { get; set; }
     }
 }
