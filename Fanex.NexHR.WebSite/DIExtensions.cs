@@ -145,6 +145,7 @@
             services.AddSingleton<IApplicantService, ApplicantService>();
             services.AddSingleton<ITransferService, TransferService>();
             services.AddSingleton<IPositionService, PositionService>();
+            services.AddSingleton<ICryptoService, CryptoService>();
 
             //API Service
             services.AddSingleton<IBotBioTasksService, BioTasksService>();

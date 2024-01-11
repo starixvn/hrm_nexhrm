@@ -18,5 +18,9 @@
         public string FBUrl { get; set; }
 
         public int FBCompanyId { get; set; }
+
+        public string RSAPublicKeyPath { get; set; }
+        public string RSAPrivateKeyPath { get; set; }
+        public bool EnableEncrypt { get; set; }
     }
 }
