@@ -6,6 +6,8 @@
     {
         public int Id { get; set; }
 
+        public int EmpId { get; set; }
+
         public DateTime AffectedDate { get; set; }
 
         public int ModifiedBy { get; set; }
@@ -21,7 +23,7 @@
 
         public override bool IsValid()
         {
-            return Id > 0;
+            return Id > 0 && EmpId > 0;
         }
     }
 }

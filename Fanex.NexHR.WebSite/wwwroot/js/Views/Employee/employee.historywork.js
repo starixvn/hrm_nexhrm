@@ -36,8 +36,10 @@ function initAddHistoryWorkDialog() {
                                 errorCont.removeClass();
                                 errorCont.html('');
                                 errorCont.addClass('success validation-summary-success');
-                                errorCont.append('Update History Work for Employee successfully!');
-                                document.location = _global.root + 'employee/workinghistory?employeeId=' + empId;
+                                errorCont.append('Insert History Work successfully!');
+                                setTimeout(function () {
+                                    document.location = _global.root + 'employee/workinghistory?employeeId=' + empId;
+                                    query(false); }, 1000);
                             }
                             else {
                                 errorCont.addClass('validation-summary-errors');
@@ -130,8 +132,10 @@ function initEditHistoryWorkDialog() {
 
                                 if (data.IsSuccessful) {
                                     errorCont.addClass('success validation-summary-success');
-                                    errorCont.append('Update History Work for Employee successfully');
-                                    document.location = _global.root + 'employee/workinghistory?employeeId=' + empId;
+                                    errorCont.append('Update History Work successfully');
+                                    setTimeout(function () {
+                                        document.location = _global.root + 'employee/workinghistory?employeeId=' + empId;
+                                        query(false); }, 1000);
                                 }
                                 else {
                                     var errors = '<ul><li>' + data.Message + '</li></ul>';
