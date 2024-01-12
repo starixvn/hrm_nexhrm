@@ -216,9 +216,12 @@
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> InsertHistoryWork(int empId)
         {
+            var employee = await employeeService.GetEmployeeById(new GetEmployeeByIdCriteria { EmployeeId = empId });
             var history = new CreateHistoryWorkViewModel
             {
                 EmpId = empId,
+                GroupId = employee.Team.Id,
+                JobTitleId = employee.JobTitle.Id,
                 Teams = await teamService.GetTeam(),
                 JobTitles = await jobTitleService.GetJobTitle(new GetJobTitleCriteria { JobTitle = "" }),
             };

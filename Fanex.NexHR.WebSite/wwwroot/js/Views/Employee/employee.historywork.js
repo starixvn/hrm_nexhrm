@@ -67,7 +67,7 @@ function initialize() {
     $('#btnInsertHistoryWork').click(function () {
         $.ajax({
             type: 'GET',
-            url: _global.root + 'employee/InsertHistoryWork?employeeId=' + empId,
+            url: _global.root + 'employee/InsertHistoryWork?empId=' + empId,
             dataType: 'html',
             success: function (data) {
                 $('#dialog-history').html(data);
@@ -100,7 +100,7 @@ function editHistoryWork(id) {
 function initEditHistoryWorkDialog() {
 
     initDatePicker();
-    var empId = parseInt($('#empId').val());
+    var empId = parseInt($('#EmpId').val());
     $('#dialog-histtory-update').dialog({
         modal: true,
         width: 'auto',
