@@ -40,13 +40,14 @@
                 <tr id="row@(item.Id)" style="@hightlight">
                     <td>@(index++)</td>
                     <td class="align-left">
-                        <a href="@Url.Action("Detail", "Applicants", new { id = item.Id })">@item.FullName</a></td>
+                        <a href="@Url.Action("Detail", "Applicants", new { id = item.Id })">@item.FullName</a>
+                    </td>
                     <td>@item.Phone</td>
                     <td class="align-left">@item.Email</td>
                     <td class="align-left">@item.Position</td>
-                    <td>@item.InterviewDate1.ToFormatedDate()</td>
+                    <td>@item.InterviewDate1.ToDateMonthYearFormatedDate()</td>
                     <td>@item.ResultName1</td>
-                    <td>@item.InterviewDate2.ToFormatedDate()</td>
+                    <td>@item.InterviewDate2.ToDateMonthYearFormatedDate()</td>
                     <td>@item.ResultName2</td>
                     <td>@item.JoinDate.ToDateMonthYearFormatedDate()</td>
                     <td class="align-left">@item.Note</td>

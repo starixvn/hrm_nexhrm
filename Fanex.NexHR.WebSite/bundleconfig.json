@@ -1117,7 +1117,7 @@
         "inputFiles": [
             "wwwroot/js/Libs/jquery.validate.unobtrusive.js",
             "wwwroot/js/Libs/jquery.unobtrusive-ajax.js",
-            "wwwroot/js/Views/Applicant/position.js"
+            "wwwroot/js/Views/Position/position.js"
         ],
         "minify": {
             "enabled": true,

@@ -78,7 +78,7 @@
                                         <label>@Labels.Email</label>
                                     </div>
                                     <div class="left input--m">
-                                        <input asp-for="@Model.Email" type="email"/>
+                                        <input asp-for="@Model.Email" type="email" />
                                     </div>
                                 </div>
                             </div>
@@ -306,7 +306,7 @@
                                         <label>@Labels.ResumeFile</label>
                                     </div>
                                     <div class="left file-input">
-                                        <input type="file" name="FileUpload" class="file-upload @(!string.IsNullOrEmpty(Model.Resume) ? "selected-file" : "")" asp-for="FileUpload" accept=".pdf,.doc,.docx,.png,.jpeg"/>
+                                        <input type="file" name="FileUpload" class="file-upload @(!string.IsNullOrEmpty(Model.Resume) ? "selected-file" : "")" asp-for="FileUpload" accept=".pdf,.doc,.docx,.png,.jpeg" />
                                         @if (!string.IsNullOrEmpty(Model.Resume))
                                         {
                                             string resumeUrl = $"{dirCV}/{Model.Resume}";
@@ -316,7 +316,7 @@
                                                 </a>
                                                 <i class="mdi mdi-delete mdi-dark mdi-18px delete-resume"></i>
                                             </div>
-                                            <input type="hidden" asp-for="@Model.Resume"/>
+                                            <input type="hidden" asp-for="@Model.Resume" />
                                         }
                                     </div>
                                 </div>

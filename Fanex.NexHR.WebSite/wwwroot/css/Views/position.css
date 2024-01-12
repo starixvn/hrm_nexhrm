@@ -1,6 +1,7 @@
 ﻿table input[type="checkbox"] + label {
   height: initial;
-  padding-top: 12px; }
+  padding-top: 12px;
+  cursor: default; }
 
 @media (max-width: 1024px) {
   .group-button {

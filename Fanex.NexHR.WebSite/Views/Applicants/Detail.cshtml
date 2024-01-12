@@ -2,7 +2,8 @@
 @using Fanex.NexHR.ViewModels.Applicant
 @using Fanex.NexHR.Core.Enums
 @using Fanex.NexHR.Services.Interfaces
-@model EditApplicantViewModel
+@using Fanex.NexHR.Core
+@model DetailApplicantViewModel
 
 @{
     ViewBag.Title = Labels.Applicants;
@@ -12,20 +13,10 @@
 
 @section Styles {
     <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
-    <link rel="stylesheet" href="~/minify/css/conversationmanagement.min.css" asp-append-version="true">
     <link rel="stylesheet" href="~/css/Views/applicant.min.css" asp-append-version="true">
 }
-@section Scripts {
-    <environment include="Development">
-        <script src="~/js/Libs/select2.js" asp-append-version="true"></script>
-        <script src="~/js/Views/Applicant/applicant.edit.js" asp-append-version="true"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="~/minify/js/applicantedit.min.js" asp-append-version="true"></script>
-    </environment>
-}
 
-<div class="row content">
+<div class="row content applicant-detail">
     <div class="col s12 card-container-base over-auto">
         <div class="card">
             <div class="card-content">
@@ -34,291 +25,264 @@
                 </div>
                 <div class="card-body">
                     <div class="form form-stl-table">
-                        <div>
-                            <div class="row form-input">
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.FullName</label>
-                                    </div>
-                                    <div class="left input--m">
-                                        @Model.FullName
-                                    </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.FullName:</label>
                                 </div>
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.Position</label>
-                                    </div>
-                                    <div class="left select--m">
-                                    @{
-                                        var position = Model.Positions.FirstOrDefault(p => p.PositionId == @Model.PositionId);
-                                        <div>@position?.PositionName</div>
-                                    }
-                                    </div>
+                                <div class="left input--m">
+                                    @Model.FullName
                                 </div>
                             </div>
-                            <div class="row form-input">
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.Phone</label>
-                                    </div>
-                                    <div class="left input--m">
-                                        @Model.Phone
-                                    </div>
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.Position:</label>
                                 </div>
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.Email</label>
-                                    </div>
-                                    <div class="left input--m">
-                                        @Model.Email
-                                    </div>
+                                <div class="left select--m">
+                                    @Model.Position
                                 </div>
                             </div>
-                            <div class="row form-input">
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.DoB</label>
-                                    </div>
-                                    <div class="left datepicker-button select--m">
-                                        @Model.DOB.ToString("dd MMM, yyyy")
-                                    </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.Phone:</label>
                                 </div>
+                                <div class="left input--m">
+                                    @Model.Phone
+                                </div>
+                            </div>
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.Email:</label>
+                                </div>
+                                <div class="left input--m">
+                                    @Model.Email
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.DoB:</label>
+                                </div>
+                                <div class="left datepicker-button select--m">
+                                    @Model.DOB.ToDateMonthYearFormatedDate()
+                                </div>
+                            </div>
 
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.YearsOfExperience</label>
-                                    </div>
-                                    <div class="left input--m">
-                                        @Model.YearsOfExperience
-                                    </div>
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.YearsOfExperience:</label>
+                                </div>
+                                <div class="left input--m">
+                                    @Model.YearsOfExperience
                                 </div>
                             </div>
-                            <div class="row form-input">
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.ApplyDate</label>
-                                    </div>
-                                    <div class="left datepicker-button select--m">
-                                        @Model.ApplyDate.ToString("dd MMM, yyyy")
-                                    </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.ApplyDate:</label>
                                 </div>
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.ProfessionalLevel</label>
-                                    </div>
-                                    <div class="left select--m">
-                                        <select asp-for="ProfessionalLevel" asp-items="@Model.ProLevelList">
-                                            <option value=""></option>
-                                        </select>
-                                        @* @{
-                                            var professionalLevel = Model.ProLevelList.FirstOrDefault(p => p.Text == @Model.ProfessionalLevel);
-                                            if (professionalLevel != null)
-                                            {
-                                                <div>@professionalLevel.text</div>
-                                            }
-                                        } *@
-                                    </div>
+                                <div class="left datepicker-button select--m">
+                                    @Model.ApplyDate.ToDateMonthYearFormatedDate()
                                 </div>
                             </div>
-                            <div class="row form-input">
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.ProfessionalMajor</label>
-                                    </div>
-                                    <div class="left input--m">
-                                        @Model.ProfessionalMajor
-                                    </div>
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.ProfessionalLevel:</label>
                                 </div>
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.CVStatus</label>
-                                    </div>
-                                    <div class="left select--m">
-                                        <select asp-for="Status" asp-items="@Model.StatusList">
-                                            <option value=""></option>
-                                        </select>
-                                        @{
-                                        var status = Model.StatusList.FirstOrDefault(p => p.Value == @Model.Status.ToString());
-                                        if (status != null)
-                                        {
-                                            <div>@status</div>
-                                        }
+                                <div class="left select--m">
+                                    @Model.ProfessionalLevel
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.ProfessionalMajor:</label>
+                                </div>
+                                <div class="left input--m">
+                                    @Model.ProfessionalMajor
+                                </div>
+                            </div>
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.CVStatus:</label>
+                                </div>
+                                <div class="left select--m">
+                                    @Model.Status
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.InterviewDate1:</label>
+                                </div>
+                                <div class="left select--m">
+                                    @if (Model.InterviewDate1 != null)
+                                    {
+                                        @Model.InterviewDate1.ToDateMonthYearFormatedDate()
                                     }
-                                    </div>
                                 </div>
                             </div>
-                            <div class="row form-input">
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.InterviewDate1</label>
-                                    </div>
-                                    <div class="left datepicker-button select--m">
-                                        @* @Model.InterviewDate1 ? @Model.InterviewDate1.ToString("dd MMM, yyyy") *@
-                                    </div>
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.Result1</label>
                                 </div>
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.Result1</label>
-                                    </div>
-                                    <div class="left select--m">
-                                        <select asp-for="Result1" asp-items="@Model.ResultList">
-                                            <option value=""></option>
-                                        </select>
-                                    </div>
+                                <div class="left select--m">
+                                    @Model.Result1
                                 </div>
                             </div>
-                            <div class="row form-input">
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.InterviewDate2</label>
-                                    </div>
-                                    <div class="left datepicker-button select--m">
-                                        <date-picker name="InterviewDate2" value="@Model.InterviewDate2">
-                                        </date-picker>
-                                        <i class="mdi-action-event calendar-icon left"></i>
-                                    </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.InterviewDate2:</label>
                                 </div>
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.Result2</label>
-                                    </div>
-                                    <div class="left select--m">
-                                        <select asp-for="Result2" asp-items="@Model.ResultList">
-                                            <option value=""></option>
-                                        </select>
-                                    </div>
+                                <div class="left datepicker-button select--m">
+                                    @if (Model.InterviewDate2 != null)
+                                    {
+                                        @Model.InterviewDate2.ToDateMonthYearFormatedDate()
+                                    }
                                 </div>
                             </div>
-                            <div class="row form-input">
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.JoinDate</label>
-                                    </div>
-                                    <div class="left datepicker-button select--m">
-                                        <date-picker name="JoinDate" value="@Model.JoinDate">
-                                        </date-picker>
-                                        <i class="mdi-action-event calendar-icon left"></i>
-                                    </div>
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.Result2:</label>
                                 </div>
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.Source</label>
-                                    </div>
-                                    <div class="left select--m">
-                                        <select asp-for="Source" asp-items="@Model.SourceList">
-                                            <option value=""></option>
-                                        </select>
-                                    </div>
+                                <div class="left select--m">
+                                    @Model.Result2
                                 </div>
                             </div>
-                            <div class="row form-input">
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.Recruiter</label>
-                                    </div>
-                                    <div class="left input--m">
-                                        <input asp-for="@Model.Recruiter" />
-                                        <input type="hidden" asp-for="Recruiter" />
-                                        <input type="hidden" asp-for="RecruiterId" />
-                                    </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.JoinDate:</label>
                                 </div>
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.Grade</label>
-                                    </div>
-                                    <div class="left input--m">
-                                        <select asp-for="Grade" asp-items="@Model.GradeList">
-                                            <option value=""></option>
-                                        </select>
-                                    </div>
+                                <div class="left datepicker-button select--m">
+                                    @if (Model.JoinDate != null)
+                                    {
+                                        @Model.JoinDate.ToDateMonthYearFormatedDate()
+                                    }
                                 </div>
                             </div>
-                            <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.Source:</label>
+                                </div>
+                                <div class="left select--m">
+                                    @Model.Source
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.Recruiter:</label>
+                                </div>
+                                <div class="left input--m">
+                                    @Model.Recruiter
+                                </div>
+                            </div>
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.Grade:</label>
+                                </div>
+                                <div class="left input--m">
+                                    @Model.Grade
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.EducationBackground:</label>
+                                </div>
+                                <div class="left input--l">
+                                    @Model.EducationBackground
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.Interviewers:</label>
+                                </div>
+                                <div class="left input--l">
+                                    <select asp-for="InterviewerIds" asp-items="@Model.Employees" class="select-2 disabled"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.InterviewerCmt:</label>
+                                </div>
+                                <div class="left input--l">
+                                    @Model.InterviewerComment
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.Note:</label>
+                                </div>
+                                <div class="left input--l">
+                                    @Model.Note
+                                </div>
+                            </div>
+                        </div>
+                        @if (isManager)
+                        {
+                            <div class="row form-input form-salary">
                                 <div class="col m-r--m">
                                     <div class="left label--mxxl">
-                                        <label>@Labels.EducationBackground</label>
+                                        <label>@Labels.FinalCmt:</label>
                                     </div>
                                     <div class="left input--l">
-                                        <input asp-for="@Model.EducationBackground" />
+                                        @Model.FinalComment
                                     </div>
                                 </div>
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.Interviewers</label>
-                                    </div>
-                                    <div class="left input--l">
-                                        <select asp-for="InterviewerIds" asp-items="@Model.Employees" class="select-2 disabled"></select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row form-input">
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.InterviewerCmt</label>
-                                    </div>
-                                    <div class="left input--l">
-                                        <textarea asp-for="@Model.InterviewerComment" class="materialize-textarea" value="@Model.InterviewerComment"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.Note</label>
-                                    </div>
-                                    <div class="left input--l">
-                                        <textarea asp-for="@Model.Note" class="materialize-textarea" value="@Model.Note"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            @if (isManager)
-                            {
-                                <div class="row form-input form-salary">
+                                <div class="group-salary">
                                     <div class="col m-r--m">
                                         <div class="left label--mxxl">
-                                            <label>@Labels.FinalCmt</label>
+                                            <label>@Labels.ExpectedSalary:</label>
                                         </div>
-                                        <div class="left input--l">
-                                            <textarea asp-for="@Model.FinalComment" class="materialize-textarea" value="@Model.FinalComment"></textarea>
+                                        <div class="left input--m">
+                                            @Model.ExpectedSalary
                                         </div>
                                     </div>
-                                    <div class="group-salary">
-                                        <div class="col m-r--m">
-                                            <div class="left label--mxxl">
-                                                <label>@Labels.ExpectedSalary</label>
-                                            </div>
-                                            <div class="left input--m">
-                                                <input asp-for="@Model.ExpectedSalary" />
-                                            </div>
+                                    <div class="col m-r--m">
+                                        <div class="left label--mxxl">
+                                            <label>@Labels.OfferedSalary:</label>
                                         </div>
-                                        <div class="col m-r--m">
-                                            <div class="left label--mxxl">
-                                                <label>@Labels.OfferedSalary</label>
-                                            </div>
-                                            <div class="left input--m">
-                                                <input asp-for="@Model.OfferSalary" />
-                                            </div>
+                                        <div class="left input--m">
+                                            @Model.OfferSalary
                                         </div>
                                     </div>
                                 </div>
-                            }
-                            <div class="row form-input form-file">
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.ResumeFile</label>
-                                    </div>
-                                    <div class="left file-input">
-                                        <input type="file" name="FileUpload" class="file-upload @(!string.IsNullOrEmpty(Model.Resume) ? "selected-file" : "")" asp-for="FileUpload" accept=".pdf,.doc,.docx,.png,.jpeg"/>
-                                        @if (!string.IsNullOrEmpty(Model.Resume))
-                                        {
-                                            string resumeUrl = $"{dirCV}/{Model.Resume}";
-                                            <div class="resume-container">
-                                                <a href="@resumeUrl">
-                                                    @Model.Resume
-                                                </a>
-                                                <i class="mdi mdi-delete mdi-dark mdi-18px delete-resume"></i>
-                                            </div>
-                                            <input type="hidden" asp-for="@Model.Resume"/>
-                                        }
-                                    </div>
+                            </div>
+                        }
+                        <div class="row form-input form-file">
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.ResumeFile:</label>
+                                </div>
+                                <div class="left file-input">
+                                    @if (!string.IsNullOrEmpty(Model.Resume))
+                                    {
+                                        string resumeUrl = $"{dirCV}/{Model.Resume}";
+                                        <div class="resume-container">
+                                            <a href="@resumeUrl">
+                                                @Model.Resume
+                                            </a>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -328,3 +292,13 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('.resume-container a').on('click', function (e) {
+            e.preventDefault();
+            var newLocation = $(this).attr('href');
+            window.location.href = new URL(newLocation, window.location.origin);
+        });
+    });
+</script>

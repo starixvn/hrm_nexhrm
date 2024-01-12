@@ -18,6 +18,7 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Criteria.Employee;
     using Microsoft.AspNetCore.Http;
     using Fanex.NexHR.Criteria.Position;
+    using Fanex.NexHR.Services;
 
     public class ApplicantsController : BaseController
     {
@@ -25,6 +26,7 @@ namespace Fanex.NexHR.Controllers
         private readonly IWebHostEnvironment environment;
         private readonly IApplicantService applicantService;
         private readonly IPositionService positionService;
+        private readonly ICryptoService cryptoService;
         private readonly IEmployeeService employeeService;
         private const string UploadsFilePath = "file/uploads/cv";
 
@@ -33,12 +35,14 @@ namespace Fanex.NexHR.Controllers
             IWebHostEnvironment environment,
             IApplicantService applicantService,
             IPositionService positionService,
+            ICryptoService cryptoService,
             IEmployeeService employeeService) : base(sessionService)
         {
             this.baseService = baseService;
             this.environment = environment;
             this.applicantService = applicantService;
             this.positionService = positionService;
+            this.cryptoService = cryptoService;
             this.employeeService = employeeService;
         }
 
@@ -121,7 +125,6 @@ namespace Fanex.NexHR.Controllers
             }
         }
 
-        
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Detail(int id)
         {
@@ -139,19 +142,47 @@ namespace Fanex.NexHR.Controllers
                 PageNumber = 1
             });
 
-            EditApplicantViewModel applicant = await applicantService.GetById(criteria);
+            var applicant = await applicantService.GetById(criteria);
+            var positions = await GetPositions();
+            var statusList = GetStatusList();
+            var InterviewerIds = !string.IsNullOrEmpty(applicant.InterviewerIdString) ? applicant.InterviewerIdString.Split(',').Select(int.Parse).ToArray() : null;
+
+            var model = new DetailApplicantViewModel();
+
             if (applicant != null)
             {
-                applicant.Positions = await GetPositions();
-                applicant.StatusList = GetStatusList();
-                applicant.Recruiter = applicant.NickNameRecruiter + (string.IsNullOrWhiteSpace(applicant.FullNameRecruiter) ? string.Empty : " (" + applicant.FullNameRecruiter + ")");
-                applicant.InterviewerIds = !string.IsNullOrEmpty(applicant.InterviewerIdString) ? applicant.InterviewerIdString.Split(',').Select(int.Parse).ToArray() : null;
-                applicant.Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName));
+                model.FullName = applicant.FullName;
+                model.Phone = applicant.Phone;
+                model.DOB = applicant.DOB;
+                model.Email = applicant.Email;
+                model.YearsOfExperience = applicant.YearsOfExperience;
+                model.ApplyDate = applicant.ApplyDate;
+                model.ProfessionalMajor = applicant.ProfessionalMajor;
+                model.InterviewDate1 = applicant.InterviewDate1;
+                model.InterviewDate2 = applicant.InterviewDate2;
+                model.JoinDate = applicant.JoinDate;
+                model.EducationBackground = applicant.EducationBackground;
+                model.InterviewerComment = applicant.InterviewerComment;
+                model.Note = applicant.Note;
+                model.FinalComment = applicant.FinalComment;
+                model.OfferSalary = applicant.OfferSalary != null
+                                        ? cryptoService.RsaDecrypt(applicant.OfferSalary) : null;
+                model.ExpectedSalary = applicant.ExpectedSalary != null
+                                        ? cryptoService.RsaDecrypt(applicant.ExpectedSalary) : null;
+                model.Recruiter = applicant.NickNameRecruiter + (string.IsNullOrWhiteSpace(applicant.FullNameRecruiter) ? string.Empty : " (" + applicant.FullNameRecruiter + ")");
+                model.Position = positions.FirstOrDefault(p => p.PositionId == applicant.PositionId).PositionName;
+                model.Status = applicant.Status != null ? statusList.FirstOrDefault(p => p.Value == applicant.Status.ToString()).Text : null;
+                model.ProfessionalLevel = applicant.ProfessionalLevel != null
+                ? applicant.ProLevelList.FirstOrDefault(p => p.Value == applicant.ProfessionalLevel.ToString()).Text : null;
+                model.Result1 = applicant.Result1 != null ? applicant.ResultList.FirstOrDefault(p => p.Value == applicant.Result1.ToString()).Text : null;
+                model.Result2 = applicant.Result2 != null ? applicant.ResultList.FirstOrDefault(p => p.Value == applicant.Result2.ToString()).Text : null;
+                model.Source = applicant.Source != null ? applicant.SourceList.FirstOrDefault(p => p.Value == applicant.Source.ToString()).Text : null;
+                model.Grade = applicant.Grade != null ? applicant.GradeList.FirstOrDefault(p => p.Value == applicant.Grade.ToString()).Text : null;
             }
 
             ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.IsLeaderHR;
 
-            return View(applicant);
+            return View(model);
         }
 
         [HrmAuthorize(UserRoles = "HR")]
@@ -211,8 +242,10 @@ namespace Fanex.NexHR.Controllers
                         Grade = model.Grade,
                         Note = model.Note,
                         InterviewerIds = model.InterviewerIds != null ? string.Join(",", model.InterviewerIds) : null,
-                        ExpectedSalary = model.ExpectedSalary,
-                        OfferSalary = model.OfferSalary,
+                        ExpectedSalary = model.ExpectedSalary != null
+                                        ? cryptoService.RsaEncrypt(model.ExpectedSalary) : null,
+                        OfferSalary = model.OfferSalary != null
+                                        ? cryptoService.RsaEncrypt(model.OfferSalary) : null,
                         FinalComment = model.FinalComment,
                         CreatedBy = CurrentUser.Id
                     };
@@ -257,6 +290,8 @@ namespace Fanex.NexHR.Controllers
             EditApplicantViewModel applicant = await applicantService.GetById(criteria);
             if (applicant != null)
             {
+                applicant.OfferSalary = applicant.OfferSalary != null ? cryptoService.RsaDecrypt(applicant.OfferSalary) : null;
+                applicant.ExpectedSalary = applicant.ExpectedSalary != null ? cryptoService.RsaDecrypt(applicant.ExpectedSalary) : null;
                 applicant.Positions = await GetPositions();
                 applicant.StatusList = GetStatusList();
                 applicant.Recruiter = applicant.NickNameRecruiter + (string.IsNullOrWhiteSpace(applicant.FullNameRecruiter) ? string.Empty : " (" + applicant.FullNameRecruiter + ")");
@@ -305,8 +340,8 @@ namespace Fanex.NexHR.Controllers
                         Grade = model.Grade,
                         Note = model.Note,
                         InterviewerIds = model.InterviewerIds != null ? string.Join(",", model.InterviewerIds) : null,
-                        ExpectedSalary = model.ExpectedSalary,
-                        OfferSalary = model.OfferSalary,
+                        ExpectedSalary = model.ExpectedSalary != null ? cryptoService.RsaEncrypt(model.ExpectedSalary) : null,
+                        OfferSalary = model.OfferSalary != null ? cryptoService.RsaEncrypt(model.OfferSalary) : null,
                         FinalComment = model.FinalComment
                     };
 
