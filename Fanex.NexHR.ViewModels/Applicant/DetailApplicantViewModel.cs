@@ -55,8 +55,6 @@
 
         public string Note { get; set; }
 
-        public int[] InterviewerIds { get; set; }
-
         public string OfferSalary { get; set; }
 
         public string ExpectedSalary { get; set; }

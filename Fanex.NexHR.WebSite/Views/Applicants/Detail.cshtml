@@ -213,7 +213,7 @@
                                     <label>@Labels.Interviewers:</label>
                                 </div>
                                 <div class="left input--l">
-                                    <select asp-for="InterviewerIds" asp-items="@Model.Employees" class="select-2 disabled"></select>
+                                    @Model.Interviewer
                                 </div>
                             </div>
                         </div>
@@ -293,6 +293,7 @@
     </div>
 </div>
 
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
         $('.resume-container a').on('click', function (e) {

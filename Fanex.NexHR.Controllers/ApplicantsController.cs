@@ -145,10 +145,11 @@ namespace Fanex.NexHR.Controllers
             var applicant = await applicantService.GetById(criteria);
             var positions = await GetPositions();
             var statusList = GetStatusList();
-            var InterviewerIds = !string.IsNullOrEmpty(applicant.InterviewerIdString) ? applicant.InterviewerIdString.Split(',').Select(int.Parse).ToArray() : null;
-
+            List<int> InterviewerIds = applicant.InterviewerIdString?.Split(',').Select(int.Parse).ToList();
+            List<string> employeeNicknames = InterviewerIds != null
+                ? employees.Where(emp => InterviewerIds.Contains(emp.Id)).Select(emp => emp.NickName).ToList()
+                : new List<string>();
             var model = new DetailApplicantViewModel();
-
             if (applicant != null)
             {
                 model.FullName = applicant.FullName;
@@ -178,6 +179,8 @@ namespace Fanex.NexHR.Controllers
                 model.Result2 = applicant.Result2 != null ? applicant.ResultList.FirstOrDefault(p => p.Value == applicant.Result2.ToString()).Text : null;
                 model.Source = applicant.Source != null ? applicant.SourceList.FirstOrDefault(p => p.Value == applicant.Source.ToString()).Text : null;
                 model.Grade = applicant.Grade != null ? applicant.GradeList.FirstOrDefault(p => p.Value == applicant.Grade.ToString()).Text : null;
+                model.Interviewer = employeeNicknames != null ? string.Join(", ", employeeNicknames) : null;
+                model.Resume = applicant.Resume;
             }
 
             ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.IsLeaderHR;
