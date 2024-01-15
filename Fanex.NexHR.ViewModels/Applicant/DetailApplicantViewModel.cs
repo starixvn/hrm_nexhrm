@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.ViewModels.Applicant
 {
     using System;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class DetailApplicantViewModel
     {

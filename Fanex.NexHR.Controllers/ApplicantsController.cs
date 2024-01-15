@@ -133,22 +133,10 @@ namespace Fanex.NexHR.Controllers
                 ApplicantId = id
             };
 
-            var employees = await employeeService.Query(new GetEmployeeCriteria
-            {
-                Query = string.Empty,
-                IsDelete = false,
-                IsDisable = false,
-                PageSize = int.MaxValue,
-                PageNumber = 1
-            });
-
             var applicant = await applicantService.GetById(criteria);
             var positions = await GetPositions();
             var statusList = GetStatusList();
-            List<int> InterviewerIds = applicant.InterviewerIdString?.Split(',').Select(int.Parse).ToList();
-            List<string> employeeNicknames = InterviewerIds != null
-                ? employees.Where(emp => InterviewerIds.Contains(emp.Id)).Select(emp => emp.NickName).ToList()
-                : new List<string>();
+           
             var model = new DetailApplicantViewModel();
             if (applicant != null)
             {
@@ -171,21 +159,45 @@ namespace Fanex.NexHR.Controllers
                 model.ExpectedSalary = applicant.ExpectedSalary != null
                                         ? cryptoService.RsaDecrypt(applicant.ExpectedSalary) : null;
                 model.Recruiter = applicant.NickNameRecruiter + (string.IsNullOrWhiteSpace(applicant.FullNameRecruiter) ? string.Empty : " (" + applicant.FullNameRecruiter + ")");
-                model.Position = positions.FirstOrDefault(p => p.PositionId == applicant.PositionId).PositionName;
-                model.Status = applicant.Status != null ? statusList.FirstOrDefault(p => p.Value == applicant.Status.ToString()).Text : null;
+                model.Position = positions.Find(p => p.PositionId == applicant.PositionId).PositionName;
+                model.Status = applicant.Status != null ? statusList.Find(p => p.Value == applicant.Status.ToString()).Text : null;
                 model.ProfessionalLevel = applicant.ProfessionalLevel != null
-                ? applicant.ProLevelList.FirstOrDefault(p => p.Value == applicant.ProfessionalLevel.ToString()).Text : null;
-                model.Result1 = applicant.Result1 != null ? applicant.ResultList.FirstOrDefault(p => p.Value == applicant.Result1.ToString()).Text : null;
-                model.Result2 = applicant.Result2 != null ? applicant.ResultList.FirstOrDefault(p => p.Value == applicant.Result2.ToString()).Text : null;
-                model.Source = applicant.Source != null ? applicant.SourceList.FirstOrDefault(p => p.Value == applicant.Source.ToString()).Text : null;
-                model.Grade = applicant.Grade != null ? applicant.GradeList.FirstOrDefault(p => p.Value == applicant.Grade.ToString()).Text : null;
-                model.Interviewer = employeeNicknames != null ? string.Join(", ", employeeNicknames) : null;
+                ? applicant.ProLevelList.Find(p => p.Value == applicant.ProfessionalLevel.ToString()).Text : null;
+                model.Result1 = applicant.Result1 != null ? applicant.ResultList.Find(p => p.Value == applicant.Result1.ToString()).Text : null;
+                model.Result2 = applicant.Result2 != null ? applicant.ResultList.Find(p => p.Value == applicant.Result2.ToString()).Text : null;
+                model.Source = applicant.Source != null ? applicant.SourceList.Find(p => p.Value == applicant.Source.ToString()).Text : null;
+                model.Grade = applicant.Grade != null ? applicant.GradeList.Find(p => p.Value == applicant.Grade.ToString()).Text : null;
+                model.Interviewer = await GetInterviewerNames(applicant.InterviewerIdString);
                 model.Resume = applicant.Resume;
             }
 
             ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.IsLeaderHR;
 
             return View(model);
+        }
+
+       private async Task<string> GetInterviewerNames(string interviewerIdString)
+        {
+            if (interviewerIdString == null)
+            {
+                return null;
+            }
+
+            var employees = await employeeService.Query(new GetEmployeeCriteria
+            {
+                Query = string.Empty,
+                IsDelete = false,
+                IsDisable = false,
+                PageSize = int.MaxValue,
+                PageNumber = 1
+            });
+
+            var interviewerIds = interviewerIdString.Split(',').Select(int.Parse).ToList();
+            var employeeNicknames = interviewerIds != null
+                ? employees.Where(emp => interviewerIds.Contains(emp.Id)).Select(emp => emp.NickName).ToList()
+                : new List<string>();
+
+            return string.Join(", ", employeeNicknames);
         }
 
         [HrmAuthorize(UserRoles = "HR")]
@@ -215,54 +227,51 @@ namespace Fanex.NexHR.Controllers
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Create(CreateApplicantViewModel model)
         {
-            if (model != null)
+            if (model != null && ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                var cv = await UploadFileAsync(model.FileUpload);
+                var criteria = new InsertApplicantCriteria
                 {
-                    var cv = await UploadFileAsync(model.FileUpload);
-                    var criteria = new InsertApplicantCriteria
-                    {
-                        FullName = model.FullName,
-                        PositionId = model.PositionId,
-                        Phone = model.Phone,
-                        Email = model.Email,
-                        ApplyDate = model.ApplyDate,
-                        YearsOfExperience = model.YearsOfExperience,
-                        DOB = model.DOB,
-                        ProfessionalLevel = model.ProfessionalLevel,
-                        ProfessionalMajor = model.ProfessionalMajor,
-                        Status = model.Status,
-                        Resume = cv,
-                        InterviewDate1 = model.InterviewDate1,
-                        Result1 = model.Result1,
-                        InterviewDate2 = model.InterviewDate2,
-                        Result2 = model.Result2,
-                        JoinDate = model.JoinDate,
-                        Source = model.Source,
-                        RecruiterId = model.RecruiterId,
-                        EducationBackground = model.EducationBackground,
-                        InterviewerComment = model.InterviewerComment,
-                        Grade = model.Grade,
-                        Note = model.Note,
-                        InterviewerIds = model.InterviewerIds != null ? string.Join(",", model.InterviewerIds) : null,
-                        ExpectedSalary = model.ExpectedSalary != null
-                                        ? cryptoService.RsaEncrypt(model.ExpectedSalary) : null,
-                        OfferSalary = model.OfferSalary != null
-                                        ? cryptoService.RsaEncrypt(model.OfferSalary) : null,
-                        FinalComment = model.FinalComment,
-                        CreatedBy = CurrentUser.Id
-                    };
+                    FullName = model.FullName,
+                    PositionId = model.PositionId,
+                    Phone = model.Phone,
+                    Email = model.Email,
+                    ApplyDate = model.ApplyDate,
+                    YearsOfExperience = model.YearsOfExperience,
+                    DOB = model.DOB,
+                    ProfessionalLevel = model.ProfessionalLevel,
+                    ProfessionalMajor = model.ProfessionalMajor,
+                    Status = model.Status,
+                    Resume = cv,
+                    InterviewDate1 = model.InterviewDate1,
+                    Result1 = model.Result1,
+                    InterviewDate2 = model.InterviewDate2,
+                    Result2 = model.Result2,
+                    JoinDate = model.JoinDate,
+                    Source = model.Source,
+                    RecruiterId = model.RecruiterId,
+                    EducationBackground = model.EducationBackground,
+                    InterviewerComment = model.InterviewerComment,
+                    Grade = model.Grade,
+                    Note = model.Note,
+                    InterviewerIds = model.InterviewerIds != null ? string.Join(",", model.InterviewerIds) : null,
+                    ExpectedSalary = model.ExpectedSalary != null
+                                    ? cryptoService.RsaEncrypt(model.ExpectedSalary) : null,
+                    OfferSalary = model.OfferSalary != null
+                                    ? cryptoService.RsaEncrypt(model.OfferSalary) : null,
+                    FinalComment = model.FinalComment,
+                    CreatedBy = CurrentUser.Id
+                };
 
-                    CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
 
-                    if (result.IsSuccessful)
-                    {
-                        ViewBag.Inserted = true;
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, result.Message);
-                    }
+                if (result.IsSuccessful)
+                {
+                    ViewBag.Inserted = true;
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
                 }
 
                 ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.IsLeaderHR;
@@ -311,53 +320,49 @@ namespace Fanex.NexHR.Controllers
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Edit(EditApplicantViewModel model)
         {
-            if (model != null)
+            if (model != null && ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                var cv = model.FileUpload != null ? await UploadFileAsync(model.FileUpload) : model.Resume;
+                var criteria = new UpdateApplicantCriteria
                 {
-                    var cv = model.FileUpload != null ? await UploadFileAsync(model.FileUpload) : model.Resume;
+                    Id = model.Id,
+                    FullName = model.FullName,
+                    PositionId = model.PositionId,
+                    Phone = model.Phone,
+                    Email = model.Email,
+                    ApplyDate = model.ApplyDate,
+                    YearsOfExperience = model.YearsOfExperience,
+                    DOB = model.DOB,
+                    ProfessionalLevel = model.ProfessionalLevel,
+                    ProfessionalMajor = model.ProfessionalMajor,
+                    Status = model.Status,
+                    Resume = cv,
+                    InterviewDate1 = model.InterviewDate1,
+                    Result1 = model.Result1,
+                    InterviewDate2 = model.InterviewDate2,
+                    Result2 = model.Result2,
+                    JoinDate = model.JoinDate,
+                    Source = model.Source,
+                    RecruiterId = model.RecruiterId,
+                    EducationBackground = model.EducationBackground,
+                    InterviewerComment = model.InterviewerComment,
+                    Grade = model.Grade,
+                    Note = model.Note,
+                    InterviewerIds = model.InterviewerIds != null ? string.Join(",", model.InterviewerIds) : null,
+                    ExpectedSalary = model.ExpectedSalary != null ? cryptoService.RsaEncrypt(model.ExpectedSalary) : null,
+                    OfferSalary = model.OfferSalary != null ? cryptoService.RsaEncrypt(model.OfferSalary) : null,
+                    FinalComment = model.FinalComment
+                };
 
-                    var criteria = new UpdateApplicantCriteria
-                    {
-                        Id = model.Id,
-                        FullName = model.FullName,
-                        PositionId = model.PositionId,
-                        Phone = model.Phone,
-                        Email = model.Email,
-                        ApplyDate = model.ApplyDate,
-                        YearsOfExperience = model.YearsOfExperience,
-                        DOB = model.DOB,
-                        ProfessionalLevel = model.ProfessionalLevel,
-                        ProfessionalMajor = model.ProfessionalMajor,
-                        Status = model.Status,
-                        Resume = cv,
-                        InterviewDate1 = model.InterviewDate1,
-                        Result1 = model.Result1,
-                        InterviewDate2 = model.InterviewDate2,
-                        Result2 = model.Result2,
-                        JoinDate = model.JoinDate,
-                        Source = model.Source,
-                        RecruiterId = model.RecruiterId,
-                        EducationBackground = model.EducationBackground,
-                        InterviewerComment = model.InterviewerComment,
-                        Grade = model.Grade,
-                        Note = model.Note,
-                        InterviewerIds = model.InterviewerIds != null ? string.Join(",", model.InterviewerIds) : null,
-                        ExpectedSalary = model.ExpectedSalary != null ? cryptoService.RsaEncrypt(model.ExpectedSalary) : null,
-                        OfferSalary = model.OfferSalary != null ? cryptoService.RsaEncrypt(model.OfferSalary) : null,
-                        FinalComment = model.FinalComment
-                    };
+                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
 
-                    CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
-
-                    if (result.IsSuccessful)
-                    {
-                        ViewBag.Inserted = true;
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, result.Message);
-                    }
+                if (result.IsSuccessful)
+                {
+                    ViewBag.Inserted = true;
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
                 }
 
                 ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.IsLeaderHR;
