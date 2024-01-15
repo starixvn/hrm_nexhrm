@@ -154,10 +154,8 @@ namespace Fanex.NexHR.Controllers
                 model.InterviewerComment = applicant.InterviewerComment;
                 model.Note = applicant.Note;
                 model.FinalComment = applicant.FinalComment;
-                model.OfferSalary = applicant.OfferSalary != null
-                                        ? cryptoService.RsaDecrypt(applicant.OfferSalary) : null;
-                model.ExpectedSalary = applicant.ExpectedSalary != null
-                                        ? cryptoService.RsaDecrypt(applicant.ExpectedSalary) : null;
+                model.OfferSalary = DecryptValue(applicant.OfferSalary);
+                model.ExpectedSalary = DecryptValue(applicant.ExpectedSalary);
                 model.Recruiter = applicant.NickNameRecruiter + (string.IsNullOrWhiteSpace(applicant.FullNameRecruiter) ? string.Empty : " (" + applicant.FullNameRecruiter + ")");
                 model.Position = positions.Find(p => p.PositionId == applicant.PositionId).PositionName;
                 model.Status = applicant.Status != null ? statusList.Find(p => p.Value == applicant.Status.ToString()).Text : null;
@@ -175,6 +173,11 @@ namespace Fanex.NexHR.Controllers
 
             return View(model);
         }
+
+        private string DecryptValue(string encryptedValue)
+    {
+        return encryptedValue != null ? cryptoService.RsaDecrypt(encryptedValue) : null;
+    }
 
        private async Task<string> GetInterviewerNames(string interviewerIdString)
         {
@@ -302,8 +305,8 @@ namespace Fanex.NexHR.Controllers
             EditApplicantViewModel applicant = await applicantService.GetById(criteria);
             if (applicant != null)
             {
-                applicant.OfferSalary = applicant.OfferSalary != null ? cryptoService.RsaDecrypt(applicant.OfferSalary) : null;
-                applicant.ExpectedSalary = applicant.ExpectedSalary != null ? cryptoService.RsaDecrypt(applicant.ExpectedSalary) : null;
+                applicant.OfferSalary = DecryptValue(applicant.OfferSalary);
+                applicant.ExpectedSalary = DecryptValue(applicant.ExpectedSalary);
                 applicant.Positions = await GetPositions();
                 applicant.StatusList = GetStatusList();
                 applicant.Recruiter = applicant.NickNameRecruiter + (string.IsNullOrWhiteSpace(applicant.FullNameRecruiter) ? string.Empty : " (" + applicant.FullNameRecruiter + ")");
