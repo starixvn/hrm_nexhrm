@@ -128,15 +128,10 @@ namespace Fanex.NexHR.Controllers
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Detail(int id)
         {
-            var criteria = new GetApplicantByIdCriteria
-            {
-                ApplicantId = id
-            };
-
+            var criteria = new GetApplicantByIdCriteria { ApplicantId = id };
             var applicant = await applicantService.GetById(criteria);
             var positions = await GetPositions();
             var statusList = GetStatusList();
-           
             var model = new DetailApplicantViewModel();
             if (applicant != null)
             {
@@ -168,24 +163,27 @@ namespace Fanex.NexHR.Controllers
                 model.Interviewer = await GetInterviewerNames(applicant.InterviewerIdString);
                 model.Resume = applicant.Resume;
             }
-
-            ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.IsLeaderHR;
+            ViewBag.IsManager = IsCurrentUserManager();
 
             return View(model);
         }
 
-        private string DecryptValue(string encryptedValue)
-    {
-        return encryptedValue != null ? cryptoService.RsaDecrypt(encryptedValue) : null;
-    }
+        private bool IsCurrentUserManager()
+        {
+            return CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.IsLeaderHR;
+        }
 
-       private async Task<string> GetInterviewerNames(string interviewerIdString)
+        private string DecryptValue(string encryptedValue)
+        {
+            return encryptedValue != null ? cryptoService.RsaDecrypt(encryptedValue) : null;
+        }
+
+        private async Task<string> GetInterviewerNames(string interviewerIdString)
         {
             if (interviewerIdString == null)
             {
                 return null;
             }
-
             var employees = await employeeService.Query(new GetEmployeeCriteria
             {
                 Query = string.Empty,
@@ -194,7 +192,6 @@ namespace Fanex.NexHR.Controllers
                 PageSize = int.MaxValue,
                 PageNumber = 1
             });
-
             var interviewerIds = interviewerIdString.Split(',').Select(int.Parse).ToList();
             var employeeNicknames = interviewerIds != null
                 ? employees.Where(emp => interviewerIds.Contains(emp.Id)).Select(emp => emp.NickName).ToList()
@@ -221,7 +218,7 @@ namespace Fanex.NexHR.Controllers
                 Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName))
             };
 
-            ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.IsLeaderHR;
+            ViewBag.IsManager = IsCurrentUserManager();
 
             return View(model);
         }
@@ -277,7 +274,7 @@ namespace Fanex.NexHR.Controllers
                     ModelState.AddModelError(string.Empty, result.Message);
                 }
 
-                ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.IsLeaderHR;
+                ViewBag.IsManager = IsCurrentUserManager();
                 model.Positions = await GetPositions();
                 model.StatusList = GetStatusList();
             }
@@ -314,7 +311,7 @@ namespace Fanex.NexHR.Controllers
                 applicant.Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName));
             }
 
-            ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.IsLeaderHR;
+            ViewBag.IsManager = IsCurrentUserManager();
 
             return View(applicant);
         }
@@ -368,7 +365,7 @@ namespace Fanex.NexHR.Controllers
                     ModelState.AddModelError(string.Empty, result.Message);
                 }
 
-                ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.IsLeaderHR;
+                ViewBag.IsManager = IsCurrentUserManager();
                 model.Positions = await GetPositions();
                 model.StatusList = GetStatusList();
             }
