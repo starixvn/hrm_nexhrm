@@ -191,7 +191,7 @@
             var history = new FilterHistoryWorkViewModel 
             { 
                 EmpId = employeeId,
-                FromDate = new DateTimeOffset(startYear, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
+                FromDate = new DateTimeOffset(startYear, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
                 Employee = await employeeService.GetEmployeeById(new GetEmployeeByIdCriteria { EmployeeId = employeeId })
             };
 
