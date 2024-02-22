@@ -23,9 +23,8 @@
 
         public string Phone { get; set; }
 
-       
         [DataType(DataType.Date)]
-        public DateTime? JoinedDate { get; set; }
+        public DateTime? GroupDate { get; set; }
 
         public string Skype { get; set; }
 

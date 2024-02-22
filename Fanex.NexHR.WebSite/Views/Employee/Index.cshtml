@@ -91,8 +91,8 @@
                                         <div class="sorter" data-property="DateOfBirth"></div>
                                     </th>
                                     <th class="col-sorter">
-                                        @Labels.JoinedDate
-                                        <div class="sorter" data-property="JoinedDate"></div>
+                                        @Labels.GroupDate
+                                        <div class="sorter" data-property="GroupDate"></div>
                                     </th>
                                 </tr>
                             </thead>
@@ -118,8 +118,8 @@
         <td>{{:Phone}}</td>
         <td>{{:~formatDate(DateOfBirth, 'dd MMM, yyyy')}}</td>W
         <td>
-            {{if JoinedDate != null}}
-            {{:~formatDate(JoinedDate, 'dd MMM, yyyy')}}
+            {{if GroupDate != null}}
+            {{:~formatDate(GroupDate, 'dd MMM, yyyy')}}
             {{/if}}
         </td>
     </tr>
