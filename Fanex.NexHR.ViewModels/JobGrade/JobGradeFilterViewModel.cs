@@ -1,7 +1,6 @@
 ﻿namespace Fanex.NexHR.ViewModels.JobGrade
 {
     using Fanex.NexHR.Models;
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 

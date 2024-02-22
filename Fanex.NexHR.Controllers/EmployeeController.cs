@@ -8,11 +8,8 @@
     using Fanex.NexHR.Criteria.HistoryWork;
     using Fanex.NexHR.Criteria.JobGrade;
     using Fanex.NexHR.Criteria.LookupData;
-    using Fanex.NexHR.Criteria.Request;
     using Fanex.NexHR.Criteria.TrainingAndDevelopment;
-    using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.Resources;
-    using Fanex.NexHR.Services;
     using Fanex.NexHR.ViewModels.HistoryWork;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
