@@ -153,6 +153,15 @@
         "ParentId": 13
     },
     {
+        "Title": "Transfer Record",
+        "Controller": "Transfer",
+        "Action": "Index",
+        "Icon": "file-document-box",
+        "Roles": "HR",
+        "Id": 46,
+        "ParentId": 13
+    },
+    {
         "Title": "Team Management",
         "Controller": "team",
         "Action": "index",
@@ -267,15 +276,6 @@
         "Icon": "school",
         "Roles": "Member",
         "Id": 28,
-        "ParentId": 25
-    },
-    {
-        "Title": "Transfer Record",
-        "Controller": "Transfer",
-        "Action": "Index",
-        "Icon": "file-document-box",
-        "Roles": "Member",
-        "Id": 46,
         "ParentId": 25
     },
     {
