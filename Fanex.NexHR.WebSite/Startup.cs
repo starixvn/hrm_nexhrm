@@ -1,8 +1,7 @@
 ﻿namespace Fanex.NexHR.WebSite
 {
-    using System.Linq;
     using AspNetCore.Unobtrusive.Ajax;
-    using Fanex.Data;
+    using Fanex.Caching.Redis;
     using Fanex.Data.SqlServer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -27,19 +26,7 @@
             });
             services.AddControllersWithViews();
 
-            var connections = Configuration.GetSection("ConnectionStrings")
-                .GetChildren()
-                .AsEnumerable()
-                .Where(x => !string.IsNullOrWhiteSpace(x.GetValue<string>("Name")))
-                .ToDictionary(x => x.GetValue<string>("Name"),
-                    y => new ConnectionConfiguration(y.GetValue<string>("Name"), y.GetValue<string>("ConnectionString"), y.GetValue<string>("ProviderName")));
-
-            DbSettingProviderManager
-               .StartNewSession()
-               .Use(connections)
-               .WithSqlServer()
-               .UseDefaultDbSettingProvider(resourcePath: $"~/App_Data/SpNames.xml")
-               .Run();
+            services.AddFanexSql(Configuration);
 
             services.AddHttpClient();
             services.RegisterAuthentication(Configuration);
@@ -61,7 +48,7 @@
             }
 
             app.UseCookiePolicy();
-            app.UseHttpsRedirection();
+           // app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseSession();

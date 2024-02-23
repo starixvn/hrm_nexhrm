@@ -27,10 +27,12 @@ namespace Fanex.NexHR.WebSite
             }
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseNLog()
-                .UseUrls($"http://*:5000")
-                .UseStartup<Startup>();
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+           return WebHost.CreateDefaultBuilder(args)
+                    .UseNLog()
+                 //   .UseUrls($"http://*:5000")
+                    .UseStartup<Startup>();
+        }
     }
 }

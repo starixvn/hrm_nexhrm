@@ -47,12 +47,6 @@
                 options.Cookie.Name = $"{appName}.Session";
             });
 
-            services.AddStackExchangeRedisCache(options =>
-            {
-                options.Configuration = redisConnectionString;
-                options.InstanceName = $"{appName}:Session:";
-            });
-
             string key = configuration.GetSection("AuthorizedSettings:Secret").Value;
             services.AddAuthentication()
                 .AddCookie(cookieOptions =>
