@@ -49,6 +49,15 @@ function deleteApplicant(id, fileName) {
     });
 }
 
+function eventExportExcel() {
+    $('#exportExcel').on('click', function (evt) {
+        evt.preventDefault();
+
+        window.location.href = _global.root + 'Export/ApplicantsReport?fullName=' + $('#FullName').val() + '&positionId=' + $('#PositionId').val()
+        + '&status=' + $('#Status').val() + '&fromDate=' + $('#FromDate').val() + '&toDate=' + $('#ToDate').val();
+    });
+}
+
 $(document).ready(function () {
     $('#FullName').keyup(function (event) {
         if (event.keyCode === 13) {
@@ -61,4 +70,5 @@ $(document).ready(function () {
     });
 
     query(true);
+    eventExportExcel();
 });

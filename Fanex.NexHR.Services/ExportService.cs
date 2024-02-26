@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Fanex.NexHR.Models.Applicant;
     using Fanex.NexHR.Services.ExportExcel;
     using Models;
     using Models.Calendar;
@@ -55,6 +56,16 @@
         {
             var excelWorkingHoursStatistic = new WorkingHoursStatisticExcel(templatePath, listTotalWorkingHours, fromDate, toDate);
             return excelWorkingHoursStatistic.Export();
+        }
+
+        public static byte[] ExportApplicants(
+            IEnumerable<Applicant> listApplicants,
+            DateTime fromDate,
+            DateTime toDate,
+            string templatePath)
+        {
+            var excelApplicants = new ApplicantsReportExcel(templatePath, listApplicants, fromDate, toDate);
+            return excelApplicants.Export();
         }
     }
 }

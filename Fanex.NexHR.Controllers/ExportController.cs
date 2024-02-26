@@ -6,6 +6,9 @@
     using Criteria.Employee;
     using Criteria.Report;
     using Fanex.NexHR.Controllers.Attributes;
+    using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Criteria.Applicant;
+    using Fanex.NexHR.Models.Applicant;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using Models;
@@ -29,19 +32,23 @@
         private const string WorkingHoursStatisticTemplatePath = "ExcelTemplates/WorkingHoursStatistic.xlsx";
         private const string DayOffScheduleTemplatePath = "ExcelTemplates/DayOffSchedule.xlsx";
         private const string HeadCountReportTemplatePath = "ExcelTemplates/HeadCountReport.xlsx";
+        private const string ApplicantsTemplatePath = "ExcelTemplates/ApplicantsReport.xlsx";
         private const string ContentTyleFile = "application/xlsx";
 
         private readonly IEmployeeService employeeService;
         private readonly IReportService reportService;
         private readonly ICalendarService calendarService;
         private readonly IWebHostEnvironment environment;
+        private readonly IApplicantService applicantService;
 
         public ExportController(ISessionService sessionService,
+            IApplicantService applicantService,
             IEmployeeService employeeService,
             IReportService reportService,
             ICalendarService calendarService,
             IWebHostEnvironment environment) : base(sessionService)
         {
+            this.applicantService = applicantService;
             this.employeeService = employeeService;
             this.reportService = reportService;
             this.calendarService = calendarService;
@@ -53,7 +60,6 @@
             const int dateOption = 5;
             var year = DateTimeOffset.Now.Year;
             var month = DateTimeOffset.Now.Month;
-
             var totalWorkingHoursViewModel = model;
 
             totalWorkingHoursViewModel ??= new TotalWorkingHoursViewModel
@@ -183,6 +189,50 @@
             var bytes = ExportService.ExportWorkingHoursStatistic(listTotalWorkingHours, getWorkingHoursCriteria.FromDateLastMonth, getWorkingHoursCriteria.ToDate, templatePath);
 
             return File(bytes, ContentTyleFile, fileName);
+        }
+
+        [HrmAuthorize(UserRoles = "HR")]
+        [HttpGet]
+        public async Task<IActionResult> ApplicantsReport(
+            DateTime fromDate,
+            DateTime toDate,
+            int status,
+            int positionId,
+            string fullName = null )
+        {
+            var criteria = new GetAllApplicantCriteria
+            {
+                FullName = fullName,
+                FromDate = fromDate,
+                ToDate = toDate,
+                Status = status,
+                PositionId = positionId
+            };
+            IEnumerable<Applicant> listApplicants = await applicantService.GetAll(criteria);
+            foreach (var applicant in listApplicants)
+                {
+                    applicant.SourceName = applicant.Source != 0 ? GetName<CVSource>(applicant.Source) : string.Empty;
+                    applicant.ResultName1 = applicant.Result1 != 0 ? GetName<ResultInterview>(applicant.Result1) : string.Empty;
+                    applicant.ResultName2 = applicant.Result2 != 0 ? GetName<ResultInterview>(applicant.Result2) : string.Empty;
+                }
+            const string fileName = "ApplicantsReport.xlsx";
+            string templatePath = Path.Combine(environment.ContentRootPath, ApplicantsTemplatePath);
+            var bytes = ExportService.ExportApplicants(listApplicants, fromDate, toDate, templatePath);
+
+            return File(bytes, ContentTyleFile, fileName);
+        }
+
+         private static string GetName<T>(int id)
+        {
+            if (Enum.IsDefined(typeof(T), id))
+            {
+                T enumValue = (T)(object)id;
+                return enumValue.ToString();
+            }
+            else
+            {
+                return $"Invalid {typeof(T).Name}";
+            }
         }
 
         public async Task<IActionResult> LeaveScheduleReport(WorkingCalendarViewModel model)
