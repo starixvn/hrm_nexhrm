@@ -1,7 +1,5 @@
 namespace Fanex.NexHR.Controllers.API
 {
-    using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Fanex.NexHR.Services.Interfaces;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
