@@ -1,7 +1,6 @@
 ﻿namespace Fanex.NexHR.WebSite
 {
     using AspNetCore.Unobtrusive.Ajax;
-    using Fanex.Caching.Redis;
     using Fanex.Data.SqlServer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -48,7 +47,6 @@
             }
 
             app.UseCookiePolicy();
-           // app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseSession();
