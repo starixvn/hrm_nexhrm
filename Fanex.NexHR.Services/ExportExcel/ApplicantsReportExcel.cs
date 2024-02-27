@@ -86,16 +86,17 @@ namespace Fanex.NexHR.Services.ExportExcel
 
         protected internal virtual void SetStyle(ExcelWorksheet worksheet)
         {
-            const int columnTwo = 2;
-            const int columnThree = 3;
+            const int columnPhone = 3;
+            const int columnNote = 11;
             worksheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-            worksheet.Column(columnTwo).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-            worksheet.Column(columnThree).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-            worksheet.Cells[RowStartHeader, columnThree].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-            for (int index = 4; index <= TotalCols; index++)
+            worksheet.Column(columnPhone).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            worksheet.Cells[RowStartHeader, TotalCols].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            for (int index = 6; index <= TotalCols; index++)
             {
                 worksheet.Column(index).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             }
+            worksheet.Column(columnNote).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+            worksheet.Cells[3, 11].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             for (var index = 0; index < applicants.ToList().Count; index++)
             {
                 DrawBorderCell(worksheet.Cells[RowStartBody + index, 1, RowStartBody + index, TotalCols]);
@@ -107,7 +108,7 @@ namespace Fanex.NexHR.Services.ExportExcel
             const int RowHeightTitle = 25;
             worksheet.Row(1).Height = RowHeightTitle;
 
-            int[] widthCol = new[] { 10, 30, 30, 30, 30, 15, 15, 15, 15, 15, 20, 15 };
+            int[] widthCol = [10, 30, 15, 25, 30, 15, 15, 15, 15, 15, 30, 15];
             for (int i = 0; i < widthCol.Length; i++)
             {
                 worksheet.Column(i + 1).Width = widthCol[i];
