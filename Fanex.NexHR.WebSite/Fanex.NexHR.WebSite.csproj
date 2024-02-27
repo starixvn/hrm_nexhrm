@@ -83,6 +83,9 @@
     <None Update="EmailTemplates\UnpaidLeave.Request.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="ExcelTemplates\ApplicantsReport.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="ExcelTemplates\DayOffSchedule.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -31,7 +31,6 @@ namespace Fanex.NexHR.WebSite
         {
            return WebHost.CreateDefaultBuilder(args)
                     .UseNLog()
-                    .UseUrls($"http://*:5000")
                     .UseStartup<Startup>();
         }
     }
