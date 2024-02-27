@@ -29,5 +29,6 @@ WORKDIR /app
 COPY --from=builder /app .
 
 ENV TZ="Asia/Bangkok"
+EXPOSE 80
 
 ENTRYPOINT ["dotnet", "Fanex.NexHR.WebSite.dll"]
