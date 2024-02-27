@@ -197,83 +197,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row form-input">
-                            <div class="col m-r--m">
-                                <div class="left label--mxxl">
-                                    <label>@Labels.EducationBackground:</label>
-                                </div>
-                                <div class="left input--l">
-                                    @Model.EducationBackground
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row form-input">
-                            <div class="col m-r--m">
-                                <div class="left label--mxxl">
-                                    <label>@Labels.Interviewers:</label>
-                                </div>
-                                <div class="left input--l">
-                                    @Model.Interviewer
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row form-input">
-                            <div class="col m-r--m">
-                                <div class="left label--mxxl">
-                                    <label>@Labels.InterviewerCmt:</label>
-                                </div>
-                                <div class="left input--l">
-                                    @Model.InterviewerComment
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row form-input">
-                            <div class="col m-r--m">
-                                <div class="left label--mxxl">
-                                    <label>@Labels.Note:</label>
-                                </div>
-                                <div class="left input--l">
-                                    @Model.Note
-                                </div>
-                            </div>
-                        </div>
-                        @if (isManager)
-                        {
-                            <div class="row form-input form-salary">
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.FinalCmt:</label>
-                                    </div>
-                                    <div class="left input--l">
-                                        @Model.FinalComment
-                                    </div>
-                                </div>
-                                <div class="group-salary">
-                                    <div class="col m-r--m">
-                                        <div class="left label--mxxl">
-                                            <label>@Labels.ExpectedSalary:</label>
-                                        </div>
-                                        <div class="left input--m">
-                                            @Model.ExpectedSalary
-                                        </div>
-                                    </div>
-                                    <div class="col m-r--m">
-                                        <div class="left label--mxxl">
-                                            <label>@Labels.OfferedSalary:</label>
-                                        </div>
-                                        <div class="left input--m">
-                                            @Model.OfferSalary
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
                         <div class="row form-input form-file">
                             <div class="col m-r--m">
                                 <div class="left label--mxxl">
                                     <label>@Labels.ResumeFile:</label>
                                 </div>
-                                <div class="left file-input">
+                                <div class="left file-input input-custom">
                                     @if (!string.IsNullOrEmpty(Model.Resume))
                                     {
                                         string resumeUrl = $"{dirCV}/{Model.Resume}";
@@ -284,6 +213,84 @@
                                         </div>
                                     }
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.EducationBackground:</label>
+                                </div>
+                                <div class="left input-custom">
+                                    @Model.EducationBackground
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.Interviewers:</label>
+                                </div>
+                                <div class="left input-custom">
+                                    @Model.Interviewer
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.InterviewerCmt:</label>
+                                </div>
+                                <div class="left input-custom">
+                                    @Model.InterviewerComment
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col m-r--m">
+                                <div class="left label--mxxl">
+                                    <label>@Labels.Note:</label>
+                                </div>
+                                <div class="left input-custom">
+                                    @Model.Note
+                                </div>
+                            </div>
+                        </div>
+                        @if (isManager)
+                        {
+                            <div class=" form-salary">
+                                <div class="row form-input">
+                                    <div class="col m-r--m">
+                                        <div class="left label--mxxl">
+                                            <label>@Labels.FinalCmt:</label>
+                                        </div>
+                                        <div class="left input-custom">@Model.FinalComment
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-input">
+                                    <div class="group-salary">
+                                        <div class="col m-r--m">
+                                            <div class="left label--mxxl">
+                                                <label>@Labels.ExpectedSalary:</label>
+                                            </div>
+                                            <div class="left input--m">@Model.ExpectedSalary
+                                            </div>
+                                        </div>
+                                        <div class="col m-r--m">
+                                            <div class="left label--mxxl">
+                                                <label>@Labels.OfferedSalary:</label>
+                                            </div>
+                                            <div class="left input--m">@Model.OfferSalary
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div class="row form-input line-button">
+                            <div class="left">
+                                <a class="btn-back waves-effect waves-light" asp-controller="applicants"
+                                    asp-action="index">@Labels.Back</a>
                             </div>
                         </div>
                     </div>

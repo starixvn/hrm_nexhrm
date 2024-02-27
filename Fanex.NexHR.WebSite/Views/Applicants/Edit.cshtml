@@ -34,14 +34,16 @@
                 </div>
                 <div class="card-body">
                     <div class="form form-stl-table">
-                        <form asp-controller="applicants" asp-action="edit" method="post" class="form-create-edit" enctype="multipart/form-data">
+                        <form asp-controller="applicants" asp-action="edit" method="post" class="form-create-edit"
+                            enctype="multipart/form-data">
                             <div asp-validation-summary="All"></div>
                             @if (ViewBag.Inserted == true)
                             {
                                 <input type="hidden" id="successed" value="true" />
                                 <div class="row validation-summary-success">
                                     <div class="col success green-text">
-                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.ApplicantUpdated
+                                        <i
+                                            class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.ApplicantUpdated
                                     </div>
                                 </div>
                             }
@@ -59,7 +61,8 @@
                                         <label>@Labels.Position</label>
                                     </div>
                                     <div class="left select--m">
-                                        <select asp-for="PositionId" asp-items="@(new SelectList(Model.Positions, "PositionId", "PositionName"))">
+                                        <select asp-for="PositionId"
+                                            asp-items="@(new SelectList(Model.Positions, "PositionId", "PositionName"))">
                                         </select>
                                     </div>
                                 </div>
@@ -99,7 +102,8 @@
                                         <label>@Labels.YearsOfExperience</label>
                                     </div>
                                     <div class="left input--m">
-                                        <input asp-for="@Model.YearsOfExperience" type="number" min="1" max="50" step="1" MaxLength="2" />
+                                        <input asp-for="@Model.YearsOfExperience" type="number" min="1" max="50"
+                                            step="1" MaxLength="2" />
                                     </div>
                                 </div>
                             </div>
@@ -233,80 +237,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row form-input">
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.EducationBackground</label>
-                                    </div>
-                                    <div class="left input--l">
-                                        <input asp-for="@Model.EducationBackground" />
-                                    </div>
-                                </div>
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.Interviewers</label>
-                                    </div>
-                                    <div class="left input--l">
-                                        <select asp-for="InterviewerIds" asp-items="@Model.Employees" class="select-2 disabled"></select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row form-input">
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.InterviewerCmt</label>
-                                    </div>
-                                    <div class="left input--l">
-                                        <textarea asp-for="@Model.InterviewerComment" class="materialize-textarea" value="@Model.InterviewerComment"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col m-r--m">
-                                    <div class="left label--mxxl">
-                                        <label>@Labels.Note</label>
-                                    </div>
-                                    <div class="left input--l">
-                                        <textarea asp-for="@Model.Note" class="materialize-textarea" value="@Model.Note"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            @if (isManager)
-                            {
-                                <div class="row form-input form-salary">
-                                    <div class="col m-r--m">
-                                        <div class="left label--mxxl">
-                                            <label>@Labels.FinalCmt</label>
-                                        </div>
-                                        <div class="left input--l">
-                                            <textarea asp-for="@Model.FinalComment" class="materialize-textarea" value="@Model.FinalComment"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="group-salary">
-                                        <div class="col m-r--m">
-                                            <div class="left label--mxxl">
-                                                <label>@Labels.ExpectedSalary</label>
-                                            </div>
-                                            <div class="left input--m">
-                                                <input asp-for="@Model.ExpectedSalary" />
-                                            </div>
-                                        </div>
-                                        <div class="col m-r--m">
-                                            <div class="left label--mxxl">
-                                                <label>@Labels.OfferedSalary</label>
-                                            </div>
-                                            <div class="left input--m">
-                                                <input asp-for="@Model.OfferSalary" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
                             <div class="row form-input form-file">
                                 <div class="col m-r--m">
                                     <div class="left label--mxxl">
                                         <label>@Labels.ResumeFile</label>
                                     </div>
-                                    <div class="left file-input">
-                                        <input type="file" name="FileUpload" class="file-upload @(!string.IsNullOrEmpty(Model.Resume) ? "selected-file" : "")" asp-for="FileUpload" accept=".pdf,.doc,.docx,.png,.jpeg" />
+                                    <div class="left file-input input-custom">
+                                        <input type="file" name="FileUpload"
+                                            class="file-upload @(!string.IsNullOrEmpty(Model.Resume) ? "selected-file" : "")"
+                                            asp-for="FileUpload" accept=".pdf,.doc,.docx,.png,.jpeg" />
                                         @if (!string.IsNullOrEmpty(Model.Resume))
                                         {
                                             string resumeUrl = $"{dirCV}/{Model.Resume}";
@@ -321,12 +260,93 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--mxxl">
+                                        <label>@Labels.EducationBackground</label>
+                                    </div>
+                                    <div class="left input-custom">
+                                        <input asp-for="@Model.EducationBackground" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--mxxl">
+                                        <label>@Labels.Interviewers</label>
+                                    </div>
+                                    <div class="left input-custom">
+                                        <select asp-for="InterviewerIds" asp-items="@Model.Employees"
+                                            class="select-2 disabled"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--mxxl">
+                                        <label>@Labels.InterviewerCmt</label>
+                                    </div>
+                                    <div class="left">
+                                        <textarea asp-for="@Model.InterviewerComment" class="textarea"
+                                            value="@Model.InterviewerComment"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--mxxl">
+                                        <label>@Labels.Note</label>
+                                    </div>
+                                    <div class="left">
+                                        <textarea asp-for="@Model.Note" class="textarea"
+                                            value="@Model.Note"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            @if (isManager)
+                            {
+                                <div class=" form-salary">
+                                    <div class="row form-input">
+                                        <div class="col m-r--m">
+                                            <div class="left label--mxxl">
+                                                <label>@Labels.FinalCmt</label>
+                                            </div>
+                                            <div class="left">
+                                                <textarea asp-for="@Model.FinalComment" class="textarea"
+                                                    value="@Model.FinalComment"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row form-input">
+                                        <div class="group-salary">
+                                            <div class="col m-r--m">
+                                                <div class="left label--mxxl">
+                                                    <label>@Labels.ExpectedSalary</label>
+                                                </div>
+                                                <div class="left input--m">
+                                                    <input asp-for="@Model.ExpectedSalary" />
+                                                </div>
+                                            </div>
+                                            <div class="col m-r--m">
+                                                <div class="left label--mxxl">
+                                                    <label>@Labels.OfferedSalary</label>
+                                                </div>
+                                                <div class="left input--m">
+                                                    <input asp-for="@Model.OfferSalary" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
                             <div class="row form-input line-button">
                                 <div class="col">
                                     <div class="left label--mxxl">&nbsp;</div>
                                     <div class="left">
-                                        <a class="btn-back waves-effect waves-light" asp-controller="applicants" asp-action="index">@Labels.Back</a>
-                                        <input class="btn-submit waves-effect waves-light right" type="submit" value="@Labels.Save" />
+                                        <a class="btn-back waves-effect waves-light" asp-controller="applicants"
+                                            asp-action="index">@Labels.Back</a>
+                                        <input class="btn-submit waves-effect waves-light right" type="submit"
+                                            value="@Labels.Save" />
                                     </div>
                                 </div>
                             </div>
