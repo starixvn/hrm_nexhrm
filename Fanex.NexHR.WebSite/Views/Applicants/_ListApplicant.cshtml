@@ -21,6 +21,7 @@
             <th rowspan="2">@Labels.Note</th>
             <th rowspan="2">@Labels.Source</th>
             <th rowspan="2">@Labels.CV</th>
+            <th rowspan="2">Add</th>
             <th rowspan="2">@Labels.Edit</th>
             <th rowspan="2">@Labels.Delete</th>
         </tr>
@@ -58,6 +59,17 @@
                             <a href="@($"{dirCV}/{item.Resume}")">@Labels.View</a>
                         }
                     </td>
+                     <td>
+                         <a asp-controller="employee" asp-action="create"
+                            asp-route-fullName="@item.FullName"
+                            asp-route-phone="@item.Phone"
+                            asp-route-DOB="@item.DOB"
+                            asp-route-joinDate="@item.JoinDate"
+                            asp-route-educationBackground="@item.EducationBackground"
+                            >
+                            <i class="mdi mdi-plus-circle mdi-dark mdi-18px"></i>
+                        </a>
+                    </td>
                     <td>
                         <a href="@Url.Action("Edit", "Applicants", new { @item.Id})">
                             <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
@@ -74,7 +86,7 @@
         else
         {
             <tr>
-                <td colspan="15">@Labels.NoData</td>
+                <td colspan="16">@Labels.NoData</td>
             </tr>
         }
     </tbody>

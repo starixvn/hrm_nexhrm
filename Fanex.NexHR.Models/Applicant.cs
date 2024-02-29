@@ -13,6 +13,11 @@
 
         public string Email { get; set; }
 
+        public string EducationBackground { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime? DOB { get; set; }
+
         public string Position { get; set; }
 
         [DataType(DataType.Date)]

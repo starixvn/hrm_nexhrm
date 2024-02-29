@@ -19,6 +19,11 @@
                     <div class="form form-stl-table">
                         <form asp-controller="employee" asp-action="create" method="post">
                             <div asp-validation-summary="All"></div>
+                            <input type="hidden" asp-for="@Model.Phone" />
+                            <input type="hidden" asp-for="@Model.EducationBackground" />
+                            <input type="hidden" asp-for="@Model.DateOfBirth" />
+                            <input type="hidden" asp-for="@Model.JoinDate" />
+                            <input type="hidden" asp-for="@Model.EducationBackground" />
                             <div class="row form-input">
                                 <div class="col m-r--m">
                                     <div class="left label--xl">

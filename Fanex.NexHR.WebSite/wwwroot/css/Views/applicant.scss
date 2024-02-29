@@ -111,13 +111,31 @@ input[type="email"] {
   border-radius: 2px;
 }
 
-.mdi-plus {
+.group-button .mdi-plus {
   margin-right: 6px;
+}
+
+table {
+  .mdi-plus-circle {
+    &:hover {
+      color: #2aaa55;
+    }
+  }
 }
 
 @media only screen and (max-width: 1366px) {
   .form-salary {
     margin-right: auto;
+  }
+
+  .card-body thead {
+    top: 0;
+  }
+
+  .select2-container--default {
+    .select2-selection--multiple {
+      box-shadow: none;
+    }
   }
 }
 
@@ -158,7 +176,7 @@ input[type="email"] {
     box-shadow: none;
     margin: 0;
     width: 100%;
-    max-width: 100%;
+    // max-width: 100%;
   }
 
   .select2-container {
@@ -185,9 +203,5 @@ input[type="email"] {
 
   .btn-request {
     margin: 0;
-  }
-
-  .card-body thead {
-    top: 0;
   }
 }

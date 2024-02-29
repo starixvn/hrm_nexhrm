@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using Models;
@@ -8,6 +9,16 @@
     {
         [Required]
         public string FullName { get; set; }
+
+        public string Phone { get; set; }
+
+        public string EducationBackground { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime? DateOfBirth { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime? JoinDate { get; set; }
 
         [Required]
         [Display(Name = "English Name")]

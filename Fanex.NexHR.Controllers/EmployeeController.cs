@@ -185,8 +185,8 @@
         public async Task<IActionResult> WorkingHistory(int employeeId)
         {
             const int startYear = 2011;
-            var history = new FilterHistoryWorkViewModel 
-            { 
+            var history = new FilterHistoryWorkViewModel
+            {
                 EmpId = employeeId,
                 FromDate = new DateTimeOffset(startYear, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
                 Employee = await employeeService.GetEmployeeById(new GetEmployeeByIdCriteria { EmployeeId = employeeId })
@@ -257,7 +257,7 @@
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> EditHistoryWork(int id)
         {
-            var history = await historyWorkService.GetById(new GetHistoryWorkByIdCriteria{ Id = id });
+            var history = await historyWorkService.GetById(new GetHistoryWorkByIdCriteria { Id = id });
             var model = new EditHistoryWorkViewModel();
             if (history != null)
             {
@@ -330,7 +330,12 @@
         }
 
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(
+            DateTime? DOB,
+            DateTime? joinDate,
+            string fullName,
+            string phone,
+            string educationBackground)
         {
             ViewBag.DomainName = appSetting.DomainName;
             var model = new CreateEmployeeViewModel
@@ -341,7 +346,12 @@
                 ThuShift = 1,
                 FriShift = 1,
                 Teams = await teamService.GetAll(),
-                Shifts = await shiftService.GetAll()
+                Shifts = await shiftService.GetAll(),
+                FullName = fullName,
+                Phone = phone,
+                DateOfBirth = DOB,
+                JoinDate = joinDate,
+                EducationBackground = educationBackground
             };
 
             return View(model);
@@ -366,7 +376,7 @@
                     NickName = model.NickName,
                     TueShift = model.TueShift,
                     SatShift = model.SatShift,
-                    SunShift = model.SunShift,
+                    SunShift = model.SunShift, 
                     ThuShift = model.ThuShift,
                     WedShift = model.WedShift
                 };
@@ -374,7 +384,14 @@
                 CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
                 if (result.IsSuccessful)
                 {
-                    return Redirect("Edit?id=" + criteria.EmployeeId);
+                    return RedirectToAction("Edit", new
+                    {
+                        id = criteria.EmployeeId,
+                        phone = model.Phone,
+                        DOB = model.DateOfBirth,
+                        joinDate = model.JoinDate,
+                        educationBackground = model.EducationBackground
+                    });
                 }
                 else
                 {
@@ -389,10 +406,19 @@
         }
 
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(
+            int id,
+            DateTime? DOB,
+            DateTime? joinDate,
+            string phone,
+            string educationBackground)
         {
             Employee employee = await GetEmployeeById(id);
-
+            employee.Phone = phone ?? employee.Phone;
+            employee.DateOfBirth = DOB ?? employee.DateOfBirth;
+            employee.JoinedDate = joinDate ?? employee.JoinedDate;
+            employee.GroupDate = joinDate ?? employee.GroupDate;
+            employee.EducationBackground = educationBackground ?? employee.EducationBackground;
             EditEmployeeViewModel model = new EditEmployeeViewModel(employee)
             {
                 Teams = await teamService.GetAll(),
@@ -609,7 +635,7 @@
                 IsOnlyCurrentUsed = false
             };
             var employeeJobGrades = await baseService.GetDataAsync<EmployeeJobGrade>(criteria);
-            return PartialView("ViewHistoryJobGrade", employeeJobGrades); 
+            return PartialView("ViewHistoryJobGrade", employeeJobGrades);
         }
 
         [HrmAuthorize(UserRoles = "AssistantLeader,HR")]
