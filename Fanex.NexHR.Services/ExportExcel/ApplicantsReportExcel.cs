@@ -58,17 +58,18 @@ namespace Fanex.NexHR.Services.ExportExcel
 
         protected internal virtual void RenderRow(Applicant applicant, ExcelWorksheet worksheet)
         {
+            const string formatDate = "dd MMM, yyyy";
             int colIndex = 1;
             worksheet.Cells[rowIndex, colIndex++].Value = rowNumber;
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.FullName;
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.Phone;
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.Email;
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.Position;
-            worksheet.Cells[rowIndex, colIndex++].Value = applicant.InterviewDate1?.ToString("dd MMM, yyyy");
+            worksheet.Cells[rowIndex, colIndex++].Value = applicant.InterviewDate1?.ToString(formatDate);
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.ResultName1;
-            worksheet.Cells[rowIndex, colIndex++].Value = applicant.InterviewDate2?.ToString("dd MMM, yyyy");
+            worksheet.Cells[rowIndex, colIndex++].Value = applicant.InterviewDate2?.ToString(formatDate);
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.ResultName2;
-            worksheet.Cells[rowIndex, colIndex++].Value = applicant.JoinDate?.ToString("dd MMM, yyyy");
+            worksheet.Cells[rowIndex, colIndex++].Value = applicant.JoinDate?.ToString(formatDate);
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.Note;
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.SourceName;
 
@@ -96,7 +97,7 @@ namespace Fanex.NexHR.Services.ExportExcel
                 worksheet.Column(index).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             }
             worksheet.Column(columnNote).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-            worksheet.Cells[3, 11].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            worksheet.Cells[columnPhone, columnNote].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             for (var index = 0; index < applicants.ToList().Count; index++)
             {
                 DrawBorderCell(worksheet.Cells[RowStartBody + index, 1, RowStartBody + index, TotalCols]);
