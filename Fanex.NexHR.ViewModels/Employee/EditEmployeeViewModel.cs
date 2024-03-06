@@ -61,7 +61,7 @@
 
         public string Yahoo { get; set; }
 
-        public bool Mariage { get; set; }
+        public bool Marriage { get; set; }
 
         public string Address { get; set; }
 
@@ -198,7 +198,7 @@
                 Gender = employee.Gender;
                 Skype = employee.Skype;
                 Yahoo = employee.Yahoo;
-                Mariage = employee.Mariage;
+                Marriage = employee.Marriage;
                 Address = employee.Address;
                 PermanentAddress = employee.PermanentAddress;
                 CurrentAddress = employee.CurrentAddress;

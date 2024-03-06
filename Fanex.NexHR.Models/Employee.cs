@@ -54,7 +54,7 @@
 
         public string Yahoo { get; set; }
 
-        public bool Mariage { get; set; }
+        public bool Marriage { get; set; }
 
         public DateTime? LastLogin { get; set; }
 

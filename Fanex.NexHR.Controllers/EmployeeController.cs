@@ -745,7 +745,7 @@
                 JobTitleId = model.JobTitleId,
                 JoinedDate = model.JoinedDate,
                 TeamId = model.TeamId,
-                Mariage = model.Mariage,
+                Marriage = model.Marriage,
                 ModifiedBy = CurrentUser.Id,
                 NickName = model.NickName,
                 PassportExp = model.PassportExp,

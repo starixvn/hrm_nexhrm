@@ -34,7 +34,6 @@
 <body>
     <div class="row content">
         <input type="hidden" asp-for="@Model.Id" />
-        <input type="hidden" asp-for="@Model.NickName" />
         <div id="dialog-show-history-jobgrade" class="full-view-width over-auto"></div>
         <div class="col s12 card-container-base">
             <div class="card">
@@ -76,7 +75,7 @@
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.StaffCode</label>
+                                                <label for="Code">@Labels.StaffCode</label>
                                             </div>
                                             <div class="left input--l">
                                                 <input asp-for="Code" />
@@ -87,7 +86,7 @@
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.EmployeeCard</label>
+                                                <label for="EmployeeCard">@Labels.EmployeeCard</label>
                                             </div>
                                             <div class="left input--l">
                                                 <input asp-for="EmployeeCard" maxlength="10" />
@@ -98,7 +97,7 @@
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.DomainUsername</label>
+                                                <label for="DomainUsername">@Labels.DomainUsername</label>
                                             </div>
                                             <div class="left input--l">
                                                 <input asp-for="DomainUsername" />
@@ -109,7 +108,7 @@
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.FullName</label>
+                                                <label for="FullName">@Labels.FullName</label>
                                             </div>
                                             <div class="left input--l">
                                                 <input asp-for="FullName" />
@@ -120,7 +119,7 @@
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.EnglishName</label>
+                                                <label for="NickName">@Labels.EnglishName</label>
                                             </div>
                                             <div class="left input--l">
                                                 <input asp-for="NickName" />
@@ -131,7 +130,7 @@
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.DateOfBirth</label>
+                                                <label for="DateOfBirth">@Labels.DateOfBirth</label>
                                             </div>
                                             <div class="left">
                                                 <div class="datepicker-button select--s">
@@ -148,7 +147,7 @@
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.PlaceOfBirth</label>
+                                                <label for="PlaceOfBirth">@Labels.PlaceOfBirth</label>
                                             </div>
                                             <div class="left input--l">
                                                 <textarea asp-for="PlaceOfBirth" class="materialize-textarea"></textarea>
@@ -158,7 +157,7 @@
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.Email</label>
+                                                <label for="Email">@Labels.Email</label>
                                             </div>
                                             <div class="left input--l">
                                                 <input asp-for="Email" />
@@ -169,7 +168,7 @@
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.EducationBackground</label>
+                                                <label for="EducationBackground">@Labels.EducationBackground</label>
                                             </div>
                                             <div class="left input--l">
                                                 <input asp-for="EducationBackground" />
@@ -180,7 +179,7 @@
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.JobTitle</label>
+                                                <label for="JobTitleId">@Labels.JobTitle</label>
                                             </div>
                                             <div class="left select--l">
                                                 <select asp-for="JobTitleId" asp-items="@(new SelectList(Model.JobTitles, "Id", "Name"))">
@@ -214,7 +213,7 @@
                                     <div class="row form-input m-t--m">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.Phone</label>
+                                                <label for="Phone">@Labels.Phone</label>
                                             </div>
                                             <div class="left input--l">
                                                 <input asp-for="Phone" />
@@ -225,7 +224,7 @@
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.Gender</label>
+                                                <label for="Gender">@Labels.Gender</label>
                                             </div>
                                             <div class="left select--l">
                                                 @{
@@ -244,7 +243,7 @@
                                     <div class="row form-input">
                                         <div class="col">
                                             <div class="left label--mxxl">
-                                                <label>Id No.</label>
+                                                <label for="CardNo">Id No.</label>
                                             </div>
                                             <div class="left input--l">
                                                 <input asp-for="CardNo" />
@@ -254,7 +253,7 @@
                                     <div class="row form-input">
                                         <div class="col">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.IssuedDate</label>
+                                                <label for="IssuedDate">@Labels.IssuedDate</label>
                                             </div>
                                             <div class="left datepicker-button select--s">
                                                 <date-picker name="IssuedDate"
@@ -268,7 +267,7 @@
                                     <div class="row form-input">
                                         <div class="col">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.IssuingAuthority</label>
+                                                <label for="IssuedPlace">@Labels.IssuingAuthority</label>
                                             </div>
                                             <div class="left input--l">
                                                 <textarea asp-for="IssuedPlace" class="materialize-textarea"></textarea>
@@ -278,7 +277,7 @@
                                     <div class="row form-input">
                                         <div class="col">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.Address</label>
+                                                <label for="Address">@Labels.Address</label>
                                             </div>
                                             <div class="left input--l">
                                                 <textarea asp-for="Address" class="materialize-textarea"></textarea>
@@ -288,7 +287,7 @@
                                     <div class="row form-input">
                                         <div class="col">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.CurrentAddress</label>
+                                                <label for="CurrentAddress">@Labels.CurrentAddress</label>
                                             </div>
                                             <div class="left input--l">
                                                 <textarea asp-for="CurrentAddress" class="materialize-textarea"></textarea>
@@ -298,7 +297,7 @@
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.ContactName</label>
+                                                <label for="ContactName">@Labels.ContactName</label>
                                             </div>
                                             <div class="left input--l">
                                                 <input asp-for="ContactName" />
@@ -309,7 +308,7 @@
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.UserRelationship</label>
+                                                <label for="UserRelationship">@Labels.UserRelationship</label>
                                             </div>
                                             <div class="left input--l">
                                                 <input asp-for="UserRelationship" />
@@ -320,7 +319,7 @@
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.ContactPhone</label>
+                                                <label for="ContactPhone">@Labels.ContactPhone</label>
                                             </div>
                                             <div class="left input--l">
                                                 <input asp-for="ContactPhone" />
@@ -331,7 +330,7 @@
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.ContactAddress</label>
+                                                <label for="ContactAddress">@Labels.ContactAddress</label>
                                             </div>
                                             <div class="left input--l">
                                                 <textarea asp-for="ContactAddress" class="materialize-textarea"></textarea>
@@ -389,7 +388,7 @@
                                     <div class="row form-input m-t--m">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.Team</label>
+                                                <label for="TeamId">@Labels.Team</label>
                                             </div>
                                             <div class="left select--l">
                                                 <select asp-for="TeamId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
@@ -462,7 +461,7 @@
                                     <div class="row form-input m-t--m">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.GroupDate</label>
+                                                <label for="GroupDate">@Labels.GroupDate</label>
                                             </div>
                                             <div class="left">
                                                 <div class="datepicker-button select--s">
@@ -477,7 +476,7 @@
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.JoinedDate</label>
+                                                <label for="JoinedDate">@Labels.JoinedDate</label>
                                             </div>
                                             <div class="left">
                                                 <div class="datepicker-button select--s">
@@ -493,7 +492,7 @@
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.ConfirmedDate</label>
+                                                <label for="ConfirmedDate">@Labels.ConfirmedDate</label>
                                             </div>
                                             <div class="left">
                                                 <div class="datepicker-button select--s">
@@ -509,7 +508,7 @@
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.LastWorkingDate</label>
+                                                <label for="ResignedDate">@Labels.LastWorkingDate</label>
                                             </div>
                                             <div class="left">
                                                 <div class="datepicker-button select--s">
@@ -525,7 +524,7 @@
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.Skype</label>
+                                                <label for="Skype">@Labels.Skype</label>
                                             </div>
                                             <div class="left input--l">
                                                 <input asp-for="Skype" />
@@ -536,7 +535,7 @@
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.Telegram</label>
+                                                <label for="Yahoo">@Labels.Telegram</label>
                                             </div>
                                             <div class="left input--l">
                                                 <input asp-for="Yahoo" />
@@ -547,12 +546,12 @@
                                     <div class="row form-input">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
-                                                <label>@Labels.Marriage</label>
+                                                <label for="Marriage">@Labels.Marriage</label>
                                             </div>
                                             <div class="left input">
-                                                <input class="filled-in" asp-for="Mariage" type="checkbox">
-                                                <label for="Mariage"></label>
-                                                <span asp-validation-for="Email"></span>
+                                                <input class="filled-in" asp-for="Marriage" type="checkbox">
+                                                <label for="Marriage"></label>
+                                                <span asp-validation-for="Marriage"></span>
                                             </div>
                                         </div>
 
@@ -561,7 +560,7 @@
                                 <div class="row form-input m-t--m">
                                     <div class="col">
                                         <div class="left label--mxxl">
-                                            <label>@Labels.PassportNo</label>
+                                            <label for="PassportNo">@Labels.PassportNo</label>
                                         </div>
                                         <div class="left input--l">
                                             <input asp-for="PassportNo" />
@@ -571,7 +570,7 @@
                                 <div class="row form-input">
                                     <div class="col">
                                         <div class="left label--mxxl">
-                                            <label>@Labels.PassportExp</label>
+                                            <label for="PassportExp">@Labels.PassportExp</label>
                                         </div>
                                         <div class="left datepicker-button select--s">
                                             <date-picker name="PassportExp"
@@ -584,7 +583,7 @@
                                 <div class="row form-input">
                                     <div class="col">
                                         <div class="left label--mxxl">
-                                            <label>@Labels.SocialInsuranceNo</label>
+                                            <label for="SocialInsuranceNo">@Labels.SocialInsuranceNo</label>
                                         </div>
                                         <div class="left input--l">
                                             <input asp-for="SocialInsuranceNo" />
@@ -676,7 +675,7 @@
                                 <div class="row form-input m-t--m">
                                     <div class="col m-r--m">
                                         <div class="left label--mxxl">
-                                            <label>Enabled</label>
+                                            <label for="Enabled">Enabled</label>
                                         </div>
                                         <div class="left input">
                                             <input class="filled-in" asp-for="Enabled" type="checkbox">
@@ -690,7 +689,7 @@
                                 <div class="row form-input m-t--m">
                                     <div class="col m-r--m">
                                         <div class="left label--mxxl">
-                                            <label>@Labels.SpecialUser</label>
+                                            <label for="IsSpecialUser">@Labels.SpecialUser</label>
                                         </div>
                                         <div class="left input">
                                             <input class="filled-in" asp-for="IsSpecialUser" type="checkbox">

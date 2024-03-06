@@ -52,7 +52,7 @@
 
         public string Yahoo { get; set; }
 
-        public bool Mariage { get; set; }
+        public bool Marriage { get; set; }
 
         public string Address { get; set; }
 
