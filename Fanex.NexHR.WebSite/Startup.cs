@@ -2,11 +2,14 @@
 {
     using AspNetCore.Unobtrusive.Ajax;
     using Fanex.Data.SqlServer;
+    using Fanex.Logging;
+    using Fanex.Logging.Sentry;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Sentry;
 
     public class Startup
     {
@@ -24,6 +27,17 @@
                 options.JsonSerializerOptions.PropertyNamingPolicy = null;
             });
             services.AddControllersWithViews();
+
+            LogManager
+            .SetDefaultLogCategory(Configuration.GetSection("LogCategory").Value)
+            .Use(new List<ILogEngine>
+            {
+                new SentryLogging(new SentryEngineOptions
+                {
+                    Dsn = new Dsn(Configuration.GetSection("SentryEngineOptions:Dsn").Value),
+                    FrontEndDsn = new Dsn(Configuration.GetSection("SentryEngineOptions:FrontEndDsn").Value)
+                })
+            });
 
             services.AddFanexSql(Configuration);
 

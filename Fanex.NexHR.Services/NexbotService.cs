@@ -28,7 +28,7 @@
         private readonly HttpClient httpClient;
         private readonly INexbotRepository nexbotRepository;
         private readonly IBaseService baseService;
-        private readonly NexBotSettings nexBotSettings;
+        private readonly ChatbotConfigs nexBotSettings;
         private readonly IScheduledMessageRepository scheduledMessageRepository;
         private readonly ILogServiceProvider logService;
         private readonly AppSetting appSetting;
@@ -38,7 +38,7 @@
             IBaseService baseService,
             IScheduledMessageRepository scheduledMessageRepository,
             AppSetting appSetting,
-            NexBotSettings nexBotSettings,
+            ChatbotConfigs nexBotSettings,
             ILogServiceProvider logService)
         {
             httpClient = httpClientFactory.CreateClient();
@@ -52,26 +52,7 @@
 
         public async Task<bool> SendMessageAsync(string conversationId, string message)
         {
-            if (!string.IsNullOrWhiteSpace(conversationId))
-            {
-                var result = await SendMessageToBotAsync(conversationId, message);
-                return result;
-            }
-
-            return false;
-        }
-
-        private HttpRequestMessage CreateRequestAsync(string endPointPath, HttpMethod method)
-        {
-            Uri url = new($"{nexBotSettings.BotServiceUrl}{endPointPath}");
-            var request = new HttpRequestMessage(method, url);
-            return request;
-        }
-
-        public async Task<bool> SendMessageToBotAsync(string conversationId, string message)
-        {
-            var isSuccessful = false;
-            if (!nexBotSettings.DisabledSendSkype)
+            if (nexBotSettings.Enable && !string.IsNullOrWhiteSpace(conversationId))
             {
                 var request = CreateRequestAsync("/messages/forward", HttpMethod.Post);
                 var data = new Dictionary<string, string>
@@ -83,10 +64,17 @@
                 request.Content = new FormUrlEncodedContent(data);
 
                 using var response = await httpClient.SendAsync(request);
-                isSuccessful = response.IsSuccessStatusCode;
+                return response.IsSuccessStatusCode;
             }
 
-            return isSuccessful;
+            return false;
+        }
+
+        private HttpRequestMessage CreateRequestAsync(string endPointPath, HttpMethod method)
+        {
+            Uri url = new($"{nexBotSettings.BotServiceUrl}{endPointPath}");
+            var request = new HttpRequestMessage(method, url);
+            return request;
         }
 
         public async Task<IList<ConversationUser>> GetSkypeAccountAsync()
@@ -104,7 +92,7 @@
 
         private async Task SendApproveMessageAsync(string conversationId, long requestId, int processedBy, string message)
         {
-            if (!nexBotSettings.DisabledSendSkype)
+            if (nexBotSettings.Enable)
             {
                 var data = new Dictionary<string, string>
                 {
@@ -121,7 +109,7 @@
 
         public async Task SendRegistVegetarianMealAsync(string conversationId, int empId, int companyId, DateTime onDate, string message)
         {
-            if (!nexBotSettings.DisabledSendSkype)
+            if (nexBotSettings.Enable)
             {
                 var data = new Dictionary<string, string>
                 {

@@ -79,8 +79,8 @@
             var appSettings = configuration.GetSection("AppSettings").Get<AppSetting>();
             services.AddSingleton(appSettings);
 
-            var nexBotSettings = configuration.GetSection("NexBotSettings").Get<NexBotSettings>();
-            services.AddSingleton(nexBotSettings);
+            var chatbotConfigs = configuration.GetSection("ChatbotConfigs").Get<ChatbotConfigs>();
+            services.AddSingleton(chatbotConfigs);
 
             var syncDataSettings = configuration.GetSection("SyncDataSettings").Get<SyncDataSettings>();
             services.AddSingleton(syncDataSettings);
@@ -97,6 +97,7 @@
 
         private static void InjectServices(IServiceCollection services)
         {
+            services.AddSingleton<Logging.ILogger, Logging.Logger>();
             services.AddScoped<ISessionService, SessionService>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
