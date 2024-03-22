@@ -15,7 +15,7 @@ namespace Fanex.NexHR.Services.ExportExcel
         private readonly DateTime toDate;
         private const byte RowStartHeader = 3;
         private const byte RowStartBody = 5;
-        private const byte TotalCols = 12;
+        private const byte TotalCols = 13;
         private int rowIndex = RowStartBody;
         private const byte FontSizeTitle = 16;
         private int rowNumber = 1;
@@ -48,12 +48,15 @@ namespace Fanex.NexHR.Services.ExportExcel
 
         protected internal override void RenderBody(ExcelWorksheet templateWorksheet, ExcelWorksheet worksheet)
         {
+            const int rowFreeze = 5;
             foreach (var applicant in applicants)
             {
                 RenderRow(applicant, worksheet);
                 rowIndex++;
                 rowNumber++;
             }
+
+            worksheet.View.FreezePanes(rowFreeze, 1);
         }
 
         protected internal virtual void RenderRow(Applicant applicant, ExcelWorksheet worksheet)
@@ -69,6 +72,7 @@ namespace Fanex.NexHR.Services.ExportExcel
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.ResultName1;
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.InterviewDate2?.ToString(formatDate);
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.ResultName2;
+            worksheet.Cells[rowIndex, colIndex++].Value = applicant.CVStatus;
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.JoinDate?.ToString(formatDate);
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.Note;
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.SourceName;
@@ -109,7 +113,7 @@ namespace Fanex.NexHR.Services.ExportExcel
             const int RowHeightTitle = 25;
             worksheet.Row(1).Height = RowHeightTitle;
 
-            int[] widthCol = [10, 30, 15, 25, 30, 15, 15, 15, 15, 15, 30, 15];
+            int[] widthCol = [10, 30, 15, 25, 30, 15, 15, 15, 15, 15, 15, 40, 15];
             for (int i = 0; i < widthCol.Length; i++)
             {
                 worksheet.Column(i + 1).Width = widthCol[i];

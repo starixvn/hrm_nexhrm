@@ -29,6 +29,10 @@
         [DataType(DataType.Date)]
         public DateTime? JoinDate { get; set; }
 
+        public int Status { get; set; }
+
+        public string CVStatus { get; set; }
+
         public string Note { get; set; }
 
         public int Source { get; set; }

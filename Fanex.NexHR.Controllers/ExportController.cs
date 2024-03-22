@@ -214,6 +214,7 @@
                     applicant.SourceName = applicant.Source != 0 ? GetName<CVSource>(applicant.Source) : string.Empty;
                     applicant.ResultName1 = applicant.Result1 != 0 ? GetName<ResultInterview>(applicant.Result1) : string.Empty;
                     applicant.ResultName2 = applicant.Result2 != 0 ? GetName<ResultInterview>(applicant.Result2) : string.Empty;
+                    applicant.CVStatus = applicant.Status != 0 ? GetName<CVStatus>(applicant.Status) : string.Empty;
                 }
             const string fileName = "ApplicantsReport.xlsx";
             string templatePath = Path.Combine(environment.ContentRootPath, ApplicantsTemplatePath);
