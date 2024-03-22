@@ -4,6 +4,7 @@ using Fanex.NexHR.Criteria.Applicant;
 using Fanex.NexHR.Services.Interfaces;
 using Fanex.NexHR.Models.Applicant;
 using Fanex.NexHR.ViewModels.Applicant;
+using Fanex.NexHR.Models;
 
 namespace Fanex.NexHR.Services
 {
@@ -14,6 +15,18 @@ namespace Fanex.NexHR.Services
         public ApplicantService(IBaseService baseService)
         {
             this.baseService = baseService;
+        }
+
+        public async Task<IEnumerable<EmployeeApplicant>> GetSourceApplicant(GetSourceApplicantCriteria criteria)
+        {
+            IEnumerable<EmployeeApplicant> applicants = null;
+
+            if (criteria != null && criteria.IsValid())
+            {
+                applicants = await baseService.GetDataAsync<EmployeeApplicant>(criteria);
+            }
+
+            return applicants ?? new List<EmployeeApplicant>();
         }
 
         public async Task<IEnumerable<Applicant>> GetAll(GetAllApplicantCriteria criteria)

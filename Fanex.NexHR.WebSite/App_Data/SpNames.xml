@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Functions>
     <Function Name="Employee">
-        <Setting Key="Employee_GetEmployees" SpName="Employee_GetEmployees" DbName="nexhr" Plain="0">
+      <Setting Key="Applicant_GetSource" SpName="Applicant_GetSource" DbName="nexhr" Plain="0"></Setting>
+      <Setting Key="Applicant_UpdateSalary" SpName="Applicant_UpdateSalary" DbName="nexhr" Plain="0"></Setting>
+      <Setting Key="Employee_GetEmployees" SpName="Employee_GetEmployees" DbName="nexhr" Plain="0">
             <Mapping DataField="DOB" ObjectProperty="DateOfBirth" />
             <Mapping DataField="IdCardNumber" ObjectProperty="CardNo" />
             <Mapping DataField="GroupId" ObjectProperty="Id" />

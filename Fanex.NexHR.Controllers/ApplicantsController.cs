@@ -4,21 +4,22 @@ namespace Fanex.NexHR.Controllers
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
-    using Services.Interfaces;
-    using Fanex.NexHR.Controllers.Attributes;
-    using ViewModels.Applicant;
-    using Models.Applicant;
     using Criteria.Applicant;
-    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Core.Enums;
-    using Microsoft.AspNetCore.Mvc.Rendering;
     using Fanex.NexHR.Criteria.Employee;
-    using Microsoft.AspNetCore.Http;
     using Fanex.NexHR.Criteria.Position;
+    using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
+    using JATWeb.Utils;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Models.Applicant;
+    using Services.Interfaces;
+    using ViewModels.Applicant;
 
     public class ApplicantsController : BaseController
     {
@@ -81,9 +82,77 @@ namespace Fanex.NexHR.Controllers
                     applicant.ResultName1 = applicant.Result1 != 0 ? GetName<ResultInterview>(applicant.Result1) : string.Empty;
                     applicant.ResultName2 = applicant.Result2 != 0 ? GetName<ResultInterview>(applicant.Result2) : string.Empty;
                 }
+
             }
 
             return PartialView("_ListApplicant", result);
+        }
+
+        [HttpGet]
+        [HrmAuthorize(UserRoles = "HR")]
+        public async Task<IActionResult> Test()
+        {
+            var applicants = await applicantService.GetSourceApplicant(new GetSourceApplicantCriteria());
+
+            foreach (var applicant in applicants)
+            {
+
+                //if (!string.IsNullOrWhiteSpace(applicant.OfferedSalary)
+                //    || !string.IsNullOrWhiteSpace(applicant.ExpectedSalary)
+                //    || !string.IsNullOrWhiteSpace(applicant.FinalComment))
+                //{
+                try
+                {
+                    var fileContent = CryptoProvider.DecryptData(applicant.FileContent, "h&D83hdo208^");
+                    var fileName = applicant.Id + applicant.FileExtension;
+                    var path = Path.Combine(environment.WebRootPath, UploadsFilePath, fileName);
+                    ByteArrayToFile(path, fileContent);
+
+                    var updateCriteria = new UpdateSalaryCriteria
+                    {
+                        Id = applicant.Id,
+                        CvName = fileName
+                        //OfferedSalary = cryptoService.RsaEncrypt(TextCrypto.DecryptString(applicant.OfferedSalary)),
+                        //ExpectedSalary = cryptoService.RsaEncrypt(TextCrypto.DecryptString(applicant.ExpectedSalary)),
+                        //FinalComment = applicant.Id > 13774 ? TextCrypto.DecryptString(applicant.FinalComment) : applicant.FinalComment
+                    };
+
+                    await baseService.ExecuteNonQueryAsync(updateCriteria);
+                }
+                catch (Exception ex)
+                {
+                    var x = applicant.FinalComment;
+                    //cryptoService.RsaEncrypt(applicant.Id > 13774 ? TextCrypto.DecryptString(applicant.FinalComment) : applicant.FinalComment);
+                }
+            }
+
+
+            //var applicants = await applicantService.GetSourceApplicant(new GetSourceApplicantCriteria());
+            //var applicant = applicants.FirstOrDefault();
+            //var fileContent = CryptoProvider.DecryptData(applicant.FileContent, "h&D83hdo208^");
+
+            //var path = Path.Combine(environment.WebRootPath, UploadsFilePath, "test.pdf");
+            //ByteArrayToFile(path, fileContent);
+
+            return Ok();
+            //return File(fileContent, "application/pdf");
+        }
+
+        public bool ByteArrayToFile(string fileName, byte[] byteArray)
+        {
+            try
+            {
+                using (var fs = new FileStream(fileName, FileMode.Create, FileAccess.Write))
+                {
+                    fs.Write(byteArray, 0, byteArray.Length);
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception caught in process: {0}", ex);
+                return false;
+            }
         }
 
         private async Task<List<Position>> GetPositions()
@@ -148,7 +217,7 @@ namespace Fanex.NexHR.Controllers
                 model.EducationBackground = applicant.EducationBackground;
                 model.InterviewerComment = applicant.InterviewerComment;
                 model.Note = applicant.Note;
-                model.FinalComment = applicant.FinalComment;
+                model.FinalComment = DecryptValue(applicant.FinalComment);
                 model.OfferSalary = DecryptValue(applicant.OfferSalary);
                 model.ExpectedSalary = DecryptValue(applicant.ExpectedSalary);
                 model.Recruiter = applicant.NickNameRecruiter + (string.IsNullOrWhiteSpace(applicant.FullNameRecruiter) ? string.Empty : " (" + applicant.FullNameRecruiter + ")");
@@ -259,7 +328,7 @@ namespace Fanex.NexHR.Controllers
                                     ? cryptoService.RsaEncrypt(model.ExpectedSalary) : null,
                     OfferSalary = model.OfferSalary != null
                                     ? cryptoService.RsaEncrypt(model.OfferSalary) : null,
-                    FinalComment = model.FinalComment,
+                    FinalComment = string.IsNullOrWhiteSpace(model.FinalComment) ? string.Empty : cryptoService.RsaEncrypt(model.FinalComment),
                     CreatedBy = CurrentUser.Id
                 };
 
@@ -304,6 +373,7 @@ namespace Fanex.NexHR.Controllers
             {
                 applicant.OfferSalary = DecryptValue(applicant.OfferSalary);
                 applicant.ExpectedSalary = DecryptValue(applicant.ExpectedSalary);
+                applicant.FinalComment = DecryptValue(applicant.FinalComment);
                 applicant.Positions = await GetPositions();
                 applicant.StatusList = GetStatusList();
                 applicant.Recruiter = applicant.NickNameRecruiter + (string.IsNullOrWhiteSpace(applicant.FullNameRecruiter) ? string.Empty : " (" + applicant.FullNameRecruiter + ")");
@@ -351,7 +421,7 @@ namespace Fanex.NexHR.Controllers
                     InterviewerIds = model.InterviewerIds != null ? string.Join(",", model.InterviewerIds) : null,
                     ExpectedSalary = model.ExpectedSalary != null ? cryptoService.RsaEncrypt(model.ExpectedSalary) : null,
                     OfferSalary = model.OfferSalary != null ? cryptoService.RsaEncrypt(model.OfferSalary) : null,
-                    FinalComment = model.FinalComment
+                    FinalComment = string.IsNullOrWhiteSpace(model.FinalComment) ? string.Empty : cryptoService.RsaEncrypt(model.FinalComment)
                 };
 
                 CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);

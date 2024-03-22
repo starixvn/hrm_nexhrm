@@ -9,7 +9,7 @@
     {
         public ApplicantViewModel()
         {
-            FromDate = new DateTimeOffset(DateTimeOffset.Now.Year - 1, DateTimeOffset.Now.Month, 1,  0, 0, 0, TimeSpan.Zero).DateTime;
+            FromDate = DateTimeOffset.Now.AddMonths(-3).Date;
             ToDate = DateTimeOffset.Now.Date;
         }
         
