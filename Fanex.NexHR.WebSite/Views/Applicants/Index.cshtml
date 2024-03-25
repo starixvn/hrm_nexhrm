@@ -7,6 +7,15 @@
 
 @{
     ViewBag.Title = Labels.Applicants;
+    var PageSizeList = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "3", Value = "3" },
+        new SelectListItem { Text = "5", Value = "5" },
+        new SelectListItem { Text = "10", Value = "10" },
+        new SelectListItem { Text = "20", Value = "20" },
+        new SelectListItem { Text = "50", Value = "50" },
+        new SelectListItem { Text = "100", Value = "100" }
+    };
 }
 
 @section Styles {
@@ -94,6 +103,25 @@
                     </div>
                     <div id="applicants-detail" class="p-x--s over-auto">
                     </div>
+
+                    <div class="pagination">
+                        <div class="page-size">
+                            <span>Page size</span>
+                            <div class="left">
+                                <select asp-for="PageSize" asp-items="@PageSizeList" onchange="pageSizeChanged()">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="page-number">
+                            <button class="mdi mdi-chevron-double-left" id="btnDoublePrev"></button>
+                            <button class="mdi mdi-chevron-left" id="btnPrev"></button>
+                            <input asp-for="PageNumber" min="1"/>
+                            <button class="mdi mdi-chevron-right" id="btnDoubleNext"></button>
+                            <button class="mdi mdi-chevron-double-right" id="btnDoubleNext"></button>
+                        </div>
+                        <span>Display <span id="item-range-start"></span> to <span id="item-range-end"></span> of <span id="total-items"></span> item(s)</span>
+                    </div>
+
                 </div>
             </div>
         </div>

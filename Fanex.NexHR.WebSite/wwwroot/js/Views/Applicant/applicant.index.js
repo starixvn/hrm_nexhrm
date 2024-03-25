@@ -11,7 +11,9 @@ function query(isFirstLoad) {
             PositionId: $('#PositionId').val(),
             Status: $('#Status').val(),
             FromDate: $('#FromDate').val(),
-            ToDate: $('#ToDate').val()
+            ToDate: $('#ToDate').val(),
+            PageNumber: $('#PageNumber').val(),
+            PageSize: $('#PageSize').val()
         },
         beforeSend: function () {
             if (!isFirstLoad) {
@@ -20,8 +22,9 @@ function query(isFirstLoad) {
         },
         success: function (data) {
             $('#applicants-detail').html(data);
-
             floatThead('table#data');
+            showRowInfo();
+            disableBtnPreNext();
         },
         error: function () {
             alert(_messages.errorTryAgain);
@@ -58,10 +61,110 @@ function eventExportExcel() {
     });
 }
 
+function pageSizeChanged() {
+    query(false);
+}
+
+function showRowInfo() {
+    const totalRow = document.getElementById('total-row').value;
+    const paginationElement = document.querySelector('.pagination');
+    const itemRangeStart = document.getElementById('item-range-start');
+    const itemRangeEnd = document.getElementById('item-range-end');
+    const totalItems = document.getElementById('total-items');
+  
+    if (totalRow != 0) {
+        const pageNumber = document.getElementById('PageNumber').value;
+        const pageSize = document.getElementById('PageSize').value;
+
+        const startItem = (pageNumber - 1) * pageSize + 1;
+        const endItem = pageNumber * pageSize;
+    
+        itemRangeStart.textContent = startItem;
+        itemRangeEnd.textContent = Math.min(endItem, totalRow);
+        totalItems.textContent = totalRow;
+        paginationElement.style.display = '';
+    } else {
+        paginationElement.style.display = 'none';
+    }
+}
+
+function disableBtnPreNext() {
+    const totalRow = parseInt(document.getElementById('total-row').value, 10);
+    const pageSize = parseInt(document.getElementById('PageSize').value, 10);
+    const lastPageNumber = Math.ceil(totalRow / pageSize);
+    const pageNumber = document.getElementById('PageNumber').value;
+
+    const btnLeft = document.querySelector('.mdi-chevron-left');
+    const btnDoubleLeft = document.querySelector('.mdi-chevron-double-left');
+    const btnRight = document.querySelector('.mdi-chevron-right');
+    const btnDoubleRight = document.querySelector('.mdi-chevron-double-right');
+
+    btnLeft.classList.toggle('disabled', pageNumber == 1);
+    btnDoubleLeft.classList.toggle('disabled', pageNumber == 1);
+    btnRight.classList.toggle('disabled', pageNumber == lastPageNumber);
+    btnDoubleRight.classList.toggle('disabled', pageNumber == lastPageNumber);
+}
+
+function clickBtnPrevNext() {
+    const buttonIds = ['btnDoublePrev', 'btnPrev', 'btnDoubleNext', 'btnNext'];
+    const pageNumberInput = document.getElementById('PageNumber');
+    const totalRowInput = document.getElementById('total-row');
+    const pageSizeInput = document.getElementById('PageSize');
+  
+    const lastPageNumber = calculateLastPageNumber();
+  
+    buttonIds.forEach(function(buttonId) {
+      const button = document.getElementById(buttonId);
+      button.addEventListener('click', function(evt) {
+        evt.preventDefault();
+        handleButtonClick(buttonId);
+        query(false);
+      });
+    });
+  
+    function calculateLastPageNumber() {
+      const totalRow = parseInt(totalRowInput.value, 10);
+      const pageSize = parseInt(pageSizeInput.value, 10);
+      return Math.ceil(totalRow / pageSize);
+    }
+  
+    function handleButtonClick(buttonId) {
+      switch (buttonId) {
+        case 'btnDoublePrev':
+          pageNumberInput.value = 1;
+          break;
+        case 'btnPrev':
+          pageNumberInput.value = parseInt(pageNumberInput.value) - 1;
+          break;
+        case 'btnDoubleNext':
+          pageNumberInput.value = lastPageNumber;
+          break;
+        case 'btnNext':
+          pageNumberInput.value = parseInt(pageNumberInput.value) + 1;
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
+
 $(document).ready(function () {
     $('#FullName').keyup(function (event) {
         if (event.keyCode === 13) {
             query(false);
+        }
+    });
+
+    $('#PageNumber').keyup(function (event) {
+        if (event.keyCode === 13) {
+            const totalRow = parseInt(document.getElementById('total-row').value, 10);
+            const pageSize = parseInt(document.getElementById('PageSize').value, 10);
+            const lastPageNumber = Math.ceil(totalRow / pageSize);
+            const pageNumber = document.getElementById('PageNumber').value;
+            if(lastPageNumber >= pageNumber){
+                query(false);
+            }
         }
     });
 
@@ -71,4 +174,6 @@ $(document).ready(function () {
 
     query(true);
     eventExportExcel();
+    pageSizeChanged();
+    clickBtnPrevNext();
 });

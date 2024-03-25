@@ -72,10 +72,13 @@ namespace Fanex.NexHR.Controllers
                     ToDate = model.ToDate,
                     Status = model.Status,
                     PositionId = model.PositionId,
-                    FullName = model.FullName
+                    FullName = model.FullName,
+                    PageNumber = model.PageNumber,
+                    PageSize = model.PageSize
                 };
 
                 result = await applicantService.GetAll(criteria);
+                ViewBag.TotalRow = criteria.TotalRow;
                 foreach (var applicant in result)
                 {
                     applicant.SourceName = applicant.Source != 0 ? GetName<CVSource>(applicant.Source) : string.Empty;
@@ -83,8 +86,8 @@ namespace Fanex.NexHR.Controllers
                     applicant.ResultName2 = applicant.Result2 != 0 ? GetName<ResultInterview>(applicant.Result2) : string.Empty;
                     applicant.CVStatus = applicant.Status != 0 ? GetName<CVStatus>(applicant.Status) : string.Empty;
                 }
-
             }
+
 
             return PartialView("_ListApplicant", result);
         }

@@ -11,8 +11,9 @@
         {
             FromDate = DateTimeOffset.Now.AddMonths(-3).Date;
             ToDate = DateTimeOffset.Now.Date;
+            PageNumber = 1;
         }
-        
+
         public string FullName { get; set; }
 
         public int PositionId { get; set; }
@@ -26,5 +27,11 @@
         public IEnumerable<Position> Positions { get; set; }
 
         public  List<SelectListItem> StatusList { get; set; }
+
+        public int PageNumber { get; set; }
+
+        public int PageSize { get; set; }
+
+        public int TotalRow { get; set; }
     }
 }

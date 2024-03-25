@@ -15,6 +15,12 @@
 
         public string FullName { get; set; }
 
+        public int PageNumber { get; set; }
+
+        public int PageSize { get; set; }
+
+        public int TotalRow { get; set; }
+
         public override string GetSettingKey()
         {
             return "Applicant_Get";
