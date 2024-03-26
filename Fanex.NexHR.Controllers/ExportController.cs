@@ -198,7 +198,9 @@
             DateTime toDate,
             int status,
             int positionId,
-            string fullName = null )
+            int pageNumber,
+            int pageSize,
+            string fullName = null)
         {
             var criteria = new GetAllApplicantCriteria
             {
@@ -206,7 +208,9 @@
                 FromDate = fromDate,
                 ToDate = toDate,
                 Status = status,
-                PositionId = positionId
+                PositionId = positionId,
+                PageNumber = pageNumber,
+                PageSize = pageSize 
             };
             IEnumerable<Applicant> listApplicants = await applicantService.GetAll(criteria);
             foreach (var applicant in listApplicants)

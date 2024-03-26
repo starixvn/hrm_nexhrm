@@ -57,114 +57,122 @@ function eventExportExcel() {
         evt.preventDefault();
 
         window.location.href = _global.root + 'Export/ApplicantsReport?fullName=' + $('#FullName').val() + '&positionId=' + $('#PositionId').val()
-        + '&status=' + $('#Status').val() + '&fromDate=' + $('#FromDate').val() + '&toDate=' + $('#ToDate').val();
+        + '&status=' + $('#Status').val() + '&fromDate=' + $('#FromDate').val() + '&toDate=' + $('#ToDate').val()
+        + '&pageNumber=' + $('#PageNumber').val() + '&pageSize=' + $('#PageSize').val();
     });
 }
 
 function pageSizeChanged() {
+    const totalRow = parseInt(document.getElementById('total-row')?.value, 10) || 0;
+    const pageNumber = document.getElementById('PageNumber');
+    const pageSize = document.getElementById('PageSize');
+  
+    if ((pageNumber.value - 1) * pageSize.value + 1 > totalRow) {
+      pageNumber.value = 1;
+    }
     query(false);
-}
+  }
 
 function showRowInfo() {
-    const totalRow = document.getElementById('total-row').value;
-    const paginationElement = document.querySelector('.pagination');
-    const itemRangeStart = document.getElementById('item-range-start');
-    const itemRangeEnd = document.getElementById('item-range-end');
-    const totalItems = document.getElementById('total-items');
-  
-    if (totalRow != 0) {
-        const pageNumber = document.getElementById('PageNumber').value;
-        const pageSize = document.getElementById('PageSize').value;
+    const totalRow = parseInt($('#total-row').val(), 10);
+    const paginationElement = $('.pagination');
+    const itemRangeStart = $('#item-range-start');
+    const itemRangeEnd = $('#item-range-end');
+    const totalItems = $('#total-items');
 
-        const startItem = (pageNumber - 1) * pageSize + 1;
-        const endItem = pageNumber * pageSize;
-    
-        itemRangeStart.textContent = startItem;
-        itemRangeEnd.textContent = Math.min(endItem, totalRow);
-        totalItems.textContent = totalRow;
-        paginationElement.style.display = '';
+    if (totalRow !== 0) {
+      const pageNumber = parseInt($('#PageNumber').val(), 10);
+      const pageSize = parseInt($('#PageSize').val(), 10);
+  
+      const startItem = (pageNumber - 1) * pageSize + 1;
+      const endItem = Math.min(pageNumber * pageSize, totalRow);
+
+      itemRangeStart.text(startItem);
+      itemRangeEnd.text(endItem);
+      totalItems.text(totalRow);
+      paginationElement.show();
     } else {
-        paginationElement.style.display = 'none';
-    }
-}
-
-function disableBtnPreNext() {
-    const totalRow = parseInt(document.getElementById('total-row').value, 10);
-    const pageSize = parseInt(document.getElementById('PageSize').value, 10);
-    const lastPageNumber = Math.ceil(totalRow / pageSize);
-    const pageNumber = document.getElementById('PageNumber').value;
-
-    const btnLeft = document.querySelector('.mdi-chevron-left');
-    const btnDoubleLeft = document.querySelector('.mdi-chevron-double-left');
-    const btnRight = document.querySelector('.mdi-chevron-right');
-    const btnDoubleRight = document.querySelector('.mdi-chevron-double-right');
-
-    btnLeft.classList.toggle('disabled', pageNumber == 1);
-    btnDoubleLeft.classList.toggle('disabled', pageNumber == 1);
-    btnRight.classList.toggle('disabled', pageNumber == lastPageNumber);
-    btnDoubleRight.classList.toggle('disabled', pageNumber == lastPageNumber);
-}
-
-function clickBtnPrevNext() {
-    const buttonIds = ['btnDoublePrev', 'btnPrev', 'btnDoubleNext', 'btnNext'];
-    const pageNumberInput = document.getElementById('PageNumber');
-    const totalRowInput = document.getElementById('total-row');
-    const pageSizeInput = document.getElementById('PageSize');
-  
-    const lastPageNumber = calculateLastPageNumber();
-  
-    buttonIds.forEach(function(buttonId) {
-      const button = document.getElementById(buttonId);
-      button.addEventListener('click', function(evt) {
-        evt.preventDefault();
-        handleButtonClick(buttonId);
-        query(false);
-      });
-    });
-  
-    function calculateLastPageNumber() {
-      const totalRow = parseInt(totalRowInput.value, 10);
-      const pageSize = parseInt(pageSizeInput.value, 10);
-      return Math.ceil(totalRow / pageSize);
-    }
-  
-    function handleButtonClick(buttonId) {
-      switch (buttonId) {
-        case 'btnDoublePrev':
-          pageNumberInput.value = 1;
-          break;
-        case 'btnPrev':
-          pageNumberInput.value = parseInt(pageNumberInput.value) - 1;
-          break;
-        case 'btnDoubleNext':
-          pageNumberInput.value = lastPageNumber;
-          break;
-        case 'btnNext':
-          pageNumberInput.value = parseInt(pageNumberInput.value) + 1;
-          break;
-        default:
-          break;
-      }
+      paginationElement.hide();
     }
   }
 
+function disableBtnPreNext() {
+    const totalRow = parseInt($('#total-row').val(), 10);
+    const pageSize = parseInt($('#PageSize').val(), 10);
+    const lastPageNumber = Math.ceil(totalRow / pageSize);
+    const pageNumber = parseInt($('#PageNumber').val(), 10);
+  
+    $('.mdi-chevron-left, .mdi-chevron-double-left').toggleClass('disabled', pageNumber === 1);
+    $('.mdi-chevron-right, .mdi-chevron-double-right').toggleClass('disabled', pageNumber === lastPageNumber);
+  }
+
+function clickBtnPrevNext() {
+    const buttonIds = ['btnNext', 'btnPrev', 'btnDoubleNext', 'btnDoublePrev'];
+    buttonIds.forEach(buttonId => {
+      const button = document.getElementById(buttonId);
+  
+      button.addEventListener('click', function(event) {
+        if (!this.classList.contains('disabled')) {
+            handleButtonClick(getUpdatedPageNumber(buttonId));
+        }
+      });
+    });
+
+    function getUpdatedPageNumber(buttonId) {
+        const currentPageNumber = getPageNumber();
+        switch (buttonId) {
+            case 'btnNext':
+                return currentPageNumber + 1;
+            case 'btnPrev':
+                return currentPageNumber - 1;
+            case 'btnDoubleNext':
+                return getLastPageNumber();
+            case 'btnDoublePrev':
+                return 1;
+            default:
+                return currentPageNumber;
+            }
+        }
+
+    function handleButtonClick(pageNumber) {
+      setPageNumber(pageNumber);
+      query(false);
+    }
+  
+    function getPageNumber() {
+      return parseInt(document.getElementById('PageNumber').value);
+    }
+  
+    function setPageNumber(value) {
+      document.getElementById('PageNumber').value = value;
+    }
+  
+    function getLastPageNumber() {
+      const totalRowElement = document.getElementById('total-row');
+      const totalRow = totalRowElement != null ? parseInt(totalRowElement.value, 10) : 0;
+      const pageSize = parseInt(document.getElementById('PageSize').value, 10);
+      return Math.ceil(totalRow / pageSize);
+    }
+}
+
+function enterPageNumber() {
+    $('#PageNumber').keyup(event => {
+      const ENTER_KEYCODE = 13;
+      const totalRow = parseInt($('#total-row').val(), 10);
+      const pageSize = parseInt($('#PageSize').val(), 10);
+      const lastPageNumber = Math.ceil(totalRow / pageSize);
+      const pageNumber = parseInt($(event.currentTarget).val(), 10);
+  
+      if (event.keyCode === ENTER_KEYCODE && pageNumber > 0 && pageNumber <= lastPageNumber) {
+        query(false);
+      }
+    });
+  }
 
 $(document).ready(function () {
     $('#FullName').keyup(function (event) {
         if (event.keyCode === 13) {
             query(false);
-        }
-    });
-
-    $('#PageNumber').keyup(function (event) {
-        if (event.keyCode === 13) {
-            const totalRow = parseInt(document.getElementById('total-row').value, 10);
-            const pageSize = parseInt(document.getElementById('PageSize').value, 10);
-            const lastPageNumber = Math.ceil(totalRow / pageSize);
-            const pageNumber = document.getElementById('PageNumber').value;
-            if(lastPageNumber >= pageNumber){
-                query(false);
-            }
         }
     });
 
@@ -174,6 +182,6 @@ $(document).ready(function () {
 
     query(true);
     eventExportExcel();
-    pageSizeChanged();
     clickBtnPrevNext();
+    enterPageNumber();
 });
