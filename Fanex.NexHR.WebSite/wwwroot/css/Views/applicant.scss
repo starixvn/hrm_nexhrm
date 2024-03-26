@@ -138,6 +138,10 @@ table {
       box-shadow: none;
     }
   }
+
+  .pagination {
+    width: 100% !important;
+  }
 }
 
 @media only screen and (max-width: 993px) {
@@ -177,7 +181,6 @@ table {
     box-shadow: none;
     margin: 0;
     width: 100%;
-    // max-width: 100%;
   }
 
   .select2-container {
@@ -207,15 +210,21 @@ table {
   }
 }
 
+@media only screen and (max-width: 1440px) {
+  #applicants-detail {
+    overflow: auto;
+  }
+}
 
 .pagination {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   height: auto;
   width: 60%;
   margin: 10px auto 0;
-  border-radius: 10px;
+  row-gap: 10px;
 
   .mdi {
     width: 32px;
@@ -257,8 +266,8 @@ table {
         border-bottom: none;
         border-radius: 3px;
 
-        &:active {
-          top: -22rem !important;
+        &:active, &:focus, &:visited {
+          top: -186px !important;
           left: -2px !important;
           width: 120px !important;
         }

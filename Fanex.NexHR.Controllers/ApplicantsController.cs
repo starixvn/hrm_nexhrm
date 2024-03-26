@@ -88,7 +88,6 @@ namespace Fanex.NexHR.Controllers
                 }
             }
 
-
             return PartialView("_ListApplicant", result);
         }
 
