@@ -40,7 +40,7 @@
         {
             foreach (var item in Model)
             {
-                string hightlight = (item.ResultName1 == "KIV" || item.ResultName2 == "KIV") ? "background-color: #f5e7e1;" : "";
+                string hightlight = (item.Result1 == "KIV" || item.Result2 == "KIV") ? "background-color: #f5e7e1;" : "";
                 <tr id="row@(item.Id)" style="@hightlight">
                     <td>@(index++)</td>
                     <td class="align-left">
@@ -50,13 +50,13 @@
                     <td class="align-left">@item.Email</td>
                     <td class="align-left">@item.Position</td>
                     <td>@item.InterviewDate1.ToDateMonthYearFormatedDate()</td>
-                    <td>@item.ResultName1</td>
+                    <td>@item.Result1</td>
                     <td>@item.InterviewDate2.ToDateMonthYearFormatedDate()</td>
-                    <td>@item.ResultName2</td>
-                    <td>@item.CVStatus</td>
+                    <td>@item.Result2</td>
+                    <td>@item.Status</td>
                     <td>@item.JoinDate.ToDateMonthYearFormatedDate()</td>
                     <td class="align-left">@item.Note</td>
-                    <td>@item.SourceName</td>
+                    <td>@item.Source</td>
                     <td>
                         @if (!string.IsNullOrEmpty(item.Resume))
                         {

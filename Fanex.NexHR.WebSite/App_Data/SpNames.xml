@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Functions>
     <Function Name="Employee">
-      <Setting Key="Applicant_GetSource" SpName="Applicant_GetSource" DbName="nexhr" Plain="0"></Setting>
-      <Setting Key="Applicant_UpdateSalary" SpName="Applicant_UpdateSalary" DbName="nexhr" Plain="0"></Setting>
       <Setting Key="Employee_GetEmployees" SpName="Employee_GetEmployees" DbName="nexhr" Plain="0">
             <Mapping DataField="DOB" ObjectProperty="DateOfBirth" />
             <Mapping DataField="IdCardNumber" ObjectProperty="CardNo" />
@@ -507,6 +505,11 @@
         <Setting Key="Applicant_Insert" SpName="Applicant_Insert" DbName="nexhr" Plain="1"></Setting>
         <Setting Key="Applicant_Update" SpName="Applicant_Update" DbName="nexhr" Plain="1"></Setting>
         <Setting Key="Applicant_Delete" SpName="Applicant_Delete" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="Applicant_GetSource" SpName="Applicant_GetSource" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="Applicant_GetCVStatus" SpName="Applicant_GetCVStatus" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="Applicant_GetProfessionalLevel" SpName="Applicant_GetProfessionalLevel" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="Applicant_GetResult" SpName="Applicant_GetResult" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="Applicant_GetGrade" SpName="Applicant_GetGrade" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Position">
         <Setting Key="Position_GetAll" SpName="Position_GetAll" DbName="nexhr" Plain="1"></Setting>

@@ -29,23 +29,15 @@
         [DataType(DataType.Date)]
         public DateTime? JoinDate { get; set; }
 
-        public int Status { get; set; }
-
-        public string CVStatus { get; set; }
+        public string Status { get; set; }
 
         public string Note { get; set; }
 
-        public int Source { get; set; }
+        public string Source { get; set; }
 
-        public string SourceName { get; set; }
+        public string Result1 { get; set; }
 
-        public int Result1 { get; set; }
-
-        public string ResultName1 { get; set; }
-
-        public int Result2 { get; set; }
-
-        public string ResultName2 { get; set; }
+        public string Result2 { get; set; }
 
         public string Resume { get; set; }
     }

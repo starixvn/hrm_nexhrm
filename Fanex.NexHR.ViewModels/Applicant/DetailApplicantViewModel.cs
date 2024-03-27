@@ -15,7 +15,7 @@
 
         public string Position { get; set; }
 
-        public DateTime DOB { get; set; }
+        public DateTime? DOB { get; set; }
 
         public DateTime ApplyDate { get; set; }
 

@@ -69,13 +69,13 @@ namespace Fanex.NexHR.Services.ExportExcel
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.Email;
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.Position;
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.InterviewDate1?.ToString(formatDate);
-            worksheet.Cells[rowIndex, colIndex++].Value = applicant.ResultName1;
+            worksheet.Cells[rowIndex, colIndex++].Value = applicant.Result1;
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.InterviewDate2?.ToString(formatDate);
-            worksheet.Cells[rowIndex, colIndex++].Value = applicant.ResultName2;
-            worksheet.Cells[rowIndex, colIndex++].Value = applicant.CVStatus;
+            worksheet.Cells[rowIndex, colIndex++].Value = applicant.Result2;
+            worksheet.Cells[rowIndex, colIndex++].Value = applicant.Status;
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.JoinDate?.ToString(formatDate);
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.Note;
-            worksheet.Cells[rowIndex, colIndex++].Value = applicant.SourceName;
+            worksheet.Cells[rowIndex, colIndex++].Value = applicant.Source;
 
             if ((rowIndex & 1) != 0)
             {

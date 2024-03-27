@@ -7,12 +7,10 @@ namespace Fanex.NexHR.Controllers
     using System.Threading.Tasks;
     using Criteria.Applicant;
     using Fanex.NexHR.Controllers.Attributes;
-    using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Position;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;
-    using JATWeb.Utils;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -53,7 +51,7 @@ namespace Fanex.NexHR.Controllers
             var model = new ApplicantViewModel
             {
                 Positions = await GetPositions(),
-                StatusList = GetStatusList()
+                StatusList = await GetCVStatus()
             };
 
             return View(model);
@@ -79,83 +77,9 @@ namespace Fanex.NexHR.Controllers
 
                 result = await applicantService.GetAll(criteria);
                 ViewBag.TotalRow = criteria.TotalRow;
-                foreach (var applicant in result)
-                {
-                    applicant.SourceName = applicant.Source != 0 ? GetName<CVSource>(applicant.Source) : string.Empty;
-                    applicant.ResultName1 = applicant.Result1 != 0 ? GetName<ResultInterview>(applicant.Result1) : string.Empty;
-                    applicant.ResultName2 = applicant.Result2 != 0 ? GetName<ResultInterview>(applicant.Result2) : string.Empty;
-                    applicant.CVStatus = applicant.Status != 0 ? GetName<CVStatus>(applicant.Status) : string.Empty;
-                }
             }
 
             return PartialView("_ListApplicant", result);
-        }
-
-        [HttpGet]
-        [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> Test()
-        {
-            var applicants = await applicantService.GetSourceApplicant(new GetSourceApplicantCriteria());
-
-            foreach (var applicant in applicants)
-            {
-
-                //if (!string.IsNullOrWhiteSpace(applicant.OfferedSalary)
-                //    || !string.IsNullOrWhiteSpace(applicant.ExpectedSalary)
-                //    || !string.IsNullOrWhiteSpace(applicant.FinalComment))
-                //{
-                try
-                {
-                    var fileContent = CryptoProvider.DecryptData(applicant.FileContent, "h&D83hdo208^");
-                    var fileName = applicant.Id + applicant.FileExtension;
-                    var path = Path.Combine(environment.WebRootPath, UploadsFilePath, fileName);
-                    ByteArrayToFile(path, fileContent);
-
-                    var updateCriteria = new UpdateSalaryCriteria
-                    {
-                        Id = applicant.Id,
-                        CvName = fileName
-                        //OfferedSalary = cryptoService.RsaEncrypt(TextCrypto.DecryptString(applicant.OfferedSalary)),
-                        //ExpectedSalary = cryptoService.RsaEncrypt(TextCrypto.DecryptString(applicant.ExpectedSalary)),
-                        //FinalComment = applicant.Id > 13774 ? TextCrypto.DecryptString(applicant.FinalComment) : applicant.FinalComment
-                    };
-
-                    await baseService.ExecuteNonQueryAsync(updateCriteria);
-                }
-                catch (Exception ex)
-                {
-                    var x = applicant.FinalComment;
-                    //cryptoService.RsaEncrypt(applicant.Id > 13774 ? TextCrypto.DecryptString(applicant.FinalComment) : applicant.FinalComment);
-                }
-            }
-
-
-            //var applicants = await applicantService.GetSourceApplicant(new GetSourceApplicantCriteria());
-            //var applicant = applicants.FirstOrDefault();
-            //var fileContent = CryptoProvider.DecryptData(applicant.FileContent, "h&D83hdo208^");
-
-            //var path = Path.Combine(environment.WebRootPath, UploadsFilePath, "test.pdf");
-            //ByteArrayToFile(path, fileContent);
-
-            return Ok();
-            //return File(fileContent, "application/pdf");
-        }
-
-        public bool ByteArrayToFile(string fileName, byte[] byteArray)
-        {
-            try
-            {
-                using (var fs = new FileStream(fileName, FileMode.Create, FileAccess.Write))
-                {
-                    fs.Write(byteArray, 0, byteArray.Length);
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Exception caught in process: {0}", ex);
-                return false;
-            }
         }
 
         private async Task<List<Position>> GetPositions()
@@ -166,35 +90,39 @@ namespace Fanex.NexHR.Controllers
             return activePositions;
         }
 
-        private static List<SelectListItem> GetStatusList()
+        private async Task<List<Source>> GetCVStatus()
         {
-            var statusList = new List<SelectListItem>();
-
-            foreach (CVStatus status in Enum.GetValues(typeof(CVStatus)))
-            {
-                var item = new SelectListItem
-                {
-                    Text = status.ToString(),
-                    Value = ((int)status).ToString()
-                };
-
-                statusList.Add(item);
-            }
-
-            return statusList;
+            var criteria = new GetCVStatusApplicantCriteria();
+            var statusList = await applicantService.GetCVStatusApplicant(criteria);
+            return statusList.ToList();
         }
 
-        private static string GetName<T>(int id)
+        private async Task<List<Source>> GetResult()
         {
-            if (Enum.IsDefined(typeof(T), id))
-            {
-                T enumValue = (T)(object)id;
-                return enumValue.ToString();
-            }
-            else
-            {
-                return $"Invalid {typeof(T).Name}";
-            }
+            var criteria = new GetResultApplicantCriteria();
+            var resultList = await applicantService.GetResultApplicant(criteria);
+            return resultList.ToList();
+        }
+
+        private async Task<List<Source>> GetGrade()
+        {
+            var criteria = new GetGradeApplicantCriteria();
+            var gradeList = await applicantService.GetGradeApplicant(criteria);
+            return gradeList.ToList();
+        }
+
+        private async Task<List<Source>> GetSource()
+        {
+            var criteria = new GetSourceApplicantCriteria();
+            var sourceList = await applicantService.GetSourceApplicant(criteria);
+            return sourceList.ToList();
+        }
+
+        private async Task<List<Source>> GetProLevel()
+        {
+            var criteria = new GetProLevelApplicantCriteria();
+            var proLevelList = await applicantService.GetProLevelApplicant(criteria);
+            return proLevelList.ToList();
         }
 
         [HrmAuthorize(UserRoles = "HR")]
@@ -203,7 +131,6 @@ namespace Fanex.NexHR.Controllers
             var criteria = new GetApplicantByIdCriteria { ApplicantId = id };
             var applicant = await applicantService.GetById(criteria);
             var positions = await GetPositions();
-            var statusList = GetStatusList();
             var model = new DetailApplicantViewModel();
             if (applicant != null)
             {
@@ -225,13 +152,13 @@ namespace Fanex.NexHR.Controllers
                 model.ExpectedSalary = DecryptValue(applicant.ExpectedSalary);
                 model.Recruiter = applicant.NickNameRecruiter + (string.IsNullOrWhiteSpace(applicant.FullNameRecruiter) ? string.Empty : " (" + applicant.FullNameRecruiter + ")");
                 model.Position = positions.Find(p => p.PositionId == applicant.PositionId).PositionName;
-                model.Status = applicant.Status != null ? statusList.Find(p => p.Value == applicant.Status.ToString()).Text : null;
-                model.ProfessionalLevel = applicant.ProfessionalLevel != null
-                ? applicant.ProLevelList.Find(p => p.Value == applicant.ProfessionalLevel.ToString()).Text : null;
-                model.Result1 = applicant.Result1 != null ? applicant.ResultList.Find(p => p.Value == applicant.Result1.ToString()).Text : null;
-                model.Result2 = applicant.Result2 != null ? applicant.ResultList.Find(p => p.Value == applicant.Result2.ToString()).Text : null;
-                model.Source = applicant.Source != null ? applicant.SourceList.Find(p => p.Value == applicant.Source.ToString()).Text : null;
-                model.Grade = applicant.Grade != null ? applicant.GradeList.Find(p => p.Value == applicant.Grade.ToString()).Text : null;
+                // model.Status = applicant.Status;//applicant.Status != null ? statusList.Find(p => p.Value == applicant.Status.ToString()).Text : null;
+                // model.ProfessionalLevel = applicant.ProfessionalLevel != null
+                // ? applicant.ProLevelList.Find(p => p.Value == applicant.ProfessionalLevel.ToString()).Text : null;
+                // model.Result1 = applicant.Result1 != null ? applicant.ResultList.Find(p => p.Value == applicant.Result1.ToString()).Text : null;
+                // model.Result2 = applicant.Result2 != null ? applicant.ResultList.Find(p => p.Value == applicant.Result2.ToString()).Text : null;
+                // model.Source = applicant.Source != null ? applicant.SourceList.Find(p => p.Value == applicant.Source.ToString()).Text : null;
+                // model.Grade = applicant.Grade != null ? applicant.GradeList.Find(p => p.Value == applicant.Grade.ToString()).Text : null;
                 model.Interviewer = await GetInterviewerNames(applicant.InterviewerIdString);
                 model.Resume = applicant.Resume;
             }
@@ -286,7 +213,11 @@ namespace Fanex.NexHR.Controllers
             var model = new CreateApplicantViewModel
             {
                 Positions = await GetPositions(),
-                StatusList = GetStatusList(),
+                StatusList = await GetCVStatus(),
+                ProLevelList = await GetProLevel(),
+                ResultList = await GetResult(),
+                GradeList =  await GetGrade(),
+                SourceList = await GetSource(),
                 Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName))
             };
 
@@ -348,7 +279,11 @@ namespace Fanex.NexHR.Controllers
 
                 ViewBag.IsManager = IsCurrentUserManager();
                 model.Positions = await GetPositions();
-                model.StatusList = GetStatusList();
+                model.StatusList = await GetCVStatus();
+                model.ProLevelList = await GetProLevel();
+                model.ResultList = await GetResult();
+                model.GradeList =  await GetGrade();
+                model.SourceList = await GetSource();
             }
 
             return View(model);
@@ -378,7 +313,7 @@ namespace Fanex.NexHR.Controllers
                 applicant.ExpectedSalary = DecryptValue(applicant.ExpectedSalary);
                 applicant.FinalComment = DecryptValue(applicant.FinalComment);
                 applicant.Positions = await GetPositions();
-                applicant.StatusList = GetStatusList();
+                // applicant.StatusList = GetStatusList();
                 applicant.Recruiter = applicant.NickNameRecruiter + (string.IsNullOrWhiteSpace(applicant.FullNameRecruiter) ? string.Empty : " (" + applicant.FullNameRecruiter + ")");
                 applicant.InterviewerIds = !string.IsNullOrEmpty(applicant.InterviewerIdString) ? applicant.InterviewerIdString.Split(',').Select(int.Parse).ToArray() : null;
                 applicant.Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName));
@@ -440,7 +375,7 @@ namespace Fanex.NexHR.Controllers
 
                 ViewBag.IsManager = IsCurrentUserManager();
                 model.Positions = await GetPositions();
-                model.StatusList = GetStatusList();
+                // model.StatusList = GetStatusList();
             }
 
             return View(model);

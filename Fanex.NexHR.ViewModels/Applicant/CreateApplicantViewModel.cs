@@ -3,11 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Reflection;
-    using Fanex.NexHR.Core.Attributes;
-    using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Applicant;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -15,7 +12,6 @@
     {
         public CreateApplicantViewModel()
         {
-            DOB = new DateTimeOffset(1990, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
             ApplyDate = DateTimeOffset.Now.DateTime;
         }
 
@@ -37,36 +33,17 @@
 
         public IEnumerable<Position> Positions { get; set; }
 
-        public  List<SelectListItem> StatusList { get; set; }
+        public IEnumerable<Source> StatusList { get; set; }
 
-        public  List<SelectListItem> ProLevelList => GenerateSelectList<ProfessionalLevel>();
+        public IEnumerable<Source> ProLevelList { get; set; }
 
-        public List<SelectListItem> ResultList => GenerateSelectList<ResultInterview>();
+        public IEnumerable<Source> ResultList { get; set; }
 
-        public List<SelectListItem> SourceList => GenerateSelectList<CVSource>();
+        public List<Source> SourceList { get; set; }
 
-        public List<SelectListItem> GradeList => GenerateSelectList<CVGrade>();
+        public List<Source> GradeList { get; set; }
 
-        private List<SelectListItem> GenerateSelectList<TEnum>()
-        {
-            Type enumType = typeof(TEnum);
-            var enumValues = Enum.GetValues(enumType);
-
-            return enumValues.Cast<TEnum>()
-                .Select(enumValue =>
-                {
-                    MemberInfo memberInfo = enumType.GetMember(enumValue.ToString())[0];
-                    StringValueAttribute attribute = memberInfo.GetCustomAttribute<StringValueAttribute>();
-
-                    string text = attribute?.Value ?? enumValue.ToString();
-                    string value = Convert.ToInt32(enumValue).ToString();
-
-                    return new SelectListItem { Text = text, Value = value };
-                })
-                .ToList();
-        }
-
-        public DateTime DOB { get; set; }
+        public DateTime? DOB { get; set; }
 
         public DateTime ApplyDate { get; set; }
 

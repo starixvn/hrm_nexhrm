@@ -16,7 +16,7 @@
 
         public int? Status { get; set; }
 
-        public DateTime DOB { get; set; }
+        public DateTime? DOB { get; set; }
 
         public DateTime ApplyDate { get; set; }
 

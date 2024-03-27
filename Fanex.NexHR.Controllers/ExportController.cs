@@ -213,31 +213,11 @@
                 PageSize = pageSize 
             };
             IEnumerable<Applicant> listApplicants = await applicantService.GetAll(criteria);
-            foreach (var applicant in listApplicants)
-                {
-                    applicant.SourceName = applicant.Source != 0 ? GetName<CVSource>(applicant.Source) : string.Empty;
-                    applicant.ResultName1 = applicant.Result1 != 0 ? GetName<ResultInterview>(applicant.Result1) : string.Empty;
-                    applicant.ResultName2 = applicant.Result2 != 0 ? GetName<ResultInterview>(applicant.Result2) : string.Empty;
-                    applicant.CVStatus = applicant.Status != 0 ? GetName<CVStatus>(applicant.Status) : string.Empty;
-                }
             const string fileName = "ApplicantsReport.xlsx";
             string templatePath = Path.Combine(environment.ContentRootPath, ApplicantsTemplatePath);
             var bytes = ExportService.ExportApplicants(listApplicants, fromDate, toDate, templatePath);
 
             return File(bytes, ContentTyleFile, fileName);
-        }
-
-         private static string GetName<T>(int id)
-        {
-            if (Enum.IsDefined(typeof(T), id))
-            {
-                T enumValue = (T)(object)id;
-                return enumValue.ToString();
-            }
-            else
-            {
-                return $"Invalid {typeof(T).Name}";
-            }
         }
 
         public async Task<IActionResult> LeaveScheduleReport(WorkingCalendarViewModel model)

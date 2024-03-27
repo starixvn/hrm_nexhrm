@@ -65,7 +65,7 @@
                                     <label>@Labels.Status</label>
                                 </div>
                                 <div class="left select--s">
-                                    <select asp-for="Status" asp-items="@Model.StatusList">
+                                    <select asp-for="Status" asp-items="@(new SelectList(Model.StatusList, "Value", "Name"))">
                                         <option value="">@Labels.All</option>
                                     </select>
                                 </div>

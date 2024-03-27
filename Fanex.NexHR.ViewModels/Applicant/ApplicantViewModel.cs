@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Applicant;
     using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class ApplicantViewModel
@@ -27,7 +28,7 @@
 
         public IEnumerable<Position> Positions { get; set; }
 
-        public  List<SelectListItem> StatusList { get; set; }
+        public  IEnumerable<Source> StatusList { get; set; }
 
         public int PageNumber { get; set; }
 
