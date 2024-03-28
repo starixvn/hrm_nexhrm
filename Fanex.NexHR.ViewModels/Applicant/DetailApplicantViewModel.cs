@@ -4,7 +4,6 @@
 
     public class DetailApplicantViewModel
     {
-
         public string FullName { get; set; }
 
         public string Phone { get; set; }
@@ -19,7 +18,7 @@
 
         public DateTime ApplyDate { get; set; }
 
-        public int? YearsOfExperience { get; set; }
+        public float? YearsOfExperience { get; set; }
 
         public string ProfessionalLevel { get; set; }
 

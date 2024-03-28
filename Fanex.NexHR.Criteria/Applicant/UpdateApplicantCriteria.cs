@@ -21,7 +21,7 @@
 
         public DateTime ApplyDate { get; set; }
 
-        public int? YearsOfExperience { get; set; }
+        public float? YearsOfExperience { get; set; }
 
         public int? ProfessionalLevel { get; set; }
 

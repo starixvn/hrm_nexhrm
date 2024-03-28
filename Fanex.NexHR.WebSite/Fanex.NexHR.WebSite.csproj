@@ -9,12 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\js\Views\Employee\employee.profile.js" />
     <None Include="compilerconfig.json" />
     <None Include="wwwroot\avatars\avatar.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="wwwroot\js\Views\Employee\employee.profile.js" />
   </ItemGroup>
 
   <ItemGroup>

@@ -24,6 +24,7 @@
             <th style="width:20%" rowspan="2">@Labels.Note</th>
             <th style="width:4%" rowspan="2">@Labels.Source</th>
             <th style="width:2%" rowspan="2">@Labels.CV</th>
+            <th style="width:2%" rowspan="2">On Top</th>
             <th style="width:2%" rowspan="2">@Labels.Edit</th>
             <th style="width:2%" rowspan="2">@Labels.Delete</th>
             <th style="width:2%" rowspan="2">@Labels.CreateAccount</th>
@@ -40,7 +41,7 @@
         {
             foreach (var item in Model)
             {
-                string hightlight = (item.Result1 == "KIV" || item.Result2 == "KIV") ? "background-color: #f5e7e1;" : "";
+                string hightlight = (item.Result1 == "KIV" || item.Result2 == "KIV" || item.Status == "KIV") ? "background-color: #f5e7e1;" : "";
                 <tr id="row@(item.Id)" style="@hightlight">
                     <td>@(index++)</td>
                     <td class="align-left">
@@ -62,6 +63,11 @@
                         {
                             <a href="@($"{dirCV}/{item.Resume}")">@Labels.View</a>
                         }
+                    </td>
+                    <td>
+                        <a href="javascript:;" onclick="updateOnTop(@item.Id)">
+                            <i class="mdi mdi-chevron-double-up @(item.IsOnTop ? "" : "mdi-dark")"></i>
+                        </a>
                     </td>
                     <td>
                         <a href="@Url.Action("Edit", "Applicants", new { @item.Id})">

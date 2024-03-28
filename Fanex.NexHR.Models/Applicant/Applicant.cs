@@ -40,5 +40,7 @@
         public string Result2 { get; set; }
 
         public string Resume { get; set; }
+
+        public bool IsOnTop {get; set;}
     }
 }

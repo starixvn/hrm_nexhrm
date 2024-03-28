@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Applicant;
-    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class ApplicantViewModel
     {

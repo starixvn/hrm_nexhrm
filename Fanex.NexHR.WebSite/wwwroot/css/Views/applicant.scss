@@ -122,6 +122,13 @@ table {
       color: #2aaa55;
     }
   }
+
+  .mdi-chevron-double-up {
+    &:hover {
+      color: #fc9715;
+    }
+
+  }
 }
 
 @media only screen and (max-width: 1366px) {

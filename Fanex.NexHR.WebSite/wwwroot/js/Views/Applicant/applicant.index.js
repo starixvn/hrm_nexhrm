@@ -52,6 +52,20 @@ function deleteApplicant(id, fileName) {
     });
 }
 
+function updateOnTop(id) {
+    confirm('Are you sure you want to update on top this applicant?', function () {
+        $.post(_global.root + 'applicants/UpdateOnTop', { id: id},
+            function (response) {
+                if (response.IsSuccessful) {
+                    query(false);
+                }
+                else {
+                    alert(response.Message);
+                }
+            });
+    });
+}
+
 function eventExportExcel() {
     $('#exportExcel').on('click', function (evt) {
         evt.preventDefault();
