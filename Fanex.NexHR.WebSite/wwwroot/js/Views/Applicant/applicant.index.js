@@ -77,10 +77,11 @@ function eventExportExcel() {
 }
 
 function pageSizeChanged() {
-    const totalRow = parseInt(document.getElementById('total-row')?.value, 10) || 0;
+    const totalRowElement = document.getElementById('total-row');
+    const totalRow = totalRowElement != null ? parseInt(totalRowElement.value, 10) : 0;
     const pageNumber = document.getElementById('PageNumber');
     const pageSize = document.getElementById('PageSize');
-  
+
     if ((pageNumber.value - 1) * pageSize.value + 1 > totalRow) {
       pageNumber.value = 1;
     }
