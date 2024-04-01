@@ -4,7 +4,6 @@ using Fanex.NexHR.Criteria.Applicant;
 using Fanex.NexHR.Services.Interfaces;
 using Fanex.NexHR.Models.Applicant;
 using Fanex.NexHR.ViewModels.Applicant;
-using System;
 
 namespace Fanex.NexHR.Services
 {

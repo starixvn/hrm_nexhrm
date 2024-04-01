@@ -6,7 +6,6 @@
     using Criteria.Employee;
     using Criteria.Report;
     using Fanex.NexHR.Controllers.Attributes;
-    using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.Applicant;
     using Fanex.NexHR.Models.Applicant;
     using Microsoft.AspNetCore.Hosting;
