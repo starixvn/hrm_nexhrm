@@ -1882,7 +1882,7 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   <data name="YearsOfExperience" xml:space="preserve">
     <value>Years Of Experience</value>
   </data>
-    <data name="ProfessionalLevel" xml:space="preserve">
+  <data name="ProfessionalLevel" xml:space="preserve">
     <value>Professional Level</value>
   </data>
   <data name="ProfessionalMajor" xml:space="preserve">
@@ -1920,5 +1920,8 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   </data>
   <data name="FinalCmt" xml:space="preserve">
     <value>Final Comments</value>
+  </data>
+  <data name="VegetarianMessageContent" xml:space="preserve">
+    <value>Nếu bạn có nhu cầu ăn chay thứ {0} ngày {1} (nhằm {2} âm lịch) vui lòng đặt trước bằng cách nhấn vào nút [Đặt Cơm Chay] bên dưới hoặc vào hệ thống F&amp;B để đăng ký để Bếp chuẩn bị được tốt hơn.</value>
   </data>
 </root>

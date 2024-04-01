@@ -131,7 +131,7 @@
                 }
 
                 model.IsEdit = false;
-                SendEmailAndSkype(model);
+                SendEmailAndChatBot(model);
             }
             else
             {
@@ -141,7 +141,7 @@
             return View(model);
         }
 
-        private void SendEmailAndSkype(LeaveRequestViewModel model)
+        private void SendEmailAndChatBot(LeaveRequestViewModel model)
         {
             var templatePath = model.IsUnpaidLeave || model.IsAnnualLeaveOver5Day
                         ? Constants.EmailTemplatePathForUnpaidLeave
@@ -152,8 +152,10 @@
             model.CurrentUserEmail = CurrentUser.Email;
             Task.Factory.StartNew(async () =>
             {
-                await requestService.SendMailForLeave(model);
-                await nexbotService.SendMessageForLeaveRequest(model);
+                var leaders = await requestService.GetLeaderForLeave(model.EmployeeId, model.IsManagementApprove);
+
+                requestService.SendMailForLeave(model, leaders);
+                await nexbotService.SendMessageForLeaveRequest(model, leaders);
             });
         }
 
@@ -218,7 +220,7 @@
                     if (result.Code == 0)
                     {
                         viewModel.IsEdit = true;
-                        SendEmailAndSkype(viewModel);
+                        SendEmailAndChatBot(viewModel);
                     }
                 }
                 else

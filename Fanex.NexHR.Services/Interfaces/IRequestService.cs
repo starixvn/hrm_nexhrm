@@ -3,6 +3,7 @@
     using Core.Enums;
     using Criteria.Request;
     using Fanex.NexHR.Models.LateInEarlyOut;
+    using Fanex.NexHR.Models.Staff;
     using Models;
     using Models.Request;
     using System;
@@ -27,11 +28,14 @@
 
         Task<DateRange> GetDateRange(GetDateRangeEmployeeCalendarCriteria criteria);
 
-        void SendMailForCheckInOut(CheckInOutRequestViewModel model, IList<Employee> leaders);
+        void SendMailForCheckInOut(CheckInOutRequestViewModel model, IEnumerable<EmployeeSupervisor> employeeSupervisors);
 
-        Task<IEnumerable<Employee>> GetLeaderForCheckInOut(CheckInOutRequestViewModel model);
+        Task<IEnumerable<EmployeeSupervisor>> GetLeaderForCheckInOut(int employeeId, bool isStandbyAtWeekend);
 
-        Task SendMailForLeave(LeaveRequestViewModel model);
+        Task<IEnumerable<EmployeeSupervisor>> GetLeaderForLeave(int employeeId, bool isManagementApprove);
+
+        void SendMailForLeave(LeaveRequestViewModel model, IEnumerable<EmployeeSupervisor> employeeSupervisors);
+
         void SendMailDeductLateInEarlyOutToEmp(LateInEarlyOutModel lateInEarlyOutModel);
 
         Task<LeaveBalanceInMonth> GetAnnualLeaveBalanceInMonth(GetLeaveBalanceInMonthCriteria criteria);

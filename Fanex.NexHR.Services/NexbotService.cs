@@ -1,12 +1,18 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Net.Http;
+    using System.Threading.Tasks;
     using Core;
     using Core.Enums;
     using Criteria.SkypeAccount;
-    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.ScheduledMessage;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.LateInEarlyOut;
+    using Fanex.NexHR.Models.Staff;
     using Fanex.NexHR.Resources;
     using Interfaces;
     using Models.NexBot;
@@ -14,12 +20,6 @@
     using Models.SkypeAccount;
     using Newtonsoft.Json;
     using Repositories.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-    using System.Net.Http;
-    using System.Threading.Tasks;
     using ViewModels;
     using ViewModels.CheckInOutRequest;
 
@@ -90,24 +90,17 @@
                 $"/account/GetRegisteredConversationByMessageCategory?messageCategoryId={(int)messageCategory}",
                 HttpMethod.Get);
 
-        private async Task SendApproveMessageAsync(string conversationId, long requestId, int processedBy, string message)
-        {
+        private async Task SendApproveMessageAsync(RequestMessage requestMessage)
+        { 
             if (nexBotSettings.Enable)
             {
-                var data = new Dictionary<string, string>
-                {
-                    {"conversationId", conversationId },
-                    {"requestId", requestId.ToString() },
-                    {"processedBy", processedBy.ToString() },
-                    {"message", message },
-                    {"callBackUrl", $"{appSetting.BaseUrl}/api" },
-                };
-
-                await SendHttpClientAsync<Task>("/request/approve", HttpMethod.Post, data);
+                var jsonData = JsonConvert.SerializeObject(requestMessage);
+                var data = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonData);
+                await SendHttpClientAsync<Task>("/request/process", HttpMethod.Post, data);
             }
         }
 
-        public async Task SendRegistVegetarianMealAsync(string conversationId, int empId, int companyId, DateTime onDate, string message)
+        public async Task SendRegistVegetarianMealAsync(string conversationId, int empId, int companyId, DateTime onDate, string message, string messageContent)
         {
             if (nexBotSettings.Enable)
             {
@@ -118,6 +111,7 @@
                     {"companyId", companyId.ToString() },
                     {"onDate", onDate.ToString("yyyy-MM-dd") },
                     {"message", message },
+                    {"messageContent", messageContent },
                     {"callBackUrl", $"{appSetting.FBUrl}/api" },
                 };
 
@@ -153,35 +147,35 @@
             return employeeAccounts.ToList();
         }
 
-        public async Task SendMessageForLeaveRequest(LeaveRequestViewModel request)
+        public async Task SendMessageForLeaveRequest(LeaveRequestViewModel request, IEnumerable<EmployeeSupervisor> employeeSupervisors)
         {
-            if (request != null)
+            if (employeeSupervisors != null && employeeSupervisors.Any())
             {
-                IEnumerable<EmployeeNotificationInfo> leaders;
-                if (request.IsAnnualLeaveOver5Day || request.IsUnpaidLeave)
+                foreach (var employeeSupervisor in employeeSupervisors)
                 {
-                    leaders = await baseService.GetDataAsync<EmployeeNotificationInfo>(new GetManagementsCriteria());
-                }
-                else
-                {
-                    var criteria = new GetLeadersOfEmployeeCriteria
+                    var message = GenerateMessageForLeaveRequest(request, employeeSupervisor.SupervisorNickName);
+                    var forDate = GetDateStringForLeaveRequest(request.FromDate, request.ToDate, request.TotalDays);
+                    var requestMessage = new RequestMessage()
                     {
-                        EmployeeId = request.EmployeeId
+                        RequestId = request.Id,
+                        ConversationId = employeeSupervisor.SupervisorConversationId,
+                        ProcessedBy = employeeSupervisor.SupervisorId,
+                        Message = message,
+                        Supervisor = employeeSupervisor.SupervisorNickName,
+                        Nick = employeeSupervisor.NickName,
+                        FullName = employeeSupervisor.FullName,
+                        Code = employeeSupervisor.Code,
+                        CreatedDate = (request.IsEdit ? "Edited at " : "Created at ") + DateTimeOffset.Now.ToString("dd MMM, yyyy HH:mm"),
+                        RequestDate = forDate,
+                        RequestType = "leave",
+                        LeaveType = request.LeaveTypeName,
+                        Remark = request.Remark,
+                        IsReadOnly = employeeSupervisor.IsReadOnly,
+                        CallBackUrl = $"{appSetting.BaseUrl}/api",
+                        AvatarUrl = $"{appSetting.BaseUrl}/Avatars/{employeeSupervisor.Code}.jpg"
                     };
-                    leaders = await baseService.GetDataAsync<EmployeeNotificationInfo>(criteria);
-                }
-                await SendMessageToHandleLeaveRequestMembers(leaders, request);
-            }
-        }
 
-        private async Task SendMessageToHandleLeaveRequestMembers(IEnumerable<EmployeeNotificationInfo> leaders, LeaveRequestViewModel request)
-        {
-            if (leaders != null && leaders.Any())
-            {
-                foreach (var leader in leaders)
-                {
-                    var message = GenerateMessageForLeaveRequest(request, leader.NickName);
-                    await SendApproveMessageAsync(leader.ConversationId, request.Id, leader.EmpId, message);
+                    await SendApproveMessageAsync(requestMessage);
                 }
             }
         }
@@ -275,14 +269,37 @@
             return message;
         }
 
-        public async Task SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request, IList<Employee> leaders)
+        public async Task SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request, IEnumerable<EmployeeSupervisor> employeeSupervisors)
         {
             try
             {
-                foreach (var leader in leaders)
+                string requestType = request.CheckInOutType == (short)RequestType.CheckIn
+                            ? RequestType.CheckIn.EnumToString().ToLower(CultureInfo.InvariantCulture)
+                            : RequestType.CheckOut.EnumToString().ToLower(CultureInfo.InvariantCulture);
+
+                foreach (var employeeSupervisor in employeeSupervisors)
                 {
-                    var message = GenerateCheckInOutRequestMessage(request, leader.NickName);
-                    await SendApproveMessageAsync(leader.ConversationId, request.Id, leader.Id, message);
+                    var message = GenerateCheckInOutRequestMessage(request, employeeSupervisor.SupervisorNickName);
+                    var requestMessage = new RequestMessage()
+                    {
+                        RequestId = request.Id,
+                        ConversationId = employeeSupervisor.SupervisorConversationId,
+                        ProcessedBy = employeeSupervisor.SupervisorId,
+                        Message = message,
+                        Supervisor = employeeSupervisor.SupervisorNickName,
+                        Nick = employeeSupervisor.NickName,
+                        FullName = employeeSupervisor.FullName,
+                        Code = employeeSupervisor.Code,
+                        CreatedDate = request.IsEdit ? "Edited at " : "Created at " + DateTimeOffset.Now.ToString("dd MMM, yyyy HH:mm"),
+                        RequestDate = request.WorkDate.ToDateMonthYearFormatedDate(),
+                        Shift = request.Shift,
+                        Time = request.Hour.ToString().PadLeft(2, '0') + ":" + request.Minute.ToString().PadLeft(2, '0'),
+                        RequestType = requestType,
+                        CallBackUrl = $"{appSetting.BaseUrl}/api",
+                        AvatarUrl = $"{appSetting.BaseUrl}/Avatars/{employeeSupervisor.Code}.jpg"
+                    };
+
+                    await SendApproveMessageAsync(requestMessage);
                 }
             }
             catch (Exception ex)

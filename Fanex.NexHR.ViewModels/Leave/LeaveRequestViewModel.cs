@@ -74,6 +74,8 @@
         public bool IsAnnualLeaveOver5Day => (LeaveTypeId == Constants.AnnualLeaveType || LeaveTypeId == Constants.UnplannedAnnualLeaveType)
                                              && TotalDays >= numberDay;
 
+        public bool IsManagementApprove => IsAnnualLeaveOver5Day || IsUnpaidLeave;
+
         public bool IsEdit { get; set; }
 
         public string EmailTemplate => Utilities.ReadTextFile(EmailTemplatePath);

@@ -16,13 +16,9 @@
         {
             get
             {
-                if (BeginCheckInTime != null && EndCheckInTime != null)
+                if (BeginCheckInTime != null && EndCheckOutTime != null)
                 {
-                    if (BeginCheckInTime.Equals(EndCheckInTime))
-                    {
-                        return $"{Name} (IN {BeginCheckInTime} -> OUT:{BeginCheckOutTime})";
-                    }
-                    return $"{Name} (IN {BeginCheckInTime} - {EndCheckInTime} -> OUT {BeginCheckOutTime} - {EndCheckOutTime})";
+                    return $"{Name} ({BeginCheckInTime} > {EndCheckOutTime})";
                 }
                 return string.Empty;
             }

@@ -198,14 +198,15 @@
                 if (sendDate == DateTimeOffset.Now.Date)
                 {
                     var dateContent = new DateTimeOffset(item.Solar.SolarYear, item.Solar.SolarMonth, item.Solar.SolarDay, 0, 0, 0, TimeSpan.Zero).DateTime;
-                    string message = string.Format(Labels.VegetarianMessages, ((int)dateContent.DayOfWeek + 1),
+                    var messageContent = string.Format(Labels.VegetarianMessageContent, ((int)dateContent.DayOfWeek + 1),
                                             dateContent.ToDateMonthYearFormatedDate(), item.Lunar.LunarDay == 1 ? FirstLunar : item.Lunar.LunarDay);
-                    await SendReminderVegetarianRestrationToAllEmp(message, dateContent);
+                    string message = string.Format(Labels.VegetarianMessages, messageContent);
+                    await SendReminderVegetarianRestrationToAllEmp(message, messageContent, dateContent);
                 }
             }
         }
 
-        private async Task SendReminderVegetarianRestrationToAllEmp(string message, DateTime onDate)
+        private async Task SendReminderVegetarianRestrationToAllEmp(string message, string messageContent, DateTime onDate)
         {
             var employeeConversations = await scheduledMessageRepository.GetEmployeeConversationAsync(new GetEmployeeConversationCriteria()).ConfigureAwait(false);
             var ignoredUser = await GetUserIgnoreVegetarianRestration();
@@ -227,7 +228,8 @@
                     var tasks = new List<Task>();
                     foreach (var employeeConversation in batch)
                     {
-                        tasks.Add(nexbotService.SendRegistVegetarianMealAsync(employeeConversation.ConversationId, employeeConversation.Id, appSetting.FBCompanyId, onDate, message));
+                        tasks.Add(nexbotService.SendRegistVegetarianMealAsync(employeeConversation.ConversationId, 
+                            employeeConversation.Id, appSetting.FBCompanyId, onDate, message, messageContent));
                     }
 
                     await Task.WhenAll(tasks);

@@ -125,7 +125,7 @@
                     if (result.IsSuccessful)
                     {
                         model.IsEdit = false;
-                        SendEmailAndSkype(model);
+                        SendEmailAndChatBot(model);
                     }
                 }
                 else
@@ -143,18 +143,18 @@
             return View(model);
         }
 
-        private void SendEmailAndSkype(CheckInOutRequestViewModel model)
+        private void SendEmailAndChatBot(CheckInOutRequestViewModel model)
         {
             model.EmailTemplatePath = Path.Combine(environment.ContentRootPath, Constants.EmailTemplatePathForCheckInOut);
             Task.Factory.StartNew(async () =>
             {
                 try
                 {
-                    var leaders = await requestService.GetLeaderForCheckInOut(model);
+                    var leaders = await requestService.GetLeaderForCheckInOut(model.EmployeeId, model.IsStandbyAtWeekend);
                     if (leaders != null && leaders.Any())
                     {
-                        requestService.SendMailForCheckInOut(model, leaders.ToList());
-                        await nexbotService.SendMessageForCheckInOutRequest(model, leaders.ToList());
+                        requestService.SendMailForCheckInOut(model, leaders);
+                        await nexbotService.SendMessageForCheckInOutRequest(model, leaders);
                     }
                 }
                 catch (Exception ex)
@@ -226,7 +226,7 @@
                     if (result.Code == 0)
                     {
                         model.IsEdit = true;
-                        SendEmailAndSkype(model);
+                        SendEmailAndChatBot(model);
                     }
                 }
                 else

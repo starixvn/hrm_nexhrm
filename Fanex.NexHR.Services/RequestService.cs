@@ -7,6 +7,7 @@
     using Data.Repository;
     using Fanex.NexHR.Models.Core;
     using Fanex.NexHR.Models.LateInEarlyOut;
+    using Fanex.NexHR.Models.Staff;
     using Interfaces;
     using Microsoft.AspNetCore.Hosting;
     using Models;
@@ -14,6 +15,7 @@
     using Repositories.Interfaces;
     using Resources;
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
@@ -305,25 +307,28 @@
             return dateRange ?? new DateRange();
         }
 
-        public async Task SendMailForLeave(LeaveRequestViewModel model)
+        public void SendMailForLeave(LeaveRequestViewModel model, IEnumerable<EmployeeSupervisor> employeeSupervisors)
         {
-            if (model != null)
+            string forDate = GetDateStringForLeaveRequest(model.FromDate, model.ToDate, model.TotalDays);
+
+            if (employeeSupervisors != null && employeeSupervisors.Any())
             {
-                var criteria = new GetLeadersOfEmployeeCriteria { EmployeeId = model.EmployeeId };
-                var leaders = await baseService.GetDataAsync<EmployeeNotificationInfo>(criteria);
+                string body = string.Format(
+                    model.EmailTemplate,
+                    employeeSupervisors.FirstOrDefault().SupervisorNickName,
+                    model.Employee,
+                    forDate,
+                    model.LeaveTypeName,
+                    model.Remark,
+                    appSetting.BaseUrl,
+                    emailSettings.CompanyMailSign);
 
-                string forDate = GetDateStringForLeaveRequest(model.FromDate, model.ToDate, model.TotalDays);
-
-                if (model.IsUnpaidLeave || model.IsAnnualLeaveOver5Day)
-                {
-                    var managers = await baseService.GetDataAsync<EmployeeNotificationInfo>(new GetManagementsCriteria());
-
-                    SendMailToManagers(managers.ToList(), leaders.ToList(), model, forDate);
-                }
-                else
-                {
-                    SendMailToLeaders(leaders.ToList(), model, forDate);
-                }
+                emailService.SendEmail(
+                    emailSettings.Email,
+                    string.Join(";", employeeSupervisors.Where(t => !t.IsReadOnly).Select(t => t.SupervisorEmail)),
+                    string.Join(";", employeeSupervisors.Where(t => t.IsReadOnly).Select(t => t.SupervisorEmail)),
+                    model.SubjectEmail,
+                    body);
             }
         }
 
@@ -343,62 +348,13 @@
                 body);
         }
 
-        private void SendMailToManagers(
-            IList<EmployeeNotificationInfo> managers,
-            IList<EmployeeNotificationInfo> leaders,
-            LeaveRequestViewModel model,
-            string forDate)
-        {
-            if (managers.Any())
-            {
-                var body = string.Format(
-                    model.EmailTemplate,
-                    model.Employee,
-                    forDate,
-                    model.LeaveTypeName,
-                    model.Remark,
-                    appSetting.BaseUrl,
-                    emailSettings.CompanyMailSign);
-
-                emailService.SendEmail(
-                    emailSettings.Email,
-                    string.Join(";", managers.Select(t => t.Email)),
-                    string.Join(";", leaders.Where(t => !t.Email.Equals(model.CurrentUserEmail)).Select(t => t.Email)),
-                    model.SubjectEmail,
-                    body);
-            }
-        }
-
-        private void SendMailToLeaders(IList<EmployeeNotificationInfo> leaders, LeaveRequestViewModel model, string forDate)
-        {
-            if (leaders != null && leaders.Any())
-            {
-                string body = string.Format(
-                    model.EmailTemplate,
-                    leaders[0].NickName,
-                    model.Employee,
-                    forDate,
-                    model.LeaveTypeName,
-                    model.Remark,
-                    appSetting.BaseUrl,
-                    emailSettings.CompanyMailSign);
-
-                emailService.SendEmail(
-                    emailSettings.Email,
-                    string.Join(";", leaders.Select(t => t.Email)),
-                    string.Empty,
-                    model.SubjectEmail,
-                    body);
-            }
-        }
-
-        public void SendMailForCheckInOut(CheckInOutRequestViewModel model, IList<Employee> leaders)
+        public void SendMailForCheckInOut(CheckInOutRequestViewModel model, IEnumerable<EmployeeSupervisor> employeeSupervisors)
         {
             try
             {
                 var content = new
                 {
-                    Leader = leaders[0].NickName,
+                    Leader = employeeSupervisors.FirstOrDefault()?.SupervisorNickName,
                     Member = model.Employee,
                     Type = model.CheckInOutType == (short)RequestType.CheckIn
                             ? RequestType.CheckIn.EnumToString().ToLower(CultureInfo.InvariantCulture)
@@ -422,7 +378,7 @@
 
                 emailService.SendEmail(
                     emailSettings.Email,
-                    string.Join(";", leaders.Select(t => t.Email)),
+                    string.Join(";", employeeSupervisors.Select(t => t.SupervisorEmail)),
                     string.Empty,
                     model.SubjectEmail,
                     body);
@@ -433,25 +389,27 @@
             }
         }
 
-        public async Task<IEnumerable<Employee>> GetLeaderForCheckInOut(CheckInOutRequestViewModel model)
+        public async Task<IEnumerable<EmployeeSupervisor>> GetLeaderForCheckInOut(int employeeId, bool isStandbyAtWeekend)
         {
-            IEnumerable<Employee> leaders;
-
-            if (model.IsStandbyAtWeekend)
+            var criteria = new GetSupervisorForCheckInOutRequestCriteria
             {
-                var getLeaderCriteria = new GetLeaderForStanbyTeamCriteria();
-                leaders = await baseService.GetDataAsync<Employee>(getLeaderCriteria);
-            }
-            else
+                EmployeeId = employeeId,
+                IsStandbyAtWeekend = isStandbyAtWeekend
+            };
+
+            var leaders = await baseService.GetDataAsync<EmployeeSupervisor>(criteria);
+            return leaders;
+        }
+
+        public async Task<IEnumerable<EmployeeSupervisor>> GetLeaderForLeave(int employeeId, bool isManagementApprove)
+        {
+            var criteria = new GetSupervisorForLeaveRequestCriteria
             {
-                var criteria = new GetLeadersOfEmployeeCriteria
-                {
-                    EmployeeId = model.EmployeeId
-                };
+                EmployeeId = employeeId,
+                IsManagementApprove = isManagementApprove
+            };
 
-                leaders = await baseService.GetDataAsync<Employee>(criteria);
-            }
-
+            var leaders = await baseService.GetDataAsync<EmployeeSupervisor>(criteria);
             return leaders;
         }
 

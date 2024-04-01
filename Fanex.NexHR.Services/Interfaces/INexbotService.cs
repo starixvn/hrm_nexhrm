@@ -4,6 +4,7 @@
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.LateInEarlyOut;
+    using Fanex.NexHR.Models.Staff;
     using Models.Request;
     using Models.SkypeAccount;
     using System;
@@ -24,13 +25,13 @@
 
         Task<IEnumerable<EmployeeSkypeAccount>> GetEmployeeSkypeAccountAsync(GetEmployeeSkypeAccountCriteria criteria);
 
-        Task SendRegistVegetarianMealAsync(string conversationId, int empId, int companyId, DateTime onDate, string message);
+        Task SendRegistVegetarianMealAsync(string conversationId, int empId, int companyId, DateTime onDate, string message, string messageContent);
 
-        Task SendMessageForLeaveRequest(LeaveRequestViewModel request);
+        Task SendMessageForLeaveRequest(LeaveRequestViewModel request, IEnumerable<EmployeeSupervisor> employeeSupervisors);
 
         Task SendMessageProcessRequest(RequestEntity request, string command);
 
-        Task SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request, IList<Employee> leaders);
+        Task SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request, IEnumerable<EmployeeSupervisor> employeeSupervisors);
         Task<CommandResult> SendMessageDeductLateInEarlyOutToEmp(LateInEarlyOutModel lateInEarlyOutModel);
         Task<CommandResult> SendMessageDeductLateInEarlyOutToHrTeam(IEnumerable<LateInEarlyOutModel> lateInEarlyOutModels);
         Task<CommandResult> SendMessageDeductToConversation(IEnumerable<string> conversations, string message);
