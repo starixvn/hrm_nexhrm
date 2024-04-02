@@ -117,6 +117,10 @@ input[type="email"] {
 }
 
 table {
+  .column-note {
+    word-break: break-word;
+  }
+
   .mdi-plus-circle {
     &:hover {
       color: #2aaa55;

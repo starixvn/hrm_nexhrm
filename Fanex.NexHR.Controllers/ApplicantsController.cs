@@ -77,6 +77,8 @@ namespace Fanex.NexHR.Controllers
 
                 result = await applicantService.GetAll(criteria);
                 ViewBag.TotalRow = criteria.TotalRow;
+                ViewBag.PageNumber = model.PageNumber;
+                ViewBag.PageSize = model.PageSize;
             }
 
             return PartialView("_ListApplicant", result);

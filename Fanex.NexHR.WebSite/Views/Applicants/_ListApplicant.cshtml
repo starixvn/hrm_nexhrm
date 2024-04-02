@@ -3,9 +3,7 @@
 @using Fanex.NexHR.Resources
 @model IEnumerable<Applicant>
 @{
-    var index = 1;
     string dirCV = "file/uploads/cv";
-
 }
 <div id="divErrorCont"></div>
 <input id="total-row" value="@ViewBag.TotalRow" hidden>
@@ -39,6 +37,7 @@
     <tbody>
         @if (Model.Any())
         {
+            var index = (ViewBag.PageNumber - 1) * ViewBag.PageSize + 1;
             foreach (var item in Model)
             {
                 string hightlight = (item.Result1 == "KIV" || item.Result2 == "KIV" || item.Status == "KIV") ? "background-color: #f5e7e1;" : "";
@@ -56,7 +55,7 @@
                     <td>@item.Result2</td>
                     <td>@item.Status</td>
                     <td>@item.JoinDate.ToDateMonthYearFormatedDate()</td>
-                    <td class="align-left">@item.Note</td>
+                    <td class="align-left column-note">@item.Note</td>
                     <td>@item.Source</td>
                     <td>
                         @if (!string.IsNullOrEmpty(item.Resume))
@@ -96,7 +95,7 @@
         else
         {
             <tr>
-                <td colspan="17">@Labels.NoData</td>
+                <td colspan="18">@Labels.NoData</td>
             </tr>
         }
     </tbody>

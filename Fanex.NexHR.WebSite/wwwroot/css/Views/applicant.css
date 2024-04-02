@@ -80,6 +80,9 @@ input[type="email"] {
 .group-button .mdi-plus {
   margin-right: 6px; }
 
+table .column-note {
+  word-break: break-word; }
+
 table .mdi-plus-circle:hover {
   color: #2aaa55; }
 
