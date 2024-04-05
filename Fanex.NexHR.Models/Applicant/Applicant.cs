@@ -20,6 +20,8 @@
 
         public string Position { get; set; }
 
+        public string PositionCode { get; set; }
+
         [DataType(DataType.Date)]
         public DateTime? InterviewDate1 { get; set; }
 
