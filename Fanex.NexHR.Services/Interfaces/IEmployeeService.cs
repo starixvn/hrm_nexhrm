@@ -16,6 +16,8 @@
 
         Task<UserSession> GetEmployeeByDomainName(GetEmployeeByDomainNameCriteria criteria);
 
+        Task<EmployeeInfo> GetEmployeeByUsername(GetEmployeeByUsernameCriteria criteria);
+
         Task<Employee> GetEmployeeByNickName(GetEmployeeByNickNameCriteria criteria);
 
         Task<IList<Employee>> Query(GetEmployeeCriteria criteria);

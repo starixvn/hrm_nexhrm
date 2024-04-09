@@ -22,6 +22,7 @@
             <Mapping DataField="GroupId" ObjectProperty="Id" />
             <Mapping DataField="JobTitleId" ObjectProperty="Id" />
         </Setting>
+      <Setting Key="Employee_GetByUsername" SpName="Employee_GetByUsername" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_GetByNickName" SpName="Employee_GetByNickName" DbName="nexhr" Plain="0">
             <Mapping DataField="DOB" ObjectProperty="DateOfBirth" />
             <Mapping DataField="IdCardNumber" ObjectProperty="CardNo" />

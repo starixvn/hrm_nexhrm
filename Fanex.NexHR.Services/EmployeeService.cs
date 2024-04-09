@@ -48,6 +48,13 @@
             return userSession;
         }
 
+        public async Task<EmployeeInfo> GetEmployeeByUsername(GetEmployeeByUsernameCriteria criteria)
+        {
+            var employeeInfo = await baseService.GetDataEntityAsync<EmployeeInfo>(criteria);
+            return employeeInfo;
+        }
+
+
         public async Task<Employee> GetEmployeeByNickName(GetEmployeeByNickNameCriteria criteria)
         {
             Employee employee = null;
