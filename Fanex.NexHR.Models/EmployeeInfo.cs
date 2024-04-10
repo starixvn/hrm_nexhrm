@@ -69,5 +69,11 @@
         public DateTime CreatedDate { get; set; }
 
         public DateTime? ModifiedDate { get; set; }
+
+        public string SupervisorEnglishName { get; set; }
+
+        public string SupervisorFullName { get; set; }
+
+        public string SupervisorEmail { get; set; }
     }
 }
