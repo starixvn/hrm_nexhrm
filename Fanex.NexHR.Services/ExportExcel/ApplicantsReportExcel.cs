@@ -11,21 +11,25 @@ namespace Fanex.NexHR.Services.ExportExcel
     public class ApplicantsReportExcel : ExcelBase
     {
         private readonly IEnumerable<Applicant> applicants;
-        private readonly DateTime fromDate;
-        private readonly DateTime toDate;
+        private readonly DateTime? fromDate;
+        private readonly DateTime? toDate;
+        private readonly int pageNumber;
+        private readonly int pageSize;
         private const byte RowStartHeader = 3;
         private const byte RowStartBody = 5;
         private const byte TotalCols = 13;
         private int rowIndex = RowStartBody;
         private const byte FontSizeTitle = 16;
-        private int rowNumber = 1;
+        private int rowNumber;
 
-        public ApplicantsReportExcel(string templatePath, IEnumerable<Applicant> applicants, DateTime fromDate, DateTime toDate)
+        public ApplicantsReportExcel(string templatePath, IEnumerable<Applicant> applicants, DateTime? fromDate, DateTime? toDate, int pageNumber, int pageSize)
             : base(templatePath, 0, "Applicants")
         {
             this.applicants = applicants;
             this.fromDate = fromDate;
             this.toDate = toDate;
+            this.pageNumber = pageNumber;
+            this.pageSize =pageSize;
         }
 
         protected internal override void RenderTitle(ExcelWorksheet templateWorksheet, ExcelWorksheet worksheet)
@@ -34,7 +38,7 @@ namespace Fanex.NexHR.Services.ExportExcel
                    .Copy(worksheet.Cells[1, 1, 1, TotalCols]);
 
             const string formatDate = "dd MMM, yyyy";
-            worksheet.Cells[1, 1].Value = "Applicants: " + fromDate.ToString(formatDate) + " - " + toDate.ToString(formatDate);
+            worksheet.Cells[1, 1].Value = "Applicants: " + fromDate?.ToString(formatDate) + " - " + toDate?.ToString(formatDate);
             worksheet.Cells[1, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             worksheet.Cells[1, 1].Style.Font.Size = FontSizeTitle;
             worksheet.Cells[1, 1].Style.Font.Bold = true;
@@ -49,6 +53,8 @@ namespace Fanex.NexHR.Services.ExportExcel
         protected internal override void RenderBody(ExcelWorksheet templateWorksheet, ExcelWorksheet worksheet)
         {
             const int rowFreeze = 5;
+            rowNumber = (pageNumber - 1) * pageSize + 1;
+
             foreach (var applicant in applicants)
             {
                 RenderRow(applicant, worksheet);

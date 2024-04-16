@@ -7,11 +7,8 @@
 
     public class ApplicantViewModel
     {
-        private const int month= -3;
         public ApplicantViewModel()
         {
-            FromDate = DateTimeOffset.Now.AddMonths(month).Date;
-            ToDate = DateTimeOffset.Now.Date;
             PageNumber = 1;
         }
 
@@ -21,9 +18,9 @@
 
         public int Status { get; set; }
 
-        public DateTime FromDate { get; set; }
+        public DateTime? FromDate { get; set; }
 
-        public DateTime ToDate { get; set; }
+        public DateTime? ToDate { get; set; }
 
         public IEnumerable<Position> Positions { get; set; }
 

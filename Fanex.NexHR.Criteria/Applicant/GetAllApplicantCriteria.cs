@@ -5,9 +5,9 @@
 
     public class GetAllApplicantCriteria : CriteriaBase
     {
-        public DateTime FromDate { get; set; }
+        public DateTime? FromDate { get; set; }
 
-        public DateTime ToDate { get; set; }
+        public DateTime? ToDate { get; set; }
 
         public int Status { get; set; }
 
@@ -26,9 +26,6 @@
             return "Applicant_Get";
         }
 
-        public override bool IsValid()
-        {
-            return FromDate <= ToDate;
-        }
+        public override bool IsValid() => true;
     }
 }

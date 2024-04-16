@@ -60,11 +60,14 @@
 
         public static byte[] ExportApplicants(
             IEnumerable<Applicant> listApplicants,
-            DateTime fromDate,
-            DateTime toDate,
-            string templatePath)
+            DateTime? fromDate,
+            DateTime? toDate,
+            int pageNumber,
+            int pageSize,
+            string templatePath
+            )
         {
-            var excelApplicants = new ApplicantsReportExcel(templatePath, listApplicants, fromDate, toDate);
+            var excelApplicants = new ApplicantsReportExcel(templatePath, listApplicants, fromDate, toDate, pageNumber, pageSize);
             return excelApplicants.Export();
         }
     }

@@ -193,8 +193,8 @@
         [HrmAuthorize(UserRoles = "HR")]
         [HttpGet]
         public async Task<IActionResult> ApplicantsReport(
-            DateTime fromDate,
-            DateTime toDate,
+            DateTime? fromDate,
+            DateTime? toDate,
             int status,
             int positionId,
             int pageNumber,
@@ -214,7 +214,7 @@
             IEnumerable<Applicant> listApplicants = await applicantService.GetAll(criteria);
             const string fileName = "ApplicantsReport.xlsx";
             string templatePath = Path.Combine(environment.ContentRootPath, ApplicantsTemplatePath);
-            var bytes = ExportService.ExportApplicants(listApplicants, fromDate, toDate, templatePath);
+            var bytes = ExportService.ExportApplicants(listApplicants, fromDate, toDate, pageNumber, pageSize, templatePath);
 
             return File(bytes, ContentTyleFile, fileName);
         }
