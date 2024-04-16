@@ -1,12 +1,5 @@
 ﻿namespace Fanex.NexHR.Models.Staff
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
-
     public class EmployeeSupervisor
     {
         public int EmpId { get; set; }

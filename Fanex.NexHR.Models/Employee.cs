@@ -73,6 +73,7 @@
 
         [Display(Name = "Teams' leaders receive requests")]
         public string LeaderGroups { get; set; }
+        public int EmployeeRank { get; set; }
 
         public JobTitle JobTitle { get; set; }
 

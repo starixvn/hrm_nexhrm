@@ -5,7 +5,6 @@
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Services;
     using Services.Interfaces;
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -14,7 +13,7 @@
         [HttpPost]
         public async Task<IActionResult> GetByUsername(string username)
         {
-            var criteria = new GetEmployeeByUsernameCriteria()
+            var criteria = new GetEmployeeByUsernameCriteria
             {
                 Username = username
             };

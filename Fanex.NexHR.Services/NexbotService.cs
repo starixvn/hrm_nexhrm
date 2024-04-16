@@ -155,7 +155,7 @@
                 {
                     var message = GenerateMessageForLeaveRequest(request, employeeSupervisor.SupervisorNickName);
                     var forDate = GetDateStringForLeaveRequest(request.FromDate, request.ToDate, request.TotalDays);
-                    var requestMessage = new RequestMessage()
+                    var requestMessage = new RequestMessage
                     {
                         RequestId = request.Id,
                         ConversationId = employeeSupervisor.SupervisorConversationId,
@@ -280,7 +280,7 @@
                 foreach (var employeeSupervisor in employeeSupervisors)
                 {
                     var message = GenerateCheckInOutRequestMessage(request, employeeSupervisor.SupervisorNickName);
-                    var requestMessage = new RequestMessage()
+                    var requestMessage = new RequestMessage
                     {
                         RequestId = request.Id,
                         ConversationId = employeeSupervisor.SupervisorConversationId,

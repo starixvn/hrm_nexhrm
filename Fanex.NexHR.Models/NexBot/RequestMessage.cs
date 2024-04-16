@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fanex.NexHR.Models.NexBot
+﻿namespace Fanex.NexHR.Models.NexBot
 {
     public class RequestMessage
     {

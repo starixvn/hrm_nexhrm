@@ -123,6 +123,8 @@
                      splitOn: "Id",
                      parameterSet: criteria);
 
+                entityList = entityList.Where(w => w.Employee.EmployeeRank != 2);
+
                 return entityList.ToList();
             }
         }
