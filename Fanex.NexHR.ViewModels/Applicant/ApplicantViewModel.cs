@@ -7,8 +7,11 @@
 
     public class ApplicantViewModel
     {
+        private const int month= -3;
         public ApplicantViewModel()
         {
+            FromDate = DateTimeOffset.Now.AddMonths(month).Date;
+            ToDate = DateTimeOffset.Now.Date;
             PageNumber = 1;
         }
 

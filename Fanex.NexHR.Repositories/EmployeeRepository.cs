@@ -112,6 +112,7 @@
 
         public async Task<List<Workload>> GetWorkloadByTeam(ICriteria criteria)
         {
+            const int isLeader = 2;
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 var entityList = await db.QueryAsync<Workload, Employee, Workload>(
@@ -123,7 +124,7 @@
                      splitOn: "Id",
                      parameterSet: criteria);
 
-                entityList = entityList.Where(w => w.Employee.EmployeeRank != 2);
+                entityList = entityList.Where(w => w.Employee.EmployeeRank != isLeader);
 
                 return entityList.ToList();
             }
