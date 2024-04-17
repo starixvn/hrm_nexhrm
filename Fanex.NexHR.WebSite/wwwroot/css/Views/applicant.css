@@ -25,10 +25,11 @@
       border: none;
       cursor: pointer; }
   .form-file .selected-file {
-    width: 193px; }
+    width: 103px; }
   .form-file .resume-container {
     display: flex;
-    align-items: center; }
+    align-items: center;
+    max-width: 83%; }
 
 .input-custom {
   width: 630px;

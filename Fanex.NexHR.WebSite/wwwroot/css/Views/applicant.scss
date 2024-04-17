@@ -36,12 +36,13 @@
   }
 
   .selected-file {
-    width: 193px;
+    width: 103px;
   }
 
   .resume-container {
     display: flex;
     align-items: center;
+    max-width: 83%;
   }
 }
 

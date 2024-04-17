@@ -4,6 +4,8 @@ namespace Fanex.NexHR.Controllers
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Text;
+    using System.Text.RegularExpressions;
     using System.Threading.Tasks;
     using Criteria.Applicant;
     using Fanex.NexHR.Controllers.Attributes;
@@ -426,6 +428,7 @@ namespace Fanex.NexHR.Controllers
             }
             var fileName = Path.GetFileName(file.FileName);
             var pathAttachFinal = CheckDuplicatedFileName(fileName);
+            pathAttachFinal = RemoveAccents(pathAttachFinal);
             var path = Path.Combine(environment.WebRootPath, UploadsFilePath, pathAttachFinal);
             using (var stream = new FileStream(path, FileMode.Create))
             {
@@ -433,6 +436,11 @@ namespace Fanex.NexHR.Controllers
             }
 
             return pathAttachFinal;
+        }
+
+        private string RemoveAccents(string fileName)
+        {
+            return Regex.Replace(fileName.Normalize(NormalizationForm.FormD), @"[\p{Mn}]", string.Empty);
         }
 
         private string CheckDuplicatedFileName(string fileName)
