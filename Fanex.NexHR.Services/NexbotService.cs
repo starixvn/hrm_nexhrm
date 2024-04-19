@@ -91,8 +91,8 @@
                 HttpMethod.Get);
 
         private async Task SendApproveMessageAsync(RequestMessage requestMessage)
-        { 
-            if (nexBotSettings.Enable)
+        {
+            if (nexBotSettings.Enable && !string.IsNullOrEmpty(requestMessage.ConversationId))
             {
                 var jsonData = JsonConvert.SerializeObject(requestMessage);
                 var data = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonData);
@@ -133,7 +133,7 @@
             return new List<EmployeeSkypeAccount>();
         }
 
-        private static IList<EmployeeSkypeAccount> CombineEmployeeSkypeAccount(IEnumerable<EmployeeSkypeAccount> employeeAccounts, IList<ConversationUser> conversationUsers)
+        private static List<EmployeeSkypeAccount> CombineEmployeeSkypeAccount(IEnumerable<EmployeeSkypeAccount> employeeAccounts, IList<ConversationUser> conversationUsers)
         {
             foreach (var account in employeeAccounts)
             {
