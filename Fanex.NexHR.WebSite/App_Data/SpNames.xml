@@ -37,6 +37,8 @@
         <Setting Key="Employee_Insert" SpName="Employee_Insert" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_Delete" SpName="Employee_Delete" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_UpdateEmployee" SpName="Employee_UpdateEmployee" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="EmployeeSupervisor_Update" SpName="EmployeeSupervisor_Update" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="EmployeeSupervisor_GetById" SpName="EmployeeSupervisor_GetById" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeShift_Get" SpName="EmployeeShift_Get" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeShift_Update" SpName="EmployeeShift_Update" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeAttendance_GetByType" SpName="EmployeeAttendance_GetByType" DbName="nexhr" Plain="0">

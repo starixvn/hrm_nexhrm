@@ -207,6 +207,72 @@ function initDialogJobGrade(divContent) {
     });
 }
 
+function initDialogUpdateApprover(divContent) {
+    divContent.dialog({
+        modal: true,
+        width: 'auto',
+        buttons: [
+            {
+                text: 'Close',
+                class: 'btn-cancel waves-effect waves-light m-r--m',
+                click: function () {
+                    $(this).dialog('close');
+                }
+            },
+            {
+                text: 'Submit',
+                class: 'btn-submit waves-effect waves-light',
+                click: function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: _global.root + 'Employee/UpdateApprover',
+                        dataType: 'json',
+                        data: $('#frmUpdateApprover').serialize(),
+                        success: function (data) {
+                            var errorCont = $('#divErrorCont');
+                            errorCont.removeClass();
+                            errorCont.html('');
+
+                            if (data.Code === 0) {
+                                errorCont.addClass('success validation-summary-success');
+                                errorCont.append('Update Approver successfully');
+                                // var jobGradeCodeElement = document.getElementById('JobGradeCode');
+                                // var jobGradeIdElement = document.getElementById('JobGradeId');
+                                // var selectedOption = jobGradeIdElement.options[jobGradeIdElement.selectedIndex];
+                                // jobGradeCodeElement.removeAttribute('hidden');
+                                // jobGradeCodeElement.textContent = selectedOption.text;
+                                // document.getElementById('jobGrade').remove();
+                                setTimeout(function () { $('#dialog-approver').dialog("close"); query(); }, 3000);
+                            }
+                            else {
+                                var errors = '<ul>';
+                                $(data.error).each(function (i, value) {
+                                    errors += '<li>' + value.ErrorMessage + '</li>';
+                                });
+                                errors += '</ul>';
+
+                                errorCont.addClass('validation-summary-errors');
+                                errorCont.append(errors);
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(textStatus + ': ' + errorThrown);
+                        }
+                    });
+                }
+            }
+        ],
+        show: {
+            effect: "blind",
+            duration: 200
+        },
+        hide: {
+            effect: "blind",
+            duration: 100
+        }
+    });
+}
+
 function initNumberTextbox() {
     var numbericTextbox = $('#frmUpdateTOEIC input[type=number]');
 
@@ -299,6 +365,30 @@ function initEventForUpdateToeic() {
     });
 }
 
+function initEventForUpdateApprover() {
+    $('#updateApprover').on('click', function () {
+        var id = parseInt($('#Id').val());
+        if (id > 0) {
+            $.ajax({
+                type: 'GET',
+                url: _global.root + 'employee/updateApprover?id=' + id + '&name=' + $('#NickName').val(),
+                dataType: 'html',
+                success: function (data) {
+                    if (data) {
+                        var divContent = $('#dialog-approver');
+                        divContent.html('');
+                        divContent.append(data);
+                        $('.select-2', divContent).select2({ closeOnSelect: false });
+                        initDialogUpdateApprover(divContent);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(textStatus + ': ' + errorThrown);
+                }
+            });
+        }
+    });
+}
 
 function initEventForUpdateJobGrade() {
     $('#jobGrade').on('click', function () {
@@ -324,7 +414,6 @@ function initEventForUpdateJobGrade() {
         }
     });
 }
-
 
 function calculateToeicScore() {
     var listening = $('form').find('input[name=Listening]').val();
@@ -389,8 +478,6 @@ var map = new H.Map(
 window.addEventListener('resize', () => map.getViewPort().resize());
 var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 var ui = H.ui.UI.createDefault(map, defaultLayers);
-
-
 
 function changeScreenMedia() {
     window.addEventListener('resize', function (event) {
@@ -581,6 +668,8 @@ $(document).ready(function () {
     initEventForUpdateToeic();
 
     initEventForUpdateJobGrade();
+
+    initEventForUpdateApprover();
 
     /// Geo map
     $('#geolocationMap').hide();

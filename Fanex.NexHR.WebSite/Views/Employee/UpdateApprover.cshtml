@@ -1,0 +1,28 @@
+﻿@using Fanex.NexHR.Models
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.Employee
+@model UpdateApproverViewModel
+<form id="frmUpdateApprover" class="form form-update-approver">
+    <div id="divErrorCont">
+        &nbsp;
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label>@Labels.Employee</label>
+        </div>
+        <div class="left input--m">
+            @Model.Employee
+            <input asp-for="EmpId" type="hidden"/>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label>@Labels.ApprovedBy</label>
+        </div>
+        <div class="left input--l">
+            <select asp-for="ApproverIds" asp-items="@Model.Employees"
+                class="select-2">
+            </select>
+        </div>
+    </div>
+</form>

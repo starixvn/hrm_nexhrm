@@ -15,6 +15,7 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Models;
     using Newtonsoft.Json;
     using Services.Interfaces;
@@ -471,6 +472,46 @@
             model.JobTitles = await jobTitleService.GetAll();
 
             return View(model);
+        }
+
+        [HttpGet]
+        [HrmAuthorize(UserRoles = "HR")]
+        public async Task<IActionResult> UpdateApprover(int id, string name)
+        {
+            var employees = await employeeService.Query(new GetEmployeeCriteria
+            {
+                Query = string.Empty,
+                IsDelete = false,
+                IsDisable = false,
+                PageSize = int.MaxValue,
+                PageNumber = 1
+            });
+
+            var approver = new UpdateApproverViewModel
+            {
+                EmpId = id,
+                Employee = name,
+                Teams = await teamService.GetAll(),
+                Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName))
+            };
+
+            return PartialView(approver);
+        }
+
+        [HttpPost]
+        [HrmAuthorize(UserRoles = "HR")]
+        public async Task<IActionResult> UpdateApprover(UpdateApproverViewModel model)
+        {
+            var criteria = new UpdateApproverCriteria
+            {
+                EmpId = model.EmpId,
+                ApproverIds = model.ApproverIds != null ? string.Join(",", model.ApproverIds) : null,
+                ModifiedBy = CurrentUser.Id
+            };
+
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+
+            return Json(result);
         }
 
         [HrmAuthorize(UserRoles = "HR")]

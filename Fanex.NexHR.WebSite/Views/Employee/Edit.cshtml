@@ -7,10 +7,12 @@
 }
 @section Styles {
 <link rel="stylesheet" href="~/minify/css/employeeedit.min.css" asp-append-version="true">
+@* <link rel="stylesheet" href="~/minify/css/conversationmanagement.min.css" asp-append-version="true"> *@
 }
 @section Scripts {
 <environment include="Development">
     <script src="~/js/Libs/birthdaypicker.js" asp-append-version="true"></script>
+    <script src="~/js/Libs/select2.js" asp-append-version="true"></script>
     <script src="~/js/Views/Employee/employee.edit.js" asp-append-version="true"></script>
     <script src="~/js/Views/Employee/employee.profile.js" asp-append-version="true"></script>
 </environment>
@@ -416,16 +418,21 @@
                                     <div class="row form-input m-b--m">
                                         <div class="col">
                                             <div class="left label--mxxl">
-                                                <label>Teams' leaders receive requests</label>
+                                                <label>Approved requests by</label>
                                             </div>
-                                            <div class="left input--l subteam">
-                                                @for (var i = 0; i < Model.Teams.Count; i++)
-                                                {
-                                                    var id = "LeaderGroupsArray" + @Model.Teams[i].Id.ToString();
-                                                    var isChecked = Array.IndexOf(@Model.LeaderGroupsArray, @Model.Teams[i].Id.ToString()) > -1;
-                                                    <input checked="@isChecked" class="filled-in LeaderGroupsArray" id="@id" name="LeaderGroupsArray" type="checkbox" value="@Model.Teams[i].Id">
-                                                    <label for="@id">@Model.Teams[i].Name</label>
+                                             <div class="left input--l">
+                                                @{
+                                                    var leaderNickname = Model.Teams
+                                                        .Where(team => Model.LeaderGroupsArray.Contains(team.TeamId.ToString()))
+                                                        .Select(team => team.Leader.NickName);
+
+                                                    var leaderNicknames = string.Join(", ", leaderNickname);
                                                 }
+                                                @if (!string.IsNullOrEmpty(leaderNicknames))
+                                                {
+                                                    <span class="m-r--s black-text">@leaderNicknames</span>
+                                                }
+                                                <a class="btn-ok waves-effect waves-light" id="updateApprover" href="javascript:;">@Labels.Update</a>
                                             </div>
                                         </div>
                                     </div>
@@ -666,7 +673,7 @@
                                             }
                                             else
                                             {
-                                                <a class="m-l--s btn-ok waves-effect waves-light" id="toeic" href="javascript:;">@Labels.Update</a>
+                                                <a class="btn-ok waves-effect waves-light" id="toeic" href="javascript:;">@Labels.Update</a>
                                             }
                                         </div>
                                     </div>
@@ -714,6 +721,7 @@
                             }
                             <div id="dialog-toeic" title="Update TOEIC Score">&nbsp;</div>
                             <div id="dialog-jobGrade" title="Update Job Grade">&nbsp;</div>
+                            <div id="dialog-approver" title="Update Approver">&nbsp;</div>
                         }
                         else
                         {

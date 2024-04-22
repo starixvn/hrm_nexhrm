@@ -159,6 +159,7 @@
   {
     "outputFileName": "wwwroot/minify/css/employeeedit.min.css",
     "inputFiles": [
+      "wwwroot/css/Select2/materialize-select2.css",
       "wwwroot/css/Views/employee.edit.css"
     ]
   },
@@ -618,6 +619,7 @@
     "outputFileName": "wwwroot/minify/js/employeeedit.min.js",
     "inputFiles": [
       "wwwroot/js/Libs/birthdaypicker.js",
+      "wwwroot/js/Libs/select2.js",
       "wwwroot/js/Views/Employee/employee.edit.js"
     ],
     "minify": {
@@ -1090,7 +1092,6 @@
         "inputFiles": [
             "wwwroot/js/Libs/select2.js",
             "wwwroot/js/Views/Applicant/applicant.edit.js"
-
         ],
         "minify": {
             "enabled": true,
