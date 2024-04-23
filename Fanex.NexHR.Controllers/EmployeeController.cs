@@ -487,6 +487,11 @@
                 PageNumber = 1
             });
 
+             var criteria = new GetApproverByIdCriteria
+            {
+                EmpId = id
+            };
+
             var approver = new UpdateApproverViewModel
             {
                 EmpId = id,

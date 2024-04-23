@@ -1,0 +1,30 @@
+#team {
+  max-height: 700px;
+  max-width: 400px;
+  border: 1px solid #b7b7b7;
+  border-radius: 3px;
+
+  .form-input input[type=text] {
+    margin: 0;
+  }
+
+  .header {
+    background-color: #b3dbf4;
+  }
+
+  .content {
+    overflow: auto;
+    max-height: 680px;
+    padding: 12px;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background-color: #b7b7b7;
+    }
+  }
+
+}

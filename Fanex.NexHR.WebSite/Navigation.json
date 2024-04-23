@@ -171,6 +171,15 @@
         "ParentId": 13
     },
     {
+        "Title": "Supervisor Flow",
+        "Controller": "supervisorFlow",
+        "Action": "index",
+        "Icon": "settings-box",
+        "Roles": "HR",
+        "Id": 47,
+        "ParentId": 13
+    },
+    {
         "Title": "Create Account",
         "Controller": "employee",
         "Action": "create",

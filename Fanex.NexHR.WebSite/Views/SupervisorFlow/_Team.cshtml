@@ -1,0 +1,21 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Models
+@using Fanex.NexHR.Resources
+@model IEnumerable<TeamSupervisor>
+@if (Model.Any())
+{
+    <div class="header">Team List</div>
+
+    <div class="content">
+        @foreach (var item in Model)
+        {
+            <div id="row@(item.Id)">
+                <span>@item.Name</span>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <span>@Labels.NoData</span>
+}

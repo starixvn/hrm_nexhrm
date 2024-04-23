@@ -50,5 +50,9 @@
   {
     "outputFile": "wwwroot/css/Views/applicant.css",
     "inputFile":  "wwwroot/css/Views/applicant.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Views/suppervisor-flow.css",
+    "inputFile":  "wwwroot/css/Views/suppervisor-flow.scss"
   }
 ]
