@@ -40,6 +40,7 @@
         private readonly AppSetting appSetting;
 
 #pragma warning disable S107 // Methods should not have too many parameters
+
         public EmployeeController(ISessionService sessionService,
             IEmployeeService employeeService,
             ITeamService teamService,
@@ -376,7 +377,7 @@
                     NickName = model.NickName,
                     TueShift = model.TueShift,
                     SatShift = model.SatShift,
-                    SunShift = model.SunShift, 
+                    SunShift = model.SunShift,
                     ThuShift = model.ThuShift,
                     WedShift = model.WedShift
                 };

@@ -7,5 +7,7 @@
         Task SendReminderReachedWorkingTime();
 
         Task ImportDataFromBioStar();
+
+        Task NotifyEmployeeAfterCheckOut();
     }
 }

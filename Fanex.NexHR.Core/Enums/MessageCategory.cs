@@ -32,6 +32,9 @@
         ReachedWorkingTime = 9,
 
         [Display(Name = "Reminder Vegetarian Meal")]
-        VegetarianRestration = 10
+        VegetarianRestration = 10,
+
+        [Display(Name = "Notify after checked out")]
+        CheckOutNotification = 11
     }
 }

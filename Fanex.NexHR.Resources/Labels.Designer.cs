@@ -3661,6 +3661,19 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dear {0},
+        ///
+        ///You have been checked out successfully today at {1}. Total working hours: {2}. 
+        ///
+        ///If you do not want to receive this message category, please use the command _stop_notify_checkout_.
+        /// </summary>
+        public static string NotifyCheckOutMessageContent {
+            get {
+                return ResourceManager.GetString("NotifyCheckOutMessageContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not Working.
         /// </summary>
         public static string NotWorking {

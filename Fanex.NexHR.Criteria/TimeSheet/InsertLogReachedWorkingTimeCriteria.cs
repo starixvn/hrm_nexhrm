@@ -7,6 +7,7 @@
         public string EmployeeIds { get; set; }
 
         public DateTime WorkDate { get; set; }
+        public string InsertedType { get; set; }
 
         public override bool IsValid()
         {

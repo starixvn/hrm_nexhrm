@@ -29,5 +29,12 @@
             await timeSheetService.ImportDataFromBioStar();
             return Ok();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> NotifyEmployeeAfterCheckOut()
+        {
+            await timeSheetService.NotifyEmployeeAfterCheckOut();
+            return Ok();
+        }
     }
 }
