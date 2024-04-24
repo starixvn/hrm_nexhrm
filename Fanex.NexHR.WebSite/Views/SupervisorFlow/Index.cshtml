@@ -1,14 +1,15 @@
 ﻿@using Fanex.NexHR.Resources
 @{
     ViewBag.Title = "Supervisor Flow";
-    var searchMessages = (ViewBag.Tab == "Team") ? Messages.SearchEmployeeWatermark : "team name";
 }
 @section Styles {
     <link rel="stylesheet" href="~/minify/css/contextmenu.min.css" asp-append-version="true">
     <link rel="stylesheet" href="~/css/Views/suppervisor-flow.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/conversationmanagement.min.css" asp-append-version="true">
 }
 @section Scripts {
     <environment include="Development">
+        <script src="~/js/Libs/select2.js" asp-append-version="true"></script>
         <script src="~/js/Libs/jquery.contextMenu.min.js" asp-append-version="true"></script>
         <script src="~/js/Views/SupervisorFlow/supervisor.js" asp-append-version="true"></script>
     </environment>
@@ -29,17 +30,19 @@
                     </ul>
                 </div>
                 <div class="card-body">
-                    <div class="form row form-input">
-                        <div class="left label--m">
-                            <label>@Labels.Keyword</label>
-                        </div>
-                        <div class="left">
-                            <input type="text" id="Keyword" placeholder="@searchMessages" />
+                    @* <div class="form row form-input">
+                        <div class="col">
+                            <div class="left label--m">
+                                <label>@Labels.Keyword</label>
+                            </div>
+                            <div class="left">
+                                <input type="text" id="Keyword" placeholder="@Messages.SearchEmployeeWatermark" />
+                            </div>
                         </div>
                         <div class="col">
                             <input type="button" id="submit" class="btn-submit waves-effect waves-light" value="@Labels.Submit" />
                         </div>
-                    </div>
+                    </div> *@
                     <div id="team">
                         <div class="loading-process" style="display: none;"></div>
                     </div>

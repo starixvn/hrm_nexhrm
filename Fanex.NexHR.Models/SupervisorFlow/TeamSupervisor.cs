@@ -9,5 +9,7 @@
         public string Name { get; set; }
 
         public string ApproverIds { get; set; }
+
+        public string ApproverNames { get; set; }
     }
 }

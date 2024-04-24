@@ -172,7 +172,7 @@
     },
     {
         "Title": "Supervisor Flow",
-        "Controller": "supervisorFlow",
+        "Controller": "supervisorflow",
         "Action": "index",
         "Icon": "settings-box",
         "Roles": "HR",

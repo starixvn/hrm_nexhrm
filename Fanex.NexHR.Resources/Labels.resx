@@ -1926,9 +1926,12 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   </data>
   <data name="NotifyCheckOutMessageContent" xml:space="preserve">
     <value>Dear {0}
-
-This is a message to inform you that you just have a "checkout" record for today working on the HRM system as below:
-- Checkout time: **{1}**
-- Total working hours: **{2}**</value>
+	This is a message to inform you that you just have a "checkout" record for today working on the HRM system as below:
+	- Checkout time: **{1}**
+	- Total working hours: **{2}**</value>
   </data>
+  <data name="Approver" xml:space="preserve">
+    <value>Approver</value>
+  </data>
+
 </root>

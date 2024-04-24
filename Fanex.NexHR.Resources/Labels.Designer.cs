@@ -5485,5 +5485,14 @@ namespace Fanex.NexHR.Resources {
                 return ResourceManager.GetString("Yesterday", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Approver.
+        /// </summary>
+        public static string Approver {
+            get {
+                return ResourceManager.GetString("Approver", resourceCulture);
+            }
+        }
     }
 }

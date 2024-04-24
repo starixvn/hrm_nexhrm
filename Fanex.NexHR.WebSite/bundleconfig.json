@@ -1129,6 +1129,7 @@
     {
       "outputFileName": "wwwroot/minify/js/supervisor.min.js",
       "inputFiles": [
+          "wwwroot/js/Libs/select2.js",
           "wwwroot/js/Views/SupervisorFlow/supervisor.js"
       ],
       "minify": {
