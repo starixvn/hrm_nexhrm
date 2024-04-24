@@ -140,9 +140,9 @@
             foreach (var batch in batches)
             {
                 var tasks = new List<Task>();
-                foreach (var workinghour in batch)
+                foreach (var checkoutRecord in batch)
                 {
-                    tasks.Add(nexbotService.SendCheckountNotification(workinghour.ConversationId, workinghour.MessageContent));
+                    tasks.Add(nexbotService.SendCheckoutNotification(checkoutRecord));
                 }
 
                 await Task.WhenAll(tasks);

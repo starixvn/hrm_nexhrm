@@ -13,6 +13,7 @@
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.LateInEarlyOut;
     using Fanex.NexHR.Models.Staff;
+    using Fanex.NexHR.Models.TimeSheet;
     using Fanex.NexHR.Resources;
     using Interfaces;
     using Models.NexBot;
@@ -396,14 +397,17 @@
             }
         }
 
-        public async Task SendCheckountNotification(string conversationId, string messageContent)
+        public async Task SendCheckoutNotification(CheckOutNotifyRecord checkoutRecord)
         {
             if (nexBotSettings.Enable)
             {
                 var data = new Dictionary<string, string>
                 {
-                    {"conversationId", conversationId },
-                    {"messageContent", messageContent }
+                    {"conversationId", checkoutRecord.ConversationId },
+                    {"nickName", checkoutRecord.Nickname},
+                    {"checkoutTime", checkoutRecord.CheckOutTime.ToString("hh:mm tt")},
+                    {"totalHours", Utilities.TotalHoursToTime(checkoutRecord.TotalWorkHours)},
+                    {"messageContent", checkoutRecord.MessageContent},
                 };
 
                 await SendHttpClientAsync<Task>("/messages/CheckoutNotification", HttpMethod.Post, data);

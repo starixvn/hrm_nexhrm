@@ -1,15 +1,16 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria.SkypeAccount;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.LateInEarlyOut;
     using Fanex.NexHR.Models.Staff;
+    using Fanex.NexHR.Models.TimeSheet;
     using Models.Request;
     using Models.SkypeAccount;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
     using ViewModels;
     using ViewModels.CheckInOutRequest;
 
@@ -41,6 +42,6 @@
 
         Task<CommandResult> SendMessageReminderLateInEarlyOutMoreThanSixtyMinuteToEmp(IEnumerable<ReminderLateInEarlyOut> reminderLateInEarlyOuts);
 
-        Task SendCheckountNotification(string conversationId, string messageContent);
+        Task SendCheckoutNotification(CheckOutNotifyRecord checkoutRecord);
     }
 }
