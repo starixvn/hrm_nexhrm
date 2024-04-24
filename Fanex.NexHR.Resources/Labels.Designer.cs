@@ -3661,11 +3661,11 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear {0},
+        ///   Looks up a localized string similar to Dear {0}
         ///
-        ///You have been checked out successfully today at {1}. Total working hours: {2}. 
-        ///
-        ///If you do not want to receive this message category, please use the command _stop_notify_checkout_.
+        ///This is a message to inform you that you just have a &quot;check out&quot; record for today working on the HRM system as below:
+        ///- Check out time: {1}
+        ///- Total working hours: {2}.
         /// </summary>
         public static string NotifyCheckOutMessageContent {
             get {

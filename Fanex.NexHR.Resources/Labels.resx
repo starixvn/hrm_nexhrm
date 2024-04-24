@@ -1925,10 +1925,10 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
     <value>Nếu bạn có nhu cầu ăn chay thứ {0} ngày {1} (nhằm {2} âm lịch) vui lòng đặt trước bằng cách nhấn vào nút [Đặt Cơm Chay] bên dưới hoặc vào hệ thống F&amp;B để đăng ký để Bếp chuẩn bị được tốt hơn.</value>
   </data>
   <data name="NotifyCheckOutMessageContent" xml:space="preserve">
-    <value>Dear {0},
+    <value>Dear {0}
 
-You have been checked out successfully today at {1}. Total working hours: {2}. 
-
-If you do not want to receive this message category, please use the command _stop_notify_checkout_</value>
+This is a message to inform you that you just have a "check out" record for today working on the HRM system as below:
+- Check out time: {1}
+- Total working hours: {2}</value>
   </data>
 </root>

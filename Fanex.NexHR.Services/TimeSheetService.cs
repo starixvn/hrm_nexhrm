@@ -142,7 +142,7 @@
                 var tasks = new List<Task>();
                 foreach (var workinghour in batch)
                 {
-                    tasks.Add(nexbotService.SendMessageAsync(workinghour.ConversationId, workinghour.MessageContent));
+                    tasks.Add(nexbotService.SendCheckountNotification(workinghour.ConversationId, workinghour.MessageContent));
                 }
 
                 await Task.WhenAll(tasks);

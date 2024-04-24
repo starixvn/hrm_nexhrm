@@ -32,9 +32,15 @@
         Task SendMessageProcessRequest(RequestEntity request, string command);
 
         Task SendMessageForCheckInOutRequest(CheckInOutRequestViewModel request, IEnumerable<EmployeeSupervisor> employeeSupervisors);
+
         Task<CommandResult> SendMessageDeductLateInEarlyOutToEmp(LateInEarlyOutModel lateInEarlyOutModel);
+
         Task<CommandResult> SendMessageDeductLateInEarlyOutToHrTeam(IEnumerable<LateInEarlyOutModel> lateInEarlyOutModels);
+
         Task<CommandResult> SendMessageDeductToConversation(IEnumerable<string> conversations, string message);
+
         Task<CommandResult> SendMessageReminderLateInEarlyOutMoreThanSixtyMinuteToEmp(IEnumerable<ReminderLateInEarlyOut> reminderLateInEarlyOuts);
+
+        Task SendCheckountNotification(string conversationId, string messageContent);
     }
 }

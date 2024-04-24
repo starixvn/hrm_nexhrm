@@ -395,5 +395,19 @@
                 throw new ArgumentNullException(nameof(endPoint));
             }
         }
+
+        public async Task SendCheckountNotification(string conversationId, string messageContent)
+        {
+            if (nexBotSettings.Enable)
+            {
+                var data = new Dictionary<string, string>
+                {
+                    {"conversationId", conversationId },
+                    {"messageContent", messageContent }
+                };
+
+                await SendHttpClientAsync<Task>("/messages/CheckoutNotification", HttpMethod.Post, data);
+            }
+        }
     }
 }
