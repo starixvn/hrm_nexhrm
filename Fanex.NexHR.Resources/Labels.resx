@@ -1927,8 +1927,8 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   <data name="NotifyCheckOutMessageContent" xml:space="preserve">
     <value>Dear {0}
 
-This is a message to inform you that you just have a "check out" record for today working on the HRM system as below:
-- Check out time: {1}
-- Total working hours: {2}</value>
+This is a message to inform you that you just have a "checkout" record for today working on the HRM system as below:
+- Checkout time: **{1}**
+- Total working hours: **{2}**</value>
   </data>
 </root>

@@ -3663,9 +3663,9 @@ namespace Fanex.NexHR.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Dear {0}
         ///
-        ///This is a message to inform you that you just have a &quot;check out&quot; record for today working on the HRM system as below:
-        ///- Check out time: {1}
-        ///- Total working hours: {2}.
+        ///This is a message to inform you that you just have a &quot;checkout&quot; record for today working on the HRM system as below:
+        ///- Checkout time: **{1}**
+        ///- Total working hours: **{2}**.
         /// </summary>
         public static string NotifyCheckOutMessageContent {
             get {

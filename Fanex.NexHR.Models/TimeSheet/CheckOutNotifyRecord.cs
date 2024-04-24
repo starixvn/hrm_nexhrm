@@ -14,7 +14,7 @@
         public string MessageContent =>
             string.Format(Resources.Labels.NotifyCheckOutMessageContent,
                 Nickname,
-                CheckOutTime.ToString("hh:mm"),
+                CheckOutTime.ToString("hh:mm tt"),
                 Utilities.TotalHoursToTime(TotalWorkHours)
                 );
     }
