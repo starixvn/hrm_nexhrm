@@ -12,7 +12,7 @@
 
          public override bool IsValid()
         {
-            return GroupId > 0;
+            return GroupId > 0 && ModifiedBy > 0;
         }
     }
 }

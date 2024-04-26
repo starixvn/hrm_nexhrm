@@ -1130,6 +1130,8 @@
       "outputFileName": "wwwroot/minify/js/supervisor.min.js",
       "inputFiles": [
           "wwwroot/js/Libs/select2.js",
+          "wwwroot/js/Libs/jquery.validate.unobtrusive.js",
+          "wwwroot/js/Libs/jquery.unobtrusive-ajax.js",
           "wwwroot/js/Views/SupervisorFlow/supervisor.js"
       ],
       "minify": {

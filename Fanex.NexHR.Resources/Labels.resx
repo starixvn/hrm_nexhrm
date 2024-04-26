@@ -1930,7 +1930,11 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
 	- Checkout time: **{1}**
 	- Total working hours: **{2}**</value>
   </data>
-  <data name="Approver" xml:space="preserve">
+  <data name="Personal" xml:space="preserve">
+    <value>Personal</value>
+  </data>
+  </data>
+    <data name="Approver" xml:space="preserve">
     <value>Approver</value>
   </data>
 

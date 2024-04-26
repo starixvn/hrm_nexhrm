@@ -1,7 +1,7 @@
 ﻿
 'use strict';
 
-function query(isFirstLoad) {
+function loadTeamSupervisor(isFirstLoad) {
     $.ajax({
         url: _global.root + 'SupervisorFlow/GetTeamSupervisor',
         dataType: 'html',
@@ -27,13 +27,15 @@ function query(isFirstLoad) {
     });
 }
 
-function switchTabPersonal() {
+function loadPersonalSupervisor(isFirstLoad) {
     $.ajax({
         url: _global.root + 'SupervisorFlow/GetPersonalSupervisor',
         dataType: 'html',
         method: "POST",
         beforeSend: function () {
-            $('.loading-process').fadeIn(300);
+            if (!isFirstLoad) {
+                $('.loading-process').fadeIn(300);
+            }
         },
         success: function (data) {
             $('#list-personal').html(data);
@@ -43,7 +45,9 @@ function switchTabPersonal() {
             alert(_messages.errorTryAgain);
         },
         complete: function () {
-            $('.loading-process').fadeOut(300);
+            if (!isFirstLoad) {
+                $('.loading-process').fadeOut(300);
+            }
         }
     });
 }
@@ -71,13 +75,16 @@ function showErrorMessage(message) {
 }
 
 function init() {
-    query(true);
+    loadTeamSupervisor(true);
 }
 
 var supervisor = (function ($) {
     var $dialog = $('#dialog-supervisor');
 
     function initializeDialog($form, title) {
+        $('.select-2', $dialog).select2({ closeOnSelect: false });
+        initAutocomplete('form #Employee', 'form #EmpId', false);
+
         $dialog.dialog({
             modal: true,
             width: 'auto',
@@ -109,8 +116,16 @@ var supervisor = (function ($) {
         });
     }
 
-    function initEditDialog() {
-        initializeDialog($('#edit-form'), 'Update Aprrover By');
+    function initCreateDialog() {
+        initializeDialog($('#create-form'), 'New Personal');
+    }
+
+    function initEditTeamDialog() {
+        initializeDialog($('#edit-form'), 'Update Team\'s Approver');
+    }
+
+    function initEditPersonalDialog() {
+        initializeDialog($('#edit-form'), 'Update Employee\'s Approver');
     }
 
     function handleSuccess(response, successMessage) {
@@ -123,10 +138,14 @@ var supervisor = (function ($) {
             }
             valid.addClass('success validation-summary-success');
             valid.append(successMessage);
-            setTimeout(function () { $dialog.dialog('close'); query(false); }, 1000);
+            setTimeout(function () { $dialog.dialog('close'); loadTeamSupervisor(false); }, 1000);
         } else {
             showErrorMessage(response.Message);
         }
+    }
+
+    function onInsertSuccess(response) {
+        handleSuccess(response, 'Insert successfully');
     }
 
     function onUpdateSuccess(response) {
@@ -135,7 +154,10 @@ var supervisor = (function ($) {
 
     return {
         init: init,
-        onLoadingEditFormSuccess: initEditDialog,
+        onLoadingCreateFormSuccess: initCreateDialog,
+        onLoadingEditTeamFormSuccess: initEditTeamDialog,
+        onLoadingEditPersonalFormSuccess: initEditPersonalDialog,
+        onInsertSuccess: onInsertSuccess,
         onUpdateSuccess: onUpdateSuccess
     }
 

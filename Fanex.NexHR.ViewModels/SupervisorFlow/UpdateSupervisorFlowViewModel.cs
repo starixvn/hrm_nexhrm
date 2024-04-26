@@ -8,7 +8,7 @@ namespace Fanex.NexHR.ViewModels.SupervisorFlow
 
         public string GroupName { get; set; }
 
-        public string ApproverIds { get; set; }
+        public int[] ApproverIds { get; set; }
 
         public SelectList Employees { get; set; }
     }

@@ -1,0 +1,25 @@
+﻿@using Fanex.NexHR.Resources
+@model Fanex.NexHR.ViewModels.SupervisorFlow.CreatePersonalViewModel
+
+<form id="create-form" asp-action="CreatePersonal" data-ajax="true" data-ajax-method="post" data-ajax-success="supervisor.onInsertSuccess">
+    <div asp-validation-summary="All"></div>
+    <div class="row form-input">
+        <div class="left label--m">
+            <label>@Labels.Employee</label>
+        </div>
+        <div class="left input-custom">
+            <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark" data-val="true" data-val-required="The Employee field is required!" />
+            <input asp-for="EmpId" type="hidden" />
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--m">
+            <label>@Labels.Approvers</label>
+        </div>
+        <div class="left input-custom">
+            <select asp-for="ApproverIds" asp-items="@Model.Employees"
+                class="select-2 disabled">
+            </select>
+        </div>
+    </div>
+</form>

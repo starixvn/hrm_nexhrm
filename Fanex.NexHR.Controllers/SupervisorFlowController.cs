@@ -6,10 +6,10 @@
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.SupervisorFlow;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels.SupervisorFlow;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class SupervisorFlowController : BaseController
     {
@@ -108,61 +108,107 @@
 
         [HttpGet]
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> EditTeam(int id)
+        public async Task<IActionResult> EditTeam(int groupId, string groupName, string approverIds)
         {
-            var team = await supervisorFlowService.GetById(new GetTeamSupervisorByIdCriteria { GroupId = id });
-            var model = new UpdateSupervisorFlowViewModel();
-            if (team != null)
+            var employees = await employeeService.Query(new GetEmployeeCriteria
             {
-                model.GroupId = team.GroupId;
-                model.GroupName= team.GroupName;
-                model.ApproverIds = team.ApproverIds;
-            }
+                Query = string.Empty,
+                IsDelete = false,
+                IsDisable = false,
+                PageSize = int.MaxValue,
+                PageNumber = 1
+            });
+            var model = new UpdateSupervisorFlowViewModel {
+                GroupId = groupId,
+                GroupName = groupName,
+                ApproverIds = !string.IsNullOrEmpty(approverIds) ? approverIds.Split(',').Select(int.Parse).ToArray() : null,
+                Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName))
+            };
 
             return PartialView("Views/SupervisorFlow/EditTeam.cshtml", model);
         }
 
-        // [HttpGet]
-        // [HrmAuthorize(UserRoles = "HR")]
-        // public PartialViewResult EditTeam( int groupId, string groupName, string approverIds)
-        // {
-        //     return PartialView(new UpdateSupervisorFlowViewModel
-        //     {
-        //         GroupId = groupId,
-        //         GroupName = groupName,
-        //         ApproverIds = approverIds
-        //     });
-        // }
+        [HttpPost]
+        [HrmAuthorize(UserRoles = "HR")]
+        public async Task<IActionResult> EditTeam(UpdateSupervisorFlowViewModel model)
+        {
+            var criteria = new UpdateTeamSupervisorCriteria {
+                GroupId = model.GroupId,
+                ApproverIds = model.ApproverIds != null ? string.Join(",", model.ApproverIds) : null,
+                ModifiedBy = CurrentUser.Id
+            };
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+
+            return Json(result);
+        }
+
+        [HttpGet]
+        [HrmAuthorize(UserRoles = "HR")]
+        public async Task<IActionResult> Create()
+        {
+            var employees = await employeeService.Query(new GetEmployeeCriteria
+            {
+                Query = string.Empty,
+                IsDelete = false,
+                IsDisable = false,
+                PageSize = int.MaxValue,
+                PageNumber = 1
+            });
+            var model = new CreatePersonalViewModel {
+                Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName))
+            };
+
+            return PartialView("Views/SupervisorFlow/CreatePersonal.cshtml", model);
+        }
 
         [HttpPost]
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> TeamUpdate(UpdateSupervisorFlowViewModel model)
+        public async Task<IActionResult> CreatePersonal(CreatePersonalViewModel model)
         {
-            var result = new CommandResult
+            var criteria = new InsertPersonalSupervisorCriteria
             {
-                Code = 1,
-                Message = Messages.InvalidInputData
+                EmpId = model.EmpId,
+                ApproverIds = model.ApproverIds != null ? string.Join(",", model.ApproverIds) : null,
+                ModifiedBy = CurrentUser.Id
+            };
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+                
+            return Json(result);
+        }
+
+        [HttpGet]
+        [HrmAuthorize(UserRoles = "HR")]
+        public async Task<IActionResult> EditPersonal(int empId, string nickname, string fullName, string approverIds)
+        {
+            var employees = await employeeService.Query(new GetEmployeeCriteria
+            {
+                Query = string.Empty,
+                IsDelete = false,
+                IsDisable = false,
+                PageSize = int.MaxValue,
+                PageNumber = 1
+            });
+            var model = new CreatePersonalViewModel {
+                EmpId = empId,
+                Employee = nickname + (string.IsNullOrWhiteSpace(fullName) ? string.Empty : " (" + fullName + ")"),
+                ApproverIds = !string.IsNullOrEmpty(approverIds) ? approverIds.Split(',').Select(int.Parse).ToArray() : null,
+                Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName))
             };
 
-            if (model != null && ModelState.IsValid)
-            {
-                var criteria = new UpdateTeamSupervisorCriteria {
-                    GroupId = model.GroupId,
-                    ApproverIds = model.ApproverIds,
-                    ModifiedBy = CurrentUser.Id
-                };
+            return PartialView("Views/SupervisorFlow/EditPersonal.cshtml", model);
+        }
 
-                result = await baseService.ExecuteNonQueryAsync(criteria);
+        [HttpPost]
+        [HrmAuthorize(UserRoles = "HR")]
+        public async Task<IActionResult> EditPersonal(CreatePersonalViewModel model)
+        {
+            var criteria = new UpdatePersonalSupervisorCriteria {
+                EmpId = model.EmpId,
+                ApproverIds = model.ApproverIds != null ? string.Join(",", model.ApproverIds) : null,
+                ModifiedBy = CurrentUser.Id
+            };
 
-                if (result.IsSuccessful)
-                {
-                    ViewBag.Inserted = true;
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, result.Message);
-                }
-            }
+            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
 
             return Json(result);
         }

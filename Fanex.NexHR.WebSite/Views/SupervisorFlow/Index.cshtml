@@ -3,6 +3,7 @@
     ViewBag.Title = "Supervisor Flow";
 }
 @section Styles {
+    <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
     <link rel="stylesheet" href="~/minify/css/contextmenu.min.css" asp-append-version="true">
     <link rel="stylesheet" href="~/css/Views/suppervisor-flow.min.css" asp-append-version="true">
     <link rel="stylesheet" href="~/minify/css/conversationmanagement.min.css" asp-append-version="true">
@@ -11,6 +12,8 @@
     <environment include="Development">
         <script src="~/js/Libs/select2.js" asp-append-version="true"></script>
         <script src="~/js/Libs/jquery.contextMenu.min.js" asp-append-version="true"></script>
+        <script src="~/js/Libs/jquery.unobtrusive-ajax.js" asp-append-version="true"></script>
+        <script src="~/js/Libs/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
         <script src="~/js/Views/SupervisorFlow/supervisor.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
@@ -25,14 +28,25 @@
                 <div class="card-title-block">
                     <ul class="tabs">
                         <li class="tab col"><a class="@(ViewBag.Tab == "Team" ? "active" : string.Empty) card-title" href="#list-team">@Labels.Team</a></li>
-                        <li class="tab col"><a class="@(ViewBag.Tab == "Personal" ? "active" : string.Empty) card-title" href="#list-personal"
-                        onclick="switchTabPersonal()">Personal</a></li>
+                        <li class="tab col"><a class="@(ViewBag.Tab == "Personal" ? "active" : string.Empty) card-title" href="#personal" onclick="loadPersonalSupervisor(true)">@Labels.Personal</a></li>
                     </ul>
                 </div>
                 <div class="card-body">
-                    <div id="list-team"></div>
-                    <div id="list-personal"></div>
-                    <div id="dialog-supervisor">&nbsp;</div>
+                     <div id="list-team"></div>
+                    <div id="personal">
+                        <div class="form">
+                            <div class="row form-input">
+                                <div class="col m-l--l">
+                                    <a class="btn-request waves-effect waves-light btn m-r--m" href="@Url.Action("Create")"
+                                        data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog-supervisor" data-ajax-success="supervisor.onLoadingCreateFormSuccess">
+                                        New Personal
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="list-personal"/>
+                    </div>
+                    <div id="dialog-supervisor"></div>
                 </div>
             </div>
         </div>
