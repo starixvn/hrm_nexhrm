@@ -1,76 +1,146 @@
 ﻿
 'use strict';
 
-function loadTeamSupervisor(isFirstLoad) {
+function query(isFirstLoad) {
     $.ajax({
-        url: _global.root + 'SupervisorFlow/TeamSupervisor',
+        url: _global.root + 'SupervisorFlow/GetTeamSupervisor',
         dataType: 'html',
         method: "POST",
-        // data: {
-        //     Keyword: $('#Keyword').val()
-        // },
         beforeSend: function () {
             if (!isFirstLoad) {
-                $('#team .loading-process').fadeIn(300);
+                $('.loading-process').fadeIn(300);
             }
         },
-        success: function (response) {
-            $('#team').html(response);
-            $('.select-2', '#team').select2({ closeOnSelect: false });
+        success: function (data) {
+            $('#list-team').html(data);
+
+            floatThead('table#data');
         },
         error: function () {
-            notifyError(_messages.errorTryAgain);
+            alert(_messages.errorTryAgain);
         },
         complete: function () {
             if (!isFirstLoad) {
-                $('#team .loading-process').fadeOut(300);
+                $('.loading-process').fadeOut(300);
             }
         }
     });
 }
 
-function submit() {
+function switchTabPersonal() {
     $.ajax({
-        type: 'POST',
-        url: _global.root + 'SupervisorFlow/TeamUpdate',
-        dataType: 'json',
-        data: $('#frmTeamUpdate').serialize(),
-        success: function (data) {
-            if (data.Code === 0) {
-                setTimeout(function () { $('#dialog-approver').dialog("close"); query(); }, 3000);
-            }
-            else {
-                var errors = '<ul>';
-                $(data.error).each(function (i, value) {
-                    errors += '<li>' + value.ErrorMessage + '</li>';
-                });
-                errors += '</ul>';
-
-                errorCont.addClass('validation-summary-errors');
-                errorCont.append(errors);
-            }
+        url: _global.root + 'SupervisorFlow/GetPersonalSupervisor',
+        dataType: 'html',
+        method: "POST",
+        beforeSend: function () {
+            $('.loading-process').fadeIn(300);
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert(textStatus + ': ' + errorThrown);
+        success: function (data) {
+            $('#list-personal').html(data);
+            floatThead('table#data');
+        },
+        error: function () {
+            alert(_messages.errorTryAgain);
+        },
+        complete: function () {
+            $('.loading-process').fadeOut(300);
         }
     });
 }
 
-function selectTeam(id, name) {
-    var selectedElement = document.querySelector('.team-selected');
-    selectedElement.setAttribute('id',id);
-    selectedElement.textContent = name;
+function showErrorMessage(message) {
+    $('<div>' + '<p>' + message + '</p>').dialog({
+        title: 'NexHRM',
+        modal: true,
+        resizable: false,
+        buttons: [
+            {
+                text: 'OK',
+                class: 'btn-ok waves-effect waves-light',
+                click: function () {
+                    $(this).dialog('close');
+                    return true;
+                }
+            }
+        ],
+        show: 'fade',
+        hide: 'fade',
+        minHeight: 50,
+        dialogClass: 'modal-shadow'
+    });
 }
+
+function init() {
+    query(true);
+}
+
+var supervisor = (function ($) {
+    var $dialog = $('#dialog-supervisor');
+
+    function initializeDialog($form, title) {
+        $dialog.dialog({
+            modal: true,
+            width: 'auto',
+            title: title,
+            buttons: [
+                {
+                    text: 'Cancel',
+                    class: 'btn-cancel waves-effect waves-light m-r--m btn-dialog',
+                    click: function () {
+                        $(this).dialog('close');
+                    }
+                },
+                {
+                    text: 'Save',
+                    class: 'btn-submit waves-effect waves-light btn-dialog',
+                    click: function () {
+                        $form.submit();
+                    }
+                }
+            ],
+            show: {
+                effect: 'fade',
+                duration: 300
+            },
+            hide: {
+                effect: 'fade',
+                duration: 200
+            }
+        });
+    }
+
+    function initEditDialog() {
+        initializeDialog($('#edit-form'), 'Update Aprrover By');
+    }
+
+    function handleSuccess(response, successMessage) {
+        let errorDiv = $('.validation-summary-errors');
+        let valid = $('.validation-summary-valid');
+        if (response.IsSuccessful) {
+            if (errorDiv.length > 0) {
+                errorDiv.remove();
+                valid = $('<div class="validation-summary-valid"></div>').prependTo('#create-form');
+            }
+            valid.addClass('success validation-summary-success');
+            valid.append(successMessage);
+            setTimeout(function () { $dialog.dialog('close'); query(false); }, 1000);
+        } else {
+            showErrorMessage(response.Message);
+        }
+    }
+
+    function onUpdateSuccess(response) {
+        handleSuccess(response, 'Update successfully');
+    }
+
+    return {
+        init: init,
+        onLoadingEditFormSuccess: initEditDialog,
+        onUpdateSuccess: onUpdateSuccess
+    }
+
+}(jQuery));
 
 $(document).ready(function () {
-    loadTeamSupervisor(true);
-
-    let successed = $('#successed').val();
-    if (successed === 'true') {
-        confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
-            function () {
-                document.location = _global.root + 'SupervisorFlow';
-            }
-        );
-    }
+    supervisor.init();
 });

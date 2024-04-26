@@ -6,9 +6,10 @@
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.SupervisorFlow;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
+    using Fanex.NexHR.ViewModels.SupervisorFlow;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class SupervisorFlowController : BaseController
     {
@@ -49,7 +50,7 @@
 
         [HttpPost]
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> TeamSupervisor()
+        public async Task<IActionResult> GetTeamSupervisor()
         {
             var criteria = new GetTeamSupervisorCriteria();
             var employees = await employeeService.Query(new GetEmployeeCriteria
@@ -72,35 +73,98 @@
                     }
                 }
             }
-            ViewBag.team = await teamService.GetTeam();
-            ViewBag.employees =new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName));
 
-            return PartialView("Views/SupervisorFlow/_Team.cshtml", teamSupervisors);
+            return PartialView("Views/SupervisorFlow/_ListTeam.cshtml", teamSupervisors);
         }
 
-        // [HttpPost]
+        [HttpPost]
+        [HrmAuthorize(UserRoles = "HR")]
+        public async Task<IActionResult> GetPersonalSupervisor()
+        {
+            var criteria = new GetPersonalSupervisorCriteria();
+            var employees = await employeeService.Query(new GetEmployeeCriteria
+            {
+                Query = string.Empty,
+                IsDelete = false,
+                IsDisable = false,
+                PageSize = int.MaxValue,
+                PageNumber = 1
+            });
+
+            var personalSupervisors = await supervisorFlowService.GetPersonalSupervisors(criteria);
+            if (personalSupervisors != null) {
+                foreach (var personal in personalSupervisors) {
+                    if (!string.IsNullOrEmpty(personal.ApproverIds))
+                    {
+                        var approverIds = personal.ApproverIds.Split(',').Select(int.Parse); 
+                        var approvedEmployees = employees.Where(emp => approverIds.Contains(emp.Id));
+                        personal.ApproverNames = string.Join(", ", approvedEmployees.Select(emp => $"{emp.NickName} ({emp.FullName})"));
+                    }
+                }
+            }
+
+            return PartialView("Views/SupervisorFlow/_ListPersonal.cshtml", personalSupervisors);
+        }
+
+        [HttpGet]
+        [HrmAuthorize(UserRoles = "HR")]
+        public async Task<IActionResult> EditTeam(int id)
+        {
+            var team = await supervisorFlowService.GetById(new GetTeamSupervisorByIdCriteria { GroupId = id });
+            var model = new UpdateSupervisorFlowViewModel();
+            if (team != null)
+            {
+                model.GroupId = team.GroupId;
+                model.GroupName= team.GroupName;
+                model.ApproverIds = team.ApproverIds;
+            }
+
+            return PartialView("Views/SupervisorFlow/EditTeam.cshtml", model);
+        }
+
+        // [HttpGet]
         // [HrmAuthorize(UserRoles = "HR")]
-        // public async Task<IActionResult> TeamUpdate(int teamId, string ApproverId)
+        // public PartialViewResult EditTeam( int groupId, string groupName, string approverIds)
         // {
-        //     var criteria = new UpdateTeamSupervisorCriteria {
-
-        //         GroupId = teamId,
-        //         ApproverIds = ApproverId,
-        //         ModifiedBy = CurrentUser.Id
-        //     }
-
-        //     var result = await baseService.ExecuteNonQueryAsync(criteria);
-
-        //     if (result.IsSuccessful)
+        //     return PartialView(new UpdateSupervisorFlowViewModel
         //     {
-        //         ViewBag.Inserted = true;
-        //     }
-        //     else
-        //     {
-        //         ModelState.AddModelError(string.Empty, result.Message);
-        //     }
-
-        //     return View(result);
+        //         GroupId = groupId,
+        //         GroupName = groupName,
+        //         ApproverIds = approverIds
+        //     });
         // }
+
+        [HttpPost]
+        [HrmAuthorize(UserRoles = "HR")]
+        public async Task<IActionResult> TeamUpdate(UpdateSupervisorFlowViewModel model)
+        {
+            var result = new CommandResult
+            {
+                Code = 1,
+                Message = Messages.InvalidInputData
+            };
+
+            if (model != null && ModelState.IsValid)
+            {
+                var criteria = new UpdateTeamSupervisorCriteria {
+                    GroupId = model.GroupId,
+                    ApproverIds = model.ApproverIds,
+                    ModifiedBy = CurrentUser.Id
+                };
+
+                result = await baseService.ExecuteNonQueryAsync(criteria);
+
+                if (result.IsSuccessful)
+                {
+                    ViewBag.Inserted = true;
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
+                }
+            }
+
+            return Json(result);
+        }
     }
 }

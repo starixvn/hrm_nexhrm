@@ -18,35 +18,21 @@
         <script src="~/minify/js/supervisor.min.js" asp-append-version="true"></script>
     </environment>
 }
-
 <div class="row content">
     <div class="col s12 card-container-base card-my-newx">
         <div class="card">
             <div class="card-content">
                 <div class="card-title-block">
                     <ul class="tabs">
-                        <li class="tab col"><a class="@(ViewBag.Tab == "Team" ? "active" : string.Empty) card-title" href="#myOT">@Labels.Team</a></li>
-                        <li class="tab col"><a class="@(ViewBag.Tab == "Personal" ? "active" : string.Empty) card-title" href="#memberOT">Personal</a></li>
+                        <li class="tab col"><a class="@(ViewBag.Tab == "Team" ? "active" : string.Empty) card-title" href="#list-team">@Labels.Team</a></li>
+                        <li class="tab col"><a class="@(ViewBag.Tab == "Personal" ? "active" : string.Empty) card-title" href="#list-personal"
+                        onclick="switchTabPersonal()">Personal</a></li>
                     </ul>
                 </div>
                 <div class="card-body">
-                    @* <div class="form row form-input">
-                        <div class="col">
-                            <div class="left label--m">
-                                <label>@Labels.Keyword</label>
-                            </div>
-                            <div class="left">
-                                <input type="text" id="Keyword" placeholder="@Messages.SearchEmployeeWatermark" />
-                            </div>
-                        </div>
-                        <div class="col">
-                            <input type="button" id="submit" class="btn-submit waves-effect waves-light" value="@Labels.Submit" />
-                        </div>
-                    </div> *@
-                    <div id="team">
-                        <div class="loading-process" style="display: none;"></div>
-                    </div>
-                    <div id="personal"></div>
+                    <div id="list-team"></div>
+                    <div id="list-personal"></div>
+                    <div id="dialog-supervisor">&nbsp;</div>
                 </div>
             </div>
         </div>

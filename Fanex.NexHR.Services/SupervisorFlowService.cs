@@ -20,5 +20,17 @@
             var teamSupervisors = await baseService.GetDataAsync<TeamSupervisor>(criteria);
             return teamSupervisors;
         }
+
+        public async Task<TeamSupervisor> GetById(GetTeamSupervisorByIdCriteria criteria)
+        {
+            var team = await baseService.GetDataEntityAsync<TeamSupervisor>(criteria);
+            return team;
+        }
+
+        public async Task<IEnumerable<PersonalSupervisor>> GetPersonalSupervisors(GetPersonalSupervisorCriteria criteria)
+        {
+            var personalSupervisors = await baseService.GetDataAsync<PersonalSupervisor>(criteria);
+            return personalSupervisors;
+        }
     }
 }

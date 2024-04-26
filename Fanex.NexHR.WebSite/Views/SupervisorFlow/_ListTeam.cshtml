@@ -1,0 +1,115 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Models
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.Services.Interfaces
+@inject ISessionService sessionService;
+@model IEnumerable<TeamSupervisor>
+@{
+    var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+    var index = 1;
+}
+    @* <div class="team-list">
+        <div class="header">Team List</div>
+        <div class="list-body">
+            <div class="content">
+                @if (Model.Any())
+                {
+                    @foreach (var item in Model)
+                    {
+                        <div class="item" id="@(item.Id)" onclick="selectTeam(@item.Id, '@item.Name')">
+                            <div class="team-name">@item.Name</div>
+                            @if (!string.IsNullOrEmpty(item.ApproverIds))
+                            {
+                                <div class="icon-check"/>
+                            }
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="no-data">@Labels.NoData</div>
+                }
+            </div>
+        </div>
+    </div>
+    <form id="frmTeamUpdate">
+        @if (ViewBag.Inserted == true)
+        {
+            <input type="hidden" id="successed" value="true" />
+        }
+        <div class="flow-process">
+            <div class="process-item">
+                <div class="team-process">
+                    <div class="header">@Labels.Team</div>
+                    <div class="content">
+                        <div class="team-detail">
+                            <div class="icon-team"/>
+                            <div id="team-selected"/>
+                            <input asp-for="@GroupId" type="hidden"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="approver-process">
+                    <div class="header">@Labels.Approver</div>
+                    <div class="content">
+                        <div>
+                            <select asp-for="@ApproverIds" asp-items="@employees"
+                                class="select-2 disabled">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-group">
+                <button type="button" class="btn btn-cancel btn btn-default m-r--s" onclick="eventCancel()">@Labels.Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="eventSubmit()">@Labels.Submit</button>
+            </div>
+        </div>
+    </form> *@
+<div class="cover-form-mb table-team">
+    <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
+        <thead>
+            <tr>
+                <th>@Labels.SymbolCount</th>
+                <th>@Labels.Team</th>
+                <th>@Labels.Approver</th>
+                 @if (isHRRole)
+                {
+                    <th>@Labels.Edit</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr id="row@(item.GroupId)">
+                        <td>@(index++)</td>
+                        <td class="align-left">@item.GroupName</td>
+                        <td class="align-left">@item.ApproverNames</td>
+                        @if (isHRRole)
+                        {
+                            <td class="action-column">
+                                <a class="btn-edit"
+                                 data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog-supervisor"
+                                @* href="@Url.Action("EditTeam", new { groupId = item.GroupId, groupName = item.GroupName, ApproverIds = item.ApproverIds})" *@
+                                href="@Url.Action("EditTeam", new { id = item.GroupId })"
+                                data-ajax-success="supervisor.onLoadingEditFormSuccess">
+                                    <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
+                                </a>
+                            </td>
+                        }
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4">@Labels.NoData</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

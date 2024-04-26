@@ -1,0 +1,28 @@
+﻿@using Fanex.NexHR.Resources
+@model Fanex.NexHR.ViewModels.SupervisorFlow.UpdateSupervisorFlowViewModel
+
+<form id="edit-form" asp-action="editteam" data-ajax="true" data-ajax-method="post" data-ajax-success="supervisor.onUpdateSuccess">
+    <div asp-validation-summary="All"></div>
+    @* <input type="hidden" asp-for="@Model.Id" /> *@
+    <div class="row form-input">
+        <div class="col employee-name">
+            <div class="left label--l">
+                <label>@Labels.Team</label>
+            </div>
+            <div class="left input--m">
+                @Model.GroupName
+                <input asp-for="@Model.GroupId" type="hidden" />
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label>@Labels.ApprovedBy</label>
+        </div>
+        <div class="left input--l">
+            <select asp-for="ApproverIds" asp-items="@Model.Employees"
+                class="select-2">
+            </select>
+        </div>
+    </div>
+</form>

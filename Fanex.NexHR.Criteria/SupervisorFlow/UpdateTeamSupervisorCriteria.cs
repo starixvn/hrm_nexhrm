@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.SupervisorFlow
 {
-    using Data.Repository;
-
-    public class UpdateTeamSupervisorCriteria : CriteriaBase
+    public class UpdateTeamSupervisorCriteria : BaseCommand
     {
         public int GroupId { get; set; }
 
@@ -12,6 +10,9 @@
 
          public override string GetSettingKey() => "GroupSupervisor_Update";
 
-        public override bool IsValid() => true;
+         public override bool IsValid()
+        {
+            return GroupId > 0;
+        }
     }
 }

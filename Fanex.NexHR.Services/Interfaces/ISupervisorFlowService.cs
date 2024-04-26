@@ -8,5 +8,9 @@
     public interface ISupervisorFlowService
     {
         Task<IEnumerable<TeamSupervisor>> GetTeamSupervisors(GetTeamSupervisorCriteria criteria);
+
+        Task<IEnumerable<PersonalSupervisor>> GetPersonalSupervisors(GetPersonalSupervisorCriteria criteria);
+
+        Task<TeamSupervisor> GetById(GetTeamSupervisorByIdCriteria criteria);
     }
 }
