@@ -69,7 +69,7 @@
                     {
                         var approverIds = teamSupervisor.ApproverIds.Split(',').Select(int.Parse); 
                         var approvedEmployees = employees.Where(emp => approverIds.Contains(emp.Id));
-                        teamSupervisor.ApproverNames = string.Join(", ", approvedEmployees.Select(emp => $"{emp.NickName} ({emp.FullName})"));
+                        teamSupervisor.ApproversName = string.Join(", ", approvedEmployees.Select(emp => $"{emp.NickName} ({emp.FullName})"));
                     }
                 }
             }
@@ -98,7 +98,7 @@
                     {
                         var approverIds = personal.ApproverIds.Split(',').Select(int.Parse); 
                         var approvedEmployees = employees.Where(emp => approverIds.Contains(emp.Id));
-                        personal.ApproverNames = string.Join(", ", approvedEmployees.Select(emp => $"{emp.NickName} ({emp.FullName})"));
+                        personal.ApproversName = string.Join(", ", approvedEmployees.Select(emp => $"{emp.NickName} ({emp.FullName})"));
                     }
                 }
             }
@@ -118,7 +118,7 @@
                 PageSize = int.MaxValue,
                 PageNumber = 1
             });
-            var model = new UpdateSupervisorFlowViewModel {
+            var model = new TeamViewModel {
                 GroupId = groupId,
                 GroupName = groupName,
                 ApproverIds = !string.IsNullOrEmpty(approverIds) ? approverIds.Split(',').Select(int.Parse).ToArray() : null,
@@ -130,7 +130,7 @@
 
         [HttpPost]
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> EditTeam(UpdateSupervisorFlowViewModel model)
+        public async Task<IActionResult> EditTeam(TeamViewModel model)
         {
             var criteria = new UpdateTeamSupervisorCriteria {
                 GroupId = model.GroupId,
@@ -154,7 +154,7 @@
                 PageSize = int.MaxValue,
                 PageNumber = 1
             });
-            var model = new CreatePersonalViewModel {
+            var model = new PersonalViewModel {
                 Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName))
             };
 
@@ -163,7 +163,7 @@
 
         [HttpPost]
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> CreatePersonal(CreatePersonalViewModel model)
+        public async Task<IActionResult> CreatePersonal(PersonalViewModel model)
         {
             var criteria = new InsertPersonalSupervisorCriteria
             {
@@ -178,7 +178,7 @@
 
         [HttpGet]
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> EditPersonal(int empId, string nickname, string fullName, string approverIds)
+        public async Task<IActionResult> EditPersonal(int empId)
         {
             var employees = await employeeService.Query(new GetEmployeeCriteria
             {
@@ -188,10 +188,12 @@
                 PageSize = int.MaxValue,
                 PageNumber = 1
             });
-            var model = new CreatePersonalViewModel {
+            var criteria = new GetPersonalSupervisorByIdCriteria { EmpId = empId };
+            var personal = await supervisorFlowService.GetPersonalSupervisorsById(criteria);
+            var model = new PersonalViewModel {
                 EmpId = empId,
-                Employee = nickname + (string.IsNullOrWhiteSpace(fullName) ? string.Empty : " (" + fullName + ")"),
-                ApproverIds = !string.IsNullOrEmpty(approverIds) ? approverIds.Split(',').Select(int.Parse).ToArray() : null,
+                Employee = personal.Nickname + (string.IsNullOrWhiteSpace(personal.FullName) ? string.Empty : " (" + personal.FullName + ")"),
+                ApproverIds = !string.IsNullOrEmpty(personal.ApproverIds) ? personal.ApproverIds.Split(',').Select(int.Parse).ToArray() : null,
                 Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName))
             };
 
@@ -200,7 +202,7 @@
 
         [HttpPost]
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> EditPersonal(CreatePersonalViewModel model)
+        public async Task<IActionResult> EditPersonal(PersonalViewModel model)
         {
             var criteria = new UpdatePersonalSupervisorCriteria {
                 EmpId = model.EmpId,

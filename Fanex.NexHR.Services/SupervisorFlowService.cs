@@ -21,9 +21,9 @@
             return teamSupervisors;
         }
 
-        public async Task<TeamSupervisor> GetById(GetTeamSupervisorByIdCriteria criteria)
+        public async Task<PersonalSupervisor> GetPersonalSupervisorsById(GetPersonalSupervisorByIdCriteria criteria)
         {
-            var team = await baseService.GetDataEntityAsync<TeamSupervisor>(criteria);
+            var team = await baseService.GetDataEntityAsync<PersonalSupervisor>(criteria);
             return team;
         }
 

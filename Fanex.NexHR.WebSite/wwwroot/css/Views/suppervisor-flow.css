@@ -7,3 +7,9 @@
   #dialog-supervisor .input-custom {
     width: 32rem !important;
     word-break: break-all; }
+  #dialog-supervisor .validation-summary-success ul {
+    display: none; }
+
+.card-body table {
+  width: 60%;
+  table-layout: auto; }

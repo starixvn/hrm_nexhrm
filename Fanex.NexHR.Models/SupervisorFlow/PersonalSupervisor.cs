@@ -10,7 +10,7 @@
 
         public string ApproverIds { get; set; }
 
-        public string ApproverNames { get; set; }
+        public string ApproversName { get; set; }
 
     }
 }

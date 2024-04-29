@@ -83,6 +83,39 @@ var supervisor = (function ($) {
 
     function initializeDialog($form, title) {
         $('.select-2', $dialog).select2({ closeOnSelect: false });
+
+        $dialog.dialog({
+            modal: true,
+            width: 'auto',
+            title: title,
+            buttons: [
+                {
+                    text: 'Cancel',
+                    class: 'btn-cancel waves-effect waves-light m-r--m btn-dialog',
+                    click: function () {
+                        $(this).dialog('close');
+                    }
+                },
+                {
+                    text: 'Save',
+                    class: 'btn-submit waves-effect waves-light btn-dialog',
+                    click: function () {
+                        $form.submit();
+                    }
+                }
+            ],
+            show: {
+                effect: 'fade',
+                duration: 300
+            },
+            hide: {
+                effect: 'fade',
+                duration: 200
+            }
+        });
+    }
+    function initializePersonalDialog($form, title) {
+        $('.select-2', $dialog).select2({ closeOnSelect: false });
         initAutocomplete('form #Employee', 'form #EmpId', false);
 
         $dialog.dialog({
@@ -116,40 +149,46 @@ var supervisor = (function ($) {
         });
     }
 
-    function initCreateDialog() {
-        initializeDialog($('#create-form'), 'New Personal');
-    }
-
     function initEditTeamDialog() {
         initializeDialog($('#edit-form'), 'Update Team\'s Approver');
+    }
+
+    function initCreateDialog() {
+        initializePersonalDialog($('#create-form'), 'New Personal');
     }
 
     function initEditPersonalDialog() {
         initializeDialog($('#edit-form'), 'Update Employee\'s Approver');
     }
 
-    function handleSuccess(response, successMessage) {
-        let errorDiv = $('.validation-summary-errors');
+    function handleUpdateTeamSuccess(response) {
         let valid = $('.validation-summary-valid');
         if (response.IsSuccessful) {
-            if (errorDiv.length > 0) {
-                errorDiv.remove();
-                valid = $('<div class="validation-summary-valid"></div>').prependTo('#create-form');
-            }
             valid.addClass('success validation-summary-success');
-            valid.append(successMessage);
+            valid.append('Update successfully');
             setTimeout(function () { $dialog.dialog('close'); loadTeamSupervisor(false); }, 1000);
         } else {
             showErrorMessage(response.Message);
         }
     }
 
-    function onInsertSuccess(response) {
-        handleSuccess(response, 'Insert successfully');
+    function handleSuccess(response, successMessage) {
+        let valid = $('.validation-summary-valid');
+        if (response.IsSuccessful) {
+            valid.addClass('success validation-summary-success');
+            valid.append(successMessage);
+            setTimeout(function () { $dialog.dialog('close'); loadPersonalSupervisor(false); }, 1000);
+        } else {
+            showErrorMessage(response.Message);
+        }
     }
 
-    function onUpdateSuccess(response) {
+    function onUpdatePersonalSuccess(response) {
         handleSuccess(response, 'Update successfully');
+    }
+
+    function onInsertPersonalSuccess(response) {
+        handleSuccess(response, 'Insert successfully');
     }
 
     return {
@@ -157,8 +196,9 @@ var supervisor = (function ($) {
         onLoadingCreateFormSuccess: initCreateDialog,
         onLoadingEditTeamFormSuccess: initEditTeamDialog,
         onLoadingEditPersonalFormSuccess: initEditPersonalDialog,
-        onInsertSuccess: onInsertSuccess,
-        onUpdateSuccess: onUpdateSuccess
+        onInsertPersonalSuccess: onInsertPersonalSuccess,
+        onUpdatePersonalSuccess: onUpdatePersonalSuccess,
+        onUpdateTeamSuccess: handleUpdateTeamSuccess
     }
 
 }(jQuery));

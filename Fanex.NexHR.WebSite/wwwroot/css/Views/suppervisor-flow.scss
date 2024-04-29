@@ -14,4 +14,14 @@
         word-break: break-all;
     }
 
+    .validation-summary-success ul {
+        display: none;
+    }
+}
+
+.card-body {
+    table {
+        width: 60%;
+        table-layout: auto;
+    }
 }

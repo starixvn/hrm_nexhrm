@@ -1,7 +1,7 @@
 ﻿@using Fanex.NexHR.Resources
-@model Fanex.NexHR.ViewModels.SupervisorFlow.CreatePersonalViewModel
+@model Fanex.NexHR.ViewModels.SupervisorFlow.PersonalViewModel
 
-<form id="create-form" asp-action="CreatePersonal" data-ajax="true" data-ajax-method="post" data-ajax-success="supervisor.onInsertSuccess">
+<form id="create-form" asp-action="CreatePersonal" data-ajax="true" data-ajax-method="post" data-ajax-success="supervisor.onInsertPersonalSuccess">
     <div asp-validation-summary="All"></div>
     <div class="row form-input">
         <div class="left label--m">
