@@ -12,12 +12,12 @@
 <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
     <thead>
         <tr>
-            <th>@Labels.SymbolCount</th>
-            <th>@Labels.Team</th>
-            <th>@Labels.Approvers</th>
+            <th style="width:4%">@Labels.SymbolCount</th>
+            <th style="width:20%">@Labels.Team</th>
+            <th style="width:50%">@Labels.Approvers</th>
                 @if (isHRRole)
             {
-                <th>@Labels.Edit</th>
+                <th style="width:2%">@Labels.Edit</th>
             }
         </tr>
     </thead>

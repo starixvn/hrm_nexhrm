@@ -17,8 +17,11 @@
             <label>@Labels.Approvers</label>
         </div>
         <div class="left input-custom">
-            <select asp-for="ApproverIds" asp-items="@Model.Employees"
-                class="select-2 disabled">
+            <select multiple id="ApproverIds" name="ApproverIds" class="select-2 disabled">
+                @foreach(var emp in Model.Employees)
+                {
+                    <option value="@emp.Value" selected="@(Model.ApproverIds != null && Model.ApproverIds.Any(x => x.ToString() == emp.Value) ? true : false)">@emp.Text</option>
+                }
             </select>
         </div>
     </div>

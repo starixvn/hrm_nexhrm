@@ -17,11 +17,19 @@
     .validation-summary-success ul {
         display: none;
     }
+
+    .validation-summary-errors ul li {
+        text-align: left;
+    }
 }
 
 .card-body {
     table {
         width: 60%;
         table-layout: auto;
+
+        @media only screen and (max-width: 1600px) {
+            width: 100%;
+        }
     }
 }

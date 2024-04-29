@@ -9,7 +9,12 @@
     word-break: break-all; }
   #dialog-supervisor .validation-summary-success ul {
     display: none; }
+  #dialog-supervisor .validation-summary-errors ul li {
+    text-align: left; }
 
 .card-body table {
   width: 60%;
   table-layout: auto; }
+  @media only screen and (max-width: 1600px) {
+    .card-body table {
+      width: 100%; } }

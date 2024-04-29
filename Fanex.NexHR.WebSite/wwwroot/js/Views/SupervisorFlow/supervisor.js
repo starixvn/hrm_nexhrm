@@ -115,6 +115,7 @@ var supervisor = (function ($) {
         });
     }
     function initializePersonalDialog($form, title) {
+        $.validator.unobtrusive.parse($form);
         $('.select-2', $dialog).select2({ closeOnSelect: false });
         initAutocomplete('form #Employee', 'form #EmpId', false);
 
