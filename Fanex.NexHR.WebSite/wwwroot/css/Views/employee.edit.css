@@ -45,6 +45,23 @@
     display: block;
     margin-top: 0; }
 
+#dialog-toeic, #dialog-jobGrade, #dialog-approver {
+  display: none; }
+
+#dialog-approver {
+  padding-top: 0; }
+  #dialog-approver .left {
+    display: flex; }
+  #dialog-approver .form-input label {
+    float: left; }
+  #dialog-approver .select2-selection__rendered {
+    padding: 5px !important; }
+  #dialog-approver .input-custom {
+    width: 32rem !important;
+    word-break: break-all; }
+  #dialog-approver .validation-summary-success ul {
+    display: none; }
+
 .toeic {
   -webkit-box-shadow: 0px 0px 0px 1px #d2d2d2;
   -moz-box-shadow: 0px 0px 0px 1px #d2d2d2;

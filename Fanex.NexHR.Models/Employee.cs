@@ -71,8 +71,8 @@
         [Display(Name = "Other team(s)")]
         public string SubGroups { get; set; }
 
-        [Display(Name = "Teams' leaders receive requests")]
-        public string LeaderGroups { get; set; }
+        public string Approvers { get; set; }
+
         public int EmployeeRank { get; set; }
 
         public JobTitle JobTitle { get; set; }
@@ -206,24 +206,6 @@
             set
             {
                 SubGroups = Utilities.StringArrayToString(value);
-            }
-        }
-
-        public string[] LeaderGroupsArray
-        {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(LeaderGroups))
-                {
-                    return new string[0];
-                }
-
-                return LeaderGroups.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            }
-
-            set
-            {
-                LeaderGroups = Utilities.StringArrayToString(value);
             }
         }
 

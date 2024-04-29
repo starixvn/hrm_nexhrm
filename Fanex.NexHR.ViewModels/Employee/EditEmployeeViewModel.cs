@@ -43,8 +43,7 @@
         [Display(Name = "Other team(s)")]
         public string SubGroups { get; set; }
 
-        [Display(Name = "Teams' leaders receive requests")]
-        public string LeaderGroups { get; set; }
+        public string Approvers { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
@@ -161,20 +160,6 @@
             set { SubGroups = Utilities.StringArrayToString(value); }
         }
 
-        public string[] LeaderGroupsArray
-        {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(LeaderGroups))
-                {
-                    return new string[0];
-                }
-
-                return LeaderGroups.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            }
-
-            set { LeaderGroups = Utilities.StringArrayToString(value); }
-        }
 
         private void InitData(Employee employee)
         {
@@ -191,7 +176,7 @@
                 JobTitleId = employee.JobTitle.Id;
                 AnnualLeaveBalance = employee.AnnualLeaveBalance;
                 SubGroups = employee.SubGroups;
-                LeaderGroups = employee.LeaderGroups;
+                Approvers = employee.Approvers;
                 DateOfBirth = employee.DateOfBirth;
                 Email = employee.Email;
                 Phone = employee.Phone;

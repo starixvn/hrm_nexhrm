@@ -70,13 +70,32 @@
     }
 }
 
-#toeic , #dialog-jobGrade, #dialog-approver {
+#dialog-toeic , #dialog-jobGrade, #dialog-approver {
     display: none;
 }
 
 #dialog-approver {
+    padding-top: 0;
+
+    .left {
+        display: flex;
+    }
+
     .form-input label {
         float: left;
+    }
+
+    .select2-selection__rendered {
+        padding: 5px !important;
+    }
+    
+    .input-custom {
+        width: 32rem !important;
+        word-break: break-all;
+    }
+
+    .validation-summary-success ul {
+        display: none;
     }
 }
 

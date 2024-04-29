@@ -417,20 +417,13 @@
                                     <div class="row form-input m-b--m">
                                         <div class="col">
                                             <div class="left label--mxxl">
-                                                <label>Approved requests by</label>
+                                                <label>Approved By</label>
                                             </div>
                                              <div class="left input--l">
-                                                @{
-                                                    var leaderNickname = Model.Teams
-                                                        .Where(team => Model.LeaderGroupsArray.Contains(team.TeamId.ToString()))
-                                                        .Select(team => team.Leader.NickName);
-
-                                                    var leaderNicknames = string.Join(", ", leaderNickname);
-                                                }
-                                                @if (!string.IsNullOrEmpty(leaderNicknames))
-                                                {
-                                                    <span class="m-r--s black-text">@leaderNicknames</span>
-                                                }
+                                                 @if (!string.IsNullOrEmpty(Model.Approvers))
+                                                 {
+                                                    <span class="m-r--m black-text">@Model.Approvers</span>
+                                                 }
                                                 <a class="btn-ok waves-effect waves-light" id="updateApprover" href="javascript:;">@Labels.Update</a>
                                             </div>
                                         </div>
@@ -720,7 +713,7 @@
                             }
                             <div id="dialog-toeic" title="Update TOEIC Score">&nbsp;</div>
                             <div id="dialog-jobGrade" title="Update Job Grade">&nbsp;</div>
-                            <div id="dialog-approver" title="Update Approver">&nbsp;</div>
+                            <div id="dialog-approver" title="Update Employee's Approver">&nbsp;</div>
                         }
                         else
                         {

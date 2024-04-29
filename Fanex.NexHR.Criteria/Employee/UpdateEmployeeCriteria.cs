@@ -38,8 +38,6 @@
 
         public string SubGroups { get; set; }
 
-        public string HandleRequestGroupIds { get; set; }
-
         public string Roles { get; set; }
 
         public DateTime? JoinedDate { get; set; }
