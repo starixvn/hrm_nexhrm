@@ -21,6 +21,22 @@
     .validation-summary-errors ul li {
         text-align: left;
     }
+
+    .validation-summary-errors, .validation-summary-success {
+        margin: 16px 0;
+    }
+
+    .form-input {
+        display: flex;
+    }
+
+    @media only screen and (max-width: 993px) {
+        #create-form {
+            .form-input input[type="text"] {
+                margin-bottom: 15px;
+            }
+        }
+    }
 }
 
 .card-body {
@@ -31,5 +47,11 @@
         @media only screen and (max-width: 1600px) {
             width: 100%;
         }
+    }
+}
+
+@media only screen and (max-width: 993px) {
+    .btn-request {
+        margin: 0;
     }
 }
