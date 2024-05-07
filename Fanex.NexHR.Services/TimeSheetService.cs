@@ -62,7 +62,7 @@
                 var tasks = new List<Task>();
                 foreach (var workinghour in batch)
                 {
-                    tasks.Add(nexbotService.SendMessageAsync(workinghour.SkypeConversationId, workinghour.MessageContent));
+                    tasks.Add(nexbotService.SendReachedWorkingHoursNotification(workinghour));
                 }
 
                 await Task.WhenAll(tasks);

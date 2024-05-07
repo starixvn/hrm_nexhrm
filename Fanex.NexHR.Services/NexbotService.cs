@@ -413,5 +413,21 @@
                 await SendHttpClientAsync<Task>("/messages/CheckoutNotification", HttpMethod.Post, data);
             }
         }
+
+        public async Task SendReachedWorkingHoursNotification(WorkingHour workingHour)
+        {
+            if (nexBotSettings.Enable)
+            {
+                var data = new Dictionary<string, string>
+                {
+                    {"conversationId", workingHour.SkypeConversationId },
+                    {"nickname", workingHour.NickName},
+                    {"workingHours", Utilities.TotalHoursToTime(workingHour.TotalWorkHours)},
+                    {"messageContent", workingHour.MessageContent},
+                };
+
+                await SendHttpClientAsync<Task>("/messages/ReachedWorkingHoursNotification", HttpMethod.Post, data);
+            }
+        }
     }
 }
