@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
     using System.Collections.Generic;
+    using System.IO;
     using System.Security.Claims;
     using System.Threading.Tasks;
     using Fanex.NexHR.Core;
@@ -9,6 +10,7 @@
     using Fanex.NexHR.ViewModels;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authentication.Cookies;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using Novell.Directory.Ldap;
 

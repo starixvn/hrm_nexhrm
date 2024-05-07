@@ -2,19 +2,19 @@
     <strong>Dear Management,</strong>
 </div>
 <p>
-    This is to inform you about your employee, {0} had a leave request
+    This is to inform you about your employee, {1} had a leave request
     <br />
     <br />
-    - Date: {1}
+    - Date: {2}
     <br />
-    - Type: {2}
+    - Type: {3}
     <br />
-    - Remark: {3}
+    - Remark: {4}
     <br />
     <br />
     Please process this request at: 
-    <a href="{4}/request/member">
-        {4}/request/member
+    <a href="{5}/request/member">
+        {5}/request/member
     </a>
     <br />
     Any questions, please contact HR department.
@@ -22,5 +22,5 @@
     Thanks
 </p>
 <p>
-    {5}
+    {6}
 </p>
