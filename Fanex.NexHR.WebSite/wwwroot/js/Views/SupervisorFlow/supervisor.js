@@ -114,11 +114,28 @@ var supervisor = (function ($) {
             }
         });
     }
+
     function initializePersonalDialog($form, title) {
-        $.validator.unobtrusive.parse($form);
         $('.select-2', $dialog).select2({ closeOnSelect: false });
         initAutocomplete('form #Employee', 'form #EmpId', false);
-
+        $form.validate({
+            rules: {
+                Employee: {
+                    required: true
+                },
+                ApproverIds: {
+                    required: true
+                }
+            },
+            messages: {
+                Employee: {
+                    required: "The Employee field is required!"
+                },
+                ApproverIds: {
+                    required: "The Approvers field is required!"
+                }
+            }
+        });
         $dialog.dialog({
             modal: true,
             width: 'auto',
@@ -135,7 +152,9 @@ var supervisor = (function ($) {
                     text: 'Save',
                     class: 'btn-submit waves-effect waves-light btn-dialog',
                     click: function () {
-                        $form.submit();
+                        if ( $form.valid()) {
+                            $form.submit();
+                          }
                     }
                 }
             ],
@@ -146,6 +165,9 @@ var supervisor = (function ($) {
             hide: {
                 effect: 'fade',
                 duration: 200
+            },
+            close: function (event, ui) {
+                $form.validate().destroy();
             }
         });
     }

@@ -4,14 +4,33 @@
     .left {
         display: flex;
     }
-    
+
     .select2-selection__rendered {
         padding: 5px !important;
+    }
+
+    .select2-container {
+        margin-bottom: 0;
+    }
+
+    .select2-hidden-accessible {
+        display: block;
     }
     
     .input-custom {
         width: 32rem !important;
         word-break: break-all;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        input {
+            margin-bottom: 0;
+        }
+
+        &.custom-validate {
+            flex-direction: column-reverse;
+        }
     }
 
     .validation-summary-success ul {
@@ -28,24 +47,21 @@
 
     .form-input {
         display: flex;
+        margin-bottom: 16px;
     }
 
-    @media only screen and (max-width: 993px) {
-        #create-form {
-            .form-input input[type="text"] {
-                margin-bottom: 15px;
-            }
-        }
+    label.error {
+        color: red;
     }
 }
 
 .card-body {
+    padding: 12px;
     table {
-        width: 60%;
-        table-layout: auto;
+        width: 60% !important;
 
         @media only screen and (max-width: 1600px) {
-            width: 100%;
+            width: 100% !important;
         }
     }
 }

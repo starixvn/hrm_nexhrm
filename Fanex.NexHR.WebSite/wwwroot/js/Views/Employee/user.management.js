@@ -93,7 +93,7 @@ function query(jobTitleId, isFirstLoad) {
                 $('table#data').removeClass('responsive-table');
                 $('table#data').floatThead('destroy');
 
-                $(noInformation(14)).appendTo('table#data');
+                $(noInformation(15)).appendTo('table#data');
             }
 
             if (data.IsShowResignedDate === true) {

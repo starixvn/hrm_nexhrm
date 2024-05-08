@@ -8,7 +8,7 @@
             <label>@Labels.Employee</label>
         </div>
         <div class="left input-custom">
-            <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark" data-val="true" data-val-required="The Employee field is required!" />
+            <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark"/>
             <input asp-for="EmpId" type="hidden" />
         </div>
     </div>
@@ -16,9 +16,8 @@
         <div class="left label--m">
             <label>@Labels.Approvers</label>
         </div>
-        <div class="left input-custom">
-            <select asp-for="ApproverIds" asp-items="@Model.Employees"
-                class="select-2 disabled">
+        <div class="left input-custom custom-validate">
+            <select asp-for="ApproverIds" asp-items="@Model.Employees" class="select-2 disabled">
             </select>
         </div>
     </div>
