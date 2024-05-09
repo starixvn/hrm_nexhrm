@@ -136,6 +136,11 @@ var supervisor = (function ($) {
                 }
             }
         });
+
+        $('select').select2({}).on("change", function (e) {
+            $(this).valid()
+          });
+          
         $dialog.dialog({
             modal: true,
             width: 'auto',
