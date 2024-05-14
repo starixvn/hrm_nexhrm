@@ -25,8 +25,8 @@
             <div class="card-content">
                 <div class="card-title-block">
                     <ul class="tabs">
-                        <li class="tab col"><a class="@(ViewBag.Tab == "Team" ? "active" : string.Empty) card-title" href="#list-team">@Labels.Team</a></li>
-                        <li class="tab col"><a class="@(ViewBag.Tab == "Personal" ? "active" : string.Empty) card-title" href="#personal" onclick="loadPersonalSupervisor(true)">@Labels.Personal</a></li>
+                        <li class="tab col"><a class="@(ViewBag.Tab == "Team" ? "active" : string.Empty) card-title" href="#list-team">@Labels.TeamSetting</a></li>
+                        <li class="tab col"><a class="@(ViewBag.Tab == "Personal" ? "active" : string.Empty) card-title" href="#personal" onclick="loadPersonalSupervisor(true)">@Labels.PersonalSetting</a></li>
                     </ul>
                 </div>
                 <div class="card-body">
@@ -37,7 +37,7 @@
                                 <div class="col m-l--l">
                                     <a class="btn-request waves-effect waves-light btn m-r--m" href="@Url.Action("Create")"
                                         data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog-supervisor" data-ajax-success="supervisor.onLoadingCreateFormSuccess">
-                                        New Personal
+                                        New Personal Setting
                                     </a>
                                 </div>
                             </div>

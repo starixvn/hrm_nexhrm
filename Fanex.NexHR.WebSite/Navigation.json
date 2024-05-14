@@ -171,7 +171,7 @@
         "ParentId": 13
     },
     {
-        "Title": "Supervisor Flow",
+        "Title": "Flow Setting",
         "Controller": "supervisorflow",
         "Action": "index",
         "Icon": "settings-box",

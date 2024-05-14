@@ -5487,20 +5487,31 @@ namespace Fanex.NexHR.Resources {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Approver.
+        ///   Looks up a localized string similar to Personal Setting.
         /// </summary>
-        public static string Approvers {
+        public static string PersonalSetting {
             get {
-                return ResourceManager.GetString("Approvers", resourceCulture);
+                return ResourceManager.GetString("PersonalSetting", resourceCulture);
             }
         }
+
         /// <summary>
-        ///   Looks up a localized string similar to Approver.
+        ///   Looks up a localized string similar to TeamSetting.
         /// </summary>
-        public static string Personal {
+        public static string TeamSetting {
             get {
-                return ResourceManager.GetString("Personal", resourceCulture);
+                return ResourceManager.GetString("TeamSetting", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Supervisor.
+        /// </summary>
+        public static string Supervisor {
+            get {
+                return ResourceManager.GetString("Supervisor", resourceCulture);
+            }
+        }
+        
     }
 }
