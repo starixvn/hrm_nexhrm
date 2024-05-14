@@ -314,7 +314,7 @@
             {
                 string body = string.Format(
                     model.EmailTemplate,
-                    employeeSupervisors.FirstOrDefault().SupervisorNickName,
+                    employeeSupervisors.FirstOrDefault()?.SupervisorNickName,
                     model.Employee,
                     forDate,
                     model.LeaveTypeName,
