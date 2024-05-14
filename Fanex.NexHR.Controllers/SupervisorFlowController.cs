@@ -14,7 +14,6 @@
     public class SupervisorFlowController : BaseController
     {
         private readonly ISupervisorFlowService supervisorFlowService;
-        private readonly ITeamService teamService;
         private readonly IBaseService baseService;
         private readonly IEmployeeService employeeService;
 
@@ -22,29 +21,18 @@
             ISessionService sessionService,
             ISupervisorFlowService supervisorFlowService,
             IBaseService baseService,
-            ITeamService teamService,
             IEmployeeService employeeService) : base(sessionService)
         {
             this.supervisorFlowService = supervisorFlowService;
-            this.teamService = teamService;
             this.baseService = baseService;
             this.employeeService = employeeService;
         }
 
         [HttpGet]
         [HrmAuthorize(UserRoles = "HR")]
-         public IActionResult Index(int chosenTab = 0)
+        public IActionResult Index(int chosenTab = 0)
         {
-            switch (chosenTab)
-            {
-                case 1:
-                    ViewBag.Tab = "Personal";
-                    break;
-                default:
-                    ViewBag.Tab = "Team";
-                    break;
-            }
-
+            ViewBag.Tab = chosenTab == 1 ? "Personal" : "Team";
             return View();
         }
 
