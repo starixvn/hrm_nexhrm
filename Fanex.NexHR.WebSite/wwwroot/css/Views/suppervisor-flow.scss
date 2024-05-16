@@ -60,8 +60,22 @@
     table {
         width: 60% !important;
 
+        &.table-detail {
+            width: 70% !important;
+        }
+
         @media only screen and (max-width: 1600px) {
             width: 100% !important;
+
+            &.table-detail {
+                width: 100% !important;
+            }
+        }
+    }
+
+    #detail {
+        input[type=text] {
+            margin: 0 12px 0 0;
         }
     }
 }
@@ -69,5 +83,9 @@
 @media only screen and (max-width: 993px) {
     .btn-request {
         margin: 0;
+    }
+
+    .tabs .tab {
+        width: 33%;
     }
 }

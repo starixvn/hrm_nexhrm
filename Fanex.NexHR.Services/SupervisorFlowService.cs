@@ -32,5 +32,11 @@
             var personalSupervisors = await baseService.GetDataAsync<PersonalSupervisor>(criteria);
             return personalSupervisors;
         }
+
+        public async Task<IEnumerable<DetailSupervisor>> GetListDetailSupervisors(GetDetailSupervisorCriteria criteria)
+        {
+            var listDetail = await baseService.GetDataAsync<DetailSupervisor>(criteria);
+            return listDetail;
+        }
     }
 }

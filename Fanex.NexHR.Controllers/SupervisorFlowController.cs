@@ -30,9 +30,9 @@
 
         [HttpGet]
         [HrmAuthorize(UserRoles = "HR")]
-        public IActionResult Index(int chosenTab = 0)
+        public IActionResult Index()
         {
-            ViewBag.Tab = chosenTab == 1 ? "Personal" : "Team";
+            ViewBag.Tab = "Team";
             return View();
         }
 
@@ -65,6 +65,7 @@
             return PartialView("Views/SupervisorFlow/_ListTeam.cshtml", teamSupervisors);
         }
 
+
         [HttpPost]
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> GetPersonalSupervisor()
@@ -92,6 +93,37 @@
             }
 
             return PartialView("Views/SupervisorFlow/_ListPersonal.cshtml", personalSupervisors);
+        }
+
+        [HttpPost]
+        [HrmAuthorize(UserRoles = "HR")]
+        public async Task<IActionResult> GetListDetail( string keyword)
+        {
+            var criteria = new GetDetailSupervisorCriteria {
+                Keyword = keyword ?? string.Empty
+            };
+            var employees = await employeeService.Query(new GetEmployeeCriteria
+            {
+                Query = string.Empty,
+                IsDelete = false,
+                IsDisable = false,
+                PageSize = int.MaxValue,
+                PageNumber = 1
+            });
+
+            var listDetail = await supervisorFlowService.GetListDetailSupervisors(criteria);
+            if (listDetail != null) {
+                foreach (var detail in listDetail) {
+                    if (!string.IsNullOrEmpty(detail.ApproverIds))
+                    {
+                        var approverIds = detail.ApproverIds.Split(',').Select(int.Parse); 
+                        var approvedEmployees = employees.Where(emp => approverIds.Contains(emp.Id));
+                        detail.ApproversName = string.Join(", ", approvedEmployees.Select(emp => $"{emp.NickName} ({emp.FullName})"));
+                    }
+                }
+            }
+
+            return PartialView("Views/SupervisorFlow/_ListDetail.cshtml", listDetail);
         }
 
         [HttpGet]

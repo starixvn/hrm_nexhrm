@@ -25,12 +25,13 @@
             <div class="card-content">
                 <div class="card-title-block">
                     <ul class="tabs">
-                        <li class="tab col"><a class="@(ViewBag.Tab == "Team" ? "active" : string.Empty) card-title" href="#list-team">@Labels.TeamSetting</a></li>
-                        <li class="tab col"><a class="@(ViewBag.Tab == "Personal" ? "active" : string.Empty) card-title" href="#personal" onclick="loadPersonalSupervisor(true)">@Labels.PersonalSetting</a></li>
+                        <li class="tab col"><a class="active card-title" href="#list-team">@Labels.TeamSetting</a></li>
+                        <li class="tab col"><a class="card-title" href="#personal" onclick="loadPersonalSupervisor(true)">@Labels.PersonalSetting</a></li>
+                        <li class="tab col"><a class="card-title" href="#detail" onclick="loadDetail(true)">Detail</a></li>
                     </ul>
                 </div>
                 <div class="card-body">
-                     <div id="list-team"></div>
+                    <div id="list-team"></div>
                     <div id="personal">
                         <div class="form">
                             <div class="row form-input">
@@ -42,7 +43,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="list-personal"/>
+                        <div id="list-personal"></div>
+                    </div>
+                    <div id="detail">
+                        <div class="form row form-input">
+                            <div class="left label--m">
+                                <label>@Labels.Keyword</label>
+                            </div>
+                            <div class="col filter-keyword m-r--l">
+                                <input type="text" id="Keyword" placeholder="@Messages.SearchEmployeeWatermark" />
+                            </div>
+                            <div class="col">
+                                <input type="button" id="submit" class="btn-submit waves-effect waves-light" value="@Labels.Submit" />
+                            </div>
+                        </div>
+                        <div id="list-detail"></div>
                     </div>
                     <div id="dialog-supervisor"></div>
                 </div>

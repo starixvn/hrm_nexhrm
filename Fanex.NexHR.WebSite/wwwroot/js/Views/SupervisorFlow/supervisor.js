@@ -52,6 +52,34 @@ function loadPersonalSupervisor(isFirstLoad) {
     });
 }
 
+function loadDetail(isFirstLoad) {
+    $.ajax({
+        url: _global.root + 'SupervisorFlow/GetListDetail',
+        dataType: 'html',
+        method: "POST",
+        data: {
+            keyword: $('#Keyword').val()
+        },
+        beforeSend: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeIn(300);
+            }
+        },
+        success: function (data) {
+            $('#list-detail').html(data);
+            floatThead('table#data');
+        },
+        error: function () {
+            alert(_messages.errorTryAgain);
+        },
+        complete: function () {
+            if (!isFirstLoad) {
+                $('.loading-process').fadeOut(300);
+            }
+        }
+    });
+}
+
 function showErrorMessage(message) {
     $('<div>' + '<p>' + message + '</p>').dialog({
         title: 'NexHRM',
@@ -76,6 +104,16 @@ function showErrorMessage(message) {
 
 function init() {
     loadTeamSupervisor(true);
+
+    $('#Keyword').keyup(function (event) {
+        if (event.keyCode === 13) {
+            loadDetail(false);
+        }
+    });
+
+    $('#submit').on('click', function () {
+        loadDetail(false);
+    });
 }
 
 var supervisor = (function ($) {
@@ -178,15 +216,15 @@ var supervisor = (function ($) {
     }
 
     function initEditTeamDialog() {
-        initializeDialog($('#edit-form'), 'Update Team\'s Approver');
+        initializeDialog($('#edit-form'), 'Edit Team Setting');
     }
 
     function initCreateDialog() {
-        initializePersonalDialog($('#create-form'), 'New Personal');
+        initializePersonalDialog($('#create-form'), 'New Personal Setting');
     }
 
     function initEditPersonalDialog() {
-        initializeDialog($('#edit-form'), 'Update Employee\'s Approver');
+        initializeDialog($('#edit-form'), 'Edit Personal Setting');
     }
 
     function handleUpdateTeamSuccess(response) {

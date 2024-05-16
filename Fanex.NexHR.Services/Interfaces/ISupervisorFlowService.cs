@@ -12,5 +12,8 @@
         Task<IEnumerable<PersonalSupervisor>> GetPersonalSupervisors(GetPersonalSupervisorCriteria criteria);
 
         Task<PersonalSupervisor> GetPersonalSupervisorsById(GetPersonalSupervisorByIdCriteria criteria);
+
+        Task<IEnumerable<DetailSupervisor>> GetListDetailSupervisors(GetDetailSupervisorCriteria criteria);
+
     }
 }

@@ -34,10 +34,18 @@
   padding: 12px; }
   .card-body table {
     width: 60% !important; }
+    .card-body table.table-detail {
+      width: 70% !important; }
     @media only screen and (max-width: 1600px) {
       .card-body table {
-        width: 100% !important; } }
+        width: 100% !important; }
+        .card-body table.table-detail {
+          width: 100% !important; } }
+  .card-body #detail input[type=text] {
+    margin: 0 12px 0 0; }
 
 @media only screen and (max-width: 993px) {
   .btn-request {
-    margin: 0; } }
+    margin: 0; }
+  .tabs .tab {
+    width: 33%; } }
