@@ -1,6 +1,5 @@
 ﻿namespace Fanex.NexHR.Criteria.TimeSheet
 {
-    using System;
     using Fanex.Data.Repository;
 
     public class GetEmployeeHadCheckOutCriteria : CriteriaBase

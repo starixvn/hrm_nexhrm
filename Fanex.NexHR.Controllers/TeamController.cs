@@ -58,8 +58,6 @@
                     {
                         Code = model.TeamCode,
                         Name = model.TeamName,
-                        LeaderId = model.LeaderId,
-                        AssistantLeaderId = model.AssistantLeaderId ?? default(int),
                         DepartmentId = model.DepartmentId,
                         ParentId = model.ParentId,
                         CreatedBy = CurrentUser.Id
@@ -102,10 +100,6 @@
                     TeamName = team.Name,
                     DepartmentId = team.Department?.Id ?? 0,
                     ParentId = team.Parent?.Id ?? 0,
-                    Leader = team.Leader.DisplayName,
-                    LeaderId = team.Leader.Id,
-                    AssistantLeader = team.AssistantLeader != null ? team.AssistantLeader.DisplayName : string.Empty,
-                    AssistantLeaderId = team.AssistantLeader?.Id ?? 0,
                 };
             }
 
@@ -125,11 +119,6 @@
         {
             if (ModelState.IsValid)
             {
-                if (string.IsNullOrEmpty(model.AssistantLeader))
-                {
-                    model.AssistantLeaderId = null;
-                }
-
                 var criteria = new UpdateTeamCriteria
                 {
                     Id = model.Id,
@@ -137,8 +126,6 @@
                     Name = model.TeamName,
                     DepartmentId = model.DepartmentId,
                     ParentId = model.ParentId,
-                    LeaderId = model.LeaderId,
-                    AssistantLeaderId = model.AssistantLeaderId ?? default(int),
                     ModifiedBy = CurrentUser.Id
                 };
 

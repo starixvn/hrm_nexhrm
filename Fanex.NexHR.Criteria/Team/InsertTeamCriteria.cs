@@ -6,10 +6,6 @@
 
         public string Name { get; set; }
 
-        public int LeaderId { get; set; }
-
-        public int AssistantLeaderId { get; set; }
-
         public int? DepartmentId { get; set; }
 
         public int? ParentId { get; set; }

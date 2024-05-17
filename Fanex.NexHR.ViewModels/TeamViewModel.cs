@@ -17,18 +17,6 @@
         [Display(Name = "Name", ResourceType = typeof(Labels))]
         public string TeamName { get; set; }
 
-        [Required]
-        [Display(Name = "Leader", ResourceType = typeof(Labels))]
-        public string Leader { get; set; }
-
-        [Range(1, int.MaxValue, ErrorMessage = "Invalid Leader!")]
-        public int LeaderId { get; set; }
-
-        [Display(Name = "Assistant Leader")]
-        public string AssistantLeader { get; set; }
-
-        public int? AssistantLeaderId { get; set; }
-
         [Display(Name = "Department")]
         public int? DepartmentId { get; set; }
 

@@ -27,20 +27,19 @@
                 <div class="card-body">
                     <div class="row m-t--m">
                         <div class="col">
-                            <a class="btn-request waves-effect waves-light btn" href="@Url.Action("Create", "Team")">
+                            <a class="btn-request waves-effect waves-light btn m-r--m" href="@Url.Action("Create", "Team")">
                                 <i class="left mdi mdi-plus"></i>@Labels.NewTeam
                             </a>
+                            <a class="btn-request waves-effect waves-light btn" href="@Url.Action("Index", "SupervisorFlow")">Flow Setting</a>
                         </div>
                     </div>
                     <div class="p-x--s m-t--m cover-form-mb table-team">
-                        <table id="data" class="table bordered striped highlight centered responsive-table table-custom">
+                        <table id="data" class="table bordered striped highlight centered responsive-table table-custom" style="width:60%">
                             <thead>
                                 <tr>
                                     <th>@Labels.SymbolCount</th>
                                     <th>@Labels.Code</th>
                                     <th>@Labels.Team</th>
-                                    <th>@Labels.Leader</th>
-                                    <th>@Labels.AssitantLeader</th>
                                     <th>@Labels.Edit</th>
                                     <th>@Labels.Delete</th>
                                 </tr>
@@ -49,16 +48,10 @@
                                 @{int index = 1;}
                                 @foreach (var team in Model)
                                 {
-                                    string assistantLeaderFullName = team.AssistantLeader != null ? team.AssistantLeader.FullName : string.Empty;
-                                    string assistantLeaderNickName = team.AssistantLeader != null ? team.AssistantLeader.NickName : string.Empty;
                                     <tr id="row@(team.Id)">
                                         <td>@(index++)</td>
                                         <td>@team.Code</td>
                                         <td class="align-left">@team.Name</td>
-                                        <td class="tooltip" title="@team.Leader.FullName">@team.Leader.NickName</td>
-                                        <td class="tooltip" title="@assistantLeaderFullName">
-                                            @assistantLeaderNickName
-                                    </td>
                                     <td class="cmd">
                                         <a href="@Url.Action("Edit", "Team", new { team.Id })">
                                             <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>

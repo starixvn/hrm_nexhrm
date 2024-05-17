@@ -370,7 +370,7 @@ td, th{
 @media #{$medium-and-down} {
 
   table.responsive-table {
-    width: 100%;
+    width: 100% !important;
     border-collapse: collapse;
     border-spacing: 0;
     display: block;
