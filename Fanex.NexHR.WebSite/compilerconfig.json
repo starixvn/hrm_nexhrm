@@ -54,5 +54,9 @@
   {
     "outputFile": "wwwroot/css/Views/suppervisor-flow.css",
     "inputFile":  "wwwroot/css/Views/suppervisor-flow.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Views/time-record.css",
+    "inputFile":  "wwwroot/css/Views/time-record.scss"
   }
 ]

@@ -1,0 +1,70 @@
+#time-record-detail {
+  a {
+    position: relative;
+    cursor: pointer;
+    &::after {
+      font-family: "Material Design Icons";
+      font-size: 19px;
+      content: "";
+      position: absolute;
+      right: -20px;
+      top: -5px;
+      opacity: 0;
+    }
+
+    &:hover::after {
+        opacity: 1;
+    }
+  }
+}
+
+.context-menu-item {
+    cursor: pointer;
+
+    &:hover {
+        color: #68b929;
+    }
+}
+
+.context-menu-icon-out:before,
+.context-menu-icon-in:before {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 28px;
+    font-family: "Material Design Icons";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    color: #78828c;
+    text-align: center;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.context-menu-icon-out:before {
+    content:url("../Images/icon-out.png");
+}
+
+.context-menu-icon-out.context-menu-hover:before {
+    content:url("../Images/icon-out-hover.png");
+}
+
+.context-menu-icon-in:before {
+    content:url("../Images/icon-in.png");
+}
+
+.context-menu-icon-in.context-menu-hover:before {
+    content:url("../Images/icon-in-hover.png");
+}
+
+.context-menu-icon-reject.context-menu-hover:before {
+    color: #68b929;
+}
+
+

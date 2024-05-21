@@ -43,8 +43,8 @@ function bindMenuIn() {
                         }
                     },
                     items: {
-                        'in': { name: 'In' },
-                        'none': { name: 'None' }
+                        'in': { name: 'In', icon: 'in' },
+                        'none': { name: 'None', icon: 'reject' }
                     }
                 };
             }
@@ -78,8 +78,8 @@ function bindMenuOut() {
                         }
                     },
                     items: {
-                        'out': { name: 'Out' },
-                        'none': { name: 'None' }
+                        'out': { name: 'Out', icon: 'out' },
+                        'none': { name: 'None', icon: 'reject' }
                     }
                 };
             }
@@ -113,8 +113,8 @@ function bindMenuInOut() {
                         }
                     },
                     items: {
-                        'in': { name: 'In' },
-                        'out': { name: 'Out' }
+                        'in': { name: 'In', icon: 'in'},
+                        'out': { name: 'Out', icon: 'out' }
                     }
                 };
             }
