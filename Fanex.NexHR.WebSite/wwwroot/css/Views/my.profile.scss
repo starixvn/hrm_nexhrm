@@ -1,284 +1,65 @@
-@import "../Common/utils/variables";
-
-%title {
-    font-size: 1.4rem;
-    color: $c-primary;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-}
-.boxtitle {
-    @extend %title;
-    text-transform: uppercase;
+%card {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 10px 12px;
 }
 
-.course {
-    table {
-        width: 800px;
-        overflow-y: scroll;
-        max-height: 250px;
-        display: block;
-    }
+.card-body {
+    display: flex;
+    gap: 12px;
 
-    thead th {
-        position: sticky;
-        top: 0;
-    }
+    .left-profile {
+        .header-avatar {
+            display: flex;
+            gap: 10px;
+            @extend %card;
 
-    th {
-        width: 196px;
-        background-color: #24272f;
-    }
-}
+            .avatar {
+                width: 16rem;
 
-.pinfo {
-    .accinfo {
-        line-height: 2 !important;
-        color: #303e4b !important;
-        > span {
-            float: left;
-        }
-		.address {
-			width: 30rem;
-			@media (min-width: 1900px) {
-				width: auto;
-			}
-		}
-    }
-    .scheduleoff {
-        background: #bdbdbd;
-    }
-}
-
-.avatarbox {
-    .name {
-        @extend %title;
-    }
-    .avatar {
-        width: 16rem;
-        border: 1px solid $c-border-table;
-        img {
-            width: 100%;
-        }
-    }
-}
-.sub-avatar{
-    display: none;
-}
-@media only screen and (max-width: $medium-screen-up) {
-    .sub-avatar {
-        display: block;
-    }
-
-    .card-container-base {
-        .card-content {
-            padding-top: 0.5rem;
-        }
-
-        .card-body {
-            .pinfo {
-                p.accinfo {
-                    margin-bottom: 9px;
-
-
-                    span {
-                        font-size: 1.3rem;
-                        line-height: 160%;
-                        display: block;
-
-
-                        &.label--l {
-                            width: 112px;
-                        }
-
-                        &:nth-child(2) {
-                            width: calc(100% - 112px);
-                            font-weight: 400;
-                        }
-                    }
+                img {
+                    border: 1px solid #d2d2d2;
+                    width: 100%;
                 }
+            }
+
+            .name {
+                font-size: 1.4rem;
+                color: #f4783d;
+                font-weight: 500;
+            }
+        }
+
+        .personal-info {
+            margin-top: 12px;
+        }
+    }
+
+    .personal-info, .job-information {
+        .accinfo {
+            line-height: 2.6rem;
+            padding: 3px 8px;
+
+            &:not(:last-child) {
+                border-bottom: 1px solid #ddd;
             }
         }
     }
 
-    .avatarbox {
-        padding: 0 0.8rem;
-        margin-top: 1.1rem;
-
-        .col.m-r--xl {
-            margin-right: 0;
-        }
-
-        .avatar {
-            display: none;
-        }
-
-        .sub-avatar {
-            display: block;
-            width: 14.8rem;
-            margin: 6px 0 7px 0;
-            border: 1px solid #d2d2d2;
-
-            img {
-                width: 100%;
-                display: block;
-            }
-        }
+    .info-title {
+        text-transform: uppercase;
+        font-size: 1.4rem;
+        color: #f4783d;
+        font-weight: 500;
+        background: #eaeaea;
+        padding: 8px;
+        border-radius: 3px 3px 0 0;
+        border: 1px solid #ddd;
+        border-bottom: none;
     }
 
-    .pinfo {
-
-        table {
-            width: 100% !important;
-        }
-    }
-
-    .toeicscore {
-        .boxcontent {
-            table {
-                width: 100% !important;
-            }
-        }
-    }
-
-    .card-container-base {
-        .card-body {
-        }
-    }
-
-    .Jobinformation {
-        margin-top: 21px;
-        margin-bottom: 30px;
-
-        .boxtitle {
-            margin-bottom: 14px;
-        }
-
-        table {
-
-
-            thead {
-                border: 1px solid #cccccc;
-
-                tr {
-                    th {
-                        font-size: 1.2rem;
-                        border-color: #cccccc;
-                        padding-left: 3px;
-                        padding-right: 3px;
-                    }
-                }
-            }
-
-            tbody {
-                tr {
-                    td {
-                        padding: .9rem .3rem;
-                        font-size: 1.2rem;
-                        border-color: #cccccc;
-
-                        &.scheduleoff {
-                            background-color: #D7DAE2;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    .card-container-base {
-        .card-body {
-            .toeicscore {
-                .boxtitle {
-                    margin-bottom: 13px;
-                }
-
-                table {
-
-
-                    thead {
-                        border: 1px solid #cccccc;
-
-                        tr {
-                            th {
-                                font-size: 1.2rem;
-                                border-color: #cccccc;
-                                padding-left: 3px;
-                                padding-right: 3px;
-                            }
-                        }
-                    }
-
-                    tbody {
-                        tr {
-                            td {
-                                padding: .9rem .3rem;
-                                font-size: 1.2rem;
-                                border-color: #cccccc;
-
-                                &.scheduleoff {
-                                    background-color: #D7DAE2;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            .attendacereport {
-                margin-top: 21px;
-                margin-bottom: 30px;
-
-                .boxtitle {
-                    margin-bottom: 11px;
-                }
-
-                .pinfo {
-                    .accinfo {
-                        margin-bottom: 4px;
-
-                        span {
-                            display: inline-block;
-                            float: none;
-
-                            &:nth-child(2) {
-                                font-weight: 500;
-                                width: auto;
-                            }
-                        }
-                    }
-
-                    table {
-                        table-layout: fixed;
-
-                        thead {
-                            border: 1px solid #cccccc;
-
-                            tr {
-                                th {
-                                    font-size: 1.2rem;
-                                    border-color: #cccccc;
-                                    padding-left: 3px;
-                                    padding-right: 3px;
-                                }
-                            }
-                        }
-
-                        tbody {
-                            tr {
-                                td {
-                                    padding: .9rem .3rem;
-                                    font-size: 1.2rem;
-                                    border-color: #cccccc;
-
-                                    &.scheduleoff {
-                                        background-color: #D7DAE2;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    .info-body {
+        border: 1px solid #ddd;
+        border-radius: 0 0 3px 3px;
     }
 }

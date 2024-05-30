@@ -38,257 +38,247 @@
                     <span class="card-title txt-uppercase left">@ViewBag.Title</span>
                 </div>
                 <div class="card-body">
-                    <div class="avatarbox m-t--m">
-                        <div class="row">
-                            <div class="col">
-                                <div class="avatar">
-                                    <img src="@Url.Action("Avatar","Employee", new {id=Model.Code})" alt="@Model.NickName" />
-                                </div>
+                    <div class="left-profile">
+                        <div class="header-avatar">
+                            <div class="avatar">
+                                <img src="@Url.Action("Avatar","Employee", new {id=Model.Code})" alt="@Model.NickName" />
                             </div>
-                            <div class="col">
-                                <div class="row">
-                                    <div class="col name">
-                                        @Model.FullName
-                                        <div class="sub-avatar">
-                                            <img src="@Url.Action("Avatar","Employee", new {id=Model.Code})" alt="@Model.NickName" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col m-r--xl">
-                                        <div class="pinfo">
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.StaffCode:</span> <span>@Model.Code</span>
-                                            </p>
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.Domain:</span> <span>@Model.DomainUsername</span>
-                                            </p>
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.Email:</span> <span><a href="mailto:@Model.Email">@Model.Email</a></span>
-                                            </p>
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.Phone:</span> <span>@Model.Phone</span>
-                                            </p>
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.Skype:</span> <span><a href="skype:@(Model.Skype)?chat">@Model.Skype</a></span>
-                                            </p>                                           
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.Telegram:</span> <span><a href="ymsgr:SendIM?@(Model.Yahoo)">@Model.Yahoo</a></span>
-                                            </p>
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.EducationBackground:</span> <span>@Model.EducationBackground</span>
-                                            </p>
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.Address:</span> <span>@Model.Address</span>
-                                            </p>
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.CurrentAddress:</span> <span class="address">@Model.CurrentAddress</span>
-                                            </p>
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.ContactName:</span> <span>@Model.ContactName</span>
-                                            </p>
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.Relationship:</span> <span>@Model.UserRelationship</span>
-                                            </p>
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.ContactPhone:</span> <span>@Model.ContactPhone</span>
-                                            </p>
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.ContactAddress:</span> <span class="address">@Model.ContactAddress</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="pinfo">
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.FullName:</span> <span class="txt-bold">@Model.FullName</span>
-                                            </p>
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.EnglishName:</span> <span class="txt-bold">@Model.NickName</span>
-                                            </p>
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.DoB:</span> <span class="txt-bold">@Model.DateOfBirth.ToString("dd MMM, yyyy")</span>
-                                            </p>
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.PlaceOfBirth:</span> <span class="txt-bold">@Model.PlaceOfBirth</span>
-                                            </p>
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.Gender:</span> <span class="txt-bold">@(Model.Gender == 1 ? "Male" : "Female")</span>
-                                            </p>
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.Marriage:</span> <span class="txt-bold">@(Model.Marriage ? "Yes" : "No")</span>
-                                            </p>
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.IdNo:</span> <span class="txt-bold">@Model.CardNo</span>
-                                            </p>
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.IssuedDate:</span> <span class="txt-bold">
-                                                    @if(Model.IssuedDate != null)
-                                                    {
-                                                        var issuedDate = (DateTime)Model.IssuedDate;
-                                                        @issuedDate.ToString("dd MMM, yyyy")
-                                                    }
-                                                </span>
-                                            </p>
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.IssuingAuthority:</span> <span class="txt-bold">@Model.IssuedPlace</span>
-                                            </p>
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.PassportNo:</span> <span class="txt-bold">@Model.PassportNo</span>
-                                            </p>
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.PassportExp:</span> <span class="txt-bold">
-                                                    @if(Model.PassportExp != null)
-                                                    {
-                                                        var passportExp = (DateTime)Model.PassportExp;
-                                                        @passportExp.ToString("dd MMM, yyyy")
-                                                    }
-                                                </span>
-                                            </p>
-                                            <p class="accinfo">
-                                                <span class="label--mxxl">@Labels.SocialInsuranceNo:</span> <span class="txt-bold">@Model.SocialInsuranceNo</span>
-                                            </p>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="pinfo">
+                                <p class="name">@Model.FullName</p>
+                                <p class="accinfo">
+                                    <span class="label--mxxl">@Labels.StaffCode:</span> <span>@Model.Code</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--mxxl">@Labels.Domain:</span> <span>@Model.DomainUsername</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="personal-info">
+                            <div class="info-title">
+                                Personal Information
+                            </div>
+                            <div class="info-body">
+                                <p class="accinfo">
+                                <span class="label--mxxl">@Labels.Email:</span> <span><a href="mailto:@Model.Email">@Model.Email</a></span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--mxxl">@Labels.Phone:</span> <span>@Model.Phone</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--mxxl">@Labels.Skype:</span> <span><a href="skype:@(Model.Skype)?chat">@Model.Skype</a></span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--mxxl">@Labels.Telegram:</span> <span><a href="ymsgr:SendIM?@(Model.Yahoo)">@Model.Yahoo</a></span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--mxxl">@Labels.EducationBackground:</span> <span>@Model.EducationBackground</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--mxxl">@Labels.Address:</span> <span>@Model.Address</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--mxxl">@Labels.CurrentAddress:</span> <span class="address">@Model.CurrentAddress</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--mxxl">@Labels.ContactName:</span> <span>@Model.ContactName</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--mxxl">@Labels.Relationship:</span> <span>@Model.UserRelationship</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--mxxl">@Labels.ContactPhone:</span> <span>@Model.ContactPhone</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--mxxl">@Labels.ContactAddress:</span> <span class="address">@Model.ContactAddress</span>
+                                </p>
+
+                                <p class="accinfo">
+                                <span class="label--mxxl">@Labels.FullName:</span> <span class="txt-bold">@Model.FullName</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--mxxl">@Labels.EnglishName:</span> <span class="txt-bold">@Model.NickName</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--mxxl">@Labels.DoB:</span> <span class="txt-bold">@Model.DateOfBirth.ToString("dd MMM, yyyy")</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--mxxl">@Labels.PlaceOfBirth:</span> <span class="txt-bold">@Model.PlaceOfBirth</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--mxxl">@Labels.Gender:</span> <span class="txt-bold">@(Model.Gender == 1 ? "Male" : "Female")</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--mxxl">@Labels.Marriage:</span> <span class="txt-bold">@(Model.Marriage ? "Yes" : "No")</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--mxxl">@Labels.IdNo:</span> <span class="txt-bold">@Model.CardNo</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--mxxl">@Labels.IssuedDate:</span> <span class="txt-bold">
+                                        @if(Model.IssuedDate != null)
+                                        {
+                                            var issuedDate = (DateTime)Model.IssuedDate;
+                                            @issuedDate.ToString("dd MMM, yyyy")
+                                        }
+                                    </span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--mxxl">@Labels.IssuingAuthority:</span> <span class="txt-bold">@Model.IssuedPlace</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--mxxl">@Labels.PassportNo:</span> <span class="txt-bold">@Model.PassportNo</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--mxxl">@Labels.PassportExp:</span> <span class="txt-bold">
+                                        @if(Model.PassportExp != null)
+                                        {
+                                            var passportExp = (DateTime)Model.PassportExp;
+                                            @passportExp.ToString("dd MMM, yyyy")
+                                        }
+                                    </span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--mxxl">@Labels.SocialInsuranceNo:</span> <span class="txt-bold">@Model.SocialInsuranceNo</span>
+                                </p>
                             </div>
                         </div>
                     </div>
-                    <div class="Jobinformation p-x--s m-t--l">
-                        <div class="boxtitle">
-                            @Labels.JobInformation
-                        </div>
-                        <div class="pinfo">
-                            <p class="accinfo">
-                                <span class="label--l">@Labels.JobTitle:</span> <span class="txt-bold">
-                                    @if (Model.JobTitle != null)
-                                    {
-                                        @Model.JobTitle.Name
-                                    }
-                                </span>
-                            </p>
-                            <p class="accinfo">
-                                <span class="label--l">@Labels.JobGrade:</span> 
-                                <span class="txt-bold tooltip" title="@($"{Labels.EffectiveDate}: {Model.AffectedDate.ToString("dd MMM, yyyy")}")">
+                    <div class="right-profile">
+                        <div class="job-information">
+                            <div class="info-title">
+                                @Labels.JobInformation
+                            </div>
+                            <div class="info-body">
+                                <p class="accinfo">
+                                    <span class="label--l">@Labels.JobTitle:</span> <span class="txt-bold">
+                                        @if (Model.JobTitle != null)
+                                        {
+                                            @Model.JobTitle.Name
+                                        }
+                                    </span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--l">@Labels.JobGrade:</span> 
+                                    <span class="txt-bold tooltip" title="@($"{Labels.EffectiveDate}: {Model.AffectedDate.ToString("dd MMM, yyyy")}")">
+                                        @if (Model.JobGradeCode != null)
+                                        {
+                                            @Model.JobGradeCode
+                                        }
+                                    </span>
                                     @if (Model.JobGradeCode != null)
                                     {
-                                        @Model.JobGradeCode
+                                        <span class="label--l" style="margin-left: 5px;">
+                                            <a class="viewhistoryjobgrade" href="javascript:;" id="">
+                                                <i class="mdi mdi-information-outline mdi-dark mdi-24px tooltip" title="View history"></i>
+                                            </a>
+                                        </span>
                                     }
-                                </span>
-                                @if (Model.JobGradeCode != null)
-                                {
-                                    <span class="label--l" style="margin-left: 5px;">
-                                        <a class="viewhistoryjobgrade" href="javascript:;" id="">
-                                            <i class="mdi mdi-information-outline mdi-dark mdi-24px tooltip" title="View history"></i>
-                                        </a>
-                                    </span>
-                                }
-                            </p>
-                            <p class="accinfo">
-                                <span class="label--l">@Labels.Team:</span> <span class="txt-bold">@Model.Team.Name</span>
-                            </p>
-                            <p class="accinfo">
-                                <span class="label--l">@Labels.Roles:</span> <span class="txt-bold">@Model.DisplayRoles()</span>
-                            </p>
-                            <p class="accinfo">
-                                <span class="label--l">@Labels.JoinedDate:</span> <span class="txt-bold">
-                                    @if (Model.JoinedDate != null)
-                                    {
-                                        var date = (DateTime)Model.JoinedDate;
-                                        @date.ToString("dd MMM, yyyy")
-                                    }
-                                </span>
-                            </p>
-                            <p class="accinfo">
-                                <span class="label--l">@Labels.GroupDate:</span> <span class="txt-bold">
-                                    @{
-                                        var groupDate = (DateTime)Model.GroupDate;
-                                        @groupDate.ToString("dd MMM, yyyy")
-                                    }
-                                </span>
-                            </p>
-                            <p class="accinfo">
-                                <span class="label--l">@Labels.ConfirmedDate:</span> <span class="txt-bold">
-                                    @if (Model.ConfirmedDate != null)
-                                    {
-                                        var date = (DateTime)Model.ConfirmedDate;
-                                        @date.ToString("dd MMM, yyyy")
-                                    }
-                                </span>
-                            </p>
-                            @if (Model.ResignedDate != null)
-                            {
-                                var date = (DateTime)Model.ResignedDate;
-                                <p class="accinfo">
-                                    <span class="label--l">@Labels.LastWorkingDate:</span> <span class="txt-bold">@date.ToString("dd MMM, yyyy")</span>
                                 </p>
-                            }
-                        </div>
-                    </div>
-                    <div class="trainingAndDevelopmentsreport m-t--l p-x--s">
-                        <div class="boxtitle">
-                            @Labels.LearningAndDevelopment
-                        </div>
-                        @foreach(var item in Model.TrainingAndDevelopmentTypes)
-                        {
-                            var trainingAndDevelopments = Model.TrainingAndDevelopments.Where(x => x.TypeId == item.Id).ToList();
-                            <div class="development">
-                                @if(trainingAndDevelopments.Count > 0)
+                                <p class="accinfo">
+                                    <span class="label--l">@Labels.Team:</span> <span class="txt-bold">@Model.Team.Name</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--l">@Labels.Roles:</span> <span class="txt-bold">@Model.DisplayRoles()</span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--l">@Labels.JoinedDate:</span> <span class="txt-bold">
+                                        @if (Model.JoinedDate != null)
+                                        {
+                                            var date = (DateTime)Model.JoinedDate;
+                                            @date.ToString("dd MMM, yyyy")
+                                        }
+                                    </span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--l">@Labels.GroupDate:</span> <span class="txt-bold">
+                                        @{
+                                            var groupDate1 = (DateTime)Model.GroupDate;
+                                            @groupDate1.ToString("dd MMM, yyyy")
+                                        }
+                                    </span>
+                                </p>
+                                <p class="accinfo">
+                                    <span class="label--l">@Labels.ConfirmedDate:</span> <span class="txt-bold">
+                                        @if (Model.ConfirmedDate != null)
+                                        {
+                                            var date = (DateTime)Model.ConfirmedDate;
+                                            @date.ToString("dd MMM, yyyy")
+                                        }
+                                    </span>
+                                </p>
+                                @if (Model.ResignedDate != null)
                                 {
-                                    <div class="boxdevelopmenttitle">
-                                        @trainingAndDevelopments[0].TypeName
-                                    </div>
-                                    foreach (var trainingAndDevelopment in trainingAndDevelopments)
-                                    {
-                                        if (trainingAndDevelopment.TypeName == InternalTraining)
-                                        {
-                                            <div class="detail training">
-                                                <p class="name bold">@trainingAndDevelopment.Name</p>
-                                                <p title="@trainingAndDevelopment.Publish" class=" icon-publish icon-@trainingAndDevelopment.Publish" />
-                                                <p>Conducted by:</p>
-                                                <p class="conductedby italic">@trainingAndDevelopment.ConductedBy</p>
-                                                <p>Start Date:</p>
-                                                <p class="startdate italic">@trainingAndDevelopment.StartDate.ToString(FormatDate)</p>
-                                            </div>
-                                        }
-                                        else if (trainingAndDevelopment.TypeName == Certificates)
-                                        {
-                                            <div class="detail certificate">
-                                                <p class="name bold">@trainingAndDevelopment.Name</p>
-                                                <p title="@trainingAndDevelopment.Publish" class=" icon-publish icon-@trainingAndDevelopment.Publish" />
-                                                <p>Organization:</p>
-                                                <p class="organization italic">@trainingAndDevelopment.Organization</p>
-                                                <p>Test Date:</p>
-                                                <p class="testdate italic">@trainingAndDevelopment.ExamDate.ToString(FormatDate)</p>
-                                                @if (!trainingAndDevelopment.ExpirationDate.Equals(DateTime.MinValue))
-                                                {
-                                                    <p>Expiration Date</p>
-                                                    <p class="enddate italic">@trainingAndDevelopment.ExpirationDate.ToString(FormatDate)</p>
-                                                }
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="detail developmentDetail">
-                                                <p class="name bold">@trainingAndDevelopment.Name</p>
-                                                <p title="@trainingAndDevelopment.Publish" class=" icon-publish icon-@trainingAndDevelopment.Publish" />
-                                                <p>Organization:</p>
-                                                <p class="organization italic">@trainingAndDevelopment.Organization</p>
-                                                <p>Start Date:</p>
-                                                <p class="startdate italic">@trainingAndDevelopment.StartDate.ToString(FormatDate)</p>
-                                                <p>End Date:</p>
-                                                <p class="enddate italic">@trainingAndDevelopment.EndDate.ToString(FormatDate)</p>
-                                            </div>
-                                        }
-                                    }
+                                    var date = (DateTime)Model.ResignedDate;
+                                    <p class="accinfo">
+                                        <span class="label--l">@Labels.LastWorkingDate:</span> <span class="txt-bold">@date.ToString("dd MMM, yyyy")</span>
+                                    </p>
                                 }
                             </div>
-                        }
-                        @if (Model.TrainingAndDevelopments.Count == 0)
-                        {
-                            <p class="none-training">@Messages.NoInformationAvailable</p>
-                        }
+                        </div>
+                        <div class="trainingAndDevelopmentsreport m-t--l p-x--s">
+                            <div class="boxtitle">
+                                @Labels.LearningAndDevelopment
+                            </div>
+                            @foreach(var item in Model.TrainingAndDevelopmentTypes)
+                            {
+                                var trainingAndDevelopments = Model.TrainingAndDevelopments.Where(x => x.TypeId == item.Id).ToList();
+                                <div class="development">
+                                    @if(trainingAndDevelopments.Count > 0)
+                                    {
+                                        <div class="boxdevelopmenttitle">
+                                            @trainingAndDevelopments[0].TypeName
+                                        </div>
+                                        foreach (var trainingAndDevelopment in trainingAndDevelopments)
+                                        {
+                                            if (trainingAndDevelopment.TypeName == InternalTraining)
+                                            {
+                                                <div class="detail training">
+                                                    <p class="name bold">@trainingAndDevelopment.Name</p>
+                                                    <p title="@trainingAndDevelopment.Publish" class=" icon-publish icon-@trainingAndDevelopment.Publish" />
+                                                    <p>Conducted by:</p>
+                                                    <p class="conductedby italic">@trainingAndDevelopment.ConductedBy</p>
+                                                    <p>Start Date:</p>
+                                                    <p class="startdate italic">@trainingAndDevelopment.StartDate.ToString(FormatDate)</p>
+                                                </div>
+                                            }
+                                            else if (trainingAndDevelopment.TypeName == Certificates)
+                                            {
+                                                <div class="detail certificate">
+                                                    <p class="name bold">@trainingAndDevelopment.Name</p>
+                                                    <p title="@trainingAndDevelopment.Publish" class=" icon-publish icon-@trainingAndDevelopment.Publish" />
+                                                    <p>Organization:</p>
+                                                    <p class="organization italic">@trainingAndDevelopment.Organization</p>
+                                                    <p>Test Date:</p>
+                                                    <p class="testdate italic">@trainingAndDevelopment.ExamDate.ToString(FormatDate)</p>
+                                                    @if (!trainingAndDevelopment.ExpirationDate.Equals(DateTime.MinValue))
+                                                    {
+                                                        <p>Expiration Date</p>
+                                                        <p class="enddate italic">@trainingAndDevelopment.ExpirationDate.ToString(FormatDate)</p>
+                                                    }
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="detail developmentDetail">
+                                                    <p class="name bold">@trainingAndDevelopment.Name</p>
+                                                    <p title="@trainingAndDevelopment.Publish" class=" icon-publish icon-@trainingAndDevelopment.Publish" />
+                                                    <p>Organization:</p>
+                                                    <p class="organization italic">@trainingAndDevelopment.Organization</p>
+                                                    <p>Start Date:</p>
+                                                    <p class="startdate italic">@trainingAndDevelopment.StartDate.ToString(FormatDate)</p>
+                                                    <p>End Date:</p>
+                                                    <p class="enddate italic">@trainingAndDevelopment.EndDate.ToString(FormatDate)</p>
+                                                </div>
+                                            }
+                                        }
+                                    }
+                                </div>
+                            }
+                            @if (Model.TrainingAndDevelopments.Count == 0)
+                            {
+                                <p class="none-training">@Messages.NoInformationAvailable</p>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
