@@ -1,205 +1,139 @@
 ﻿#ui-datepicker-div {
-  z-index: 1052 !important;
-}
+  z-index: 1052 !important; }
 
 .row-detail {
-  margin-left: -10px;
-  display: -webkit-inline-box;
-  width: 100%;
-}
-.row-detail .col-content-detail {
-  margin: unset;
-  width: 95%;
-}
-.row-detail .col-icon-detail {
-  margin: unset;
-  width: 5%;
-}
+  display: flex; }
+  .row-detail .col-content-detail {
+    margin: unset;
+    width: 95%; }
+  .row-detail .col-icon-detail {
+    margin: unset;
+    width: 5%; }
 
-.icon-publish {
+.icon {
   width: 16px;
   height: 16px;
-  margin-left: 2px;
-}
+  margin-left: 2px; }
 
 .icon-Public {
-  background: url("../Images/icon-access-public.png");
+  background: url("../Images/icon-public.png");
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center center;
-}
+  background-position: center center; }
 
 .icon-Private {
-  background: url("../Images/icon-access-private.png");
+  background: url("../Images/icon-private.png");
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center center;
-}
+  background-position: center center; }
 
 .icon-Protected {
-  background: url("../Images/icon-access-protected.png");
+  background: url("../Images/icon-protected.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center; }
+
+.icon-star {
+  display: block;
+  background: url("../Images/icon-star.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-}
+  margin-right: 6px; }
+
+.flex {
+  display: flex; }
 
 #dialog-training {
-  display: none;
-}
+  display: none; }
 
 .detail {
   display: flex;
   align-items: center;
-  margin-left: 10px;
-}
-.detail p {
-  line-height: 2.5rem !important;
-  text-align: left;
-}
-.detail span {
-  line-height: 2.5rem !important;
-  text-align: left;
-}
-.detail span {
-  line-height: 2.5rem !important;
-  text-align: left;
-}
-.detail .line {
-  margin-right: 15px !important;
-}
-.detail .bold {
-  font-weight: bold;
-  margin-left: 5px !important;
-}
-.detail .italic {
-  font-weight: 500;
-  font-style: italic;
-  margin-left: 5px !important;
-}
+  margin-left: 10px; }
+  .detail p {
+    line-height: 2.5rem !important;
+    text-align: left; }
+  .detail span {
+    line-height: 2.5rem !important;
+    text-align: left; }
+  .detail .line {
+    margin-right: 15px !important; }
+  .detail .bold {
+    font-weight: bold; }
 
-.display-flex {
-  display: flex;
-}
+#frmAddTrainingAndDevelopment label,
+#frmUpdateTrainingAndDevelopment label {
+  margin-left: 0.5rem; }
 
-#frmAddTrainingAndDevelopment label, #frmUpdateTrainingAndDevelopment label {
-  margin-left: 0.5rem;
-}
-#frmAddTrainingAndDevelopment .validation-summary-errors, #frmAddTrainingAndDevelopment .validation-summary-success, #frmUpdateTrainingAndDevelopment .validation-summary-errors, #frmUpdateTrainingAndDevelopment .validation-summary-success {
-  margin: 1rem 0.5rem 1.6rem !important;
-}
-#frmAddTrainingAndDevelopment .textarea, #frmUpdateTrainingAndDevelopment .textarea {
+#frmAddTrainingAndDevelopment .validation-summary-errors,
+#frmAddTrainingAndDevelopment .validation-summary-success,
+#frmUpdateTrainingAndDevelopment .validation-summary-errors,
+#frmUpdateTrainingAndDevelopment .validation-summary-success {
+  margin: 1rem 0.5rem 1.6rem !important; }
+
+#frmAddTrainingAndDevelopment .textarea,
+#frmUpdateTrainingAndDevelopment .textarea {
   background-color: transparent;
   resize: none;
-  outline: none;
-}
+  outline: none; }
 
 .ui-dialog {
-    width: auto !important;
-}
-.ui-dialog .ui-dialog-buttonpane {
-  margin-top: unset !important;
-}
+  width: auto !important; }
+  .ui-dialog .ui-dialog-buttonpane {
+    margin-top: unset !important; }
 
 .description {
   min-height: 64px;
   min-width: 229px;
-  max-width: 229px;
-}
+  max-width: 229px; }
 
 .TrainingAndDevelopment table {
-  width: 70% !important;
-}
-.TrainingAndDevelopment table .fromdate {
-  margin-left: 7%;
-}
+  width: 70% !important; }
+  .TrainingAndDevelopment table .fromdate {
+    margin-left: 7%; }
 
 .require {
-  color: red;
-}
+  color: red; }
 
 .content-left {
-  text-align: left !important;
-}
+  text-align: left !important; }
 
 .trainingAndDevelopmentsreport .development {
-  margin-left: 10px;
-  margin-top: 10px;
-}
-.trainingAndDevelopmentsreport .development label {
-  color: #4c5e70;
-  font-weight: bold;
-  line-height: 2.5rem;
-}
-.trainingAndDevelopmentsreport .development .boxdevelopmenttitle {
-  color: #0157aa;
-}
+  padding: 8px; }
+  .trainingAndDevelopmentsreport .development:not(:last-child) {
+    border-bottom: 1px solid #ddd; }
+  .trainingAndDevelopmentsreport .development label {
+    color: #4c5e70;
+    font-weight: bold;
+    line-height: 2.5rem; }
+  .trainingAndDevelopmentsreport .development .boxdevelopmenttitle {
+    color: #0157aa; }
+
 .trainingAndDevelopmentsreport .icon-publish {
-  margin-right: 10px !important;
-}
-.trainingAndDevelopmentsreport .training {
-  width: 765px;
-}
-.trainingAndDevelopmentsreport .certificate {
-  width: 1130px;
-}
-.trainingAndDevelopmentsreport .developmentDetail {
-  width: 1095px;
-}
-.trainingAndDevelopmentsreport .detail {
-  margin-left: 10px !important;
-  background: #f4f4f4 none repeat scroll 0 0;
-  border-left: 2px solid #8dc6f5;
-}
-.trainingAndDevelopmentsreport .detail p:first-child {
-  margin-left: 10px;
-}
+  margin-right: 10px !important; }
+
 .trainingAndDevelopmentsreport .boxdevelopmenttitle {
-  font-size: 12px;
   font-weight: 500;
-  margin-bottom: 0.5rem;
-}
-.trainingAndDevelopmentsreport .none-training {
-  border-left: 2px solid #FF6699;
-  width: 15%;
-  margin-left: 10px !important;
-  background: #eeeeef none repeat scroll 0 0;
-  line-height: 3rem !important;
-  text-align: center;
-}
+  margin-bottom: 0.5rem; }
+
 .trainingAndDevelopmentsreport .flus {
   font-size: 14px;
   margin-left: 2px;
-  cursor: pointer;
-}
-.trainingAndDevelopmentsreport .name {
-  width: 350px;
-}
-.trainingAndDevelopmentsreport .conductedby {
-  margin-right: 10px;
-  width: 122px;
-}
-.trainingAndDevelopmentsreport .organization {
-  width: 300px;
-  margin-right: 10px;
-}
-.trainingAndDevelopmentsreport .startdate {
-  width: 100px;
-}
-.trainingAndDevelopmentsreport .testdate {
-  margin-left: 7px !important;
-  width: 100px;
-}
+  cursor: pointer; }
+
+.trainingAndDevelopmentsreport .conductedby,
+.trainingAndDevelopmentsreport .organization,
+.trainingAndDevelopmentsreport .startdate,
+.trainingAndDevelopmentsreport .testdate,
 .trainingAndDevelopmentsreport .enddate {
-  width: 100px;
-}
+  font-weight: 500;
+  margin-left: 6px !important; }
 
 @media only screen and (max-width: 995px) {
   #btnAddNew {
     flex: unset;
     height: 32px;
-    margin: 1.6rem auto 0 1rem !important;
-  }
+    margin: 1.6rem auto 0 1rem !important; }
   .btn-submit {
-    margin: 1.6rem 1rem 0 auto !important;
-  }
-}
+    margin: 1.6rem 1rem 0 auto !important; } }

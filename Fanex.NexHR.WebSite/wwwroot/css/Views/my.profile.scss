@@ -1,65 +1,142 @@
-%card {
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    padding: 10px 12px;
-}
-
 .card-body {
     display: flex;
-    gap: 12px;
-
+    gap: 16px;
+  
+    p {
+      color: #333 !important;
+    }
+  
     .left-profile {
-        .header-avatar {
-            display: flex;
-            gap: 10px;
-            @extend %card;
-
-            .avatar {
-                width: 16rem;
-
-                img {
-                    border: 1px solid #d2d2d2;
-                    width: 100%;
-                }
-            }
-
-            .name {
-                font-size: 1.4rem;
-                color: #f4783d;
-                font-weight: 500;
-            }
+      min-width: 38rem;
+  
+      .header-avatar {
+        display: flex;
+        gap: 10px;
+        border: 1px solid #ddd;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+        border-radius: 3px;
+        padding: 10px 12px;
+  
+        .avatar {
+          width: 16rem;
+  
+          img {
+            border: 1px solid #d2d2d2;
+            width: 100%;
+          }
         }
-
-        .personal-info {
-            margin-top: 12px;
+  
+        .info {
+          .accinfo .label--xl {
+            width: 7rem;
+          }
+          p {
+            line-height: 26px;
+          }
         }
+  
+        .name {
+          font-size: 16px;
+          color: #f4783d;
+          font-weight: 500;
+        }
+      }
     }
-
-    .personal-info, .job-information {
-        .accinfo {
-            line-height: 2.6rem;
-            padding: 3px 8px;
-
-            &:not(:last-child) {
-                border-bottom: 1px solid #ddd;
-            }
-        }
+  
+    .right-profile {
+      min-width: 56rem;
     }
-
+  
+    .trainingAndDevelopmentsreport,
+    .personal-info,
+    .job-information {
+      margin-top: 16px;
+    }
+  
+    .personal-info,
+    .job-information,
+    .contact-details {
+      .accinfo {
+        display: flex;
+        align-items: center;
+        line-height: 28px;
+        padding: 3px 8px;
+  
+        &:not(:last-child) {
+          border-bottom: 1px solid #ddd;
+        }
+      }
+    }
+  
+    .development .detail {
+      display: grid;
+      gap: 8px;
+      grid-template-columns: 500px 200px 200px 200px 16px;
+      align-items: center;
+      padding: 3px 0;
+  
+      &:not(:last-child) {
+        border-bottom: 1px solid #daedf5;
+      }
+  
+      .training-name {
+        display: flex;
+        align-items: center;
+      }
+    }
+  
     .info-title {
-        text-transform: uppercase;
-        font-size: 1.4rem;
-        color: #f4783d;
-        font-weight: 500;
-        background: #eaeaea;
-        padding: 8px;
-        border-radius: 3px 3px 0 0;
-        border: 1px solid #ddd;
-        border-bottom: none;
+      text-transform: uppercase;
+      font-size: 14px;
+      color: #f4783d;
+      font-weight: 500;
+      background: #eaeaea;
+      padding: 8px;
+      border-radius: 3px 3px 0 0;
+      border: 1px solid #ddd;
+      border-bottom: none;
     }
-
+  
     .info-body {
-        border: 1px solid #ddd;
-        border-radius: 0 0 3px 3px;
+      border: 1px solid #ddd;
+      border-radius: 0 0 3px 3px;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
     }
-}
+  
+    .label--xl {
+      display: inline-block;
+      width: 14rem;
+    }
+  
+    .no-info {
+      text-align: center;
+      line-height: 29px !important;
+    }
+  
+    .viewhistoryjobgrade {
+      display: flex;
+      margin-left: 6px;
+    }
+  
+    @media only screen and (max-width: 993px) {
+      flex-direction: column;
+  
+      .right-profile,
+      .left-profile {
+        min-width: auto !important;
+      }
+  
+      .development .detail {
+        grid-template-columns: auto;
+      }
+    }
+  }
+  
+  #dialog-show-history-jobgrade {
+    min-width: 60rem;
+  
+    @media only screen and (max-width: 993px) {
+      min-width: auto;
+    }
+  }
+  

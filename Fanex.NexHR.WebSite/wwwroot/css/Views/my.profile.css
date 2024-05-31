@@ -1,33 +1,61 @@
-﻿.card-body .left-profile .header-avatar {
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  padding: 10px 12px; }
-
-.card-body {
+﻿.card-body {
   display: flex;
-  gap: 12px; }
-  .card-body .left-profile .header-avatar {
+  gap: 16px; }
+  .card-body p {
+    color: #333 !important; }
+  .card-body .left-profile {
+    min-width: 38rem; }
+    .card-body .left-profile .header-avatar {
+      display: flex;
+      gap: 10px;
+      border: 1px solid #ddd;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+      border-radius: 3px;
+      padding: 10px 12px; }
+      .card-body .left-profile .header-avatar .avatar {
+        width: 16rem; }
+        .card-body .left-profile .header-avatar .avatar img {
+          border: 1px solid #d2d2d2;
+          width: 100%; }
+      .card-body .left-profile .header-avatar .info .accinfo .label--xl {
+        width: 7rem; }
+      .card-body .left-profile .header-avatar .info p {
+        line-height: 26px; }
+      .card-body .left-profile .header-avatar .name {
+        font-size: 16px;
+        color: #f4783d;
+        font-weight: 500; }
+  .card-body .right-profile {
+    min-width: 56rem; }
+  .card-body .trainingAndDevelopmentsreport,
+  .card-body .personal-info,
+  .card-body .job-information {
+    margin-top: 16px; }
+  .card-body .personal-info .accinfo,
+  .card-body .job-information .accinfo,
+  .card-body .contact-details .accinfo {
     display: flex;
-    gap: 10px; }
-    .card-body .left-profile .header-avatar .avatar {
-      width: 16rem; }
-      .card-body .left-profile .header-avatar .avatar img {
-        border: 1px solid #d2d2d2;
-        width: 100%; }
-    .card-body .left-profile .header-avatar .name {
-      font-size: 1.4rem;
-      color: #f4783d;
-      font-weight: 500; }
-  .card-body .left-profile .personal-info {
-    margin-top: 12px; }
-  .card-body .personal-info .accinfo, .card-body .job-information .accinfo {
-    line-height: 2.6rem;
+    align-items: center;
+    line-height: 28px;
     padding: 3px 8px; }
-    .card-body .personal-info .accinfo:not(:last-child), .card-body .job-information .accinfo:not(:last-child) {
+    .card-body .personal-info .accinfo:not(:last-child),
+    .card-body .job-information .accinfo:not(:last-child),
+    .card-body .contact-details .accinfo:not(:last-child) {
       border-bottom: 1px solid #ddd; }
+  .card-body .development .detail {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: 500px 200px 200px 200px 16px;
+    align-items: center;
+    padding: 3px 0; }
+    .card-body .development .detail:not(:last-child) {
+      border-bottom: 1px solid #daedf5; }
+    .card-body .development .detail .training-name {
+      display: flex;
+      align-items: center; }
   .card-body .info-title {
     text-transform: uppercase;
-    font-size: 1.4rem;
+    font-size: 14px;
     color: #f4783d;
     font-weight: 500;
     background: #eaeaea;
@@ -37,6 +65,28 @@
     border-bottom: none; }
   .card-body .info-body {
     border: 1px solid #ddd;
-    border-radius: 0 0 3px 3px; }
+    border-radius: 0 0 3px 3px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); }
+  .card-body .label--xl {
+    display: inline-block;
+    width: 14rem; }
+  .card-body .no-info {
+    text-align: center;
+    line-height: 29px !important; }
+  .card-body .viewhistoryjobgrade {
+    display: flex;
+    margin-left: 6px; }
+  @media only screen and (max-width: 993px) {
+    .card-body {
+      flex-direction: column; }
+      .card-body .right-profile,
+      .card-body .left-profile {
+        min-width: auto !important; }
+      .card-body .development .detail {
+        grid-template-columns: auto; } }
 
-/*# sourceMappingURL=test.css.map */
+#dialog-show-history-jobgrade {
+  min-width: 60rem; }
+  @media only screen and (max-width: 993px) {
+    #dialog-show-history-jobgrade {
+      min-width: auto; } }

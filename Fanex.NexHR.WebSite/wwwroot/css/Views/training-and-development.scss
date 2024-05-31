@@ -1,52 +1,63 @@
 #ui-datepicker-div {
-    z-index: 1052 !important;
+  z-index: 1052 !important;
 }
 
 .row-detail {
-    margin-left: -10px;
-    display: -webkit-inline-box;
-    width: 100%;
+  display: flex;
 
-    .col-content-detail {
-        margin: unset;
-        width: 95%;
-    }
+  .col-content-detail {
+    margin: unset;
+    width: 95%;
+  }
 
-    .col-icon-detail {
-        margin: unset;
-        width: 5%;
-    }
+  .col-icon-detail {
+    margin: unset;
+    width: 5%;
+  }
 }
 
-.icon-publish {
-    width: 16px;
-    height: 16px;
-    margin-left: 2px;
+.icon {
+  width: 16px;
+  height: 16px;
+  margin-left: 2px;
 }
 
 .icon-Public {
-    background: url('../Images/icon-access-public.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
+  background: url("../Images/icon-public.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .icon-Private {
-    background: url('../Images/icon-access-private.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
+  background: url("../Images/icon-private.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .icon-Protected {
-    background: url('../Images/icon-access-protected.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
+  background: url("../Images/icon-protected.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.icon-star {
+  display: block;
+  background: url("../Images/icon-star.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin-right: 6px;
+}
+
+.flex {
+  display: flex;
 }
 
 #dialog-training {
-    display: none;
+  display: none;
 }
 
 .detail {
@@ -54,188 +65,127 @@
     align-items: center;
     margin-left: 10px;
 
-    p {
-        line-height: 2.5rem !important;
-        text-align: left;
-    }
+  p {
+    line-height: 2.5rem !important;
+    text-align: left;
+  }
 
-    span {
-        line-height: 2.5rem !important;
-        text-align: left;
-    }
+  span {
+    line-height: 2.5rem !important;
+    text-align: left;
+  }
 
-    span {
-        line-height: 2.5rem !important;
-        text-align: left;
-    }
+  .line {
+    margin-right: 15px !important;
+  }
 
-    .line {
-        margin-right: 15px !important;
-    }
-
-    .bold {
-        font-weight: bold;
-        margin-left: 5px !important;
-    }
-
-    .italic {
-        font-weight: 500;
-        font-style: italic;
-        margin-left: 5px !important;
-    }
+  .bold {
+    font-weight: bold;
+  }
 }
 
-.display-flex {
-    display: flex;
-}
+#frmAddTrainingAndDevelopment,
+#frmUpdateTrainingAndDevelopment {
+  label {
+    margin-left: 0.5rem;
+  }
 
-#frmAddTrainingAndDevelopment, #frmUpdateTrainingAndDevelopment {
-    label {
-        margin-left: 0.5rem;
-    }
+  .validation-summary-errors,
+  .validation-summary-success {
+    margin: 1rem 0.5rem 1.6rem !important;
+  }
 
-    .validation-summary-errors, .validation-summary-success {
-        margin: 1rem 0.5rem 1.6rem !important;
-    }
-
-    .textarea {
-        background-color: transparent;
-        resize: none;
-        outline: none;
-    }
+  .textarea {
+    background-color: transparent;
+    resize: none;
+    outline: none;
+  }
 }
 
 .ui-dialog {
-    width: auto !important;
+  width: auto !important;
 
-    .ui-dialog-buttonpane {
-        margin-top: unset !important;
-    }
+  .ui-dialog-buttonpane {
+    margin-top: unset !important;
+  }
 }
 
 .description {
-    min-height: 64px;
-    min-width: 229px;
-    max-width: 229px;
+  min-height: 64px;
+  min-width: 229px;
+  max-width: 229px;
 }
 
 .TrainingAndDevelopment {
-    table {
-        width: 70% !important;
+  table {
+    width: 70% !important;
 
-        .fromdate {
-            margin-left: 7%;
-        }
+    .fromdate {
+      margin-left: 7%;
     }
+  }
 }
 
 .require {
-    color: red;
+  color: red;
 }
 
 .content-left {
-    text-align: left !important;
+  text-align: left !important;
 }
 
 .trainingAndDevelopmentsreport {
-    .development {
-        margin-left: 10px;
-        margin-top: 10px;
+  .development {
+    padding: 8px;
 
-        label {
-            color: #4c5e70;
-            font-weight: bold;
-            line-height: 2.5rem;
-        }
-
-        .boxdevelopmenttitle {
-            color: #0157aa;
-        }
+    &:not(:last-child) {
+      border-bottom: 1px solid #ddd;
     }
 
-    .icon-publish {
-        margin-right: 10px !important;
-    }
-
-    .training {
-        width: 765px;
-    }
-
-    .certificate {
-        width: 1130px;
-    }
-
-    .developmentDetail {
-        width: 1095px;
-    }
-
-    .detail {
-        margin-left: 10px !important;
-        background: #f4f4f4 none repeat scroll 0 0;
-        border-left: 2px solid #8dc6f5;
-
-        p:first-child {
-            margin-left: 10px;
-        }
+    label {
+      color: #4c5e70;
+      font-weight: bold;
+      line-height: 2.5rem;
     }
 
     .boxdevelopmenttitle {
-        font-size: 12px;
-        font-weight: 500;
-        margin-bottom: 0.5rem;
+      color: #0157aa;
     }
+  }
 
-    .none-training {
-        border-left: 2px solid #FF6699;
-        width: 15%;
-        margin-left: 10px !important;
-        background: #eeeeef none repeat scroll 0 0;
-        line-height: 3rem !important;
-        text-align: center;
-    }
+  .icon-publish {
+    margin-right: 10px !important;
+  }
 
-    .flus {
-        font-size: 14px;
-        margin-left: 2px;
-        cursor: pointer;
-    }
+  .boxdevelopmenttitle {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
 
-    .name {
-        width: 350px;
-    }
+  .flus {
+    font-size: 14px;
+    margin-left: 2px;
+    cursor: pointer;
+  }
 
-    .conductedby {
-        margin-right: 10px;
-        width: 122px;
-    }
-
-    .organization {
-        width: 300px;
-        margin-right: 10px;
-    }
-
-    .startdate {
-        width: 100px;
-    }
-
-    .testdate {
-        margin-left: 7px !important;
-        width: 100px;
-    }
-
-    .enddate {
-        width: 100px;
-    }
+  .conductedby,
+  .organization,
+  .startdate,
+  .testdate,
+  .enddate {
+    font-weight: 500;
+    margin-left: 6px !important;
+  }
 }
 
 @media only screen and (max-width: 995px) {
-    #btnAddNew {
-        flex: unset;
-        height: 32px;
-        margin: 1.6rem auto 0 1rem !important;
-    }
+  #btnAddNew {
+    flex: unset;
+    height: 32px;
+    margin: 1.6rem auto 0 1rem !important;
+  }
 
-    .btn-submit {
-        margin: 1.6rem 1rem 0 auto !important;
-    }
+  .btn-submit {
+    margin: 1.6rem 1rem 0 auto !important;
+  }
 }
