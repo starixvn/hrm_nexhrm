@@ -1939,5 +1939,37 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   <data name="Supervisor" xml:space="preserve">
     <value>Supervisor</value>
   </data>
-  
+  <data name="FlowSetting" xml:space="preserve">
+    <value>Flow Setting</value>
+  </data>
+    <data name="NewPersonalSetting" xml:space="preserve">
+    <value>New Personal Setting</value>
+  </data>
+  <data name="PageSize" xml:space="preserve">
+    <value>Page Size</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="TestDate" xml:space="preserve">
+    <value>Test Date</value>
+  </data>
+  <data name="ExpirationDate" xml:space="preserve">
+    <value>Expiration Date</value>
+  </data>
+  <data name="Public" xml:space="preserve">
+    <value>Public</value>
+  </data>
+  <data name="Protected" xml:space="preserve">
+    <value>Protected</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>Private</value>
+  </data>
+  <data name="DisplayOrder" xml:space="preserve">
+    <value>Display Order</value>
+  </data>
+  <data name="ParentTeam" xml:space="preserve">
+    <value>Parent Team</value>
+  </data>
 </root>

@@ -41,7 +41,7 @@
                                 <div class="row form-input">
                                     <div class="col m-r--m">
                                         <div class="left label--l">
-                                            <label>Code</label>
+                                            <label>@Labels.Code</label>
                                         </div>
                                         <div class="left input--m">
                                             <input asp-for="TeamCode"/>
@@ -51,7 +51,7 @@
                                 <div class="row form-input">
                                     <div class="col m-r--m">
                                         <div class="left label--l">
-                                            <label>Name</label>
+                                            <label>@Labels.Name</label>
                                         </div>
                                         <div class="left input--m">
                                             <input asp-for="TeamName"/>
@@ -61,7 +61,7 @@
                                 <div class="row form-input">
                                     <div class="col">
                                         <div class="left label--l">
-                                            <label>Department</label>
+                                            <label>@Labels.Department</label>
                                         </div>
                                         <div class="left select--m">
                                             <select asp-for="DepartmentId" asp-items="@(new SelectList(Model.Departments, "Id", "Name"))">
@@ -73,7 +73,7 @@
                                 <div class="row form-input">
                                     <div class="col">
                                         <div class="left label--l">
-                                            <label>Parent Team</label>
+                                            <label>@Labels.ParentTeam</label>
                                         </div>
                                         <div class="left select--m">
                                             <select asp-for="ParentId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">

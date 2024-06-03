@@ -1,6 +1,6 @@
 ﻿@using Fanex.NexHR.Resources
 @{
-    ViewBag.Title = "Supervisor Flow";
+    ViewBag.Title = @Labels.FlowSetting;
 }
 @section Styles {
     <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
@@ -27,7 +27,7 @@
                     <ul class="tabs">
                         <li class="tab col"><a class="active card-title" href="#list-team">@Labels.TeamSetting</a></li>
                         <li class="tab col"><a class="card-title" href="#personal" onclick="loadPersonalSupervisor(true)">@Labels.PersonalSetting</a></li>
-                        <li class="tab col"><a class="card-title" href="#detail" onclick="loadDetail(true)">Detail</a></li>
+                        <li class="tab col"><a class="card-title" href="#detail" onclick="loadDetail(true)">@Labels.Detail</a></li>
                     </ul>
                 </div>
                 <div class="card-body">
@@ -38,7 +38,7 @@
                                 <div class="col m-l--l">
                                     <a class="btn-request waves-effect waves-light btn m-r--m" href="@Url.Action("Create")"
                                         data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog-supervisor" data-ajax-success="supervisor.onLoadingCreateFormSuccess">
-                                        New Personal Setting
+                                        @Labels.NewPersonalSetting
                                     </a>
                                 </div>
                             </div>

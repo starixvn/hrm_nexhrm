@@ -5512,6 +5512,114 @@ namespace Fanex.NexHR.Resources {
                 return ResourceManager.GetString("Supervisor", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Flow Setting.
+        /// </summary>
+        public static string FlowSetting {
+            get {
+                return ResourceManager.GetString("FlowSetting", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to NewPersonalSetting.
+        /// </summary>
+        public static string NewPersonalSetting {
+            get {
+                return ResourceManager.GetString("NewPersonalSetting", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Page Size.
+        /// </summary>
+        public static string PageSize {
+            get {
+                return ResourceManager.GetString("PageSize", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Detail.
+        /// </summary>
+        public static string Detail {
+            get {
+                return ResourceManager.GetString("Detail", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Test Date.
+        /// </summary>
+        public static string TestDate{
+            get {
+                return ResourceManager.GetString("TestDate", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Expiration Date.
+        /// </summary>
+        public static string ExpirationDate{
+            get {
+                return ResourceManager.GetString("ExpirationDate", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Public.
+        /// </summary>
+        public static string Public{
+            get {
+                return ResourceManager.GetString("Public", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Protected.
+        /// </summary>
+        public static string Protected{
+            get {
+                return ResourceManager.GetString("Protected", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Private.
+        /// </summary>
+        public static string Private{
+            get {
+                return ResourceManager.GetString("Private", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to DisplayOrder.
+        /// </summary>
+        public static string DisplayOrder{
+            get {
+                return ResourceManager.GetString("DisplayOrder", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Department.
+        /// </summary>
+        public static string Department{
+            get {
+                return ResourceManager.GetString("Department", resourceCulture);
+            }
+        }
+
+         /// <summary>
+        ///   Looks up a localized string similar to ParentTeam.
+        /// </summary>
+        public static string ParentTeam{
+            get {
+                return ResourceManager.GetString("ParentTeam", resourceCulture);
+            }
+        }
         
     }
 }
