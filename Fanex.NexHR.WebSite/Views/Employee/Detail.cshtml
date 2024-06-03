@@ -66,7 +66,7 @@ else
                             </div>
                             <div class="personal-info">
                                 <div class="info-title">
-                                @Labels.PersonalInformation
+                                    @Labels.PersonalInformation
                                 </div>
                                 <div class="info-body">
                                     <p class="accinfo">
@@ -286,7 +286,7 @@ else
                                                                 @Labels.ConductedBy: <strong>@trainingAndDevelopment.ConductedBy</strong>
                                                             </div>
                                                             <div class="display-flex">
-                                                                 @Labels.StartDate:
+                                                                @Labels.StartDate:
                                                                 <strong>@trainingAndDevelopment.StartDate.ToString(FormatDate)</strong>
                                                             </div>
                                                             <div></div>
@@ -302,18 +302,22 @@ else
                                                                 <p class="bold">@trainingAndDevelopment.Name</p>
                                                             </div>
                                                             <div class="display-flex">
-                                                                 @Labels.Organization: <strong>@trainingAndDevelopment.Organization</strong>
+                                                                @Labels.Organization: <strong>@trainingAndDevelopment.Organization</strong>
                                                             </div>
                                                             <div class="display-flex">
-                                                                 @Labels.TestDate:
+                                                                @Labels.TestDate:
                                                                 <strong>@trainingAndDevelopment.ExamDate.ToString(FormatDate)</strong>
                                                             </div>
                                                             @if (!trainingAndDevelopment.ExpirationDate.Equals(DateTime.MinValue))
                                                             {
                                                                 <div class="display-flex">
-                                                                     @Labels.ExpirationDate:
+                                                                    @Labels.ExpirationDate:
                                                                     <strong>@trainingAndDevelopment.ExpirationDate.ToString(FormatDate)</strong>
                                                                 </div>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div></div>
                                                             }
                                                             <p title="@trainingAndDevelopment.Publish"
                                                                 class=" icon icon-@trainingAndDevelopment.Publish" />
@@ -327,14 +331,14 @@ else
                                                                 <p class="bold">@trainingAndDevelopment.Name</p>
                                                             </div>
                                                             <div class="display-flex">
-                                                                 @Labels.Organization: <strong>@trainingAndDevelopment.Organization</strong>
+                                                                @Labels.Organization: <strong>@trainingAndDevelopment.Organization</strong>
                                                             </div>
                                                             <div class="display-flex">
-                                                                 @Labels.StartDate:
+                                                                @Labels.StartDate:
                                                                 <strong>@trainingAndDevelopment.StartDate.ToString(FormatDate)</strong>
                                                             </div>
                                                             <div class="display-flex">
-                                                                 @Labels.EndDate:
+                                                                @Labels.EndDate:
                                                                 <strong>@trainingAndDevelopment.EndDate.ToString(FormatDate)</strong>
                                                             </div>
                                                             <p title="@trainingAndDevelopment.Publish"
