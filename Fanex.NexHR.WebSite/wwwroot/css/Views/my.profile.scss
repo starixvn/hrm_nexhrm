@@ -80,7 +80,7 @@
     display: grid;
     align-items: start;
     gap: 8px;
-    grid-template-columns: 3fr 2fr 1fr 1fr 16px;
+    grid-template-columns: 3fr 2fr 1fr 1.2fr 16px;
     padding: 3px 0;
 
     &:not(:last-child) {
