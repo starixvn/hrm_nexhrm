@@ -33,15 +33,7 @@
   background-repeat: no-repeat;
   background-position: center center; }
 
-.icon-star {
-  display: block;
-  background: url("../Images/icon-star.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  margin-right: 6px; }
-
-.flex {
+.display-flex {
   display: flex; }
 
 #dialog-training {
@@ -60,7 +52,8 @@
   .detail .line {
     margin-right: 15px !important; }
   .detail .bold {
-    font-weight: bold; }
+    font-weight: bold;
+    margin-left: 5px; }
 
 #frmAddTrainingAndDevelopment label,
 #frmUpdateTrainingAndDevelopment label {
@@ -108,27 +101,20 @@
     font-weight: bold;
     line-height: 2.5rem; }
   .trainingAndDevelopmentsreport .development .boxdevelopmenttitle {
-    color: #0157aa; }
+    color: #0157aa;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 0.5rem; }
+  .trainingAndDevelopmentsreport .development strong {
+    margin-left: 6px; }
 
 .trainingAndDevelopmentsreport .icon-publish {
   margin-right: 10px !important; }
-
-.trainingAndDevelopmentsreport .boxdevelopmenttitle {
-  font-weight: 500;
-  margin-bottom: 0.5rem; }
 
 .trainingAndDevelopmentsreport .flus {
   font-size: 14px;
   margin-left: 2px;
   cursor: pointer; }
-
-.trainingAndDevelopmentsreport .conductedby,
-.trainingAndDevelopmentsreport .organization,
-.trainingAndDevelopmentsreport .startdate,
-.trainingAndDevelopmentsreport .testdate,
-.trainingAndDevelopmentsreport .enddate {
-  font-weight: 500;
-  margin-left: 6px !important; }
 
 @media only screen and (max-width: 995px) {
   #btnAddNew {

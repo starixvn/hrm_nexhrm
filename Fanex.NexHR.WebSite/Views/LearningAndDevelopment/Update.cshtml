@@ -88,7 +88,7 @@
             <label id="fromdate">@Labels.StartDate</label>
             <i class="require">*</i>
         </div>
-        <div class="datepicker-button left select--s">
+        <div class="datepicker-button left select">
             <date-picker name="FromDatePopup"
                          min-date="currentDate.AddYears(-100)"
                          value="@Model.FromDate">
@@ -101,7 +101,7 @@
             <label id="todate">@Labels.EndDate</label>
             <i id="to-date-require" class="require">*</i>
         </div>
-        <div class="datepicker-button left select--s">
+        <div class="datepicker-button left select">
             <date-picker name="ToDatePopup"
                          min-date="currentDate.AddYears(-100)"
                          value="@(Model.ToDate.Equals(DateTime.MinValue) ? null : Model.ToDate)">

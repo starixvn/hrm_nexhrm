@@ -47,10 +47,10 @@
                             <div class="info">
                                 <p class="name">@Model.FullName</p>
                                 <p class="accinfo">
-                                    <span class="label--xl">@Labels.StaffCode:</span> <span>@Model.Code</span>
+                                    @Labels.StaffCode:<span>@Model.Code</span>
                                 </p>
                                 <p class="accinfo">
-                                    <span class="label--xl">@Labels.Domain:</span> <span>@Model.DomainUsername</span>
+                                    @Labels.Domain:<span>@Model.DomainUsername</span>
                                 </p>
                             </div>
                         </div>
@@ -252,33 +252,30 @@
                                 {
                                     var trainingAndDevelopments = Model.TrainingAndDevelopments.Where(x => x.TypeId ==
                                     item.Id).ToList();
-                                    <div class="development">
-                                        @if (trainingAndDevelopments.Count > 0)
-                                        {
+                                    @if (trainingAndDevelopments.Count > 0)
+                                    {
+                                        <div class="development">
                                             <div class="boxdevelopmenttitle">
                                                 @trainingAndDevelopments[0].TypeName
                                             </div>
-                                            foreach (var trainingAndDevelopment in trainingAndDevelopments)
+                                            @foreach (var trainingAndDevelopment in trainingAndDevelopments)
                                             {
                                                 if (trainingAndDevelopment.TypeName == InternalTraining)
                                                 {
                                                     <div class="detail training">
                                                         <div class="training-name">
                                                             <span class="icon icon-star"></span>
-                                                            <p class="bold">@trainingAndDevelopment.Name</p>
+                                                            <p class="bold ">@trainingAndDevelopment.Name</p>
                                                         </div>
-                                                        <div class="flex">
-                                                            <p>Conducted by:</p>
-                                                            <p class="conductedby">@trainingAndDevelopment.ConductedBy</p>
+                                                        <div class="display-flex">
+                                                            Conducted by: <strong>@trainingAndDevelopment.ConductedBy</strong>
                                                         </div>
-                                                        <div class="flex">
-                                                            <p>Start Date:</p>
-                                                            <p class="startdate">@trainingAndDevelopment.StartDate.ToString(FormatDate)
-                                                            </p>
+                                                        <div class="display-flex">
+                                                            Start Date: <strong>@trainingAndDevelopment.StartDate.ToString(FormatDate)</strong>
                                                         </div>
                                                         <div></div>
                                                         <p title="@trainingAndDevelopment.Publish"
-                                                            class=" icon icon-@trainingAndDevelopment.Publish" />
+                                                            class="icon icon-@trainingAndDevelopment.Publish" />
                                                     </div>
                                                 }
                                                 else if (trainingAndDevelopment.TypeName == Certificates)
@@ -288,21 +285,16 @@
                                                             <span class="icon icon-star"></span>
                                                             <p class="bold">@trainingAndDevelopment.Name</p>
                                                         </div>
-                                                        <div class="flex">
-                                                            <p>Organization:</p>
-                                                            <p class="organization">@trainingAndDevelopment.Organization</p>
+                                                        <div class="display-flex">
+                                                            Organization: <strong>@trainingAndDevelopment.Organization</strong>
                                                         </div>
-                                                        <div class="flex">
-                                                            <p>Test Date:</p>
-                                                            <p class="testdate">@trainingAndDevelopment.ExamDate.ToString(FormatDate)
-                                                            </p>
+                                                        <div class="display-flex">
+                                                            Test Date: <strong>@trainingAndDevelopment.ExamDate.ToString(FormatDate)</strong>
                                                         </div>
                                                         @if (!trainingAndDevelopment.ExpirationDate.Equals(DateTime.MinValue))
                                                         {
-                                                            <div class="flex">
-                                                                <p>Expiration Date:</p>
-                                                                <p class="enddate">
-                                                                    @trainingAndDevelopment.ExpirationDate.ToString(FormatDate)</p>
+                                                            <div class="display-flex">
+                                                                Expiration Date: <strong>@trainingAndDevelopment.ExpirationDate.ToString(FormatDate)</strong>
                                                             </div>
                                                         }
                                                         <p title="@trainingAndDevelopment.Publish"
@@ -316,26 +308,22 @@
                                                             <span class="icon icon-star"></span>
                                                             <p class="bold">@trainingAndDevelopment.Name</p>
                                                         </div>
-                                                        <div class="flex">
-                                                            <p>Organization:</p>
-                                                            <p class="organization">@trainingAndDevelopment.Organization</p>
+                                                        <div class="display-flex">
+                                                            Organization: <strong>@trainingAndDevelopment.Organization</strong>
                                                         </div>
-                                                        <div class="flex">
-                                                            <p>Start Date:</p>
-                                                            <p class="startdate">@trainingAndDevelopment.StartDate.ToString(FormatDate)
-                                                            </p>
+                                                        <div class="display-flex">
+                                                            Start Date: <strong>@trainingAndDevelopment.StartDate.ToString(FormatDate)</strong>
                                                         </div>
-                                                        <div class="flex">
-                                                            <p>End Date:</p>
-                                                            <p class="enddate">@trainingAndDevelopment.EndDate.ToString(FormatDate)</p>
+                                                        <div class="display-flex">
+                                                            End Date: <strong>@trainingAndDevelopment.EndDate.ToString(FormatDate)</strong>
                                                         </div>
                                                         <p title="@trainingAndDevelopment.Publish"
                                                             class=" icon icon-@trainingAndDevelopment.Publish" />
                                                     </div>
                                                 }
                                             }
-                                        }
-                                    </div>
+                                        </div>
+                                    }
                                 }
                                 @if (Model.TrainingAndDevelopments.Count == 0)
                                 {

@@ -43,16 +43,7 @@
   background-position: center center;
 }
 
-.icon-star {
-  display: block;
-  background: url("../Images/icon-star.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  margin-right: 6px;
-}
-
-.flex {
+.display-flex  {
   display: flex;
 }
 
@@ -81,6 +72,7 @@
 
   .bold {
     font-weight: bold;
+    margin-left: 5px;
   }
 }
 
@@ -150,6 +142,13 @@
 
     .boxdevelopmenttitle {
       color: #0157aa;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    strong {
+      margin-left: 6px;
     }
   }
 
@@ -157,24 +156,10 @@
     margin-right: 10px !important;
   }
 
-  .boxdevelopmenttitle {
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-  }
-
   .flus {
     font-size: 14px;
     margin-left: 2px;
     cursor: pointer;
-  }
-
-  .conductedby,
-  .organization,
-  .startdate,
-  .testdate,
-  .enddate {
-    font-weight: 500;
-    margin-left: 6px !important;
   }
 }
 
