@@ -3,6 +3,7 @@
     using Fanex.NexHR.Core.Enums;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class UserSession : EntityBase<int>
     {
@@ -55,6 +56,8 @@
         }
 
         public bool HasRolePM => TeamCode == "PM";
+
+        public bool HasHRRole => RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
 
         public bool IsInRoles(params Role[] roles)
         {

@@ -7,7 +7,7 @@
 @inject ISessionService sessionService;
 @{
     ViewBag.Title = Labels.OvertimePaymentDetail;
-    var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+    var isHRRole = sessionService.CurrentEmployee.HasHRRole;
     var teams = new SelectList(Model.Teams, "Id", "Name");
     var overtimeConversionEditViewModel = new OvertimeConversionEditViewModel();
 }

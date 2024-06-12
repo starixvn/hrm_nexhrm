@@ -6,7 +6,7 @@
 @model IEnumerable<EmployeeJobGrade>
 @inject ISessionService sessionService;
 @{
-    var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+    var isHRRole = sessionService.CurrentEmployee.HasHRRole;
 }
 <style>
     .ui-dialog .ui-dialog-content {

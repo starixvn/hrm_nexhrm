@@ -7,7 +7,7 @@
 
 @model IList<OvertimeSummary>
 @{
-    var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+    var isHRRole = sessionService.CurrentEmployee.HasHRRole;
 }
 @if (Model != null && Model.Any())
 {

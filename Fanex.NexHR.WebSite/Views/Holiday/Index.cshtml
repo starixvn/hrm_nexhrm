@@ -6,7 +6,7 @@
 @inject ISessionService sessionService;
 @model IList<Holiday>
 @{
-    var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+    var isHRRole = sessionService.CurrentEmployee.HasHRRole;
     ViewBag.Title = Labels.Holidays;
 }
 @section Styles {

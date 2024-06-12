@@ -4,7 +4,7 @@
 @inject AppSetting settings;
 @inject ISessionService sessionService;
 @{
-    var isHR = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+    var isHR = sessionService.CurrentEmployee.HasHRRole;
 }
 <!DOCTYPE html>
 <html xml:lang="en" lang="en">

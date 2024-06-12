@@ -11,7 +11,7 @@
     int year = ViewBag.Year;
     var notMonthColumn = -99;
     var annualCurrentYear = -1;
-    var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+    var isHRRole = sessionService.CurrentEmployee.HasHRRole;
 
     void DisplayNumber(int month, float value, Employee employee)
     {

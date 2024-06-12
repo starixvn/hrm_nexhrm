@@ -6,7 +6,7 @@
 @inject ISessionService sessionService;
 @model Fanex.NexHR.Models.Employee
 @{
-    var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+    var isHRRole = sessionService.CurrentEmployee.HasHRRole;
     const string Certificates = "Certificates";
     const string InternalTraining = "Internal Training";
     const string FormatDate = "dd MMM yyyy";

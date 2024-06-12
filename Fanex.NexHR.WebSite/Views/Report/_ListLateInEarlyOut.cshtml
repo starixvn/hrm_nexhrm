@@ -24,7 +24,7 @@
             <td>-</td>
         }
     }
-    var isHRRole = sessionService.CurrentEmployee.RoleList.Any(r => r == (short)Role.HR || r == (short)Role.SA);
+    var isHRRole = sessionService.CurrentEmployee.HasHRRole;
 }
 
 <table id="data" class="table bordered striped highlight table-custom centered">

@@ -1,5 +1,4 @@
-﻿
-'use strict';
+﻿'use strict';
 
 function loadTeamSupervisor(isFirstLoad) {
     $.ajax({
@@ -116,8 +115,8 @@ function init() {
     });
 }
 
-var supervisor = (function ($) {
-    var $dialog = $('#dialog-supervisor');
+    let supervisor = (function ($) {
+    let $dialog = $('#dialog-supervisor');
 
     function initializeDialog($form, title) {
         $('.select-2', $dialog).select2({ closeOnSelect: false });
@@ -269,6 +268,6 @@ var supervisor = (function ($) {
 
 }(jQuery));
 
-$(document).ready(function () {
+$(function () {
     supervisor.init();
 });
