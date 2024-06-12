@@ -44,5 +44,8 @@
         public string Resume { get; set; }
 
         public bool IsOnTop {get; set;}
+
+        public byte? GradeId { get; set; }
+
     }
 }

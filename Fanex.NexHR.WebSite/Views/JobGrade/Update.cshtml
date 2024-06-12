@@ -28,7 +28,7 @@
                 <label>@Labels.CurrentGrade</label>
             </div>
             <div class="left select--m">
-                <select name="JobGradeId" id="JobGradeId" asp-items="@(new SelectList(jobGrade, "Id", "Name"))"></select>
+                <select asp-for="JobGradeId" asp-items="@(new SelectList(jobGrade, "Id", "Name"))"></select>
             </div>
         </div>
     </div>

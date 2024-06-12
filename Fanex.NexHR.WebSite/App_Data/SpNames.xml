@@ -524,7 +524,6 @@
         <Setting Key="Applicant_GetCVStatus" SpName="Applicant_GetCVStatus" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Applicant_GetProfessionalLevel" SpName="Applicant_GetProfessionalLevel" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Applicant_GetResult" SpName="Applicant_GetResult" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Applicant_GetGrade" SpName="Applicant_GetGrade" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Applicant_UpdateOnTop" SpName="Applicant_UpdateOnTop" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Position">

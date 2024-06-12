@@ -12,8 +12,6 @@ namespace Fanex.NexHR.Services.Interfaces
 
         Task<IEnumerable<Source>> GetCVStatusApplicant(GetCVStatusApplicantCriteria criteria);
 
-        Task<IEnumerable<Source>> GetGradeApplicant(GetGradeApplicantCriteria criteria);
-
         Task<IEnumerable<Source>> GetProLevelApplicant(GetProLevelApplicantCriteria criteria);
 
         Task<IEnumerable<Source>> GetResultApplicant(GetResultApplicantCriteria criteria);

@@ -40,18 +40,6 @@ namespace Fanex.NexHR.Services
             return status ?? new List<Source>();
         }
 
-         public async Task<IEnumerable<Source>> GetGradeApplicant(GetGradeApplicantCriteria criteria)
-        {
-            IEnumerable<Source> status = null;
-
-            if (criteria != null && criteria.IsValid())
-            {
-                status = await baseService.GetDataAsync<Source>(criteria);
-            }
-
-            return status ?? new List<Source>();
-        }
-
          public async Task<IEnumerable<Source>> GetResultApplicant(GetResultApplicantCriteria criteria)
         {
             IEnumerable<Source> result = null;

@@ -334,6 +334,7 @@
         public async Task<IActionResult> Create(
             DateTime? DOB,
             DateTime? joinDate,
+            byte? gradeId,
             string fullName,
             string phone,
             string educationBackground)
@@ -352,7 +353,8 @@
                 Phone = phone,
                 DateOfBirth = DOB,
                 JoinDate = joinDate,
-                EducationBackground = educationBackground
+                EducationBackground = educationBackground,
+                GradeId = gradeId
             };
 
             return View(model);
@@ -391,7 +393,8 @@
                         phone = model.Phone,
                         DOB = model.DateOfBirth,
                         joinDate = model.JoinDate,
-                        educationBackground = model.EducationBackground
+                        educationBackground = model.EducationBackground,
+                        gradeId = model.GradeId
                     });
                 }
                 else
@@ -411,6 +414,7 @@
             int id,
             DateTime? DOB,
             DateTime? joinDate,
+            byte? gradeId,
             string phone,
             string educationBackground)
         {
@@ -420,6 +424,7 @@
             employee.JoinedDate = joinDate ?? employee.JoinedDate;
             employee.GroupDate = joinDate ?? employee.GroupDate;
             employee.EducationBackground = educationBackground ?? employee.EducationBackground;
+            employee.JobGradeId = gradeId ?? employee.JobGradeId;
             EditEmployeeViewModel model = new EditEmployeeViewModel(employee)
             {
                 Teams = await teamService.GetAll(),

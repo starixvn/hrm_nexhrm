@@ -5621,5 +5621,14 @@ namespace Fanex.NexHR.Resources {
             }
         }
         
+
+        /// <summary>
+        ///   Looks up a localized string similar to On Top.
+        /// </summary>
+        public static string OnTop{
+            get {
+                return ResourceManager.GetString("OnTop", resourceCulture);
+            }
+        }
     }
 }

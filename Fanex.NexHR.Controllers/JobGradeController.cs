@@ -53,13 +53,14 @@
 
         [HttpGet]
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> Update(int id, string nickname, string fullName)
+        public async Task<IActionResult> Update(int id, string nickname, string fullName, byte? JobGradeId)
         {
 
             var model = new UpdateJobGradeViewModel
             {
                 Employee = nickname + " (" + fullName + ")",
-                EmployeeId = id
+                EmployeeId = id,
+                JobGradeId =  JobGradeId ?? 0
             };
             ViewBag.JobGrade = await promotionService.GetJobGrade();
 

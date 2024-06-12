@@ -229,7 +229,7 @@
                                         <label>@Labels.Grade</label>
                                     </div>
                                     <div class="left input--m">
-                                        <select asp-for="Grade" asp-items="@(new SelectList(Model.GradeList, "Value", "Name"))">
+                                        <select asp-for="Grade" asp-items="@(new SelectList(Model.GradeList, "Id", "Name"))">
                                             <option value=""></option>
                                         </select>
                                     </div>

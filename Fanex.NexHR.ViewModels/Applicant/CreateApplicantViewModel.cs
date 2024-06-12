@@ -41,7 +41,7 @@
 
         public List<Source> SourceList { get; set; }
 
-        public List<Source> GradeList { get; set; }
+        public IList<JobGrade> GradeList { get; set; }
 
         public DateTime? DOB { get; set; }
 

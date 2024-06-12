@@ -29,6 +29,8 @@ namespace Fanex.NexHR.Controllers
         private readonly IPositionService positionService;
         private readonly ICryptoService cryptoService;
         private readonly IEmployeeService employeeService;
+        private readonly IPromotionService promotionService;
+
         private const string UploadsFilePath = "file/uploads/cv";
 
         public ApplicantsController(ISessionService sessionService,
@@ -37,7 +39,8 @@ namespace Fanex.NexHR.Controllers
             IApplicantService applicantService,
             IPositionService positionService,
             ICryptoService cryptoService,
-            IEmployeeService employeeService) : base(sessionService)
+            IEmployeeService employeeService,
+            IPromotionService promotionService) : base(sessionService)
         {
             this.baseService = baseService;
             this.environment = environment;
@@ -45,6 +48,7 @@ namespace Fanex.NexHR.Controllers
             this.positionService = positionService;
             this.cryptoService = cryptoService;
             this.employeeService = employeeService;
+            this.promotionService = promotionService;
         }
 
         [HrmAuthorize(UserRoles = "HR")]
@@ -108,13 +112,6 @@ namespace Fanex.NexHR.Controllers
             return resultList.ToList();
         }
 
-        private async Task<List<Source>> GetGrade()
-        {
-            var criteria = new GetGradeApplicantCriteria();
-            var gradeList = await applicantService.GetGradeApplicant(criteria);
-            return gradeList.ToList();
-        }
-
         private async Task<List<Source>> GetSource()
         {
             var criteria = new GetSourceApplicantCriteria();
@@ -138,7 +135,7 @@ namespace Fanex.NexHR.Controllers
             var statusList = await GetCVStatus();
             var proLevelList = await GetProLevel();
             var resultList = await GetResult();
-            var gradeList =  await GetGrade();
+            var gradeList =  await promotionService.GetJobGrade();
             var sourceList = await GetSource();
             var model = new DetailApplicantViewModel();
             if (applicant != null)
@@ -167,7 +164,7 @@ namespace Fanex.NexHR.Controllers
                 model.Result1 = applicant.Result1 != null ? resultList.Find(p => p.Value == applicant.Result1.ToString()).Name : null;
                 model.Result2 = applicant.Result2 != null ? resultList.Find(p => p.Value == applicant.Result2.ToString()).Name : null;
                 model.Source = applicant.Source != null ? sourceList.Find(p => p.Value == applicant.Source.ToString()).Name : null;
-                model.Grade = applicant.Grade != null ? gradeList.Find(p => p.Value == applicant.Grade.ToString()).Name : null;
+                model.Grade = applicant.Grade != null ? gradeList.FirstOrDefault(p => p.Id == applicant.Grade).Name : null;
                 model.Interviewer = await GetInterviewerNames(applicant.InterviewerIdString);
                 model.Resume = applicant.Resume;
             }
@@ -225,7 +222,7 @@ namespace Fanex.NexHR.Controllers
                 StatusList = await GetCVStatus(),
                 ProLevelList = await GetProLevel(),
                 ResultList = await GetResult(),
-                GradeList =  await GetGrade(),
+                GradeList =  await promotionService.GetJobGrade(),
                 SourceList = await GetSource(),
                 Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName))
             };
@@ -291,7 +288,7 @@ namespace Fanex.NexHR.Controllers
                 model.StatusList = await GetCVStatus();
                 model.ProLevelList = await GetProLevel();
                 model.ResultList = await GetResult();
-                model.GradeList =  await GetGrade();
+                model.GradeList =  await promotionService.GetJobGrade();
                 model.SourceList = await GetSource();
             }
 
@@ -328,7 +325,7 @@ namespace Fanex.NexHR.Controllers
                 applicant.StatusList = await GetCVStatus();
                 applicant.ProLevelList = await GetProLevel();
                 applicant.ResultList = await GetResult();
-                applicant.GradeList =  await GetGrade();
+                applicant.GradeList =  await promotionService.GetJobGrade();
                 applicant.SourceList = await GetSource();
             }
 
@@ -391,7 +388,7 @@ namespace Fanex.NexHR.Controllers
                 model.StatusList = await GetCVStatus();
                 model.ProLevelList = await GetProLevel();
                 model.ResultList = await GetResult();
-                model.GradeList =  await GetGrade();
+                model.GradeList =  await promotionService.GetJobGrade();
                 model.SourceList = await GetSource();
             }
 

@@ -20,6 +20,8 @@
         [DataType(DataType.Date)]
         public DateTime? JoinDate { get; set; }
 
+        public byte? GradeId { get; set; }
+
         [Required]
         [Display(Name = "English Name")]
         public string NickName { get; set; }

@@ -35,6 +35,7 @@
 <body>
     <div class="row content">
         <input type="hidden" asp-for="@Model.Id" />
+        <input type="hidden" asp-for="@Model.JobGradeId" />
         <div id="dialog-show-history-jobgrade" class="full-view-width over-auto"></div>
         <div class="col s12 card-container-base">
             <div class="card">
@@ -202,7 +203,7 @@
                                                         <i class="mdi mdi-information-outline mdi-dark tooltip" title="View history"></i>
                                                     </a>
                                                 }
-                                                 else
+                                                else
                                                 {
                                                     <a class="btn-ok waves-effect waves-light" id="jobGrade" href="javascript:;">@Labels.Update</a>
                                                     <span id="JobGradeCode" class="black-text" hidden></span>
@@ -417,7 +418,7 @@
                                     <div class="row form-input m-b--m">
                                         <div class="col">
                                             <div class="left label--mxxl">
-                                                <label>Approved By</label>
+                                                <label>@Labels.ApprovedBy</label>
                                             </div>
                                              <div class="left input--l">
                                                  @if (!string.IsNullOrEmpty(Model.Approvers))

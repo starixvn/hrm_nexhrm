@@ -753,7 +753,10 @@
   <data name="Forum" xml:space="preserve">
     <value>Forum</value>
   </data>
-  <data name="DepartmentManagement" xml:space="preserve">
+  <data name="Department" xml:space="preserve">
+    <value>Department</value>
+  </data>
+   <data name="DepartmentManagement" xml:space="preserve">
     <value>Department Management</value>
   </data>
   <data name="Manager" xml:space="preserve">
@@ -1971,5 +1974,8 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   </data>
   <data name="ParentTeam" xml:space="preserve">
     <value>Parent Team</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>On Top</value>
   </data>
 </root>

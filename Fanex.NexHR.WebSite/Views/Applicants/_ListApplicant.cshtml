@@ -22,7 +22,7 @@
             <th style="width:25%" rowspan="2">@Labels.Note</th>
             <th style="width:4%" rowspan="2">@Labels.Source</th>
             <th style="width:2%" rowspan="2">@Labels.CV</th>
-            <th style="width:2%" rowspan="2">On Top</th>
+            <th style="width:2%" rowspan="2">@Labels.OnTop</th>
             <th style="width:2%" rowspan="2">@Labels.Edit</th>
             <th style="width:2%" rowspan="2">@Labels.Delete</th>
             <th style="width:2%" rowspan="2">@Labels.CreateAccount</th>
@@ -85,6 +85,7 @@
                             asp-route-DOB="@item.DOB"
                             asp-route-joinDate="@item.JoinDate"
                             asp-route-educationBackground="@item.EducationBackground"
+                            asp-route-gradeId="@item.GradeId"
                             >
                             <i class="mdi mdi-plus-circle mdi-dark mdi-18px"></i>
                         </a>

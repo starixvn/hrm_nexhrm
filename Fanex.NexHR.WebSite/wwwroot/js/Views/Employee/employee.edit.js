@@ -171,7 +171,7 @@ function initDialogJobGrade(divContent) {
                                 errorCont.addClass('success validation-summary-success');
                                 errorCont.append('Update Job Grade successfully');
                                 var jobGradeCodeElement = document.getElementById('JobGradeCode');
-                                var jobGradeIdElement = document.getElementById('JobGradeId');
+                                var jobGradeIdElement = document.getElementById('frmUpdateJobGrade').querySelector('#JobGradeId');
                                 var selectedOption = jobGradeIdElement.options[jobGradeIdElement.selectedIndex];
                                 jobGradeCodeElement.removeAttribute('hidden');
                                 jobGradeCodeElement.textContent = selectedOption.text;
@@ -377,7 +377,7 @@ function initEventForUpdateJobGrade() {
         if (id > 0) {
             $.ajax({
                 type: 'GET',
-                url: _global.root + 'JobGrade/Update?id=' + id + '&nickname=' + $('#NickName').val() + '&fullName=' + $('#FullName').val(),
+                url: _global.root + 'JobGrade/Update?id=' + id + '&nickname=' + $('#NickName').val() + '&fullName=' + $('#FullName').val() + '&JobGradeId=' + $('#JobGradeId').val(),
                 dataType: 'html',
                 success: function (data) {
                     if (data) {
