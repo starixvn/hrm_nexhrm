@@ -81,6 +81,7 @@
     <Function Name="GroupSupervisor">
         <Setting Key="GroupSupervisor_Get" SpName="GroupSupervisor_Get" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="GroupSupervisor_Update" SpName="GroupSupervisor_Update" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="GroupSupervisor_GetById" SpName="GroupSupervisor_GetById" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Supervisor_Get" SpName="Supervisor_Get" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="EmployeeSupervisor">

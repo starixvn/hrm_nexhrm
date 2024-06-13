@@ -1,7 +1,8 @@
 ﻿@using Fanex.NexHR.Resources
 @model Fanex.NexHR.ViewModels.SupervisorFlow.TeamViewModel
 
-<form id="edit-form" asp-action="editteam" data-ajax="true" data-ajax-method="post" data-ajax-success="supervisor.onUpdateTeamSuccess">
+<form id="edit-form" asp-action="editteam" data-ajax="true" data-ajax-method="post"
+    data-ajax-success="supervisor.onUpdateTeamSuccess">
     <div asp-validation-summary="All"></div>
     <div class="row form-input m-b--m">
         <div class="left label--m">
@@ -17,11 +18,7 @@
             <label>@Labels.Supervisor</label>
         </div>
         <div class="left input-custom">
-            <select multiple id="ApproverIds" name="ApproverIds" class="select-2 disabled">
-                @foreach(var emp in Model.Employees)
-                {
-                    <option value="@emp.Value" selected="@(Model.ApproverIds != null && Model.ApproverIds.Any(x => x.ToString() == emp.Value) ? true : false)">@emp.Text</option>
-                }
+            <select asp-for="ApproverIds" asp-items="@Model.Employees" class="select-2 disabled">
             </select>
         </div>
     </div>

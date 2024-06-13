@@ -12,12 +12,12 @@
 <table id="data" class="table bordered striped highlight centered table-custom">
     <thead>
         <tr>
-            <th style="width:4%">@Labels.SymbolCount</th>
-            <th style="width:20%">@Labels.Team</th>
-            <th style="width:50%">@Labels.Supervisor</th>
-                @if (isHRRole)
+            <th style="width:5%">@Labels.SymbolCount</th>
+            <th style="width:34%">@Labels.Team</th>
+            <th style="width:55%">@Labels.Supervisor</th>
+            @if (isHRRole)
             {
-                <th style="width:2%">@Labels.Edit</th>
+                <th style="width:6%">@Labels.Edit</th>
             }
         </tr>
     </thead>
@@ -29,14 +29,13 @@
                 <tr id="row@(item.GroupId)">
                     <td>@(index++)</td>
                     <td class="align-left">@item.GroupName</td>
-                    <td class="align-left">@item.ApproversName</td>
+                    <td class="align-left">@item.Approvers</td>
                     @if (isHRRole)
                     {
                         <td class="action-column">
-                            <a class="btn-edit"
-                                data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog-supervisor"
-                            href="@Url.Action("EditTeam", new { groupId = item.GroupId, groupName = item.GroupName, ApproverIds = item.ApproverIds})"
-                            data-ajax-success="supervisor.onLoadingEditTeamFormSuccess">
+                            <a class="btn-edit" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog-supervisor"
+                                href="@Url.Action("EditTeam", new { groupId = item.GroupId })"
+                                data-ajax-success="supervisor.onLoadingEditTeamFormSuccess">
                                 <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
                             </a>
                         </td>

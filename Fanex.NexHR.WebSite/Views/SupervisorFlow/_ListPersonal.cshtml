@@ -12,13 +12,13 @@
 <table id="data" class="table bordered striped highlight centered table-custom">
     <thead>
         <tr>
-            <th style="width:4%">@Labels.SymbolCount</th>
-            <th style="width:10%">@Labels.EnglishName</th>
-            <th style="width:20%">@Labels.FullName</th>
-            <th style="width:50%">@Labels.Supervisor</th>
+            <th style="width:5%">@Labels.SymbolCount</th>
+            <th style="width:14%">@Labels.EnglishName</th>
+            <th style="width:30%">@Labels.FullName</th>
+            <th style="width:45%">@Labels.Supervisor</th>
                 @if (isHRRole)
             {
-                <th  style="width:2%">@Labels.Edit</th>
+                <th  style="width:6%">@Labels.Edit</th>
             }
         </tr>
     </thead>
@@ -31,13 +31,13 @@
                     <td >@(index++)</td>
                     <td class="align-left">@item.Nickname</td>
                     <td class="align-left">@item.FullName</td>
-                    <td class="align-left">@item.ApproversName</td>
+                    <td class="align-left">@item.Approvers</td>
                     @if (isHRRole)
                     {
                         <td class="action-column">
                             <a class="btn-edit"
                                 data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog-supervisor"
-                            href="@Url.Action("EditPersonal", new { empId = item.EmpId, nickname = item.Nickname, fullName = item.FullName, ApproverIds = item.ApproverIds})"
+                            href="@Url.Action("EditPersonal", new { empId = item.EmpId})"
                             data-ajax-success="supervisor.onLoadingEditPersonalFormSuccess">
                                 <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
                             </a>

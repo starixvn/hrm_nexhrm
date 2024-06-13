@@ -22,7 +22,8 @@
     display: none; }
   #dialog-supervisor .validation-summary-errors ul li {
     text-align: left; }
-  #dialog-supervisor .validation-summary-errors, #dialog-supervisor .validation-summary-success {
+  #dialog-supervisor .validation-summary-errors,
+  #dialog-supervisor .validation-summary-success {
     margin: 16px 0; }
   #dialog-supervisor .form-input {
     display: flex;
@@ -41,7 +42,7 @@
         width: 100% !important; }
         .card-body table.table-detail {
           width: 100% !important; } }
-  .card-body #detail input[type=text] {
+  .card-body #detail input[type="text"] {
     margin: 0 12px 0 0; }
 
 @media only screen and (max-width: 993px) {

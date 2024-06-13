@@ -8,9 +8,8 @@
 
         public string FullName { get; set; }
 
+        public string Approvers { get; set; }
+
         public string ApproverIds { get; set; }
-
-        public string ApproversName { get; set; }
-
     }
 }

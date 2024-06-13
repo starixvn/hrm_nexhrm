@@ -38,5 +38,11 @@
             var listDetail = await baseService.GetDataAsync<DetailSupervisor>(criteria);
             return listDetail;
         }
+
+        public async Task<TeamSupervisor> GetById(GetTeamSupervisorByIdCriteria criteria)
+        {
+            var teamSupervisor = await baseService.GetDataEntityAsync<TeamSupervisor>(criteria);
+            return teamSupervisor;
+        }
     }
 }

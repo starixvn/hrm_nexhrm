@@ -135,7 +135,7 @@ namespace Fanex.NexHR.Controllers
             var statusList = await GetCVStatus();
             var proLevelList = await GetProLevel();
             var resultList = await GetResult();
-            var gradeList =  await promotionService.GetJobGrade();
+            var gradeList = await promotionService.GetJobGrade();
             var sourceList = await GetSource();
             var model = new DetailApplicantViewModel();
             if (applicant != null)
@@ -189,13 +189,11 @@ namespace Fanex.NexHR.Controllers
             {
                 return null;
             }
-            var employees = await employeeService.Query(new GetEmployeeCriteria
+            var employees = await baseService.GetDataAsync<StaffInfo>(new GetStaffInfoCriteria
             {
                 Query = string.Empty,
-                IsDelete = false,
-                IsDisable = false,
-                PageSize = int.MaxValue,
-                PageNumber = 1
+                TeamId = null,
+                IsSpecial = null
             });
             var interviewerIds = interviewerIdString.Split(',').Select(int.Parse).ToList();
             var employeeNicknames = interviewerIds != null
@@ -208,13 +206,11 @@ namespace Fanex.NexHR.Controllers
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Create()
         {
-            var employees = await employeeService.Query(new GetEmployeeCriteria
+            var employees = await baseService.GetDataAsync<StaffInfo>(new GetStaffInfoCriteria
             {
                 Query = string.Empty,
-                IsDelete = false,
-                IsDisable = false,
-                PageSize = int.MaxValue,
-                PageNumber = 1
+                TeamId = null,
+                IsSpecial = null
             });
             var model = new CreateApplicantViewModel
             {
@@ -222,7 +218,7 @@ namespace Fanex.NexHR.Controllers
                 StatusList = await GetCVStatus(),
                 ProLevelList = await GetProLevel(),
                 ResultList = await GetResult(),
-                GradeList =  await promotionService.GetJobGrade(),
+                GradeList = await promotionService.GetJobGrade(),
                 SourceList = await GetSource(),
                 Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName))
             };
@@ -288,7 +284,7 @@ namespace Fanex.NexHR.Controllers
                 model.StatusList = await GetCVStatus();
                 model.ProLevelList = await GetProLevel();
                 model.ResultList = await GetResult();
-                model.GradeList =  await promotionService.GetJobGrade();
+                model.GradeList = await promotionService.GetJobGrade();
                 model.SourceList = await GetSource();
             }
 
@@ -303,13 +299,11 @@ namespace Fanex.NexHR.Controllers
                 ApplicantId = id
             };
 
-            var employees = await employeeService.Query(new GetEmployeeCriteria
+            var employees = await baseService.GetDataAsync<StaffInfo>(new GetStaffInfoCriteria
             {
                 Query = string.Empty,
-                IsDelete = false,
-                IsDisable = false,
-                PageSize = int.MaxValue,
-                PageNumber = 1
+                TeamId = null,
+                IsSpecial = null
             });
 
             EditApplicantViewModel applicant = await applicantService.GetById(criteria);
@@ -325,7 +319,7 @@ namespace Fanex.NexHR.Controllers
                 applicant.StatusList = await GetCVStatus();
                 applicant.ProLevelList = await GetProLevel();
                 applicant.ResultList = await GetResult();
-                applicant.GradeList =  await promotionService.GetJobGrade();
+                applicant.GradeList = await promotionService.GetJobGrade();
                 applicant.SourceList = await GetSource();
             }
 
@@ -388,7 +382,7 @@ namespace Fanex.NexHR.Controllers
                 model.StatusList = await GetCVStatus();
                 model.ProLevelList = await GetProLevel();
                 model.ResultList = await GetResult();
-                model.GradeList =  await promotionService.GetJobGrade();
+                model.GradeList = await promotionService.GetJobGrade();
                 model.SourceList = await GetSource();
             }
 

@@ -115,8 +115,8 @@ function init() {
     });
 }
 
-    let supervisor = (function ($) {
-    let $dialog = $('#dialog-supervisor');
+    var supervisor = (function ($) {
+    var $dialog = $('#dialog-supervisor');
 
     function initializeDialog($form, title) {
         $('.select-2', $dialog).select2({ closeOnSelect: false });

@@ -61,7 +61,6 @@ namespace Fanex.NexHR.Services.ExportExcel
                 rowIndex++;
                 rowNumber++;
             }
-
             worksheet.View.FreezePanes(rowFreeze, 1);
         }
 
@@ -98,7 +97,7 @@ namespace Fanex.NexHR.Services.ExportExcel
         protected internal virtual void SetStyle(ExcelWorksheet worksheet)
         {
             const int columnPhone = 3;
-            const int columnNote = 11;
+            const int columnNote = 12;
             worksheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             worksheet.Column(columnPhone).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             worksheet.Cells[RowStartHeader, TotalCols].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
@@ -107,6 +106,7 @@ namespace Fanex.NexHR.Services.ExportExcel
                 worksheet.Column(index).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             }
             worksheet.Column(columnNote).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+            
             worksheet.Cells[columnPhone, columnNote].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             for (var index = 0; index < applicants.ToList().Count; index++)
             {

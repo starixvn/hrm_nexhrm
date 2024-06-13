@@ -6,8 +6,8 @@
 
         public string GroupName { get; set; }
 
-        public string ApproverIds { get; set; }
+        public string Approvers { get; set; }
 
-        public string ApproversName { get; set; }
+        public string ApproverIds { get; set; }
     }
 }

@@ -1,91 +1,92 @@
 #dialog-supervisor {
-    padding-top: 0;
+  padding-top: 0;
 
-    .left {
-        display: flex;
+  .left {
+    display: flex;
+  }
+
+  .select2-selection__rendered {
+    padding: 5px !important;
+  }
+
+  .select2-container {
+    margin-bottom: 0;
+  }
+
+  .select2-hidden-accessible {
+    display: block;
+  }
+
+  .input-custom {
+    width: 32rem !important;
+    word-break: break-all;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    input {
+      margin-bottom: 0;
     }
 
-    .select2-selection__rendered {
-        padding: 5px !important;
+    &.custom-validate {
+      flex-direction: column-reverse;
     }
+  }
 
-    .select2-container {
-        margin-bottom: 0;
-    }
+  .validation-summary-success ul {
+    display: none;
+  }
 
-    .select2-hidden-accessible {
-        display: block;
-    }
-    
-    .input-custom {
-        width: 32rem !important;
-        word-break: break-all;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
+  .validation-summary-errors ul li {
+    text-align: left;
+  }
 
-        input {
-            margin-bottom: 0;
-        }
+  .validation-summary-errors,
+  .validation-summary-success {
+    margin: 16px 0;
+  }
 
-        &.custom-validate {
-            flex-direction: column-reverse;
-        }
-    }
+  .form-input {
+    display: flex;
+    margin-bottom: 16px;
+  }
 
-    .validation-summary-success ul {
-        display: none;
-    }
-
-    .validation-summary-errors ul li {
-        text-align: left;
-    }
-
-    .validation-summary-errors, .validation-summary-success {
-        margin: 16px 0;
-    }
-
-    .form-input {
-        display: flex;
-        margin-bottom: 16px;
-    }
-
-    label.error {
-        color: red;
-    }
+  label.error {
+    color: red;
+  }
 }
 
 .card-body {
-    padding: 12px;
-    table {
-        width: 60% !important;
+  padding: 12px;
+  table {
+    width: 60% !important;
 
-        &.table-detail {
-            width: 70% !important;
-        }
-
-        @media only screen and (max-width: 1600px) {
-            width: 100% !important;
-
-            &.table-detail {
-                width: 100% !important;
-            }
-        }
+    &.table-detail {
+      width: 70% !important;
     }
 
-    #detail {
-        input[type=text] {
-            margin: 0 12px 0 0;
-        }
+    @media only screen and (max-width: 1600px) {
+      width: 100% !important;
+
+      &.table-detail {
+        width: 100% !important;
+      }
     }
+  }
+
+  #detail {
+    input[type="text"] {
+      margin: 0 12px 0 0;
+    }
+  }
 }
 
 @media only screen and (max-width: 993px) {
-    .btn-request {
-        margin: 0;
-    }
+  .btn-request {
+    margin: 0;
+  }
 
-    .tabs .tab {
-        width: 33%;
-    }
+  .tabs .tab {
+    width: 33%;
+  }
 }

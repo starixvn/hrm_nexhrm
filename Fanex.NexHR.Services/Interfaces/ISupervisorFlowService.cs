@@ -15,5 +15,6 @@
 
         Task<IEnumerable<DetailSupervisor>> GetListDetailSupervisors(GetDetailSupervisorCriteria criteria);
 
+        Task<TeamSupervisor> GetById(GetTeamSupervisorByIdCriteria criteria);
     }
 }
