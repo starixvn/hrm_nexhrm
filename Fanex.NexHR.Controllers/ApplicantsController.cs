@@ -28,7 +28,6 @@ namespace Fanex.NexHR.Controllers
         private readonly IApplicantService applicantService;
         private readonly IPositionService positionService;
         private readonly ICryptoService cryptoService;
-        private readonly IEmployeeService employeeService;
         private readonly IPromotionService promotionService;
 
         private const string UploadsFilePath = "file/uploads/cv";
@@ -39,7 +38,6 @@ namespace Fanex.NexHR.Controllers
             IApplicantService applicantService,
             IPositionService positionService,
             ICryptoService cryptoService,
-            IEmployeeService employeeService,
             IPromotionService promotionService) : base(sessionService)
         {
             this.baseService = baseService;
@@ -47,7 +45,6 @@ namespace Fanex.NexHR.Controllers
             this.applicantService = applicantService;
             this.positionService = positionService;
             this.cryptoService = cryptoService;
-            this.employeeService = employeeService;
             this.promotionService = promotionService;
         }
 
@@ -164,7 +161,7 @@ namespace Fanex.NexHR.Controllers
                 model.Result1 = applicant.Result1 != null ? resultList.Find(p => p.Value == applicant.Result1.ToString()).Name : null;
                 model.Result2 = applicant.Result2 != null ? resultList.Find(p => p.Value == applicant.Result2.ToString()).Name : null;
                 model.Source = applicant.Source != null ? sourceList.Find(p => p.Value == applicant.Source.ToString()).Name : null;
-                model.Grade = applicant.Grade != null ? gradeList.FirstOrDefault(p => p.Id == applicant.Grade).Name : null;
+                model.Grade = applicant.Grade != null ? gradeList.FirstOrDefault(p => p.Id == applicant.Grade)?.Name : null;
                 model.Interviewer = await GetInterviewerNames(applicant.InterviewerIdString);
                 model.Resume = applicant.Resume;
             }
