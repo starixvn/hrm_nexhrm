@@ -1,5 +1,10 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Core;
     using Core.Enums;
     using Core.Model;
@@ -18,11 +23,6 @@
     using Models;
     using Newtonsoft.Json;
     using Services.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Threading.Tasks;
     using ViewModels;
     using ViewModels.Employee;
 
