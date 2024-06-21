@@ -89,44 +89,47 @@ else
                                         <span class="label--xl">@Labels.Gender:</span> <span class="txt-bold">@(Model.Gender
                                         == 1 ? "Male" : "Female")</span>
                                     </p>
-                                    <p class="accinfo">
-                                        <span class="label--xl">@Labels.Marriage:</span> <span
+                                    @if (isHRRole)
+                                    {
+                                        <p class="accinfo">
+                                            <span class="label--xl">@Labels.Marriage:</span> <span
                                             class="txt-bold">@(Model.Marriage ? "Yes" : "No")</span>
-                                    </p>
-                                    <p class="accinfo">
-                                        <span class="label--xl">@Labels.IdNo:</span> <span
+                                        </p>
+                                        <p class="accinfo">
+                                            <span class="label--xl">@Labels.IdNo:</span> <span
                                             class="txt-bold">@Model.CardNo</span>
-                                    </p>
-                                    <p class="accinfo">
-                                        <span class="label--xl">@Labels.IssuedDate:</span> <span class="txt-bold">
-                                            @if (Model.IssuedDate != null)
-                                            {
-                                                var issuedDate = (DateTime)Model.IssuedDate;
-                                                @issuedDate.ToString("dd MMM, yyyy")
-                                            }
-                                        </span>
-                                    </p>
-                                    <p class="accinfo">
-                                        <span class="label--xl">@Labels.IssuingAuthority:</span> <span
+                                        </p>
+                                        <p class="accinfo">
+                                            <span class="label--xl">@Labels.IssuedDate:</span> <span class="txt-bold">
+                                                @if (Model.IssuedDate != null)
+                                                {
+                                                    var issuedDate = (DateTime)Model.IssuedDate;
+                                                    @issuedDate.ToString("dd MMM, yyyy")
+                                                }
+                                            </span>
+                                        </p>
+                                        <p class="accinfo">
+                                            <span class="label--xl">@Labels.IssuingAuthority:</span> <span
                                             class="txt-bold">@Model.IssuedPlace</span>
-                                    </p>
-                                    <p class="accinfo">
-                                        <span class="label--xl">@Labels.PassportNo:</span> <span
+                                        </p>
+                                        <p class="accinfo">
+                                            <span class="label--xl">@Labels.PassportNo:</span> <span
                                             class="txt-bold">@Model.PassportNo</span>
-                                    </p>
-                                    <p class="accinfo">
-                                        <span class="label--xl">@Labels.PassportExp:</span> <span class="txt-bold">
-                                            @if (Model.PassportExp != null)
-                                            {
-                                                var passportExp = (DateTime)Model.PassportExp;
-                                                @passportExp.ToString("dd MMM, yyyy")
-                                            }
-                                        </span>
-                                    </p>
-                                    <p class="accinfo">
-                                        <span class="label--xl">@Labels.SocialInsuranceNo:</span> <span
+                                        </p>
+                                        <p class="accinfo">
+                                            <span class="label--xl">@Labels.PassportExp:</span> <span class="txt-bold">
+                                                @if (Model.PassportExp != null)
+                                                {
+                                                    var passportExp = (DateTime)Model.PassportExp;
+                                                    @passportExp.ToString("dd MMM, yyyy")
+                                                }
+                                            </span>
+                                        </p>
+                                        <p class="accinfo">
+                                            <span class="label--xl">@Labels.SocialInsuranceNo:</span> <span
                                             class="txt-bold">@Model.SocialInsuranceNo</span>
-                                    </p>
+                                        </p>
+                                    }
                                     <p class="accinfo">
                                         <span class="label--xl">@Labels.EducationBackground:</span>
                                         <span>@Model.EducationBackground</span>
@@ -155,13 +158,16 @@ else
                                         <span class="label--xl">@Labels.Telegram:</span> <span><a
                                                 href="ymsgr:SendIM?@(Model.Yahoo)">@Model.Yahoo</a></span>
                                     </p>
-                                    <p class="accinfo">
-                                        <span class="label--xl">@Labels.Address:</span> <span>@Model.Address</span>
-                                    </p>
-                                    <p class="accinfo">
-                                        <span class="label--xl">@Labels.CurrentAddress:</span> <span
-                                            class="address">@Model.CurrentAddress</span>
-                                    </p>
+                                    @if(isHRRole)
+                                    {
+                                        <p class="accinfo">
+                                            <span class="label--xl">@Labels.Address:</span> <span>@Model.Address</span>
+                                        </p>
+                                        <p class="accinfo">
+                                            <span class="label--xl">@Labels.CurrentAddress:</span> <span class="address">@Model.CurrentAddress</span>
+                                        </p>
+                                    }
+                                   
                                     <p class="accinfo">
                                         <span class="label--xl">@Labels.ContactName:</span> <span>@Model.ContactName</span>
                                     </p>
@@ -256,7 +262,7 @@ else
                             <div class="trainingAndDevelopmentsreport">
                                 <div class="info-title">
                                     @Labels.LearningAndDevelopment
-                                    @if (@isHRRole)
+                                    @if (isHRRole)
                                     {
                                         <i data-displayname="@Model.DisplayName" data-id="@Model.Id" id="btn-add-training"
                                             class="mdi mdi-library-plus flus"></i>
