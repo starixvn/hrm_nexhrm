@@ -47,5 +47,8 @@
 
         public byte? GradeId { get; set; }
 
+        public DateTime ApplyDate { get; set; }
+
+        public float? YearsOfExperience { get; set; }
     }
 }

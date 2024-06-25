@@ -17,7 +17,7 @@ namespace Fanex.NexHR.Services.ExportExcel
         private readonly int pageSize;
         private const byte RowStartHeader = 3;
         private const byte RowStartBody = 5;
-        private const byte TotalCols = 13;
+        private const byte TotalCols = 17;
         private int rowIndex = RowStartBody;
         private const byte FontSizeTitle = 16;
         private int rowNumber;
@@ -29,7 +29,7 @@ namespace Fanex.NexHR.Services.ExportExcel
             this.fromDate = fromDate;
             this.toDate = toDate;
             this.pageNumber = pageNumber;
-            this.pageSize =pageSize;
+            this.pageSize = pageSize;
         }
 
         protected internal override void RenderTitle(ExcelWorksheet templateWorksheet, ExcelWorksheet worksheet)
@@ -72,7 +72,11 @@ namespace Fanex.NexHR.Services.ExportExcel
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.FullName;
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.Phone;
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.Email;
+            worksheet.Cells[rowIndex, colIndex++].Value = applicant.DOB?.ToString(formatDate);
+            worksheet.Cells[rowIndex, colIndex++].Value = applicant.EducationBackground;
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.Position;
+            worksheet.Cells[rowIndex, colIndex++].Value = applicant.YearsOfExperience.HasValue ? Math.Round((decimal)applicant.YearsOfExperience, 1) : null;
+            worksheet.Cells[rowIndex, colIndex++].Value = applicant.ApplyDate.ToString(formatDate);
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.InterviewDate1?.ToString(formatDate);
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.Result1;
             worksheet.Cells[rowIndex, colIndex++].Value = applicant.InterviewDate2?.ToString(formatDate);
@@ -97,17 +101,17 @@ namespace Fanex.NexHR.Services.ExportExcel
         protected internal virtual void SetStyle(ExcelWorksheet worksheet)
         {
             const int columnPhone = 3;
-            const int columnNote = 12;
+            const int columnDOB = 5;
+            const int columnNote = 16;
             worksheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             worksheet.Column(columnPhone).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            worksheet.Column(columnDOB).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             worksheet.Cells[RowStartHeader, TotalCols].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-            for (int index = 6; index <= TotalCols; index++)
+            for (int index = 8; index <= TotalCols; index++)
             {
                 worksheet.Column(index).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             }
             worksheet.Column(columnNote).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-            
-            worksheet.Cells[columnPhone, columnNote].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             for (var index = 0; index < applicants.ToList().Count; index++)
             {
                 DrawBorderCell(worksheet.Cells[RowStartBody + index, 1, RowStartBody + index, TotalCols]);
@@ -119,7 +123,7 @@ namespace Fanex.NexHR.Services.ExportExcel
             const int RowHeightTitle = 25;
             worksheet.Row(1).Height = RowHeightTitle;
 
-            int[] widthCol = [10, 30, 15, 25, 30, 15, 15, 15, 15, 15, 15, 40, 15];
+            int[] widthCol = [10, 30, 15, 25, 15, 35, 30, 25, 15, 15, 15, 15, 15, 15, 15, 40, 15];
             for (int i = 0; i < widthCol.Length; i++)
             {
                 worksheet.Column(i + 1).Width = widthCol[i];
