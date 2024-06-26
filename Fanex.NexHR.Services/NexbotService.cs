@@ -429,5 +429,23 @@
                 await SendHttpClientAsync<Task>("/messages/ReachedWorkingHoursNotification", HttpMethod.Post, data);
             }
         }
+
+        public async Task SendMultipleRequestsToApprover(ApproverRequestSumup approver)
+        {
+            if (nexBotSettings.Enable)
+            {
+                var data = new Dictionary<string, string>
+                {
+                    {"approverId", approver.ApproverId.ToString() },
+                    {"approverNickname", approver.ApproverNickname},
+                    {"conversationId", approver.ConversationId},
+                    {"totalRequest", approver.TotalRequest.ToString()},
+                    {"requestIds", approver.RequestIds },
+                    {"stringRequests", JsonConvert.SerializeObject(approver.Requests.ToArray())},
+                };
+
+                await SendHttpClientAsync<Task>("/messages/RemindApproveMultipleRequest", HttpMethod.Post, data);
+            }
+        }
     }
 }

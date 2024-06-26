@@ -186,6 +186,20 @@
             return string.Empty;
         }
 
+        public static string ToFormattedDateTime(this DateTime date)
+        {
+            return date.ToString("dd MMM, yyyy HH:mm");
+        }
+
+        public static string ToFormattedDateTime(this DateTime? date)
+        {
+            if (date.HasValue)
+            {
+                return date.Value.ToString("dd MMM, yyyy HH:mm");
+            }
+            return string.Empty;
+        }
+
         public static string ToShortFormatedDate(this DateTime date)
         {
             string dateStr = date.ToString(@"dd MMM, yyyy - HH") + "h" + date.ToString(@"mm\'");

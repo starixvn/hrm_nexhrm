@@ -1,5 +1,12 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
     using Core;
     using Core.Enums;
     using Criteria.Employee;
@@ -14,13 +21,6 @@
     using Models.Request;
     using Repositories.Interfaces;
     using Resources;
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using ViewModels;
     using ViewModels.CheckInOutRequest;
 
@@ -39,6 +39,7 @@
         private const string stringTime = "HH:mm";
 
 #pragma warning disable S107 // Methods should not have too many parameters
+
         public RequestService(
             IRequestRepository requestRepository,
             IEmailService emailService,
@@ -52,7 +53,6 @@
         {
             this.requestRepository = requestRepository;
             this.emailService = emailService;
-
             this.nexbotService = nexbotService;
             this.environment = environment;
             this.appSetting = appSetting;
@@ -673,6 +673,79 @@
         private static void RunBackgroundJobs(Task[] tasks)
         {
             Task.Run(() => tasks);
+        }
+
+        public async Task<IEnumerable<ApproverRequestSumup>> GetPendingRequestGroupByApproverAsync()
+        {
+            var pendingRequests = await baseService.GetDataAsync<PendingRequestApprover>(new GetPendingRequestCriteria());
+            var needApprovedRequests = pendingRequests.GroupBy(r => r.ApproverId)
+                .Select(g => new ApproverRequestSumup
+                {
+                    ApproverId = g.Key,
+                    ApproverNickname = g.FirstOrDefault().Approver,
+                    ConversationId = g.FirstOrDefault().ApproverConversationId,
+                    Requests = g.Select(i => new MemberRequest
+                    {
+                        RequestId = i.RequestId,
+                        EmpId = i.EmpId,
+                        NickName = i.Requester,
+                        FullName = i.FullNameRequester,
+                        DateDetails = GenerateDisplayDate(i.FromDate, i.ToDate, i.RequestType, i.TotalDays, i.FromShift),
+                        FromDate = i.FromDate.ToDateMonthYearFormatedDate(),
+                        TotalDays = DisplayTotalDays(i.TotalDays),
+                        RequestType = IsCheckInOutRequest(i.RequestType) ? i.RequestType.EnumToString() : i.LeaveTypeName,
+                        Remark = i.Remark
+                    })
+                });
+
+            return needApprovedRequests;
+        }
+
+        private static string DisplayTotalDays(decimal totalDays)
+        {
+            if (totalDays == 0) return string.Empty;
+            else if (totalDays <= 1) return $"{totalDays} day";
+            return $"{totalDays} days";
+        }
+
+        private static string GenerateDisplayDate(DateTime? from, DateTime? to, RequestType requestType, decimal totalDays, string shiftName)
+        {
+            string displayDate;
+            if (IsCheckInOutRequest(requestType))
+            {
+                displayDate = $"{from.Value.ToString("HH:mm")} {shiftName}";
+            }
+            else if (totalDays < 1)
+            {
+                displayDate = string.Format("{0}({1}-{2})", from.Value.ToDateMonthYearFormatedDate(), from.Value.ToString("HH:mm"), to.Value.ToString("HH:mm"));
+            }
+            else
+            {
+                displayDate = DisplayLeaveDateDetails(from, to, totalDays);
+            }
+            return displayDate;
+        }
+
+        private static bool IsCheckInOutRequest(RequestType requestType) => requestType == RequestType.CheckIn || requestType == RequestType.CheckOut;
+
+        private static string DisplayLeaveDateDetails(DateTime? from, DateTime? to, decimal totalDays)
+        {
+            if (totalDays == 1)
+            {
+                return from.Value.ToDateMonthYearFormatedDate();
+            }
+
+            if (from.Value.Year == to.Value.Year && from.Value.Month == to.Value.Month)
+            {
+                return $"{from.Value.ToString("dd")} - {to.Value.ToDateMonthYearFormatedDate()}";
+            }
+
+            if (from.Value.Year == to.Value.Year && from.Value.Month != to.Value.Month)
+            {
+                return $"{from.Value.ToString("dd, MMM")} - {to.Value.ToDateMonthYearFormatedDate()}";
+            }
+
+            return $"{from.Value.ToDateMonthYearFormatedDate()} - {to.Value.ToDateMonthYearFormatedDate()}";
         }
     }
 }

@@ -45,5 +45,7 @@
         Task SendCheckoutNotification(CheckOutNotifyRecord checkoutRecord);
 
         Task SendReachedWorkingHoursNotification(WorkingHour workingHour);
+
+        Task SendMultipleRequestsToApprover(ApproverRequestSumup approver);
     }
 }

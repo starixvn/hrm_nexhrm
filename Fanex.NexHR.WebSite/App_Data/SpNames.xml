@@ -170,6 +170,7 @@
         <Setting Key="WorkingTimeRequest_GetRequestHistory" SpName="WorkingTimeRequest_GetRequestHistory" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="WorkingTimeRequest_GetNumberRequestInMonth" SpName="WorkingTimeRequest_GetNumberRequestInMonth" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="WorkingTimeRequest_AvaibleLeaveBalance" SpName="WorkingTimeRequest_AvaibleLeaveBalance" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="WorkingTimeRequest_GetPendingRequest" SpName="WorkingTimeRequest_GetPendingRequest" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Holiday">
         <Setting Key="Holiday_Insert" SpName="Holiday_Insert" DbName="nexhr" Plain="0"></Setting>
