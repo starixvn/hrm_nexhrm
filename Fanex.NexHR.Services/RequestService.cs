@@ -684,29 +684,32 @@
                     ApproverId = g.Key,
                     ApproverNickname = g.FirstOrDefault().Approver,
                     ConversationId = g.FirstOrDefault().ApproverConversationId,
+                    CallbackUrl = appSetting.BaseUrl,
                     Requests = g.Select(i => new MemberRequest
                     {
                         RequestId = i.RequestId,
-                        EmpId = i.EmpId,
                         NickName = i.Requester,
+                        TeamName = i.TeamName,
                         FullName = i.FullNameRequester,
+                        ApproverId = i.ApproverId,
+                        Avatar = string.Format("{0}/Avatars/{1}.jpg", "https://hrm.nexdev.net", i.Code),
+                        //Avatar = string.Format("{0}/Avatars/{1}.jpg", appSetting.BaseUrl, i.Code),
+                        IsLeaveRequest = !IsCheckInOutRequest(i.RequestType),
                         DateDetails = GenerateDisplayDate(i.FromDate, i.ToDate, i.RequestType, i.TotalDays, i.FromShift),
                         FromDate = i.FromDate.ToDateMonthYearFormatedDate(),
-                        TotalDays = DisplayTotalDays(i.TotalDays),
-                        RequestType = IsCheckInOutRequest(i.RequestType) ? i.RequestType.EnumToString() : i.LeaveTypeName,
-                        Remark = i.Remark
+                        TotalDays = i.TotalDays > 1 ? $"({i.TotalDays} days)" : string.Empty,
+                        RequestType = IsCheckInOutRequest(i.RequestType) ? i.RequestType.EnumToString().Trim() : DisplayLeaveTypeName(i.LeaveTypeName, i.TotalDays),
+                        Remark = IsCheckInOutRequest(i.RequestType) ? "-" : i.Remark,
+                        CallbackUrl = appSetting.BaseUrl,
+                        CreatedDate = i.CreatedDate.ToFormattedDateTime()
                     })
                 });
 
             return needApprovedRequests;
         }
 
-        private static string DisplayTotalDays(decimal totalDays)
-        {
-            if (totalDays == 0) return string.Empty;
-            else if (totalDays <= 1) return $"{totalDays} day";
-            return $"{totalDays} days";
-        }
+        private static string DisplayLeaveTypeName(string leaveTypeName, decimal totalDays) =>
+            string.Format("{0}{1}", leaveTypeName, totalDays < 1 ? " (½)" : string.Empty).Trim();
 
         private static string GenerateDisplayDate(DateTime? from, DateTime? to, RequestType requestType, decimal totalDays, string shiftName)
         {
@@ -717,7 +720,7 @@
             }
             else if (totalDays < 1)
             {
-                displayDate = string.Format("{0}({1}-{2})", from.Value.ToDateMonthYearFormatedDate(), from.Value.ToString("HH:mm"), to.Value.ToString("HH:mm"));
+                displayDate = string.Format("{0} ({1} > {2})", from.Value.ToDateMonthYearFormatedDate(), from.Value.ToString("HH:mm"), to.Value.ToString("HH:mm"));
             }
             else
             {
@@ -737,15 +740,15 @@
 
             if (from.Value.Year == to.Value.Year && from.Value.Month == to.Value.Month)
             {
-                return $"{from.Value.ToString("dd")} - {to.Value.ToDateMonthYearFormatedDate()}";
+                return $"{from.Value.ToString("dd")} > {to.Value.ToDateMonthYearFormatedDate()}";
             }
 
             if (from.Value.Year == to.Value.Year && from.Value.Month != to.Value.Month)
             {
-                return $"{from.Value.ToString("dd, MMM")} - {to.Value.ToDateMonthYearFormatedDate()}";
+                return $"{from.Value.ToString("dd, MMM")} > {to.Value.ToDateMonthYearFormatedDate()}";
             }
 
-            return $"{from.Value.ToDateMonthYearFormatedDate()} - {to.Value.ToDateMonthYearFormatedDate()}";
+            return $"{from.Value.ToDateMonthYearFormatedDate()} > {to.Value.ToDateMonthYearFormatedDate()}";
         }
     }
 }

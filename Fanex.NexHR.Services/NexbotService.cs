@@ -441,6 +441,7 @@
                     {"conversationId", approver.ConversationId},
                     {"totalRequest", approver.TotalRequest.ToString()},
                     {"requestIds", approver.RequestIds },
+                    {"callbackUrl", approver.CallbackUrl},
                     {"stringRequests", JsonConvert.SerializeObject(approver.Requests.ToArray())},
                 };
 

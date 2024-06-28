@@ -1,9 +1,11 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using Fanex.NexHR.Core;
+    using Fanex.NexHR.Models.Request;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Newtonsoft.Json;
@@ -33,19 +35,26 @@
         public async Task<IActionResult> ProcessMultipleRequest(string requestIds, string command, int processedBy)
         {
             var requests = requestIds.Split(',').Select(long.Parse);
+            var results = new List<ProcessRequestResult>();
             foreach (var requestId in requests)
             {
-                await requestService.Process(command, requestId, processedBy);
+                //var result = await requestService.Process(command, requestId, processedBy) as ProcessRequestResult;
+                var result = new ProcessRequestResult
+                {
+                    Code = (new Random()).Next(0, 1),
+                };
+                result.RequestId = requestId;
+                results.Add(result);
             }
-            return Ok();
+            return Ok(results);
         }
 
         [HttpGet]
-        public async Task<IActionResult> RemindApproveRequest()
+        public async Task<IActionResult> RemindApproveRequest(string name)
         {
             DateTime now = DateTime.Now.Date;
             var pendingRequest = await requestService.GetPendingRequestGroupByApproverAsync();
-            await nexbotService.SendMultipleRequestsToApprover(pendingRequest.FirstOrDefault(r => r.ApproverNickname == "Viet"));
+            await nexbotService.SendMultipleRequestsToApprover(pendingRequest.FirstOrDefault(r => r.ApproverNickname == name));
 
             //foreach (var request in pendingRequest)
             //{

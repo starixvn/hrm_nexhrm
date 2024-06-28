@@ -9,6 +9,8 @@
         public int EmpId { get; set; }
         public string Requester { get; set; }
         public string FullNameRequester { get; set; }
+        public string TeamName { get; set; }
+        public string Code { get; set; }
         public string FromShift { get; set; }
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
