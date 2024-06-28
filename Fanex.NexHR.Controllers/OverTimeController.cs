@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
     using Criteria.Employee;
@@ -10,10 +11,12 @@
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Resources;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.Overtime;
     using Newtonsoft.Json;
+    using OfficeOpenXml;
     using Services.Interfaces;
     using ViewModels.Overtime;
 
@@ -519,6 +522,37 @@
             var nexHour = await overtimeService.GetNexHour(criteria);
             model.NexHour = nexHour.Value;
             return PartialView("_CreateEmployeeRecord", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Upload(IFormFile file)
+        {
+            var dataList = new List<OvertimeExcelDataViewModel>();
+            if (file != null && file.Length > 0 && Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
+            {
+                using (var stream = new MemoryStream())
+                {
+                    await file.CopyToAsync(stream);
+                    using (var package = new ExcelPackage(stream))
+                    {
+                        var workSheet = package.Workbook.Worksheets[0];
+                        var rowCount = workSheet.Dimension.Rows;
+
+                        for (int row = 2; row <= rowCount; row++)
+                        {
+                            var data = new OvertimeExcelDataViewModel
+                            {
+                                Employee = workSheet.Cells[row, 1].Text,
+                                Date = DateTime.Parse(workSheet.Cells[row, 2].Text),
+                                Duration = int.Parse(workSheet.Cells[row, 3].Text),
+                                Notes = workSheet.Cells[row, 4].Text
+                            };
+                            dataList.Add(data);
+                        }
+                    }
+                }
+            }
+            return Json(dataList);
         }
 
         [HrmAuthorize(UserRoles = "AssistantLeader,HR,PM")]

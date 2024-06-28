@@ -12,6 +12,7 @@
     <ProjectReference Include="..\Fanex.NexHR.ViewModels\Fanex.NexHR.ViewModels.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="ExcelDataReader.DataSet" Version="3.7.0" />
     <PackageReference Include="Fanex.Data.SqlServer" Version="4.2.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.9" />
     <PackageReference Include="Novell.Directory.Ldap.NETStandard" Version="3.6.0" />

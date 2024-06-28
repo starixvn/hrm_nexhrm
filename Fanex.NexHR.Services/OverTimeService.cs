@@ -1,5 +1,9 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Core;
     using Criteria.Employee;
     using Criteria.Overtime;
@@ -9,10 +13,6 @@
     using Models;
     using Models.Overtime;
     using Repositories.Interfaces;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Threading.Tasks;
     using ViewModels.Overtime;
 
     public class OvertimeService : IOvertimeService

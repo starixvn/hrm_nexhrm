@@ -122,7 +122,7 @@ var manageOvertime = (function ($) {
         return false;
     }
 
-    function initEmployeeAutocomplete() {
+    function initEmployeeAutocomplete() { 
         $("#Employee").autocomplete({
             source: function (request, response) {
                 var term = request.term;
@@ -251,6 +251,27 @@ var manageOvertime = (function ($) {
         initEmployeeAutocomplete();
         initExistRow();
         registersubmit();
+
+        $("#uploadfile").on("click", function (event) {
+            event.preventDefault();
+
+            let formData = new FormData();
+            let fileInput = document.getElementById('fileInput');
+            let file = fileInput.files[0];
+            formData.append('file', file);
+
+            fetch('/OverTime/Upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+                console.log('Success:', result);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
     }
 
     function notifySuccessed() {
