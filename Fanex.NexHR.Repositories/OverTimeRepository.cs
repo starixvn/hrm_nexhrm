@@ -79,24 +79,6 @@
             }
         }
 
-        public async Task<IList<EmployeeOvertime>> GetEmployeeOvertime(ICriteria criteria)
-        {
-            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
-            {
-                var employeeOvertimes = await db.QueryAsync<EmployeeOvertime, Employee, Employee, EmployeeOvertime>(
-                    (o, e, cr) =>
-                    {
-                        o.Employee = e;
-                        o.CreatedBy = cr;
-                        return o;
-                    },
-                    "EmployeeId, CreatedId",
-                    criteria);
-
-                return employeeOvertimes.ToList();
-            }
-        }
-
         public async Task<IList<OvertimeSummary>> GetOvertimeSummary(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))

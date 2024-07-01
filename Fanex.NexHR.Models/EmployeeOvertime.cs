@@ -16,8 +16,10 @@
 
         public int Status { get; set; }
 
-        public Employee CreatedBy { get; set; }
+        public string CreatedBy { get; set; }
 
-        public Employee Employee { get; set; }
+        public string EmployeeNickName { get; set; }
+
+        public string EmployeeFullName { get; set; }
     }
 }

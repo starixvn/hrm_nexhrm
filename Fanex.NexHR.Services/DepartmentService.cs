@@ -5,39 +5,27 @@
     using Criteria.Department;
     using Interfaces;
     using Models;
-    using Repositories;
-    using Repositories.Interfaces;
 
     public class DepartmentService : IDepartmentService
     {
-        private readonly IDepartmentRepository departmentRepository;
+        private readonly IBaseService baseService;
 
-        public DepartmentService(IDepartmentRepository departmentRepository)
+        public DepartmentService(IBaseService baseService)
         {
-            this.departmentRepository = departmentRepository ?? new DepartmentRepository();
+            this.baseService = baseService;
         }
 
-        public async Task<IList<Department>> GetAll()
+        public async Task<IEnumerable<Department>> GetAll()
         {
             var criteria = new GetAllDepartmentCriteria();
-            IList<Department> departments = null;
+            var departments = await baseService.GetDataAsync<Department>(criteria);
 
-            if (criteria.IsValid())
-            {
-                departments = await departmentRepository.GetAll(criteria);
-            }
-
-            return departments ?? new List<Department>();
+            return departments;
         }
 
         public async Task<Department> GetDepartmentById(GetDepartmentByIdCriteria criteria)
         {
-            Department department = null;
-            if (criteria != null && criteria.IsValid())
-            {
-                department = await departmentRepository.GetDepartmentById(criteria);
-            }
-
+            var department = await baseService.GetDataEntityAsync<Department>(criteria);
             return department;
         }
     }

@@ -66,24 +66,14 @@
 
         public async Task<IList<EmployeeOvertime>> GetEmployeeOvertime(GetEmployeeOvertimeCriteria criteria)
         {
-            IList<EmployeeOvertime> overtimes = null;
-            if (criteria != null && criteria.IsValid())
-            {
-                overtimes = await overtimeRepository.GetEmployeeOvertime(criteria);
-            }
-
-            return overtimes ?? new List<EmployeeOvertime>();
+            var overtimes = await baseService.GetDataAsync<EmployeeOvertime>(criteria);
+            return overtimes.ToList();
         }
 
         public async Task<IList<EmployeeOvertime>> GetMyOvertime(GetMyOvertimeCriteria criteria)
         {
-            IList<EmployeeOvertime> overtimes = null;
-            if (criteria != null && criteria.IsValid())
-            {
-                overtimes = await overtimeRepository.GetEmployeeOvertime(criteria);
-            }
-
-            return overtimes ?? new List<EmployeeOvertime>();
+            var overtimes = await baseService.GetDataAsync<EmployeeOvertime>(criteria);
+            return overtimes.ToList();
         }
 
         public async Task<IList<OvertimeSummary>> GetOvertimeSummary(OvertimeSummaryCriteria criteria)

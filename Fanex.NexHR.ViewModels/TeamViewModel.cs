@@ -23,7 +23,7 @@
         [Display(Name = "Parent Team")]
         public int? ParentId { get; set; }
 
-        public IList<Department> Departments { get; set; }
+        public IEnumerable<Department> Departments { get; set; }
 
         public IList<Team> Teams { get; set; }
     }

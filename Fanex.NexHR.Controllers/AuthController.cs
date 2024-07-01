@@ -12,7 +12,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Novell.Directory.Ldap;
 
-    public class AuthController : Microsoft.AspNetCore.Mvc.Controller
+    public class AuthController : Controller
     {
         private readonly IAuthService authService;
         private readonly ISessionService sessionService;

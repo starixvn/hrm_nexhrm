@@ -12,8 +12,6 @@
 
         Task<Overtime> GetOvertimeById(ICriteria criteria);
 
-        Task<IList<EmployeeOvertime>> GetEmployeeOvertime(ICriteria criteria);
-
         Task<IList<OvertimeSummary>> GetOvertimeSummary(ICriteria criteria);
 
         Task<IList<OvertimeConversion>> GetConversions(ICriteria criteria);

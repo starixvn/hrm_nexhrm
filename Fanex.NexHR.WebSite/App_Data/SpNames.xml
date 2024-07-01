@@ -16,12 +16,7 @@
             <Mapping DataField="GroupId" ObjectProperty="Id" />
             <Mapping DataField="JobTitleId" ObjectProperty="Id" />
         </Setting>
-        <Setting Key="Employee_GetByDomainName" SpName="Employee_GetByDomainName" DbName="nexhr" Plain="0">
-            <Mapping DataField="DOB" ObjectProperty="DateOfBirth" />
-            <Mapping DataField="IdCardNumber" ObjectProperty="CardNo" />
-            <Mapping DataField="GroupId" ObjectProperty="Id" />
-            <Mapping DataField="JobTitleId" ObjectProperty="Id" />
-        </Setting>
+        <Setting Key="Employee_GetByDomainName" SpName="Employee_GetByDomainName" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_GetByUsername" SpName="Employee_GetByUsername" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_GetByNickName" SpName="Employee_GetByNickName" DbName="nexhr" Plain="0">
             <Mapping DataField="DOB" ObjectProperty="DateOfBirth" />
@@ -210,11 +205,7 @@
         <Setting Key="TOEIC_GetUpdatingScoreRelatedPeople" SpName="TOEIC_GetUpdatingScoreRelatedPeople" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Department">
-        <Setting Key="Department_Get" SpName="Department_Get" DbName="nexhr" Plain="0">
-            <Mapping DataField="CreatedBy" ObjectProperty="Id" ></Mapping>
-            <Mapping DataField="ManagerId" ObjectProperty="Id" ></Mapping>
-            <Mapping DataField="ModifiedBy" ObjectProperty="Id" ></Mapping>
-        </Setting>
+        <Setting Key="Department_Get" SpName="Department_Get" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Department_Insert" SpName="Department_Insert" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Department_Update" SpName="Department_Update" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Department_GetById" SpName="Department_GetById" DbName="nexhr" Plain="0"></Setting>
@@ -298,14 +289,7 @@
             <Mapping DataField="CreatedNickName" ObjectProperty="NickName" />
             <Mapping DataField="CreatedFullName" ObjectProperty="FullName" />
         </Setting>
-        <Setting Key="Overtime_ReportDetail" SpName="Overtime_ReportDetail" DbName="nexhr" Plain="0">
-            <Mapping DataField="CreatedBy" ObjectProperty="Id" />
-            <Mapping DataField="CreatedNickName" ObjectProperty="NickName" />
-            <Mapping DataField="CreatedFullName" ObjectProperty="FullName" />
-            <Mapping DataField="EmployeeId" ObjectProperty="Id" />
-            <Mapping DataField="EmployeeNickName" ObjectProperty="NickName" />
-            <Mapping DataField="EmployeeFullName" ObjectProperty="FullName" />
-        </Setting>
+        <Setting Key="Overtime_ReportDetail" SpName="Overtime_ReportDetail" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Overtime_RejectRequest" SpName="Overtime_RejectRequest" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Overtime_GetById" SpName="Overtime_GetById" DbName="nexhr" Plain="0">
             <Mapping DataField="CreatedId" ObjectProperty="Id" />

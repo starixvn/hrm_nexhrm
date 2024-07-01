@@ -1,17 +1,9 @@
 ﻿namespace Fanex.NexHR.Models
 {
     using System;
-    using System.Collections.Generic;
 
     public class Department : EntityBase<int>
     {
-        public Department()
-        {
-            Children = new List<Department>();
-        }
-
-        public Department Parent { get; set; }
-
         public DateTime? ModifiedDate { get; set; }
 
         public bool IsDisabled { get; set; }
@@ -23,13 +15,5 @@
         public DateTime? CreatedDate { get; set; }
 
         public DateTime? DisabledDate { get; set; }
-
-        public Employee Creator { get; set; }
-
-        public Employee Manager { get; set; }
-
-        public Employee Modifier { get; set; }
-
-        public IList<Department> Children { get; set; }
     }
 }

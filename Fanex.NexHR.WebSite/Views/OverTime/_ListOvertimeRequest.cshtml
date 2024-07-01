@@ -13,8 +13,8 @@
     {
         <tr>
             <td>@(index++)</td>
-            <td>@item.Employee.NickName</td>
-            <td class="align-left">@item.Employee.FullName</td>
+            <td>@item.EmployeeNickName</td>
+            <td class="align-left">@item.EmployeeFullName</td>
             <td>@item.OnDate.ToDateMonthYearFormatedDate()</td>
             <td>@item.Hour</td>
             <td class="align-left">
@@ -46,7 +46,7 @@
             {
                 <td>-</td>
             }
-            <td>@item.CreatedBy.NickName</td>
+            <td>@item.CreatedBy</td>
             @if (item.Status == (int)RequestStatuse.Approve)
             {
                 <td>@Labels.Approved</td>
