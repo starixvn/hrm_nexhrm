@@ -692,8 +692,7 @@
                         TeamName = i.TeamName,
                         FullName = i.FullNameRequester,
                         ApproverId = i.ApproverId,
-                        Avatar = string.Format("{0}/Avatars/{1}.jpg", "https://hrm.nexdev.net", i.Code),
-                        //Avatar = string.Format("{0}/Avatars/{1}.jpg", appSetting.BaseUrl, i.Code),
+                        Avatar = string.Format("{0}/Avatars/{1}.jpg", appSetting.BaseUrl, i.Code),
                         IsLeaveRequest = !IsCheckInOutRequest(i.RequestType),
                         DateDetails = GenerateDisplayDate(i.FromDate, i.ToDate, i.RequestType, i.TotalDays, i.FromShift),
                         FromDate = i.FromDate.ToDateMonthYearFormatedDate(),
@@ -701,7 +700,8 @@
                         RequestType = IsCheckInOutRequest(i.RequestType) ? i.RequestType.EnumToString().Trim() : DisplayLeaveTypeName(i.LeaveTypeName, i.TotalDays),
                         Remark = IsCheckInOutRequest(i.RequestType) ? "-" : i.Remark,
                         CallbackUrl = appSetting.BaseUrl,
-                        CreatedDate = i.CreatedDate.ToFormattedDateTime()
+                        CreatedDate = i.CreatedDate.ToFormattedDateTime(),
+                        CreatedAt = i.CreatedDate
                     })
                 });
 

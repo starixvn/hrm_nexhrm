@@ -38,31 +38,30 @@
             var results = new List<ProcessRequestResult>();
             foreach (var requestId in requests)
             {
-                //var result = await requestService.Process(command, requestId, processedBy) as ProcessRequestResult;
-                var result = new ProcessRequestResult
+                var result = await requestService.Process(command, requestId, processedBy);
+                results.Add(new ProcessRequestResult
                 {
-                    Code = (new Random()).Next(0, 1),
-                };
-                result.RequestId = requestId;
-                results.Add(result);
+                    RequestId = requestId,
+                    Code = result.Code,
+                    Message = result.Message
+                });
             }
             return Ok(results);
         }
 
         [HttpGet]
-        public async Task<IActionResult> RemindApproveRequest(string name)
+        public async Task<IActionResult> RemindApproveRequest()
         {
             DateTime now = DateTime.Now.Date;
             var pendingRequest = await requestService.GetPendingRequestGroupByApproverAsync();
-            await nexbotService.SendMultipleRequestsToApprover(pendingRequest.FirstOrDefault(r => r.ApproverNickname == name));
 
-            //foreach (var request in pendingRequest)
-            //{
-            //    if (request.Requests.Any(r => (now - r.CreatedDate.Date).TotalDays >= 3))
-            //    {
-            //        await nexbotService.SendMultipleRequestsToApprover(request);
-            //    }
-            //}
+            foreach (var request in pendingRequest)
+            {
+                if (request.Requests.Any(r => (now - r.CreatedAt.Date).TotalDays >= 3))
+                {
+                    await nexbotService.SendMultipleRequestsToApprover(request);
+                }
+            }
             return Ok();
         }
 

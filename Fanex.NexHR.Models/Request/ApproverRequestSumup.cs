@@ -39,5 +39,6 @@
         public string DateDetails { get; set; }
         public string CallbackUrl { get; set; }
         public string CreatedDate { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }
