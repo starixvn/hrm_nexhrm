@@ -756,7 +756,7 @@
   <data name="Department" xml:space="preserve">
     <value>Department</value>
   </data>
-   <data name="DepartmentManagement" xml:space="preserve">
+  <data name="DepartmentManagement" xml:space="preserve">
     <value>Department Management</value>
   </data>
   <data name="Manager" xml:space="preserve">
@@ -1945,7 +1945,7 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   <data name="FlowSetting" xml:space="preserve">
     <value>Flow Setting</value>
   </data>
-    <data name="NewPersonalSetting" xml:space="preserve">
+  <data name="NewPersonalSetting" xml:space="preserve">
     <value>New Personal Setting</value>
   </data>
   <data name="PageSize" xml:space="preserve">
@@ -1977,5 +1977,10 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   </data>
   <data name="OnTop" xml:space="preserve">
     <value>On Top</value>
+  </data>
+  <data name="NotifyCheckInMessageContent" xml:space="preserve">
+    <value>Dear {0}
+	This is a message to inform you that you just have a "checkin" record for today working on the HRM system as below:
+	- Checkin time: **{1}**</value>
   </data>
 </root>

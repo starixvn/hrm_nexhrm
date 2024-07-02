@@ -13,6 +13,8 @@
         public float TotalWorkHours { get; set; }
 
         public string MessageContent =>
+            CheckInTime is not null && CheckInTime.HasValue ?
+            string.Format(Resources.Labels.NotifyCheckInMessageContent, Nickname, CheckInTime.Value.ToString("hh:mm tt")) :
             string.Format(Resources.Labels.NotifyCheckOutMessageContent,
                 Nickname,
                 CheckOutTime.ToString("hh:mm tt"),
