@@ -6,12 +6,14 @@
     using System.Threading.Tasks;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Models.Request;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Newtonsoft.Json;
     using Services.Interfaces;
 
-    // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class RequestController : ControllerBase
     {
         private readonly IRequestService requestService;
@@ -63,11 +65,6 @@
                 }
             }
             return Ok();
-        }
-
-        public IActionResult GetData()
-        {
-            return Ok("test");
         }
     }
 }

@@ -397,7 +397,7 @@
             }
         }
 
-        public async Task SendCheckoutNotification(CheckOutNotifyRecord checkoutRecord)
+        public async Task SendCheckoutNotification(CheckInCheckOutNotifyRecord checkoutRecord)
         {
             if (nexBotSettings.Enable)
             {
@@ -411,6 +411,22 @@
                 };
 
                 await SendHttpClientAsync<Task>("/messages/CheckoutNotification", HttpMethod.Post, data);
+            }
+        }
+
+        public async Task SendCheckinNotification(CheckInCheckOutNotifyRecord checkoutRecord)
+        {
+            if (nexBotSettings.Enable)
+            {
+                var data = new Dictionary<string, string>
+                {
+                    {"conversationId", checkoutRecord.ConversationId },
+                    {"nickName", checkoutRecord.Nickname},
+                    {"checkinTime", checkoutRecord.CheckInTime.Value.ToString("hh:mm tt")},
+                    {"messageContent", checkoutRecord.MessageContent},
+                };
+
+                await SendHttpClientAsync<Task>("/messages/CheckinNotification", HttpMethod.Post, data);
             }
         }
 

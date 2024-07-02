@@ -42,7 +42,9 @@
 
         Task<CommandResult> SendMessageReminderLateInEarlyOutMoreThanSixtyMinuteToEmp(IEnumerable<ReminderLateInEarlyOut> reminderLateInEarlyOuts);
 
-        Task SendCheckoutNotification(CheckOutNotifyRecord checkoutRecord);
+        Task SendCheckoutNotification(CheckInCheckOutNotifyRecord checkoutRecord);
+
+        Task SendCheckinNotification(CheckInCheckOutNotifyRecord checkoutRecord);
 
         Task SendReachedWorkingHoursNotification(WorkingHour workingHour);
 

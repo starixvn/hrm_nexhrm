@@ -9,5 +9,7 @@
         Task ImportDataFromBioStar();
 
         Task NotifyEmployeeAfterCheckOut();
+
+        Task NotifyEmployeeAfterCheckIn();
     }
 }

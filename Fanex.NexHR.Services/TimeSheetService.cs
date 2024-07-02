@@ -15,6 +15,7 @@
     {
         private const string CacheKeyIgnoredReminder = "UserIgnoredReminderReachedWorkingTime";
         private const string CacheKeyIgnoredCheckOutNotify = "UserIgnoredCheckOutNotify";
+        private const string CacheKeyIgnoredChecInNotify = "UserIgnoredCheckInNotify";
         private const int itemEachBatch = 10;
 
         private readonly INexbotService nexbotService;
@@ -110,7 +111,7 @@
             var currentDate = DateTimeOffset.Now.Date;
 
             var criteria = new GetEmployeeHadCheckOutCriteria();
-            var checkoutEmployees = await baseService.GetDataAsync<CheckOutNotifyRecord>(criteria);
+            var checkoutEmployees = await baseService.GetDataAsync<CheckInCheckOutNotifyRecord>(criteria);
 
             if (checkoutEmployees != null && checkoutEmployees.Any())
             {
@@ -127,15 +128,59 @@
             }
         }
 
-        private async Task DivideBatchAndSendMessageEmployeeCheckOut(IEnumerable<CheckOutNotifyRecord> checkoutRecords)
+        public async Task NotifyEmployeeAfterCheckIn()
         {
-            var batches = new List<List<CheckOutNotifyRecord>>();
+            var currentDate = DateTimeOffset.Now.Date;
 
-            int totalBatch = (int)Math.Ceiling((double)checkoutRecords.Count() / itemEachBatch);
+            var criteria = new GetEmployeeCheckinRecordCriteria();
+            var checkinEmployees = await baseService.GetDataAsync<CheckInCheckOutNotifyRecord>(criteria);
+
+            if (checkinEmployees != null && checkinEmployees.Any())
+            {
+                var ignoredUser = await GetUserIgnoredMessageByCategoryAsync(MessageCategory.CheckInNotification, CacheKeyIgnoredChecInNotify);
+                checkinEmployees = checkinEmployees.Where(t => !ignoredUser.Any(x => x.ConversationId == t.ConversationId)).ToList();
+
+                if (checkinEmployees.Any())
+                {
+                    await DivideBatchAndSendMessageEmployeeCheckIn(checkinEmployees);
+
+                    var employeeIds = string.Join(",", checkinEmployees.Select(t => t.EmployeeId));
+                    await WriteLogForSentSuccessful(employeeIds, currentDate, "NotifyCheckIn");
+                }
+            }
+        }
+
+        private static List<List<CheckInCheckOutNotifyRecord>> DivideBatchCheckInCheckOutNotificationRecord(IEnumerable<CheckInCheckOutNotifyRecord> records)
+        {
+            var batches = new List<List<CheckInCheckOutNotifyRecord>>();
+
+            int totalBatch = (int)Math.Ceiling((double)records.Count() / itemEachBatch);
             for (int i = 0; i < totalBatch; i++)
             {
-                batches.Add(checkoutRecords.Skip(i * itemEachBatch).Take(itemEachBatch).ToList());
+                batches.Add(records.Skip(i * itemEachBatch).Take(itemEachBatch).ToList());
             }
+            return batches;
+        }
+
+        private async Task DivideBatchAndSendMessageEmployeeCheckIn(IEnumerable<CheckInCheckOutNotifyRecord> checkinEmployees)
+        {
+            var batches = DivideBatchCheckInCheckOutNotificationRecord(checkinEmployees);
+
+            foreach (var batch in batches)
+            {
+                var tasks = new List<Task>();
+                foreach (var checkinRecord in batch)
+                {
+                    tasks.Add(nexbotService.SendCheckinNotification(checkinRecord));
+                }
+
+                await Task.WhenAll(tasks);
+            }
+        }
+
+        private async Task DivideBatchAndSendMessageEmployeeCheckOut(IEnumerable<CheckInCheckOutNotifyRecord> checkoutRecords)
+        {
+            var batches = DivideBatchCheckInCheckOutNotificationRecord(checkoutRecords);
 
             foreach (var batch in batches)
             {

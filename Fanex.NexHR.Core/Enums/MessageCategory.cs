@@ -35,6 +35,9 @@
         VegetarianRestration = 10,
 
         [Display(Name = "Notify after checked out")]
-        CheckOutNotification = 11
+        CheckOutNotification = 11,
+
+        [Display(Name = "Notify after checked in")]
+        CheckInNotification = 12
     }
 }

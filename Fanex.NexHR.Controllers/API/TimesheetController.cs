@@ -36,5 +36,12 @@
             await timeSheetService.NotifyEmployeeAfterCheckOut();
             return Ok();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> NotifyEmployeeAfterCheckIn()
+        {
+            await timeSheetService.NotifyEmployeeAfterCheckIn();
+            return Ok();
+        }
     }
 }

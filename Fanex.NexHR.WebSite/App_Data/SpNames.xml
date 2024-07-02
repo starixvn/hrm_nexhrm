@@ -432,6 +432,7 @@
         <Setting Key="LogReachedWorkingTime_Insert" SpName="LogReachedWorkingTime_Insert" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="TimeRecord_ImportData" SpName="TimeRecord_ImportData" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeAttendance_GetCheckOutTimeToNotify" SpName="EmployeeAttendance_GetCheckOutTimeToNotify" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="EmployeeAttendance_GetCheckInTimeToNotify" SpName="EmployeeAttendance_GetCheckInTimeToNotify" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Schedule">
         <Setting Key="MessageCategoryLog_CheckIfObjectNotChange" SpName="MessageCategoryLog_CheckIfObjectNotChange" DbName="nexhr" Plain="0"></Setting>
