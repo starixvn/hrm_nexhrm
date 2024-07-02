@@ -1,0 +1,48 @@
+﻿@using Fanex.NexHR.Models.Overtime;
+@model IEnumerable<StaffInfoNexHour>
+@{
+    var index = ViewBag.Index;
+}
+
+@{
+    foreach (var staff in Model)
+    {
+        index++;
+        var rowId = "row_" + staff.DisplayName;
+        var row_hour_Id = "row_hour_" + staff.DisplayName;
+        var row_note_Id = "note_" + staff.DisplayName;
+
+        <tr class="sortedIndex" id="@rowId">
+            <td>@index</td>
+            <td class="align-left row_name">
+                @staff.DisplayName
+            </td>
+            <td class="datepicker-td">
+                <div class="datepicker-button left select--s">
+                    <date-picker 
+                        name="Date"
+                        value="staff.Date"
+                    >
+                    </date-picker>
+                    <i class="mdi-action-event calendar-icon from-date left"></i>
+                </div>
+            </td>
+            <td>
+                <input asp-for="@staff.Hour" type="number" min="0.5" max="24" step="0.5" id="@row_hour_Id" class="row_hour" data-id="@staff.Id" />
+            </td>
+            <td class="row_nexhour">
+                @staff.NexHour
+            </td>
+            <td>
+                <div class="textarea-container">
+                    <textarea asp-for="@staff.Note" id="@row_note_Id" class="row_note"></textarea>
+                </div>
+            </td>
+            <td>
+                <a href="javascript:;" onclick="deleteRow(staff.DisplayName);">
+                    <i class="mdi mdi-delete mdi-dark"></i>
+                </a>
+            </td>
+        </tr>
+    }
+}

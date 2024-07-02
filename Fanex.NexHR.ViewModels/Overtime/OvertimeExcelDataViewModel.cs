@@ -4,9 +4,9 @@
 
     public class OvertimeExcelDataViewModel
     {
-        public string Employee { get; set; }
+        public string NickName { get; set; }
         public DateTime Date { get; set; }
-        public int Duration { get; set; }
+        public float Duration { get; set; }
         public string Notes { get; set; }
     }
 }

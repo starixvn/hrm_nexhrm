@@ -1,6 +1,8 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
@@ -10,8 +12,10 @@
     using Fanex.NexHR.Models.Core;
     using Interfaces;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Models;
     using Models.Overtime;
+    using OfficeOpenXml;
     using Repositories.Interfaces;
     using ViewModels.Overtime;
 
@@ -101,6 +105,38 @@
         public async Task<NexHour> GetNexHour(GetNexHourCriteria criteria)
         {
             return await baseService.GetDataEntityAsync<NexHour>(criteria);
+        }
+
+        public async Task<IEnumerable<StaffInfoNexHour>> GetListStaffInfoNexHourAsync(GetListStaffInfoNexHourCriteria criteria)
+        {
+            return await baseService.GetDataAsync<StaffInfoNexHour>(criteria);
+        }
+
+        public async Task<IEnumerable<OvertimeExcelDataViewModel>> GetEmployeesFromFileExcel(IFormFile file)
+        {
+            var dataList = new List<OvertimeExcelDataViewModel>();
+            if (file is { Length: > 0 } && Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
+            {
+                using var stream = new MemoryStream();
+                await file.CopyToAsync(stream);
+                using var package = new ExcelPackage(stream);
+                var workSheet = package.Workbook.Worksheets[0];
+                var rowCount = workSheet.Dimension.Rows;
+
+                for (var row = 2; row <= rowCount; row++)
+                {
+                    var data = new OvertimeExcelDataViewModel
+                    {
+                        NickName = workSheet.Cells[row, 1].Text,
+                        Date = Convert.ToDateTime(workSheet.Cells[row, 2].Text, CultureInfo.InvariantCulture),
+                        Duration = float.Parse(workSheet.Cells[row, 3].Text),
+                        Notes = workSheet.Cells[row, 4].Text
+                    };
+                    dataList.Add(data);
+                }
+            }
+
+            return dataList;
         }
 
         public async Task<IList<Overtime>> GetReportOvertimeHR(ReportOvertimeHRCriteria criteria)

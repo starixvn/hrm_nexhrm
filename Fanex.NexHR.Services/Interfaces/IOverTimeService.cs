@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Criteria.Overtime;
+    using Microsoft.AspNetCore.Http;
     using Models;
     using Models.Overtime;
     using ViewModels.Overtime;
@@ -20,6 +21,8 @@
         Task<IList<OvertimeSummary>> GetOvertimeSummary(OvertimeSummaryCriteria criteria);
 
         Task<IList<OvertimeConversion>> GetConversions(GetOvertimeConversionsCriteria criteria);
+        Task<IEnumerable<StaffInfoNexHour>> GetListStaffInfoNexHourAsync(GetListStaffInfoNexHourCriteria criteria);
+        Task<IEnumerable<OvertimeExcelDataViewModel>> GetEmployeesFromFileExcel(IFormFile file);
 
         Task<NexHour> GetNexHour(GetNexHourCriteria criteria);
 

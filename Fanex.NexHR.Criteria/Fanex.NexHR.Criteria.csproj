@@ -5,6 +5,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Fanex.NexHR.Core\Fanex.NexHR.Core.csproj" />
     <ProjectReference Include="..\Fanex.NexHR.Models\Fanex.NexHR.Models.csproj" />
+    <ProjectReference Include="..\Fanex.NexHR.ViewModels\Fanex.NexHR.ViewModels.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Fanex.Data" Version="4.2.5.3" />

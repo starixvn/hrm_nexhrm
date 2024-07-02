@@ -255,10 +255,12 @@ var manageOvertime = (function ($) {
         $("#uploadfile").on("click", function (event) {
             event.preventDefault();
 
+            let index = $("#timeSheets").find("tr.sortedIndex").length;
             let formData = new FormData();
             let fileInput = document.getElementById('fileInput');
             let file = fileInput.files[0];
             formData.append('file', file);
+            formData.append('index', index);
 
             fetch('/OverTime/Upload', {
                 method: 'POST',
@@ -267,10 +269,16 @@ var manageOvertime = (function ($) {
             .then(response => response.text())
             .then(result => {
                 console.log('Success:', result);
+                if ($("#timeSheets").find("tr.sortedIndex").length === 0) {
+                    const myNode = document.getElementById("timeSheets");
+                    myNode.innerHTML = '';
+                    $('#timeSheets').append(result);
+                }
+                else {
+                    $('#timeSheets').append(result);
+
+                }
             })
-            .catch(error => {
-                console.error('Error:', error);
-            });
         });
     }
 

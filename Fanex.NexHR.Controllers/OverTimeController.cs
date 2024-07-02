@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
     using Criteria.Employee;
@@ -16,7 +15,6 @@
     using Models;
     using Models.Overtime;
     using Newtonsoft.Json;
-    using OfficeOpenXml;
     using Services.Interfaces;
     using ViewModels.Overtime;
 
@@ -512,7 +510,7 @@
         [HttpPost]
         public async Task<IActionResult> CreateEmployeeRecord(OvertimeRecord model, int index)
         {
-            ViewData["index"] = index;
+            ViewBag.Index = index;
             var criteria = new GetNexHourCriteria
             {
                 EmployeeId = model.Employee.Id,
@@ -525,34 +523,16 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Upload(IFormFile file)
+        public async Task<IActionResult> Upload(IFormFile file, int index)
         {
-            var dataList = new List<OvertimeExcelDataViewModel>();
-            if (file != null && file.Length > 0 && Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
+            ViewData["index"] = index;
+            var dataList = await overtimeService.GetEmployeesFromFileExcel(file);
+            var listStaffInfoNexHour = await overtimeService.GetListStaffInfoNexHourAsync(new GetListStaffInfoNexHourCriteria()
             {
-                using (var stream = new MemoryStream())
-                {
-                    await file.CopyToAsync(stream);
-                    using (var package = new ExcelPackage(stream))
-                    {
-                        var workSheet = package.Workbook.Worksheets[0];
-                        var rowCount = workSheet.Dimension.Rows;
+                OvertimeExcelData = dataList
+            });
 
-                        for (int row = 2; row <= rowCount; row++)
-                        {
-                            var data = new OvertimeExcelDataViewModel
-                            {
-                                Employee = workSheet.Cells[row, 1].Text,
-                                Date = DateTime.Parse(workSheet.Cells[row, 2].Text),
-                                Duration = int.Parse(workSheet.Cells[row, 3].Text),
-                                Notes = workSheet.Cells[row, 4].Text
-                            };
-                            dataList.Add(data);
-                        }
-                    }
-                }
-            }
-            return Json(dataList);
+            return PartialView("_CreateImportEmployeeRecord", listStaffInfoNexHour);
         }
 
         [HrmAuthorize(UserRoles = "AssistantLeader,HR,PM")]

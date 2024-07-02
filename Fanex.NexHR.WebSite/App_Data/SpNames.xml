@@ -66,6 +66,7 @@
         <Setting Key="HistoryWork_Delete" SpName="HistoryWork_Delete" DbName="nexhr" Plain="0"></Setting>
 
         <Setting Key="Employee_UpdateTeamAndGrade" SpName="Employee_UpdateTeamAndGrade" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="Employee_GetListStaffInfoNexHour" SpName="Employee_GetListStaffInfoNexHour" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="GroupSupervisor">
         <Setting Key="GroupSupervisor_Get" SpName="GroupSupervisor_Get" DbName="nexhr" Plain="0"></Setting>
