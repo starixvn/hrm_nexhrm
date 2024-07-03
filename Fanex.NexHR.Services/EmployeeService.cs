@@ -83,12 +83,6 @@
             return employees;
         }
 
-        public async Task<DefaultSchedule> GetEmployeeShift(GetEmployeeShiftCriteria criteria)
-        {
-            DefaultSchedule defaultSchedule = await baseService.GetDataEntityAsync<DefaultSchedule>(criteria);
-            return defaultSchedule;
-        }
-
         public async Task<MySpaceViewModel> GetMySpace(GetMySpaceCriteria criteria)
         {
             MySpaceViewModel space = new MySpaceViewModel();

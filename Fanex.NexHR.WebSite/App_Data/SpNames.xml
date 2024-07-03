@@ -24,9 +24,6 @@
             <Mapping DataField="GroupId" ObjectProperty="Id" />
             <Mapping DataField="JobTitleId" ObjectProperty="Id" />
         </Setting>
-        <Setting Key="EmployeeOnline_GetAllStatus" SpName="EmployeeOnline_GetAllStatus" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="EmployeeOnline_UpdateStatus" SpName="EmployeeOnline_UpdateStatus" DbName="nexhr" Plain="0"></Setting>
-
         <Setting Key="EmployeeSetting_Get" SpName="EmployeeSetting_Get" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_GetBirthdayAndFirstWorkingday" SpName="Employee_GetBirthdayAndFirstWorkingday" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_Insert" SpName="Employee_Insert" DbName="nexhr" Plain="0"></Setting>
@@ -81,7 +78,6 @@
     </Function>
     <Function Name="EmployeeSupervisor">
         <Setting Key="EmployeeSupervisor_Get" SpName="EmployeeSupervisor_Get" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="EmployeeSupervisor_GetById" SpName="EmployeeSupervisor_GetById" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeSupervisor_Insert" SpName="EmployeeSupervisor_Insert" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeSupervisor_Update" SpName="EmployeeSupervisor_Update" DbName="nexhr" Plain="0"></Setting>
     </Function>
@@ -224,9 +220,7 @@
         <Setting Key="TimeRecord_EditInsertCheckInOutTime" SpName="TimeRecord_EditInsertCheckInOutTime" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Report">
-        <Setting Key="Report_EmployeeDashBoard" SpName="Report_EmployeeDashBoard" DbName="nexhr" Plain="0">
-            <Mapping DataField="EmpId" ObjectProperty="Id" />
-        </Setting>
+        <Setting Key="Report_EmployeeDashBoard" SpName="Report_EmployeeDashBoard" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Report_CompanySpaceDashBoard" SpName="Report_CompanySpaceDashBoard" DbName="nexhr" Plain="0">
             <Mapping DataField="EmpId" ObjectProperty="Id" />
         </Setting>

@@ -141,11 +141,10 @@
             services.AddSingleton<ITransferService, TransferService>();
             services.AddSingleton<IPositionService, PositionService>();
             services.AddSingleton<ISupervisorFlowService, SupervisorFlowService>();
-            services.AddSingleton<ICryptoService, CryptoService>();
+            services.AddSingleton<ICryptoService, CryptoService>(); 
 
             //API Service
             services.AddSingleton<IBotBioTasksService, BioTasksService>();
-            services.AddSingleton<IEmployeeOnlineService, EmployeeOnlineService>();
             services.AddSingleton<IBotFogotLogtimeReminderService, FogotLogtimeReminderService>();
             services.AddSingleton<IBotLateInLateOutAutoJobService, BotLateInEarlyOutViolateOnMonthWarningSerivce>();
             services.AddSingleton<IBotAutoJobService, BotMissingCheckInCheckOutReminderSerivce>();

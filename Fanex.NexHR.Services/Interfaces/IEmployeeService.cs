@@ -24,8 +24,6 @@
 
         Task<IEnumerable<Employee>> GetMembersByManager(GetMemberByManagerCriteria criteria);
 
-        Task<DefaultSchedule> GetEmployeeShift(GetEmployeeShiftCriteria criteria);
-
         Task<MySpaceViewModel> GetMySpace(GetMySpaceCriteria criteria);
 
         Task<HRLeaderDashboardModel> GetHRLeaderDashboard(GetHRLeaderDashboardCriteria criteria);
