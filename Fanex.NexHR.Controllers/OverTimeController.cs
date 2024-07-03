@@ -510,7 +510,7 @@
         [HttpPost]
         public async Task<IActionResult> CreateEmployeeRecord(OvertimeRecord model, int index)
         {
-            ViewBag.Index = index;
+            ViewData["index"] = index;
             var criteria = new GetNexHourCriteria
             {
                 EmployeeId = model.Employee.Id,
@@ -523,15 +523,20 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Upload(IFormFile file, int index)
+        public async Task<IActionResult> Upload(IFormFile file)
         {
-            ViewData["index"] = index;
             var dataList = await overtimeService.GetEmployeesFromFileExcel(file);
             var listStaffInfoNexHour = await overtimeService.GetListStaffInfoNexHourAsync(new GetListStaffInfoNexHourCriteria()
             {
                 OvertimeExcelData = dataList
             });
+            return Json(listStaffInfoNexHour);
+        }
 
+        [HttpPost]
+        public IActionResult CreateImportEmployeeRecord(IEnumerable<StaffInfoNexHour> listStaffInfoNexHour, int index)
+        {
+            ViewBag.Index = index;
             return PartialView("_CreateImportEmployeeRecord", listStaffInfoNexHour);
         }
 

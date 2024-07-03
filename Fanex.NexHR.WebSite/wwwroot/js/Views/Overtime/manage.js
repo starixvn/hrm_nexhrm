@@ -267,17 +267,38 @@ var manageOvertime = (function ($) {
                 body: formData
             })
             .then(response => response.text())
-            .then(result => {
-                console.log('Success:', result);
-                if ($("#timeSheets").find("tr.sortedIndex").length === 0) {
-                    const myNode = document.getElementById("timeSheets");
-                    myNode.innerHTML = '';
-                    $('#timeSheets').append(result);
-                }
-                else {
-                    $('#timeSheets').append(result);
+                .then(result => {
+                    const listStaffInfoNexHour = $.parseJSON(result);
 
-                }
+                    $.ajax({
+                        url: _global.root + 'Overtime/CreateImportEmployeeRecord',
+                        type: 'POST',
+                        dataType: 'html',
+                        data: {
+                            listStaffInfoNexHour: listStaffInfoNexHour,
+                            index: index
+                        },
+                        success: function (res) {
+                            if ($("#timeSheets").find("tr.sortedIndex").length === 0) {
+                                const myNode = document.getElementById("timeSheets");
+                                myNode.innerHTML = '';
+                                $('#timeSheets').append(res);
+                            }
+                            else {
+                                $('#timeSheets').append(res);
+                            }
+                        }
+                    });
+
+                    for (const element of listStaffInfoNexHour) {
+                        let elementRow = "tr.sortedIndex#row_" + element.Unique;
+                        $(elementRow).find('input.datepicker').first().attr('id', 'datepicker_' + element.Unique).attr('name', 'datepicker_' + element.Unique);
+                        initDatePicker();
+                        registerChangeNexHourEvent(elementRow, "#row_hour_" + element.Unique);           // hour
+                        registerChangeNexHourEvent(elementRow, '#datepicker_' + element.Unique);      // date
+                    }
+
+                
             })
         });
     }
