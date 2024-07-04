@@ -247,12 +247,26 @@ var manageOvertime = (function ($) {
         }
     }
 
-    function init() {
-        initEmployeeAutocomplete();
-        initExistRow();
-        registersubmit();
+    function showDataImportFileExcel(res, listStaffInfoNexHour) {
+        if ($("#timeSheets").find("tr.sortedIndex").length === 0) {
+            const myNode = document.getElementById("timeSheets");
+            myNode.innerHTML = '';
+            $('#timeSheets').append(res);
+        }
+        else {
+            $('#timeSheets').append(res);
+        }
+        for (const element of listStaffInfoNexHour) {
+            let elementRow = "tr.sortedIndex#row_" + element.Unique;
+            $(elementRow).find('input.datepicker').first().attr('id', 'datepicker_' + element.Unique).attr('name', 'datepicker_' + element.Unique);
+            registerChangeNexHourEvent(elementRow, "#row_hour_" + element.Unique);
+            registerChangeNexHourEvent(elementRow, '#datepicker_' + element.Unique);
+        }
+        initDatePicker();
+    }
 
-        $("#uploadfile").on("click", function (event) {
+    function uploadFileExcel() {
+        $("#fileInput").on("change", function (event) {
             event.preventDefault();
 
             let index = $("#timeSheets").find("tr.sortedIndex").length;
@@ -260,6 +274,7 @@ var manageOvertime = (function ($) {
             let fileInput = document.getElementById('fileInput');
             let file = fileInput.files[0];
             formData.append('file', file);
+            $('.loading-process').fadeIn(1000);
 
             fetch('/OverTime/Upload', {
                 method: 'POST',
@@ -278,26 +293,21 @@ var manageOvertime = (function ($) {
                             index: index
                         },
                         success: function (res) {
-                            if ($("#timeSheets").find("tr.sortedIndex").length === 0) {
-                                const myNode = document.getElementById("timeSheets");
-                                myNode.innerHTML = '';
-                                $('#timeSheets').append(res);
-                                for (const element of listStaffInfoNexHour) {
-                                    let elementRow = "tr.sortedIndex#row_" + element.Unique;
-                                    $(elementRow).find('input.datepicker').first().attr('id', 'datepicker_' + element.Unique).attr('name', 'datepicker_' + element.Unique);
-                                    initDatePicker();
-                                    registerChangeNexHourEvent(elementRow, "#row_hour_" + element.Unique);
-                                    registerChangeNexHourEvent(elementRow, '#datepicker_' + element.Unique);
-                                }
-                            }
-                            else {
-                                $('#timeSheets').append(res);
-                            }
+                            showDataImportFileExcel(res, listStaffInfoNexHour);
                         }
                     });
                 }
             })
+            $('.loading-process').fadeOut(1000);
         });
+    }
+
+
+    function init() {
+        initEmployeeAutocomplete();
+        initExistRow();
+        registersubmit();
+        uploadFileExcel();
     }
 
     function notifySuccessed() {

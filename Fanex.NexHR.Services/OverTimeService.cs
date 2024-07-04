@@ -115,7 +115,9 @@
         public async Task<IEnumerable<OvertimeExcelDataViewModel>> GetEmployeesFromFileExcel(IFormFile file)
         {
             var dataList = new List<OvertimeExcelDataViewModel>();
-            if (file is { Length: > 0 } && Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
+            if (file is { Length: > 0 } &&
+                (Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase) ||
+                 Path.GetExtension(file.FileName).Equals(".xls", StringComparison.OrdinalIgnoreCase)))
             {
                 using var stream = new MemoryStream();
                 await file.CopyToAsync(stream);
@@ -130,7 +132,8 @@
                         NickName = workSheet.Cells[row, 1].Text,
                         Date = Convert.ToDateTime(workSheet.Cells[row, 2].Text, CultureInfo.InvariantCulture),
                         Duration = float.Parse(workSheet.Cells[row, 3].Text),
-                        Notes = workSheet.Cells[row, 4].Text
+                        Notes = workSheet.Cells[row, 4].Text,
+                        Unique = DateTimeOffset.Now.ToString("HHmmssfffffff")
                     };
                     dataList.Add(data);
                 }

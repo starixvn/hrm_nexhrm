@@ -21,6 +21,22 @@ table.list-emp {
     }
 }
 
+.fileInput {
+    margin-bottom: 15px;
+    color: #6f8396;
+}
+.fileInput::file-selector-button {
+    background-image: linear-gradient( to right, #757575 100%, #757575 200% );
+    background-position-x: 0%;
+    background-size: 200%;
+    border: 0;
+    border-radius: 8px;
+    color: #fff;
+    padding: 1rem 1.25rem;
+    text-shadow: 0 1px 1px #333;
+    transition: all 0.25s;
+}
+
 .datepicker-button-custom {
     position: relative !important;
 }

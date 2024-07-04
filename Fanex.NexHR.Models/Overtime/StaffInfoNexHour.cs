@@ -11,9 +11,7 @@
         public float Hour { get; set; }
         public DateTime Date { get; set; }
         public string Note { get; set; }
-        public DateTime RunTime { get; set; }
-
-        public string Unique => RunTime.Subtract(DateTime.UnixEpoch).TotalMicroseconds.ToString();
+        public string Unique { get; set; }
 
         public string DisplayName => NickName + (string.IsNullOrWhiteSpace(FullName) ? string.Empty : " (" + FullName + ")");
 

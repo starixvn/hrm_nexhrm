@@ -8,5 +8,6 @@
         public DateTime Date { get; set; }
         public float Duration { get; set; }
         public string Notes { get; set; }
+        public string Unique { get; set; }
     }
 }
