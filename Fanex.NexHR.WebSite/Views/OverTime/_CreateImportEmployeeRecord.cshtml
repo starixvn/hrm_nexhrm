@@ -16,6 +16,7 @@
     var rowId = "row_" + staff.Unique;
     var row_hour_Id = "row_hour_" + staff.Unique;
     var row_note_Id = "note_" + staff.Unique;
+    var row_date_picker = "datepicker_" + staff.Unique;
 
     <tr class="sortedIndex" id="@rowId">
         <td>@index</td>
@@ -24,8 +25,7 @@
         </td>
         <td class="datepicker-td">
             <div class="datepicker-button left select--s">
-                <date-picker
-                             name="Date"
+                <date-picker name="date"
                     value="@staff.Date"
                 >
                 </date-picker>

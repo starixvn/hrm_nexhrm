@@ -260,16 +260,15 @@ var manageOvertime = (function ($) {
             let fileInput = document.getElementById('fileInput');
             let file = fileInput.files[0];
             formData.append('file', file);
-            formData.append('index', index);
 
             fetch('/OverTime/Upload', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.text())
-                .then(result => {
-                    const listStaffInfoNexHour = $.parseJSON(result);
-
+            .then(result => {
+                const listStaffInfoNexHour = $.parseJSON(result);
+                if (listStaffInfoNexHour.length != 0) {
                     $.ajax({
                         url: _global.root + 'Overtime/CreateImportEmployeeRecord',
                         type: 'POST',
@@ -283,22 +282,20 @@ var manageOvertime = (function ($) {
                                 const myNode = document.getElementById("timeSheets");
                                 myNode.innerHTML = '';
                                 $('#timeSheets').append(res);
+                                for (const element of listStaffInfoNexHour) {
+                                    let elementRow = "tr.sortedIndex#row_" + element.Unique;
+                                    $(elementRow).find('input.datepicker').first().attr('id', 'datepicker_' + element.Unique).attr('name', 'datepicker_' + element.Unique);
+                                    initDatePicker();
+                                    registerChangeNexHourEvent(elementRow, "#row_hour_" + element.Unique);
+                                    registerChangeNexHourEvent(elementRow, '#datepicker_' + element.Unique);
+                                }
                             }
                             else {
                                 $('#timeSheets').append(res);
                             }
                         }
                     });
-
-                    for (const element of listStaffInfoNexHour) {
-                        let elementRow = "tr.sortedIndex#row_" + element.Unique;
-                        $(elementRow).find('input.datepicker').first().attr('id', 'datepicker_' + element.Unique).attr('name', 'datepicker_' + element.Unique);
-                        initDatePicker();
-                        registerChangeNexHourEvent(elementRow, "#row_hour_" + element.Unique);           // hour
-                        registerChangeNexHourEvent(elementRow, '#datepicker_' + element.Unique);      // date
-                    }
-
-                
+                }
             })
         });
     }
