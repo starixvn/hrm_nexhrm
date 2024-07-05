@@ -526,7 +526,7 @@
         public async Task<IActionResult> Upload(IFormFile file)
         {
             var dataList = await overtimeService.GetEmployeesFromFileExcel(file);
-            var listStaffInfoNexHour = await overtimeService.GetListStaffInfoNexHourAsync(new GetListStaffInfoNexHourCriteria()
+            var listStaffInfoNexHour = await overtimeService.GetListStaffInfoNexHourAsync(new GetListStaffInfoNexHourCriteria
             {
                 OvertimeExcelData = dataList
             });
