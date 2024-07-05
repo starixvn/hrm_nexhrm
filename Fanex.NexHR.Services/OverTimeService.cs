@@ -29,6 +29,14 @@
         private readonly string SenderEmail;
         private readonly string BaseUrl;
         private readonly string CompanyMailSign;
+        private const int RowStartBody = 2;
+        private const int CollumnNickName = 1;
+        private const int CollumnDate = 2;
+        private const int CollumnDuration = 3;
+        private const int CollumnNotes = 4;
+        private const string TypeTimeUnique = "HHmmssfffffff";
+        private const string FileXLSX = ".xlsx";
+        private const string FileXLS = ".xls";
 
         public OvertimeService(IOvertimeRepository overtimeRepository,
             IEmailService emailService,
@@ -115,32 +123,47 @@
         public async Task<IEnumerable<OvertimeExcelDataViewModel>> GetEmployeesFromFileExcel(IFormFile file)
         {
             var dataList = new List<OvertimeExcelDataViewModel>();
-            if (file is { Length: > 0 } &&
-                (Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase) ||
-                 Path.GetExtension(file.FileName).Equals(".xls", StringComparison.OrdinalIgnoreCase)))
+            if (file is { Length: > 0 } && IsExcelFile(file))
             {
                 using var stream = new MemoryStream();
                 await file.CopyToAsync(stream);
                 using var package = new ExcelPackage(stream);
-                var workSheet = package.Workbook.Worksheets[0];
+                var workSheet = package.Workbook.Worksheets.First();
                 var rowCount = workSheet.Dimension.Rows;
 
-                for (var row = 2; row <= rowCount; row++)
+                for (var row = RowStartBody; row <= rowCount; row++)
                 {
-                    var data = new OvertimeExcelDataViewModel
+                    if (IsNullOrWhiteSpace(workSheet, row) &&
+                        IsConvertDate(workSheet.Cells[row, CollumnDate].Text) &&
+                        IsConvertDuration(workSheet.Cells[row, CollumnDuration].Text))
                     {
-                        NickName = workSheet.Cells[row, 1].Text,
-                        Date = Convert.ToDateTime(workSheet.Cells[row, 2].Text, CultureInfo.InvariantCulture),
-                        Duration = float.Parse(workSheet.Cells[row, 3].Text),
-                        Notes = workSheet.Cells[row, 4].Text,
-                        Unique = DateTimeOffset.Now.ToString("HHmmssfffffff")
-                    };
-                    dataList.Add(data);
+                        var data = new OvertimeExcelDataViewModel
+                        {
+                            NickName = workSheet.Cells[row, CollumnNickName].Text,
+                            Date = Convert.ToDateTime(workSheet.Cells[row, CollumnDate].Text, CultureInfo.InvariantCulture),
+                            Duration = float.Parse(workSheet.Cells[row, CollumnDuration].Text),
+                            Notes = workSheet.Cells[row, CollumnNotes].Text,
+                            Unique = DateTimeOffset.Now.ToString(TypeTimeUnique)
+                        };
+                        dataList.Add(data);
+                    }
                 }
             }
 
             return dataList;
         }
+
+        private static bool IsConvertDate(string date) => DateTime.TryParse(date, CultureInfo.InvariantCulture, out _);
+        private static bool IsConvertDuration(string Duration) => float.TryParse(Duration, out _);
+
+        private static bool IsNullOrWhiteSpace(ExcelWorksheet workSheet, int row) =>
+            !string.IsNullOrWhiteSpace(workSheet.Cells[row, CollumnNickName].Text)
+            && !string.IsNullOrWhiteSpace(workSheet.Cells[row, CollumnDate].Text)
+            && !string.IsNullOrWhiteSpace(workSheet.Cells[row, CollumnDuration].Text);
+
+        private static bool IsExcelFile(IFormFile file) =>
+            (Path.GetExtension(file.FileName).Equals(FileXLSX, StringComparison.OrdinalIgnoreCase) ||
+             Path.GetExtension(file.FileName).Equals(FileXLS, StringComparison.OrdinalIgnoreCase));
 
         public async Task<IList<Overtime>> GetReportOvertimeHR(ReportOvertimeHRCriteria criteria)
         {
