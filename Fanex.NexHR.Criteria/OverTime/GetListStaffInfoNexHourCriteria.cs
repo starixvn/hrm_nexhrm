@@ -10,7 +10,7 @@
     {
         [SpParam(Ignored = true)]
         public IEnumerable<OvertimeExcelDataViewModel> OvertimeExcelData { get; set; }
-        public string Employees => XMLIO.ToXML(OvertimeExcelData, "ROOT").ToString();
+        public string ExcelData => XMLIO.ToXML(OvertimeExcelData, "ROOT").ToString();
 
         public override string GetSettingKey()
         {
