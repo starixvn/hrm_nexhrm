@@ -10,7 +10,7 @@
 
         public float Hour { get; set; }
         public DateTime Date { get; set; }
-        public string Note { get; set; }
+        public string Notes { get; set; }
         public string Unique { get; set; }
 
         public string DisplayName => NickName + (string.IsNullOrWhiteSpace(FullName) ? string.Empty : " (" + FullName + ")");
