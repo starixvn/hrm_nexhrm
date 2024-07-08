@@ -34,7 +34,7 @@
         private const int CollumnDate = 2;
         private const int CollumnDuration = 3;
         private const int CollumnNotes = 4;
-        private const string TypeTimeUnique = "HHmmssfffffff";
+        private const string TypeTimeUnique = "yyHHmmssffffff";
         private const string FileXLSX = ".xlsx";
         private const string FileXLS = ".xls";
 
