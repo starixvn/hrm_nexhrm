@@ -248,14 +248,9 @@ var manageOvertime = (function ($) {
     }
 
     function showDataImportFileExcel(res, listStaffInfoNexHour) {
-        if ($("#timeSheets").find("tr.sortedIndex").length === 0) {
-            const myNode = document.getElementById("timeSheets");
-            myNode.innerHTML = '';
-            $('#timeSheets').append(res);
-        }
-        else {
-            $('#timeSheets').append(res);
-        }
+        generateFooter();
+        $('#timeSheets').append(res);
+
         for (const element of listStaffInfoNexHour) {
             let elementRow = "tr.sortedIndex#row_" + element.Unique;
             $(elementRow).find('input.datepicker').first().attr('id', 'datepicker_' + element.Unique).attr('name', 'datepicker_' + element.Unique);
