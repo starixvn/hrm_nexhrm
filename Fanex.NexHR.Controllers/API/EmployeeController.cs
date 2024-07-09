@@ -32,7 +32,7 @@
                 ModifiedDate = modifiedDate
             };
 
-            var result = await employeeService.GetByModifiedDate(criteria);
+            var result = await employeeService.GetByEmployeeModifiedDate(criteria);
 
             return result == null ? Ok("Not Found") : Ok(result);
         }
