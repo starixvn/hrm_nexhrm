@@ -54,6 +54,12 @@
             return employees;
         }
 
+        public async Task<IEnumerable<EmployeeInfo>> GetByModifiedDate(GetEmployeeByModifiedDateCriteria criteria)
+        {
+            var employeeInfo = await baseService.GetDataAsync<EmployeeInfo>(criteria);
+            return employeeInfo;
+        }
+
 
         public async Task<Employee> GetEmployeeByNickName(GetEmployeeByNickNameCriteria criteria)
         {

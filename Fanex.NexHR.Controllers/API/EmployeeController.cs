@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
+    using System;
     using System.Threading.Tasks;
     using Criteria.Employee;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -19,6 +20,19 @@
             };
 
             var result = await employeeService.GetEmployeeByUsername(criteria);
+
+            return result == null ? Ok("Not Found") : Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetByModifiedDate(DateTime modifiedDate)
+        {
+            var criteria = new GetEmployeeByModifiedDateCriteria
+            {
+                ModifiedDate = modifiedDate
+            };
+
+            var result = await employeeService.GetByModifiedDate(criteria);
 
             return result == null ? Ok("Not Found") : Ok(result);
         }

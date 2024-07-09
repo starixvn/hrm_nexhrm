@@ -17,6 +17,7 @@
         Task<UserSession> GetEmployeeByDomainName(GetEmployeeByDomainNameCriteria criteria);
 
         Task<IEnumerable<EmployeeInfo>> GetEmployeeByUsername(GetEmployeeByUsernameCriteria criteria);
+        Task<IEnumerable<EmployeeInfo>> GetByModifiedDate(GetEmployeeByModifiedDateCriteria criteria);
 
         Task<Employee> GetEmployeeByNickName(GetEmployeeByNickNameCriteria criteria);
 
