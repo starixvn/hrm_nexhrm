@@ -35,7 +35,7 @@
                 CategoryId = categoryId
             };
 
-            return await baseService.GetDataEntityAsync<string>(criteria).ConfigureAwait(false);
+            return await baseService.GetDataEntityAsync<string>(criteria).ConfigureAwait(false) ?? string.Empty;
         }
 
         public async Task<CommandResult> UpdateJsonObject(MessageCategory categoryId, object value)

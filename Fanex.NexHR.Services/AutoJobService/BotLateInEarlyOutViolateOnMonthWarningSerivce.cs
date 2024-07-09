@@ -1,5 +1,10 @@
 ﻿namespace Fanex.NexHR.Services.AutoJobService
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.AnnualLeave;
@@ -9,11 +14,6 @@
     using Fanex.NexHR.Resources;
     using Interfaces;
     using Newtonsoft.Json;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public class BotLateInEarlyOutViolateOnMonthWarningSerivce : IBotLateInLateOutAutoJobService
     {
@@ -226,24 +226,20 @@
 
         private async Task SendMessageViolateOnMonthAfterChecking(string jsonObject, IEnumerable<LateInEarlyOutViolateModel> violaters)
         {
-            if (!string.IsNullOrWhiteSpace(jsonObject))
+            var notifyViolaters = CalculateViolaterToNotify(jsonObject, violaters);
+
+            foreach (var violater in notifyViolaters)
             {
-                var oldViolaters = JsonConvert.DeserializeObject<IEnumerable<LateInEarlyOutViolateModel>>(jsonObject);
-                var existViolaters = violaters.Where(x => oldViolaters.Any(o => o.EmpId == x.EmpId && x.TimeOnMonth != o.TimeOnMonth)).ToList();
-                foreach (var violater in existViolaters)
-                {
-                    string message = GeneratePersonalMessageLateInEarlyOutViolateOnMonth(violater);
-                    await nexbotService.SendMessageAsync(violater.ConversationId, message).ConfigureAwait(false);
-                }
+                string message = GeneratePersonalMessageLateInEarlyOutViolateOnMonth(violater);
+                await nexbotService.SendMessageAsync(violater.ConversationId, message).ConfigureAwait(false);
             }
-            else
-            {
-                foreach (var violater in violaters)
-                {
-                    string message = GeneratePersonalMessageLateInEarlyOutViolateOnMonth(violater);
-                    await nexbotService.SendMessageAsync(violater.ConversationId, message).ConfigureAwait(false);
-                }
-            }
+        }
+
+        private static IEnumerable<LateInEarlyOutViolateModel> CalculateViolaterToNotify(string jsonObject, IEnumerable<LateInEarlyOutViolateModel> violaters)
+        {
+            var oldViolaters = JsonConvert.DeserializeObject<IEnumerable<LateInEarlyOutViolateModel>>(jsonObject) ?? new List<LateInEarlyOutViolateModel>();
+
+            return violaters.Where(v => !oldViolaters.Any(o => o.EmpId == v.EmpId) || oldViolaters.Any(i => i.EmpId == v.EmpId && i.TimeOnMonth != v.TimeOnMonth));
         }
 
         private static string GeneratePersonalMessageLateInEarlyOutViolateOnMonth(LateInEarlyOutViolateModel violater)
@@ -251,7 +247,7 @@
             var msg = string.Format(Messages.DearSkypeMessage, violater.NickName, Constants.NewLine);
             if (violater.TimeOnMonth >= ViolatedTime)
             {
-                msg = msg + string.Format(
+                msg += string.Format(
                     Messages.EmployeeLateInEarlyOutViolateOnMonth,
                     violater.TimeOnMonth,
                     DateTimeOffset.Now.DateTime.ToString(FormatShortDate),
@@ -259,11 +255,9 @@
             }
             else
             {
-                msg += string.Format(
+                msg = string.Format(
                     Messages.EmployeeLateInEarlyOutViolateOnMonthOnceMoreTime,
-                    violater.TimeOnMonth,
-                    DateTimeOffset.Now.DateTime.ToString(FormatShortDate),
-                    Constants.NewLine);
+                    violater.NickName);
             }
 
             return msg;
@@ -348,8 +342,6 @@
 
             return message.ToString();
         }
-
-
 
         private string GenerateMessageDeduct(IEnumerable<LateInEarlyOutModel> deductedEmployees)
         {

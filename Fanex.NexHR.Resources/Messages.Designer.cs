@@ -185,22 +185,25 @@ namespace Fanex.NexHR.Resources {
                 return ResourceManager.GetString("AnounceNumberEmployeeMissCheckInOut", resourceCulture);
             }
         }
+        
         /// <summary>
-        ///   Looks up a localized string similar to Applicant&apos;s created!.
+        ///   Looks up a localized string similar to Applicant&apos;s Created!.
         /// </summary>
         public static string ApplicantCreated {
             get {
                 return ResourceManager.GetString("ApplicantCreated", resourceCulture);
             }
         }
+        
         /// <summary>
-        ///   Looks up a localized string similar to Applicant&apos;s updated!.
+        ///   Looks up a localized string similar to Applicant&apos;s Updated!.
         /// </summary>
         public static string ApplicantUpdated {
             get {
                 return ResourceManager.GetString("ApplicantUpdated", resourceCulture);
             }
         }
+        
         /// <summary>
         ///   Looks up a localized string similar to Change shift request from {0} approved by {1}.
         /// </summary>
@@ -418,7 +421,19 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You got {0} times Late in/Early out on {1}. If you Late in/Early out one more time on this month, you will violate Nexcel&apos;s policy.{2}Please notice that. Thanks.
+        ///   Looks up a localized string similar to Dear **{0}**,
+        ///&lt;br/&gt;
+        ///&lt;br/&gt;
+        ///This month, there have been 3 instances of Late In/Early Out recorded for you.
+        /// &lt;br/&gt;
+        ///&lt;br/&gt;
+        ///As per policy, exceeding 4 instances of Late In/Early Out in a month is not permitted. If this limit is reached, the HR Department will issue a warning email copied to Management.
+        /// &lt;br/&gt;
+        ///&lt;br/&gt;
+        ///We kindly request your cooperation in minimizing the frequency of Late In/Early Out instances.
+        ///&lt;br/&gt;
+        ///&lt;br/&gt;
+        ///Thank you!.
         /// </summary>
         public static string EmployeeLateInEarlyOutViolateOnMonthOnceMoreTime {
             get {

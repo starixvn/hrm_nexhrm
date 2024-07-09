@@ -359,7 +359,19 @@ Thanks</value>
     <value>There is inform that you got {0} time(s) Late in/Early out on {1}.{2}Please notice that. Thanks"</value>
   </data>
   <data name="EmployeeLateInEarlyOutViolateOnMonthOnceMoreTime" xml:space="preserve">
-    <value>You got {0} times Late in/Early out on {1}. If you Late in/Early out one more time on this month, you will violate Nexcel's policy.{2}Please notice that. Thanks</value>
+    <value>Dear **{0}**,
+&lt;br/&gt;
+&lt;br/&gt;
+This month, there have been 3 instances of Late In/Early Out recorded for you.
+ &lt;br/&gt;
+&lt;br/&gt;
+As per policy, exceeding 4 instances of Late In/Early Out in a month is not permitted. If this limit is reached, the HR Department will issue a warning email copied to Management.
+ &lt;br/&gt;
+&lt;br/&gt;
+We kindly request your cooperation in minimizing the frequency of Late In/Early Out instances.
+&lt;br/&gt;
+&lt;br/&gt;
+Thank you!</value>
   </data>
   <data name="EmployeeViolateTime" xml:space="preserve">
     <value>_- {0} ({1}) violate {2} time(s)._ {3}</value>

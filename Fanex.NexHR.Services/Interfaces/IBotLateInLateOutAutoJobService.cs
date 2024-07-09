@@ -10,7 +10,9 @@
         Task<CommandResult> SendMessageViolateDisciplineAsync();
 
         Task<CommandResult> SendMessageDeductAsync();
+
         Task<CommandResult> DeductAsync();
+
         Task<CommandResult> ReminderLateInEarlyOutMoreThanSixtyMinute();
     }
 }
