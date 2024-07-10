@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
+    using System.Collections;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Criteria;
@@ -16,7 +17,7 @@
 
         Task<UserSession> GetEmployeeByDomainName(GetEmployeeByDomainNameCriteria criteria);
 
-        Task<EmployeeInfo> GetEmployeeByUsername(GetEmployeeByUsernameCriteria criteria);
+        Task<IEnumerable<EmployeeInfo>> GetEmployeeByUsername(GetEmployeeByUsernameCriteria criteria);
 
         Task<Employee> GetEmployeeByNickName(GetEmployeeByNickNameCriteria criteria);
 

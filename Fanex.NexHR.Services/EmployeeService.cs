@@ -48,10 +48,10 @@
             return userSession;
         }
 
-        public async Task<EmployeeInfo> GetEmployeeByUsername(GetEmployeeByUsernameCriteria criteria)
+        public async Task<IEnumerable<EmployeeInfo>> GetEmployeeByUsername(GetEmployeeByUsernameCriteria criteria)
         {
-            var employeeInfo = await baseService.GetDataEntityAsync<EmployeeInfo>(criteria);
-            return employeeInfo;
+            var employees = await baseService.GetDataAsync<EmployeeInfo>(criteria);
+            return employees;
         }
 
 

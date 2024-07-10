@@ -40,6 +40,8 @@
 
         public DateTime? JoinedDate { get; set; }
 
+        public DateTime GroupDate { get; set; }
+
         public DateTime? ConfirmedDate { get; set; }
 
         public DateTime? ResignedDate { get; set; }
@@ -69,6 +71,27 @@
         public DateTime CreatedDate { get; set; }
 
         public DateTime? ModifiedDate { get; set; }
+
+        public string EmergencyContact { get; set; }
+        public string EmergencyRelationship { get; set; }
+
+        public string EmergencyPhone { get; set; }
+
+        public string EmergencyAddress { get; set; }
+
+        public DateTime? ToeicExamDate { get; set; }
+
+        public int ToeicListening { get; set; }
+
+        public int ToeicReading { get; set; }
+
+        public int ToeicTotalScore 
+        { 
+            get 
+            { 
+                return ToeicListening + ToeicReading;
+            } 
+        }
 
         public string SupervisorEnglishName { get; set; }
 
