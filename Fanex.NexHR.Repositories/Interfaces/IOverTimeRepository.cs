@@ -1,10 +1,9 @@
 ﻿namespace Fanex.NexHR.Repositories.Interfaces
 {
-    using Data.Repository;
-    using Models;
-    using Models.Overtime;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Data.Repository;
+    using Models.Overtime;
 
     public interface IOvertimeRepository
     {

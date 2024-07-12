@@ -6,7 +6,6 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Core;
-    using Core.Enums;
     using Core.Model;
     using Criteria.Employee;
     using Fanex.NexHR.Controllers.Attributes;
@@ -642,24 +641,6 @@
             };
             var employeeJobGrades = await baseService.GetDataAsync<EmployeeJobGrade>(criteria);
             return PartialView("ViewHistoryJobGrade", employeeJobGrades);
-        }
-
-        [HrmAuthorize(UserRoles = "AssistantLeader,HR")]
-        public async Task<JsonResult> GetMembersByManager(string keyword, int? groupId = null)
-        {
-            const int Records = 10;
-            var role = CurrentUser.IsInRoles(Role.HR) ? Role.HR : Role.AssistantLeader;
-            var getMemberByManager = new GetMemberByManagerCriteria
-            {
-                ManagerId = CurrentUser.Id,
-                Role = (short)role,
-                Keyword = keyword,
-                GroupId = groupId,
-                ExcludedManager = false
-            };
-            var membersByManager = await employeeService.GetMembersByManager(getMemberByManager);
-
-            return Json(membersByManager.Take(Records));
         }
 
         [HrmAuthorize(UserRoles = "HR")]

@@ -159,7 +159,6 @@
             services.AddSingleton<IDynamicRepository, DynamicRepository>();
             services.AddSingleton<IBaseRepository, BaseRepository>();
             services.AddSingleton<IEmployeeRepository, EmployeeRepository>();
-            services.AddSingleton<ITeamRepository, TeamRepository>();
             services.AddSingleton<IRequestRepository, RequestRepository>();
             services.AddSingleton<INotificationRepository, NotificationRepository>();
             services.AddSingleton<ILateInEarlyOutRepository, LateInEarlyOutRepository>();

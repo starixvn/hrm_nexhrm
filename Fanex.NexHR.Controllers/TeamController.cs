@@ -98,8 +98,8 @@
                 {
                     TeamCode = team.Code,
                     TeamName = team.Name,
-                    DepartmentId = team.Department?.Id ?? 0,
-                    ParentId = team.Parent?.Id ?? 0,
+                    DepartmentId = team.DepartmentId,
+                    ParentId = team.ParentId,
                 };
             }
 

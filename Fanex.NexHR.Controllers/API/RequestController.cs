@@ -54,7 +54,7 @@
         [HttpGet]
         public async Task<IActionResult> RemindApproveRequest()
         {
-            DateTime now = DateTime.Now.Date;
+            var now = DateTimeOffset.Now.Date;
             var pendingRequest = await requestService.GetPendingRequestGroupByApproverAsync();
 
             foreach (var request in pendingRequest)

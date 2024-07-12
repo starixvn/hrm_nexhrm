@@ -20,7 +20,7 @@
 
         public override string GetSettingKey()
         {
-            return "Employee_GetEmployeeWorkLoad";
+            return "Report_GetEmployeeWorkLoad";
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
-    using System.Collections;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Criteria;
@@ -23,11 +22,7 @@
 
         Task<IList<Employee>> Query(GetEmployeeCriteria criteria);
 
-        Task<IEnumerable<Employee>> GetMembersByManager(GetMemberByManagerCriteria criteria);
-
         Task<MySpaceViewModel> GetMySpace(GetMySpaceCriteria criteria);
-
-        Task<HRLeaderDashboardModel> GetHRLeaderDashboard(GetHRLeaderDashboardCriteria criteria);
 
         Task<IList<Employee>> GetEmployeeToeicScore(GetEmployeeToeicScoreCriteria criteria);
 

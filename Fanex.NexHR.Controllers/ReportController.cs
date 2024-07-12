@@ -612,7 +612,7 @@
                 to = toDate.Value;
             }
 
-            IList<Team> teams = await teamService.GetTeam();
+            var teams = await teamService.GetTeam();
 
             var model = new TimeRecordViewModel
             {
@@ -681,7 +681,7 @@
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> WorkingHoursStatistic()
         {
-            IList<Team> teams = await teamService.GetTeam();
+            var teams = await teamService.GetTeam();
 
             DateTime date = new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
             var model = new WorkingHoursStatisticViewModel

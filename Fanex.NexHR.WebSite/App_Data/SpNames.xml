@@ -41,10 +41,7 @@
             <Mapping DataField="LeaveTypeId" ObjectProperty="Id" />
             <Mapping DataField="LeaveTypeName" ObjectProperty="Name" />
         </Setting>
-        <Setting Key="Employee_GetLeaders" SpName="Employee_GetLeaders" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Employee_GetLeaderAndHR" SpName="Employee_GetLeaderAndHR" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_GetHR" SpName="Employee_GetHR" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Employee_GetMembesByManager" SpName="Employee_GetMembesByManager" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeGroup_Insert" SpName="EmployeeGroup_Insert" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeGroup_Update" SpName="EmployeeGroup_Update" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeGroup_Delete" SpName="EmployeeGroup_Delete" DbName="nexhr" Plain="0"></Setting>
@@ -59,7 +56,7 @@
         <Setting Key="Employee_GetLeaderForStanbyTeam" SpName="Employee_GetLeaderForStanbyTeam" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_GetSupervisorForCheckInOut" SpName="Employee_GetSupervisorForCheckInOut" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_GetSupervisorForLeave" SpName="Employee_GetSupervisorForLeave" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Employee_GetEmployeeWorkLoad" SpName="Report_GetEmployeeWorkLoad" DbName="nexhr" Plain="1">
+        <Setting Key="Report_GetEmployeeWorkLoad" SpName="Report_GetEmployeeWorkLoad" DbName="nexhr" Plain="1">
         </Setting>
         <Setting Key="EmployeeAttendance_GetMissingCheckInCheckOut" SpName="EmployeeAttendance_GetMissingCheckInCheckOut" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="HistoryWork_Insert" SpName="HistoryWork_Insert" DbName="nexhr" Plain="0"></Setting>
@@ -125,20 +122,8 @@
         <Setting Key="ExtensionNO_DELETE_GroupExternal" SpName="ExtensionNO_DELETE_GroupExternal" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Group">
-        <Setting Key="EmployeeGroup_GetById" SpName="EmployeeGroup_GetById" DbName="nexhr" Plain="0">
-            <Mapping DataField="DepartmentId" ObjectProperty="Id" />
-            <Mapping DataField="ParentId" ObjectProperty="Id" />
-            <Mapping DataField="LeaderId" ObjectProperty="Id" />
-            <Mapping DataField="AssistantLeaderId" ObjectProperty="Id" />
-        </Setting>
-        <Setting Key="EmployeeGroup_GetGroups" SpName="EmployeeGroup_GetGroups" DbName="nexhr" Plain="0">
-            <Mapping DataField="LeaderId" ObjectProperty="Id" />
-            <Mapping DataField="LeaderNickName" ObjectProperty="NickName" />
-            <Mapping DataField="LeaderFullName" ObjectProperty="FullName" />
-            <Mapping DataField="AssistantLeaderId" ObjectProperty="Id" />
-            <Mapping DataField="AssistantLeaderNickName" ObjectProperty="NickName" />
-            <Mapping DataField="AssistantLeaderFullName" ObjectProperty="FullName" />
-        </Setting>
+        <Setting Key="EmployeeGroup_GetById" SpName="EmployeeGroup_GetById" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="EmployeeGroup_GetGroups" SpName="EmployeeGroup_GetGroups" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeGroup_GetGroupsByManagerID" SpName="EmployeeGroup_GetGroupsByManagerID" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Lookup">
@@ -227,8 +212,6 @@
         <Setting Key="Report_EmployeeSpaceDashBoard" SpName="Report_EmployeeSpaceDashBoard" DbName="nexhr" Plain="0">
             <Mapping DataField="EmpId" ObjectProperty="Id" />
         </Setting>
-        <Setting Key="Report_HRLeaderDashBoard" SpName="Report_HRLeaderDashBoard" DbName="nexhr" Plain="0"></Setting>
-
         <Setting Key="EmployeeAttendance_ReminderLateInEarlyOut" SpName="EmployeeAttendance_ReminderLateInEarlyOut" DbName="nexhr" Plain="0">
             <Mapping DataField="EmpId" ObjectProperty="Id" />
         </Setting>
@@ -269,8 +252,6 @@
         </Setting>
         <Setting Key="LeaveDeduction_Update" SpName="LeaveDeduction_Update" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="LeaveDeduction_Delete" SpName="LeaveDeduction_Delete" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Report_GetLateInEarlyOutSummary" SpName="Report_GetLateInEarlyOutSummary" DbName="nexhr" Plain="0">
-        </Setting>
     </Function>
     <Function Name="Overtime">
         <Setting Key="Overtime_Insert" SpName="Overtime_Insert" DbName="nexhr" Plain="0"></Setting>

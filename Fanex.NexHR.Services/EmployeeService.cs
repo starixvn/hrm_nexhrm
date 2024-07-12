@@ -77,12 +77,6 @@
             return employees ?? new List<Employee>();
         }
 
-        public async Task<IEnumerable<Employee>> GetMembersByManager(GetMemberByManagerCriteria criteria)
-        {
-            IEnumerable<Employee> employees = await baseService.GetDataAsync<Employee>(criteria);
-            return employees;
-        }
-
         public async Task<MySpaceViewModel> GetMySpace(GetMySpaceCriteria criteria)
         {
             MySpaceViewModel space = new MySpaceViewModel();
@@ -98,12 +92,6 @@
             }
 
             return space;
-        }
-
-        public async Task<HRLeaderDashboardModel> GetHRLeaderDashboard(GetHRLeaderDashboardCriteria criteria)
-        {
-            HRLeaderDashboardModel dashboard = await baseService.GetDataEntityAsync<HRLeaderDashboardModel>(criteria);
-            return dashboard;
         }
 
         public async Task<IList<Employee>> GetEmployeeToeicScore(GetEmployeeToeicScoreCriteria criteria)

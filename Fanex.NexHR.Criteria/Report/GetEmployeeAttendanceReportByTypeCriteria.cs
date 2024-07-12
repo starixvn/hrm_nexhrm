@@ -1,13 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="GetEmployeeAttendanceReportByTypeCriteria.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) .. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Josh.Phan" date="2014.03.11">Created</change>
-// </history>
-
-namespace Fanex.NexHR.Criteria.Report
+﻿namespace Fanex.NexHR.Criteria.Report
 {
     using System;
     using Core.Attributes;
