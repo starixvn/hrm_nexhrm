@@ -427,7 +427,7 @@ namespace Fanex.NexHR.Resources {
         ///This month, there have been 3 instances of Late In/Early Out recorded for you.
         /// &lt;br/&gt;
         ///&lt;br/&gt;
-        ///As per policy, exceeding 4 instances of Late In/Early Out in a month is not permitted. If this limit is reached, the HR Department will issue a warning email copied to Management.
+        ///Please be reminded that if you reach 4 times of Late In/Early Out in a month, HR Department will issue a warning email copied to Management.
         /// &lt;br/&gt;
         ///&lt;br/&gt;
         ///We kindly request your cooperation in minimizing the frequency of Late In/Early Out instances.
