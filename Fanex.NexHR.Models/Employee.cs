@@ -71,8 +71,6 @@
         [Display(Name = "Other team(s)")]
         public string SubGroups { get; set; }
 
-        public string Approvers { get; set; }
-
         public int EmployeeRank { get; set; }
 
         public JobTitle JobTitle { get; set; }

@@ -160,7 +160,6 @@
             set { SubGroups = Utilities.StringArrayToString(value); }
         }
 
-
         private void InitData(Employee employee)
         {
             if (employee != null)
@@ -176,7 +175,6 @@
                 JobTitleId = employee.JobTitle.Id;
                 AnnualLeaveBalance = employee.AnnualLeaveBalance;
                 SubGroups = employee.SubGroups;
-                Approvers = employee.Approvers;
                 DateOfBirth = employee.DateOfBirth;
                 Email = employee.Email;
                 Phone = employee.Phone;
