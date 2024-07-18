@@ -262,10 +262,28 @@ var manageOvertime = (function ($) {
 
     function showErrorDataImportFileExcel(dataErrors) {
         if (dataErrors.length > 0) {
-            if ($('#form').find('.validation-summary-errors').length <= 0)
-                $('#form').find('.validation-summary-valid').first().removeClass('validation-summary-valid').addClass('validation-summary-errors');
-            if ($('#form').find('.validation-summary-errors').find('ul li.record-error').length === 0)
-                $('#form').find('.validation-summary-errors').find('ul').first().append("<li class='record-error'>Some invalid records when importing Excel files are in rows: " + dataErrors.toString() + "</li>");
+            $('#dialog-error-excel').html("<li>Some invalid records when importing Excel files are in rows: " + dataErrors.toString() + "</li>");
+            $('#dialog-error-excel').dialog({
+                modal: true,
+                width: 'auto',
+                buttons: [
+                    {
+                        text: 'Close',
+                        class: 'btn-cancel waves-effect waves-light m-r--m',
+                        click: function () {
+                            $(this).dialog('close');
+                        }
+                    }
+                ],
+                show: {
+                    effect: 'fade',
+                    duration: 300
+                },
+                hide: {
+                    effect: 'fade',
+                    duration: 200
+                }
+            });
         }
     }
 
