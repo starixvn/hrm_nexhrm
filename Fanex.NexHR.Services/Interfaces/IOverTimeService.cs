@@ -23,7 +23,7 @@
 
         Task<IList<OvertimeConversion>> GetConversions(GetOvertimeConversionsCriteria criteria);
         Task<IEnumerable<StaffInfoNexHour>> GetListStaffInfoNexHourAsync(GetListStaffInfoNexHourCriteria criteria);
-        Task<ValueTuple<IEnumerable<OvertimeExcelDataViewModel>, IEnumerable<int>>> GetEmployeesFromFileExcel(IFormFile file);
+        Task<ValueTuple<IEnumerable<OvertimeExcelDataViewModel>, IList<int>>> GetEmployeesFromFileExcel(IFormFile file);
 
         Task<NexHour> GetNexHour(GetNexHourCriteria criteria);
 

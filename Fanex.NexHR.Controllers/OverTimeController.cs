@@ -526,12 +526,17 @@
         public async Task<IActionResult> Upload(IFormFile file)
         {
             var (dataList, dataErrors) = await overtimeService.GetEmployeesFromFileExcel(file);
-            var listStaffInfoNexHour = await overtimeService.GetListStaffInfoNexHourAsync(new GetListStaffInfoNexHourCriteria
+            var listStaffInfoNexHour = await overtimeService.GetListStaffInfoNexHourAsync(new GetListStaffInfoNexHourCriteria { OvertimeExcelData = dataList });
+            foreach (var item in from item in dataList
+                                 where !listStaffInfoNexHour.Any(x => x.NickName == item.NickName)
+                                 select item)
             {
-                OvertimeExcelData = dataList
-            });
+                dataErrors.Add(item.Row);
+            }
+
             return Json(Json(new { listStaffInfoNexHour, dataErrors }));
         }
+
 
         [HttpPost]
         public IActionResult CreateImportEmployeeRecord(IEnumerable<StaffInfoNexHour> listStaffInfoNexHour, int index)

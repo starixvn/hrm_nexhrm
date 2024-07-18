@@ -12,10 +12,7 @@
         public IEnumerable<OvertimeExcelDataViewModel> OvertimeExcelData { get; set; }
         public string ExcelData => XMLIO.ToXML(OvertimeExcelData, "ROOT").ToString();
 
-        public override string GetSettingKey()
-        {
-            return "Employee_GetListStaffInfoNexHour";
-        }
+        public override string GetSettingKey() => "Employee_GetListStaffInfoNexHour";
 
         public override bool IsValid() => true;
     }

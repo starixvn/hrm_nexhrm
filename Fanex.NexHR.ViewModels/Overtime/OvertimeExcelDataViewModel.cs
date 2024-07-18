@@ -9,5 +9,6 @@
         public float Duration { get; set; }
         public string Notes { get; set; }
         public string Unique { get; set; }
+        public int Row { get; set; }
     }
 }

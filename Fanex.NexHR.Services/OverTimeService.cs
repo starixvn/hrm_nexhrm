@@ -120,10 +120,11 @@
             return await baseService.GetDataAsync<StaffInfoNexHour>(criteria);
         }
 
-        public async Task<ValueTuple<IEnumerable<OvertimeExcelDataViewModel>, IEnumerable<int>>> GetEmployeesFromFileExcel(IFormFile file)
+        public async Task<ValueTuple<IEnumerable<OvertimeExcelDataViewModel>, IList<int>>> GetEmployeesFromFileExcel(IFormFile file)
         {
             var dataList = new List<OvertimeExcelDataViewModel>();
             var dataError = new List<int>();
+
             if (file is { Length: > 0 } && IsExcelFile(file))
             {
                 using var stream = new MemoryStream();
@@ -131,33 +132,41 @@
                 using var package = new ExcelPackage(stream);
                 var workSheet = package.Workbook.Worksheets.First();
                 var rowCount = workSheet.Dimension.Rows;
-
-                for (var row = RowStartBody; row <= rowCount; row++)
-                {
-                    if (!IsNullOrWhiteSpace(workSheet, row))
-                    {
-                        if (IsConvertDate(workSheet.Cells[row, CollumnDate].Text) &&
-                            IsConvertDuration(workSheet.Cells[row, CollumnDuration].Text))
-                        {
-                            var data = new OvertimeExcelDataViewModel
-                            {
-                                NickName = workSheet.Cells[row, CollumnNickName].Text,
-                                Date = Convert.ToDateTime(workSheet.Cells[row, CollumnDate].Text, CultureInfo.InvariantCulture),
-                                Duration = float.Parse(workSheet.Cells[row, CollumnDuration].Text),
-                                Notes = workSheet.Cells[row, CollumnNotes].Text,
-                                Unique = DateTimeOffset.Now.ToString(TypeTimeUnique)
-                            };
-                            dataList.Add(data);
-                        }
-                        else
-                        {
-                            dataError.Add(row);
-                        }
-                    }
-
-                }
+                (dataList, dataError) = ReadFileExcel(rowCount, workSheet);
             }
 
+            return (dataList, dataError);
+        }
+
+        private static ValueTuple<List<OvertimeExcelDataViewModel>, List<int>> ReadFileExcel(int rowCount, ExcelWorksheet workSheet)
+        {
+            var dataList = new List<OvertimeExcelDataViewModel>();
+            var dataError = new List<int>();
+            for (var row = RowStartBody; row <= rowCount; row++)
+            {
+                if (!IsNullOrWhiteSpace(workSheet, row))
+                {
+                    if (IsConvertDate(workSheet.Cells[row, CollumnDate].Text) &&
+                        IsConvertDuration(workSheet.Cells[row, CollumnDuration].Text))
+                    {
+                        var data = new OvertimeExcelDataViewModel
+                        {
+                            NickName = workSheet.Cells[row, CollumnNickName].Text,
+                            Date = Convert.ToDateTime(workSheet.Cells[row, CollumnDate].Text, CultureInfo.InvariantCulture),
+                            Duration = float.Parse(workSheet.Cells[row, CollumnDuration].Text),
+                            Notes = workSheet.Cells[row, CollumnNotes].Text,
+                            Unique = DateTimeOffset.Now.ToString(TypeTimeUnique),
+                            Row = row
+                        };
+                        dataList.Add(data);
+                    }
+                    else
+                    {
+                        dataError.Add(row);
+                    }
+                }
+
+            }
             return (dataList, dataError);
         }
 
