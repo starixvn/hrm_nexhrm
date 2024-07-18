@@ -525,12 +525,12 @@
         [HttpPost]
         public async Task<IActionResult> Upload(IFormFile file)
         {
-            var dataList = await overtimeService.GetEmployeesFromFileExcel(file);
+            var (dataList, dataErrors) = await overtimeService.GetEmployeesFromFileExcel(file);
             var listStaffInfoNexHour = await overtimeService.GetListStaffInfoNexHourAsync(new GetListStaffInfoNexHourCriteria
             {
                 OvertimeExcelData = dataList
             });
-            return Json(listStaffInfoNexHour);
+            return Json(Json(new { listStaffInfoNexHour, dataErrors }));
         }
 
         [HttpPost]

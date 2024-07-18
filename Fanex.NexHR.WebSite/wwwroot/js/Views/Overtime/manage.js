@@ -260,6 +260,15 @@ var manageOvertime = (function ($) {
         initDatePicker();
     }
 
+    function showErrorDataImportFileExcel(dataErrors) {
+        if (dataErrors.length > 0) {
+            if ($('#form').find('.validation-summary-errors').length <= 0)
+                $('#form').find('.validation-summary-valid').first().removeClass('validation-summary-valid').addClass('validation-summary-errors');
+            if ($('#form').find('.validation-summary-errors').find('ul li.record-error').length === 0)
+                $('#form').find('.validation-summary-errors').find('ul').first().append("<li class='record-error'>Some invalid records when importing Excel files are in rows: " + dataErrors.toString() + "</li>");
+        }
+    }
+
     function uploadFileExcel() {
         $("#fileInput").on("change", function (event) {
             event.preventDefault();
@@ -271,28 +280,35 @@ var manageOvertime = (function ($) {
             formData.append('file', file);
             $('.loading-process').fadeIn(1000);
 
-            fetch('/OverTime/Upload', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(result => {
-                const listStaffInfoNexHour = $.parseJSON(result);
-                if (listStaffInfoNexHour.length != 0) {
-                    $.ajax({
-                        url: _global.root + 'Overtime/CreateImportEmployeeRecord',
-                        type: 'POST',
-                        dataType: 'html',
-                        data: {
-                            listStaffInfoNexHour: listStaffInfoNexHour,
-                            index: index
-                        },
-                        success: function (res) {
-                            showDataImportFileExcel(res, listStaffInfoNexHour);
-                        }
-                    });
-                }
-            })
+            $.ajax({
+                type: "POST",
+                async: true,
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                url: _global.root + 'Overtime/Upload',
+                success: function (data) {
+                    const listStaffInfoNexHour = data.Value.listStaffInfoNexHour;
+                    if (listStaffInfoNexHour.length != 0) {
+                        $.ajax({
+                            url: _global.root + 'Overtime/CreateImportEmployeeRecord',
+                            type: 'POST',
+                            dataType: 'html',
+                            data: {
+                                listStaffInfoNexHour: listStaffInfoNexHour,
+                                index: index
+                            },
+                            success: function (res) {
+                                showDataImportFileExcel(res, listStaffInfoNexHour);
+                                showErrorDataImportFileExcel(data.Value.dataErrors);
+                            }
+                        });
+                    }
+
+                }                
+            });
+
             $('.loading-process').fadeOut(1000);
         });
     }

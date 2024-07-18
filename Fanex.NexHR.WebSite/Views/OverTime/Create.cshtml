@@ -49,7 +49,7 @@
                                         <textarea asp-for="Description" class="materialize-textarea"></textarea>
                                     </div>
                                 </div>
-                            </div>
+                            </div> 
 
                             <div class="row form-input">
                                 <div class="col m-r--m">
@@ -62,22 +62,16 @@
                                         <input asp-for="TimeSheetData" type="hidden"/>
                                     </div>
                                 </div>
-                            </div>
-                            
-                            <div class="row form-input">
-                                <div class="col m-r--m">
-                                    <div class="left label--l">
-                                        <label>Import Excel</label>
-                                    </div>
-                                    <div class="left input--m">
-                                        <input type="file" id="fileInput" name="file" class="fileInput" />
-                                    </div>
+                                <div class="col">
+                                    <div class="left">
+                                        <input type="file" title="Import File Excel" id="fileInput" name="file" class="fileInput" />
+                                    </div> 
                                 </div>
                             </div>
 
                             <div class="row form-input">
                                 <div class="col m-r--m col-list-emp">
-                                    <div class="left label--l">
+                                    <div class="left label--l"> 
                                         <label>Employee List</label>
                                     </div>
                                     <div class="left cover-form-mb over-auto table-overtime-create">
@@ -102,7 +96,7 @@
                                                     var rowId = "row_" + i.ToString();
                                                     var row_hour_Id = "row_hour_" + i.ToString();
                                                     var row_note_Id = "note_" + i.ToString();
-                                                    var empId = item.Employee.Id;
+                                                    var empId = item.Employee.Id; 
 
                                                     <tr class="sortedIndex" id="@rowId" data-unique="@i">
                                                         <td>@i</td>

@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Criteria.Overtime;
@@ -22,7 +23,7 @@
 
         Task<IList<OvertimeConversion>> GetConversions(GetOvertimeConversionsCriteria criteria);
         Task<IEnumerable<StaffInfoNexHour>> GetListStaffInfoNexHourAsync(GetListStaffInfoNexHourCriteria criteria);
-        Task<IEnumerable<OvertimeExcelDataViewModel>> GetEmployeesFromFileExcel(IFormFile file);
+        Task<ValueTuple<IEnumerable<OvertimeExcelDataViewModel>, IEnumerable<int>>> GetEmployeesFromFileExcel(IFormFile file);
 
         Task<NexHour> GetNexHour(GetNexHourCriteria criteria);
 

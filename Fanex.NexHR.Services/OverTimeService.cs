@@ -120,9 +120,10 @@
             return await baseService.GetDataAsync<StaffInfoNexHour>(criteria);
         }
 
-        public async Task<IEnumerable<OvertimeExcelDataViewModel>> GetEmployeesFromFileExcel(IFormFile file)
+        public async Task<ValueTuple<IEnumerable<OvertimeExcelDataViewModel>, IEnumerable<int>>> GetEmployeesFromFileExcel(IFormFile file)
         {
             var dataList = new List<OvertimeExcelDataViewModel>();
+            var dataError = new List<int>();
             if (file is { Length: > 0 } && IsExcelFile(file))
             {
                 using var stream = new MemoryStream();
@@ -133,33 +134,40 @@
 
                 for (var row = RowStartBody; row <= rowCount; row++)
                 {
-                    if (IsNullOrWhiteSpace(workSheet, row) &&
-                        IsConvertDate(workSheet.Cells[row, CollumnDate].Text) &&
-                        IsConvertDuration(workSheet.Cells[row, CollumnDuration].Text))
+                    if (!IsNullOrWhiteSpace(workSheet, row))
                     {
-                        var data = new OvertimeExcelDataViewModel
+                        if (IsConvertDate(workSheet.Cells[row, CollumnDate].Text) &&
+                            IsConvertDuration(workSheet.Cells[row, CollumnDuration].Text))
                         {
-                            NickName = workSheet.Cells[row, CollumnNickName].Text,
-                            Date = Convert.ToDateTime(workSheet.Cells[row, CollumnDate].Text, CultureInfo.InvariantCulture),
-                            Duration = float.Parse(workSheet.Cells[row, CollumnDuration].Text),
-                            Notes = workSheet.Cells[row, CollumnNotes].Text,
-                            Unique = DateTimeOffset.Now.ToString(TypeTimeUnique)
-                        };
-                        dataList.Add(data);
+                            var data = new OvertimeExcelDataViewModel
+                            {
+                                NickName = workSheet.Cells[row, CollumnNickName].Text,
+                                Date = Convert.ToDateTime(workSheet.Cells[row, CollumnDate].Text, CultureInfo.InvariantCulture),
+                                Duration = float.Parse(workSheet.Cells[row, CollumnDuration].Text),
+                                Notes = workSheet.Cells[row, CollumnNotes].Text,
+                                Unique = DateTimeOffset.Now.ToString(TypeTimeUnique)
+                            };
+                            dataList.Add(data);
+                        }
+                        else
+                        {
+                            dataError.Add(row);
+                        }
                     }
+
                 }
             }
 
-            return dataList;
+            return (dataList, dataError);
         }
 
         private static bool IsConvertDate(string date) => DateTime.TryParse(date, CultureInfo.InvariantCulture, out _);
         private static bool IsConvertDuration(string Duration) => float.TryParse(Duration, out _);
 
         private static bool IsNullOrWhiteSpace(ExcelWorksheet workSheet, int row) =>
-            !string.IsNullOrWhiteSpace(workSheet.Cells[row, CollumnNickName].Text)
-            && !string.IsNullOrWhiteSpace(workSheet.Cells[row, CollumnDate].Text)
-            && !string.IsNullOrWhiteSpace(workSheet.Cells[row, CollumnDuration].Text);
+            string.IsNullOrWhiteSpace(workSheet.Cells[row, CollumnNickName].Text)
+            && string.IsNullOrWhiteSpace(workSheet.Cells[row, CollumnDate].Text)
+            && string.IsNullOrWhiteSpace(workSheet.Cells[row, CollumnDuration].Text);
 
         private static bool IsExcelFile(IFormFile file) =>
             (Path.GetExtension(file.FileName).Equals(FileXLSX, StringComparison.OrdinalIgnoreCase) ||
