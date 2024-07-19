@@ -29,12 +29,12 @@ namespace Fanex.NexHR.Services
             {
                 if (appSetting.EnableEncrypt)
                 {
-                    byte[] bytesToEncrypt = ASCIIEncoding.ASCII.GetBytes(plainText);
+                    byte[] bytesToEncrypt = Encoding.ASCII.GetBytes(plainText);
 
                     using (var rsa = new RSACryptoServiceProvider(KeySize))
                     {
                         rsa.FromXmlString(publicKey);
-                        byte[] encryptedBytes = rsa.Encrypt(bytesToEncrypt, OptimalAsymmetricEncryptionPadding);
+                        byte[] encryptedBytes = rsa.Encrypt(bytesToEncrypt, true);
                         cipherText = Convert.ToBase64String(encryptedBytes);
                     }
                 }
@@ -42,7 +42,7 @@ namespace Fanex.NexHR.Services
                 {
                     cipherText = plainText;
                 }
-            } 
+            }
 
             return cipherText;
         }
@@ -59,7 +59,7 @@ namespace Fanex.NexHR.Services
                     using (var rsa = new RSACryptoServiceProvider(KeySize))
                     {
                         rsa.FromXmlString(privateKey);
-                        byte[] plainbytes = rsa.Decrypt(bytesToDecrypt, OptimalAsymmetricEncryptionPadding);
+                        byte[] plainbytes = rsa.Decrypt(bytesToDecrypt, true);
                         var enc = new ASCIIEncoding();
                         plainText = enc.GetString(plainbytes);
                     }
@@ -76,7 +76,7 @@ namespace Fanex.NexHR.Services
         private static string ReadTextFile(string filePath)
         {
             var text = string.Empty;
-            if(File.Exists(filePath))
+            if (File.Exists(filePath))
             {
                 text = File.ReadAllText(filePath);
             }

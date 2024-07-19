@@ -497,4 +497,7 @@
         <Setting Key="Position_Update" SpName="Position_Update" DbName="nexhr" Plain="1"></Setting>
         <Setting Key="Position_Delete" SpName="Position_Delete" DbName="nexhr" Plain="1"></Setting>
     </Function>
+    <Function Name="Request Form">
+        <Setting Key="CheckInCheckOut_GetByConversationId" SpName="CheckInCheckOut_GetByConversationId" Plain="1"></Setting>
+    </Function>
 </Functions>

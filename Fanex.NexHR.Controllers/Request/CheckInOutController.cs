@@ -9,6 +9,7 @@
     using Criteria.Request;
     using Criteria.Shift;
     using Fanex.NexHR.Core;
+    using Fanex.NexHR.Criteria.CheckInCheckOut;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using Models;
@@ -258,6 +259,12 @@
 
             Shift shift = await shiftService.GetByDate(getShiftByDateCriteria);
             return shift;
+        }
+
+        public async Task<IActionResult> GetCheckInCheckOutModel(string conversationId)
+        {
+            var model = await baseService.GetDataEntityAsync<object>(new GetCheckInCheckOutByConversationIdCriteria { ConversationId = conversationId });
+            return Ok(model);
         }
     }
 }
