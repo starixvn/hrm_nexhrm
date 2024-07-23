@@ -1100,12 +1100,12 @@
         "sourceMap": false
     },
     {
-      "outputFileName": "wwwroot/minify/js/transfer.min.js",
+      "outputFileName": "wwwroot/minify/js/history.min.js",
       "inputFiles": [
           "wwwroot/js/Libs/jquery.validate.unobtrusive.js",
           "wwwroot/js/Libs/jquery.unobtrusive-ajax.js",
           "wwwroot/js/Views/Employee/_employee.search.in.company.js",
-          "wwwroot/js/Views/Transfer/transfer.js"
+          "wwwroot/js/Views/History/history.js"
       ],
       "minify": {
           "enabled": true,

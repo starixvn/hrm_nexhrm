@@ -137,7 +137,7 @@
             services.AddSingleton<IMemoService, MemoService>();
             services.AddSingleton<ICompanyEventService, CompanyEventService>();
             services.AddSingleton<IApplicantService, ApplicantService>();
-            services.AddSingleton<ITransferService, TransferService>();
+            services.AddSingleton<IHistoryService, HistoryService>();
             services.AddSingleton<IPositionService, PositionService>();
             services.AddSingleton<ISupervisorFlowService, SupervisorFlowService>();
             services.AddSingleton<ICryptoService, CryptoService>(); 

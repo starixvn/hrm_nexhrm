@@ -1,35 +1,24 @@
 namespace Fanex.NexHR.Controllers
 {
     using System;
-    using Fanex.NexHR.Criteria.Transfer;
+    using Fanex.NexHR.Criteria.History;
     using Fanex.NexHR.Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
-    using Fanex.NexHR.ViewModels.Transfer;
+    using Fanex.NexHR.ViewModels.History;
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
 
-    public class TransferController : BaseController
+    public class HistoryController(ISessionService sessionService,
+        ITeamService teamService,
+        IHistoryService historyService,
+        IBaseService baseService) : BaseController(sessionService)
     {
-        private readonly ITeamService teamService;
-        private readonly IBaseService baseService;
-        private readonly ITransferService transferService;
-
-        public TransferController(ISessionService sessionService,
-            ITeamService teamService,
-            ITransferService transferService,
-            IBaseService baseService) : base(sessionService)
-        {
-            this.baseService = baseService;
-            this.teamService = teamService;
-            this.transferService = transferService;
-        }
-
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = new FilterTransferViewModel
+            var model = new FilterHistoryViewModel
             {
                 FromDate = DateTimeOffset.Now.Date,
                 ToDate = DateTimeOffset.Now.Date,
@@ -39,18 +28,18 @@ namespace Fanex.NexHR.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetTransfers(FilterTransferViewModel model)
+        public async Task<IActionResult> GetHistory(FilterHistoryViewModel model)
         {
-            var criteria = new GetTransferCriteria
+            var criteria = new GetHistoryCriteria
             {
                 FromDate = model.FromDate,
                 ToDate = model.ToDate,
                 EmpId = model.EmployeeId,
                 GroupId = model.TeamId
             };
-            var transfer = await transferService.GetAll(criteria);
+            var history = await historyService.GetAll(criteria);
 
-            return PartialView("_ListTransfer", transfer);
+            return PartialView("_ListHistory", history);
         }
 
         [HttpGet]
@@ -61,9 +50,9 @@ namespace Fanex.NexHR.Controllers
             return PartialView();
         }
 
-         [HttpPost]
+        [HttpPost]
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> Create(CreateTransferViewModel model)
+        public async Task<IActionResult> Create(CreateHistoryViewModel model)
         {
             var result = new CommandResult
             {
@@ -73,7 +62,7 @@ namespace Fanex.NexHR.Controllers
 
             if (model != null && ModelState.IsValid)
             {
-                var criteria = new InsertTransferCriteria
+                var criteria = new InsertHistoryCriteria
                 {
                     EmpId = model.EmployeeId,
                     GroupId = model.GroupId,
@@ -94,17 +83,14 @@ namespace Fanex.NexHR.Controllers
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Edit(int id)
         {
-            var transfer = await transferService.GetById(new GetTransferByIdCriteria { Id = id });
-            var model = new EditTransferViewModel();
+            var transfer = await historyService.GetById(new GetHistoryByIdCriteria { Id = id });
+            var model = new EditHistoryViewModel();
             if (transfer != null)
             {
                 model.Id = transfer.Id;
                 model.EmployeeId = transfer.EmployeeId;
                 model.Employee = transfer.NickName + " (" + transfer.FullName + ")";
-                model.GroupId = transfer.GroupId;
                 model.GroupName = transfer.GroupName;
-                model.OldGroupId = transfer.OldGroupId;
-                model.OldGroupName = transfer.OldGroupName;
                 model.TransferDate = transfer.AffectedDate;
             }
             ViewBag.Teams = await teamService.GetTeam();
@@ -114,9 +100,9 @@ namespace Fanex.NexHR.Controllers
 
         [HttpPost]
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> Edit(EditTransferViewModel model)
+        public async Task<IActionResult> Edit(EditHistoryViewModel model)
         {
-            var criteria = new UpdateTransferCriteria
+            var criteria = new UpdateHistoryCriteria
             {
                 Id = model.Id,
                 EmpId = model.EmployeeId,
@@ -135,8 +121,8 @@ namespace Fanex.NexHR.Controllers
         [HttpPost]
         public async Task<CommandResult> Delete(int id)
         {
-            var deleteTransferCriteria = new DeleteTransferCriteria { Id = id };
-            CommandResult result = await baseService.ExecuteNonQueryAsync(deleteTransferCriteria);
+            var deleteHistoryCriteria = new DeleteHistoryCriteria { Id = id };
+            CommandResult result = await baseService.ExecuteNonQueryAsync(deleteHistoryCriteria);
 
             return result;
         }

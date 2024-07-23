@@ -1,13 +1,13 @@
-@using Fanex.NexHR.Core.Enums
-@using Fanex.NexHR.Resources
-@using Fanex.NexHR.ViewModels.Transfer
+@using Fanex.NexHR.Core.Enums;
+@using Fanex.NexHR.Resources;
+@using Fanex.NexHR.ViewModels.History;
 @using Fanex.NexHR.Services.Interfaces;
 @inject ISessionService sessionService;
-@model FilterTransferViewModel
+@model FilterHistoryViewModel
 @{
     var isHRRole = sessionService.CurrentEmployee.HasHRRole;
     DateTime currentDate = DateTime.Today;
-    ViewBag.Title = Labels.Transfer;
+    ViewBag.Title = Labels.History;
 }
 @section Styles {
     <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
@@ -18,10 +18,10 @@
         <script src="~/js/Libs/jquery.unobtrusive-ajax.js" asp-append-version="true"></script>
         <script src="~/js/Libs/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
         <script src="~/js/Views/Employee/_employee.search.in.company.js" asp-append-version="true"></script>
-        <script src="~/js/Views/Transfer/transfer.js" asp-append-version="true"></script>
+        <script src="~/js/Views/History/history.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
-        <script src="~/minify/js/transfer.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/history.min.js" asp-append-version="true"></script>
     </environment>
 }
 
@@ -82,8 +82,8 @@
                                     @if (@isHRRole)
                                     {
                                         <a class="btn-request waves-effect waves-light btn m-r--m" href="@Url.Action("Create")"
-                                           data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog-transfer" data-ajax-success="transfer.onLoadingCreateFormSuccess">
-                                            @Labels.NewTransfer
+                                           data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog-history" data-ajax-success="history.onLoadingCreateFormSuccess">
+                                            New History
                                         </a>
                                     }
                                 </div>
@@ -91,9 +91,9 @@
                         </div>
                     </div>
                     <div class="p-x--s">
-                        <div id="list-transfer" class="over-auto table-resize table-medium"></div>
+                        <div id="list-history" class="over-auto table-resize table-medium"></div>
                     </div>
-                    <div id="dialog-transfer"></div>
+                    <div id="dialog-history"></div>
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@
 
 function query(isFirstLoad) {
     $.ajax({
-        url: _global.root + 'Transfer/GetTransfers',
+        url: _global.root + 'History/GetHistory',
         dataType: 'html',
         method: "POST",
         data: {
@@ -18,7 +18,7 @@ function query(isFirstLoad) {
             }
         },
         success: function (data) {
-            $('#list-transfer').html(data);
+            $('#list-history').html(data);
 
             floatThead('table#data');
         },
@@ -33,9 +33,9 @@ function query(isFirstLoad) {
     });
 }
 
-function deleteTransfer(id) {
-    confirm('Are you sure you want to delete this transfer?', function () {
-        $.post(_global.root + 'Transfer/Delete', { id: id },
+function deleteHistory(id) {
+    confirm('Are you sure you want to delete this history?', function () {
+        $.post(_global.root + 'History/Delete', { id: id },
             function (response) {
                 if (response.IsSuccessful) {
                     $('#row' + id).remove();
@@ -78,8 +78,8 @@ function init() {
     query(true);
 }
 
-var transfer = (function ($) {
-    var $dialog = $('#dialog-transfer');
+var historyTransfer = (function ($) {
+    var $dialog = $('#dialog-history');
 
     function initializeDialog($form, title) {
         $.validator.unobtrusive.parse($form);
@@ -117,11 +117,11 @@ var transfer = (function ($) {
     }
 
     function initCreateDialog() {
-        initializeDialog($('#create-form'), 'Create New Transfer');
+        initializeDialog($('#create-form'), 'Create History');
     }
 
     function initEditDialog() {
-        initializeDialog($('#edit-form'), 'Edit Transfer');
+        initializeDialog($('#edit-form'), 'Edit History');
     }
 
     function handleSuccess(response, successMessage) {
@@ -159,5 +159,5 @@ var transfer = (function ($) {
 }(jQuery));
 
 $(document).ready(function () {
-    transfer.init();
+    historyTransfer.init();
 });

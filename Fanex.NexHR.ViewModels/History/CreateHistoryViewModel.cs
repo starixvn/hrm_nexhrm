@@ -1,10 +1,10 @@
-﻿namespace Fanex.NexHR.ViewModels.Transfer
+﻿namespace Fanex.NexHR.ViewModels.History
 {
     using System;
     using Fanex.NexHR.Resources;
     using System.ComponentModel.DataAnnotations;
 
-    public class CreateTransferViewModel
+    public class CreateHistoryViewModel
     {
         [Required]
         [Display(Name = "Employee", ResourceType = typeof(Labels))]

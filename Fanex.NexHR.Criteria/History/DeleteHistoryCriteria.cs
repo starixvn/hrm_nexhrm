@@ -1,6 +1,6 @@
-﻿namespace Fanex.NexHR.Criteria.Transfer
+﻿namespace Fanex.NexHR.Criteria.History
 {
-    public class DeleteTransferCriteria : BaseCommand
+    public class DeleteHistoryCriteria : BaseCommand
     {
         public int Id { get; set; }
 

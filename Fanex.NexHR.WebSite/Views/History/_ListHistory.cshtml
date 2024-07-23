@@ -4,7 +4,7 @@
 @using Fanex.NexHR.Models
 @using Fanex.NexHR.Services.Interfaces
 @inject ISessionService sessionService;
-@model IList<Transfer>
+@model IList<History>
 @{
     var isHRRole = sessionService.CurrentEmployee.HasHRRole;
     var index = 1;
@@ -15,9 +15,10 @@
             <th style="width:4%">@Labels.SymbolCount</th>
             <th style="width:10%">@Labels.FullName</th>
             <th style="width:7%">@Labels.EnglishName</th>
-            <th style="width:10%">@Labels.CurrentTeam</th>
             <th style="width:10%">@Labels.NewTeam</th>
-            <th style="width:7%">@Labels.TransferDate</th>
+            <th style="width:10%">New Job Title</th>
+            <th style="width:10%">New Job Grade</th>
+            <th style="width:7%">@Labels.AffectedDate</th>
             @if (isHRRole)
             {
                 <th style="width:6%">@Labels.Action</th>
@@ -33,17 +34,20 @@
                     <td>@(index++)</td>
                     <td class="align-left">@item.FullName</td>
                     <td>@item.NickName</td>
-                    <td>@item.OldGroupName</td>
-                    <td>@item.GroupName</td>
+                    <td>@(item.GroupName ?? "-")</td>
+                    <td class="@(string.IsNullOrEmpty(item.JobTitleName) ? "" : "align-left")">
+                        @(item.JobTitleName ?? "-")
+                    </td>
+                    <td>@(item.JobGradeName ?? "-")</td>
                     <td>@item.AffectedDate.ToString("dd MMM, yyyy")</td>
                     @if (isHRRole)
                     {
                         <td class="action-column">
-                            <a class="btn-edit" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog-transfer" href="@Url.Action("Edit", new { id = item.Id })"
+                            <a class="btn-edit" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog-history" href="@Url.Action("Edit", new { id = item.Id })"
                                data-ajax-success="transfer.onLoadingEditFormSuccess">
                                 <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
                             </a>
-                            <a href="javascript:;" onclick="deleteTransfer(@item.Id);">
+                            <a href="javascript:;" onclick="deleteHistory(@item.Id);">
                                 <i class='mdi mdi-delete mdi-dark'></i>
                             </a>
                         </td>
@@ -53,7 +57,7 @@
         }
         else
         {
-            var colspan = isHRRole ? 7 : 6;
+            var colspan = isHRRole ? 8 : 7;
             <tr>
                 <td colspan="@colspan">
                     @Messages.NoInformation

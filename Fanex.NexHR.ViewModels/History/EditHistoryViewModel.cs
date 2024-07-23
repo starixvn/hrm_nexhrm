@@ -1,9 +1,9 @@
-﻿namespace Fanex.NexHR.ViewModels.Transfer
+﻿namespace Fanex.NexHR.ViewModels.History
 {
     using Fanex.NexHR.Resources;
     using System.ComponentModel.DataAnnotations;
 
-    public class EditTransferViewModel : CreateTransferViewModel
+    public class EditHistoryViewModel : CreateHistoryViewModel
     {
         [Required]
         [Display(Name = "Id", ResourceType = typeof(Labels))]

@@ -153,8 +153,8 @@
         "ParentId": 13
     },
     {
-        "Title": "Transfer Record",
-        "Controller": "Transfer",
+        "Title": "History Transfer",
+        "Controller": "History",
         "Action": "Index",
         "Icon": "file-document-box",
         "Roles": "HR",

@@ -466,8 +466,8 @@
         <Setting Key="Promotion_Update" SpName="Promotion_Update" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Promotion_Delete" SpName="Promotion_Delete" DbName="nexhr" Plain="0"></Setting>
     </Function>
-    <Function Name="Transfer">
-        <Setting Key="Transfer_Get" SpName="Transfer_Get" DbName="nexhr" Plain="0"></Setting>
+    <Function Name="History">
+        <Setting Key="History_Get" SpName="History_Get" DbName="nexhr" Plain="1"></Setting>
         <Setting Key="Transfer_GetById" SpName="Transfer_GetById" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Transfer_Insert" SpName="Transfer_Insert" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Transfer_Update" SpName="Transfer_Update" DbName="nexhr" Plain="0"></Setting>

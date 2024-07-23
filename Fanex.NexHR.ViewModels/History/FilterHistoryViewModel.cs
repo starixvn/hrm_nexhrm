@@ -1,10 +1,10 @@
-﻿namespace Fanex.NexHR.ViewModels.Transfer
+﻿namespace Fanex.NexHR.ViewModels.History
 {
     using Fanex.NexHR.Models;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    public class FilterTransferViewModel
+    public class FilterHistoryViewModel
     {
         public DateTime FromDate { get; set; }
 

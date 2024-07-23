@@ -1,9 +1,9 @@
-﻿namespace Fanex.NexHR.Criteria.Transfer
+﻿namespace Fanex.NexHR.Criteria.History
 {
     using Fanex.Data.Repository;
     using System;
 
-    public class GetTransferCriteria : CriteriaBase
+    public class GetHistoryCriteria : CriteriaBase
     {
         public int? GroupId { get; set; }
 
@@ -13,8 +13,7 @@
 
         public DateTime ToDate { get; set; }
 
-        public override string GetSettingKey() => "Transfer_Get";
-
+        public override string GetSettingKey() => "History_Get";
         public override bool IsValid() => ToDate >= FromDate;
     }
 }

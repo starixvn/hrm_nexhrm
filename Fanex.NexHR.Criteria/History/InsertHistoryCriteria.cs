@@ -1,8 +1,8 @@
-﻿namespace Fanex.NexHR.Criteria.Transfer
+﻿namespace Fanex.NexHR.Criteria.History
 {
     using System;
 
-    public class InsertTransferCriteria : BaseCommand
+    public class InsertHistoryCriteria : BaseCommand
     {
         public int EmpId { get; set; }
 

@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class Transfer
+    public class History
     {
         public int Id { get; set; }
 
@@ -12,13 +12,11 @@
 
         public string NickName { get; set; }
 
-        public int GroupId { get; set; }
-
         public string GroupName { get; set; }
 
-        public int OldGroupId { get; set; }
+        public string JobGradeName { get; set; }
 
-        public string OldGroupName { get; set; }
+        public string JobTitleName { get; set; }
 
         public DateTime AffectedDate { get; set; }
     }

@@ -1,8 +1,8 @@
-﻿namespace Fanex.NexHR.Criteria.Transfer
+﻿namespace Fanex.NexHR.Criteria.History
 {
     using Fanex.Data.Repository;
 
-    public class GetTransferByIdCriteria : CriteriaBase
+    public class GetHistoryByIdCriteria : CriteriaBase
     {
         public int Id { get; set; }
 
