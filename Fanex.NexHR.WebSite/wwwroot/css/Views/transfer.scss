@@ -39,8 +39,12 @@
     }
 
     .validation-summary-errors ul li {
-        list-style-type: none;
         text-align: left;
+    }
+
+    .required {
+        color: red;
+        margin-left: 6px;
     }
 }
 

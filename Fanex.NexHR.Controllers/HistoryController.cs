@@ -9,11 +9,14 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
+    using Fanex.NexHR.Criteria.LookupData;
 
     public class HistoryController(ISessionService sessionService,
         ITeamService teamService,
         IHistoryService historyService,
-        IBaseService baseService) : BaseController(sessionService)
+        IBaseService baseService,
+        IJobTitleService jobTitleService,
+        IPromotionService promotionService) : BaseController(sessionService)
     {
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -46,8 +49,14 @@ namespace Fanex.NexHR.Controllers
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Create()
         {
-            ViewBag.Teams = await teamService.GetTeam();
-            return PartialView();
+            var history = new CreateHistoryViewModel
+            {
+                Teams = await teamService.GetTeam(),
+                JobTitles = await jobTitleService.GetJobTitle(new GetJobTitleCriteria { JobTitle = "" }),
+                JobGrades = await promotionService.GetJobGrade()
+            };
+
+            return PartialView(history);
         }
 
         [HttpPost]
@@ -66,6 +75,8 @@ namespace Fanex.NexHR.Controllers
                 {
                     EmpId = model.EmployeeId,
                     GroupId = model.GroupId,
+                    JobGradeId = model.JobGradeId,
+                    JobTitleId = model.JobTitleId,
                     AffectedDate = model.AffectedDate,
                     ModifiedBy = CurrentUser.Id
                 };
@@ -91,7 +102,6 @@ namespace Fanex.NexHR.Controllers
                 model.EmployeeId = history.EmployeeId;
                 model.Employee = history.NickName + " (" + history.FullName + ")";
             }
-            ViewBag.Teams = await teamService.GetTeam();
 
             return PartialView(model);
         }
@@ -105,6 +115,8 @@ namespace Fanex.NexHR.Controllers
                 Id = model.Id,
                 EmpId = model.EmployeeId,
                 GroupId = model.GroupId,
+                JobGradeId = model.JobGradeId,
+                JobTitleId = model.JobTitleId,
                 ModifiedBy = CurrentUser.Id
             };
 

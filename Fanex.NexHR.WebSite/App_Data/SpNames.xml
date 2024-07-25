@@ -471,6 +471,7 @@
         <Setting Key="History_GetById" SpName="History_GetById" DbName="nexhr" Plain="1"></Setting>
         <Setting Key="History_Insert" SpName="History_Insert" DbName="nexhr" Plain="1"></Setting>
         <Setting Key="History_Update" SpName="History_Update" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="History_Delete" SpName="History_Delete" DbName="nexhr" Plain="1"></Setting>
     </Function>
     <Function Name="Applicant">
       <Setting Key="Applicant_Insert" SpName="Applicant_Insert" DbName="hrm" Plain="0"></Setting>

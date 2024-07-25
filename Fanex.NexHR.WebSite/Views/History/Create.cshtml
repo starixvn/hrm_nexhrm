@@ -1,15 +1,8 @@
 ﻿@using Fanex.NexHR.Resources
 @model Fanex.NexHR.ViewModels.History.CreateHistoryViewModel
-
 @{
-     DateTime currentDate = DateTime.Today;
+    DateTime currentDate = DateTime.Today;
     var teams = ViewBag.Teams;
-    var categories = new List<SelectListItem>
-    {
-    new SelectListItem { Value = "1", Text = "Team" },
-    new SelectListItem { Value = "2", Text = "Job Title" },
-    new SelectListItem { Value = "3", Text = "Job Grade" }
-    };
 }
 
 <form id="create-form" asp-action="create" data-ajax="true" data-ajax-method="post"
@@ -19,6 +12,7 @@
         <div class="col">
             <div class="left label--l">
                 <label>@Labels.Employee</label>
+                <span class="required">*</span>
             </div>
             <div class="left input--m">
                 <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark" data-val="true"
@@ -31,9 +25,10 @@
         <div class="col">
             <div class="left label--l">
                 <label>@Labels.AffectedDate</label>
+                <span class="required">*</span>
             </div>
             <div class="datepicker-button left">
-                <date-picker name="AffectedDate"  value="currentDate"></date-picker>
+                <date-picker name="AffectedDate" value="currentDate"></date-picker>
                 <i class="mdi-action-event calendar-icon left"></i>
             </div>
         </div>
@@ -41,10 +36,35 @@
     <div class="row form-input">
         <div class="col">
             <div class="left label--l">
-                <label>Category</label>
+                <label>@Labels.NewTeam</label>
             </div>
             <div class="left select--m">
-                <select asp-for="CategoryId" asp-items="@(new SelectList(categories, "Value", "Text"))">
+                <select asp-for="GroupId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                <label>@Labels.NewJobTitle</label>
+            </div>
+            <div class="left select--m">
+                <select asp-for="JobTitleId" asp-items="@(new SelectList(Model.JobTitles, "Id", "Name"))">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="col">
+            <div class="left label--l">
+                <label>New Job Grade</label>
+            </div>
+            <div class="left select--m">
+                <select asp-for="JobGradeId" asp-items="@(new SelectList(Model.JobGrades, "Id", "Name"))">
+                    <option value=""></option>
                 </select>
             </div>
         </div>

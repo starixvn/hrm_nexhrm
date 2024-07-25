@@ -8,9 +8,11 @@
 
         public int EmpId { get; set; }
 
-        public int GroupId { get; set; }
+        public int? GroupId { get; set; }
 
-        public int OldGroupId { get; set; }
+        public int? JobTitleId { get; set; }
+
+        public int? JobGradeId { get; set; }
 
         public DateTime AffectedDate { get; set; }
 
@@ -18,8 +20,8 @@
 
         public override string GetSettingKey() => "History_Update";
 
-        public override bool IsValid() => Id > 0  && EmpId > 0 && ModifiedBy > 0 && IsValidGroup();
+        public override bool IsValid() => Id > 0 && EmpId > 0 && ModifiedBy > 0 && IsValidGroup();
 
-        private bool IsValidGroup() => GroupId > 0 && OldGroupId > 0;
+        private bool IsValidGroup() => GroupId > 0 || JobTitleId > 0 || JobGradeId > 0;
     }
 }
