@@ -14,6 +14,8 @@
 
         public int GroupId { get; set; }
 
-        public DateTime TransferDate { get; set; }
+        public int CategoryId { get; set; }
+
+        public DateTime AffectedDate { get; set; }
     }
 }

@@ -651,17 +651,6 @@
     "sourceMap": false
   },
   {
-    "outputFileName": "wwwroot/minify/js/historywork.min.js",
-    "inputFiles": [
-      "wwwroot/js/Views/Employee/employee.historywork.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
     "outputFileName": "wwwroot/minify/js/postnatalemployee.min.js",
     "inputFiles": [
       "wwwroot/js/Views/Postanal/postnatalemployee.js",

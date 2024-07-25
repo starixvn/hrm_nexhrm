@@ -6,7 +6,7 @@
     {
         public int Id { get; set; }
 
-        public override string GetSettingKey() => "Transfer_GetById";
+        public override string GetSettingKey() => "History_GetById";
 
         public override bool IsValid() => Id > 0;
     }

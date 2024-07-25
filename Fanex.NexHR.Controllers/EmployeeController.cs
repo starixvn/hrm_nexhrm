@@ -9,13 +9,11 @@
     using Core.Model;
     using Criteria.Employee;
     using Fanex.NexHR.Controllers.Attributes;
-    using Fanex.NexHR.Criteria.HistoryWork;
     using Fanex.NexHR.Criteria.JobGrade;
     using Fanex.NexHR.Criteria.JobTitle;
     using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Criteria.TrainingAndDevelopment;
     using Fanex.NexHR.Resources;
-    using Fanex.NexHR.ViewModels.HistoryWork;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -33,7 +31,6 @@
         private readonly IShiftService shiftService;
         private readonly IEmployeeService employeeService;
         private readonly IBaseService baseService;
-        private readonly IHistoryWorkService historyWorkService;
         private readonly IMailEmployeeService mailEmployeeService;
         private readonly ITrainingAndDevelopmentService trainingAndDevelopmentService;
         private readonly IWebHostEnvironment environment;
@@ -47,7 +44,6 @@
             IJobTitleService jobTitleService,
             IShiftService shiftService,
             IBaseService baseService,
-            IHistoryWorkService historyWorkService,
             IMailEmployeeService mailEmployeeService,
             ITrainingAndDevelopmentService trainingAndDevelopmentService,
             IWebHostEnvironment environment,
@@ -59,7 +55,6 @@
             this.jobTitleService = jobTitleService;
             this.shiftService = shiftService;
             this.baseService = baseService;
-            this.historyWorkService = historyWorkService;
             this.mailEmployeeService = mailEmployeeService;
             this.environment = environment;
             this.trainingAndDevelopmentService = trainingAndDevelopmentService;
@@ -180,142 +175,6 @@
             var staffs = await baseService.GetDataAsync<GeoMapInfo>(criteria);
 
             return Json(staffs);
-        }
-
-        [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> WorkingHistory(int employeeId)
-        {
-            const int startYear = 2011;
-            var history = new FilterHistoryWorkViewModel
-            {
-                EmpId = employeeId,
-                FromDate = new DateTimeOffset(startYear, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
-                Employee = await employeeService.GetEmployeeById(new GetEmployeeByIdCriteria { EmployeeId = employeeId })
-            };
-
-            return View(history);
-        }
-
-        [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> HistoryWorkDetail(FilterHistoryWorkViewModel model)
-        {
-            var criteria = new FilterHistoryWorkCriteria
-            {
-                EmpId = model.EmpId,
-                FromDate = model.FromDate,
-                ToDate = model.ToDate,
-            };
-            var listHistoryWork = await historyWorkService.GetAll(criteria);
-
-            return PartialView("_HistoryWorkDetail", listHistoryWork);
-        }
-
-        [HttpGet]
-        [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> InsertHistoryWork(int empId)
-        {
-            var employee = await employeeService.GetEmployeeById(new GetEmployeeByIdCriteria { EmployeeId = empId });
-            var history = new CreateHistoryWorkViewModel
-            {
-                EmpId = empId,
-                GroupId = employee.Team.Id,
-                JobTitleId = employee.JobTitle.Id,
-                Teams = await teamService.GetTeam(),
-                JobTitles = await jobTitleService.GetJobTitle(new GetJobTitleCriteria { JobTitle = "" }),
-            };
-
-            return View(history);
-        }
-
-        [HttpPost]
-        [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> InsertHistoryWork(CreateHistoryWorkViewModel model)
-        {
-            var result = new CommandResult
-            {
-                Code = 1,
-                Message = Messages.InvalidInputData
-            };
-
-            if (model != null)
-            {
-                var history = new InsertHistoryWorkCriteria
-                {
-                    EmpId = model.EmpId,
-                    ModifiedBy = CurrentUser.Id,
-                    AffectedDate = model.AffectedDate,
-                    JobTitleId = model.JobTitleId,
-                    GroupId = model.GroupId
-                };
-
-                result = await baseService.ExecuteNonQueryAsync(history);
-            }
-
-            return Json(result);
-        }
-
-        [HttpGet]
-        [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> EditHistoryWork(int id)
-        {
-            var history = await historyWorkService.GetById(new GetHistoryWorkByIdCriteria { Id = id });
-            var model = new EditHistoryWorkViewModel();
-            if (history != null)
-            {
-                model.Id = history.Id;
-                model.EmpId = history.EmpId;
-                model.GroupId = history.GroupId;
-                model.JobTitleId = history.JobTitleId;
-                model.AffectedDate = history.AffectedDate;
-                model.Teams = await teamService.GetTeam();
-                model.JobTitles = await jobTitleService.GetJobTitle(new GetJobTitleCriteria());
-            }
-
-            return PartialView(model);
-        }
-
-        [HttpPost]
-        [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> EditHistoryWork(EditHistoryWorkViewModel model)
-        {
-            var result = new CommandResult
-            {
-                Code = 1,
-                Message = Messages.InvalidInputData
-            };
-
-            if (model != null)
-            {
-                var history = new UpdateHistoryWorkCriteria
-                {
-                    Id = model.Id,
-                    EmpId = model.EmpId,
-                    AffectedDate = model.AffectedDate,
-                    JobTitleId = model.JobTitleId,
-                    GroupId = model.GroupId,
-                    ModifiedBy = CurrentUser.Id,
-                };
-
-                result = await baseService.ExecuteNonQueryAsync(history);
-                if (!result.IsSuccessful)
-                {
-                    ModelState.AddModelError(string.Empty, result.Message);
-                }
-            }
-
-            return Json(result);
-        }
-
-        [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> DeleteHistoryWork(int id)
-        {
-            var criteria = new DeleteHistoryWorkCriteria
-            {
-                Id = id,
-            };
-
-            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
-            return Json(result);
         }
 
         public async Task<IActionResult> Detail(int employeeId)

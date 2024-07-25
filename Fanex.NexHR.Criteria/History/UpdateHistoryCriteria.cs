@@ -12,11 +12,11 @@
 
         public int OldGroupId { get; set; }
 
-        public DateTime TransferDate { get; set; }
+        public DateTime AffectedDate { get; set; }
 
         public int ModifiedBy { get; set; }
 
-        public override string GetSettingKey() => "Transfer_Update";
+        public override string GetSettingKey() => "History_Update";
 
         public override bool IsValid() => Id > 0  && EmpId > 0 && ModifiedBy > 0 && IsValidGroup();
 

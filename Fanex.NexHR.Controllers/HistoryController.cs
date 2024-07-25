@@ -66,7 +66,7 @@ namespace Fanex.NexHR.Controllers
                 {
                     EmpId = model.EmployeeId,
                     GroupId = model.GroupId,
-                    TransferDate = model.TransferDate,
+                    AffectedDate = model.AffectedDate,
                     ModifiedBy = CurrentUser.Id
                 };
                 result = await baseService.ExecuteNonQueryAsync(criteria);
@@ -83,15 +83,13 @@ namespace Fanex.NexHR.Controllers
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Edit(int id)
         {
-            var transfer = await historyService.GetById(new GetHistoryByIdCriteria { Id = id });
+            var history = await historyService.GetById(new GetHistoryByIdCriteria { Id = id });
             var model = new EditHistoryViewModel();
-            if (transfer != null)
+            if (history != null)
             {
-                model.Id = transfer.Id;
-                model.EmployeeId = transfer.EmployeeId;
-                model.Employee = transfer.NickName + " (" + transfer.FullName + ")";
-                model.GroupName = transfer.GroupName;
-                model.TransferDate = transfer.AffectedDate;
+                model.Id = history.Id;
+                model.EmployeeId = history.EmployeeId;
+                model.Employee = history.NickName + " (" + history.FullName + ")";
             }
             ViewBag.Teams = await teamService.GetTeam();
 
@@ -107,8 +105,6 @@ namespace Fanex.NexHR.Controllers
                 Id = model.Id,
                 EmpId = model.EmployeeId,
                 GroupId = model.GroupId,
-                OldGroupId = model.OldGroupId,
-                TransferDate = model.TransferDate,
                 ModifiedBy = CurrentUser.Id
             };
 

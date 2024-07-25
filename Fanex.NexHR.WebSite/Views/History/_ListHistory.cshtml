@@ -44,7 +44,7 @@
                     {
                         <td class="action-column">
                             <a class="btn-edit" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog-history" href="@Url.Action("Edit", new { id = item.Id })"
-                               data-ajax-success="transfer.onLoadingEditFormSuccess">
+                               data-ajax-success="historyTransfer.onLoadingEditFormSuccess">
                                 <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
                             </a>
                             <a href="javascript:;" onclick="deleteHistory(@item.Id);">
