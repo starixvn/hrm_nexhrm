@@ -84,7 +84,7 @@ var historyTransfer = (function ($) {
     function initializeDialog($form, title) {
         $.validator.unobtrusive.parse($form);
         initDatePicker();
-        initAutocomplete('form #Employee', 'form #EmployeeId', false);
+        initAutocomplete('form #Employee', 'form #EmpId', false);
         $dialog.dialog({
             modal: true,
             width: 'auto',
@@ -101,6 +101,31 @@ var historyTransfer = (function ($) {
                     text: 'Save',
                     class: 'btn-submit waves-effect waves-light btn-dialog',
                     click: function () {
+                        var employeeId = $('#EmpId').val();
+                        var groupId = $('#GroupId').val();
+                        var jobTitleId = $('#JobTitleId').val();
+                        var jobGradeId = $('#JobGradeId').val();
+
+                        $('.validation-summary-errors').remove();
+
+                        var errorMessages = [];
+                        if (!parseInt(employeeId, 10) > 0) {
+                            errorMessages.push('The Employee field is required!');
+                        }
+                        if (!groupId && !jobTitleId && !jobGradeId) {
+                            errorMessages.push('At least one of Team, Job Title, or Job Grade must be selected!');
+                        }
+                        if (errorMessages.length > 0) {
+                            $('<div class="validation-summary-errors"></div>').prependTo($form);
+                            var errorList = '<ul>';
+                            errorMessages.forEach(function (msg) {
+                                errorList += '<li>' + msg + '</li>';
+                            });
+                            errorList += '</ul>';
+                            $('.validation-summary-errors').html(errorList);
+                            return false;
+                        }
+
                         $form.submit();
                     }
                 }
@@ -154,7 +179,7 @@ var historyTransfer = (function ($) {
         onLoadingEditFormSuccess: initEditDialog,
         onInsertSuccess: onInsertSuccess,
         onUpdateSuccess: onUpdateSuccess
-    }
+    };
 
 }(jQuery));
 

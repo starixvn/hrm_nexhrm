@@ -5,13 +5,12 @@
 @inject ISessionService sessionService;
 @model FilterHistoryViewModel
 @{
-    var isHRRole = sessionService.CurrentEmployee.HasHRRole;
     DateTime currentDate = DateTime.Today;
     ViewBag.Title = Labels.History;
 }
 @section Styles {
     <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
-    <link rel="stylesheet" href="~/css/Views/transfer.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/Views/history.min.css" asp-append-version="true">
 }
 @section Scripts {
     <environment include="Development">
@@ -79,13 +78,10 @@
                                 </div>
                                 <div class="col m-l--l">
                                     <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light m-r--b" />
-                                    @if (@isHRRole)
-                                    {
                                         <a class="btn-request waves-effect waves-light btn m-r--m" href="@Url.Action("Create")"
                                            data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog-history" data-ajax-success="historyTransfer.onLoadingCreateFormSuccess">
-                                            New History
+                                            @Labels.NewHistory
                                         </a>
-                                    }
                                 </div>
                             </div>
                         </div>

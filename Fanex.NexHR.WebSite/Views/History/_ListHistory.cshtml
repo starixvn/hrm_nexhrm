@@ -6,23 +6,19 @@
 @inject ISessionService sessionService;
 @model IList<History>
 @{
-    var isHRRole = sessionService.CurrentEmployee.HasHRRole;
     var index = 1;
 }
 <table id="data" class="table bordered striped highlight centered table-custom">
     <thead>
         <tr>
             <th style="width:4%">@Labels.SymbolCount</th>
-            <th style="width:10%">@Labels.FullName</th>
-            <th style="width:7%">@Labels.EnglishName</th>
-            <th style="width:10%">@Labels.NewTeam</th>
-            <th style="width:10%">New Job Title</th>
-            <th style="width:10%">New Job Grade</th>
-            <th style="width:7%">@Labels.AffectedDate</th>
-            @if (isHRRole)
-            {
-                <th style="width:6%">@Labels.Action</th>
-            }
+            <th style="width:16%">@Labels.FullName</th>
+            <th style="width:14%">@Labels.EnglishName</th>
+            <th style="width:16%">@Labels.NewTeam</th>
+            <th style="width:20%">@Labels.NewJobTitle</th>
+            <th style="width:10%">@Labels.NewJobGrade</th>
+            <th style="width:10%">@Labels.AffectedDate</th>
+            <th style="width:10%">@Labels.Action</th>
         </tr>
     </thead>
     <tbody>
@@ -34,32 +30,31 @@
                     <td>@(index++)</td>
                     <td class="align-left">@item.FullName</td>
                     <td>@item.NickName</td>
-                    <td>@(item.GroupName ?? "-")</td>
+                    <td class="@(string.IsNullOrEmpty(item.GroupName) ? "" : "align-left")">
+                        @(item.GroupName ?? "-")
+                    </td>
                     <td class="@(string.IsNullOrEmpty(item.JobTitleName) ? "" : "align-left")">
                         @(item.JobTitleName ?? "-")
                     </td>
                     <td>@(item.JobGradeName ?? "-")</td>
                     <td>@item.AffectedDate.ToString("dd MMM, yyyy")</td>
-                    @if (isHRRole)
-                    {
-                        <td class="action-column">
-                            <a class="btn-edit" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog-history" href="@Url.Action("Edit", new { id = item.Id })"
-                               data-ajax-success="historyTransfer.onLoadingEditFormSuccess">
-                                <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
-                            </a>
-                            <a href="javascript:;" onclick="deleteHistory(@item.Id);">
-                                <i class='mdi mdi-delete mdi-dark'></i>
-                            </a>
-                        </td>
-                    }
+                    <td class="action-column">
+                        <a class="btn-edit" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#dialog-history"
+                            href="@Url.Action("Edit", new { id = item.Id })"
+                            data-ajax-success="historyTransfer.onLoadingEditFormSuccess">
+                            <i class="mdi mdi-border-color mdi-dark mdi-18px"></i>
+                        </a>
+                        <a href="javascript:;" onclick="deleteHistory(@item.Id);">
+                            <i class='mdi mdi-delete mdi-dark'></i>
+                        </a>
+                    </td>
                 </tr>
             }
         }
         else
         {
-            var colspan = isHRRole ? 8 : 7;
             <tr>
-                <td colspan="@colspan">
+                <td colspan="8">
                     @Messages.NoInformation
                 </td>
             </tr>

@@ -1,19 +1,19 @@
 ﻿@using Fanex.NexHR.Resources
 @model Fanex.NexHR.ViewModels.History.EditHistoryViewModel
 
-<form id="edit-form" asp-action="edit" data-ajax="true" data-ajax-method="post" data-ajax-success="historyTransfer.onUpdateSuccess">
+<form id="edit-form" asp-action="edit" data-ajax="true" data-ajax-method="post"
+    data-ajax-success="historyTransfer.onUpdateSuccess">
     <div asp-validation-summary="All"></div>
     <input type="hidden" asp-for="@Model.Id" />
     <div class="row form-input">
-        <div class="col">
+        <div class="col employee-name">
             <div class="left label--l">
                 <label>@Labels.Employee</label>
                 <span class="required">*</span>
             </div>
             <div class="left input--m">
-                <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark" data-val="true"
-                    data-val-required="The Employee field is required!" />
-                <input asp-for="EmployeeId" type="hidden" />
+                @Model.Employee
+                <input asp-for="@Model.EmpId" type="hidden" />
             </div>
         </div>
     </div>
@@ -56,7 +56,7 @@
     <div class="row form-input">
         <div class="col">
             <div class="left label--l">
-                <label>New Job Grade</label>
+                <label>@Labels.NewJobGrade</label>
             </div>
             <div class="left select--m">
                 <select asp-for="JobGradeId" asp-items="@(new SelectList(Model.JobGrades, "Id", "Name"))">

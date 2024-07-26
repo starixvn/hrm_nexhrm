@@ -1,16 +1,12 @@
 ﻿namespace Fanex.NexHR.ViewModels.History
 {
     using System;
-    using Fanex.NexHR.Resources;
-    using System.ComponentModel.DataAnnotations;
     using System.Collections.Generic;
     using Fanex.NexHR.Models;
 
     public class CreateHistoryViewModel
     {
-        [Required]
-        [Display(Name = "Employee", ResourceType = typeof(Labels))]
-        public int EmployeeId { get; set; }
+        public int EmpId { get; set; }
 
         public string Employee { get; set; }
 

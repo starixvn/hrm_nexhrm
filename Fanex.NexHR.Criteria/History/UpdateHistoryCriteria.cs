@@ -20,7 +20,7 @@
 
         public override string GetSettingKey() => "History_Update";
 
-        public override bool IsValid() => Id > 0 && EmpId > 0 && ModifiedBy > 0 && IsValidGroup();
+        public override bool IsValid() => Id > 0 && ModifiedBy > 0 && IsValidGroup();
 
         private bool IsValidGroup() => GroupId > 0 || JobTitleId > 0 || JobGradeId > 0;
     }

@@ -18,14 +18,15 @@
     width: auto; }
   #dialog-history date-picker {
     width: 211px; }
-  #dialog-history .employee-name, #dialog-history .field-team {
+  #dialog-history .employee-name {
     margin-bottom: 15px; }
   #dialog-history .validation-summary-valid {
     display: flex;
     justify-content: center;
     align-items: center; }
   #dialog-history .validation-summary-errors ul li {
-    text-align: left; }
+    text-align: left;
+    max-width: 300px; }
   #dialog-history .required {
     color: red;
     margin-left: 6px; }

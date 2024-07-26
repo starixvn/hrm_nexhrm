@@ -3420,9 +3420,9 @@ namespace Fanex.NexHR.Resources {
         /// <summary>
         ///   Looks up a localized string similar to New Job Title or Team.
         /// </summary>
-        public static string NewJobtitleorTeam {
+        public static string NewJobGrade {
             get {
-                return ResourceManager.GetString("NewJobtitleorTeam", resourceCulture);
+                return ResourceManager.GetString("NewJobGrade", resourceCulture);
             }
         }
         
@@ -5637,6 +5637,15 @@ namespace Fanex.NexHR.Resources {
         public static string Yesterday {
             get {
                 return ResourceManager.GetString("Yesterday", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to New History.
+        /// </summary>
+        public static string NewHistory {
+            get {
+                return ResourceManager.GetString("NewHistory", resourceCulture);
             }
         }
     }

@@ -3,13 +3,13 @@ namespace Fanex.NexHR.Controllers
     using System;
     using Fanex.NexHR.Criteria.History;
     using Fanex.NexHR.Services.Interfaces;
-    using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
     using Fanex.NexHR.ViewModels.History;
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Criteria.LookupData;
+    using Microsoft.AspNetCore.Mvc;
 
     public class HistoryController(ISessionService sessionService,
         ITeamService teamService,
@@ -63,17 +63,12 @@ namespace Fanex.NexHR.Controllers
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Create(CreateHistoryViewModel model)
         {
-            var result = new CommandResult
-            {
-                Code = 1,
-                Message = Messages.InvalidInputData
-            };
-
+            CommandResult result;
             if (model != null && ModelState.IsValid)
             {
                 var criteria = new InsertHistoryCriteria
                 {
-                    EmpId = model.EmployeeId,
+                    EmpId = model.EmpId,
                     GroupId = model.GroupId,
                     JobGradeId = model.JobGradeId,
                     JobTitleId = model.JobTitleId,
@@ -81,10 +76,14 @@ namespace Fanex.NexHR.Controllers
                     ModifiedBy = CurrentUser.Id
                 };
                 result = await baseService.ExecuteNonQueryAsync(criteria);
-                if (!result.IsSuccessful)
+            }
+            else
+            {
+                result = new CommandResult
                 {
-                    ModelState.AddModelError(string.Empty, result.Message);
-                }
+                    Code = 1,
+                    Message = Messages.InvalidInputData
+                };
             }
 
             return Json(result);
@@ -99,8 +98,15 @@ namespace Fanex.NexHR.Controllers
             if (history != null)
             {
                 model.Id = history.Id;
-                model.EmployeeId = history.EmployeeId;
+                model.EmpId = history.EmployeeId;
                 model.Employee = history.NickName + " (" + history.FullName + ")";
+                model.GroupId = history.GroupId;
+                model.JobGradeId = history.JobGradeId;
+                model.JobTitleId = history.JobTitleId;
+                model.AffectedDate = history.AffectedDate;
+                model.Teams = await teamService.GetTeam();
+                model.JobTitles = await jobTitleService.GetJobTitle(new GetJobTitleCriteria { JobTitle = "" });
+                model.JobGrades = await promotionService.GetJobGrade();
             }
 
             return PartialView(model);
@@ -113,10 +119,11 @@ namespace Fanex.NexHR.Controllers
             var criteria = new UpdateHistoryCriteria
             {
                 Id = model.Id,
-                EmpId = model.EmployeeId,
+                EmpId = model.EmpId,
                 GroupId = model.GroupId,
                 JobGradeId = model.JobGradeId,
                 JobTitleId = model.JobTitleId,
+                AffectedDate = model.AffectedDate,
                 ModifiedBy = CurrentUser.Id
             };
 

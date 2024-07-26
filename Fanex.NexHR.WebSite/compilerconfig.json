@@ -44,8 +44,8 @@
     "inputFile": "wwwroot/css/Views/position.scss"
   },
   {
-    "outputFile": "wwwroot/css/Views/transfer.css",
-    "inputFile": "wwwroot/css/Views/transfer.scss"
+    "outputFile": "wwwroot/css/Views/history.css",
+    "inputFile": "wwwroot/css/Views/history.scss"
   },
   {
     "outputFile": "wwwroot/css/Views/applicant.css",

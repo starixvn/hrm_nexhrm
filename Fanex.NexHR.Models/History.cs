@@ -12,9 +12,15 @@
 
         public string NickName { get; set; }
 
+        public int? GroupId { get; set; }
+
         public string GroupName { get; set; }
 
+        public int? JobGradeId { get; set; }
+
         public string JobGradeName { get; set; }
+
+        public int? JobTitleId { get; set; }
 
         public string JobTitleName { get; set; }
 

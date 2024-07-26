@@ -1596,8 +1596,11 @@
   <data name="UpdateTeam" xml:space="preserve">
     <value>Update Team</value>
   </data>
-  <data name="NewJobtitleorTeam" xml:space="preserve">
-    <value>New Job Title or Team</value>
+  <data name="NewJobGrade" xml:space="preserve">
+    <value>New Job Grade</value>
+  </data>
+  <data name="NewHistory" xml:space="preserve">
+    <value>New History</value>
   </data>
   <data name="AffectedDate" xml:space="preserve">
     <value>Affected Date</value>
