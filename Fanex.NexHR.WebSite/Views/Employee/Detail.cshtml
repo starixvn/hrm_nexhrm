@@ -10,6 +10,7 @@
     const string Certificates = "Certificates";
     const string InternalTraining = "Internal Training";
     const string FormatDate = "dd MMM yyyy";
+    var index = 1;
 }
 @if (Model != null)
 {
@@ -33,7 +34,6 @@ else
         <script src="~/minify/js/employee.profile.min.js" asp-append-version="true"></script>
     </environment>
 }
-
 
 <div class="row content">
     <input type="hidden" id="Id" name="Id" value="@(Model.Id)">
@@ -93,11 +93,11 @@ else
                                     {
                                         <p class="accinfo">
                                             <span class="label--xl">@Labels.Marriage:</span> <span
-                                            class="txt-bold">@(Model.Marriage ? "Yes" : "No")</span>
+                                                class="txt-bold">@(Model.Marriage ? "Yes" : "No")</span>
                                         </p>
                                         <p class="accinfo">
                                             <span class="label--xl">@Labels.IdNo:</span> <span
-                                            class="txt-bold">@Model.CardNo</span>
+                                                class="txt-bold">@Model.CardNo</span>
                                         </p>
                                         <p class="accinfo">
                                             <span class="label--xl">@Labels.IssuedDate:</span> <span class="txt-bold">
@@ -110,11 +110,11 @@ else
                                         </p>
                                         <p class="accinfo">
                                             <span class="label--xl">@Labels.IssuingAuthority:</span> <span
-                                            class="txt-bold">@Model.IssuedPlace</span>
+                                                class="txt-bold">@Model.IssuedPlace</span>
                                         </p>
                                         <p class="accinfo">
                                             <span class="label--xl">@Labels.PassportNo:</span> <span
-                                            class="txt-bold">@Model.PassportNo</span>
+                                                class="txt-bold">@Model.PassportNo</span>
                                         </p>
                                         <p class="accinfo">
                                             <span class="label--xl">@Labels.PassportExp:</span> <span class="txt-bold">
@@ -127,7 +127,7 @@ else
                                         </p>
                                         <p class="accinfo">
                                             <span class="label--xl">@Labels.SocialInsuranceNo:</span> <span
-                                            class="txt-bold">@Model.SocialInsuranceNo</span>
+                                                class="txt-bold">@Model.SocialInsuranceNo</span>
                                         </p>
                                     }
                                     <p class="accinfo">
@@ -158,13 +158,14 @@ else
                                         <span class="label--xl">@Labels.Telegram:</span> <span><a
                                                 href="ymsgr:SendIM?@(Model.Yahoo)">@Model.Yahoo</a></span>
                                     </p>
-                                    @if(isHRRole)
+                                    @if (isHRRole)
                                     {
                                         <p class="accinfo">
                                             <span class="label--xl">@Labels.Address:</span> <span>@Model.Address</span>
                                         </p>
                                         <p class="accinfo">
-                                            <span class="label--xl">@Labels.CurrentAddress:</span> <span class="address">@Model.CurrentAddress</span>
+                                            <span class="label--xl">@Labels.CurrentAddress:</span> <span
+                                                class="address">@Model.CurrentAddress</span>
                                         </p>
                                         <p class="accinfo">
                                             <span class="label--xl">@Labels.ContactName:</span> <span>@Model.ContactName</span>
@@ -178,7 +179,8 @@ else
                                             <span>@Model.ContactPhone</span>
                                         </p>
                                         <p class="accinfo">
-                                            <span class="label--xl">@Labels.ContactAddress:</span> <span class="address">@Model.ContactAddress</span>
+                                            <span class="label--xl">@Labels.ContactAddress:</span> <span
+                                                class="address">@Model.ContactAddress</span>
                                         </p>
                                     }
                                 </div>
@@ -257,6 +259,43 @@ else
                                     }
                                 </div>
                             </div>
+                            @if (Model.HistoryWork.Count() > 0 && isHRRole)
+                            {
+                                <div class="trainingAndDevelopmentsreport">
+                                    <div class="info-title"> History Work
+                                    <a href="@Url.Action("Index","History")" style="color: #f4783d;">
+                                        <i class="mdi mdi-library-plus flus"></i>
+                                    </a>
+                                    </div>
+                                    <table id="data" class="table bordered striped highlight centered table-custom">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:4%">@Labels.SymbolCount</th>
+                                                <th style="width:16%">@Labels.NewTeam</th>
+                                                <th style="width:20%">@Labels.NewJobTitle</th>
+                                                <th style="width:10%">@Labels.NewJobGrade</th>
+                                                <th style="width:10%">@Labels.AffectedDate</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.HistoryWork)
+                                            {
+                                                <tr id="row@(item.Id)">
+                                                    <td>@(index++)</td>
+                                                    <td class="@(string.IsNullOrEmpty(item.GroupName) ? "" : "align-left")">
+                                                        @(item.GroupName ?? "-")
+                                                    </td>
+                                                    <td class="@(string.IsNullOrEmpty(item.JobTitleName) ? "" : "align-left")">
+                                                        @(item.JobTitleName ?? "-")
+                                                    </td>
+                                                    <td>@(item.JobGradeName ?? "-")</td>
+                                                    <td>@item.AffectedDate.ToString("dd MMM, yyyy")</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
                             <div class="trainingAndDevelopmentsreport">
                                 <div class="info-title">
                                     @Labels.LearningAndDevelopment

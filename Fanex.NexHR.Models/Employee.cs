@@ -141,6 +141,9 @@
 
         public string EducationBackground { get; set; }
         public IList<TrainingAndDevelopment> TrainingAndDevelopments { get; set; }
+
+        public IEnumerable<History> HistoryWork { get; set; }
+
         public IList<TrainingAndDevelopmentType> TrainingAndDevelopmentTypes { get; set; }
 
         public IList<short> RoleList

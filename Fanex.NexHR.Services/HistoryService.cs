@@ -23,8 +23,14 @@
 
         public async Task<History> GetById(GetHistoryByIdCriteria criteria)
         {
-            var transfer = await baseService.GetDataEntityAsync<History>(criteria);
-            return transfer;
+            var history = await baseService.GetDataEntityAsync<History>(criteria);
+            return history;
+        }
+
+        public async Task<IEnumerable<History>> GetByEmpId(GetHistoryByEmpIdCriteria criteria)
+        {
+            var history = await baseService.GetDataAsync<History>(criteria);
+            return history;
         }
     }
 }

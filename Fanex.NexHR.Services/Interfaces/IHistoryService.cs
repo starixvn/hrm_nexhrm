@@ -10,5 +10,7 @@
         Task<IEnumerable<History>> GetAll(GetHistoryCriteria criteria);
 
         Task<History> GetById(GetHistoryByIdCriteria criteria);
+
+        Task<IEnumerable<History>> GetByEmpId(GetHistoryByEmpIdCriteria criteria);
     }
 }

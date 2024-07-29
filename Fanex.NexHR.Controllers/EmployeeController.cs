@@ -9,11 +9,12 @@
     using Core.Model;
     using Criteria.Employee;
     using Fanex.NexHR.Controllers.Attributes;
+    using Fanex.NexHR.Criteria.History;
     using Fanex.NexHR.Criteria.JobGrade;
     using Fanex.NexHR.Criteria.JobTitle;
-    using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Criteria.TrainingAndDevelopment;
     using Fanex.NexHR.Resources;
+    using Fanex.NexHR.Services;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -33,6 +34,7 @@
         private readonly IBaseService baseService;
         private readonly IMailEmployeeService mailEmployeeService;
         private readonly ITrainingAndDevelopmentService trainingAndDevelopmentService;
+        private readonly IHistoryService historyService;
         private readonly IWebHostEnvironment environment;
         private readonly AppSetting appSetting;
 
@@ -46,6 +48,7 @@
             IBaseService baseService,
             IMailEmployeeService mailEmployeeService,
             ITrainingAndDevelopmentService trainingAndDevelopmentService,
+            IHistoryService historyService,
             IWebHostEnvironment environment,
             AppSetting appSetting) : base(sessionService)
 #pragma warning restore S107 // Methods should not have too many parameters
@@ -58,6 +61,7 @@
             this.mailEmployeeService = mailEmployeeService;
             this.environment = environment;
             this.trainingAndDevelopmentService = trainingAndDevelopmentService;
+            this.historyService = historyService;
             this.appSetting = appSetting;
         }
 
@@ -186,6 +190,11 @@
                 CurrentUserId = CurrentUser.Id
             }, CurrentUser);
             employee.TrainingAndDevelopmentTypes = await trainingAndDevelopmentService.GetTrainingAndDevelopmentType();
+            employee.HistoryWork = await historyService.GetByEmpId(new GetHistoryByEmpIdCriteria
+            {
+                EmpId = employeeId
+            });
+
             return View(employee);
         }
 
