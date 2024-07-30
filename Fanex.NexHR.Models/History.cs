@@ -12,6 +12,12 @@
 
         public string NickName { get; set; }
 
+        public int CurrentJobTitleId { get; set; }
+
+        public int CurrentGroupId { get; set; }
+
+        public int CurrentJobGradeId { get; set; }
+
         public int? GroupId { get; set; }
 
         public string GroupName { get; set; }

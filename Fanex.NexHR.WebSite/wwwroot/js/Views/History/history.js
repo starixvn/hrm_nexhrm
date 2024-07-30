@@ -78,6 +78,36 @@ function init() {
     query(true);
 }
 
+function handleSelectionChange() {
+    var selectElement = document.getElementById("category");
+    var selectedValue = selectElement.value;
+
+    if (selectedValue == "1") {
+        $('#select-team').addClass('show-select');
+    }
+    if (selectedValue == "2") {
+        $('#select-jobtitle').addClass('show-select');
+    }
+    if (selectedValue == "3") {
+        $('#select-jobgrade').addClass('show-select');
+    }
+}
+
+function handleTeamClick() {
+    $('#select-team').removeClass('show-select');
+    document.getElementById("GroupId").value = '';
+}
+
+function handleJobTitleClick() {
+    $('#select-jobtitle').removeClass('show-select');
+    document.getElementById("JobTitleId").value = '';
+}
+
+function handleJobGradeClick() {
+    $('#select-jobgrade').removeClass('show-select');
+    document.getElementById("JobGradeId").value = '';
+}
+
 var historyTransfer = (function ($) {
     var $dialog = $('#dialog-history');
 

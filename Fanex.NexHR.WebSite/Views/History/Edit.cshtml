@@ -1,6 +1,16 @@
 ﻿@using Fanex.NexHR.Resources
 @model Fanex.NexHR.ViewModels.History.EditHistoryViewModel
 
+@{
+    var categories = new List<SelectListItem>
+{
+new SelectListItem { Value = "0", Text = "" },
+new SelectListItem { Value = "1", Text = "Team" },
+new SelectListItem { Value = "2", Text = "Job Title" },
+new SelectListItem { Value = "3", Text = "Job Grade" }
+};
+}
+
 <form id="edit-form" asp-action="edit" data-ajax="true" data-ajax-method="post"
     data-ajax-success="historyTransfer.onUpdateSuccess">
     <div asp-validation-summary="All"></div>
@@ -32,6 +42,18 @@
     <div class="row form-input">
         <div class="col">
             <div class="left label--l">
+                <label>@Labels.Category</label>
+            </div>
+            <div class="left select--m">
+                <select id="category" asp-items="@(new SelectList(categories, "Value", "Text"))"
+                    onchange="handleSelectionChange()">
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row form-input @(Model.GroupId > 0 ? "show-select" : "")" id="select-team">
+        <div class="col">
+            <div class="left label--l">
                 <label>@Labels.NewTeam</label>
             </div>
             <div class="left select--m">
@@ -39,9 +61,10 @@
                     <option value=""></option>
                 </select>
             </div>
+            <img src="~/css/Images/icon-cancel.png" alt="icon-cancel" onclick="handleTeamClick()">
         </div>
     </div>
-    <div class="row form-input">
+    <div class="row form-input @(Model.JobTitleId > 0 ? "show-select" : "")" id="select-jobtitle">
         <div class="col">
             <div class="left label--l">
                 <label>@Labels.NewJobTitle</label>
@@ -51,9 +74,10 @@
                     <option value=""></option>
                 </select>
             </div>
+            <img src="~/css/Images/icon-cancel.png" alt="icon-cancel" onclick="handleJobTitleClick()">
         </div>
     </div>
-    <div class="row form-input">
+    <div class="row form-input @(Model.JobGradeId > 0 ? "show-select" : "")" id="select-jobgrade">
         <div class="col">
             <div class="left label--l">
                 <label>@Labels.NewJobGrade</label>
@@ -63,6 +87,7 @@
                     <option value=""></option>
                 </select>
             </div>
+            <img src="~/css/Images/icon-cancel.png" alt="icon-cancel" onclick="handleJobGradeClick()">
         </div>
     </div>
 </form>

@@ -5648,5 +5648,14 @@ namespace Fanex.NexHR.Resources {
                 return ResourceManager.GetString("NewHistory", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to History Work.
+        /// </summary>
+        public static string HistoryWork {
+            get {
+                return ResourceManager.GetString("HistoryWork", resourceCulture);
+            }
+        }
     }
 }

@@ -621,6 +621,9 @@
   <data name="History" xml:space="preserve">
     <value>History</value>
   </data>
+  <data name="HistoryWork" xml:space="preserve">
+    <value>History Work</value>
+  </data>
   <data name="RequestHistory" xml:space="preserve">
     <value>Request History</value>
   </data>

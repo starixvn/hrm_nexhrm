@@ -153,7 +153,7 @@
         "ParentId": 13
     },
     {
-        "Title": "History Transfer",
+        "Title": "History Work",
         "Controller": "History",
         "Action": "Index",
         "Icon": "file-document-box",

@@ -10,6 +10,7 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Criteria.LookupData;
     using Microsoft.AspNetCore.Mvc;
+    using System.Linq;
 
     public class HistoryController(ISessionService sessionService,
         ITeamService teamService,
@@ -104,9 +105,10 @@ namespace Fanex.NexHR.Controllers
                 model.JobGradeId = history.JobGradeId;
                 model.JobTitleId = history.JobTitleId;
                 model.AffectedDate = history.AffectedDate;
-                model.Teams = await teamService.GetTeam();
-                model.JobTitles = await jobTitleService.GetJobTitle(new GetJobTitleCriteria { JobTitle = "" });
-                model.JobGrades = await promotionService.GetJobGrade();
+                model.Teams = (await teamService.GetTeam()).Where(team => team.Id != history.CurrentGroupId).ToList();
+                model.JobTitles = (await jobTitleService.GetJobTitle(new GetJobTitleCriteria { JobTitle = "" }))
+                                    .Where(team => team.Id != history.CurrentJobTitleId).ToList();
+                model.JobGrades = (await promotionService.GetJobGrade()).Where(team => team.Id != history.CurrentJobGradeId).ToList();
             }
 
             return PartialView(model);

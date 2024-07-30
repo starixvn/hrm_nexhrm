@@ -2,6 +2,13 @@
 @model Fanex.NexHR.ViewModels.History.CreateHistoryViewModel
 @{
     DateTime currentDate = DateTime.Today;
+    var categories = new List<SelectListItem>
+    {
+        new SelectListItem { Value = "0", Text = "" },
+        new SelectListItem { Value = "1", Text = "Team" },
+        new SelectListItem { Value = "2", Text = "Job Title" },
+        new SelectListItem { Value = "3", Text = "Job Grade" }
+    };
 }
 
 <form id="create-form" asp-action="create" data-ajax="true" data-ajax-method="post"
@@ -34,6 +41,18 @@
     <div class="row form-input">
         <div class="col">
             <div class="left label--l">
+                <label>@Labels.Category</label>
+            </div>
+            <div class="left select--m">
+                <select id="category" asp-items="@(new SelectList(categories, "Value", "Text"))"
+                    onchange="handleSelectionChange()">
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row form-input" id="select-team">
+        <div class="col">
+            <div class="left label--l">
                 <label>@Labels.NewTeam</label>
             </div>
             <div class="left select--m">
@@ -41,9 +60,10 @@
                     <option value=""></option>
                 </select>
             </div>
+            <img src="~/css/Images/icon-cancel.png" alt="icon-cancel" onclick="handleTeamClick()">
         </div>
     </div>
-    <div class="row form-input">
+    <div class="row form-input" id="select-jobtitle">
         <div class="col">
             <div class="left label--l">
                 <label>@Labels.NewJobTitle</label>
@@ -53,9 +73,10 @@
                     <option value=""></option>
                 </select>
             </div>
+            <img src="~/css/Images/icon-cancel.png" alt="icon-cancel" onclick="handleJobTitleClick()">
         </div>
     </div>
-    <div class="row form-input">
+    <div class="row form-input" id="select-jobgrade">
         <div class="col">
             <div class="left label--l">
                 <label>@Labels.NewJobGrade</label>
@@ -65,6 +86,7 @@
                     <option value=""></option>
                 </select>
             </div>
+            <img src="~/css/Images/icon-cancel.png" alt="icon-cancel" onclick="handleJobGradeClick()">
         </div>
     </div>
 </form>
