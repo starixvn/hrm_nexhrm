@@ -244,7 +244,7 @@
             var criteria = new GetHeadCountByYearCriteria
             {
                 StartDateOfYear = new DateTimeOffset(year, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
-                EndDateOfYear = new DateTimeOffset(year, 1, 1, 0, 0, 0, TimeSpan.Zero).UtcDateTime
+                EndDateOfYear = new DateTimeOffset(year, 12, 31, 0, 0, 0, TimeSpan.Zero).DateTime
             };
 
             var headCount = await reportService.GetTeamHeadCountInYear(criteria);

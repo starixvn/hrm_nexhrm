@@ -60,11 +60,6 @@
         <Setting Key="Report_GetEmployeeWorkLoad" SpName="Report_GetEmployeeWorkLoad" DbName="nexhr" Plain="0">
         </Setting>
         <Setting Key="EmployeeAttendance_GetMissingCheckInCheckOut" SpName="EmployeeAttendance_GetMissingCheckInCheckOut" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="HistoryWork_Insert" SpName="HistoryWork_Insert" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="HistoryWork_GetJobtitleAndTeam" SpName="HistoryWork_GetJobtitleAndTeam" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="HistoryWork_Update" SpName="HistoryWork_Update" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="HistoryWork_Filter" SpName="HistoryWork_Filter" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="HistoryWork_Delete" SpName="HistoryWork_Delete" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_GetListStaffInfoNexHour" SpName="Employee_GetListStaffInfoNexHour" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="GroupSupervisor">
