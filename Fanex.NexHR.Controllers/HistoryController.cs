@@ -105,10 +105,9 @@ namespace Fanex.NexHR.Controllers
                 model.JobGradeId = history.JobGradeId;
                 model.JobTitleId = history.JobTitleId;
                 model.AffectedDate = history.AffectedDate;
-                model.Teams = (await teamService.GetTeam()).Where(team => team.Id != history.CurrentGroupId).ToList();
-                model.JobTitles = (await jobTitleService.GetJobTitle(new GetJobTitleCriteria { JobTitle = "" }))
-                                    .Where(team => team.Id != history.CurrentJobTitleId).ToList();
-                model.JobGrades = (await promotionService.GetJobGrade()).Where(team => team.Id != history.CurrentJobGradeId).ToList();
+                model.Teams = await teamService.GetTeam();
+                model.JobTitles = await jobTitleService.GetJobTitle(new GetJobTitleCriteria { JobTitle = "" });
+                model.JobGrades = await promotionService.GetJobGrade();
             }
 
             return PartialView(model);

@@ -14,7 +14,6 @@
     using Fanex.NexHR.Criteria.JobTitle;
     using Fanex.NexHR.Criteria.TrainingAndDevelopment;
     using Fanex.NexHR.Resources;
-    using Fanex.NexHR.Services;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
