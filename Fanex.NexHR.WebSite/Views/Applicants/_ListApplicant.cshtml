@@ -40,7 +40,8 @@
             var index = (ViewBag.PageNumber - 1) * ViewBag.PageSize + 1;
             foreach (var item in Model)
             {
-                string hightlight = (item.Result1 == "KIV" || item.Result2 == "KIV" || item.Status == "KIV") ? "background-color: #f5e7e1;" : "";
+                string hightlight = (item.Result1 == "KIV" || item.Result2 == "KIV" || item.Status == "KIV") ?
+                "background-color: #f5e7e1;" : "";
                 <tr id="row@(item.Id)" style="@hightlight">
                     <td>@(index++)</td>
                     <td class="align-left">
@@ -49,9 +50,19 @@
                     <td>@item.Phone</td>
                     <td class="align-left">@item.Email</td>
                     <td class="align-left tooltip" title="@item.Position">@item.PositionCode</td>
-                    <td>@item.InterviewDate1.ToDateMonthYearFormatedDate()</td>
+                    <td>
+                        @if (item.InterviewDate1 != null)
+                        {
+                            @item.InterviewDate1.ToFormatedDate()
+                        }
+                    </td>
                     <td>@item.Result1</td>
-                    <td>@item.InterviewDate2.ToDateMonthYearFormatedDate()</td>
+                    <td>
+                        @if (item.InterviewDate2 != null)
+                        {
+                            @item.InterviewDate2.ToFormatedDate()
+                        }
+                    </td>
                     <td>@item.Result2</td>
                     <td>@item.Status</td>
                     <td>@item.JoinDate.ToDateMonthYearFormatedDate()</td>
@@ -78,15 +89,10 @@
                             <i class="mdi mdi-delete mdi-dark mdi-18px"></i>
                         </a>
                     </td>
-                     <td>
-                         <a asp-controller="employee" asp-action="create"
-                            asp-route-fullName="@item.FullName"
-                            asp-route-phone="@item.Phone"
-                            asp-route-DOB="@item.DOB"
-                            asp-route-joinDate="@item.JoinDate"
-                            asp-route-educationBackground="@item.EducationBackground"
-                            asp-route-gradeId="@item.GradeId"
-                            >
+                    <td>
+                        <a asp-controller="employee" asp-action="create" asp-route-fullName="@item.FullName"
+                            asp-route-phone="@item.Phone" asp-route-DOB="@item.DOB" asp-route-joinDate="@item.JoinDate"
+                            asp-route-educationBackground="@item.EducationBackground" asp-route-gradeId="@item.GradeId">
                             <i class="mdi mdi-plus-circle mdi-dark mdi-18px"></i>
                         </a>
                     </td>

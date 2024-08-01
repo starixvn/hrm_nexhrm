@@ -1079,6 +1079,8 @@
     {
         "outputFileName": "wwwroot/minify/js/applicantedit.min.js",
         "inputFiles": [
+            "wwwroot/js/Libs/jquery.timepicker.js",
+            "wwwroot/js/Libs/jquery-ui-timepicker-addon.min.js",
             "wwwroot/js/Libs/select2.js",
             "wwwroot/js/Views/Applicant/applicant.edit.js"
         ],

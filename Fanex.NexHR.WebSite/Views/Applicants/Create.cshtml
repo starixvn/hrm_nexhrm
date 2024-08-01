@@ -16,6 +16,8 @@
 }
 @section Scripts {
     <environment include="Development">
+        <script src="~/js/Libs/jquery.timepicker.js" asp-append-version="true"></script>
+        <script src="~/js/Libs/jquery-ui-timepicker-addon.min.js" asp-append-version="true"></script>
         <script src="~/js/Libs/select2.js" asp-append-version="true"></script>
         <script src="~/js/Views/Applicant/applicant.edit.js" asp-append-version="true"></script>
     </environment>
@@ -152,7 +154,7 @@
                                     <div class="left label--mxxl">
                                         <label>@Labels.InterviewDate1</label>
                                     </div>
-                                    <div class="left datepicker-button select--m">
+                                    <div class="left datepicker-interview select--m">
                                         <date-picker name="InterviewDate1" value="@Model.InterviewDate1">
                                         </date-picker>
                                         <i class="mdi-action-event calendar-icon left"></i>
@@ -174,7 +176,7 @@
                                     <div class="left label--mxxl">
                                         <label>@Labels.InterviewDate2</label>
                                     </div>
-                                    <div class="left datepicker-button select--m">
+                                    <div class="left datepicker-interview select--m">
                                         <date-picker name="InterviewDate2" value="@Model.InterviewDate2">
                                         </date-picker>
                                         <i class="mdi-action-event calendar-icon left"></i>

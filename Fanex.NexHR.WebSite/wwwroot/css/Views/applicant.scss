@@ -162,6 +162,7 @@ table {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+
     i,
     a {
       margin-top: 0;
@@ -176,6 +177,7 @@ table {
 
   .form-file {
     margin-bottom: 0;
+
     .file-input {
       margin-top: 8px;
       flex-direction: column;
@@ -278,7 +280,9 @@ table {
         border-bottom: none;
         border-radius: 3px;
 
-        &:active, &:focus, &:visited {
+        &:active,
+        &:focus,
+        &:visited {
           top: -186px !important;
           left: -2px !important;
           width: 120px !important;
@@ -291,12 +295,13 @@ table {
 
       .dropdown-content li {
 
-        &>span{
+        &>span {
           color: #333333;
           padding: 8px;
         }
 
-        &.active, &:hover {
+        &.active,
+        &:hover {
           background: #2F80ED;
 
           span {
@@ -322,11 +327,182 @@ table {
       margin: 0;
       text-align: center;
 
-      &::-webkit-inner-spin-button, 
-      &::-webkit-outer-spin-button { 
-        -webkit-appearance: none; 
-        margin: 0; 
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
       }
+    }
+  }
+}
+
+.datepicker-interview {
+  position: relative;
+
+  .datepicker,
+  .calendar-icon {
+    cursor: pointer;
+  }
+}
+
+#ui-datepicker-div select {
+  width: 80px;
+}
+
+$color_1: inherit;
+$border-bottom-color_1: #aaa;
+
+.ui-datepicker-calendar {
+  border-bottom: 1px solid #dad1d1;
+}
+
+.ui-datepicker-buttonpane {
+  display: none;
+}
+
+// .ui-datepicker-title {
+//   background-color: rgba(255, 255, 255, .9);
+//   border-radius: 3px;
+//   width: 100px;
+// }
+
+// .ui-datepicker-header {
+//   display: flex;
+//   justify-content: space-between;
+// }
+
+/* Shortened version style */
+.ui-timepicker-div {
+  .ui-widget-header {
+    margin-bottom: 8px;
+  }
+
+  dl {
+    text-align: left;
+
+    dt {
+      float: left;
+      clear: left;
+      padding: 0 0 0 5px;
+    }
+
+    dd {
+      margin: 0 10px 10px 40%;
+    }
+  }
+
+  td {
+    font-size: 90%;
+  }
+
+  .ui_tpicker_unit_hide {
+    display: none;
+  }
+
+  .ui_tpicker_time {
+    .ui_tpicker_time_input {
+      background: none;
+      color: $color_1;
+      border: none;
+      outline: none;
+      border-bottom: solid 1px #555;
+      width: 95%;
+
+      &:focus {
+        border-bottom-color: $border-bottom-color_1;
+      }
+    }
+  }
+}
+
+.ui-tpicker-grid-label {
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ui-timepicker-rtl {
+  direction: rtl;
+
+  dl {
+    text-align: right;
+    padding: 0 5px 0 0;
+
+    dt {
+      float: right;
+      clear: right;
+    }
+
+    dd {
+      margin: 0 40% 10px 10px;
+    }
+  }
+}
+
+.ui-timepicker-div.ui-timepicker-oneLine {
+  padding-right: 2px;
+
+  .ui_tpicker_time {
+    display: none;
+  }
+
+  dt {
+    display: none;
+  }
+
+  .ui_tpicker_time_label {
+    display: block;
+    padding-top: 2px;
+  }
+
+  dl {
+    text-align: right;
+
+    dd {
+      display: inline-block;
+      margin: 0;
+
+      >div {
+        display: inline-block;
+        margin: 0;
+      }
+    }
+
+    dd.ui_tpicker_minute {
+      &:before {
+        content: ':';
+        display: inline-block;
+      }
+    }
+
+    dd.ui_tpicker_second {
+      &:before {
+        content: ':';
+        display: inline-block;
+      }
+    }
+
+    dd.ui_tpicker_millisec {
+      &:before {
+        content: '.';
+        display: inline-block;
+      }
+    }
+
+    dd.ui_tpicker_microsec {
+      &:before {
+        content: '.';
+        display: inline-block;
+      }
+    }
+  }
+
+  .ui_tpicker_unit_hide {
+    display: none;
+
+    &:before {
+      display: none;
     }
   }
 }

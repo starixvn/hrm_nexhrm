@@ -25,17 +25,32 @@ $(document).ready(function () {
     const newFile = document.getElementsByClassName('selected-file')[0];
 
     fileUpload.addEventListener('change', (event) => {
-    const selectedFile = event.target.files[0];
+        const selectedFile = event.target.files[0];
         if (selectedFile) {
             oldFile ? oldFile.style.display = 'none' : null;
             newFile ? newFile.style.width = 'auto' : null;
         }
     });
 
-    $('.delete-resume').on('click', function() {
-    $(this).closest('.resume-container').remove();
+    $('.delete-resume').on('click', function () {
+        $(this).closest('.resume-container').remove();
         newFile.style.width = 'auto';
         var resumeInput = document.getElementById('Resume');
         resumeInput.value = null;
+    });
+
+    $('#InterviewDate1').datetimepicker({
+        controlType: 'select',
+        oneLine: true,
+        dateFormat: 'dd M, yy',
+        timeFormat: 'hh:mm tt',
+        timeInput: true
+    });
+
+    $('#InterviewDate2').datetimepicker({
+        controlType: 'select',
+        oneLine: true,
+        dateFormat: 'dd M, yy',
+        timeFormat: 'hh:mm tt'
     });
 });
