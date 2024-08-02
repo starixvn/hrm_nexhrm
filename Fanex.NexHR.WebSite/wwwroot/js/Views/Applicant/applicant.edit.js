@@ -48,7 +48,18 @@ $(document).ready(function () {
             timeInput: true,
             changeMonth: true,
             changeYear: true,
-            showButtonPanel: false
+            showButtonPanel: false,
+
+            beforeShow: function(input, inst) {
+                setTimeout(function() {
+                    $(inst.dpDiv).find('.ui-datepicker-prev span, .ui-datepicker-next span').text('');
+                }, 0);
+            },
+            onChangeMonthYear: function(year, month, inst) {
+                setTimeout(function() {
+                    $(inst.dpDiv).find('.ui-datepicker-prev span, .ui-datepicker-next span').text('');
+                }, 0);
+            }
         });
     }
 
