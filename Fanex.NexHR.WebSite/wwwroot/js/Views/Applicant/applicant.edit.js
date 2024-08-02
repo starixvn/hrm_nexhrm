@@ -39,18 +39,19 @@ $(document).ready(function () {
         resumeInput.value = null;
     });
 
-    $('#InterviewDate1').datetimepicker({
-        controlType: 'select',
-        oneLine: true,
-        dateFormat: 'dd M, yy',
-        timeFormat: 'hh:mm tt',
-        timeInput: true
-    });
+    function initializeDateTimePicker(selector) {
+        $(selector).datetimepicker({
+            controlType: 'select',
+            oneLine: true,
+            dateFormat: 'dd M, yy',
+            timeFormat: 'hh:mm TT',
+            timeInput: true,
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: false
+        });
+    }
 
-    $('#InterviewDate2').datetimepicker({
-        controlType: 'select',
-        oneLine: true,
-        dateFormat: 'dd M, yy',
-        timeFormat: 'hh:mm tt'
-    });
+    initializeDateTimePicker('#InterviewDate1');
+    initializeDateTimePicker('#InterviewDate2');
 });
