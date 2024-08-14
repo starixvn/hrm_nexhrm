@@ -71,6 +71,27 @@
             return false;
         }
 
+        public async Task SendRemindCheckInCheckOutAsync(MissingCheckInOutEmployee missingCheckInOutEmployee)
+        {
+            if (nexBotSettings.Enable && !string.IsNullOrWhiteSpace(missingCheckInOutEmployee.ConversationId))
+            {
+                var request = CreateRequestAsync("/remind/MissingCheckInCheckOut", HttpMethod.Post);
+                var data = new Dictionary<string, string>
+                {
+                    { "conversationId", missingCheckInOutEmployee.ConversationId },
+                    { "empId", missingCheckInOutEmployee.EmpId.ToString()},
+                    { "nickName", missingCheckInOutEmployee.NickName },
+                    { "shift", missingCheckInOutEmployee.ShiftCode },
+                    { "attendanceDate", missingCheckInOutEmployee.AttendanceDate.ToString() },
+                    { "missingType", missingCheckInOutEmployee.Type.ToString() }
+                };
+
+                request.Content = new FormUrlEncodedContent(data);
+
+                using var response = await httpClient.SendAsync(request);
+            }
+        }
+
         private HttpRequestMessage CreateRequestAsync(string endPointPath, HttpMethod method)
         {
             Uri url = new($"{nexBotSettings.BotServiceUrl}{endPointPath}");

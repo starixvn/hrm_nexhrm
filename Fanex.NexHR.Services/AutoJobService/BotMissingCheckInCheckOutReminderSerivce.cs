@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Services.AutoJobService
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
@@ -92,32 +93,8 @@
         {
             foreach (var employee in employees)
             {
-                var message = GenerateMessageForEmployee(employee);
-                var result = await nexbotService.SendMessageAsync(employee.ConversationId, message).ConfigureAwait(false);
-                if (!result)
-                {
-                    Result.Code = 0;
-                }
+                await nexbotService.SendRemindCheckInCheckOutAsync(employee);
             }
-        }
-
-        private string GenerateMessageForEmployee(MissingCheckInOutEmployee employee)
-        {
-            var message = string.Format(Messages.DearSkypeMessage, employee.NickName, Constants.NewLine);
-            message += string.Format(
-                Messages.YouForgotCheckInOut,
-                employee.Type == 1 ? CheckIn : CheckOut,
-                employee.AttendanceDate.ToString(FormatDate),
-                employee.ShiftCode,
-                Constants.NewLine);
-
-            message += string.Format(
-                Messages.ReviewAndMakeCheckInOutRequestAtLink,
-                BaseUrl,
-                employee.AttendanceDate.ToString("MM/dd/yyyy"),
-                employee.Type);
-
-            return message;
         }
     }
 }

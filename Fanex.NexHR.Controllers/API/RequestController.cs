@@ -11,6 +11,7 @@
     using Fanex.NexHR.Models.CheckInCheckOut;
     using Fanex.NexHR.Models.Request;
     using Fanex.NexHR.ViewModels.CheckInOutRequest;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
@@ -18,8 +19,7 @@
     using Newtonsoft.Json;
     using Services.Interfaces;
 
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [AllowAnonymous]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class RequestController : ControllerBase
     {
         private readonly IRequestService requestService;
@@ -88,7 +88,7 @@
         {
             var criteria = new GetCheckInCheckOutByConversationIdCriteria { ConversationId = conversationId };
             var model = await baseService.GetDataEntityAsync<CheckInCheckOutAdaptiveCardForm>(criteria);
-            var time = DateTime.ParseExact(model.BeginCheckInTime, "HH:mm", System.Globalization.CultureInfo.CurrentCulture);
+            var time = DateTime.ParseExact(model.MissingType == 2 ? model.EndCheckOutTime : model.BeginCheckInTime, "HH:mm", System.Globalization.CultureInfo.CurrentCulture);
             var attendance = model.AttendanceDate.AddHours(time.Hour);
             model.AttendanceDate = attendance;
             return Ok(model);
@@ -111,7 +111,7 @@
             CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
             if (result.IsSuccessful)
             {
-                //SendEmailAndChatBot(model);
+                SendEmailAndChatBot(model);
             }
 
             return Ok(result);

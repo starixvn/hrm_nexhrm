@@ -868,7 +868,7 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please review and make a request at: {0}/checkinout/Create?date={1}&amp;type={2}.
+        ///   Looks up a localized string similar to Please review then click the button below to create a new request.
         /// </summary>
         public static string ReviewAndMakeCheckInOutRequestAtLink {
             get {

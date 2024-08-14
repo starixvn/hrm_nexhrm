@@ -344,7 +344,7 @@ Thanks</value>
     <value>_- {0} ({1}) missing {2} on {3}_ {4}</value>
   </data>
   <data name="ReviewAndMakeCheckInOutRequestAtLink" xml:space="preserve">
-    <value>Please review and make a request at: {0}/checkinout/Create?date={1}&amp;type={2}</value>
+    <value>Please review then click the button below to create a new request</value>
   </data>
   <data name="YouForgotCheckInOut" xml:space="preserve">
     <value>You have forgot _{0}_ on _{1}_ (shift {2}). {3}</value>

@@ -18,6 +18,8 @@
     {
         Task<bool> SendMessageAsync(string conversationId, string message);
 
+        Task SendRemindCheckInCheckOutAsync(MissingCheckInOutEmployee missingCheckInOutEmployee);
+
         Task<IList<ConversationUser>> GetSkypeAccountAsync();
 
         Task<IList<ConversationUser>> GetIgnoredSkypeAccountByMessageCategoryAsync(MessageCategory messageCategory);
