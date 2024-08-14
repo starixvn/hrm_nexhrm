@@ -58,8 +58,6 @@
 
         public DateTime? LastLogin { get; set; }
 
-        public decimal AnnualLeaveBalance { get; set; }
-
         public DateTime CreatedDate { get; set; }
 
         public Employee Creator { get; set; }

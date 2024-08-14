@@ -57,7 +57,7 @@
         <Setting Key="Employee_GetLeaderForStanbyTeam" SpName="Employee_GetLeaderForStanbyTeam" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_GetSupervisorForCheckInOut" SpName="Employee_GetSupervisorForCheckInOut" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_GetSupervisorForLeave" SpName="Employee_GetSupervisorForLeave" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Report_GetEmployeeWorkLoad" SpName="Report_GetEmployeeWorkLoad" DbName="nexhr" Plain="1">
+        <Setting Key="Report_GetEmployeeWorkLoad" SpName="Report_GetEmployeeWorkLoad" DbName="nexhr" Plain="0">
         </Setting>
         <Setting Key="EmployeeAttendance_GetMissingCheckInCheckOut" SpName="EmployeeAttendance_GetMissingCheckInCheckOut" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="HistoryWork_Insert" SpName="HistoryWork_Insert" DbName="nexhr" Plain="0"></Setting>
@@ -65,8 +65,6 @@
         <Setting Key="HistoryWork_Update" SpName="HistoryWork_Update" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="HistoryWork_Filter" SpName="HistoryWork_Filter" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="HistoryWork_Delete" SpName="HistoryWork_Delete" DbName="nexhr" Plain="0"></Setting>
-
-        <Setting Key="Employee_UpdateTeamAndGrade" SpName="Employee_UpdateTeamAndGrade" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_GetListStaffInfoNexHour" SpName="Employee_GetListStaffInfoNexHour" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="GroupSupervisor">
@@ -129,12 +127,14 @@
         <Setting Key="EmployeeGroup_GetGroupsByManagerID" SpName="EmployeeGroup_GetGroupsByManagerID" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Lookup">
-        <Setting Key="Lookup_GetLookupData" SpName="Lookup_GetLookupData" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Lookup_GetJobTitle" SpName="Lookup_GetJobTitle" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="LookupData_Delete" SpName="LookupData_Delete" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="LookupData_Insert" SpName="LookupData_Insert" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="LookupData_Update" SpName="LookupData_Update" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="Lookup_GetLookupData" SpName="Lookup_GetLookupData" DbName="hrm" Plain="0"></Setting>
     </Function>
+  <Function Name="JobTitle">
+    <Setting Key="JobTitle_Get" SpName="JobTitle_Get" DbName="hrm" Plain="0"></Setting>
+    <Setting Key="JobTitle_Delete" SpName="JobTitle_Delete" DbName="hrm" Plain="0"></Setting>
+    <Setting Key="JobTitle_Insert" SpName="JobTitle_Insert" DbName="hrm" Plain="0"></Setting>
+    <Setting Key="JobTitle_Update" SpName="JobTitle_Update" DbName="hrm" Plain="0"></Setting>
+  </Function>
     <Function Name="Shift">
         <Setting Key="Shift_GetShifts" SpName="Shift_GetShifts" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeCalendar_GetShiftByDate" SpName="EmployeeCalendar_GetShiftByDate" DbName="nexhr" Plain="0"></Setting>
@@ -202,7 +202,7 @@
             <Mapping DataField="GroupName" ObjectProperty="Name" />
         </Setting>
         <Setting Key="TimeRecord_UpdateType" SpName="TimeRecord_UpdateType" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="TimeRecord_GetPrivilegeCreateCheckInOut" SpName="TimeRecord_GetPrivilegeCreateCheckInOut" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="TimeRecord_GetPrivilegeCreateCheckInOut" SpName="TimeRecord_GetPrivilegeCreateCheckInOut" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="TimeRecord_InsertCheckInOutTime" SpName="TimeRecord_InsertCheckInOutTime" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="TimeRecord_EditInsertCheckInOutTime" SpName="TimeRecord_EditInsertCheckInOutTime" DbName="nexhr" Plain="0"></Setting>
     </Function>
@@ -234,10 +234,7 @@
             <Mapping DataField="EmpId" ObjectProperty="Id" />
             <Mapping DataField="GroupId" ObjectProperty="Id" />
         </Setting>
-        <Setting Key="Report_GetLateInEarlyOut" SpName="Report_GetLateInEarlyOut" DbName="nexhr" Plain="0">
-            <Mapping DataField="EmpId" ObjectProperty="Id" />
-            <Mapping DataField="GroupId" ObjectProperty="Id" />
-        </Setting>
+        <Setting Key="Report_GetLateInEarlyOut" SpName="Report_GetLateInEarlyOut" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Report_GetLateInEarlyOutDetail" SpName="Report_GetLateInEarlyOutDetail" DbName="nexhr" Plain="0">
             <Mapping DataField="EmpId" ObjectProperty="Id" />
             <Mapping DataField="GroupId" ObjectProperty="Id" />
@@ -312,19 +309,19 @@
         <Setting Key="LeaveConversion_Delete" SpName="LeaveConversion_Delete" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Attendance">
-        <Setting Key="GetMissingCheckInOutList" SpName="EmployeeAttendance_GetMissingCheckinOutToRemind" DbName="nexhr" Plain="1">
+        <Setting Key="GetMissingCheckInOutList" SpName="EmployeeAttendance_GetMissingCheckinOutToRemind" DbName="nexhr" Plain="0">
             <Mapping DataField="Type" ObjectProperty="MissingType" />
         </Setting>
     </Function>
     <Function Name="LateInEarlyOut">
-        <Setting Key="LateInEarlyOut_GetAllByEmpId" SpName="LateInEarlyOut_GetAllByEmpId" DbName="nexhr" Plain="1">
+        <Setting Key="LateInEarlyOut_GetAllByEmpId" SpName="LateInEarlyOut_GetAllByEmpId" DbName="nexhr" Plain="0">
             <Mapping DataField="Type" ObjectProperty="Types" />
         </Setting>
-        <Setting Key="LateInEarlyOut_Insert" SpName="LateInEarlyOut_Insert" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="LateInEarlyOut_Update" SpName="LateInEarlyOut_Update" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="LateInEarlyOut_Delete" SpName="LateInEarlyOut_Delete" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="LateInEarlyOut_GetById" SpName="LateInEarlyOut_GetById" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="LateInEarlyOut_GetAllEmployee" SpName="LateInEarlyOut_GetAllEmployee" DbName="nexhr" Plain="1">
+        <Setting Key="LateInEarlyOut_Insert" SpName="LateInEarlyOut_Insert" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="LateInEarlyOut_Update" SpName="LateInEarlyOut_Update" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="LateInEarlyOut_Delete" SpName="LateInEarlyOut_Delete" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="LateInEarlyOut_GetById" SpName="LateInEarlyOut_GetById" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="LateInEarlyOut_GetAllEmployee" SpName="LateInEarlyOut_GetAllEmployee" DbName="nexhr" Plain="0">
             <Mapping DataField="Type" ObjectProperty="Types" />
         </Setting>
         <Setting Key="LateInEarlyOut_GetLateInEarlyOutOnMonth" SpName="LateInEarlyOut_GetLateInEarlyOutOnMonth" DbName="nexhr" Plain="0"></Setting>
@@ -333,47 +330,43 @@
         <Setting Key="EmployeeAttendance_GetAllReminderLateInEarlyOut" SpName="EmployeeAttendance_GetAllReminderLateInEarlyOut" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="EmployeePostnatal">
-        <Setting Key="EmployeePostnatal_Insert" SpName="EmployeePostnatal_Insert" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="EmployeePostnatal_Update" SpName="EmployeePostnatal_Update" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="EmployeePostnatal_Delete" SpName="EmployeePostnatal_Delete" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="EmployeePostnatal_GetAll" SpName="EmployeePostnatal_GetAll" DbName="nexhr" Plain="1">
+        <Setting Key="EmployeePostnatal_Insert" SpName="EmployeePostnatal_Insert" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="EmployeePostnatal_Update" SpName="EmployeePostnatal_Update" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="EmployeePostnatal_Delete" SpName="EmployeePostnatal_Delete" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="EmployeePostnatal_GetAll" SpName="EmployeePostnatal_GetAll" DbName="nexhr" Plain="0">
             <Mapping DataField="Type" ObjectProperty="Types" />
         </Setting>
-        <Setting Key="EmployeePostnatal_GetById" SpName="EmployeePostnatal_GetById" DbName="nexhr" Plain="1">
+        <Setting Key="EmployeePostnatal_GetById" SpName="EmployeePostnatal_GetById" DbName="nexhr" Plain="0">
             <Mapping DataField="Type" ObjectProperty="Types" />
         </Setting>
     </Function>
     <Function Name="Notification">
-        <Setting Key="Notification_GetAllViolation" SpName="Notification_GetAllViolation" DbName="nexhr" Plain="1">
+        <Setting Key="Notification_GetAllViolation" SpName="Notification_GetAllViolation" DbName="nexhr" Plain="0">
             <Mapping DataField="EmpId" ObjectProperty="Id" />
         </Setting>
     </Function>
     <Function Name="CompanyEvent">
-        <Setting Key="CompanyEvent_GetAll" SpName="CompanyEvent_GetAll" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="CompanyEvent_GetEventById" SpName="CompanyEvent_GetEventById" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="CompanyEvent_Insert" SpName="CompanyEvent_Insert" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="CompanyEvent_Update" SpName="CompanyEvent_Update" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="CompanyEvent_Delete" SpName="CompanyEvent_Delete" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="CompanyEvent_GetAll" SpName="CompanyEvent_GetAll" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="CompanyEvent_GetEventById" SpName="CompanyEvent_GetEventById" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="CompanyEvent_Insert" SpName="CompanyEvent_Insert" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="CompanyEvent_Update" SpName="CompanyEvent_Update" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="CompanyEvent_Delete" SpName="CompanyEvent_Delete" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="RedmineAPI">
-        <Setting Key="Employee_GetRedmineUserByDomainName" SpName="Employee_GetRedmineUserByDomainName" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="RedmineSpendTimeWriteLog_Insert" SpName="RedmineSpendTimeWriteLog_Insert" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="HRM_GetRedmineUsers" SpName="HRM_GetRedmineUsers" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="Employee_GetRedmineUserByDomainName" SpName="Employee_GetRedmineUserByDomainName" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="RedmineSpendTimeWriteLog_Insert" SpName="RedmineSpendTimeWriteLog_Insert" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="HRM_GetRedmineUsers" SpName="HRM_GetRedmineUsers" DbName="nexhr" Plain="0"></Setting>
     </Function>
+  
     <Function Name="BioStation">
-        <Setting Key="BioDevice_GetAll" SpName="BioDevice_GetAll" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="RepeatType_GetAll" SpName="RepeatType_GetAll" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="BioDevice_Get" SpName="BioDevice_Get" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="BioDevice_Edit" SpName="BioDevice_Edit" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Bio_GetFigerprintAndCardSummary" SpName="Bio_GetFigerprintAndCardSummary" DbName="nexhr" Plain="0">
-            <Mapping DataField="EmpId" ObjectProperty="Id" />
-            <Mapping DataField="GroupId" ObjectProperty="Id" />
-        </Setting>
-        <Setting Key="BioStationTimeChange_Get" SpName="BioStationTimeChange_Get" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Bio_UpdateFingerprintAndCardStatus" SpName="Bio_UpdateFingerprintAndCardStatus" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Bio_GetPendingDevice" SpName="Bio_GetPendingDevice" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Bio_GetPendingFingerprintAndCard" SpName="Bio_GetPendingFingerprintAndCard" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Bio_GetWarningTimeChange" SpName="Bio_GetWarningTimeChange" DbName="nexhr" Plain="0"></Setting>
+       <Setting Key="BioDevice_GetAll" SpName="BioDevice_GetAll" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="BioDevice_Edit" SpName="BioDevice_Edit" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="BioDevice_Get" SpName="BioDevice_Get" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="Bio_GetFigerprintAndCardSummary" SpName="Bio_GetFigerprintAndCardSummary" DbName="nexhr" Plain="0"></Setting>
+      <Setting Key="Bio_UpdateFingerprintAndCardStatus" SpName="Bio_UpdateFingerprintAndCardStatus" DbName="nexhr" Plain="0"></Setting>
+      <Setting Key="RepeatType_GetAll" SpName="RepeatType_GetAll" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="Bio_GetPendingDevice" SpName="Bio_GetPendingDevice" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="Bio_GetPendingFingerprintAndCard" SpName="Bio_GetPendingFingerprintAndCard" DbName="hrm" Plain="0"></Setting>
     </Function>
 
     <Function Name="Employee Skype Account Management">
@@ -387,20 +380,21 @@
         </Setting>
     </Function>
     <Function Name="Scheduled Message">
-        <Setting Key="Conversation_Get" SpName="Conversation_Get" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="ScheduledMessage_Insert" SpName="ScheduledMessage_Insert" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="ScheduledMessage_Get" SpName="ScheduledMessage_Get" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="ScheduledMessage_GetById" SpName="ScheduledMessage_GetById" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="ScheduledMessage_Update" SpName="ScheduledMessage_Update" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="ScheduledMessage_Delete" SpName="ScheduledMessage_Delete" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="ScheduledMessage_GetMessagesToProcess" SpName="ScheduledMessage_GetMessagesToProcess" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="ScheduledMessage_UpdateStatus" SpName="ScheduledMessage_UpdateStatus" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Conversation_Insert" SpName="Conversation_Insert" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Conversation_GetByCreator" SpName="Conversation_GetByCreator" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Conversation_GetById" SpName="Conversation_GetById" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Conversation_Update" SpName="Conversation_Update" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Conversation_GetTeamHr" SpName="Conversation_GetTeamHr" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="ScheduledVegetarianMessage_Get" SpName="ScheduledVegetarianMessage_Get" DbName="nexhr" Plain="0"></Setting>
+      <Setting Key="Conversation_Get" SpName="Conversation_Get" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="Conversation_GetByCreator" SpName="Conversation_GetByCreator" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="Conversation_GetById" SpName="Conversation_GetById" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="Conversation_Insert" SpName="Conversation_Insert" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="Conversation_Update" SpName="Conversation_Update" DbName="hrm" Plain="0"></Setting>
+
+      <Setting Key="ScheduledMessage_Get" SpName="ScheduledMessage_Get" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="ScheduledMessage_GetById" SpName="ScheduledMessage_GetById" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="ScheduledMessage_GetMessagesToProcess" SpName="ScheduledMessage_GetMessagesToProcess" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="ScheduledMessage_Insert" SpName="ScheduledMessage_Insert" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="ScheduledMessage_Update" SpName="ScheduledMessage_Update" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="ScheduledMessage_Delete" SpName="ScheduledMessage_Delete" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="ScheduledMessage_UpdateStatus" SpName="ScheduledMessage_UpdateStatus" DbName="hrm" Plain="0"></Setting>
+        
+        <Setting Key="EmployeeConversation_GetTeamHr" SpName="EmployeeConversation_GetTeamHr" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeConversation_Get" SpName="EmployeeConversation_Get" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeConversation_GetById" SpName="EmployeeConversation_GetById" DbName="nexhr" Plain="0"></Setting>
     </Function>
@@ -431,71 +425,71 @@
         <Setting Key="Sync_GO_UnitHead_GetSchedule" SpName="Sync_GO_UnitHead_GetSchedule" DbName="nexhr" Plain="0" />
     </Function>
     <Function Name="Employee Transfer">
-        <Setting Key="EmployeeTransfer_GetLumiGroup" SpName="EmployeeTransfer_GetLumiGroup" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="EmployeeTransfer_GetLumiShift" SpName="EmployeeTransfer_GetLumiShift" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="Employee_Transfer" SpName="Employee_Transfer" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="EmployeeTransfer_GetLumiGroup" SpName="EmployeeTransfer_GetLumiGroup" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="EmployeeTransfer_GetLumiShift" SpName="EmployeeTransfer_GetLumiShift" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="Employee_Transfer" SpName="Employee_Transfer" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Employee Work FromHome">
-        <Setting Key="EmployeeWorkFromHome_Get" SpName="EmployeeWorkFromHome_Get" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="EmployeeWorkFromHome_Insert" SpName="EmployeeWorkFromHome_Insert" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="EmployeeWorkFromHome_GetById" SpName="EmployeeWorkFromHome_GetById" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="EmployeeWorkFromHome_Update" SpName="EmployeeWorkFromHome_Update" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="EmployeeWorkFromHome_Delete" SpName="EmployeeWorkFromHome_Delete" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="EmployeeWorkFromHome_ApproveAndRejectRequest" SpName="EmployeeWorkFromHome_ApproveAndRejectRequest" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="EmployeeWorkFromHome_DisApproveRequest" SpName="EmployeeWorkFromHome_DisApproveRequest" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="EmployeeWorkFromHome_Get" SpName="EmployeeWorkFromHome_Get" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="EmployeeWorkFromHome_Insert" SpName="EmployeeWorkFromHome_Insert" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="EmployeeWorkFromHome_GetById" SpName="EmployeeWorkFromHome_GetById" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="EmployeeWorkFromHome_Update" SpName="EmployeeWorkFromHome_Update" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="EmployeeWorkFromHome_Delete" SpName="EmployeeWorkFromHome_Delete" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="EmployeeWorkFromHome_ApproveAndRejectRequest" SpName="EmployeeWorkFromHome_ApproveAndRejectRequest" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="EmployeeWorkFromHome_DisApproveRequest" SpName="EmployeeWorkFromHome_DisApproveRequest" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Training And Development">
-        <Setting Key="TrainingAndDevelopment_Delete" SpName="TrainingAndDevelopment_Delete" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="TrainingAndDevelopment_Get" SpName="TrainingAndDevelopment_Get" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="TrainingAndDevelopment_GetByEmpId" SpName="TrainingAndDevelopment_GetByEmpId" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="TrainingAndDevelopment_GetById" SpName="TrainingAndDevelopment_GetById" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="TrainingAndDevelopment_Insert" SpName="TrainingAndDevelopment_Insert" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="TrainingAndDevelopment_Update" SpName="TrainingAndDevelopment_Update" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="TrainingAndDevelopmentType_Get" SpName="TrainingAndDevelopmentType_Get" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="TrainingAndDevelopment_Delete" SpName="TrainingAndDevelopment_Delete" DbName="hrm" Plain="0"></Setting>
+        <Setting Key="TrainingAndDevelopment_Get" SpName="TrainingAndDevelopment_Get" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="TrainingAndDevelopment_GetByEmpId" SpName="TrainingAndDevelopment_GetByEmpId" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="TrainingAndDevelopment_GetById" SpName="TrainingAndDevelopment_GetById" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="TrainingAndDevelopment_Insert" SpName="TrainingAndDevelopment_Insert" DbName="hrm" Plain="0"></Setting>
+        <Setting Key="TrainingAndDevelopment_Update" SpName="TrainingAndDevelopment_Update" DbName="hrm" Plain="0"></Setting>
+        <Setting Key="TrainingAndDevelopmentType_Get" SpName="TrainingAndDevelopmentType_Get" DbName="hrm" Plain="0"></Setting>
     </Function>
     <Function Name="Work From Home Request">
-        <Setting Key="WorkFromHomeRequest_Get" SpName="WorkFromHomeRequest_Get" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="WorkFromHomeRequest_Insert" SpName="WorkFromHomeRequest_Insert" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="WorkFromHomeRequest_GetById" SpName="WorkFromHomeRequest_GetById" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="WorkFromHomeRequest_Update" SpName="WorkFromHomeRequest_Update" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="WorkFromHomeRequest_Delete" SpName="WorkFromHomeRequest_Delete" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="WorkFromHomeRequest_Get" SpName="WorkFromHomeRequest_Get" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="WorkFromHomeRequest_Insert" SpName="WorkFromHomeRequest_Insert" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="WorkFromHomeRequest_GetById" SpName="WorkFromHomeRequest_GetById" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="WorkFromHomeRequest_Update" SpName="WorkFromHomeRequest_Update" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="WorkFromHomeRequest_Delete" SpName="WorkFromHomeRequest_Delete" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Job Grade">
-        <Setting Key="EmployeeJobGrade_Get" SpName="EmployeeJobGrade_Get" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="JobGrade_Insert" SpName="JobGrade_Insert" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="JobGrade_GetAll" SpName="JobGrade_GetAll" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="EmployeeJobGrade_Get" SpName="EmployeeJobGrade_Get" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="JobGrade_Insert" SpName="JobGrade_Insert" DbName="hrm" Plain="0"></Setting>
+        <Setting Key="JobGrade_GetAll" SpName="JobGrade_GetAll" DbName="hrm" Plain="0"></Setting>
     </Function>
     <Function Name="Promotion">
-        <Setting Key="Promotion_Get" SpName="Promotion_Get" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="Promotion_GetById" SpName="Promotion_GetById" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="Promotion_Insert" SpName="Promotion_Insert" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="Promotion_Update" SpName="Promotion_Update" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="Promotion_Delete" SpName="Promotion_Delete" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="Promotion_Get" SpName="Promotion_Get" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="Promotion_GetById" SpName="Promotion_GetById" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="Promotion_Insert" SpName="Promotion_Insert" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="Promotion_Update" SpName="Promotion_Update" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="Promotion_Delete" SpName="Promotion_Delete" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Transfer">
-        <Setting Key="Transfer_Get" SpName="Transfer_Get" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="Transfer_GetById" SpName="Transfer_GetById" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="Transfer_Insert" SpName="Transfer_Insert" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="Transfer_Update" SpName="Transfer_Update" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="Transfer_Get" SpName="Transfer_Get" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="Transfer_GetById" SpName="Transfer_GetById" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="Transfer_Insert" SpName="Transfer_Insert" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="Transfer_Update" SpName="Transfer_Update" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Applicant">
-        <Setting Key="Applicant_Get" SpName="Applicant_Get" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="Applicant_GetById" SpName="Applicant_GetById" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="Applicant_Insert" SpName="Applicant_Insert" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="Applicant_Update" SpName="Applicant_Update" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="Applicant_Delete" SpName="Applicant_Delete" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="Applicant_GetSource" SpName="Applicant_GetSource" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Applicant_GetCVStatus" SpName="Applicant_GetCVStatus" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Applicant_GetProfessionalLevel" SpName="Applicant_GetProfessionalLevel" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Applicant_GetResult" SpName="Applicant_GetResult" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Applicant_UpdateOnTop" SpName="Applicant_UpdateOnTop" DbName="nexhr" Plain="0"></Setting>
+      <Setting Key="Applicant_Insert" SpName="Applicant_Insert" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="Applicant_Update" SpName="Applicant_Update" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="Applicant_Delete" SpName="Applicant_Delete" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="Applicant_UpdateOnTop" SpName="Applicant_UpdateOnTop" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="Applicant_Get" SpName="Applicant_Get" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="Applicant_GetById" SpName="Applicant_GetById" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="Applicant_GetCVStatus" SpName="Applicant_GetCVStatus" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="Applicant_GetProfessionalLevel" SpName="Applicant_GetProfessionalLevel" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="Applicant_GetResult" SpName="Applicant_GetResult" DbName="hrm" Plain="0"></Setting>
+      <Setting Key="Applicant_GetSource" SpName="Applicant_GetSource" DbName="hrm" Plain="0"></Setting>
     </Function>
     <Function Name="Position">
-        <Setting Key="Position_GetAll" SpName="Position_GetAll" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="Position_GetById" SpName="Position_GetById" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="Position_Insert" SpName="Position_Insert" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="Position_Update" SpName="Position_Update" DbName="nexhr" Plain="1"></Setting>
-        <Setting Key="Position_Delete" SpName="Position_Delete" DbName="nexhr" Plain="1"></Setting>
+        <Setting Key="Position_GetAll" SpName="Position_GetAll" DbName="hrm" Plain="0"></Setting>
+        <Setting Key="Position_GetById" SpName="Position_GetById" DbName="hrm" Plain="0"></Setting>
+        <Setting Key="Position_Insert" SpName="Position_Insert" DbName="hrm" Plain="0"></Setting>
+        <Setting Key="Position_Update" SpName="Position_Update" DbName="hrm" Plain="0"></Setting>
+        <Setting Key="Position_Delete" SpName="Position_Delete" DbName="hrm" Plain="0"></Setting>
     </Function>
     <Function Name="Request Form">
         <Setting Key="CheckInCheckOut_GetByConversationId" SpName="CheckInCheckOut_GetByConversationId" DbName="nexhr" Plain="1"></Setting>

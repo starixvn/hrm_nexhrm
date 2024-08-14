@@ -36,15 +36,10 @@
             return await baseService.GetDataEntityAsync<bool>(criteria);
         }
 
-        public async Task<IList<LateInEarlyOutModel>> GetLateInEarlyOut(GetLateInEarlyOutReportCriteria criteria)
+        public async Task<IEnumerable<LateInEarlyOutSummary>> GetLateInEarlyOut(GetLateInEarlyOutReportCriteria criteria)
         {
-            IList<LateInEarlyOutModel> lateInEarlyOuts = null;
-            if (criteria != null && criteria.IsValid())
-            {
-                lateInEarlyOuts = await reportRepository.GetLateInEarlyOut(criteria);
-            }
-
-            return lateInEarlyOuts ?? new List<LateInEarlyOutModel>();
+            var lateInEarlyOuts = await baseService.GetDataAsync<LateInEarlyOutSummary>(criteria);
+            return lateInEarlyOuts;
         }
 
         public async Task<IList<LateInEarlyOutDetail>> GetLateInEarlyOutDetail(GetLateInEarlyOutDetailReportCriteria criteria)

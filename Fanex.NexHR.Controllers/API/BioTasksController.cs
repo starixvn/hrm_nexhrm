@@ -24,13 +24,6 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> BioTimeChange()
-        {
-            var result = await bioTasksService.SendMessageBioTimeChangeAsync().ConfigureAwait(false);
-            return Ok(result);
-        }
-
-        [HttpGet]
         public async Task<IActionResult> BioFingerprintAndCard()
         {
             var result = await bioTasksService.SendMessageBioFingerprintAndCardAynsc().ConfigureAwait(false);

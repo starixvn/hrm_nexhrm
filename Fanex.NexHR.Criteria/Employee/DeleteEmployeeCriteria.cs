@@ -8,6 +8,8 @@
 
         public DateTime ResignedDate { get; set; }
 
+        public int ModifiedBy { get; set; }
+
         public override bool IsValid()
         {
             return EmployeeId > 0;

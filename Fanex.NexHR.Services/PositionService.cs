@@ -1,13 +1,13 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Fanex.NexHR.Criteria.Position;
-using Fanex.NexHR.Services.Interfaces;
-using Fanex.NexHR.Models;
-using Fanex.NexHR.ViewModels;
-using System.Linq;
-
 namespace Fanex.NexHR.Services
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Fanex.NexHR.Criteria.Position;
+    using Fanex.NexHR.Services.Interfaces;
+    using Fanex.NexHR.Models;
+    using Fanex.NexHR.ViewModels;
+    using System.Linq;
+
     public class PositionService : IPositionService
     {
         private readonly IBaseService baseService;

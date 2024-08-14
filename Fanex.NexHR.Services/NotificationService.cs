@@ -17,7 +17,8 @@
 
         public async Task<Notification> GetViolationByEmpId(ICriteria criteria)
         {
-            return await repositoty.GetViolationByEmpId(criteria);
+            var notifications = await repositoty.GetViolationByEmpId(criteria);
+            return notifications ?? new Notification();
         }
     }
 }

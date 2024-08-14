@@ -86,8 +86,7 @@
                 viewModel.SendDate = viewModel.SendDate.AddHours(viewModel.Hour).AddMinutes(viewModel.Minute);
                 string cron = ConvertConditionToCron(viewModel.StepNumber, viewModel.RepeatTypeId,
                     viewModel.SendDate);
-
-                var result = await scheduledMessageService.CreateAsync(new CreateScheduledMessage
+                var criteria = new CreateScheduledMessageCriteria
                 {
                     ConversationId = viewModel.ConversationId,
                     SendDate = viewModel.SendDate,
@@ -96,7 +95,8 @@
                     CronExpression = cron,
                     StepNumber = viewModel.StepNumber,
                     RepeatTypeId = viewModel.IsRepeat ? viewModel.RepeatTypeId : null
-                }).ConfigureAwait(false);
+                };
+                var result = await baseService.ExecuteNonQueryAsync(criteria);
 
                 return Json(new
                 {
@@ -171,8 +171,7 @@
                 viewModel.SendDate = viewModel.SendDate.AddHours(viewModel.Hour).AddMinutes(viewModel.Minute);
                 string cron = ConvertConditionToCron(viewModel.StepNumber, viewModel.RepeatTypeId,
                     viewModel.SendDate);
-
-                var result = await scheduledMessageService.EditAsync(new EditScheduledMessage
+                var criteria = new EditScheduledMessageCriteria
                 {
                     ScheduledMessageId = viewModel.ScheduledMessageId,
                     ConversationId = viewModel.ConversationId,
@@ -181,7 +180,8 @@
                     CronExpression = cron,
                     StepNumber = viewModel.StepNumber,
                     RepeatTypeId = viewModel.IsRepeat ? viewModel.RepeatTypeId : null
-                }).ConfigureAwait(false);
+                };
+                var result = await baseService.ExecuteNonQueryAsync(criteria);
 
                 return Json(new
                 {
@@ -201,7 +201,11 @@
         {
             if (id > 0)
             {
-                var result = await scheduledMessageService.RemoveAsync(id).ConfigureAwait(false);
+                var criteria = new RemoveScheduleMessageCriteria
+                {
+                    ScheduledMessageId = id
+                };
+                var result = await baseService.ExecuteNonQueryAsync(criteria);
 
                 return Json(new
                 {
@@ -247,14 +251,16 @@
         {
             if (ModelState.IsValid)
             {
-                var result = await scheduledMessageService.CreateConversationAsync(new CreateConversation
+                var criteria = new CreateConversationCriteria
                 {
-                    ConversationName = viewModel.ConversationName,
                     SkypeConversationId = viewModel.SkypeConversationId,
-                    CreatedBy = CurrentUser.Id,
+                    ConversationName = viewModel.ConversationName,
                     PermittedEmployeeIds = viewModel.PermittedEmployeeIds != null ? string.Join(",", viewModel.PermittedEmployeeIds) : null,
-                }).ConfigureAwait(false);
+                    CreatedBy = CurrentUser.Id
+                };
 
+                var result = await baseService.ExecuteNonQueryAsync(criteria);
+               
                 return Json(new
                 {
                     isSuccessful = result.IsSuccessful,
@@ -331,15 +337,16 @@
         {
             if (ModelState.IsValid)
             {
-                var result = await scheduledMessageService.EditConversationAsync(new EditConversation
+                var criteria = new EditConversationCriteria
                 {
                     ConversationId = viewModel.ConversationId,
-                    ConversationName = viewModel.ConversationName,
                     SkypeConversationId = viewModel.SkypeConversationId,
-                    EditedBy = CurrentUser.Id,
-                    IsActive = viewModel.IsActive,
+                    ConversationName = viewModel.ConversationName,
                     PermittedEmployeeIds = viewModel.PermittedEmployeeIds != null ? string.Join(",", viewModel.PermittedEmployeeIds) : null,
-                }).ConfigureAwait(false);
+                    EditedBy = CurrentUser.Id,
+                    IsActive = viewModel.IsActive
+                }; 
+                var result = await baseService.ExecuteNonQueryAsync(criteria);
 
                 return Json(new
                 {

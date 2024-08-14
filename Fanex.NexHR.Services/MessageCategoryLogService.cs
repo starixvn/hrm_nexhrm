@@ -25,7 +25,7 @@
                 CategoryId = categoryId,
                 JsonObject = jsonObject
             };
-            return !await baseService.GetDataEntityAsync<bool>(criteria).ConfigureAwait(false);
+            return !await baseService.GetDataEntityAsync<bool>(criteria);
         }
 
         public async Task<string> GetJsonObject(MessageCategory categoryId)
@@ -35,7 +35,7 @@
                 CategoryId = categoryId
             };
 
-            return await baseService.GetDataEntityAsync<string>(criteria).ConfigureAwait(false) ?? string.Empty;
+            return await baseService.GetDataEntityAsync<string>(criteria) ?? string.Empty;
         }
 
         public async Task<CommandResult> UpdateJsonObject(MessageCategory categoryId, object value)
@@ -47,7 +47,7 @@
                 JsonObject = jsonObject
             };
 
-            return await baseService.ExecuteNonQueryAsync(criteria).ConfigureAwait(false);
+            return await baseService.ExecuteNonQueryAsync(criteria);
         }
     }
 }

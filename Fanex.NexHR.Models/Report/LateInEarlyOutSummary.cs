@@ -1,8 +1,18 @@
 ﻿namespace Fanex.NexHR.Models.Report
 {
-    public class LateInEarlyOutModel
+    public class LateInEarlyOutSummary
     {
-        public Employee Employee { get; set; }
+        public int EmpId { get; set; }
+
+        public string NickName { get; set; }
+
+        public string FullName { get; set; }
+
+        public int TeamId { get; set; }
+
+        public string TeamCode { get; set; }
+
+        public string TeamName { get; set; }
 
         public int BalanceLastYear { get; set; }
 
@@ -63,5 +73,7 @@
         public int LeaveDeduction { get; set; }
 
         public int OvertimeBalance { get; set; }
+
+        public decimal AnnualLeaveBalance { get; set; }
     }
 }

@@ -6,14 +6,8 @@
     {
         public string LookupCode { get; set; }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
 
-        public override string GetSettingKey()
-        {
-            return "Lookup_GetLookupData";
-        }
+        public override string GetSettingKey() => "Lookup_GetLookupData";
     }
 }

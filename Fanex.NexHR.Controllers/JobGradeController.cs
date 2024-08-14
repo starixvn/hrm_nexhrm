@@ -10,7 +10,6 @@
 
     public class JobGradeController : BaseController
     {
-        private readonly IJobGradeService jobGradeService;
         private readonly ITeamService teamService;
         private readonly IPromotionService promotionService;
         private readonly IBaseService baseService;
@@ -18,12 +17,10 @@
 
         public JobGradeController(
             ISessionService sessionService,
-            IJobGradeService jobGradeService,
             IPromotionService promotionService,
             IBaseService baseService,
             ITeamService teamService) : base(sessionService)
         {
-            this.jobGradeService = jobGradeService;
             this.teamService = teamService;
             this.promotionService = promotionService;
             this.baseService = baseService;
@@ -46,7 +43,7 @@
                 GroupId = model.TeamId
             };
 
-            var employeeJobGrades = await jobGradeService.GetEmployeeJobGrade(criteria);
+            var employeeJobGrades = await baseService.GetDataEntityAsync<EmployeeJobGrade> (criteria);
 
             return PartialView("Views/JobGrade/_JobGradeGrid.cshtml", employeeJobGrades);
         }

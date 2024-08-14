@@ -1,9 +1,8 @@
 ﻿namespace Fanex.NexHR.Criteria.ScheduledMessage
 {
     using System;
-    using Fanex.Data.Repository;
 
-    public class CreateScheduledMessageCriteria : CriteriaBase
+    public class CreateScheduledMessageCriteria : BaseCommand
     {
         public int ConversationId { get; set; }
 

@@ -38,8 +38,6 @@
         public string EducationBackground { get; set; }
         public int JobTitleId { get; set; }
 
-        public decimal AnnualLeaveBalance { get; set; }
-
         [Display(Name = "Other team(s)")]
         public string SubGroups { get; set; }
 
@@ -173,7 +171,6 @@
                 Roles = employee.Roles;
                 TeamId = employee.Team.Id;
                 JobTitleId = employee.JobTitle.Id;
-                AnnualLeaveBalance = employee.AnnualLeaveBalance;
                 SubGroups = employee.SubGroups;
                 DateOfBirth = employee.DateOfBirth;
                 Email = employee.Email;

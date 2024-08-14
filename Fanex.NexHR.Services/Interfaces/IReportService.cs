@@ -12,7 +12,7 @@
 
         Task<bool> GetIsPrivilegeCreateCheckInOut(GetPrivilegeCreateCheckInOutRecordCriteria criteria);
 
-        Task<IList<LateInEarlyOutModel>> GetLateInEarlyOut(GetLateInEarlyOutReportCriteria criteria);
+        Task<IEnumerable<LateInEarlyOutSummary>> GetLateInEarlyOut(GetLateInEarlyOutReportCriteria criteria);
 
         Task<IList<LateInEarlyOutDetail>> GetLateInEarlyOutDetail(GetLateInEarlyOutDetailReportCriteria criteria);
 

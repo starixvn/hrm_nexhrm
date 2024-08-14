@@ -428,7 +428,7 @@
         [HttpPost]
         public async Task<IActionResult> ListLateInEarlyOut(LateInEarlyOutViewModel model)
         {
-            IList<LateInEarlyOutModel> lateInEarlyOuts = new List<LateInEarlyOutModel>();
+            IEnumerable<LateInEarlyOutSummary> lateInEarlyOuts = new List<LateInEarlyOutSummary>();
             if (model != null)
             {
                 var criteria = new GetLateInEarlyOutReportCriteria

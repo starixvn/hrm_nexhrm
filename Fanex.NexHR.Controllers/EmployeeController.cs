@@ -11,6 +11,7 @@
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Criteria.HistoryWork;
     using Fanex.NexHR.Criteria.JobGrade;
+    using Fanex.NexHR.Criteria.JobTitle;
     using Fanex.NexHR.Criteria.LookupData;
     using Fanex.NexHR.Criteria.TrainingAndDevelopment;
     using Fanex.NexHR.Resources;
@@ -267,7 +268,7 @@
                 model.JobTitleId = history.JobTitleId;
                 model.AffectedDate = history.AffectedDate;
                 model.Teams = await teamService.GetTeam();
-                model.JobTitles = await jobTitleService.GetJobTitle(new GetJobTitleCriteria { JobTitle = "" });
+                model.JobTitles = await jobTitleService.GetJobTitle(new GetJobTitleCriteria());
             }
 
             return PartialView(model);
@@ -484,7 +485,8 @@
             var criteria = new DeleteEmployeeCriteria
             {
                 EmployeeId = employeeId,
-                ResignedDate = resignedDate
+                ResignedDate = resignedDate,
+                ModifiedBy = CurrentUser.Id
             };
             CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
 

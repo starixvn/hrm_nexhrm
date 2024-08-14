@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.ScheduledMessage
 {
-    using Fanex.Data.Repository;
-
-    public class RemoveScheduleMessageCriteria : CriteriaBase
+    public class RemoveScheduleMessageCriteria : BaseCommand
     {
         public int ScheduledMessageId { get; set; }
 

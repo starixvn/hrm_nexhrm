@@ -29,7 +29,8 @@
         public async Task<CommandResult> SendMessageBioDeviceAsync()
         {
             var result = new CommandResult { Code = 0 };
-            var pendingDevices = await baseService.GetDataAsync<BioDevice>(new GetPendingBioDevicesCriteria()).ConfigureAwait(false);
+            var criteria = new GetPendingBioDevicesCriteria();
+            var pendingDevices = await baseService.GetDataAsync<BioDevice>(criteria);
             if (pendingDevices.Any())
             {
                 var conversations = await nexbotService.GetRegisteredConversationAsync(MessageCategory.BioDevice);
@@ -48,45 +49,15 @@
             return result;
         }
 
-        public async Task<CommandResult> SendMessageBioTimeChangeAsync()
-        {
-            var result = new CommandResult { Code = 0 };
-            var criteria = new GetWarningBioTimeChangeCriteria
-            {
-                FromDate = DateTimeOffset.Now.Date.AddDays(-1),
-                ToDate = DateTimeOffset.Now.Date.AddDays(1)
-            };
-            var warningTimeChanges = await baseService.GetDataAsync<BioTimeChange>(criteria).ConfigureAwait(false);
-
-            if (warningTimeChanges.Any())
-            {
-                var conversations = await nexbotService.GetRegisteredConversationAsync(MessageCategory.BioTimeChange);
-
-                if (conversations.Any())
-                {
-                    var message = GenerateMesssageBioTimeChange(warningTimeChanges);
-                    foreach (var conversation in conversations)
-                    {
-                        result.Code = 1;
-                        await nexbotService.SendMessageAsync(conversation.ConversationId, message);
-                    }
-                }
-            }
-
-            return result;
-        }
-
         public async Task<CommandResult> SendMessageBioFingerprintAndCardAynsc()
         {
             var result = new CommandResult { Code = 0 };
-            var members = await baseService.GetDataAsync<FingerprintAndCardSummary>(
-                new GetPendingFingerprintAndCardCriteria()
-                );
+            var criteria = new GetPendingFingerprintAndCardCriteria();
+            var members = await baseService.GetDataAsync<EmployeeFingerprintAndCardSummary>(criteria);
 
             if (members.Any())
             {
                 var conversations = await nexbotService.GetRegisteredConversationAsync(MessageCategory.BioFingerprintAndCard);
-
                 if (conversations.Any())
                 {
                     result.Code = 1;
@@ -99,19 +70,6 @@
             }
 
             return result;
-        }
-
-        private static string GenerateMesssageBioTimeChange(IEnumerable<BioTimeChange> timeChanges)
-        {
-            var message = new StringBuilder();
-            message.Append(string.Format(Messages.AnounceBioChangeTime, timeChanges.Count(), Constants.NewLine));
-            foreach (var timeChange in timeChanges)
-            {
-                message.Append(string.Format(Messages.DeviceBioChangeTime, timeChange.DeviceId, timeChange.DeviceName, timeChange.TimeChange.ToShortFormatedDate(), Constants.NewLine));
-            }
-            message.Append(string.Format(Messages.ThankReview));
-
-            return message.ToString();
         }
 
         private static string GenerateMessageBioDevice(IEnumerable<BioDevice> bioDevices)
@@ -127,7 +85,7 @@
             return message.ToString();
         }
 
-        private string GenerateMesssageBioFingerprintAndCard(IEnumerable<FingerprintAndCardSummary> members)
+        private string GenerateMesssageBioFingerprintAndCard(IEnumerable<EmployeeFingerprintAndCardSummary> members)
         {
             StringBuilder message = new StringBuilder();
             message.Append(string.Format(Messages.AnounceNewBioFingerprintAndCard, members.Count(), Constants.NewLine));

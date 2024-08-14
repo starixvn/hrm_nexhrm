@@ -83,7 +83,6 @@
                     NickName = reader.GetString(reader.GetOrdinal("Requester")),
                     FullName = reader.GetString(reader.GetOrdinal("FullNameRequester")),
                     Email = !reader.IsDBNull(reader.GetOrdinal("EmailRequester")) ? reader.GetString(reader.GetOrdinal("EmailRequester")) : "",
-                    AnnualLeaveBalance = reader.GetDecimal(reader.GetOrdinal("AnnualLeaveBalance")),
                     Team = new Team { Name = reader.GetString(reader.GetOrdinal("Team")), Code = reader.GetString(reader.GetOrdinal("TeamCode")) }
                 },
                 ModifiedBy = new Employee

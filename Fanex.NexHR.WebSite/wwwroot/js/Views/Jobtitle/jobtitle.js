@@ -139,13 +139,13 @@ $(function () {
                 text: 'Create',
                 class: 'btn-submit waves-effect waves-light',
                 click: function () {
-                    var bValid = true;
+                    var isValid = true;
 
                     allFields.removeClass('ui-state-error');
-                    bValid = bValid && checkLength(name, 'job title', 3, 100);
+                    isValid = isValid && checkLength(name, 'job title', 3, 100);
 
-                    if (bValid) {
-                        $.post(_global.root + 'jobtitle/Insert',
+                    if (isValid) {
+                        $.post(_global.root + 'jobtitle/Create',
                         { name: name.val() },
                         function (response) {
                             if (response.IsSuccessful) {

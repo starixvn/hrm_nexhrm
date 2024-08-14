@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Criteria.LookupData;
+    using Fanex.NexHR.Criteria.JobTitle;
     using Models;
 
     public interface IJobTitleService

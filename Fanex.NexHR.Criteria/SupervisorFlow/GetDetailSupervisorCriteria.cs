@@ -6,7 +6,7 @@
     {
         public string Keyword { get; set; }
 
-         public override string GetSettingKey() => "Supervisor_Get";
+        public override string GetSettingKey() => "Supervisor_Get";
 
         public override bool IsValid() => true;
     }

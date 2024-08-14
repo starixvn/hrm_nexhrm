@@ -5,7 +5,6 @@
 
     public class InsertApplicantCriteria : BaseCommand
     {
-        [Output]
         public string FullName { get; set; }
 
         public int PositionId { get; set; }

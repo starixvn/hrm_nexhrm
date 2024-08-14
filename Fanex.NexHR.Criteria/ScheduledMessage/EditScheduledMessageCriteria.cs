@@ -3,7 +3,7 @@
     using Fanex.Data.Repository;
     using System;
 
-    public class EditScheduledMessageCriteria : CriteriaBase
+    public class EditScheduledMessageCriteria : BaseCommand
     {
         public int ScheduledMessageId { get; set; }
 

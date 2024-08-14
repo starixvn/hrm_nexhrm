@@ -2,7 +2,7 @@
 {
     using Fanex.Data.Repository;
 
-    public class CreateConversationCriteria : CriteriaBase
+    public class CreateConversationCriteria : BaseCommand
     {
         public string SkypeConversationId { get; set; }
 

@@ -4,7 +4,7 @@
 
     public class GetTeamHrConversationCriteria : CriteriaBase
     {
-        public override string GetSettingKey() => "Conversation_GetTeamHr";
+        public override string GetSettingKey() => "EmployeeConversation_GetTeamHr";
 
         public override bool IsValid() => true;
     }

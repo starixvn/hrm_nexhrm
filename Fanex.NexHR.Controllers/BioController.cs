@@ -1,6 +1,5 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
     using System.Linq;
     using System.Threading.Tasks;
     using Core.Enums;
@@ -113,28 +112,6 @@
             };
 
             return PartialView("_BioDeviceRow", viewModel);
-        }
-
-        public IActionResult BioTimeChange()
-        {
-            var viewModel = new BioStationTimeChangeViewModel
-            {
-                From = DateTimeOffset.Now.AddMonths(-1).DateTime,
-                To = DateTimeOffset.Now.DateTime
-            };
-
-            return View(viewModel);
-        }
-
-        public async Task<IActionResult> GetBioStationTimeChange(BioStationTimeChangeViewModel viewModel)
-        {
-            var criteria = new GetBioTimeChangeCriteria
-            {
-                FromDate = viewModel.From,
-                ToDate = viewModel.To
-            };
-            var timeChanges = await bioService.GetBioTimeChanges(criteria);
-            return PartialView("_ListBioTimeChanges", timeChanges);
         }
 
         public async Task<IActionResult> Fingerprint()

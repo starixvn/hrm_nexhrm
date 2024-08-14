@@ -12,7 +12,9 @@
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
+    using Microsoft.AspNetCore.Http.HttpResults;
     using NCrontab;
+    using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -23,6 +25,7 @@
         private readonly IScheduledMessageRepository scheduledMessageRepository;
         private readonly INexbotService nexbotService;
         private readonly IHolidayService holidayService;
+        private readonly IBaseService baseService;
         private readonly AppSetting appSetting;
         private const string FirstLunar = "01";
         private const int FifteenLunar = 15;
@@ -34,65 +37,35 @@
         public ScheduledMessageService(IScheduledMessageRepository scheduledMessageRepository,
             IHolidayService holidayService,
             INexbotService nexbotService,
+            IBaseService baseService,
             AppSetting appSetting)
         {
             this.scheduledMessageRepository = scheduledMessageRepository;
             this.holidayService = holidayService;
             this.nexbotService = nexbotService;
+            this.baseService = baseService;
             this.appSetting = appSetting;
-        }
-
-        public async Task<CommandResult> CreateAsync(CreateScheduledMessage model)
-        {
-            return await scheduledMessageRepository.CreateAsync(new CreateScheduledMessageCriteria
-            {
-                ConversationId = model.ConversationId,
-                SendDate = model.SendDate,
-                Content = model.Content,
-                CreatedBy = model.CreatedBy,
-                CronExpression = model.CronExpression,
-                StepNumber = model.StepNumber,
-                RepeatTypeId = model.RepeatTypeId
-            }).ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<ScheduledMessage>> GetScheduledMessagesAsync(int year, int createdBy)
         {
-            return await scheduledMessageRepository.GetScheduledMessagesAsync(new GetScheduleMessagesCriteria
+            var criteria = new GetScheduleMessagesCriteria
             {
                 Year = year,
                 CreatedBy = createdBy
-            }).ConfigureAwait(false);
+            };
+            var result = await baseService.GetDataAsync<ScheduledMessage>(criteria);
+            return result;
         }
 
         public async Task<ScheduledMessage> GetScheduledMessageAsync(int scheduledMessageId)
         {
-            return await scheduledMessageRepository.GetScheduledMessageAsync(new GetScheduleMessageCriteria
+            var criteria = new GetScheduleMessageCriteria
             {
                 ScheduledMessageId = scheduledMessageId
-            }).ConfigureAwait(false);
-        }
-
-        public async Task<CommandResult> EditAsync(EditScheduledMessage model)
-        {
-            return await scheduledMessageRepository.EditAsync(new EditScheduledMessageCriteria
-            {
-                ScheduledMessageId = model.ScheduledMessageId,
-                ConversationId = model.ConversationId,
-                SendDate = model.SendDate,
-                Content = model.Content,
-                CronExpression = model.CronExpression,
-                StepNumber = model.StepNumber,
-                RepeatTypeId = model.RepeatTypeId
-            }).ConfigureAwait(false);
-        }
-
-        public async Task<CommandResult> RemoveAsync(int scheduledMessageId)
-        {
-            return await scheduledMessageRepository.RemoveAsync(new RemoveScheduleMessageCriteria
-            {
-                ScheduledMessageId = scheduledMessageId
-            }).ConfigureAwait(false);
+            };
+            var result = await baseService.GetDataEntityAsync<ScheduledMessage>(criteria);
+            return result;
         }
 
         public async Task<CommandResult> SendScheduledMessages()
@@ -102,14 +75,14 @@
             var redundantTick = currentDate.Ticks % 10000;
             currentDate = currentDate.AddTicks(-redundantTick);
 
-            var scheduledMessages = await scheduledMessageRepository.GetScheduledMessagesToProcessAsync(new GetScheduledMessagesToProcessCriteria
+            var criteria = new GetScheduledMessagesToProcessCriteria
             {
                 FromDate = currentDate.AddMinutes(-4),
                 ToDate = currentDate
-            }).ConfigureAwait(false);
+            };
 
+            var scheduledMessages = await baseService.GetDataAsync<ScheduledMessage>(criteria);
             var sentMessageIds = new List<int>();
-
             foreach (var scheduledMessage in scheduledMessages)
             {
                 if (scheduledMessage.CronExpression != null)
@@ -129,29 +102,20 @@
                     }
                 }
             }
-
-            var result = await scheduledMessageRepository.UpdateSentMessageStatus(new UpdateSentScheduledMessageStatusCriteria
+            var updateSentCriteria = new UpdateSentScheduledMessageStatusCriteria
             {
                 ScheduledMessageIds = string.Join(",", sentMessageIds)
-            }).ConfigureAwait(false);
+            };
+            var result = await baseService.ExecuteNonQueryAsync(updateSentCriteria);
 
             return result;
         }
 
         public async Task<IEnumerable<Conversation>> GetConversationsAsync(int employeeId)
         {
-            return await scheduledMessageRepository.GetConversationsAsync(new GetConversationsCriteria { EmployeeId = employeeId }).ConfigureAwait(false);
-        }
-
-        public async Task<CommandResult> CreateConversationAsync(CreateConversation model)
-        {
-            return await scheduledMessageRepository.CreateConversationAsync(new CreateConversationCriteria
-            {
-                SkypeConversationId = model.SkypeConversationId,
-                ConversationName = model.ConversationName,
-                PermittedEmployeeIds = model.PermittedEmployeeIds,
-                CreatedBy = model.CreatedBy
-            }).ConfigureAwait(false);
+            var criteria = new GetConversationsCriteria { EmployeeId = employeeId };
+            var conversations = await baseService.GetDataAsync<Conversation>(criteria);
+            return conversations;
         }
 
         public async Task<IEnumerable<Conversation>> GetConversationsByCreatorAsync(int createdBy)
@@ -167,19 +131,6 @@
             return await scheduledMessageRepository.GetConversationByIdAsync(new GetConversationsByIdCriteria
             {
                 ConversationId = id
-            }).ConfigureAwait(false);
-        }
-
-        public async Task<CommandResult> EditConversationAsync(EditConversation model)
-        {
-            return await scheduledMessageRepository.EditConversationAsync(new EditConversationCriteria
-            {
-                ConversationId = model.ConversationId,
-                SkypeConversationId = model.SkypeConversationId,
-                ConversationName = model.ConversationName,
-                PermittedEmployeeIds = model.PermittedEmployeeIds,
-                EditedBy = model.EditedBy,
-                IsActive = model.IsActive
             }).ConfigureAwait(false);
         }
 
@@ -208,7 +159,8 @@
 
         private async Task SendReminderVegetarianRestrationToAllEmp(string message, string messageContent, DateTime onDate)
         {
-            var employeeConversations = await scheduledMessageRepository.GetEmployeeConversationAsync(new GetEmployeeConversationCriteria()).ConfigureAwait(false);
+            var criteria = new GetEmployeeConversationCriteria();
+            var employeeConversations = await baseService.GetDataAsync<Employee>(criteria);
             var ignoredUser = await GetUserIgnoreVegetarianRestration();
             
             employeeConversations = employeeConversations.Where(t => !ignoredUser.Any(x => x.ConversationId == t.ConversationId)).ToList();

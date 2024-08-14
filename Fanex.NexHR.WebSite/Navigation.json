@@ -405,15 +405,6 @@
         "ParentId": 39
     },
     {
-        "Title": "Bio Station Time Change",
-        "Controller": "Bio",
-        "Action": "BioTimeChange",
-        "Icon": "timer",
-        "Roles": "HR",
-        "Id": 42,
-        "ParentId": 39
-    },
-    {
         "Title": "Fingerprint/Card Management",
         "Controller": "Bio",
         "Action": "Fingerprint",

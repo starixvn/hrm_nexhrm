@@ -146,24 +146,6 @@
             }
         }
 
-        public async Task<IList<LateInEarlyOutModel>> GetLateInEarlyOut(ICriteria criteria)
-        {
-            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
-            {
-                var lateinEarlyOuts = await db.QueryAsync<LateInEarlyOutModel, Employee, Team, LateInEarlyOutModel>(
-                        (la, e, g) =>
-                        {
-                            la.Employee = e;
-                            e.Team = g;
-                            return la;
-                        },
-                        splitOn: stringSplitOn,
-                        parameterSet: criteria);
-
-                return lateinEarlyOuts.ToList();
-            }
-        }
-
         public async Task<IList<LateInEarlyOutDetail>> GetLateInEarlyOutDetail(ICriteria criteria)
         {
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))

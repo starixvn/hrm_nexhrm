@@ -7,8 +7,6 @@
     {
         Task<CommandResult> SendMessageBioDeviceAsync();
 
-        Task<CommandResult> SendMessageBioTimeChangeAsync();
-
         Task<CommandResult> SendMessageBioFingerprintAndCardAynsc();
     }
 }

@@ -1,7 +1,7 @@
 ﻿@using Fanex.NexHR.Models.Bio
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.Core.Enums
-@model IList<FingerprintAndCardSummary>
+@model IList<EmployeeFingerprintAndCardSummary>
 
 <table id="data" class="table bordered striped highlight table-custom centered">
     <thead>
@@ -23,16 +23,16 @@
             @{
                 var index = 0;
             }
-            @foreach (FingerprintAndCardSummary item in Model)
+            @foreach (EmployeeFingerprintAndCardSummary item in Model)
             {
                 index++;
                 var warningClass = item.IsWarning ? "warning" : "";
                 <tr class="@warningClass">
                     <td>@index</td>
-                    <td>@item.Employee.Code</td>
-                    <td>@item.Employee.NickName</td>
-                    <td class="align-left">@item.Employee.FullName</td>
-                    <td class="tooltip" title="@item.Employee.Team.Name">@item.Employee.Team.Code</td>
+                    <td>@item.Code</td>
+                    <td>@item.NickName</td>
+                    <td class="align-left">@item.FullName</td>
+                    <td class="tooltip" title="@item.TeamCode">@item.TeamCode</td>
                     <td>
                         @if (@item.TotalFingerprint > 0)
                         {
@@ -59,7 +59,7 @@
                             : FingerprintScannerStatus.Approve.ToString();
                         }
                         <a href="javascript:;" class="@status.ToLowerInvariant() tooltip @className"
-                   data-employeeId="@item.Employee.Id"
+                   data-employeeId="@item.EmpId"
                    data-bioUserId="@item.BioUserId">
                             @status
                         </a>

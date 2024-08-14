@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.ScheduledMessage
 {
-    using Fanex.Data.Repository;
-
-    public class UpdateSentScheduledMessageStatusCriteria : CriteriaBase
+    public class UpdateSentScheduledMessageStatusCriteria : BaseCommand
     {
         public string ScheduledMessageIds { get; set; }
 

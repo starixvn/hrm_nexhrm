@@ -16,8 +16,6 @@
 
         Task<IList<TimeRecord>> GetTimeRecords(ICriteria criteria);
 
-        Task<IList<LateInEarlyOutModel>> GetLateInEarlyOut(ICriteria criteria);
-
         Task<IList<LateInEarlyOutDetail>> GetLateInEarlyOutDetail(ICriteria criteria);
 
         Task<IList<LateInEarlyOutDiscipline>> GetLateInEarlyOutSummary(ICriteria criteria);

@@ -335,8 +335,8 @@
             var result = new CommandResult();
             try
             {
-                var conversations = await scheduledMessageRepository.GetEmployeeConversationByIdAsync(
-                    new GetEmployeeConversationByIdCriteria { EmpId = lateInEarlyOutModel.EmpId }).ConfigureAwait(false);
+                var criteria = new GetEmployeeConversationByIdCriteria { EmpId = lateInEarlyOutModel.EmpId };
+                var conversations = await baseService.GetDataAsync<Employee>(criteria);
                 if (conversations.Any())
                 {
                     string message = string.Format(Messages.MessageAutoDeductLateInEarlyOut, lateInEarlyOutModel.NickName);
@@ -355,7 +355,8 @@
             var result = false;
             try
             {
-                var conversations = await scheduledMessageRepository.GetTeamHrConversationsAsync(new GetTeamHrConversationCriteria()).ConfigureAwait(false);
+                var criteria = new GetTeamHrConversationCriteria();
+                var conversations = await baseService.GetDataAsync<Employee>(criteria);
                 var users = string.Join(", ", lateInEarlyOutModels.Select(x => x.NickName));
                 foreach (var item in conversations)
                 {

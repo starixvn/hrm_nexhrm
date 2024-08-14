@@ -1,24 +1,19 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Criteria.LookupData;
     using Fanex.NexHR.Controllers.Attributes;
+    using Fanex.NexHR.Criteria.JobTitle;
     using Microsoft.AspNetCore.Mvc;
     using Models;
-    using Services;
     using Services.Interfaces;
 
     public class JobTitleController : BaseController
     {
-        private readonly IJobTitleService jobTitleService;
         private readonly IBaseService baseService;
 
         public JobTitleController(ISessionService sessionService,
-            IJobTitleService jobTitleService,
             IBaseService baseService) : base(sessionService)
         {
-            this.jobTitleService = jobTitleService;
             this.baseService = baseService;
         }
 
@@ -32,22 +27,21 @@
         [HttpPost]
         public async Task<IActionResult> Index(string jobTitle)
         {
-            var lookupDataJobTitleCriteria = new GetJobTitleCriteria { JobTitle = jobTitle };
-            IEnumerable<JobTitle> jobTitles = await jobTitleService.GetJobTitle(lookupDataJobTitleCriteria);
+            var criteria = new GetJobTitleCriteria { JobTitle = jobTitle };
+            var jobTitles = await baseService.GetDataAsync<JobTitle>(criteria);
 
             return PartialView("_Index", jobTitles);
         }
 
         [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
-        public async Task<IActionResult> Insert(string name)
+        public async Task<IActionResult> Create(string name)
         {
-            var insertLookupDataCriteria = new InsertLookupDataCriteria
+            var criteria = new InsertJobTitleCriteria
             {
-                LookupCode = LookupCodeName.JobTitle,
                 Name = name
             };
-            CommandResult result = await baseService.ExecuteNonQueryAsync(insertLookupDataCriteria);
+            var result = await baseService.ExecuteNonQueryAsync(criteria);
 
             return Json(result);
         }
@@ -56,12 +50,12 @@
         [HttpPost]
         public async Task<IActionResult> Update(int id, string name)
         {
-            var updateLookupDataCriteria = new UpdateLookupDataCriteria
+            var criteria = new UpdateJobTitleCriteria
             {
-                Id = id,
+                JobTitleId = id,
                 Name = name
             };
-            CommandResult result = await baseService.ExecuteNonQueryAsync(updateLookupDataCriteria);
+            var result = await baseService.ExecuteNonQueryAsync(criteria);
 
             return Json(result);
         }
@@ -70,8 +64,8 @@
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            var deleteLookupDataCriteria = new DeleteLookupDataCriteria { Id = id };
-            CommandResult result = await baseService.ExecuteNonQueryAsync(deleteLookupDataCriteria);
+            var criteria = new DeleteJobTitleCriteria { JobTitleId = id };
+            var result = await baseService.ExecuteNonQueryAsync(criteria);
 
             return Json(result);
         }

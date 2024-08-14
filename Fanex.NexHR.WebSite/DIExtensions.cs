@@ -136,7 +136,6 @@
             services.AddSingleton<ILookupDataService, LookupDataService>();
             services.AddSingleton<IMemoService, MemoService>();
             services.AddSingleton<ICompanyEventService, CompanyEventService>();
-            services.AddSingleton<IJobGradeService, JobGradeService>();
             services.AddSingleton<IApplicantService, ApplicantService>();
             services.AddSingleton<ITransferService, TransferService>();
             services.AddSingleton<IPositionService, PositionService>();
@@ -168,7 +167,6 @@
             services.AddSingleton<IOvertimeRepository, OvertimeRepository>();
             services.AddSingleton<IScheduledMessageRepository, ScheduledMessageRepository>();
             services.AddSingleton<IAnnualLeaveRepository, AnnualLeaveRepository>();
-            services.AddSingleton<IBioRepository, BioRepository>();
         }
     }
 }
