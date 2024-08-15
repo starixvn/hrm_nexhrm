@@ -125,7 +125,7 @@
         <Setting Key="Lookup_GetLookupData" SpName="Lookup_GetLookupData" DbName="hrm" Plain="0"></Setting>
     </Function>
   <Function Name="JobTitle">
-    <Setting Key="JobTitle_Get" SpName="JobTitle_Get" DbName="hrm" Plain="0"></Setting>
+    <Setting Key="JobTitle_Get" SpName="JobTitle_Get" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="JobTitle_Delete" SpName="JobTitle_Delete" DbName="hrm" Plain="0"></Setting>
     <Setting Key="JobTitle_Insert" SpName="JobTitle_Insert" DbName="hrm" Plain="0"></Setting>
     <Setting Key="JobTitle_Update" SpName="JobTitle_Update" DbName="hrm" Plain="0"></Setting>

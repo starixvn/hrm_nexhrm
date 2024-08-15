@@ -1,16 +1,15 @@
 namespace Fanex.NexHR.Controllers
 {
     using System;
-    using Fanex.NexHR.Criteria.History;
-    using Fanex.NexHR.Services.Interfaces;
     using System.Threading.Tasks;
-    using Fanex.NexHR.ViewModels.History;
     using Fanex.NexHR.Controllers.Attributes;
+    using Fanex.NexHR.Criteria.History;
+    using Fanex.NexHR.Criteria.JobTitle;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
-    using Fanex.NexHR.Criteria.LookupData;
+    using Fanex.NexHR.Services.Interfaces;
+    using Fanex.NexHR.ViewModels.History;
     using Microsoft.AspNetCore.Mvc;
-    using System.Linq;
 
     public class HistoryController(ISessionService sessionService,
         ITeamService teamService,
