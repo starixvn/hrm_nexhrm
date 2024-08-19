@@ -111,6 +111,7 @@
             CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
             if (result.IsSuccessful)
             {
+                model.Id = criteria.Id;
                 SendEmailAndChatBot(model);
             }
 
