@@ -716,11 +716,11 @@
             string displayDate;
             if (IsCheckInOutRequest(requestType))
             {
-                displayDate = $"{from.Value.ToString("HH:mm")} {shiftName}";
+                displayDate = $"{from.Value.ToString(stringTime)} {shiftName}";
             }
             else if (totalDays < 1)
             {
-                displayDate = string.Format("{0} ({1} > {2})", from.Value.ToDateMonthYearFormatedDate(), from.Value.ToString("HH:mm"), to.Value.ToString("HH:mm"));
+                displayDate = string.Format("{0} ({1} > {2})", from.Value.ToDateMonthYearFormatedDate(), from.Value.ToString(stringTime), to.Value.ToString(stringTime));
             }
             else
             {

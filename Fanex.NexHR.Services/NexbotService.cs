@@ -32,6 +32,7 @@
         private readonly ChatbotConfigs nexBotSettings;
         private readonly ILogServiceProvider logService;
         private readonly AppSetting appSetting;
+        private const string conversationIdName = "conversationId";
 
         public NexbotService(IHttpClientFactory httpClientFactory,
             INexbotRepository nexbotRepository,
@@ -55,7 +56,7 @@
                 var request = CreateRequestAsync("/messages/forward", HttpMethod.Post);
                 var data = new Dictionary<string, string>
                 {
-                    { "conversationId", conversationId },
+                    { conversationIdName, conversationId },
                     { "message", message }
                 };
 
@@ -75,11 +76,11 @@
                 var request = CreateRequestAsync("/remind/MissingCheckInCheckOut", HttpMethod.Post);
                 var data = new Dictionary<string, string>
                 {
-                    { "conversationId", missingCheckInOutEmployee.ConversationId },
+                    { conversationIdName, missingCheckInOutEmployee.ConversationId },
                     { "empId", missingCheckInOutEmployee.EmpId.ToString()},
                     { "nickName", missingCheckInOutEmployee.NickName },
                     { "shift", missingCheckInOutEmployee.ShiftCode },
-                    { "attendanceDate", missingCheckInOutEmployee.AttendanceDate.ToString() },
+                    { "attendanceDate", missingCheckInOutEmployee.AttendanceDate.ToString(CultureInfo.InvariantCulture) },
                     { "missingType", missingCheckInOutEmployee.Type.ToString() }
                 };
 
@@ -125,7 +126,7 @@
             {
                 var data = new Dictionary<string, string>
                 {
-                    {"conversationId", conversationId },
+                    {conversationIdName, conversationId },
                     {"empId", empId.ToString() },
                     {"companyId", companyId.ToString() },
                     {"onDate", onDate.ToString("yyyy-MM-dd") },
@@ -422,7 +423,7 @@
             {
                 var data = new Dictionary<string, string>
                 {
-                    {"conversationId", checkoutRecord.ConversationId },
+                    {conversationIdName, checkoutRecord.ConversationId },
                     {"nickName", checkoutRecord.Nickname},
                     {"checkoutTime", checkoutRecord.CheckOutTime.ToString("hh:mm tt")},
                     {"totalHours", Utilities.TotalHoursToTime(checkoutRecord.TotalWorkHours)},
@@ -439,7 +440,7 @@
             {
                 var data = new Dictionary<string, string>
                 {
-                    {"conversationId", checkoutRecord.ConversationId },
+                    {conversationIdName, checkoutRecord.ConversationId },
                     {"nickName", checkoutRecord.Nickname},
                     {"checkinTime", checkoutRecord.CheckInTime.Value.ToString("hh:mm tt")},
                     {"messageContent", checkoutRecord.MessageContent},
@@ -455,7 +456,7 @@
             {
                 var data = new Dictionary<string, string>
                 {
-                    {"conversationId", workingHour.SkypeConversationId },
+                    {conversationIdName, workingHour.SkypeConversationId },
                     {"nickname", workingHour.NickName},
                     {"workingHours", Utilities.TotalHoursToTime(workingHour.TotalWorkHours)},
                     {"messageContent", workingHour.MessageContent},
@@ -473,7 +474,7 @@
                 {
                     {"approverId", approver.ApproverId.ToString() },
                     {"approverNickname", approver.ApproverNickname},
-                    {"conversationId", approver.ConversationId},
+                    {conversationIdName, approver.ConversationId},
                     {"totalRequest", approver.TotalRequest.ToString()},
                     {"requestIds", approver.RequestIds },
                     {"callbackUrl", approver.CallbackUrl},

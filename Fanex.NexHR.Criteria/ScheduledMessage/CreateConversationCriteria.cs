@@ -1,7 +1,5 @@
 ﻿namespace Fanex.NexHR.Criteria.ScheduledMessage
 {
-    using Fanex.Data.Repository;
-
     public class CreateConversationCriteria : BaseCommand
     {
         public string SkypeConversationId { get; set; }

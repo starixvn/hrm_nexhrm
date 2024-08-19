@@ -18,6 +18,8 @@
 
         public override string GetSettingKey() => "History_Insert";
 
-        public override bool IsValid() => EmpId > 0 && (GroupId > 0 || JobTitleId > 0 || JobGradeId > 0) && ModifiedBy > 0;
+        private bool IsValidGroupJobTitle() => GroupId > 0 || JobTitleId > 0 || JobGradeId > 0;
+
+        public override bool IsValid() => EmpId > 0 && IsValidGroupJobTitle() && ModifiedBy > 0;
     }
 }

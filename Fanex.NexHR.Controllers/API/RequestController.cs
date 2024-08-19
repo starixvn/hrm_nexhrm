@@ -73,13 +73,13 @@
             var now = DateTimeOffset.Now.Date;
             var pendingRequest = await requestService.GetPendingRequestGroupByApproverAsync();
 
-            foreach (var request in pendingRequest)
+            foreach (var request in from request in pendingRequest
+                                    where request.Requests.Any(r => (now - r.CreatedAt.Date).TotalDays >= 3)
+                                    select request)
             {
-                if (request.Requests.Any(r => (now - r.CreatedAt.Date).TotalDays >= 3))
-                {
-                    await nexbotService.SendMultipleRequestsToApprover(request);
-                }
+                await nexbotService.SendMultipleRequestsToApprover(request);
             }
+
             return Ok();
         }
 

@@ -8,7 +8,6 @@ namespace Fanex.NexHR.Services
 
     public class CryptoService : ICryptoService
     {
-        private const bool OptimalAsymmetricEncryptionPadding = false;
         private readonly string publicKey;
         private readonly string privateKey;
         private const short KeySize = 2048;

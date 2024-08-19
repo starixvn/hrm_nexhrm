@@ -1,7 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Applicant
 {
     using System;
-    using Core.Attributes;
 
     public class InsertApplicantCriteria : BaseCommand
     {
@@ -56,7 +55,7 @@
         public string ExpectedSalary { get; set; }
 
         public string FinalComment { get; set; }
-        
+
         public int CreatedBy { get; set; }
 
         public override bool IsValid()

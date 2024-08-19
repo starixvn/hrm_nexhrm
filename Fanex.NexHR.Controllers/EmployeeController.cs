@@ -11,7 +11,6 @@
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Criteria.History;
     using Fanex.NexHR.Criteria.JobGrade;
-    using Fanex.NexHR.Criteria.JobTitle;
     using Fanex.NexHR.Criteria.TrainingAndDevelopment;
     using Fanex.NexHR.Resources;
     using Microsoft.AspNetCore.Authorization;

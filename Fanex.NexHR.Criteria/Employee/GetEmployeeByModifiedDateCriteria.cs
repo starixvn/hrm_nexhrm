@@ -7,7 +7,7 @@
     {
         public DateTime ModifiedDate { get; set; }
 
-        public override bool IsValid() => ModifiedDate > DateTime.MinValue;
+        public override bool IsValid() => ModifiedDate > DateTimeOffset.MinValue;
 
         public override string GetSettingKey() => "Employee_GetByModifiedDate";
     }

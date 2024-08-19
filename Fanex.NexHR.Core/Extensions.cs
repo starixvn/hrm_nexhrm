@@ -176,16 +176,6 @@
             return date.ToString("dd MMM, yyyy hh:mm tt");
         }
 
-        public static string ToShortFormatedDate(this DateTime? date)
-        {
-            if (date.HasValue)
-            {
-                return date.Value.ToShortFormatedDate();
-            }
-
-            return string.Empty;
-        }
-
         public static string ToFormattedDateTime(this DateTime date)
         {
             return date.ToString("dd MMM, yyyy HH:mm");
@@ -197,6 +187,16 @@
             {
                 return date.Value.ToString("dd MMM, yyyy HH:mm");
             }
+            return string.Empty;
+        }
+
+        public static string ToShortFormatedDate(this DateTime? date)
+        {
+            if (date.HasValue)
+            {
+                return date.Value.ToShortFormatedDate();
+            }
+
             return string.Empty;
         }
 
