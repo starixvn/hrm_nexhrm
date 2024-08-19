@@ -358,7 +358,7 @@
       <Setting Key="BioDevice_Edit" SpName="BioDevice_Edit" DbName="hrm" Plain="0"></Setting>
       <Setting Key="BioDevice_Get" SpName="BioDevice_Get" DbName="hrm" Plain="0"></Setting>
       <Setting Key="Bio_GetFigerprintAndCardSummary" SpName="Bio_GetFigerprintAndCardSummary" DbName="nexhr" Plain="0"></Setting>
-      <Setting Key="Bio_UpdateFingerprintAndCardStatus" SpName="Bio_UpdateFingerprintAndCardStatus" DbName="nexhr" Plain="0"></Setting>
+      <Setting Key="Bio_UpdateFingerprintAndCardStatus" SpName="Bio_UpdateFingerprintAndCardStatus" DbName="hrm" Plain="0"></Setting>
       <Setting Key="RepeatType_GetAll" SpName="RepeatType_GetAll" DbName="hrm" Plain="0"></Setting>
       <Setting Key="Bio_GetPendingDevice" SpName="Bio_GetPendingDevice" DbName="hrm" Plain="0"></Setting>
       <Setting Key="Bio_GetPendingFingerprintAndCard" SpName="Bio_GetPendingFingerprintAndCard" DbName="hrm" Plain="0"></Setting>
