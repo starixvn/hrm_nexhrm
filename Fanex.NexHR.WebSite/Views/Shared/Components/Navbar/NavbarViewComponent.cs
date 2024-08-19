@@ -17,14 +17,17 @@
         private readonly IActionContextAccessor actionContextAccessor;
         private readonly ISessionService sessionService;
         private readonly IWebHostEnvironment hostEnvironment;
+        private readonly string navigationFileBatch;
 
         public NavbarViewComponent(IActionContextAccessor actionContextAccessor,
             ISessionService sessionService,
-            IWebHostEnvironment hostEnvironment)
+            IWebHostEnvironment hostEnvironment,
+            IConfiguration configuration)
         {
             this.actionContextAccessor = actionContextAccessor;
             this.sessionService = sessionService;
             this.hostEnvironment = hostEnvironment;
+            navigationFileBatch = configuration.GetValue<string>("NavigationFile");
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
@@ -76,7 +79,7 @@
 
         private async Task<IList<NavigationViewModel>> ReadNavigationJson()
         {
-            var path = Path.Combine(hostEnvironment.ContentRootPath, "Navigation.json");
+            var path = Path.Combine(hostEnvironment.ContentRootPath, navigationFileBatch);
             var jsonString = await File.ReadAllTextAsync(path);
 
             var menus = new List<NavigationViewModel>();
