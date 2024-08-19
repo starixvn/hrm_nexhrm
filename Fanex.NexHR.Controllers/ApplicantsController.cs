@@ -186,15 +186,10 @@ namespace Fanex.NexHR.Controllers
             {
                 return null;
             }
-            var employees = await baseService.GetDataAsync<StaffInfo>(new GetStaffInfoCriteria
-            {
-                Query = string.Empty,
-                TeamId = null,
-                IsSpecial = null
-            });
+            var interviews = await baseService.GetDataAsync<Interviewer>(new GetInterviewerCriteria());
             var interviewerIds = interviewerIdString.Split(',').Select(int.Parse).ToList();
             var employeeNicknames = interviewerIds != null
-                ? employees.Where(emp => interviewerIds.Contains(emp.Id)).Select(emp => emp.NickName).ToList()
+                ? interviews.Where(emp => interviewerIds.Contains(emp.Id)).Select(emp => emp.NickName).ToList()
                 : new List<string>();
 
             return string.Join(", ", employeeNicknames);
@@ -203,12 +198,7 @@ namespace Fanex.NexHR.Controllers
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Create()
         {
-            var employees = await baseService.GetDataAsync<StaffInfo>(new GetStaffInfoCriteria
-            {
-                Query = string.Empty,
-                TeamId = null,
-                IsSpecial = null
-            });
+            var interviews = await baseService.GetDataAsync<Interviewer>(new GetInterviewerCriteria());
             var model = new CreateApplicantViewModel
             {
                 Positions = await GetPositions(),
@@ -217,7 +207,7 @@ namespace Fanex.NexHR.Controllers
                 ResultList = await GetResult(),
                 GradeList = await promotionService.GetJobGrade(),
                 SourceList = await GetSource(),
-                Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName))
+                Employees = new SelectList(interviews, nameof(Employee.Id), nameof(Employee.NickName))
             };
 
             ViewBag.IsManager = IsCurrentUserManager();
@@ -296,12 +286,7 @@ namespace Fanex.NexHR.Controllers
                 ApplicantId = id
             };
 
-            var employees = await baseService.GetDataAsync<StaffInfo>(new GetStaffInfoCriteria
-            {
-                Query = string.Empty,
-                TeamId = null,
-                IsSpecial = null
-            });
+            var interviews = await baseService.GetDataAsync<Interviewer>(new GetInterviewerCriteria());
 
             EditApplicantViewModel applicant = await applicantService.GetById(criteria);
             if (applicant != null)
@@ -312,7 +297,7 @@ namespace Fanex.NexHR.Controllers
                 applicant.Positions = await GetPositions();
                 applicant.Recruiter = applicant.NickNameRecruiter + (string.IsNullOrWhiteSpace(applicant.FullNameRecruiter) ? string.Empty : " (" + applicant.FullNameRecruiter + ")");
                 applicant.InterviewerIds = !string.IsNullOrEmpty(applicant.InterviewerIdString) ? applicant.InterviewerIdString.Split(',').Select(int.Parse).ToArray() : null;
-                applicant.Employees = new SelectList(employees, nameof(Employee.Id), nameof(Employee.NickName));
+                applicant.Employees = new SelectList(interviews, nameof(Employee.Id), nameof(Employee.NickName));
                 applicant.StatusList = await GetCVStatus();
                 applicant.ProLevelList = await GetProLevel();
                 applicant.ResultList = await GetResult();
