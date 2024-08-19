@@ -9,7 +9,6 @@ namespace Fanex.NexHR.Controllers
     using System.Threading.Tasks;
     using Criteria.Applicant;
     using Fanex.NexHR.Controllers.Attributes;
-    using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Criteria.Position;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services;

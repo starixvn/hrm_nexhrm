@@ -49,31 +49,22 @@
 
         public async Task<IActionResult> ListLeaveRequest(int year)
         {
-            try
+            var criteria = new GetRequestCriteria
             {
-                var criteria = new GetRequestCriteria
-                {
-                    Role = (short)Role.Member,
-                    FromDate = new DateTimeOffset(year, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
-                    ToDate = new DateTimeOffset(year, 12, 31, 0, 0, 0, TimeSpan.Zero).DateTime,
-                    EmployeeId = CurrentUser.Id,
-                    GroupId = null,
-                    Status = null,
-                    ExcludeEmployeeId = null,
-                    RequestType = Convert.ToString((int)RequestType.Leave),
-                    IsFilterByEffectedDate = true
-                };
+                Role = (short)Role.Member,
+                FromDate = new DateTimeOffset(year, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
+                ToDate = new DateTimeOffset(year, 12, 31, 0, 0, 0, TimeSpan.Zero).DateTime,
+                EmployeeId = CurrentUser.Id,
+                GroupId = null,
+                Status = null,
+                ExcludeEmployeeId = null,
+                RequestType = Convert.ToString((int)RequestType.Leave),
+                IsFilterByEffectedDate = true
+            };
 
-                IList<RequestEntity> leaveRequests = await requestService.GetRequest(criteria);
+            IList<RequestEntity> leaveRequests = await requestService.GetRequest(criteria);
 
-                return PartialView(leaveRequests);
-            }
-            catch (Exception ex)
-            {
-
-            }
-            
-            return View();
+            return PartialView(leaveRequests);
         }
 
         public async Task<IActionResult> Create(DateTime? fromDate, DateTime? toDate)

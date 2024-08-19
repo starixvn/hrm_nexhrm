@@ -1,5 +1,9 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Fanex.Caching;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
@@ -12,13 +16,7 @@
     using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
-    using Microsoft.AspNetCore.Http.HttpResults;
     using NCrontab;
-    using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
 
     public class ScheduledMessageService : IScheduledMessageService
     {

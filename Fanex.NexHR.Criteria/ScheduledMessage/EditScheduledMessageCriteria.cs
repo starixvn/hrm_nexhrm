@@ -1,6 +1,5 @@
 ﻿namespace Fanex.NexHR.Criteria.ScheduledMessage
 {
-    using Fanex.Data.Repository;
     using System;
 
     public class EditScheduledMessageCriteria : BaseCommand

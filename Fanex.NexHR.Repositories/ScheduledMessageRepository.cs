@@ -1,13 +1,12 @@
 ﻿namespace Fanex.NexHR.Repositories
 {
-    using Fanex.Data;
-    using Fanex.NexHR.Criteria.ScheduledMessage;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.ScheduledMessage;
-    using Fanex.NexHR.Repositories.Interfaces;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Fanex.Data;
+    using Fanex.NexHR.Criteria.ScheduledMessage;
+    using Fanex.NexHR.Models.ScheduledMessage;
+    using Fanex.NexHR.Repositories.Interfaces;
 
     public class ScheduledMessageRepository : BaseRepository, IScheduledMessageRepository
     {

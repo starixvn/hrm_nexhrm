@@ -30,14 +30,12 @@
         private readonly INexbotRepository nexbotRepository;
         private readonly IBaseService baseService;
         private readonly ChatbotConfigs nexBotSettings;
-        private readonly IScheduledMessageRepository scheduledMessageRepository;
         private readonly ILogServiceProvider logService;
         private readonly AppSetting appSetting;
 
         public NexbotService(IHttpClientFactory httpClientFactory,
             INexbotRepository nexbotRepository,
             IBaseService baseService,
-            IScheduledMessageRepository scheduledMessageRepository,
             AppSetting appSetting,
             ChatbotConfigs nexBotSettings,
             ILogServiceProvider logService)
@@ -45,7 +43,6 @@
             httpClient = httpClientFactory.CreateClient();
             this.nexbotRepository = nexbotRepository;
             this.nexBotSettings = nexBotSettings;
-            this.scheduledMessageRepository = scheduledMessageRepository;
             this.baseService = baseService;
             this.appSetting = appSetting;
             this.logService = logService;
