@@ -682,8 +682,8 @@
                 .Select(g => new ApproverRequestSumup
                 {
                     ApproverId = g.Key,
-                    ApproverNickname = g.FirstOrDefault().Approver,
-                    ConversationId = g.FirstOrDefault().ApproverConversationId,
+                    ApproverNickname = g.FirstOrDefault()?.Approver,
+                    ConversationId = g.FirstOrDefault()?.ApproverConversationId,
                     CallbackUrl = appSetting.BaseUrl,
                     Requests = g.Select(i => new MemberRequest
                     {
