@@ -46,7 +46,7 @@
             string fileName = "/avatars/avatar.jpg";
             if (!string.IsNullOrWhiteSpace(imgNickName))
             {
-                var index = imgNickName.LastIndexOf(".");
+                var index = imgNickName.LastIndexOf('.');
                 string nickName = imgNickName.EndsWith(".jpg") ? imgNickName[..index] : imgNickName;
                 string domainName = $"{appSetting.DomainName}{nickName}";
                 var employee = await employeeService.GetEmployeeByDomainName(new GetEmployeeByDomainNameCriteria { DomainUserName = domainName });
