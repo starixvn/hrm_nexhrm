@@ -1,14 +1,12 @@
 ﻿namespace Fanex.NexHR.ViewModels.ScheduledMessage
 {
-    using Fanex.NexHR.Resources;
-    using Fanex.NexHR.ViewModels.CustomValidationAttribute;
-    using Microsoft.AspNetCore.Mvc.Rendering;
     using System;
     using System.ComponentModel.DataAnnotations;
+    using Fanex.NexHR.Resources;
+    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class EditScheduledMessageViewModel
     {
-        private const int value = 5;
         public int ScheduledMessageId { get; set; }
 
         [Required]
@@ -27,7 +25,6 @@
         public int Hour { get; set; }
 
         [Required]
-        [MultipleOf(Value = value, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.MultipleOf))]
         public int Minute { get; set; }
 
         [Required]

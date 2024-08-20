@@ -3,13 +3,10 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using Fanex.NexHR.Resources;
-    using Fanex.NexHR.ViewModels.CustomValidationAttribute;
     using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class CreateScheduledMessageViewModel
     {
-        private const int value = 5;
-
         [Required]
         [Display(ResourceType = typeof(Labels), Name = nameof(Labels.Conversation))]
         public int ConversationId { get; set; }
@@ -26,7 +23,6 @@
         public int Hour { get; set; }
 
         [Required]
-        [MultipleOf(Value = value, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.MultipleOf))]
         public int Minute { get; set; }
 
         [Required]
