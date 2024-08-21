@@ -13,14 +13,12 @@
     using Fanex.NexHR.Models.Calendar;
     using Fanex.NexHR.Models.ScheduledMessage;
     using Fanex.NexHR.Models.SkypeAccount;
-    using Fanex.NexHR.Repositories.Interfaces;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
     using NCrontab;
 
     public class ScheduledMessageService : IScheduledMessageService
     {
-        private readonly IScheduledMessageRepository scheduledMessageRepository;
         private readonly INexbotService nexbotService;
         private readonly IHolidayService holidayService;
         private readonly IBaseService baseService;
@@ -32,13 +30,12 @@
         private const int itemEachBatch = 10;
         private const string CacheKeyIgnoredReminder = "UserIgnoredReminderVegetarianRestration";
 
-        public ScheduledMessageService(IScheduledMessageRepository scheduledMessageRepository,
+        public ScheduledMessageService(
             IHolidayService holidayService,
             INexbotService nexbotService,
             IBaseService baseService,
             AppSetting appSetting)
         {
-            this.scheduledMessageRepository = scheduledMessageRepository;
             this.holidayService = holidayService;
             this.nexbotService = nexbotService;
             this.baseService = baseService;
@@ -118,18 +115,38 @@
 
         public async Task<IEnumerable<Conversation>> GetConversationsByCreatorAsync(int createdBy)
         {
-            return await scheduledMessageRepository.GetConversationsByCreatorAsync(new GetConversationsByCreatorCriteria
+            var criteria = new GetConversationsByCreatorCriteria
             {
                 CreatedBy = createdBy
-            }).ConfigureAwait(false);
+            };
+
+            var result = await baseService.FetchMultipleAsync<Conversation, PermittedEmployee>(criteria);
+            var conversations = result.Item1;
+            var permittedEmployees = result.Item2;
+            foreach (var conversation in conversations)
+            {
+                conversation.PermittedEmployees = permittedEmployees.Where(x => x.ConversationId == conversation.ConversationId);
+            }
+
+            return conversations;
         }
 
         public async Task<Conversation> GetConversationByIdAsync(int id)
         {
-            return await scheduledMessageRepository.GetConversationByIdAsync(new GetConversationsByIdCriteria
+            var criteria = new GetConversationsByIdCriteria
             {
                 ConversationId = id
-            }).ConfigureAwait(false);
+            };
+            var result = await baseService.FetchMultipleAsync<Conversation, PermittedEmployee>(criteria);
+
+            var conversation = result.Item1.FirstOrDefault();
+            var permittedEmployees = result.Item2;
+            if (conversation != null)
+            {
+                conversation.PermittedEmployees = permittedEmployees.Where(x => x.ConversationId == conversation.ConversationId);
+            }
+
+            return conversation;
         }
 
         public async Task SendScheduledVegetarianMessages()

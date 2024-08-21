@@ -14,6 +14,7 @@
     using Criteria.Workload;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Criteria.Report;
+    using Fanex.NexHR.Models.Notification;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.RedmineAPI;
@@ -30,7 +31,6 @@
         private readonly IEmployeeService employeeService;
         private readonly ITeamService teamService;
         private readonly IRequestService requestService;
-        private readonly INotificationService notificationService;
         private readonly ILateInEarlyOutService lateinearlyoutService;
         private readonly IBaseService baseService;
         private readonly IRedmineService redmineService;
@@ -44,7 +44,6 @@
             IEmployeeService employeeService,
             ITeamService teamService,
             IRequestService requestService,
-            INotificationService notificationService,
             ILateInEarlyOutService lateinearlyoutService,
             IBaseService baseService,
             IRedmineService redmineService,
@@ -55,7 +54,6 @@
             this.employeeService = employeeService;
             this.teamService = teamService;
             this.requestService = requestService;
-            this.notificationService = notificationService;
             this.lateinearlyoutService = lateinearlyoutService;
             this.baseService = baseService;
             this.redmineService = redmineService;
@@ -266,8 +264,7 @@
         public async Task<IActionResult> GetNotification(int employeeId)
         {
             var criteria = new GetAllNotificationCriteria { EmpId = employeeId };
-
-            var noti = await notificationService.GetViolationByEmpId(criteria);
+            var noti = await baseService.GetDataEntityAsync<Notification>(criteria);
 
             return PartialView("_Notification", noti);
         }

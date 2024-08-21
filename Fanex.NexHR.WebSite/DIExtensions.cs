@@ -110,7 +110,6 @@
             services.AddSingleton<IPromotionService, PromotionService>();
             services.AddSingleton<ITeamService, TeamService>();
             services.AddSingleton<IRequestService, RequestService>();
-            services.AddSingleton<INotificationService, NotificationService>();
             services.AddSingleton<ILateInEarlyOutService, LateInEarlyOutService>();
             services.AddSingleton<IRedmineService, RedmineService>();
             services.AddSingleton<IReportService, ReportService>();
@@ -158,13 +157,11 @@
             services.AddSingleton<IBaseRepository, BaseRepository>();
             services.AddSingleton<IEmployeeRepository, EmployeeRepository>();
             services.AddSingleton<IRequestRepository, RequestRepository>();
-            services.AddSingleton<INotificationRepository, NotificationRepository>();
             services.AddSingleton<ILateInEarlyOutRepository, LateInEarlyOutRepository>();
             services.AddSingleton<IReportRepository, ReportRepository>();
             services.AddSingleton<INexbotRepository, NexbotRepository>();
             services.AddSingleton<ICalendarRepository, CalendarRepository>();
             services.AddSingleton<IOvertimeRepository, OvertimeRepository>();
-            services.AddSingleton<IScheduledMessageRepository, ScheduledMessageRepository>();
         }
     }
 }

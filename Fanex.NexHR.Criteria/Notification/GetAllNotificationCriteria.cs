@@ -6,14 +6,8 @@
     {
         public int EmpId { get; set; }
 
-        public override bool IsValid()
-        {
-            return EmpId > 0;
-        }
+        public override bool IsValid() => EmpId > 0;
 
-        public override string GetSettingKey()
-        {
-            return "Notification_GetAllViolation";
-        }
+        public override string GetSettingKey() => "Notification_GetAllViolation";
     }
 }

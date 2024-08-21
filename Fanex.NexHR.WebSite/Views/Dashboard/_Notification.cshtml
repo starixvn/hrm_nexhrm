@@ -19,7 +19,7 @@
         @if (Model.LateInEarlyOutInYear >= 2)
         {
             <li class="collection-item">
-                <a href="~/report/lateinearlyout?empId=@Model.Employee.Id&nickname=@Model.Employee.DisplayName">
+                <a href="~/report/lateinearlyout?empId=@Model.EmpId&nickname=@Model.DisplayName">
                     <p id="lateearlyYear">
                         You have violated Late in/Early out <span class="txt-bold">@Model.LateInEarlyOutInYear times</span> within 12 months<br>
                     </p>
@@ -29,7 +29,7 @@
         @if (Model.LateInEarlyOutInMonth >= 3)
         {
             <li class="collection-item">
-                <a href="~/report/lateinearlyout?empId=@Model.Employee.Id&nickname=@Model.Employee.DisplayName">
+                <a href="~/report/lateinearlyout?empId=@Model.EmpId&nickname=@Model.DisplayName">
                     <p>
                         You have been "Late in/Early out" <span class="txt-bold">@Model.LateInEarlyOutInMonth times</span> in this month<br>
                     </p>

@@ -6,7 +6,13 @@
         private const int months = 3;
         private const int timeMissMonths = 2;
 
-        public Employee Employee { get; set; }
+        public int EmpId { get; set; }
+
+        public string NickName { get; set; }
+
+        public string FullName { get; set; }
+
+        public string DisplayName => NickName + (string.IsNullOrWhiteSpace(FullName) ? string.Empty : " (" + FullName + ")");
 
         public int LateInEarlyOutInYear { get; set; }
 

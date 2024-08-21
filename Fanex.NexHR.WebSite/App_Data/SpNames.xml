@@ -57,8 +57,7 @@
         <Setting Key="Employee_GetLeaderForStanbyTeam" SpName="Employee_GetLeaderForStanbyTeam" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_GetSupervisorForCheckInOut" SpName="Employee_GetSupervisorForCheckInOut" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_GetSupervisorForLeave" SpName="Employee_GetSupervisorForLeave" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Report_GetEmployeeWorkLoad" SpName="Report_GetEmployeeWorkLoad" DbName="nexhr" Plain="0">
-        </Setting>
+        <Setting Key="Report_GetEmployeeWorkLoad" SpName="Report_GetEmployeeWorkLoad" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeAttendance_GetMissingCheckInCheckOut" SpName="EmployeeAttendance_GetMissingCheckInCheckOut" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_GetListStaffInfoNexHour" SpName="Employee_GetListStaffInfoNexHour" DbName="nexhr" Plain="0"></Setting>
     </Function>
@@ -323,9 +322,7 @@
         </Setting>
     </Function>
     <Function Name="Notification">
-        <Setting Key="Notification_GetAllViolation" SpName="Notification_GetAllViolation" DbName="nexhr" Plain="0">
-            <Mapping DataField="EmpId" ObjectProperty="Id" />
-        </Setting>
+        <Setting Key="Notification_GetAllViolation" SpName="Notification_GetAllViolation" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="CompanyEvent">
         <Setting Key="CompanyEvent_GetAll" SpName="CompanyEvent_GetAll" DbName="nexhr" Plain="0"></Setting>
