@@ -3,7 +3,7 @@
     using System;
     using Data;
 
-    public class AdjustAnnualLeavesCriteria : BaseCommand
+    public class AdjustAnnualLeavesCommand : BaseCommand
     {
         [SpParam(SqlParamName = "EmpIds")]
         public string EmployeeId { get; set; }
@@ -18,14 +18,8 @@
 
         public int CreatedBy { get; set; }
 
-        public override string GetSettingKey()
-        {
-            return "AnnualLeave_InsertMultipleTransactions";
-        }
+        public override string GetSettingKey() => "AnnualLeave_InsertMultipleTransactions";
 
-        public override bool IsValid()
-        {
-            return !string.IsNullOrWhiteSpace(EmployeeId);
-        }
+        public override bool IsValid() => !string.IsNullOrWhiteSpace(EmployeeId);
     }
 }

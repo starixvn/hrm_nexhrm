@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class InsertLeaveDeductionCriteria : BaseCommand
+    public class InsertLeaveDeductionCommand : BaseCommand
     {
         public int EmployeeId { get; set; }
 
@@ -16,14 +16,8 @@
 
         public int CreatedBy { get; set; }
 
-        public override string GetSettingKey()
-        {
-            return "LeaveDeduction_Insert";
-        }
+        public override string GetSettingKey() => "LeaveDeduction_Insert";
 
-        public override bool IsValid()
-        {
-            return EmployeeId > 0 && TotalDays > 0;
-        }
+        public override bool IsValid() => EmployeeId > 0 && TotalDays > 0;
     }
 }

@@ -131,7 +131,7 @@
 
             foreach (var item in deductedEmployees)
             {
-                var insertLeaveDeductionCriteria = new InsertLeaveDeductionCriteria
+                var insertLeaveDeductionCriteria = new InsertLeaveDeductionCommand
                 {
                     EmployeeId = item.EmpId,
                     Description = Messages.DescriptionAutoDeductLateInEarlyOut,

@@ -1,10 +1,7 @@
 @using Fanex.NexHR.Core
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.Models.AnnualLeave
-@using Fanex.NexHR.Core.Enums
-@using Fanex.NexHR.Services.Interfaces
-@inject ISessionService sessionService;
-@model IList<AnnualLeaveTransaction>
+@model IEnumerable<AnnualLeaveTransaction>
 <table id="data" class="table bordered striped highlight centered table-custom">
     <thead>
         <tr>

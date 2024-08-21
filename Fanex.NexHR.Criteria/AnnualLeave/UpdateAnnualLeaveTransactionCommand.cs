@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class UpdateAnnualLeaveTransactionCriteria : BaseCommand
+    public class UpdateAnnualLeaveTransactionCommand : BaseCommand
     {
         public int LeaveTransactionId { get; set; }
 
@@ -16,14 +16,8 @@
 
         public int ModifiedBy { get; set; }
 
-        public override string GetSettingKey()
-        {
-            return "AnnualLeave_UpdateTransaction";
-        }
+        public override string GetSettingKey() => "AnnualLeave_UpdateTransaction";
 
-        public override bool IsValid()
-        {
-            return LeaveTransactionId > 0;
-        }
+        public override bool IsValid() => LeaveTransactionId > 0;
     }
 }

@@ -6,7 +6,7 @@
     {
         public int LeaveTransactionId { get; set; }
 
-        public Employee Employee { get; set; }
+        public int EmpId { get; set; }
 
         public decimal TotalDays { get; set; }
 

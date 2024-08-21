@@ -42,7 +42,7 @@
             CommandResult result;
             if (model != null && ModelState.IsValid)
             {
-                var criteria = new InsertLeaveConversionCriteria
+                var criteria = new InsertLeaveConversionCommand
                 {
                     EmployeeId = model.EmpId,
                     Description = model.Description,
@@ -72,7 +72,7 @@
             CommandResult result;
             if (model != null && ModelState.IsValid)
             {
-                var criteria = new InsertLeaveDeductionCriteria
+                var criteria = new InsertLeaveDeductionCommand
                 {
                     EmployeeId = model.EmpId,
                     Description = model.Description,
@@ -107,7 +107,7 @@
 
             if (model != null && ModelState.IsValid)
             {
-                var criteria = new AdjustAnnualLeavesCriteria
+                var command = new AdjustAnnualLeavesCommand
                 {
                     EmployeeId = model.EmpIds,
                     Description = model.Description,
@@ -117,7 +117,7 @@
                     CreatedBy = CurrentUser.Id
                 };
 
-                result = await baseService.ExecuteNonQueryAsync(criteria);
+                result = await baseService.ExecuteNonQueryAsync(command);
             }
 
             return Json(result);
@@ -126,8 +126,8 @@
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Create(int employeeId)
         {
-            var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId };
-            ViewBag.Employee = await employeeService.GetEmployeeById(getEmployeeCriteria);
+            var criteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId };
+            ViewBag.Employee = await employeeService.GetEmployeeById(criteria);
 
             return View(new AddAnnualLeaveTransactionViewModel
             {
@@ -142,7 +142,7 @@
         {
             if (model != null && ModelState.IsValid)
             {
-                var criteria = new InsertAnnualLeaveTransactionCriteria
+                var criteria = new InsertAnnualLeaveTransactionCommand
                 {
                     EmployeeId = model.EmployeeId,
                     Description = model.Description,
@@ -192,12 +192,12 @@
         [HttpPost]
         public async Task<IActionResult> Delete(int leaveTransactionId)
         {
-            var criteria = new DeleteAnnualLeaveTransactionCriteria
+            var command = new DeleteAnnualLeaveTransactionCommand
             {
                 LeaveTransactionId = leaveTransactionId,
                 ModifiedBy = CurrentUser.Id
             };
-            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(command);
             return Json(result);
         }
 
@@ -205,45 +205,44 @@
         [HttpPost]
         public async Task<IActionResult> DeleteLeaveConversion(int leaveConversionId)
         {
-            var criteria = new DeleteLeaveConversionCriteria
+            var command = new DeleteLeaveConversionCommand
             {
                 LeaveConversionId = leaveConversionId,
                 ModifiedBy = CurrentUser.Id
             };
 
-            return Json(await baseService.ExecuteNonQueryAsync(criteria));
+            return Json(await baseService.ExecuteNonQueryAsync(command));
         }
 
         [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> DeleteLeaveDeduction(int leaveDeductionId)
         {
-            var criteria = new DeleteLeaveDeductionCriteria
+            var command = new DeleteLeaveDeductionCommand
             {
                 LeaveDeductionId = leaveDeductionId,
                 ModifiedBy = CurrentUser.Id
             };
 
-            return Json(await baseService.ExecuteNonQueryAsync(criteria));
+            return Json(await baseService.ExecuteNonQueryAsync(command));
         }
 
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> Edit(int leaveTransactionId, bool excludedRequestTrans)
+        public async Task<IActionResult> Edit(int leaveTransactionId)
         {
             var criteria = new GetAnnualLeaveByIdCriteria
             {
                 LeaveTransactionId = leaveTransactionId
             };
+            var leaveTransaction = await annualLeaveService.GetAnnualLeaveTransactionById(criteria);
 
-            AnnualLeaveTransaction leaveTransaction = await annualLeaveService.GetAnnualLeaveTransactionById(criteria);
             var model = new EditAnnualLeaveTransactionViewModel
             {
                 LeaveTransactionId = leaveTransaction.LeaveTransactionId,
                 TotalDays = leaveTransaction.TotalDays,
                 AffectedFrom = leaveTransaction.AffectedFrom,
                 Description = leaveTransaction.Description,
-                EmployeeId = leaveTransaction.Employee.Id,
-                ExcludedRequestTrans = excludedRequestTrans
+                EmployeeId = leaveTransaction.EmpId,
             };
             return View(model);
         }
@@ -254,7 +253,7 @@
         {
             if (model != null && ModelState.IsValid)
             {
-                var criteria = new UpdateAnnualLeaveTransactionCriteria
+                var command = new UpdateAnnualLeaveTransactionCommand
                 {
                     LeaveTransactionId = model.LeaveTransactionId,
                     Description = model.Description,
@@ -263,7 +262,7 @@
                     CreditDays = model.TotalDays > 0 ? model.TotalDays : 0,
                     ModifiedBy = CurrentUser.Id
                 };
-                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+                CommandResult result = await baseService.ExecuteNonQueryAsync(command);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Updated = true;
@@ -294,7 +293,7 @@
             CommandResult result;
             if (model != null && ModelState.IsValid)
             {
-                var criteria = new UpdateLeaveConversionCriteria
+                var criteria = new UpdateLeaveConversionCommand
                 {
                     LeaveConversionId = model.LeaveConversionId,
                     Description = model.Description,
@@ -334,7 +333,7 @@
             CommandResult result;
             if (model != null && ModelState.IsValid)
             {
-                var criteria = new UpdateLeaveDeductionCriteria
+                var criteria = new UpdateLeaveDeductionCommand
                 {
                     LeaveDeductionId = model.LeaveDeductionId,
                     Description = model.Description,
@@ -358,32 +357,46 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult> ViewHistoryAnnualByMonth(AnnualLeaveBalanceViewModel model)
+        public async Task<ActionResult> ViewHistoryAnnualByMonth(MonthlyAnnualLeaveViewModel model)
         {
-            IList<AnnualLeaveTransaction> annualLeaveTransactions = new List<AnnualLeaveTransaction>();
+            IEnumerable<AnnualLeaveTransaction> leaveTransactions = new List<AnnualLeaveTransaction>();
             if (model != null)
             {
-                var criteria = new GetAnnualLeaveTransactionCriteria
+                var criteria = new GetAnnualLeaveTransactionByMonthCriteria
                 {
-                    EmployeeId = model.EmployeeId,
+                    EmpId = model.EmployeeId,
+                    Month = model.Month,
                     Year = model.Year
                 };
 
-                annualLeaveTransactions = await annualLeaveService.GetAnnualLeaveTransactions(criteria);
+                leaveTransactions = await baseService.GetDataAsync<AnnualLeaveTransaction>(criteria);
             }
 
-            var annualLeaveHistoryByMonth = annualLeaveTransactions.Where(x => model.Month > 0 ? (x.AffectedFrom.Month == model.Month) && x.TotalDays < 0 : x.TotalDays > 0).ToList();
+            return PartialView("_EmployeeBalanceHis", leaveTransactions);
+        }
 
-            return PartialView("_EmployeeBalanceHis", annualLeaveHistoryByMonth);
+        [HttpPost]
+        public async Task<ActionResult> ViewDetailCreditDaysInYear(int employeeId, int year)
+        {
+            var criteria = new GetAnnualLeaveTransactionCriteria
+            {
+                EmpId = employeeId,
+                Year = year,
+                ExcludedRequestTransactions = true
+            };
+
+            var leaveTransactions = await baseService.GetDataAsync<AnnualLeaveTransaction>(criteria);
+
+            return PartialView("_EmployeeBalanceHis", leaveTransactions);
         }
 
         public async Task<IActionResult> Employee(int employeeId, int year)
         {
-            var model = new AnnualLeaveBalanceViewModel
+            var model = new EmployeeAnnualLeaveViewModel
             {
                 EmployeeId = employeeId,
                 Year = year,
-                ExcludedRequestTrans = false
+                IncludeRequestTrans = true
             };
 
             var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = employeeId };
@@ -395,30 +408,29 @@
             }
             else
             {
-                model.EmployeeNickName = employee.NickName;
+                model.NickName = employee.NickName;
             }
 
             return View("Employee", model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Employee(AnnualLeaveBalanceViewModel model)
+        public async Task<IActionResult> Employee(EmployeeAnnualLeaveViewModel model)
         {
-            IList<AnnualLeaveTransaction> annualLeaveTransactions = new List<AnnualLeaveTransaction>();
+            IEnumerable<AnnualLeaveTransaction> leaveTransactions = new List<AnnualLeaveTransaction>();
             if (model != null)
             {
                 var criteria = new GetAnnualLeaveTransactionCriteria
                 {
-                    EmployeeId = model.EmployeeId,
-                    Year = model.YearEdit,
-                    ExcludedRequestTransactions = model.ExcludedRequestTrans
+                    EmpId = model.EmployeeId,
+                    Year = model.Year,
+                    ExcludedRequestTransactions = !model.IncludeRequestTrans
                 };
 
-                annualLeaveTransactions = await annualLeaveService.GetAnnualLeaveTransactions(criteria);
-                ViewBag.ExcludedRequestTrans = model.ExcludedRequestTrans;
+                leaveTransactions = await annualLeaveService.GetAnnualLeaveTransactions(criteria);
             }
 
-            return PartialView("_Employee", annualLeaveTransactions);
+            return PartialView("_Employee", leaveTransactions);
         }
 
         public async Task<IActionResult> Index()
@@ -437,17 +449,17 @@
         [HttpPost]
         public async Task<IActionResult> Index(LeaveSummaryViewModel model)
         {
-            IList<LeaveSummary> leaveSummary = new List<LeaveSummary>();
+            IEnumerable<LeaveSummary> leaveSummary = new List<LeaveSummary>();
             if (model != null)
             {
-                var getAnnualLeaveCriteria = new GetAnnualLeaveSummaryCriteria
+                var criteria = new GetAnnualLeaveSummaryCriteria
                 {
                     EmployeeId = model.EmployeeId != -1 ? new int?(model.EmployeeId) : null,
                     GroupId = model.TeamId,
                     Year = model.Year,
                     MinAnnualBalance = model.MinAnnualBalance
                 };
-                leaveSummary = await annualLeaveService.GetAnnualLeaveBalance(getAnnualLeaveCriteria);
+                leaveSummary = await annualLeaveService.GetAnnualLeaveBalance(criteria);
 
                 ViewBag.Year = model.Year;
             }
@@ -456,39 +468,9 @@
         }
 
         [HttpPost]
-        public async Task<JsonResult> LeaveConversionDetail(LeaveConversionDetailViewModel model)
-        {
-            IList<LeaveConversionDetail> leaveConversions = new List<LeaveConversionDetail>();
-            if (model != null)
-            {
-                var criteria = new GetLeaveConversionDetailCriteria
-                {
-                    EmployeeId = model.EmployeeId <= 0 ? null : new int?(model.EmployeeId),
-                    GroupId = model.TeamId,
-                    FromDate = model.FromDate,
-                    ToDate = model.ToDate,
-                    ConversionType = (int)LeaveConversionType.OvertimeConversion
-                };
-
-                leaveConversions = await annualLeaveService.GetLeaveConversionDetail(criteria);
-            }
-
-            return Json(leaveConversions);
-        }
-
-        public async Task<IActionResult> LeaveConversionDetail(
-            DateTime fromDate,
-            DateTime toDate,
-            int? employeeId = null,
-            int? teamId = null)
-        {
-            return View(await GetLeaveDetailModel(fromDate, toDate, employeeId, teamId));
-        }
-
-        [HttpPost]
         public async Task<JsonResult> LeaveDeductionDetail(LeaveConversionDetailViewModel model)
         {
-            IList<LeaveConversionDetail> leaveDeductions = new List<LeaveConversionDetail>();
+            IEnumerable<LeaveConversionDetail> leaveDeductions = new List<LeaveConversionDetail>();
             if (model != null)
             {
                 var criteria = new GetLeaveConversionDetailCriteria
@@ -537,7 +519,7 @@
         [HttpPost]
         public async Task<IActionResult> OpenAnnualLeaves()
         {
-            var criteria = new OpenAnnualBalanceForNewYearCriteria
+            var criteria = new InsertAnnualBalanceForNewYearCommand
             {
                 Year = ShowOpenAndCloseAnnualBalance.ToDate.Year
             };
@@ -556,10 +538,10 @@
                 Year = ShowOpenAndCloseAnnualBalance.FromDate.Year
             };
 
-            IList<LeaveSummary> leaveSummaries = await annualLeaveService.GetAnnualLeaveBalance(getAnnualLeaveCriteria);
+            var leaveSummaries = await annualLeaveService.GetAnnualLeaveBalance(getAnnualLeaveCriteria);
             var leaveSummariesFilter = leaveSummaries.Where(m => m.LeaveBalance > minbalance).ToList();
 
-            var resetAnnualLeaves = new ResetAnnualLeavesCriteria
+            var resetAnnualLeaves = new ResetAnnualLeavesCommand
             {
                 Description = descriptionReset,
                 FromDate = new DateTimeOffset(ShowOpenAndCloseAnnualBalance.FromDate.Year, 12, 31, 0, 0, 0, TimeSpan.Zero).DateTime,

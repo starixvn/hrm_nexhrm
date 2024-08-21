@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class UpdateLeaveDeductionCriteria : BaseCommand
+    public class UpdateLeaveDeductionCommand : BaseCommand
     {
         public int LeaveDeductionId { get; set; }
 
@@ -16,14 +16,8 @@
 
         public int ModifiedBy { get; set; }
 
-        public override string GetSettingKey()
-        {
-            return "LeaveDeduction_Update";
-        }
+        public override string GetSettingKey() => "LeaveDeduction_Update";
 
-        public override bool IsValid()
-        {
-            return LeaveDeductionId > 0 && TotalDays > 0;
-        }
+        public override bool IsValid() => LeaveDeductionId > 0 && TotalDays > 0;
     }
 }

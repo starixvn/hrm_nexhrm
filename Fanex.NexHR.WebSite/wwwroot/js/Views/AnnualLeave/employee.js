@@ -8,9 +8,9 @@ function query(isFirstLoad) {
         initDataFirstQuery(queryString);
     }
     var employeeId = $('#EmployeeId').val();
-    var year = $('#YearEdit').val();
-    var isIncludeRequest = $('#ExcludedRequestTrans').prop("checked")
-    var url = _global.root + 'annualleave/employee?employeeId=' + employeeId + '&YearEdit=' + year + '&ExcludedRequestTrans=' + isIncludeRequest;
+    var year = $('#Year').val();
+    var isIncludeRequest = $('#IncludeRequestTrans').prop("checked")
+    var url = _global.root + 'annualleave/employee?employeeId=' + employeeId + '&Year=' + year + '&IncludeRequestTrans=' + isIncludeRequest;
     if (!isFirstLoad) {
         var orgUrl = url;
         window.history.replaceState(null, null, orgUrl);
@@ -44,13 +44,13 @@ function query(isFirstLoad) {
 function initDataFirstQuery(queryString) {
     var urlParams = new URLSearchParams(queryString);
     var employeeIdParam = urlParams.get('employeeId');
-    var yearParam = urlParams.get('YearEdit');
-    var includeRequestParam = urlParams.get('ExcludedRequestTrans');
-    var isIncludeRequestParam = !includeRequestParam ? false : includeRequestParam.toLowerCase() == 'true';
-    $("#YearEdit").val(yearParam);
+    var yearParam = urlParams.get('Year');
+    var includeRequestParam = urlParams.get('IncludeRequestTrans');
+    var isIncludeRequestParam = includeRequestParam === null ? true : includeRequestParam.toLowerCase() == 'true';
+    $("#Year").val(yearParam);
     $(".select--year .select-dropdown").val(yearParam);
     $("#EmployeeId").val(employeeIdParam);
-    $("#ExcludedRequestTrans").prop('checked', isIncludeRequestParam);
+    $("#IncludeRequestTrans").prop('checked', isIncludeRequestParam);
 }
 
 function deleteLeaveTrans(leaveTransactionId) {

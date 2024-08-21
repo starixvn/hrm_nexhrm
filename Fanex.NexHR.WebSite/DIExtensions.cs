@@ -165,7 +165,6 @@
             services.AddSingleton<ICalendarRepository, CalendarRepository>();
             services.AddSingleton<IOvertimeRepository, OvertimeRepository>();
             services.AddSingleton<IScheduledMessageRepository, ScheduledMessageRepository>();
-            services.AddSingleton<IAnnualLeaveRepository, AnnualLeaveRepository>();
         }
     }
 }

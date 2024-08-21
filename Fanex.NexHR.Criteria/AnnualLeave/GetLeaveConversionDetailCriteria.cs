@@ -17,14 +17,8 @@
         [SpParam(SqlParamName = "Type")]
         public int ConversionType { get; set; }
 
-        public override string GetSettingKey()
-        {
-            return "LeaveConversion_Get";
-        }
+        public override string GetSettingKey() => "LeaveConversion_Get";
 
-        public override bool IsValid()
-        {
-            return FromDate <= ToDate;
-        }
+        public override bool IsValid() => FromDate <= ToDate;
     }
 }

@@ -2,11 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using Data;
     using Models.AnnualLeave;
 
-    public class ResetAnnualLeavesCriteria : BaseCommand
+    public class ResetAnnualLeavesCommand : BaseCommand
     {
         private const string XmlTemplate = "<Employee Id='{0}' LeaveBalance='{1}' />";
         private const string BeginRootTag = "<ROOT>";
@@ -21,7 +22,7 @@
 
                 foreach (var item in LeaveSummaries)
                 {
-                    xmlTemplate.Append(string.Format(XmlTemplate, item.Employee.Id, item.LeaveBalance));
+                    xmlTemplate.Append(string.Format(XmlTemplate, item.EmpId, item.LeaveBalance));
                 }
 
                 xmlTemplate.Append(EndRootTag);
@@ -39,16 +40,11 @@
         public int CreatedBy { get; set; }
 
         [SpParam(Ignored = true)]
-        public IList<LeaveSummary> LeaveSummaries { get; set; }
+        public IEnumerable<LeaveSummary> LeaveSummaries { get; set; }
 
-        public override string GetSettingKey()
-        {
-            return "AnnualLeave_ResetMultipleTransactions";
-        }
+        public override string GetSettingKey() => "AnnualLeave_ResetMultipleTransactions";
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => LeaveSummaries != null && LeaveSummaries.Any();
+
     }
 }

@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class InsertAnnualLeaveTransactionCriteria : BaseCommand
+    public class InsertAnnualLeaveTransactionCommand : BaseCommand
     {
         public int EmployeeId { get; set; }
 
@@ -20,14 +20,8 @@
 
         public int CreatedBy { get; set; }
 
-        public override string GetSettingKey()
-        {
-            return "AnnualLeave_InsertTransaction";
-        }
+        public override string GetSettingKey() => "AnnualLeave_InsertTransaction";
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

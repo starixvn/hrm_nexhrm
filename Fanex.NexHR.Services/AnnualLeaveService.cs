@@ -5,72 +5,44 @@
     using Criteria.AnnualLeave;
     using Interfaces;
     using Models.AnnualLeave;
-    using Repositories.Interfaces;
 
     public class AnnualLeaveService : IAnnualLeaveService
     {
-        private readonly IAnnualLeaveRepository annualLeaveRepository;
         private readonly IBaseService baseService;
 
-        public AnnualLeaveService(IAnnualLeaveRepository annualLeaveRepository, IBaseService baseService)
+        public AnnualLeaveService(IBaseService baseService)
         {
-            this.annualLeaveRepository = annualLeaveRepository;
             this.baseService = baseService;
         }
 
-        public async Task<IList<LeaveSummary>> GetAnnualLeaveBalance(GetAnnualLeaveSummaryCriteria criteria)
+        public async Task<IEnumerable<LeaveSummary>> GetAnnualLeaveBalance(GetAnnualLeaveSummaryCriteria criteria)
         {
-            IList<LeaveSummary> leaveSummary = null;
-            if (criteria != null && criteria.IsValid())
-            {
-                leaveSummary = await annualLeaveRepository.GetAnnualLeaveBalance(criteria);
-            }
-
-            return leaveSummary ?? new List<LeaveSummary>();
+            var leaveSummary = await baseService.GetDataAsync<LeaveSummary>(criteria);
+            return leaveSummary;
         }
 
         public async Task<ShowOpenAndCloseAnnualBalance> GetOpenAndCloseAnnualBalance(GetOpenAndCloseAnnualBalanceCriteria criteria)
         {
-            ShowOpenAndCloseAnnualBalance showOpenAndCloseAnnualBalance = null;
-            if (criteria != null && criteria.IsValid())
-            {
-                showOpenAndCloseAnnualBalance = await baseService.GetDataEntityAsync<ShowOpenAndCloseAnnualBalance>(criteria);
-            }
-
+            var showOpenAndCloseAnnualBalance = await baseService.GetDataEntityAsync<ShowOpenAndCloseAnnualBalance>(criteria);
             return showOpenAndCloseAnnualBalance;
         }
 
-        public async Task<IList<AnnualLeaveTransaction>> GetAnnualLeaveTransactions(GetAnnualLeaveTransactionCriteria criteria)
+        public async Task<IEnumerable<AnnualLeaveTransaction>> GetAnnualLeaveTransactions(GetAnnualLeaveTransactionCriteria criteria)
         {
-            IList<AnnualLeaveTransaction> annualLeaves = null;
-            if (criteria != null && criteria.IsValid())
-            {
-                annualLeaves = await annualLeaveRepository.GetAnnualLeaveTransactions(criteria);
-            }
-
-            return annualLeaves ?? new List<AnnualLeaveTransaction>();
+            var leaveTransactions = await baseService.GetDataAsync<AnnualLeaveTransaction>(criteria);
+            return leaveTransactions;
         }
 
         public async Task<AnnualLeaveTransaction> GetAnnualLeaveTransactionById(GetAnnualLeaveByIdCriteria criteria)
         {
-            AnnualLeaveTransaction annualLeave = null;
-            if (criteria != null && criteria.IsValid())
-            {
-                annualLeave = await annualLeaveRepository.GetAnnualLeaveTransactionById(criteria);
-            }
-
-            return annualLeave;
+            var leaveTransaction = await baseService.GetDataEntityAsync<AnnualLeaveTransaction>(criteria);
+            return leaveTransaction;
         }
 
-        public async Task<IList<LeaveConversionDetail>> GetLeaveConversionDetail(GetLeaveConversionDetailCriteria criteria)
+        public async Task<IEnumerable<LeaveConversionDetail>> GetLeaveConversionDetail(GetLeaveConversionDetailCriteria criteria)
         {
-            IList<LeaveConversionDetail> leaveDeductions = null;
-            if (criteria != null && criteria.IsValid())
-            {
-                leaveDeductions = await annualLeaveRepository.GetLeaveConversionDetail(criteria);
-            }
-
-            return leaveDeductions ?? new List<LeaveConversionDetail>();
+            var leaveDeductions = await baseService.GetDataAsync<LeaveConversionDetail>(criteria);
+            return leaveDeductions;
         }
     }
 }

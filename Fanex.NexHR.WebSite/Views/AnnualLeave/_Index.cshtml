@@ -10,12 +10,10 @@
 @{
     int year = ViewBag.Year;
     var notMonthColumn = -99;
-    var annualCurrentYear = -1;
     var isHRRole = sessionService.CurrentEmployee.HasHRRole;
 
-    void DisplayNumber(int month, float value, Employee employee)
+    void DisplayNumber(int month, float value, int empId, string nickName)
     {
-        var tooltipContents = new StringBuilder();
         if (value == 0)
         {
             <td>-</td>
@@ -28,12 +26,30 @@
             }else{
                 var addMonth = month + 1;
                 <td>
-                    <a class="@(value > 0 ? "viewhistorybymonth" : "red-color")" href="javascript:;" data-name="@employee.NickName"
-                        id="/AnnualLeave/ViewHistoryAnnualByMonth?employeeId=@employee.Id&year=@year&month=@addMonth">@value.ToString("0.0")
+                    <a class="@(value > 0 ? "viewhistorybymonth" : "red-color")" href="javascript:;" data-name="@nickName"
+                       id="/AnnualLeave/ViewHistoryAnnualByMonth?employeeId=@empId&year=@year&month=@addMonth">
+                        @value.ToString("0.0")
                     </a>
                 </td>
             }
             
+        }
+    }
+
+    void DisplayNumberForYear(float value, int empId, string nickName)
+    {
+        if (value == 0)
+        {
+            <td>-</td>
+        }
+        else
+        {
+            <td>
+                <a class="@(value > 0 ? "viewhistorybymonth" : "red-color")" href="javascript:;" data-name="@nickName"
+                   id="/AnnualLeave/ViewDetailCreditDaysInYear?employeeId=@empId&year=@year">
+                    @value.ToString("0.0")
+                </a>
+            </td>
         }
     }
 }
@@ -85,65 +101,65 @@
     @if (Model != null && Model.Any())
     {
         int index = 1;
-        IList<LeaveSummary> leaveSummaryByTeams = Model.GroupBy(t => t.Employee.Team.Id).Select(grp => grp.First()).ToList();
+        var leaveSummaryByTeams = Model.GroupBy(t => t.TeamId).Select(grp => grp.First());
         <tbody>
             @foreach (LeaveSummary leaveSummaryByTeam in leaveSummaryByTeams)
             {
                 <tr class="row-divider">
                     <td colspan="19">
-                        <b>@leaveSummaryByTeam.Employee.Team.Name.ToUpper()</b>
+                        <b>@leaveSummaryByTeam.TeamName.ToUpper()</b>
                     </td>
                 </tr>
 
-                IList<LeaveSummary> leaveSummariesByEmp = Model.Where(t => t.Employee.Team.Id == leaveSummaryByTeam.Employee.Team.Id).ToList();
+                var leaveSummariesByEmp = Model.Where(t => t.TeamId == leaveSummaryByTeam.TeamId);
                 foreach (LeaveSummary leaveSummary in leaveSummariesByEmp)
                 {
                     var htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(
                         new
                         {
                             @class = "aba filled-in",
-                            data_id = leaveSummary.Employee.Id
+                            data_id = leaveSummary.EmpId
                         });
                     <tr>
                         @if (@isHRRole)
                         {
                             <td class="col-checkbox">
-                                <input class="aba filled-in" id="checkbox_@leaveSummary.Employee.Id" data-id="@leaveSummary.Employee.Id" name="checkbox_@leaveSummary.Employee.Id" type="checkbox" value="true">
-                                <label for="checkbox_@leaveSummary.Employee.Id"></label>
-                                <input name="checkbox_@leaveSummary.Employee.Id" type="hidden" value="false">
+                                <input class="aba filled-in" id="checkbox_@leaveSummary.EmpId" data-id="@leaveSummary.EmpId" name="checkbox_@leaveSummary.EmpId" type="checkbox" value="true">
+                                <label for="checkbox_@leaveSummary.EmpId"></label>
+                                <input name="checkbox_@leaveSummary.EmpId" type="hidden" value="false">
                             </td>
                         }
                         else
                         {
                             <td>@(index++)</td>
                         }
-                        <td class="tooltip" title="@leaveSummary.Employee.FullName">@leaveSummary.Employee.NickName</td>
+                        <td class="tooltip" title="@leaveSummary.FullName">@leaveSummary.NickName</td>
                         @{
-                            DisplayNumber(annualCurrentYear, leaveSummary.AnnualLeaveCurrentYear, leaveSummary.Employee);
-                            DisplayNumber((int)Months.January, leaveSummary.Jan, leaveSummary.Employee);
-                            DisplayNumber((int)Months.February, leaveSummary.Feb, leaveSummary.Employee);
-                            DisplayNumber((int)Months.March, leaveSummary.Mar, leaveSummary.Employee);
-                            DisplayNumber((int)Months.April, leaveSummary.Apr, leaveSummary.Employee);
-                            DisplayNumber((int)Months.May, leaveSummary.May, leaveSummary.Employee);
-                            DisplayNumber((int)Months.June, leaveSummary.Jun, leaveSummary.Employee);
-                            DisplayNumber((int)Months.July, leaveSummary.Jul, leaveSummary.Employee);
-                            DisplayNumber((int)Months.August, leaveSummary.Aug, leaveSummary.Employee);
-                            DisplayNumber((int)Months.September, leaveSummary.Sep, leaveSummary.Employee);
-                            DisplayNumber((int)Months.October, leaveSummary.Oct, leaveSummary.Employee);
-                            DisplayNumber((int)Months.November, leaveSummary.Nov, leaveSummary.Employee);
-                            DisplayNumber((int)Months.December, leaveSummary.Dec, leaveSummary.Employee);
-                            DisplayNumber(notMonthColumn, leaveSummary.LeaveBalance, leaveSummary.Employee);
+                            DisplayNumberForYear(leaveSummary.AnnualLeaveCurrentYear, leaveSummary.EmpId, leaveSummary.NickName);
+                            DisplayNumber((int)Months.January, leaveSummary.Jan, leaveSummary.EmpId, leaveSummary.NickName);
+                            DisplayNumber((int)Months.February, leaveSummary.Feb, leaveSummary.EmpId, leaveSummary.NickName);
+                            DisplayNumber((int)Months.March, leaveSummary.Mar, leaveSummary.EmpId, leaveSummary.NickName);
+                            DisplayNumber((int)Months.April, leaveSummary.Apr, leaveSummary.EmpId, leaveSummary.NickName);
+                            DisplayNumber((int)Months.May, leaveSummary.May, leaveSummary.EmpId, leaveSummary.NickName);
+                            DisplayNumber((int)Months.June, leaveSummary.Jun, leaveSummary.EmpId, leaveSummary.NickName);
+                            DisplayNumber((int)Months.July, leaveSummary.Jul, leaveSummary.EmpId, leaveSummary.NickName);
+                            DisplayNumber((int)Months.August, leaveSummary.Aug, leaveSummary.EmpId, leaveSummary.NickName);
+                            DisplayNumber((int)Months.September, leaveSummary.Sep, leaveSummary.EmpId, leaveSummary.NickName);
+                            DisplayNumber((int)Months.October, leaveSummary.Oct, leaveSummary.EmpId, leaveSummary.NickName);
+                            DisplayNumber((int)Months.November, leaveSummary.Nov, leaveSummary.EmpId, leaveSummary.NickName);
+                            DisplayNumber((int)Months.December, leaveSummary.Dec, leaveSummary.EmpId, leaveSummary.NickName);
+                            DisplayNumber(notMonthColumn, leaveSummary.LeaveBalance, leaveSummary.EmpId, leaveSummary.NickName);
                         }
                         @if (@isHRRole)
                         {
                             <td class="center">
-                                <a href="~/annualleave/employee?employeeId=@leaveSummary.Employee.Id&YearEdit=@year">
+                                <a href="~/annualleave/employee?employeeId=@leaveSummary.EmpId&Year=@year">
                                     <i class="mdi mdi-border-color mdi-18px mdi-dark"></i>
                                 </a>
                             </td>
                         }else{
                             <td class="center">
-                                <a class="viewhistory"  href="~/annualleave/employee?employeeId=@leaveSummary.Employee.Id&YearEdit=@year">View</a>
+                                <a class="viewhistory" href="~/annualleave/employee?employeeId=@leaveSummary.EmpId&Year=@year">View</a>
                             </td>
                         }
                     </tr>

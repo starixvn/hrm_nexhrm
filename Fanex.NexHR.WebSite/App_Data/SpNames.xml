@@ -84,26 +84,17 @@
         </Setting>
     </Function>
     <Function Name="AnnualLeave">
-        <Setting Key="AnnualLeave_GetSummary" SpName="AnnualLeave_GetSummary" DbName="nexhr" Plain="0">
-            <Mapping DataField="EmpId" ObjectProperty="Id" />
-            <Mapping DataField="GroupId" ObjectProperty="Id" />
-        </Setting>
+      <Setting Key="AnnualLeave_GetEmpTransByMonth" SpName="AnnualLeave_GetEmpTransByMonth" DbName="nexhr" Plain="0"></Setting>
+      <Setting Key="AnnualLeave_GetSummary" SpName="AnnualLeave_GetSummary" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="AnnualLeave_InsertTransaction" SpName="AnnualLeave_InsertTransaction" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="AnnualLeave_InsertMultipleTransactions" SpName="AnnualLeave_InsertMultipleTransactions" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="AnnualLeave_UpdateTransaction" SpName="AnnualLeave_UpdateTransaction" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="AnnualLeave_DeleteTransaction" SpName="AnnualLeave_DeleteTransaction" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="AnnualLeave_GetTransByEmp" SpName="AnnualLeave_GetTransByEmp" DbName="nexhr" Plain="0">
-            <Mapping DataField="EmpId" ObjectProperty="Id" />
-        </Setting>
-        <Setting Key="AnnualLeave_GetByID" SpName="AnnualLeave_GetByID" DbName="nexhr" Plain="0">
-            <Mapping DataField="EmpId" ObjectProperty="Id" />
-        </Setting>
-        <Setting Key="AnnualLeave_ResetMultipleTransactions" SpName="AnnualLeave_ResetMultipleTransactions" DbName="nexhr" Plain="0">
-        </Setting>
-        <Setting Key="AnnualLeave_GetOpenAndCloseBalance" SpName="AnnualLeave_GetOpenAndCloseBalance" DbName="nexhr" Plain="0">
-        </Setting>
-        <Setting Key="DBA_AnnualLeave_CreateAnnualBalance" SpName="DBA_AnnualLeave_CreateAnnualBalance" DbName="nexhr" Plain="0">
-        </Setting>
+        <Setting Key="AnnualLeave_GetTransByEmp" SpName="AnnualLeave_GetTransByEmp" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="AnnualLeave_GetByID" SpName="AnnualLeave_GetByID" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="AnnualLeave_ResetMultipleTransactions" SpName="AnnualLeave_ResetMultipleTransactions" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="AnnualLeave_GetOpenAndCloseBalance" SpName="AnnualLeave_GetOpenAndCloseBalance" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="DBA_AnnualLeave_CreateAnnualBalance" SpName="DBA_AnnualLeave_CreateAnnualBalance" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="ExtensionNumber">
         <Setting Key="ExtensionNO_GetAll" SpName="ExtensionNO_GetAll" DbName="nexhr" Plain="0"></Setting>
@@ -239,11 +230,7 @@
         </Setting>
         <Setting Key="Report_GetHeadCountByYear" SpName="Report_GetHeadCountByYear" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="LeaveDeduction_Insert" SpName="LeaveDeduction_Insert" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="LeaveConversion_Get" SpName="LeaveConversion_Get" DbName="nexhr" Plain="0">
-            <Mapping DataField="EmpId" ObjectProperty="Id" />
-            <Mapping DataField="GroupId" ObjectProperty="Id" />
-            <Mapping DataField="ModifiedById" ObjectProperty="Id" />
-        </Setting>
+        <Setting Key="LeaveConversion_Get" SpName="LeaveConversion_Get" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="LeaveDeduction_Update" SpName="LeaveDeduction_Update" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="LeaveDeduction_Delete" SpName="LeaveDeduction_Delete" DbName="nexhr" Plain="0"></Setting>
     </Function>

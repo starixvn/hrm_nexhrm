@@ -142,10 +142,10 @@
 <script id="template" type="text/x-jsrender">
     <tr>
         <td>{{:~index()}}</td>
-        <td class="align-left">{{:Employee.FullName}}</td>
-        <td>{{:Employee.NickName}}</td>
-        <td class="tooltip" title="{{:Employee.Team.Name}}">
-            {{:Employee.Team.Code}}
+        <td class="align-left">{{:FullName}}</td>
+        <td>{{:NickName}}</td>
+        <td class="tooltip" title="{{:TeamName}}">
+            {{:TeamCode}}
         </td>
         <td class="deductdate">{{:~formatJsonDate(Date, 'dd MMM, yyyy')}}</td>
         <td>
