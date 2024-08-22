@@ -1,10 +1,16 @@
-﻿using System;
-
-namespace Fanex.NexHR.Models.Calendar
+﻿namespace Fanex.NexHR.Models.Calendar
 {
+    using System;
+
     public class LeaveSchedule
     {
-        public Employee Employee { get; set; }
+        public int EmpId { get; set; }
+
+        public string NickName { get; set; }
+
+        public string FullName { get; set; }
+
+        public string TeamCode { get; set; }
 
         public DateTime WorkDate { get; set; }
 

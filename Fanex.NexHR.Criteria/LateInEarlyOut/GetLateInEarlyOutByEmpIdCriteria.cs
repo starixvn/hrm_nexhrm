@@ -8,14 +8,8 @@
 
         public int Year { get; set; }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => EmpId > 0 && Year > 0;
 
-        public override string GetSettingKey()
-        {
-            return "LateInEarlyOut_GetAllByEmpId";
-        }
+        public override string GetSettingKey() => "LateInEarlyOut_GetAllByEmpId";
     }
 }

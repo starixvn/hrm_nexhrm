@@ -1,7 +1,6 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Criteria.Calendar;
     using Fanex.NexHR.Controllers.Attributes;
@@ -32,14 +31,14 @@
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> UpdateEmployeeShiftDate(int employeeId, DateTime date, int? shiftId)
         {
-            var criteria = new UpdateEmployeeShiftDateCriteria
+            var command = new UpdateEmployeeShiftDateCommand
             {
                 EmployeeId = employeeId,
                 Date = date,
                 ShiftId = shiftId,
                 ModifiedBy = CurrentUser.Id,
             };
-            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(command);
 
             return Json(result);
         }
@@ -51,7 +50,7 @@
             var result = new CommandResult();
             if (model != null)
             {
-                var criteria = new InsertEmployeeCalendarCriteria
+                var command = new InsertEmployeeCalendarCommand
                 {
                     EmployeeId = model.AddEmployeeId,
                     FromDate = model.FromDate,
@@ -59,7 +58,7 @@
                     SetOffDay = model.SetOffDay
                 };
 
-                result = await baseService.ExecuteNonQueryAsync(criteria);
+                result = await baseService.ExecuteNonQueryAsync(command);
             }
 
             return Json(result);
@@ -75,7 +74,7 @@
                 EmployeeId = employeeId
             };
 
-            IList<WorkingSchedule> schedules = await calendarService.GetWorkingSchedule(criteria);
+            var schedules = await baseService.GetDataAsync<WorkingSchedule>(criteria);
             return Json(schedules);
         }
 
@@ -104,8 +103,7 @@
                     EmployeeId = model.EmployeeId < 0 ? (int?)null : model.EmployeeId,
                     TeamId = model.TeamId
                 };
-
-                IList<WorkingSchedule> schedules = await calendarService.GetWorkingSchedule(criteria);
+                var schedules = await baseService.GetDataAsync<WorkingSchedule>(criteria);
                 model.WorkingSchedules = schedules;
             }
 

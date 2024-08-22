@@ -104,7 +104,7 @@
 
         private async Task<IEnumerable<ViewModels.LateInEarlyOut.LateInEarlyOutViewModel>> GetLateInEarlyOutNotification()
         {
-            var criteria = new GetAllEmployeeCriteria
+            var criteria = new GetAllLatInEarlyOutNotificationCriteria
             {
                 Date = DateTimeOffset.Now.Date
             };
@@ -266,7 +266,7 @@
             var criteria = new GetAllNotificationCriteria { EmpId = employeeId };
             var noti = await baseService.GetDataEntityAsync<Notification>(criteria);
 
-            return PartialView("_Notification", noti);
+            return PartialView("_Notification", noti ?? new Notification());
         }
 
         public async Task<IActionResult> GetTeamWorkload()

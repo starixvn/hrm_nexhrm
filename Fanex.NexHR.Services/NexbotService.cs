@@ -8,9 +8,9 @@
     using System.Threading.Tasks;
     using Core;
     using Core.Enums;
-    using Criteria.SkypeAccount;
     using Fanex.NexHR.Criteria.ScheduledMessage;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Conversation;
     using Fanex.NexHR.Models.LateInEarlyOut;
     using Fanex.NexHR.Models.Staff;
     using Fanex.NexHR.Models.TimeSheet;
@@ -18,16 +18,13 @@
     using Interfaces;
     using Models.NexBot;
     using Models.Request;
-    using Models.SkypeAccount;
     using Newtonsoft.Json;
-    using Repositories.Interfaces;
     using ViewModels;
     using ViewModels.CheckInOutRequest;
 
     public class NexbotService : INexbotService
     {
         private readonly HttpClient httpClient;
-        private readonly INexbotRepository nexbotRepository;
         private readonly IBaseService baseService;
         private readonly ChatbotConfigs nexBotSettings;
         private readonly ILogServiceProvider logService;
@@ -35,14 +32,12 @@
         private const string conversationIdName = "conversationId";
 
         public NexbotService(IHttpClientFactory httpClientFactory,
-            INexbotRepository nexbotRepository,
             IBaseService baseService,
             AppSetting appSetting,
             ChatbotConfigs nexBotSettings,
             ILogServiceProvider logService)
         {
             httpClient = httpClientFactory.CreateClient();
-            this.nexbotRepository = nexbotRepository;
             this.nexBotSettings = nexBotSettings;
             this.baseService = baseService;
             this.appSetting = appSetting;
@@ -139,34 +134,6 @@
             }
         }
 
-        public async Task<IEnumerable<EmployeeSkypeAccount>> GetEmployeeSkypeAccountAsync(GetEmployeeSkypeAccountCriteria criteria)
-        {
-            if (criteria != null && criteria.IsValid())
-            {
-                var employeeAccounts = await nexbotRepository.GetEmployeeSkypeAccount(criteria);
-
-                var conversationUsers = await GetSkypeAccountAsync();
-
-                return CombineEmployeeSkypeAccount(employeeAccounts, conversationUsers);
-            }
-
-            return new List<EmployeeSkypeAccount>();
-        }
-
-        private static List<EmployeeSkypeAccount> CombineEmployeeSkypeAccount(IEnumerable<EmployeeSkypeAccount> employeeAccounts, IList<ConversationUser> conversationUsers)
-        {
-            foreach (var account in employeeAccounts)
-            {
-                var conversation = conversationUsers.FirstOrDefault(t => t.ConversationId == account.ConversationId);
-                if (conversation != null)
-                {
-                    account.SkypeDisplayName = conversation.UserName;
-                }
-            }
-
-            return employeeAccounts.ToList();
-        }
-
         public async Task SendMessageForLeaveRequest(LeaveRequestViewModel request, IEnumerable<EmployeeSupervisor> employeeSupervisors)
         {
             if (employeeSupervisors != null && employeeSupervisors.Any())
@@ -240,11 +207,15 @@
 
         public async Task SendMessageProcessRequest(RequestEntity request, string command)
         {
-            var employeee = await baseService.GetDataEntityAsync<Employee>(new GetEmployeeSkypeAccountCriteria { EmployeeId = request.Requester.Id });
-            if (employeee != null)
+            var criteria = new GetEmployeeConversationByIdCriteria
+            {
+                EmpId = request.Requester.Id
+            };
+            var conversation = await baseService.GetDataEntityAsync<Employee>(criteria);
+            if (conversation != null && !string.IsNullOrWhiteSpace(conversation.ConversationId))
             {
                 var message = GenerateProcessRequestMessage(request, command);
-                await SendMessageAsync(employeee.ConversationId, message);
+                await SendMessageAsync(conversation.ConversationId, message);
             }
         }
 

@@ -157,10 +157,7 @@
             services.AddSingleton<IBaseRepository, BaseRepository>();
             services.AddSingleton<IEmployeeRepository, EmployeeRepository>();
             services.AddSingleton<IRequestRepository, RequestRepository>();
-            services.AddSingleton<ILateInEarlyOutRepository, LateInEarlyOutRepository>();
             services.AddSingleton<IReportRepository, ReportRepository>();
-            services.AddSingleton<INexbotRepository, NexbotRepository>();
-            services.AddSingleton<ICalendarRepository, CalendarRepository>();
             services.AddSingleton<IOvertimeRepository, OvertimeRepository>();
         }
     }

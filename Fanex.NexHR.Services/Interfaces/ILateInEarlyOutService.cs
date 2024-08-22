@@ -12,7 +12,7 @@
 
         Task<LateInEarlyOutViewModel> GetById(GetLateInEarlyOutByIdCriteria criteria);
 
-        Task<IEnumerable<LateInEarlyOutViewModel>> GetAllEmployee(GetAllEmployeeCriteria criteria);
+        Task<IEnumerable<LateInEarlyOutViewModel>> GetAllEmployee(GetAllLatInEarlyOutNotificationCriteria criteria);
 
         Task<IEnumerable<LateInEarlyOutViolateModel>> GetLateInEarlyOutViolateOnMonth(GetLateInEarlyOutViolaterOnCurrentMonthCriteria criteria);
 

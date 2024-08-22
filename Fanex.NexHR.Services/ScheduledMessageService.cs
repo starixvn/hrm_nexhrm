@@ -11,8 +11,8 @@
     using Fanex.NexHR.Criteria.ScheduledMessage;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Calendar;
+    using Fanex.NexHR.Models.Conversation;
     using Fanex.NexHR.Models.ScheduledMessage;
-    using Fanex.NexHR.Models.SkypeAccount;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
     using NCrontab;

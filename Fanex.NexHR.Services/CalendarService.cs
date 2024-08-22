@@ -1,43 +1,20 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using Criteria.Calendar;
-    using Interfaces;
-    using Models.Calendar;
-    using Repositories.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Criteria.Calendar;
+    using Interfaces;
+    using Models.Calendar;
 
     public class CalendarService : ICalendarService
     {
-        private readonly ICalendarRepository calendarRepository;
+        private readonly IBaseService baseService;
 
-        public CalendarService(ICalendarRepository calendarRepository)
+        public CalendarService(IBaseService baseService)
         {
-            this.calendarRepository = calendarRepository;
-        }
-
-        public async Task<IList<WorkingSchedule>> GetWorkingSchedule(GetWorkingScheduleCriteria criteria)
-        {
-            IList<WorkingSchedule> workingSchedules = null;
-            if (criteria != null && criteria.IsValid())
-            {
-                workingSchedules = await calendarRepository.GetWorkingSchedule(criteria);
-            }
-
-            return workingSchedules ?? new List<WorkingSchedule>();
-        }
-
-        private async Task<IList<LeaveSchedule>> GetLeavingSchedule(GetLeaveScheduleCriteria criteria)
-        {
-            IList<LeaveSchedule> leaveSchedules = null;
-            if (criteria != null && criteria.IsValid())
-            {
-                leaveSchedules = await calendarRepository.GetLeaveSchedule(criteria);
-            }
-
-            return leaveSchedules ?? new List<LeaveSchedule>();
+            this.baseService = baseService;
         }
 
         public async Task<LeaveDaySummarySchedule> GetLeaveSchedule(GetLeaveScheduleCriteria criteria)
@@ -50,9 +27,12 @@
 
                 leaveSummarySchedule.TotalLeaves = CalculateTotalLeavesTaken(leaveSchedules);
 
-                var employeeShedules = leaveSchedules.GroupBy(x => x.Employee.Id).Select(g => new EmployeeLeaveSchedule
+                var employeeShedules = leaveSchedules.GroupBy(x => x.EmpId).Select(g => new EmployeeLeaveSchedule
                 {
-                    Employee = g.First().Employee,
+                    EmpId = g.First().EmpId,
+                    NickName = g.First().NickName,
+                    FullName = g.First().FullName,
+                    TeamCode = g.First().TeamCode,
                     LeaveSchedules = g.OrderBy(e => e.WorkDate).ToList()
                 }).ToList();
 
@@ -63,6 +43,12 @@
             }
 
             return leaveSummarySchedule;
+        }
+
+        private async Task<IEnumerable<LeaveSchedule>> GetLeavingSchedule(GetLeaveScheduleCriteria criteria)
+        {
+            var leaveSchedules = await baseService.GetDataAsync<LeaveSchedule>(criteria);
+            return leaveSchedules;
         }
 
         private IList<EmployeeLeaveSchedule> ReCalculateEmployeeLeaveSchedule(IList<EmployeeLeaveSchedule> schedules, IList<DateTime> listDates)
@@ -91,7 +77,7 @@
             }
         }
 
-        private IList<double> CalculateTotalLeavesTaken(IList<LeaveSchedule> schedules)
+        private IList<double> CalculateTotalLeavesTaken(IEnumerable<LeaveSchedule> schedules)
         {
             var totalLeavesTaken = new List<double>();
             var dateLeaves = schedules.GroupBy(x => x.WorkDate).Select(g => new { g.Key, Schedules = g }).OrderBy(g => g.Key);

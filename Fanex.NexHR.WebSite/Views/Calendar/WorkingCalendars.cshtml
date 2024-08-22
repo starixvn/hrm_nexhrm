@@ -48,7 +48,7 @@
     DateTime currentDate = new DateTime(Model.Year, Model.Month, 1);
     int daysInMonth = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
 
-    IList<WorkingSchedule> employeeSchedules = Model.WorkingSchedules.GroupBy(t => t.Employee.Id).Select(grp => grp.First()).ToList();
+    IList<WorkingSchedule> employeeSchedules = Model.WorkingSchedules.GroupBy(t => t.EmpId).Select(grp => grp.First()).ToList();
 }
 
 <div class="row content">
@@ -154,10 +154,10 @@
                                                                     <div class="datagrid-cell-rownumber">@rowId</div>
                                                                 </td>
                                                                 <td class="datagrid-fullname p-l--s">
-                                                                    <div class="datagrid-cell">@employeeSchedule.Employee.FullName</div>
+                                                                    <div class="datagrid-cell">@employeeSchedule.FullName</div>
                                                                 </td>
                                                                 <td>
-                                                                    <div class="datagrid-cell p-l--s">@employeeSchedule.Employee.NickName</div>
+                                                                    <div class="datagrid-cell p-l--s">@employeeSchedule.NickName</div>
                                                                 </td>
                                                             </tr>
                                                         rowId++;
@@ -209,7 +209,7 @@
                                                 foreach (WorkingSchedule employeeSchedule in employeeSchedules)
                                                 {
                                                     var schedule = employeeSchedule;
-                                                    var workingSchedules = Model.WorkingSchedules.Where(t => t.Employee.Id == schedule.Employee.Id).ToList();
+                                                        var workingSchedules = Model.WorkingSchedules.Where(t => t.EmpId == schedule.EmpId).ToList();
 
                                                     IList<WorkingSchedule> renderWorkingSchedules;
                                                     int currentWorkingDays = workingSchedules.Count;

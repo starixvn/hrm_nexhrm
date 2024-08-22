@@ -7,7 +7,7 @@
     using Fanex.Caching;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.TimeSheet;
-    using Fanex.NexHR.Models.SkypeAccount;
+    using Fanex.NexHR.Models.Conversation;
     using Fanex.NexHR.Models.TimeSheet;
     using Fanex.NexHR.Services.Interfaces;
 

@@ -75,7 +75,7 @@
         {
             if (ModelState.IsValid)
             {
-                var criteria = new EditBioDeviceCriteria
+                var command = new EditBioDeviceCommand
                 {
                     DeviceId = viewModel.DeviceId,
                     DisplayName = viewModel.DisplayName,
@@ -83,7 +83,7 @@
                     ModifiedBy = CurrentUser.Id
                 };
 
-                var result = await baseService.ExecuteNonQueryAsync(criteria);
+                var result = await baseService.ExecuteNonQueryAsync(command);
 
                 return Json(new
                 {
@@ -140,7 +140,7 @@
         [HttpPost]
         public async Task<IActionResult> ChangeFingerprintStatus(int employeeId, int bioUserId, FingerprintScannerStatus status)
         {
-            var criteria = new UpdateFingerprintAndCardStatusCriteria
+            var command = new UpdateFingerprintAndCardStatusCommand
             {
                 EmployeeId = employeeId,
                 BioUserId = bioUserId,
@@ -148,7 +148,7 @@
                 UpdatedBy = CurrentUser.Id
             };
 
-            var commandResult = await baseService.ExecuteNonQueryAsync(criteria);
+            var commandResult = await baseService.ExecuteNonQueryAsync(command);
 
             return Json(new { commandResult });
         }

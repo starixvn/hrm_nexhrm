@@ -4,7 +4,13 @@
 
     public class EmployeeLeaveSchedule
     {
-        public Employee Employee { get; set; }
+        public int EmpId { get; set; }
+
+        public string NickName { get; set; }
+
+        public string FullName { get; set; }
+
+        public string TeamCode { get; set; }
 
         public IList<LeaveSchedule> LeaveSchedules { get; set; }
     }

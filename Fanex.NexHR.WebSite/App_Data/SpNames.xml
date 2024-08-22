@@ -73,14 +73,8 @@
         <Setting Key="EmployeeSupervisor_Update" SpName="EmployeeSupervisor_Update" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Calendar">
-        <Setting Key="EmployeeCalendar_GetWorkingSchedule" SpName="EmployeeCalendar_GetWorkingSchedule" DbName="nexhr" Plain="0">
-            <Mapping DataField="EmpId" ObjectProperty="Id" />
-            <Mapping DataField="GroupId" ObjectProperty="Id" />
-        </Setting>
-        <Setting Key="EmployeeCalendar_GetLeaveSchedule" SpName="EmployeeCalendar_GetLeaveSchedule" DbName="nexhr" Plain="0">
-            <Mapping DataField="EmpId" ObjectProperty="Id" />
-            <Mapping DataField="GroupId" ObjectProperty="Id" />
-        </Setting>
+        <Setting Key="EmployeeCalendar_GetWorkingSchedule" SpName="EmployeeCalendar_GetWorkingSchedule" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="EmployeeCalendar_GetLeaveSchedule" SpName="EmployeeCalendar_GetLeaveSchedule" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="AnnualLeave">
       <Setting Key="AnnualLeave_GetEmpTransByMonth" SpName="AnnualLeave_GetEmpTransByMonth" DbName="nexhr" Plain="0"></Setting>
@@ -302,9 +296,7 @@
         <Setting Key="LateInEarlyOut_Update" SpName="LateInEarlyOut_Update" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="LateInEarlyOut_Delete" SpName="LateInEarlyOut_Delete" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="LateInEarlyOut_GetById" SpName="LateInEarlyOut_GetById" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="LateInEarlyOut_GetAllEmployee" SpName="LateInEarlyOut_GetAllEmployee" DbName="nexhr" Plain="0">
-            <Mapping DataField="Type" ObjectProperty="Types" />
-        </Setting>
+        <Setting Key="LateInEarlyOut_GetAllEmployee" SpName="LateInEarlyOut_GetAllEmployee" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="LateInEarlyOut_GetLateInEarlyOutOnMonth" SpName="LateInEarlyOut_GetLateInEarlyOutOnMonth" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="LateInEarlyOut_GetLateInEarlyOutDisciplineViolate" SpName="LateInEarlyOut_GetLateInEarlyOutDisciplineViolate" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="LateInEarlyOut_GetLateInEarlyOutToDeduct" SpName="LateInEarlyOut_GetLateInEarlyOutToDeduct" DbName="nexhr" Plain="0"></Setting>
@@ -346,17 +338,6 @@
       <Setting Key="RepeatType_GetAll" SpName="RepeatType_GetAll" DbName="hrm" Plain="0"></Setting>
       <Setting Key="Bio_GetPendingDevice" SpName="Bio_GetPendingDevice" DbName="hrm" Plain="0"></Setting>
       <Setting Key="Bio_GetPendingFingerprintAndCard" SpName="Bio_GetPendingFingerprintAndCard" DbName="hrm" Plain="0"></Setting>
-    </Function>
-
-    <Function Name="Employee Skype Account Management">
-        <Setting Key="Employee_GetSkypeAccount" SpName="Employee_GetSkypeAccount" DbName="nexhr" Plain="0">
-            <Mapping DataField="EmpId" ObjectProperty="Id" />
-            <Mapping DataField="GroupId" ObjectProperty="Id" />
-        </Setting>
-        <Setting Key="Employee_UpdateSkypeAccount" SpName="Employee_UpdateSkypeAccount" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Employee_GetNotMappedSkypeAccount" SpName="Employee_GetNotMappedSkypeAccount" DbName="nexhr" Plain="0">
-            <Mapping DataField="EmpId" ObjectProperty="Id" />
-        </Setting>
     </Function>
     <Function Name="Scheduled Message">
       <Setting Key="Conversation_Get" SpName="Conversation_Get" DbName="hrm" Plain="0"></Setting>

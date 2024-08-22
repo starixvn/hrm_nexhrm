@@ -3,14 +3,13 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Criteria.SkypeAccount;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.Conversation;
     using Fanex.NexHR.Models.LateInEarlyOut;
     using Fanex.NexHR.Models.Staff;
     using Fanex.NexHR.Models.TimeSheet;
     using Models.Request;
-    using Models.SkypeAccount;
     using ViewModels;
     using ViewModels.CheckInOutRequest;
 
@@ -20,13 +19,9 @@
 
         Task SendRemindCheckInCheckOutAsync(MissingCheckInOutEmployee missingCheckInOutEmployee);
 
-        Task<IList<ConversationUser>> GetSkypeAccountAsync();
-
         Task<IList<ConversationUser>> GetIgnoredSkypeAccountByMessageCategoryAsync(MessageCategory messageCategory);
 
         Task<IList<ConversationUser>> GetRegisteredConversationAsync(MessageCategory messageCategory);
-
-        Task<IEnumerable<EmployeeSkypeAccount>> GetEmployeeSkypeAccountAsync(GetEmployeeSkypeAccountCriteria criteria);
 
         Task SendRegistVegetarianMealAsync(string conversationId, int empId, int companyId, DateTime onDate, string message, string messageContent);
 

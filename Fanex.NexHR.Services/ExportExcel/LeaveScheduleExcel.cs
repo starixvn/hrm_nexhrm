@@ -79,9 +79,9 @@ namespace Fanex.NexHR.Services.ExportExcel
         {
             int colIndex = 1;
             worksheet.Cells[rowIndex, colIndex++].Value = rowNumber;
-            worksheet.Cells[rowIndex, colIndex++].Value = empSchedule.Employee.FullName;
-            worksheet.Cells[rowIndex, colIndex++].Value = empSchedule.Employee.NickName;
-            worksheet.Cells[rowIndex, colIndex++].Value = empSchedule.Employee.CodeOfTeam;
+            worksheet.Cells[rowIndex, colIndex++].Value = empSchedule.FullName;
+            worksheet.Cells[rowIndex, colIndex++].Value = empSchedule.NickName;
+            worksheet.Cells[rowIndex, colIndex++].Value = empSchedule.TeamCode;
 
             foreach (var leaveSchedule in empSchedule.LeaveSchedules)
             {

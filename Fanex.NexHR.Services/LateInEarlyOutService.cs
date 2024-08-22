@@ -1,27 +1,25 @@
 ﻿namespace Fanex.NexHR.Services
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Criteria.LateInEarlyOut;
     using Fanex.NexHR.Models.LateInEarlyOut;
-    using Fanex.NexHR.Repositories.Interfaces;
     using Interfaces;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
     using ViewModels.LateInEarlyOut;
 
     public class LateInEarlyOutService : ILateInEarlyOutService
     {
-        private readonly ILateInEarlyOutRepository lateInEarlyOutrepository;
         private readonly IBaseService baseService;
 
-        public LateInEarlyOutService(ILateInEarlyOutRepository lateInEarlyOutrepository, IBaseService baseService)
+        public LateInEarlyOutService(IBaseService baseService)
         {
-            this.lateInEarlyOutrepository = lateInEarlyOutrepository;
             this.baseService = baseService;
         }
 
         public async Task<IEnumerable<LateInEarlyOutViewModel>> GetAllByEmpId(GetLateInEarlyOutByEmpIdCriteria criteria)
         {
-            IEnumerable<LateInEarlyOutViewModel> lateInEarlyOuts = await baseService.GetDataAsync<LateInEarlyOutViewModel>(criteria);
+            var lateInEarlyOuts = await baseService.GetDataAsync<LateInEarlyOutViewModel>(criteria);
             return lateInEarlyOuts;
         }
 
@@ -31,7 +29,7 @@
             return lateInEarlyOut;
         }
 
-        public async Task<IEnumerable<LateInEarlyOutViewModel>> GetAllEmployee(GetAllEmployeeCriteria criteria)
+        public async Task<IEnumerable<LateInEarlyOutViewModel>> GetAllEmployee(GetAllLatInEarlyOutNotificationCriteria criteria)
         {
             IEnumerable<LateInEarlyOutViewModel> employeeList = await baseService.GetDataAsync<LateInEarlyOutViewModel>(criteria);
             return employeeList;
@@ -44,7 +42,16 @@
 
         public async Task<IEnumerable<LateInEarlyOutDiscipline>> GetLateInEarlyOutDiscipline(GetViolateLateInEarlyOutDisciplineCriteria criteria)
         {
-            return await lateInEarlyOutrepository.GetLateInEarlyOutDiscipline(criteria).ConfigureAwait(false);
+            var result = await baseService.FetchMultipleAsync<LateInEarlyOutDiscipline, LateInEarlyOutDisciplineDetail>(criteria);
+            var lateinEarlyOuts = result.Item1;
+            var lateInEarlyOutDetails = result.Item2;
+
+            foreach (var lateinEarlyOut in lateinEarlyOuts)
+            {
+                lateinEarlyOut.Details = lateInEarlyOutDetails.Where(e => e.EmpId == lateinEarlyOut.EmpId);
+            }
+
+            return lateinEarlyOuts;
         }
 
         public async Task<IEnumerable<LateInEarlyOutModel>> GetLateInEarlyOutDeduction(GetLateInEarlyOutDeductionCriteria criteria)

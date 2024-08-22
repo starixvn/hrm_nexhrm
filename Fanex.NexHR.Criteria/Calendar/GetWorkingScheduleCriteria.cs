@@ -15,14 +15,8 @@
         [SpParam(SqlParamName = "GroupId")]
         public int? TeamId { get; set; }
 
-        public override bool IsValid()
-        {
-            return FromDate <= ToDate;
-        }
+        public override bool IsValid() => FromDate <= ToDate;
 
-        public override string GetSettingKey()
-        {
-            return "EmployeeCalendar_GetWorkingSchedule";
-        }
+        public override string GetSettingKey() => "EmployeeCalendar_GetWorkingSchedule";
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Fanex.NexHR.Criteria.Bio
 {
-    public class EditBioDeviceCriteria : BaseCommand
+    public class EditBioDeviceCommand : BaseCommand
     {
         public int DeviceId { get; set; }
 

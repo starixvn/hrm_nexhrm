@@ -3,7 +3,7 @@
     using System;
     using Data;
 
-    public class InsertEmployeeCalendarCriteria : BaseCommand
+    public class InsertEmployeeCalendarCommand : BaseCommand
     {
         [SpParam(SqlParamName = "EmpId")]
         public int? EmployeeId { get; set; }
@@ -14,14 +14,8 @@
 
         public bool SetOffDay { get; set; }
 
-        public override string GetSettingKey()
-        {
-            return "EmployeeCalendar_Insert";
-        }
+        public override string GetSettingKey() => "EmployeeCalendar_Insert";
 
-        public override bool IsValid()
-        {
-            return FromDate <= ToDate;
-        }
+        public override bool IsValid() => FromDate <= ToDate;
     }
 }

@@ -2,7 +2,7 @@
 {
     using Core.Enums;
 
-    public class UpdateFingerprintAndCardStatusCriteria : BaseCommand
+    public class UpdateFingerprintAndCardStatusCommand : BaseCommand
     {
         public int EmployeeId { get; set; }
 

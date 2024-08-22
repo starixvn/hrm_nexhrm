@@ -18,6 +18,6 @@
 
         public IList<Team> Teams { get; set; }
 
-        public IList<WorkingSchedule> WorkingSchedules { get; set; }
+        public IEnumerable<WorkingSchedule> WorkingSchedules { get; set; }
     }
 }

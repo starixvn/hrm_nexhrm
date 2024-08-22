@@ -4,7 +4,11 @@
 
     public class WorkingSchedule
     {
-        public Employee Employee { get; set; }
+        public int EmpId { get; set; }
+
+        public string NickName { get; set; }
+
+        public string FullName { get; set; }
 
         public DateTime WorkDate { get; set; }
 
