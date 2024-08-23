@@ -1,14 +1,14 @@
 namespace Fanex.NexHR.Controllers
 {
     using System;
+    using System.Threading.Tasks;
+    using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Criteria.Promotion;
+    using Fanex.NexHR.Models;
+    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels.Promotion;
     using Microsoft.AspNetCore.Mvc;
-    using System.Threading.Tasks;
-    using Fanex.NexHR.Controllers.Attributes;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Resources;
 
     public class PromotionController : BaseController
     {
@@ -73,7 +73,7 @@ namespace Fanex.NexHR.Controllers
 
             if (model != null && ModelState.IsValid)
             {
-                var criteria = new InsertPromotionCriteria
+                var command = new InsertPromotionCommand
                 {
                     EmpId = model.EmployeeId,
                     JobGradeId = model.JobGradeId,
@@ -82,7 +82,7 @@ namespace Fanex.NexHR.Controllers
                     Note = model.Note,
                     ModifiedBy = CurrentUser.Id
                 };
-                result = await baseService.ExecuteNonQueryAsync(criteria);
+                result = await baseService.ExecuteNonQueryAsync(command);
                 if (!result.IsSuccessful)
                 {
                     ModelState.AddModelError(string.Empty, result.Message);
@@ -117,7 +117,7 @@ namespace Fanex.NexHR.Controllers
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Edit(EditPromotionViewModel model)
         {
-            var criteria = new UpdatePromotionCriteria
+            var command = new UpdatePromotionCommand
             {
                 Id = model.Id,
                 EmpId = model.EmployeeId,
@@ -128,7 +128,7 @@ namespace Fanex.NexHR.Controllers
                 ModifiedBy = CurrentUser.Id
             };
 
-            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(command);
 
             return Json(result);
         }
@@ -137,8 +137,8 @@ namespace Fanex.NexHR.Controllers
         [HttpPost]
         public async Task<CommandResult> Delete(int id)
         {
-            var deletePromotionCriteria = new DeletePromotionCriteria { Id = id, ModifiedBy = CurrentUser.Id };
-            CommandResult result = await baseService.ExecuteNonQueryAsync(deletePromotionCriteria);
+            var command = new DeletePromotionCommand { Id = id, ModifiedBy = CurrentUser.Id };
+            CommandResult result = await baseService.ExecuteNonQueryAsync(command);
 
             return result;
         }

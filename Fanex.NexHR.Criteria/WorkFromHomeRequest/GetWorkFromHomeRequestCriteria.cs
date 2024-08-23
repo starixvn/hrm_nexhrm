@@ -9,17 +9,14 @@
 
         public DateTime ToDate { get; set; }
 
+        public int? GroupId { get; set; }
+
         public int? EmpId { get; set; }
 
+        public int? StatusId { get; set; }
 
-        public override string GetSettingKey()
-        {
-            return "WorkFromHomeRequest_Get";
-        }
+        public override string GetSettingKey() => "WorkFromHomeRequest_Get";
 
-        public override bool IsValid()
-        {
-            return ToDate >= FromDate;
-        }
+        public override bool IsValid() => ToDate >= FromDate;
     }
 }

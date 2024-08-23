@@ -1,6 +1,6 @@
 ﻿@using Fanex.NexHR.Core
 @using Fanex.NexHR.Core.Enums
-@using Fanex.NexHR.Models
+@using Fanex.NexHR.Models.WorkFromHomeRequest
 @using Fanex.NexHR.Resources
 @model IList<WorkFromHomeRequest>
 
@@ -59,7 +59,7 @@ else
                     {
                         <td>-</td>
                     }
-                    @if (request.Status.ToString() == RequestStatuse.Pending.ToString())
+                    @if (request.StatusId == (int)RequestStatuse.Pending)
                     {
                         <td>
                             <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() c-pending">

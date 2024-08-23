@@ -349,8 +349,8 @@
   {
     "outputFileName": "wwwroot/minify/js/workfromhomerequest.min.js",
     "inputFiles": [
-      "wwwroot/js/Views/Request/workfromhome.request.js",
-      "wwwroot/js/Views/Request/process.workfromhomerequest.js"
+      "wwwroot/js/Views/WorkFromHomeRequest/workfromhome.request.js",
+      "wwwroot/js/Views/WorkFromHomeRequest/process.workfromhomerequest.js"
     ],
     "minify": {
       "enabled": true,
@@ -678,7 +678,7 @@
     "outputFileName": "wwwroot/minify/js/employeeworkfromhome.min.js",
     "inputFiles": [
       "wwwroot/js/Views/Employee/_employee.search.in.company.js",
-      "wwwroot/js/Views/EmployeeWorkFromHome/employee.workfromhome.js"
+      "wwwroot/js/Views/WorkFromHomeRequest/employee.workfromhome.js"
     ],
     "minify": {
       "enabled": true,

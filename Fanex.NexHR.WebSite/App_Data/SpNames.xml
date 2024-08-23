@@ -390,13 +390,14 @@
         <Setting Key="Employee_Transfer" SpName="Employee_Transfer" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Employee Work FromHome">
-        <Setting Key="EmployeeWorkFromHome_Get" SpName="EmployeeWorkFromHome_Get" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="EmployeeWorkFromHome_Insert" SpName="EmployeeWorkFromHome_Insert" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="EmployeeWorkFromHome_GetById" SpName="EmployeeWorkFromHome_GetById" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="EmployeeWorkFromHome_Update" SpName="EmployeeWorkFromHome_Update" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="EmployeeWorkFromHome_Delete" SpName="EmployeeWorkFromHome_Delete" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="EmployeeWorkFromHome_ApproveAndRejectRequest" SpName="EmployeeWorkFromHome_ApproveAndRejectRequest" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="EmployeeWorkFromHome_DisApproveRequest" SpName="EmployeeWorkFromHome_DisApproveRequest" DbName="nexhr" Plain="0"></Setting>
+      <Setting Key="WorkFromHomeRequest_ProcessRequest" SpName="WorkFromHomeRequest_ProcessRequest" DbName="nexhr" Plain="0"></Setting>
+      <Setting Key="WorkFromHomeRequest_DisApproveRequest" SpName="WorkFromHomeRequest_DisApproveRequest" DbName="nexhr" Plain="0"></Setting>
+      <Setting Key="WorkFromHomeRequest_Get" SpName="WorkFromHomeRequest_Get" DbName="nexhr" Plain="0"></Setting>
+      <Setting Key="WorkFromHomeRequest_Insert" SpName="WorkFromHomeRequest_Insert" DbName="nexhr" Plain="0"></Setting>
+      <Setting Key="WorkFromHomeRequest_GetById" SpName="WorkFromHomeRequest_GetById" DbName="nexhr" Plain="0"></Setting>
+      <Setting Key="WorkFromHomeRequest_Update" SpName="WorkFromHomeRequest_Update" DbName="nexhr" Plain="0"></Setting>
+      <Setting Key="WorkFromHomeRequest_UpdateByHR" SpName="WorkFromHomeRequest_UpdateByHR" DbName="nexhr" Plain="0"></Setting>
+      <Setting Key="WorkFromHomeRequest_Delete" SpName="WorkFromHomeRequest_Delete" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Training And Development">
         <Setting Key="TrainingAndDevelopment_Delete" SpName="TrainingAndDevelopment_Delete" DbName="hrm" Plain="0"></Setting>
@@ -407,16 +408,9 @@
         <Setting Key="TrainingAndDevelopment_Update" SpName="TrainingAndDevelopment_Update" DbName="hrm" Plain="0"></Setting>
         <Setting Key="TrainingAndDevelopmentType_Get" SpName="TrainingAndDevelopmentType_Get" DbName="hrm" Plain="0"></Setting>
     </Function>
-    <Function Name="Work From Home Request">
-        <Setting Key="WorkFromHomeRequest_Get" SpName="WorkFromHomeRequest_Get" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="WorkFromHomeRequest_Insert" SpName="WorkFromHomeRequest_Insert" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="WorkFromHomeRequest_GetById" SpName="WorkFromHomeRequest_GetById" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="WorkFromHomeRequest_Update" SpName="WorkFromHomeRequest_Update" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="WorkFromHomeRequest_Delete" SpName="WorkFromHomeRequest_Delete" DbName="nexhr" Plain="0"></Setting>
-    </Function>
     <Function Name="Job Grade">
         <Setting Key="EmployeeJobGrade_Get" SpName="EmployeeJobGrade_Get" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="JobGrade_Insert" SpName="JobGrade_Insert" DbName="hrm" Plain="0"></Setting>
+        <Setting Key="EmployeeJobGrade_Insert" SpName="EmployeeJobGrade_Insert" DbName="hrm" Plain="0"></Setting>
         <Setting Key="JobGrade_GetAll" SpName="JobGrade_GetAll" DbName="hrm" Plain="0"></Setting>
     </Function>
     <Function Name="Promotion">

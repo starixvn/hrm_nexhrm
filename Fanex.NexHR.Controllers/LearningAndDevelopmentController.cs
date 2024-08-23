@@ -1,5 +1,8 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Criteria.TrainingAndDevelopment;
     using Fanex.NexHR.Models;
@@ -7,9 +10,6 @@
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels.TrainingAndDevelopment;
     using Microsoft.AspNetCore.Mvc;
-    using System;
-    using System.Linq;
-    using System.Threading.Tasks;
 
     public class LearningAndDevelopmentController : BaseController
     {
@@ -75,7 +75,7 @@
             };
             if (model != null && ModelState.IsValid)
             {
-                var criteria = new InsertTrainingAndDevelopmentCriteria
+                var command = new InsertTrainingAndDevelopmentCommand
                 {
                     EmpId = model.EmployeeId,
                     ConductedBy = model.ConductedBy,
@@ -90,7 +90,7 @@
                     ExamDate = !model.TypeName.Equals(Certificate) ? (DateTime?)null : model.FromDate,
                     ExpirationDate = !model.TypeName.Equals(Certificate) ? (DateTime?)null : model.ToDate
                 };
-                result = await baseService.ExecuteNonQueryAsync(criteria);
+                result = await baseService.ExecuteNonQueryAsync(command);
                 if (!result.IsSuccessful)
                 {
                     ModelState.AddModelError(string.Empty, result.Message);
@@ -136,7 +136,7 @@
             };
             if (model != null && ModelState.IsValid)
             {
-                var criteria = new UpdateTrainingAndDevelopmentCriteria
+                var command = new UpdateTrainingAndDevelopmentCommand
                 {
                     Id = model.Id,
                     ConductedBy = model.ConductedBy,
@@ -151,7 +151,7 @@
                     ExamDate = !model.TypeName.Equals(Certificate) ? (DateTime?)null : model.FromDate,
                     ExpirationDate = !model.TypeName.Equals(Certificate) ? (DateTime?)null : model.ToDate
                 };
-                result = await baseService.ExecuteNonQueryAsync(criteria);
+                result = await baseService.ExecuteNonQueryAsync(command);
                 if (!result.IsSuccessful)
                 {
                     ModelState.AddModelError(string.Empty, result.Message);
@@ -164,7 +164,7 @@
         [HttpPost]
         public async Task<CommandResult> Delete(int id)
         {
-            var result = await baseService.ExecuteNonQueryAsync(new DeleteTrainingAndDevelopmentCriteria
+            var result = await baseService.ExecuteNonQueryAsync(new DeleteTrainingAndDevelopmentCommand
             {
                 Id = id,
                 DeletedBy = CurrentUser.Id

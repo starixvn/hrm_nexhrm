@@ -52,14 +52,14 @@
         [HttpPost]
         public async Task<IActionResult> Create(CreatePositionViewModel model)
         {
-            var position = new InsertPositionCriteria
+            var command = new InsertPositionCommand
             {
                 Name = model.PositionName,
                 Code = model.PositionCode,
                 DisplayOrder = model.DisplayOrder,
                 ModifiedBy = CurrentUser.Id
             };
-            CommandResult result = await baseService.ExecuteNonQueryAsync(position);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(command);
 
             return Json(result);
         }
@@ -81,7 +81,7 @@
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Edit(EditPositionViewModel model)
         {
-            var criteria = new UpdatePositionCriteria
+            var command = new UpdatePositionCommand
             {
                 PositionId = model.PositionId,
                 PositionName = model.PositionName,
@@ -91,7 +91,7 @@
                 ModifiedBy = CurrentUser.Id
             };
 
-            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(command);
 
             return Json(result);
         }
@@ -100,8 +100,8 @@
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Delete(int id)
         {
-            var deletePositionCriteria = new DeletePositionCriteria { Id = id };
-            CommandResult result = await baseService.ExecuteNonQueryAsync(deletePositionCriteria);
+            var command = new DeletePositionCommand { Id = id };
+            CommandResult result = await baseService.ExecuteNonQueryAsync(command);
 
             return Json(result);
         }

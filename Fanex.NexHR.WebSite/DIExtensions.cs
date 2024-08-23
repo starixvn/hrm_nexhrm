@@ -120,14 +120,12 @@
             services.AddSingleton<IMailEmployeeService, MailEmployeeService>();
             services.AddSingleton<ILeaveTypeService, LeaveTypeService>();
             services.AddSingleton<IToeicService, ToeicService>();
-            services.AddSingleton<IWorkFromHomeRequest, WorkFromHomeRequestService>();
             services.AddSingleton<ICalendarService, CalendarService>();
             services.AddSingleton<IOvertimeService, OvertimeService>();
             services.AddSingleton<IScheduledMessageService, ScheduledMessageService>();
             services.AddSingleton<IHolidayService, HolidayService>();
             services.AddSingleton<IAnnualLeaveService, AnnualLeaveService>();
             services.AddSingleton<IPostnatalService, PostnatalService>();
-            services.AddSingleton<IEmployeeWorkFromHomeService, EmployeeWorkFromHomeService>();
             services.AddSingleton<IDepartmentService, DepartmentService>();
             services.AddSingleton<IExtensionNoService, ExtensionNoService>();
             services.AddSingleton<IBioService, BioService>();

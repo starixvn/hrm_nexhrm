@@ -6,14 +6,8 @@
     {
         public int PositionId { get; set; }
 
-        public override bool IsValid()
-        {
-            return PositionId > 0;
-        }
+        public override bool IsValid() => PositionId > 0;
 
-        public override string GetSettingKey()
-        {
-            return "Position_GetById";
-        }
+        public override string GetSettingKey() => "Position_GetById";
     }
 }

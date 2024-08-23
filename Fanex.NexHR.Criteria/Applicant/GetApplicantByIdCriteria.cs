@@ -6,14 +6,8 @@
     {
         public int ApplicantId { get; set; }
 
-        public override bool IsValid()
-        {
-            return ApplicantId > 0;
-        }
+        public override bool IsValid() => ApplicantId > 0;
 
-        public override string GetSettingKey()
-        {
-            return "Applicant_GetById";
-        }
+        public override string GetSettingKey() => "Applicant_GetById";
     }
 }

@@ -68,7 +68,7 @@
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Update(UpdateJobGradeViewModel model)
         {
-            var criteria = new UpdateJobGradeCriteria
+            var command = new InsertEmployeeJobGradeCommnand
             {
                 EmpId = model.EmployeeId,
                 JobGradeId = model.JobGradeId,
@@ -77,7 +77,7 @@
                 ModifiedBy = CurrentUser.Id
             };
 
-            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(command);
 
             return Json(result);
         }

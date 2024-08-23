@@ -1,0 +1,129 @@
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.Models.WorkFromHomeRequest
+@model IList<WorkFromHomeRequest>
+<table id="data" class="table bordered striped highlight centered table-custom">
+    <thead>
+        <tr>
+            <th class="col-checkbox">
+                <input class="checkuncheckall filled-in" id="checkuncheckall" name="checkuncheckall" type="checkbox">
+                <label for="checkuncheckall"></label>
+            </th>
+            <th>@Labels.EnglishName</th>
+            <th>@Labels.FullName</th>
+            <th>@Labels.From</th>
+            <th>@Labels.To</th>
+            <th>@Labels.Remark</th>
+            <th>@Labels.HRRemark</th>
+            <th>@Labels.CreatedBy</th>
+            <th>@Labels.CreatedDate</th>
+            <th>@Labels.Status</th>
+            <th>@Labels.Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count > 0)
+        {
+
+            foreach (WorkFromHomeRequest request in Model)
+            {
+                var disableAction = request.CreatedById != ViewBag.EmployeeId;
+                var styleDisalbe = disableAction ? "pointer-events: none; cursor: default; opacity: .4;" : "";
+
+                var id = request.Id;
+                <tr>
+                    @if (request.StatusId == 1)
+                    {
+                        <td class="col-checkbox">
+                            <input 
+                                class="filled-in chk-request" 
+                                data-id="@id" 
+                                id="checkbox_@id" 
+                                name="checkbox_@id" 
+                                type="checkbox" 
+                            />
+                            <label for="checkbox_@id"></label>
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    <td>@request.Nickname</td>
+                    <td class="align-left">@request.Fullname</td>
+                    <td>@request.FromDate.ToDateMonthYearFormatedDate()</td>
+                    <td>@request.ToDate.ToDateMonthYearFormatedDate()</td>
+                    @if (!string.IsNullOrWhiteSpace(request.Remark))
+                    {
+                        <td class="tooltip" title="@request.Remark">
+                            <span class="mdi mdi-message-text" alt="remark"></span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(request.HRRemark))
+                    {
+                        <td class="tooltip" title="@request.HRRemark">
+                            <span class="mdi mdi-message-text" alt="HRRemark"></span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    <td>@request.CreatedBy</td>
+                    <td>@request.CreatedDate.ToFormatedDate()</td>
+                    @{
+                        switch (request.StatusId)
+                        {
+                            case 1: //Pending
+                                <td>
+                                    <a workFromHomeRequestId="@request.Id" href="javascript:;" class="@request.Status c-pending">
+                                        @request.Status
+                                    </a>
+                                </td>
+                                break;
+                            case 2: //Approve
+                                <td>
+                                    <a workFromHomeRequestId="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip c-approve"
+                                       title="@request.Status by @request.ProcessedBy (@request.ProcessedDate.ToShortFormatedDate())">
+                                        @request.Status.ToString()
+                                    </a>
+                                </td>
+                                break;
+                            case 3: //Reject
+                                <td>
+                                    <a workFromHomeRequestId="@request.Id" href="javascript:;" class="tooltip"
+                                       title="@request.Status by @request.ProcessedBy (@request.ProcessedDate.ToShortFormatedDate())">
+                                        @request.Status.ToString()
+                                    </a>
+                                </td>
+                                break;
+                        }
+                    }
+                    <td class="action-column">
+                        <a href="/WorkFromHomeRequest/HREdit?id=@request.Id">
+                            <i class='mdi mdi-border-color mdi-edit mdi-dark' style="top: 5px"></i>
+                        </a>
+                        <a style="@styleDisalbe" href="javascript:;" onclick="deleteRequest('@request.Id');">
+                            <i class='mdi mdi-delete mdi-dark'></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="11"></td>
+            </tr>
+            <tr>
+                <td colspan="11" rowspan="2">
+                    @Messages.NoInformation
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

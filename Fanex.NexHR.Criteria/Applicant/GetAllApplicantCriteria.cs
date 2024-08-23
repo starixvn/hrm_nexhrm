@@ -21,10 +21,7 @@
 
         public int TotalRow { get; set; }
 
-        public override string GetSettingKey()
-        {
-            return "Applicant_Get";
-        }
+        public override string GetSettingKey() => "Applicant_Get";
 
         public override bool IsValid() => true;
     }

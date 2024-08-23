@@ -221,7 +221,7 @@ namespace Fanex.NexHR.Controllers
             if (model != null && ModelState.IsValid)
             {
                 var cv = await UploadFileAsync(model.FileUpload);
-                var criteria = new InsertApplicantCriteria
+                var command = new InsertApplicantCommand
                 {
                     FullName = model.FullName,
                     PositionId = model.PositionId,
@@ -254,7 +254,7 @@ namespace Fanex.NexHR.Controllers
                     CreatedBy = CurrentUser.Id
                 };
 
-                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+                CommandResult result = await baseService.ExecuteNonQueryAsync(command);
 
                 if (result.IsSuccessful)
                 {
@@ -316,7 +316,7 @@ namespace Fanex.NexHR.Controllers
             if (model != null && ModelState.IsValid)
             {
                 var cv = model.FileUpload != null ? await UploadFileAsync(model.FileUpload) : model.Resume;
-                var criteria = new UpdateApplicantCriteria
+                var command = new UpdateApplicantCommand
                 {
                     Id = model.Id,
                     FullName = model.FullName,
@@ -347,7 +347,7 @@ namespace Fanex.NexHR.Controllers
                     FinalComment = string.IsNullOrWhiteSpace(model.FinalComment) ? string.Empty : cryptoService.RsaEncrypt(model.FinalComment)
                 };
 
-                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+                CommandResult result = await baseService.ExecuteNonQueryAsync(command);
 
                 if (result.IsSuccessful)
                 {
@@ -436,12 +436,12 @@ namespace Fanex.NexHR.Controllers
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> UpdateOnTop(int id)
         {
-            var criteria = new UpdateOnTopApplicantCriteria
+            var command = new UpdateOnTopApplicantCommand
             {
                 Id = id
             };
 
-            CommandResult commandResult = await baseService.ExecuteNonQueryAsync(criteria);
+            CommandResult commandResult = await baseService.ExecuteNonQueryAsync(command);
             return Json(commandResult);
         }
 
@@ -449,8 +449,8 @@ namespace Fanex.NexHR.Controllers
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Delete(int id, string fileName)
         {
-            var deleteApplicantCriteria = new DeleteApplicantCriteria { Id = id };
-            CommandResult result = await baseService.ExecuteNonQueryAsync(deleteApplicantCriteria);
+            var command = new DeleteApplicantCommand { Id = id };
+            CommandResult result = await baseService.ExecuteNonQueryAsync(command);
 
             if (result.IsSuccessful && !string.IsNullOrEmpty(fileName))
             {
