@@ -12,7 +12,7 @@ function query(isFirstLoad) {
             Status: $('#Status').val(),
             FromDate: $('#FromDate').val(),
             ToDate: $('#ToDate').val(),
-            PageNumber: $('#PageNumber').val(),
+            PageNumber: $('#PageNumber').val(), 
             PageSize: $('#PageSize').val()
         },
         beforeSend: function () {

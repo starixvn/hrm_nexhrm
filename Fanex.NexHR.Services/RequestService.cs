@@ -692,7 +692,7 @@
                         TeamName = i.TeamName,
                         FullName = i.FullNameRequester,
                         ApproverId = i.ApproverId,
-                        Avatar = string.Format("{0}/Avatars/{1}.jpg", appSetting.BaseUrl, i.Code),
+                        Avatar = string.Format("{0}/common_files/avatars/{1}.jpg", appSetting.BaseUrl, i.Code),
                         IsLeaveRequest = !IsCheckInOutRequest(i.RequestType),
                         DateDetails = GenerateDisplayDate(i.FromDate, i.ToDate, i.RequestType, i.TotalDays, i.FromShift),
                         FromDate = i.FromDate.ToDateMonthYearFormatedDate(),

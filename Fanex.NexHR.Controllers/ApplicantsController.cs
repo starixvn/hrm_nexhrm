@@ -29,7 +29,7 @@ namespace Fanex.NexHR.Controllers
         private readonly ICryptoService cryptoService;
         private readonly IPromotionService promotionService;
 
-        private const string UploadsFilePath = "file/uploads/cv";
+        private const string UploadsFilePath = "common_files/cv";
 
         public ApplicantsController(ISessionService sessionService,
             IBaseService baseService,

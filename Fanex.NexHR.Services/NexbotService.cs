@@ -159,7 +159,7 @@
                         Remark = request.Remark,
                         IsReadOnly = employeeSupervisor.IsReadOnly,
                         CallBackUrl = $"{appSetting.BaseUrl}/api",
-                        AvatarUrl = $"{appSetting.BaseUrl}/Avatars/{employeeSupervisor.Code}.jpg"
+                        AvatarUrl = $"{appSetting.BaseUrl}/common_files/avatars/{employeeSupervisor.Code}.jpg"
                     };
 
                     await SendApproveMessageAsync(requestMessage);
@@ -287,7 +287,7 @@
                         Time = request.Hour.ToString().PadLeft(2, '0') + ":" + request.Minute.ToString().PadLeft(2, '0'),
                         RequestType = requestType,
                         CallBackUrl = $"{appSetting.BaseUrl}/api",
-                        AvatarUrl = $"{appSetting.BaseUrl}/Avatars/{employeeSupervisor.Code}.jpg"
+                        AvatarUrl = $"{appSetting.BaseUrl}/common_files/avatars/{employeeSupervisor.Code}.jpg"
                     };
 
                     await SendApproveMessageAsync(requestMessage);

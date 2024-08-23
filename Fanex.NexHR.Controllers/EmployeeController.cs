@@ -420,7 +420,7 @@
         [AllowAnonymous]
         public FileResult Avatar(string id)
         {
-            string fileName = "/avatars/avatar.jpg";
+            string fileName = "/common_files/avatars/avatar.jpg";
             string userId = id;
 
             if (string.IsNullOrWhiteSpace(userId))
@@ -432,12 +432,12 @@
                 userId += ".jpg";
             }
 
-            var paths = new[] { environment.WebRootPath, "avatars/", userId };
+            var paths = new[] { environment.WebRootPath, "common_files", "avatars/", userId };
             var avaPath = Path.Combine(paths);
 
             if (System.IO.File.Exists(avaPath))
             {
-                fileName = "/avatars/" + userId;
+                fileName = "/common_files/avatars/" + userId;
             }
 
             return File(fileName, "image/jpeg");
@@ -450,7 +450,7 @@
             if (file != null)
             {
                 string FileName = code + ".jpg";
-                var paths = new[] { environment.WebRootPath, "avatars/", FileName };
+                var paths = new[] { environment.WebRootPath, "common_files", "avatars", FileName };
                 var fullPath = Path.Combine(paths);
 
                 var stream = new FileStream(fullPath, FileMode.Create);

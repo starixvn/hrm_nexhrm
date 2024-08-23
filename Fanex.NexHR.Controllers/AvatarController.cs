@@ -28,12 +28,12 @@
         {
             var fileName = string.IsNullOrWhiteSpace(id) ? "avatar.jpg" : (id);
 
-            var paths = new[] { environment.WebRootPath, "avatars", fileName };
+            var paths = new[] { environment.WebRootPath, "common_files", "avatars", fileName };
             var avaPath = Path.Combine(paths);
 
             if (System.IO.File.Exists(avaPath))
             {
-                fileName = "/avatars/" + fileName;
+                fileName = "/common_files/avatars/" + fileName;
             }
 
             return File(fileName, "image/jpeg");
@@ -43,7 +43,7 @@
         [Route("avatar/{imgNickName}")]
         public async Task<FileResult> GetAvatar(string imgNickName)
         {
-            string fileName = "/avatars/avatar.jpg";
+            string fileName = "/common_files/avatars/avatar.jpg";
             if (!string.IsNullOrWhiteSpace(imgNickName))
             {
                 var index = imgNickName.LastIndexOf('.');
@@ -52,11 +52,11 @@
                 var employee = await employeeService.GetEmployeeByDomainName(new GetEmployeeByDomainNameCriteria { DomainUserName = domainName });
                 if (employee is not null)
                 {
-                    var paths = new[] { environment.WebRootPath, "avatars", employee.Code + ".jpg" };
+                    var paths = new[] { environment.WebRootPath, "common_files", "avatars", employee.Code + ".jpg" };
                     var avaPath = Path.Combine(paths);
                     if (System.IO.File.Exists(avaPath))
                     {
-                        fileName = $"/avatars/{employee.Code}.jpg";
+                        fileName = $"/common_files/avatars/{employee.Code}.jpg";
                     }
                 }
             }
