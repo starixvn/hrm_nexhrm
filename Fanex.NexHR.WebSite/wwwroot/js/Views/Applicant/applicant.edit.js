@@ -2,7 +2,6 @@
 
 $(document).ready(function () {
     initAutocomplete('#Recruiter', '#RecruiterId', null);
-
     $('.select-2').select2({ closeOnSelect: false });
 
     $('.resume-container a').on('click', function (e) {

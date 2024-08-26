@@ -14,13 +14,11 @@
         public string ScheduledMessageUserGuide { get; set; }
         public string HRMName { get; set; }
         public string BaseUrl { get; set; }
-
         public string FBUrl { get; set; }
-
         public int FBCompanyId { get; set; }
-
         public string RSAPublicKeyPath { get; set; }
         public string RSAPrivateKeyPath { get; set; }
         public bool EnableEncrypt { get; set; }
+        public string NLogConfigFilePath { get; set; } = "NLog.config";
     }
 }
