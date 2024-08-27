@@ -223,23 +223,5 @@
                 return entityList.ToList();
             }
         }
-
-        public async Task<IList<YearlyNexRequest>> GetYearlyNexRequest(ICriteria criteria)
-        {
-            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
-            {
-                var yearlyNexRequest = await db.QueryAsync<YearlyNexRequest, Employee, Team, YearlyNexRequest>(
-                     (yearly, employee, team) =>
-                     {
-                         employee.Team = team;
-                         yearly.Employee = employee;
-                         return yearly;
-                     },
-                     "EmpId, GroupId",
-                     criteria);
-
-                return yearlyNexRequest.ToList();
-            }
-        }
     }
 }

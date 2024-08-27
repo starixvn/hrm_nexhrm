@@ -12,13 +12,23 @@
 
         public int Status { get; set; }
 
-        public Employee CreatedBy { get; set; }
+        public int CreatedById { get; set; }
+
+        public string CreatedByNickName { get; set; }
+
+        public string CreatedByFullName { get; set; }
+
+        public string CreatedByDisplayName 
+        {
+            get 
+            { 
+                return CreatedByNickName + " (" + CreatedByFullName + ")";
+            }
+        } 
 
         public DateTime CreatedDate { get; set; }
 
-        public Employee ModifiedBy { get; set; }
-
-        public int TotalMember => OvertimeRecords.Count;
+        public int TotalMember => OvertimeRecords.Count();
 
         public float Totalhours
         {
@@ -28,7 +38,7 @@
             }
         }
 
-        public IList<OvertimeRecord> OvertimeRecords { get; set; }
+        public IEnumerable<OvertimeRecord> OvertimeRecords { get; set; }
 
         public bool Own { get; set; }
     }

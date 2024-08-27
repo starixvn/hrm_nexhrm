@@ -6,14 +6,8 @@
     {        
         public int Id { get; set; }
 
-        public override string GetSettingKey()
-        {
-            return "Overtime_GetById";
-        }
+        public override string GetSettingKey() => "Overtime_GetById";
 
-        public override bool IsValid()
-        {
-            return Id > 0;
-        }
+        public override bool IsValid() => Id > 0;
     }
 }

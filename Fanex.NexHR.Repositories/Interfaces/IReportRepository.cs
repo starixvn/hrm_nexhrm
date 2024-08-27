@@ -21,7 +21,5 @@
         Task<IList<LateInEarlyOutDiscipline>> GetLateInEarlyOutSummary(ICriteria criteria);
 
         Task<IList<WorkingHoursStatistic>> GetWorkingHoursStatistic(ICriteria criteria);
-
-        Task<IList<YearlyNexRequest>> GetYearlyNexRequest(ICriteria criteria);
     }
 }

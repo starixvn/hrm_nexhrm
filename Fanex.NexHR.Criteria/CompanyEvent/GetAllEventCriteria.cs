@@ -9,14 +9,8 @@
 
         public DateTime ToDate { get; set; }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
 
-        public override string GetSettingKey()
-        {
-            return "CompanyEvent_GetAll";
-        }
+        public override string GetSettingKey() => "CompanyEvent_GetAll";
     }
 }

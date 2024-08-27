@@ -13,14 +13,8 @@
 
         public DateTime ToDate { get; set; }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
 
-        public override string GetSettingKey()
-        {
-            return "EmployeePostnatal_GetById";
-        }
+        public override string GetSettingKey() => "EmployeePostnatal_GetById";
     }
 }

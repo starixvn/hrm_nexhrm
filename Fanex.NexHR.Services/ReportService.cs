@@ -113,16 +113,5 @@
             IEnumerable<HeadCount> headCount = await baseService.GetDataAsync<HeadCount>(criteria);
             return headCount;
         }
-
-        public async Task<IList<YearlyNexRequest>> GetYearlyNexRequest(GetYearlyNexRequestCriteria criteria)
-        {
-            IList<YearlyNexRequest> listYearlyNexRequest = new List<YearlyNexRequest>();
-            if (criteria != null && criteria.IsValid())
-            {
-                listYearlyNexRequest = await reportRepository.GetYearlyNexRequest(criteria);
-            }
-
-            return listYearlyNexRequest.ToList();
-        }
     }
 }

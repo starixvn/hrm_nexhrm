@@ -13,7 +13,7 @@
         <tr>
             <td>@(index++)</td>
             <td class="align-left">@item.Description</td>
-            <td class="align-left">@item.CreatedBy.DisplayName</td>
+            <td class="align-left">@item.CreatedByDisplayName</td>
             <td>@item.CreatedDate.ToDateMonthYearFormatedDate()</td>
             <td>
                 <span class="contextmenu">
@@ -23,7 +23,7 @@
                         {
                             <li>
                                 <span class='mdi-navigation-chevron-right'></span>
-                                <span>(@detail.Date.ToDateMonthYearFormatedDate()) @detail.Employee.NickName: @detail.Hour</span>
+                                <span>(@detail.Date.ToDateMonthYearFormatedDate()) @detail.NickName: @detail.Hour</span>
                             </li>
                         }
                     </ul>

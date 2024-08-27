@@ -7,6 +7,7 @@
     using Core.Enums;
     using Criteria.AnnualLeave;
     using Criteria.Employee;
+    using Fanex.Data.Repository;
     using Fanex.NexHR.Controllers.Attributes;
     using Microsoft.AspNetCore.Mvc;
     using Models;
@@ -17,7 +18,6 @@
 
     public class AnnualLeaveController : BaseController
     {
-        private readonly IAnnualLeaveService annualLeaveService;
         private readonly IBaseService baseService;
         private readonly IEmployeeService employeeService;
         private readonly ITeamService teamService;
@@ -26,12 +26,10 @@
             ISessionService sessionService,
             IEmployeeService employeeService,
             ITeamService teamService,
-            IAnnualLeaveService annualLeaveService,
             IBaseService baseService) : base(sessionService)
         {
             this.employeeService = employeeService;
             this.teamService = teamService;
-            this.annualLeaveService = annualLeaveService;
             this.baseService = baseService;
         }
 
@@ -234,7 +232,7 @@
             {
                 LeaveTransactionId = leaveTransactionId
             };
-            var leaveTransaction = await annualLeaveService.GetAnnualLeaveTransactionById(criteria);
+            var leaveTransaction = await baseService.GetDataEntityAsync<AnnualLeaveTransaction>(criteria);
 
             var model = new EditAnnualLeaveTransactionViewModel
             {
@@ -427,7 +425,7 @@
                     ExcludedRequestTransactions = !model.IncludeRequestTrans
                 };
 
-                leaveTransactions = await annualLeaveService.GetAnnualLeaveTransactions(criteria);
+                leaveTransactions = await baseService.GetDataAsync<AnnualLeaveTransaction>(criteria);
             }
 
             return PartialView("_Employee", leaveTransactions);
@@ -459,7 +457,7 @@
                     Year = model.Year,
                     MinAnnualBalance = model.MinAnnualBalance
                 };
-                leaveSummary = await annualLeaveService.GetAnnualLeaveBalance(criteria);
+                leaveSummary = await baseService.GetDataAsync<LeaveSummary>(criteria);
 
                 ViewBag.Year = model.Year;
             }
@@ -482,7 +480,7 @@
                     ConversionType = (int)LeaveConversionType.LateInEarlyOutDeduction
                 };
 
-                leaveDeductions = await annualLeaveService.GetLeaveConversionDetail(criteria);
+                leaveDeductions = await baseService.GetDataAsync<LeaveConversionDetail>(criteria);
             }
 
             return Json(new { data = leaveDeductions });
@@ -531,14 +529,14 @@
         [HttpPost]
         public async Task<JsonResult> ResetAnnualLeaves(int minbalance, string descriptionReset)
         {
-            var getAnnualLeaveCriteria = new GetAnnualLeaveSummaryCriteria
+            var criteria = new GetAnnualLeaveSummaryCriteria
             {
                 EmployeeId = null,
                 GroupId = null,
                 Year = ShowOpenAndCloseAnnualBalance.FromDate.Year
             };
 
-            var leaveSummaries = await annualLeaveService.GetAnnualLeaveBalance(getAnnualLeaveCriteria);
+            var leaveSummaries = await baseService.GetDataAsync<LeaveSummary>(criteria);
             var leaveSummariesFilter = leaveSummaries.Where(m => m.LeaveBalance > minbalance).ToList();
 
             var resetAnnualLeaves = new ResetAnnualLeavesCommand
@@ -587,7 +585,7 @@
                 CloseDate = new DateTimeOffset(ShowOpenAndCloseAnnualBalance.FromDate.Year, 12, 31, 0, 0, 0, TimeSpan.Zero).DateTime,
             };
 
-            ShowOpenAndCloseAnnualBalance model = await annualLeaveService.GetOpenAndCloseAnnualBalance(criteria);
+            var model = await baseService.GetDataEntityAsync<ShowOpenAndCloseAnnualBalance>(criteria);
 
             return model;
         }

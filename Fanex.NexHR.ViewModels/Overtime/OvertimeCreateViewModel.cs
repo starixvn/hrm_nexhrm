@@ -34,7 +34,7 @@
         [Required(ErrorMessageResourceName = "RequiredEmployee", ErrorMessageResourceType = typeof(Messages))]
         public string TimeSheetData { get; set; }
 
-        public IList<OvertimeRecord> TimeSheets { get; set; }
+        public IEnumerable<OvertimeRecord> TimeSheets { get; set; }
 
     }
 }

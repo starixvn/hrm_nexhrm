@@ -124,14 +124,12 @@
             services.AddSingleton<IOvertimeService, OvertimeService>();
             services.AddSingleton<IScheduledMessageService, ScheduledMessageService>();
             services.AddSingleton<IHolidayService, HolidayService>();
-            services.AddSingleton<IAnnualLeaveService, AnnualLeaveService>();
             services.AddSingleton<IPostnatalService, PostnatalService>();
             services.AddSingleton<IDepartmentService, DepartmentService>();
             services.AddSingleton<IExtensionNoService, ExtensionNoService>();
             services.AddSingleton<IBioService, BioService>();
             services.AddSingleton<ILookupDataService, LookupDataService>();
             services.AddSingleton<IMemoService, MemoService>();
-            services.AddSingleton<ICompanyEventService, CompanyEventService>();
             services.AddSingleton<IApplicantService, ApplicantService>();
             services.AddSingleton<IHistoryService, HistoryService>();
             services.AddSingleton<IPositionService, PositionService>();
@@ -156,7 +154,6 @@
             services.AddSingleton<IEmployeeRepository, EmployeeRepository>();
             services.AddSingleton<IRequestRepository, RequestRepository>();
             services.AddSingleton<IReportRepository, ReportRepository>();
-            services.AddSingleton<IOvertimeRepository, OvertimeRepository>();
         }
     }
 }

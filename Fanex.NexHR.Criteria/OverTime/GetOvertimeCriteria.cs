@@ -13,14 +13,8 @@
 
         public int Status { get; set; }
 
-        public override string GetSettingKey()
-        {
-            return "Overtime_ReportSummary";
-        }
+        public override string GetSettingKey() => "Overtime_ReportSummary";
 
-        public override bool IsValid()
-        {
-            return FromDate <= ToDate;
-        }
+        public override bool IsValid() => FromDate <= ToDate;
     }
 }

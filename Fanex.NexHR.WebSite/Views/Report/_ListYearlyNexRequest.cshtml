@@ -32,24 +32,24 @@
         {
             int index = 1;
             var nexType = "";
-            IList<YearlyNexRequest> yearlyNexRequestByTeams = Model.GroupBy(t => t.Employee.Team.Id).Select(grp => grp.First()).ToList();
+            var yearlyNexRequestByTeams = Model.GroupBy(t => t.TeamId).Select(grp => grp.First());
             foreach (YearlyNexRequest yearlyNexRequestByTeam in yearlyNexRequestByTeams)
             {
                 <tr class="row-divider">
                     <td colspan="16">
-                        <b>@yearlyNexRequestByTeam.Employee.Team.Name.ToUpper()</b>
+                        <b>@yearlyNexRequestByTeam.TeamName.ToUpper()</b>
                     </td>
                 </tr>
 
-                IList<YearlyNexRequest> yearlyNexRequests = Model.Where(t => t.Employee.Team.Id == yearlyNexRequestByTeam.Employee.Team.Id).ToList();
-                IList<YearlyNexRequest> yearlyNexRequestByEmployeeIds = yearlyNexRequests.GroupBy(t => t.Employee.Id).Select(grp => grp.First()).ToList();
+                var yearlyNexRequests = Model.Where(t => t.TeamId == yearlyNexRequestByTeam.TeamId);
+                var yearlyNexRequestByEmployeeIds = yearlyNexRequests.GroupBy(t => t.EmployeeId).Select(grp => grp.First());
                 foreach (YearlyNexRequest yearlyNexRequestByEmployeeId in yearlyNexRequestByEmployeeIds)
                 {
-                    IList<YearlyNexRequest> numberRequestOfPerson = Model.Where(t => t.Employee.Id == yearlyNexRequestByEmployeeId.Employee.Id).ToList();
-                    int requestCount = numberRequestOfPerson.Count;
+                    var numberRequestOfPerson = Model.Where(t => t.EmployeeId == yearlyNexRequestByEmployeeId.EmployeeId);
+                    int requestCount = numberRequestOfPerson.Count();
                     <tr>
                         <td rowspan="@requestCount">@(index++)</td>
-                        <td class="tooltip align-left" rowspan="@requestCount" title="@yearlyNexRequestByEmployeeId.Employee.FullName">@yearlyNexRequestByEmployeeId.Employee.NickName</td>
+                        <td class="tooltip align-left" rowspan="@requestCount" title="@yearlyNexRequestByEmployeeId.FullName">@yearlyNexRequestByEmployeeId.NickName</td>
                         @foreach (YearlyNexRequest yearlyNexRequest in numberRequestOfPerson)
                         {
                             if (yearlyNexRequest.IsHoliday == 1) { nexType = "isHoliday"; }
@@ -82,7 +82,7 @@
                                 }
                             }
                             var url = "";
-                            var fisrtUrl = "/overtime/OvertimeNexDetail?employeeId=" + yearlyNexRequest.Employee.Id + "&fromDate=";
+                            var fisrtUrl = "/overtime/OvertimeNexDetail?employeeId=" + yearlyNexRequest.EmployeeId + "&fromDate=";
 
                             if (yearlyNexRequest.Jan > 0)
                             {

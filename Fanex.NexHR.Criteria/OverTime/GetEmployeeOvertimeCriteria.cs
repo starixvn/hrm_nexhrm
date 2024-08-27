@@ -11,14 +11,8 @@
 
         public DateTime ToDate { get; set; }
 
-        public override string GetSettingKey()
-        {
-            return "Overtime_MyReport";
-        }
+        public override string GetSettingKey() => "Overtime_MyReport";
 
-        public override bool IsValid()
-        {
-            return EmployeeId > 0 && FromDate <= ToDate;
-        }
+        public override bool IsValid() => EmployeeId > 0 && FromDate <= ToDate;
     }
 }

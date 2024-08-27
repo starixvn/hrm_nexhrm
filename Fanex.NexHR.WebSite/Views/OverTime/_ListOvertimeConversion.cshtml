@@ -17,10 +17,10 @@
     {
         <tr>
             <td>@(index++)</td>
-            <td class="align-left">@item.Employee.FullName</td>
-            <td>@item.Employee.NickName</td>
-            <td class="tooltip" title="@item.Employee.Team.Name">
-                @item.Employee.Team.Code
+            <td class="align-left">@item.FullName</td>
+            <td>@item.NickName</td>
+            <td class="tooltip" title="@item.TeamName">
+                @item.TeamCode
             </td>
             <td class="deductdate">@item.DeductDate.ToDateMonthYearFormatedDate()</td>
             <td>@item.Deduct</td>

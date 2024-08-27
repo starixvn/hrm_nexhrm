@@ -1,7 +1,6 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Criteria.CompanyEvent;
     using Fanex.NexHR.Controllers.Attributes;
@@ -14,15 +13,12 @@
     public class CompanyEventController : BaseController
     {
         private readonly IBaseService baseService;
-        private readonly ICompanyEventService eventService;
 
         public CompanyEventController(
             ISessionService sessionService,
-            IBaseService baseService,
-            ICompanyEventService eventService) : base(sessionService)
+            IBaseService baseService) : base(sessionService)
         {
             this.baseService = baseService;
-            this.eventService = eventService;
         }
 
         public IActionResult Index()
@@ -46,7 +42,8 @@
                 FromDate = firstDay,
                 ToDate = lastDay
             };
-            IEnumerable<CompanyEvent> events = await eventService.GetAll(criteria);
+            var events = await baseService.GetDataAsync<CompanyEvent>(criteria);
+            
             return Json(events);
         }
 
@@ -66,7 +63,7 @@
         {
             if (model != null && ModelState.IsValid)
             {
-                var criteria = new InsertEventCriteria
+                var command = new InsertEventCommand
                 {
                     Title = model.Title,
                     FromDate = model.FromDate,
@@ -78,7 +75,7 @@
                     CreatedBy = CurrentUser.Id
                 };
 
-                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+                CommandResult result = await baseService.ExecuteNonQueryAsync(command);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Insert = true;
@@ -104,7 +101,7 @@
         {
             if (model != null && ModelState.IsValid)
             {
-                var criteria = new UpdateEventCriteria
+                var command = new UpdateEventCommand
                 {
                     Id = model.Id,
                     Title = model.Title,
@@ -115,7 +112,7 @@
                     Location = model.Location,
                     Description = model.Description ?? string.Empty
                 };
-                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+                CommandResult result = await baseService.ExecuteNonQueryAsync(command);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Updated = true;
@@ -135,8 +132,8 @@
             var result = new CommandResult();
             if (id > 0)
             {
-                var criteria = new DeleteEventCriteria { Id = id };
-                result = await baseService.ExecuteNonQueryAsync(criteria);
+                var command = new DeleteEventCommand { Id = id };
+                result = await baseService.ExecuteNonQueryAsync(command);
             }
             else
             {
@@ -153,7 +150,7 @@
             if (id > 0)
             {
                 var criteria = new GetEventByIdCriteria { Id = id };
-                model = await eventService.GetById(criteria);
+                model = await baseService.GetDataEntityAsync<CompanyEvent>(criteria);
             }
 
             return model;

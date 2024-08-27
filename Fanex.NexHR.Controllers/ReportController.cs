@@ -754,7 +754,7 @@
             };
 
             ViewBag.Year = year;
-            IList<YearlyNexRequest> yearlyNexRequests = await reportService.GetYearlyNexRequest(criteria);
+            var yearlyNexRequests = await baseService.GetDataAsync<YearlyNexRequest>(criteria);
 
             return PartialView("_ListYearlyNexRequest", yearlyNexRequests);
         }

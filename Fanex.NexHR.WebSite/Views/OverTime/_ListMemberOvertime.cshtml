@@ -13,7 +13,7 @@
     {
         <tr>
             <td>@(index++)</td>
-            <td class="align-left">@item.CreatedBy.DisplayName</td>
+            <td class="align-left">@item.CreatedByDisplayName</td>
             <td>@item.CreatedDate.ToDateMonthYearFormatedDate()</td>
             <td>
                 <span class='contextmenu'>
@@ -23,7 +23,7 @@
                         {
                             <li>
                                 <span class='mdi-navigation-chevron-right'></span>
-                                <span>(@detail.Date.ToDateMonthYearFormatedDate()) @detail.Employee.NickName: @detail.Hour</span>
+                                <span>(@detail.Date.ToDateMonthYearFormatedDate()) @detail.NickName: @detail.Hour</span>
                             </li>
                         }
 
@@ -32,7 +32,7 @@
             </td>
             <td>
                 <a href="javascript:;"
-                   onclick="loadDetailTotalMembers(false, @item.CreatedBy.Id, @item.Status ,@item.Id)">
+                   onclick="loadDetailTotalMembers(false, @item.CreatedById, @item.Status ,@item.Id)">
                     @item.TotalMember.ToString()
                 </a>
             </td>
@@ -61,7 +61,7 @@
                 if (item.Status == (int)RequestStatuse.Pending)
                 {
                     <td>
-                        <a requestid="@item.Id" createdBy="@item.CreatedBy.Id" href="javascript:;" class="@RequestStatuse.Pending.ToString() c-pending">
+                        <a requestid="@item.Id" createdBy="@item.CreatedById" href="javascript:;" class="@RequestStatuse.Pending.ToString() c-pending">
                             @Labels.Pending<i class="mdi-navigation-arrow-drop-down"></i>
                         </a>
                     </td>

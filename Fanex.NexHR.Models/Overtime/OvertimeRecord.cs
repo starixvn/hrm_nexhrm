@@ -11,9 +11,12 @@
         }
 
         public int OvertimeId { get; set; }
-        public int RecordEmployeeId { get; set; }
 
-        public Employee Employee { get; set; }
+        public int EmployeeId { get; set; }
+
+        public string NickName { get; set; }
+
+        public string FullName { get; set; }
 
         public DateTime Date { get; set; }
         

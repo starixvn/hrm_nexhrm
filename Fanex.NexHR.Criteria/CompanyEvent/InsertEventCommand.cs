@@ -2,10 +2,8 @@
 {
     using System;
 
-    public class UpdateEventCriteria : BaseCommand
+    public class InsertEventCommand : BaseCommand
     {
-        public int Id { get; set; }
-
         public string Title { get; set; }
 
         public DateTime FromDate { get; set; }
@@ -20,14 +18,10 @@
 
         public string Description { get; set; }
 
-        public override bool IsValid()
-        {
-            return Id > 0;
-        }
+        public int CreatedBy { get; set; }
 
-        public override string GetSettingKey()
-        {
-            return "CompanyEvent_Update";
-        }
+        public override bool IsValid() => !string.IsNullOrWhiteSpace(Title) && ToDate >= FromDate;
+
+        public override string GetSettingKey() => "CompanyEvent_Insert";
     }
 }

@@ -14,14 +14,8 @@
 
         public int Year { get; set; }
 
-        public override string GetSettingKey()
-        {
-            return "Overtime_GetSummary";
-        }
+        public override string GetSettingKey() => "Overtime_GetSummary";
 
-        public override bool IsValid()
-        {
-            return Year >= year;
-        }
+        public override bool IsValid() => Year >= year;
     }
 }

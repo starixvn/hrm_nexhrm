@@ -16,12 +16,10 @@
     using Models;
     using Models.Overtime;
     using OfficeOpenXml;
-    using Repositories.Interfaces;
     using ViewModels.Overtime;
 
     public class OvertimeService : IOvertimeService
     {
-        private readonly IOvertimeRepository overtimeRepository;
         private readonly IEmailService emailService;
         private readonly IWebHostEnvironment environment;
         private readonly IBaseService baseService;
@@ -38,14 +36,13 @@
         private const string FileXLSX = ".xlsx";
         private const string FileXLS = ".xls";
 
-        public OvertimeService(IOvertimeRepository overtimeRepository,
+        public OvertimeService(
             IEmailService emailService,
             IWebHostEnvironment environment,
             IBaseService baseService,
             EmailSettings emailSettings,
             AppSetting appSetting)
         {
-            this.overtimeRepository = overtimeRepository;
             this.emailService = emailService;
             this.environment = environment;
             this.baseService = baseService;
@@ -54,70 +51,26 @@
             CompanyMailSign = emailSettings.CompanyMailSign;
         }
 
-        public async Task<IList<Overtime>> GetOvertime(GetOvertimeCriteria criteria)
+        public async Task<IEnumerable<Overtime>> GetOvertime(GetOvertimeCriteria criteria)
         {
-            IList<Overtime> overtimes = null;
-            if (criteria != null && criteria.IsValid())
+            var result = await baseService.FetchMultipleAsync<Overtime, OvertimeRecord>(criteria);
+            var overtimes = result.Item1;
+            var overtimeRecords = result.Item2;
+            foreach (var overtime in overtimes)
             {
-                overtimes = await overtimeRepository.GetOvertime(criteria);
+                overtime.OvertimeRecords = overtimeRecords.Where(t => t.OvertimeId == overtime.Id).ToList();
             }
 
-            return overtimes ?? new List<Overtime>();
+            return overtimes;
         }
 
         public async Task<Overtime> GetOvertimeById(GetOvertimeByIdCriteria criteria)
         {
-            Overtime overtime = null;
-            if (criteria != null && criteria.IsValid())
-            {
-                overtime = await overtimeRepository.GetOvertimeById(criteria);
-            }
+            var result = await baseService.FetchMultipleAsync<Overtime, OvertimeRecord>(criteria);
+            var overtime = result.Item1.FirstOrDefault();
+            overtime.OvertimeRecords = result.Item2;
 
             return overtime;
-        }
-
-        public async Task<IList<EmployeeOvertime>> GetEmployeeOvertime(GetEmployeeOvertimeCriteria criteria)
-        {
-            var overtimes = await baseService.GetDataAsync<EmployeeOvertime>(criteria);
-            return overtimes.ToList();
-        }
-
-        public async Task<IList<EmployeeOvertime>> GetMyOvertime(GetMyOvertimeCriteria criteria)
-        {
-            var overtimes = await baseService.GetDataAsync<EmployeeOvertime>(criteria);
-            return overtimes.ToList();
-        }
-
-        public async Task<IList<OvertimeSummary>> GetOvertimeSummary(OvertimeSummaryCriteria criteria)
-        {
-            IList<OvertimeSummary> listSummary = new List<OvertimeSummary>();
-            if (criteria != null && criteria.IsValid())
-            {
-                listSummary = await overtimeRepository.GetOvertimeSummary(criteria);
-            }
-
-            return listSummary.ToList();
-        }
-
-        public async Task<IList<OvertimeConversion>> GetConversions(GetOvertimeConversionsCriteria criteria)
-        {
-            IList<OvertimeConversion> conversions = null;
-            if (criteria != null && criteria.IsValid())
-            {
-                conversions = await overtimeRepository.GetConversions(criteria);
-            }
-
-            return conversions ?? new List<OvertimeConversion>();
-        }
-
-        public async Task<NexHour> GetNexHour(GetNexHourCriteria criteria)
-        {
-            return await baseService.GetDataEntityAsync<NexHour>(criteria);
-        }
-
-        public async Task<IEnumerable<StaffInfoNexHour>> GetListStaffInfoNexHourAsync(GetListStaffInfoNexHourCriteria criteria)
-        {
-            return await baseService.GetDataAsync<StaffInfoNexHour>(criteria);
         }
 
         public async Task<ValueTuple<IEnumerable<OvertimeExcelDataViewModel>, IList<int>>> GetEmployeesFromFileExcel(IFormFile file)
@@ -182,26 +135,17 @@
             (Path.GetExtension(file.FileName).Equals(FileXLSX, StringComparison.OrdinalIgnoreCase) ||
              Path.GetExtension(file.FileName).Equals(FileXLS, StringComparison.OrdinalIgnoreCase));
 
-        public async Task<IList<Overtime>> GetReportOvertimeHR(ReportOvertimeHRCriteria criteria)
+        public async Task<IEnumerable<Overtime>> GetReportOvertimeHR(ReportOvertimeHRCriteria criteria)
         {
-            IList<Overtime> overtimes = null;
-            if (criteria != null && criteria.IsValid())
+            var result = await baseService.FetchMultipleAsync<Overtime, OvertimeRecord>(criteria);
+            var overtimes = result.Item1;
+            var overtimeRecords = result.Item2;
+            foreach (var overtime in overtimes)
             {
-                overtimes = await overtimeRepository.GetOvertime(criteria);
+                overtime.OvertimeRecords = overtimeRecords.Where(t => t.OvertimeId == overtime.Id).ToList();
             }
 
-            return overtimes ?? new List<Overtime>();
-        }
-
-        public async Task<IEnumerable<ReportOvertimeHRDetail>> GetReportOvertimeHRDetail(ReportOvertimeHRDetailCriteria criteria)
-        {
-            IEnumerable<ReportOvertimeHRDetail> report = null;
-            if (criteria != null && criteria.IsValid())
-            {
-                report = await baseService.GetDataAsync<ReportOvertimeHRDetail>(criteria);
-            }
-
-            return report ?? new List<ReportOvertimeHRDetail>();
+            return overtimes;
         }
 
         public async Task SendMailForTransferNexBalance(string subject, OvertimeConversionCreateViewModel model)
@@ -243,8 +187,8 @@
                                                model.TimeSheets.Select(t =>
                                                                 string.Format(
                                                                     Constants.ContentEmployeeOvertime,
-                                                                    t.Employee.NickName,
-                                                                    t.Employee.FullName,
+                                                                    t.NickName,
+                                                                    t.FullName,
                                                                     t.Date.ToString(FormatDate),
                                                                     t.Hour)));
                 if (managers.Any())
@@ -281,14 +225,14 @@
             {
                 Id = overtimeId
             };
-            var overtime = await overtimeRepository.GetOvertimeById(criteria);
+            var overtime = await GetOvertimeById(criteria);
             var emloyees = string.Join(
                                                Constants.BrTag,
                                                overtime.OvertimeRecords.Select(t =>
                                                                 string.Format(
                                                                     Constants.ContentEmployeeOvertime,
-                                                                    t.Employee.NickName,
-                                                                    t.Employee.FullName,
+                                                                    t.NickName,
+                                                                    t.FullName,
                                                                     t.Date.ToString(FormatDate),
                                                                     t.Hour)));
             _ = SendMailForCreatedRequest(subject, createdBy, manager.NickName, bodyTemplate, emloyees, overtime.Description);
@@ -356,7 +300,7 @@
             {
                 var employee = await baseService.GetDataEntityAsync<Employee>(new GetEmployeeByIdCriteria
                 {
-                    EmployeeId = item.Employee.Id
+                    EmployeeId = item.EmployeeId
                 });
 
                 var body = string.Format(

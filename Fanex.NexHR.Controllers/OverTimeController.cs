@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
     using Criteria.Employee;
     using Criteria.Overtime;
+    using Fanex.Data.Repository;
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
@@ -77,7 +78,7 @@
         [HttpPost]
         public async Task<IActionResult> MemberOvertimeData(MemberOvertimeViewModel model)
         {
-            IList<Overtime> result = new List<Overtime>();
+            IEnumerable<Overtime> result = new List<Overtime>();
             if (model != null)
             {
                 var criteria = new GetOvertimeCriteria
@@ -90,7 +91,7 @@
                 result = await overtimeService.GetOvertime(criteria);
                 foreach (var item in result)
                 {
-                    item.Own = CurrentUser.Id == item.CreatedBy.Id;
+                    item.Own = CurrentUser.Id == item.CreatedById;
                 }
             }
             ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT");
@@ -113,7 +114,7 @@
             if (model != null && ModelState.IsValid)
             {
                 model.TimeSheets = JsonConvert.DeserializeObject<IList<OvertimeRecord>>(model.TimeSheetData);
-                var criteria = new InsertOvertimeCriteria
+                var criteria = new InsertOverTimeCommand
                 {
                     CreatedBy = CurrentUser.Id,
                     Description = model.Description,
@@ -147,18 +148,10 @@
                 Date = overtime.CreatedDate,
                 Description = overtime.Description,
                 TimeSheets = overtime.OvertimeRecords,
-                CreatedByName = overtime.CreatedBy.DisplayName
+                CreatedByName = overtime.CreatedByDisplayName
             };
 
-            model.TimeSheetData = JsonConvert.SerializeObject(
-                model.TimeSheets.Select(e => new
-                {
-                    e.Hour,
-                    Employee = new { Id = e.Employee.Id },
-                    e.NexHour,
-                    e.Date,
-                    e.Note
-                }));
+            model.TimeSheetData = JsonConvert.SerializeObject(model.TimeSheets);
 
             return View(model);
         }
@@ -170,7 +163,7 @@
             if (model != null && ModelState.IsValid)
             {
                 model.TimeSheets = JsonConvert.DeserializeObject<IList<OvertimeRecord>>(model.TimeSheetData);
-                var criteria = new UpdateOvertimeCriteria
+                var command = new UpdateOverTimeCommand
                 {
                     Id = model.Id,
                     ModifiedBy = CurrentUser.Id,
@@ -178,7 +171,7 @@
                     TimeSheets = model.TimeSheets
                 };
 
-                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+                CommandResult result = await baseService.ExecuteNonQueryAsync(command);
                 if (result.IsSuccessful)
                 {
                     model.CreatedByName = CurrentUser.DisplayName;
@@ -198,12 +191,12 @@
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            var criteria = new DeleteOvertimeCriteria
+            var command = new DeleteOvertimeCommand
             {
                 Id = id,
                 ModifiedId = CurrentUser.Id
             };
-            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(command);
             return Json(result);
         }
 
@@ -211,13 +204,13 @@
         [HttpPost]
         public async Task<IActionResult> ApproveRequest(int id, int createdBy)
         {
-            var criteria = new ApproveOvertimeRequestCriteria
+            var command = new ApproveOverTimeRequestCommand
             {
                 Id = id,
                 ModifiedBy = CurrentUser.Id
             };
 
-            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(command);
             if (result.IsSuccessful)
             {
                 await overtimeService.SendMailForApprovalNotification("NEX request Notification", id, createdBy, CurrentUser.Id);
@@ -229,13 +222,13 @@
         [HttpPost]
         public async Task<IActionResult> RejectRequest(int id)
         {
-            var criteria = new RejectRequestCriteria
+            var command = new RejectRequestCommand
             {
                 Id = id,
                 ModifiedBy = CurrentUser.Id
             };
 
-            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(command);
 
             return Json(result);
         }
@@ -244,13 +237,13 @@
         [HttpPost]
         public async Task<IActionResult> DisapproveRequest(int id)
         {
-            var criteria = new DisapproveOvertimeRequestCriteria
+            var command = new DisapproveOverTimeRequestCommand
             {
                 Id = id,
                 ModifiedBy = CurrentUser.Id
             };
 
-            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(command);
 
             return Json(result);
         }
@@ -259,13 +252,13 @@
         [HttpPost]
         public async Task<IActionResult> ResetRequest(int id)
         {
-            var criteria = new ResetOvertimeCriteria
+            var command = new ResetOvertimeCommand
             {
                 Id = id,
                 ModifiedBy = CurrentUser.Id
             };
 
-            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(command);
 
             return Json(result);
         }
@@ -284,7 +277,7 @@
                 FromDate = new DateTimeOffset(year, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
                 ToDate = new DateTimeOffset(year, 12, 31, 0, 0, 0, TimeSpan.Zero).DateTime
             };
-            IList<EmployeeOvertime> employeeOvertimes = await overtimeService.GetMyOvertime(criteria);
+            var employeeOvertimes = await baseService.GetDataAsync<EmployeeOvertime>(criteria);
 
             return PartialView("_ListMyOvertime", employeeOvertimes);
         }
@@ -314,7 +307,7 @@
         [HttpPost]
         public async Task<IActionResult> OvertimeRequestDetail(MemberOvertimeViewModel model)
         {
-            IList<EmployeeOvertime> result = new List<EmployeeOvertime>();
+            IEnumerable<EmployeeOvertime> result = new List<EmployeeOvertime>();
             if (model != null)
             {
                 var criteria = new GetEmployeeOvertimeCriteria
@@ -326,7 +319,7 @@
                     EmployeeId = model.EmployeeId,
                     OvertimeId = model.OvertimeId
                 };
-                result = await overtimeService.GetEmployeeOvertime(criteria);
+                result = await baseService.GetDataAsync<EmployeeOvertime>(criteria);
             }
 
             return PartialView("_ListOvertimeRequest", result);
@@ -358,8 +351,8 @@
                 TeamId = teamId,
                 Year = year
             };
+           var listSummary = await baseService.GetDataAsync<OvertimeSummary>(criteria);
 
-            IList<OvertimeSummary> listSummary = await overtimeService.GetOvertimeSummary(criteria);
             ViewBag.Year = year;
             return PartialView("_ListOvertimeSummary", listSummary);
         }
@@ -377,7 +370,7 @@
         [HttpPost]
         public async Task<IActionResult> OvertimeConversionDetail(OvertimeConversionDetailViewModel model)
         {
-            IList<OvertimeConversion> conversions = new List<OvertimeConversion>();
+            IEnumerable<OvertimeConversion> conversions = new List<OvertimeConversion>();
             if (model != null)
             {
                 var criteria = new GetOvertimeConversionsCriteria
@@ -388,7 +381,7 @@
                     GroupId = model.TeamId
                 };
 
-                conversions = await overtimeService.GetConversions(criteria);
+                conversions = await baseService.GetDataAsync<OvertimeConversion>(criteria);
             }
             return PartialView("_ListOvertimeConversion", conversions);
         }
@@ -406,7 +399,7 @@
             CommandResult result;
             if (model != null && ModelState.IsValid)
             {
-                var criteria = new InsertConversionCriteria
+                var command = new InsertOvertimeConversionCommand
                 {
                     EmpId = model.EmpId,
                     Deduct = model.Deduct,
@@ -414,7 +407,7 @@
                     Description = string.IsNullOrEmpty(model.Description) ? string.Empty : model.Description,
                     CreatedBy = CurrentUser.Id
                 };
-                result = await baseService.ExecuteNonQueryAsync(criteria);
+                result = await baseService.ExecuteNonQueryAsync(command);
                 if (result.IsSuccessful)
                 {
                     await overtimeService.SendMailForTransferNexBalance("NEX balance Notification", model);
@@ -444,7 +437,7 @@
             CommandResult result;
             if (model != null && ModelState.IsValid)
             {
-                var criteria = new UpdateConversionCriteria
+                var command = new UpdateOvertimrConversionCommand
                 {
                     Id = model.Id,
                     Deduct = model.Deduct,
@@ -452,7 +445,7 @@
                     Description = string.IsNullOrEmpty(model.Description) ? string.Empty : model.Description,
                     ModifiedBy = CurrentUser.Id
                 };
-                result = await baseService.ExecuteNonQueryAsync(criteria);
+                result = await baseService.ExecuteNonQueryAsync(command);
             }
             else
             {
@@ -469,12 +462,12 @@
         [HttpPost]
         public async Task<IActionResult> DeleteOvertimeConversion(int id)
         {
-            var criteria = new DeleteConversionCriteria
+            var command = new DeleteOvertimeConversionCommand
             {
                 Id = id,
                 ModifiedBy = CurrentUser.Id
             };
-            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(command);
             return Json(result);
         }
 
@@ -513,11 +506,11 @@
             ViewData["index"] = index;
             var criteria = new GetNexHourCriteria
             {
-                EmployeeId = model.Employee.Id,
+                EmployeeId = model.EmployeeId,
                 Date = model.Date,
                 Hour = model.Hour
             };
-            var nexHour = await overtimeService.GetNexHour(criteria);
+            var nexHour = await baseService.GetDataEntityAsync<NexHour>(criteria);
             model.NexHour = nexHour.Value;
             return PartialView("_CreateEmployeeRecord", model);
         }
@@ -526,7 +519,8 @@
         public async Task<IActionResult> Upload(IFormFile file)
         {
             var (dataList, dataErrors) = await overtimeService.GetEmployeesFromFileExcel(file);
-            var listStaffInfoNexHour = await overtimeService.GetListStaffInfoNexHourAsync(new GetListStaffInfoNexHourCriteria { OvertimeExcelData = dataList });
+            var criteria = new GetListStaffInfoNexHourCriteria { OvertimeExcelData = dataList };
+            var listStaffInfoNexHour = await baseService.GetDataAsync<StaffInfoNexHour>(criteria);
             foreach (var item in from item in dataList
                                  where !listStaffInfoNexHour.Any(x => x.NickName == item.NickName)
                                  select item)
@@ -554,7 +548,7 @@
                 Date = date,
                 Hour = hour
             };
-            var nexHour = await overtimeService.GetNexHour(criteria);
+            var nexHour = await baseService.GetDataEntityAsync<NexHour>(criteria);
             return Json(nexHour);
         }
 
@@ -569,7 +563,7 @@
         [HttpPost]
         public async Task<IActionResult> HRView(HROvertimeViewModel model)
         {
-            IList<Overtime> result = new List<Overtime>();
+            IEnumerable<Overtime> result = new List<Overtime>();
             if (model != null)
             {
                 var criteria = new ReportOvertimeHRCriteria
@@ -582,7 +576,7 @@
                 result = await overtimeService.GetReportOvertimeHR(criteria);
                 foreach (var item in result)
                 {
-                    item.Own = CurrentUser.Id == item.CreatedBy.Id;
+                    item.Own = CurrentUser.Id == item.CreatedById;
                 }
             }
 
@@ -597,7 +591,7 @@
             {
                 Id = id
             };
-            var result = await overtimeService.GetReportOvertimeHRDetail(criteria);
+            var result = await baseService.GetDataAsync<ReportOvertimeHRDetail>(criteria);
             return PartialView("_ListHRViewOvertimeDetail", result);
         }
 
@@ -605,13 +599,13 @@
         [HttpPost]
         public async Task<IActionResult> VoidRequest(int id)
         {
-            var criteria = new VoidOvertimeCriteria
+            var command = new VoidOvertimeCommand
             {
                 Id = id,
                 ModifiedBy = CurrentUser.Id
             };
 
-            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+            CommandResult result = await baseService.ExecuteNonQueryAsync(command);
 
             return Json(result);
         }
@@ -629,16 +623,16 @@
                 logService.LogFile(model.TimeSheets.Count().ToString());
 
                 logService.LogFile("VerifyRequest - After DeserializeObject");
-                var criteria = new VerifyOvertimeCriteria
+                var command = new VerifyOvertimeCommand
                 {
                     ModifiedBy = CurrentUser.Id,
                     Id = model.Id,
                     TimeSheets = model.TimeSheets
                 };
 
-                logService.LogFile("VerifyRequest - Check IsValid: " + criteria.IsValid());
+                logService.LogFile("VerifyRequest - Check IsValid: " + command.IsValid());
 
-                result = await baseService.ExecuteNonQueryAsync(criteria);
+                result = await baseService.ExecuteNonQueryAsync(command);
                 logService.LogFile("VerifyRequest - CommandResult: " + result.IsSuccessful);
                 if (result.IsSuccessful)
                 {

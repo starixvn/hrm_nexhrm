@@ -11,25 +11,13 @@
 
     public interface IOvertimeService
     {
-        Task<IList<Overtime>> GetOvertime(GetOvertimeCriteria criteria);
+        Task<IEnumerable<Overtime>> GetOvertime(GetOvertimeCriteria criteria);
 
         Task<Overtime> GetOvertimeById(GetOvertimeByIdCriteria criteria);
 
-        Task<IList<EmployeeOvertime>> GetEmployeeOvertime(GetEmployeeOvertimeCriteria criteria);
-
-        Task<IList<EmployeeOvertime>> GetMyOvertime(GetMyOvertimeCriteria criteria);
-
-        Task<IList<OvertimeSummary>> GetOvertimeSummary(OvertimeSummaryCriteria criteria);
-
-        Task<IList<OvertimeConversion>> GetConversions(GetOvertimeConversionsCriteria criteria);
-        Task<IEnumerable<StaffInfoNexHour>> GetListStaffInfoNexHourAsync(GetListStaffInfoNexHourCriteria criteria);
         Task<ValueTuple<IEnumerable<OvertimeExcelDataViewModel>, IList<int>>> GetEmployeesFromFileExcel(IFormFile file);
 
-        Task<NexHour> GetNexHour(GetNexHourCriteria criteria);
-
-        Task<IList<Overtime>> GetReportOvertimeHR(ReportOvertimeHRCriteria criteria);
-
-        Task<IEnumerable<ReportOvertimeHRDetail>> GetReportOvertimeHRDetail(ReportOvertimeHRDetailCriteria criteria);
+        Task<IEnumerable<Overtime>> GetReportOvertimeHR(ReportOvertimeHRCriteria criteria);
 
         Task SendMailForNEXRequest(string subject, CreateOvertimeViewModel model);
 

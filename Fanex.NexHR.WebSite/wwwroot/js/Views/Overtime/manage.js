@@ -22,19 +22,16 @@ var manageOvertime = (function ($) {
         let index = $("#timeSheets").find("tr.sortedIndex").length + 1;
         let names = nick.split(' (');
         let nickName = names[0];
-        let fullName = names[1];
-        let employee = {
-            Id: id,
-            NickName: nickName,
-            FullName: fullName.substring(0, fullName.length - 1)
-        }
+    //    let fullName = names[1];
+
         let unique = new Date().getTime();
         $.ajax({
             url: _global.root + 'Overtime/CreateEmployeeRecord',
             type: 'POST',
             dataType: 'html',
             data: {
-                Employee: employee,
+                EmployeeId: id,
+                NickName: nickName,
                 Hour: tempHour,
                 Date: tempDate,
                 Unique: new Date().getTime(),
@@ -187,9 +184,6 @@ var manageOvertime = (function ($) {
             for (var i = 0; i < overtimes.length; i++) {
                 let employeeId = $($(overtimes[i]).find("input.row_hour").first()).attr("data-id");
                 let nick = $($(overtimes[i]).find(".row_name").first()).html().trim();
-                let names = nick.split(' (');
-                let nickName = names[0];
-                let fullname = names[1].substring(0, names[1].length - 1);
                 let date = $($(overtimes[i]).find("input.datepicker").first()).val();
                 let hour = +$($(overtimes[i]).find("input.row_hour").first()).val();
                 const roundedHour = Math.round(hour * 2) / 2;
@@ -205,11 +199,7 @@ var manageOvertime = (function ($) {
                 let nexhour = $($(overtimes[i]).find(".row_nexhour").first()).html().trim();
                 let note = $($(overtimes[i]).find(".row_note").first()).val().trim();
                 timeRecords.push({
-                    Employee: {
-                        Id: employeeId,
-                        NickName: nickName,
-                        FullName: fullname
-                    },
+                    EmployeeId: employeeId,
                     Date: date,
                     Hour: parseFloat(hour),
                     NexHour: nexhour,

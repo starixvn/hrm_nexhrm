@@ -18,8 +18,10 @@
 
         public string CreatedBy { get; set; }
 
-        public string EmployeeNickName { get; set; }
+        public int EmployeeId { get; set; }
 
-        public string EmployeeFullName { get; set; }
+        public string NickName { get; set; }
+
+        public string FullName { get; set; }
     }
 }

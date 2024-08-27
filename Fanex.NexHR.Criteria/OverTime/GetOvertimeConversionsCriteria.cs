@@ -13,14 +13,7 @@
 
         public int? EmployeeId { get; set; }
 
-        public override string GetSettingKey()
-        {
-            return "Overtime_GetConversions";
-        }
-
-        public override bool IsValid()
-        {
-            return DateTime.Compare(FromDate, ToDate) <= 0;
-        }
+        public override string GetSettingKey() => "Overtime_GetConversions";
+        public override bool IsValid() => DateTime.Compare(FromDate, ToDate) <= 0;
     }
 }
