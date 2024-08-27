@@ -1,7 +1,5 @@
 ﻿namespace Fanex.NexHR.Criteria.WorkFromHomeRequest
 {
-    using System;
-
     public class ProcessWorkFromHomeRequestCommand : BaseCommand
     {
         public int WorkFromHomeRequestId { get; set; }
