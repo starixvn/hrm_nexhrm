@@ -70,7 +70,6 @@
             return PartialView("_EmployeeWorkFromHomeGrid", workfromHomeRequests);
         }
 
-        [HrmAuthorize(UserRoles = "HR")]
         public IActionResult Create()
         {
             var model = new CreateWorkFromHomeRequestViewModel
@@ -82,7 +81,6 @@
         }
 
         [HttpPost]
-        [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Create(CreateWorkFromHomeRequestViewModel model)
         {
             if (model != null && ModelState.IsValid)
@@ -110,6 +108,7 @@
             return View(model);
         }
 
+        [HrmAuthorize(UserRoles = "HR")]
         public IActionResult HRCreate()
         {
             var model = new CreateWorkFromHomeRequestByHRViewModel
@@ -120,6 +119,7 @@
             return View(model);
         }
 
+        [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<IActionResult> HRCreate(CreateWorkFromHomeRequestByHRViewModel model)
         {
