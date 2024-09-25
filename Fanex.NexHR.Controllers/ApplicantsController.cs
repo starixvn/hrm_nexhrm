@@ -16,36 +16,21 @@ namespace Fanex.NexHR.Controllers
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
+    using Microsoft.VisualBasic;
     using Models.Applicant;
     using Services.Interfaces;
     using ViewModels.Applicant;
 
-    public class ApplicantsController : BaseController
-    {
-        private readonly IBaseService baseService;
-        private readonly IWebHostEnvironment environment;
-        private readonly IApplicantService applicantService;
-        private readonly IPositionService positionService;
-        private readonly ICryptoService cryptoService;
-        private readonly IPromotionService promotionService;
-
-        private const string UploadsFilePath = "common_files/cv";
-
-        public ApplicantsController(ISessionService sessionService,
+    public class ApplicantsController(ISessionService sessionService,
             IBaseService baseService,
             IWebHostEnvironment environment,
             IApplicantService applicantService,
             IPositionService positionService,
-            ICryptoService cryptoService,
-            IPromotionService promotionService) : base(sessionService)
-        {
-            this.baseService = baseService;
-            this.environment = environment;
-            this.applicantService = applicantService;
-            this.positionService = positionService;
-            this.cryptoService = cryptoService;
-            this.promotionService = promotionService;
-        }
+            ICryptoService cryptoService1,
+            IPromotionService promotionService) : BaseController(sessionService)
+    {
+
+        private const string UploadsFilePath = "common_files/cv";
 
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Index()
@@ -176,7 +161,7 @@ namespace Fanex.NexHR.Controllers
 
         private string DecryptValue(string encryptedValue)
         {
-            return encryptedValue != null ? cryptoService.RsaDecrypt(encryptedValue) : null;
+            return encryptedValue != null ? cryptoService1.RsaDecrypt(encryptedValue) : null;
         }
 
         private async Task<string> GetInterviewerNames(string interviewerIdString)
@@ -247,10 +232,10 @@ namespace Fanex.NexHR.Controllers
                     Note = model.Note,
                     InterviewerIds = model.InterviewerIds != null ? string.Join(",", model.InterviewerIds) : null,
                     ExpectedSalary = model.ExpectedSalary != null
-                                    ? cryptoService.RsaEncrypt(model.ExpectedSalary) : null,
+                                    ? cryptoService1.RsaEncrypt(model.ExpectedSalary) : null,
                     OfferSalary = model.OfferSalary != null
-                                    ? cryptoService.RsaEncrypt(model.OfferSalary) : null,
-                    FinalComment = string.IsNullOrWhiteSpace(model.FinalComment) ? string.Empty : cryptoService.RsaEncrypt(model.FinalComment),
+                                    ? cryptoService1.RsaEncrypt(model.OfferSalary) : null,
+                    FinalComment = string.IsNullOrWhiteSpace(model.FinalComment) ? string.Empty : cryptoService1.RsaEncrypt(model.FinalComment),
                     CreatedBy = CurrentUser.Id
                 };
 
@@ -342,9 +327,9 @@ namespace Fanex.NexHR.Controllers
                     Grade = model.Grade,
                     Note = model.Note,
                     InterviewerIds = model.InterviewerIds != null ? string.Join(",", model.InterviewerIds) : null,
-                    ExpectedSalary = model.ExpectedSalary != null ? cryptoService.RsaEncrypt(model.ExpectedSalary) : null,
-                    OfferSalary = model.OfferSalary != null ? cryptoService.RsaEncrypt(model.OfferSalary) : null,
-                    FinalComment = string.IsNullOrWhiteSpace(model.FinalComment) ? string.Empty : cryptoService.RsaEncrypt(model.FinalComment)
+                    ExpectedSalary = model.ExpectedSalary != null ? cryptoService1.RsaEncrypt(model.ExpectedSalary) : null,
+                    OfferSalary = model.OfferSalary != null ? cryptoService1.RsaEncrypt(model.OfferSalary) : null,
+                    FinalComment = string.IsNullOrWhiteSpace(model.FinalComment) ? string.Empty : cryptoService1.RsaEncrypt(model.FinalComment)
                 };
 
                 CommandResult result = await baseService.ExecuteNonQueryAsync(command);
