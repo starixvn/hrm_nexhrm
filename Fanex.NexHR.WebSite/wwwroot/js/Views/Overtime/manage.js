@@ -179,8 +179,8 @@ var manageOvertime = (function ($) {
 
     function getTimeRecord(event) {
         let overtimes = $("#timeSheets").find("tr.sortedIndex");
-        if (overtimes.length > 0) {
-            var timeRecords = [];
+        if (overtimes.length > 0) { 
+            let timeRecords = [];
             for (var i = 0; i < overtimes.length; i++) {
                 let employeeId = $($(overtimes[i]).find("input.row_hour").first()).attr("data-id");
                 let nick = $($(overtimes[i]).find(".row_name").first()).html().trim();
