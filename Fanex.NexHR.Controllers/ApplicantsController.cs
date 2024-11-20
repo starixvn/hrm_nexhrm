@@ -384,8 +384,8 @@ namespace Fanex.NexHR.Controllers
                 return null;
             }
             var fileName = Path.GetFileName(file.FileName);
-            var pathAttachFinal = CheckDuplicatedFileName(fileName);
-            pathAttachFinal = RemoveAccents(pathAttachFinal);
+            var pathAttachFinal = RemoveAccents(fileName);
+            pathAttachFinal = CheckDuplicatedFileName(pathAttachFinal);
             var path = Path.Combine(environment.WebRootPath, UploadsFilePath, pathAttachFinal);
             using (var stream = new FileStream(path, FileMode.Create))
             {

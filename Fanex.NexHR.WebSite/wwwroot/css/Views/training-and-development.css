@@ -55,31 +55,23 @@
     font-weight: bold;
     margin-left: 5px; }
 
-#frmAddTrainingAndDevelopment label,
-#frmUpdateTrainingAndDevelopment label {
-  margin-left: 0.5rem; }
-
-#frmAddTrainingAndDevelopment .validation-summary-errors,
-#frmAddTrainingAndDevelopment .validation-summary-success,
-#frmUpdateTrainingAndDevelopment .validation-summary-errors,
-#frmUpdateTrainingAndDevelopment .validation-summary-success {
-  margin: 1rem 0.5rem 1.6rem !important; }
-
-#frmAddTrainingAndDevelopment .textarea,
-#frmUpdateTrainingAndDevelopment .textarea {
-  background-color: transparent;
-  resize: none;
-  outline: none; }
-
-.ui-dialog {
-  width: auto !important; }
-  .ui-dialog .ui-dialog-buttonpane {
-    margin-top: unset !important; }
+#frmAddTrainingAndDevelopment,
+#frmUpdateTrainingAndDevelopment {
+  width: 380px; }
+  #frmAddTrainingAndDevelopment .validation-summary-errors,
+  #frmAddTrainingAndDevelopment .validation-summary-success,
+  #frmUpdateTrainingAndDevelopment .validation-summary-errors,
+  #frmUpdateTrainingAndDevelopment .validation-summary-success {
+    margin: 0 0 1.6rem !important; }
+  #frmAddTrainingAndDevelopment .textarea,
+  #frmUpdateTrainingAndDevelopment .textarea {
+    background-color: transparent;
+    resize: none;
+    outline: none; }
 
 .description {
   min-height: 64px;
-  min-width: 229px;
-  max-width: 229px; }
+  width: 269px; }
 
 .TrainingAndDevelopment table {
   width: 70% !important; }
@@ -114,6 +106,47 @@
 .trainingAndDevelopmentsreport .flus {
   font-size: 14px;
   margin-left: 2px;
+  cursor: pointer; }
+
+.file-upload {
+  width: 100%; }
+  .file-upload::-webkit-file-upload-button {
+    padding: 0 1.5rem;
+    height: 3rem;
+    line-height: 3rem;
+    border-radius: 2px;
+    color: #fff;
+    background: #2aaa55;
+    border: none;
+    cursor: pointer; }
+
+.col-certificate {
+  text-align: -webkit-center !important; }
+  .col-certificate .icon-certificate {
+    background: url(../Images/icon-certificate.png) center center no-repeat;
+    background-size: contain;
+    height: 25px;
+    width: 25px;
+    display: block; }
+
+#dialog-training .input--m {
+  width: 26rem !important; }
+
+#dialog-training .form-input .typeTrainingAndDevelopment {
+  width: 269px !important; }
+
+#dialog-training a {
+  color: #039be5 !important; }
+
+#dialog-training .certificate-container {
+  max-width: 270px;
+  margin-top: 6px; }
+
+#dialog-training .selected-file {
+  width: 108px;
+  max-width: 270px; }
+
+#dialog-training .delete-certificate {
   cursor: pointer; }
 
 @media only screen and (max-width: 995px) {

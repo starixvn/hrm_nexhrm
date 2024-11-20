@@ -114,7 +114,7 @@
         <div class="left label--l">
             <label>@Labels.Certificate</label>
         </div>
-        <div class="left file-input input-custom">
+        <div class="left input--m file-input input-custom">
             <input type="file" name="FileUpload"
                 class="file-upload @(!string.IsNullOrEmpty(Model.Certificate) ? "selected-file" : "")"
                 asp-for="FileUpload" accept=".pdf,.doc,.docx,.png,.jpeg" />
@@ -122,7 +122,7 @@
             {
                 string certificateUrl = $"{dirCertificate}/{Model.Certificate}";
                 <div class="certificate-container">
-                    <a href="@certificateUrl">
+                    <a class="icon-certificate" href="@certificateUrl">
                         @Model.Certificate
                     </a>
                     <i class="mdi mdi-delete mdi-dark mdi-18px delete-certificate"></i>

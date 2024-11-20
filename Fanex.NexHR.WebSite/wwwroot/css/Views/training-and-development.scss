@@ -78,27 +78,17 @@
 
 #frmAddTrainingAndDevelopment,
 #frmUpdateTrainingAndDevelopment {
-  label {
-    margin-left: 0.5rem;
-  }
+  width: 380px;
 
   .validation-summary-errors,
   .validation-summary-success {
-    margin: 1rem 0.5rem 1.6rem !important;
+    margin: 0 0 1.6rem !important;
   }
 
   .textarea {
     background-color: transparent;
     resize: none;
     outline: none;
-  }
-}
-
-.ui-dialog {
-  width: auto !important;
-
-  .ui-dialog-buttonpane {
-    margin-top: unset !important;
   }
 }
 
@@ -190,7 +180,7 @@
 }
 
 #dialog-training {
-  .input--m{
+  .input--m {
     width: 26rem !important;
   }
 
@@ -210,6 +200,11 @@
 
   .selected-file {
     width: 108px;
+    max-width: 270px;
+  }
+
+  .delete-certificate {
+    cursor: pointer;
   }
 }
 

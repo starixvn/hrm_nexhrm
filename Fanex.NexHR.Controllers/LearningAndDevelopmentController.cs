@@ -85,7 +85,7 @@
             };
             if (model != null && ModelState.IsValid)
             {
-                var certificate = await UploadFileAsync(model.FileUpload);
+                var certificate = await UploadFileAsync(model.FileUpload, null);
                 var command = new InsertTrainingAndDevelopmentCommand
                 {
                     EmpId = model.EmployeeId,
@@ -111,7 +111,7 @@
             return Json(new { isSuccessful = result.IsSuccessful, error = ModelState.Values.SelectMany(v => v.Errors) });
         }
 
-        private async Task<string> UploadFileAsync(IFormFile file)
+        private async Task<string> UploadFileAsync(IFormFile file, string certificate)
         {
             if (file == null)
             {
@@ -119,6 +119,10 @@
             }
             CreateOrOpenDirectory();
             string savedFilePath = await SaveFile(file);
+            if (!string.IsNullOrEmpty(certificate))
+            {
+                DeleteFile(certificate);
+            }
 
             return savedFilePath;
         }
@@ -140,8 +144,8 @@
                 return null;
             }
             var fileName = Path.GetFileName(file.FileName);
-            var pathAttachFinal = CheckDuplicatedFileName(fileName);
-            pathAttachFinal = RemoveAccents(pathAttachFinal);
+            var pathAttachFinal = RemoveAccents(fileName);
+            pathAttachFinal = CheckDuplicatedFileName(pathAttachFinal);
             var path = Path.Combine(environment.WebRootPath, UploadsFilePath, pathAttachFinal);
             using (var stream = new FileStream(path, FileMode.Create))
             {
@@ -211,7 +215,7 @@
             };
             if (model != null && ModelState.IsValid)
             {
-                var certificate = model.FileUpload != null ? await UploadFileAsync(model.FileUpload) : model.Certificate;
+                var certificate = model.FileUpload != null ? await UploadFileAsync(model.FileUpload, model.Certificate) : model.Certificate;
                 var command = new UpdateTrainingAndDevelopmentCommand
                 {
                     Id = model.Id,
@@ -239,14 +243,31 @@
 
         [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
-        public async Task<CommandResult> Delete(int id)
+        public async Task<CommandResult> Delete(int id, string fileName)
         {
             var result = await baseService.ExecuteNonQueryAsync(new DeleteTrainingAndDevelopmentCommand
             {
                 Id = id,
                 DeletedBy = CurrentUser.Id
             });
+            if (result.IsSuccessful && !string.IsNullOrEmpty(fileName))
+            {
+                string filePath = Path.Combine(environment.WebRootPath, UploadsFilePath, fileName);
+                System.IO.File.Delete(filePath);
+
+                DeleteFile(fileName);
+            }
+
             return result;
+        }
+
+        private void DeleteFile(string fileName)
+        {
+            string filePath = Path.Combine(environment.WebRootPath, UploadsFilePath, fileName);
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
         }
     }
 }

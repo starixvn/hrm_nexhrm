@@ -44,12 +44,15 @@ function query(isFirstLoad) {
                     success: function (data) {
                         $('#dialog-training').html(data);
                         initUpdateDialog();
+
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert(textStatus + ': ' + errorThrown);
                     }
                 });
             });
+
+            viewCertificate();
 
             if ($('table#data').length > 0) {
                 $('table#data').addClass('table-success'); // class to style mobile
@@ -103,6 +106,35 @@ function initChangeTextFocusType(frm) {
     }
 }
 
+function viewCertificate() {
+    $('.icon-certificate').on('click', function (e) {
+        e.preventDefault();
+        var newLocation = $(this).attr('href');
+        window.location.href = new URL(newLocation, window.location.origin);
+    });
+}
+
+function changeFileUpload() {
+    $('.delete-certificate').on('click', function () {
+        $(this).closest('.certificate-container').remove();
+        newFile.style.width = 'auto';
+        var certificateInput = document.getElementById('Certificate');
+        certificateInput.value = null;
+    });
+
+    const fileUpload = document.getElementById('FileUpload');
+    const oldFile = document.getElementsByClassName('certificate-container')[0];
+    const newFile = document.getElementsByClassName('selected-file')[0];
+
+    fileUpload.addEventListener('change', (event) => {
+        const selectedFile = event.target.files[0];
+        if (selectedFile) {
+            oldFile ? oldFile.style.display = 'none' : null;
+            newFile ? newFile.style.width = 'auto' : null;
+        }
+    });
+}
+
 function initUpdateDialog() {
     initDatePicker();
     initChangeTextFocusType("#frmUpdateTrainingAndDevelopment");
@@ -140,12 +172,10 @@ function initUpdateDialog() {
                     formData.append("Organization", $("#frmUpdateTrainingAndDevelopment #Organization")[0].value);
                     formData.append("FromDate", $("#frmUpdateTrainingAndDevelopment #FromDatePopup")[0].value);
                     formData.append("ToDate", $("#frmUpdateTrainingAndDevelopment #ToDatePopup")[0].value);
+                    formData.append("Certificate", $("#frmUpdateTrainingAndDevelopment #Certificate")[0]?.value);
                     const fileInput = $("#frmUpdateTrainingAndDevelopment #FileUpload")[0];
                     if (fileInput && fileInput.files.length > 0) {
                         formData.append("FileUpload", fileInput.files[0]);
-                    }
-                    else {
-                        formData.append("FileUpload", $("#frmUpdateTrainingAndDevelopment #Certificate")[0].value);
                     }
 
                     $.ajax({
@@ -195,6 +225,9 @@ function initUpdateDialog() {
             duration: 200
         }
     });
+
+    viewCertificate();
+    changeFileUpload();
 }
 
 function initAddNewDialog() {
@@ -202,7 +235,7 @@ function initAddNewDialog() {
     initAutocomplete('#frmAddTrainingAndDevelopment #Employee', '#frmAddTrainingAndDevelopment #EmployeeId', false);
     $("#frmAddTrainingAndDevelopment #typeId").on("change", () => {
         initChangeTextFocusType("#frmAddTrainingAndDevelopment");
-    }); 
+    });
     $('#dialog-training').dialog({
         modal: true,
         title: 'Add New',
@@ -286,9 +319,9 @@ function initAddNewDialog() {
     });
 }
 
-function deleteRequest(id) {
+function deleteRequest(id, fileName) {
     confirm('Are you sure you want to delete?', function () {
-        $.post(_global.root + 'LearningAndDevelopment/Delete', { id: id }, function (data) {
+        $.post(_global.root + 'LearningAndDevelopment/Delete', { id: id, fileName: fileName }, function (data) {
             if (data.IsSuccessful) {
                 alert("Delete successfully!");
                 query(false);
@@ -301,6 +334,7 @@ function deleteRequest(id) {
 }
 
 $(document).ready(function () {
+
     query(true);
 
     $('#submit').on('click', function () {
@@ -322,31 +356,5 @@ $(document).ready(function () {
                 alert(textStatus + ': ' + errorThrown);
             }
         });
-    });
-
-    $('.icon-certificate').click(function (e) {
-        e.preventDefault();
-        const newLocation = new URL($(this).attr('href'), window.location.origin);
-        window.location.href = newLocation;
-    });
-    
-
-    const fileUpload = document.getElementById('FileUpload');
-    const oldFile = document.getElementsByClassName('certificate-container')[0];
-    const newFile = document.getElementsByClassName('selected-file')[0];
-
-    fileUpload.addEventListener('change', (event) => {
-        const selectedFile = event.target.files[0];
-        if (selectedFile) {
-            oldFile ? oldFile.style.display = 'none' : null;
-            newFile ? newFile.style.width = 'auto' : null;
-        }
-    });
-
-    $('.delete-certificate').on('click', function () {
-        $(this).closest('.certificate-container').remove();
-        newFile.style.width = 'auto';
-        var certificateInput = document.getElementById('Certificate');
-        certificateInput.value = null;
     });
 });
