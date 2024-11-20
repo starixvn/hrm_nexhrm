@@ -23,5 +23,6 @@ namespace Fanex.NexHR.Models
         public DateTime ExpirationDate { get; set; }
         public string Organization { get; set; }
         public string Publish { get; set; }
+        public string Certificate { get; set; }
     }
 }

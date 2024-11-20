@@ -3,6 +3,7 @@
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Attributes;
     using Fanex.NexHR.Resources;
+    using Microsoft.AspNetCore.Http;
     using System;
     using System.ComponentModel.DataAnnotations;
 
@@ -46,5 +47,9 @@
 
         [TrainingDateValidator]
         public DateTime? ToDate { get; set; }
+
+         public string Certificate { get; set; }
+
+        public IFormFile FileUpload { get; set; }
     }
 }

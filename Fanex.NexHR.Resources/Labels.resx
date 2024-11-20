@@ -1989,4 +1989,7 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
 	This is a message to inform you that you just have a "checkin" record for today working on the HRM system as below:
 	- Checkin time: **{1}**</value>
   </data>
+  <data name="Certificate" xml:space="preserve">
+    <value>Certificate</value>
+  </data>
 </root>

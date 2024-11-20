@@ -15,6 +15,7 @@
     const string StartDate = "- Start Date:";
     const string EndDate = ", End Date: ";
     const string ConductedBy = "- Conducted By:";
+    const string dirCertificate = "common_files/certificates";
 }
 <table id="data" class="table bordered striped highlight centered table-custom">
     <thead>
@@ -25,8 +26,9 @@
             <th style="width:7%">@Labels.Team</th>
             <th style="width:7%">@Labels.Type</th>
             <th style="width:18%">@Labels.Name</th>
-            <th style="width:15%">@Labels.Organization</th>
+            <th style="width:12%">@Labels.Organization</th>
             <th style="width:25%">@Labels.Details</th>
+            <th style="width:3%">@Labels.Certificate</th>
             @if (isHRRole)
             {
                 <th style="width:5%">@Labels.Action</th>
@@ -85,6 +87,12 @@
                             <div title="@item.Publish" class="col icon icon-@item.Publish"  />
                         </div>
                     </td>
+                    <td class="col-certificate">
+                        @if (!string.IsNullOrEmpty(item.Certificate))
+                        {
+                            <a class="icon-certificate" href="@($"{dirCertificate}/{item.Certificate}")"></a>
+                        }
+                    </td>
                     @if (isHRRole)
                     {
                         <td class="action-column">
@@ -102,10 +110,7 @@
         else
         {
             <tr>
-                <td colspan="9"></td>
-            </tr>
-            <tr>
-                <td colspan="9" rowspan="2">
+                <td colspan="10" rowspan="2">
                     @Messages.NoInformation
                 </td>
             </tr>

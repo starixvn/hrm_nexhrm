@@ -5657,5 +5657,14 @@ namespace Fanex.NexHR.Resources {
                 return ResourceManager.GetString("HistoryWork", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Certificate.
+        /// </summary>
+        public static string Certificate {
+            get {
+                return ResourceManager.GetString("Certificate", resourceCulture);
+            }
+        }
     }
 }

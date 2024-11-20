@@ -109,7 +109,7 @@ function initUpdateDialog() {
 
     $("#frmUpdateTrainingAndDevelopment #typeId").on("change", () => {
         initChangeTextFocusType("#frmUpdateTrainingAndDevelopment");
-    });    
+    });
 
     $('#dialog-training').dialog({
         modal: true,
@@ -140,6 +140,13 @@ function initUpdateDialog() {
                     formData.append("Organization", $("#frmUpdateTrainingAndDevelopment #Organization")[0].value);
                     formData.append("FromDate", $("#frmUpdateTrainingAndDevelopment #FromDatePopup")[0].value);
                     formData.append("ToDate", $("#frmUpdateTrainingAndDevelopment #ToDatePopup")[0].value);
+                    const fileInput = $("#frmUpdateTrainingAndDevelopment #FileUpload")[0];
+                    if (fileInput && fileInput.files.length > 0) {
+                        formData.append("FileUpload", fileInput.files[0]);
+                    }
+                    else {
+                        formData.append("FileUpload", $("#frmUpdateTrainingAndDevelopment #Certificate")[0].value);
+                    }
 
                     $.ajax({
                         type: 'POST',
@@ -224,6 +231,11 @@ function initAddNewDialog() {
                     formData.append("Organization", $("#frmAddTrainingAndDevelopment #Organization")[0].value);
                     formData.append("FromDate", $("#frmAddTrainingAndDevelopment #FromDatePopup")[0].value);
                     formData.append("ToDate", $("#frmAddTrainingAndDevelopment #ToDatePopup")[0].value);
+
+                    const fileInput = $("#frmAddTrainingAndDevelopment #FileUpload")[0];
+                    if (fileInput && fileInput.files.length > 0) {
+                        formData.append("FileUpload", fileInput.files[0]);
+                    }
 
                     $.ajax({
                         type: 'POST',
@@ -310,5 +322,31 @@ $(document).ready(function () {
                 alert(textStatus + ': ' + errorThrown);
             }
         });
+    });
+
+    $('.icon-certificate').click(function (e) {
+        e.preventDefault();
+        const newLocation = new URL($(this).attr('href'), window.location.origin);
+        window.location.href = newLocation;
+    });
+    
+
+    const fileUpload = document.getElementById('FileUpload');
+    const oldFile = document.getElementsByClassName('certificate-container')[0];
+    const newFile = document.getElementsByClassName('selected-file')[0];
+
+    fileUpload.addEventListener('change', (event) => {
+        const selectedFile = event.target.files[0];
+        if (selectedFile) {
+            oldFile ? oldFile.style.display = 'none' : null;
+            newFile ? newFile.style.width = 'auto' : null;
+        }
+    });
+
+    $('.delete-certificate').on('click', function () {
+        $(this).closest('.certificate-container').remove();
+        newFile.style.width = 'auto';
+        var certificateInput = document.getElementById('Certificate');
+        certificateInput.value = null;
     });
 });

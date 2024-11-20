@@ -16,6 +16,7 @@
         public DateTime? EndDate { get; set; }
         public DateTime? ExamDate { get; set; }
         public DateTime? ExpirationDate { get; set; }
+        public string Certificate { get; set; }
         public override string GetSettingKey() => "TrainingAndDevelopment_Update";
 
         public override bool IsValid() => IsValidId() && IsValidContent() && IsValidAllDateTime();

@@ -13,6 +13,7 @@
             new SelectListItem { Selected = (Model.Publish == Constants.Protected), Text = Constants.Protected, Value =Constants.Protected},
             new SelectListItem { Selected = (Model.Publish == Constants.Private), Text = Constants.Private, Value = Constants.Private},
         }, "Value", "Text", Model.Publish);
+    string dirCertificate = "common_files/certificates";
 }
 <form id="frmUpdateTrainingAndDevelopment" class="form form-update-training-and-development">
     <div id="divErrorCont" class="">
@@ -107,6 +108,27 @@
                          value="@(Model.ToDate.Equals(DateTime.MinValue) ? null : Model.ToDate)">
             </date-picker>
             <i class="mdi-action-event calendar-icon left"></i>
+        </div>
+    </div>
+    <div class="row form-input">
+        <div class="left label--l">
+            <label>@Labels.Certificate</label>
+        </div>
+        <div class="left file-input input-custom">
+            <input type="file" name="FileUpload"
+                class="file-upload @(!string.IsNullOrEmpty(Model.Certificate) ? "selected-file" : "")"
+                asp-for="FileUpload" accept=".pdf,.doc,.docx,.png,.jpeg" />
+            @if (!string.IsNullOrEmpty(Model.Certificate))
+            {
+                string certificateUrl = $"{dirCertificate}/{Model.Certificate}";
+                <div class="certificate-container">
+                    <a href="@certificateUrl">
+                        @Model.Certificate
+                    </a>
+                    <i class="mdi mdi-delete mdi-dark mdi-18px delete-certificate"></i>
+                </div>
+                <input type="hidden" asp-for="@Model.Certificate" />
+            }
         </div>
     </div>
 </form>
