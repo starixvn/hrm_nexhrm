@@ -44,7 +44,6 @@ function query(isFirstLoad) {
                     success: function (data) {
                         $('#dialog-training').html(data);
                         initUpdateDialog();
-
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert(textStatus + ': ' + errorThrown);
@@ -173,7 +172,12 @@ function initUpdateDialog() {
                     formData.append("Organization", $("#frmUpdateTrainingAndDevelopment #Organization")[0].value);
                     formData.append("FromDate", $("#frmUpdateTrainingAndDevelopment #FromDatePopup")[0].value);
                     formData.append("ToDate", $("#frmUpdateTrainingAndDevelopment #ToDatePopup")[0].value);
-                    formData.append("Certificate", $("#frmUpdateTrainingAndDevelopment #Certificate")[0]?.value);
+
+                    const certificateInput = $("#frmUpdateTrainingAndDevelopment #Certificate")[0];
+                    if (certificateInput) {
+                        formData.append("Certificate", certificateInput.value);
+                    }
+
                     const fileInput = $("#frmUpdateTrainingAndDevelopment #FileUpload")[0];
                     if (fileInput && fileInput.files.length > 0) {
                         formData.append("FileUpload", fileInput.files[0]);
@@ -267,7 +271,7 @@ function initAddNewDialog() {
                     formData.append("ToDate", $("#frmAddTrainingAndDevelopment #ToDatePopup")[0].value);
 
                     const fileInput = $("#frmAddTrainingAndDevelopment #FileUpload")[0];
-                    if (fileInput && fileInput.files.length > 0) {
+                    if (fileInput != null && fileInput.files.length > 0) {
                         formData.append("FileUpload", fileInput.files[0]);
                     }
 
