@@ -7,7 +7,8 @@ $(document).ready(function () {
     $('.resume-container a').on('click', function (e) {
         e.preventDefault();
         var newLocation = $(this).attr('href');
-        window.location.href = new URL(newLocation, window.location.origin);
+        var openNewTab = new URL(newLocation, window.location.origin);
+        window.open(openNewTab, '_blank');
     });
 
     let successed = $('#successed').val();
