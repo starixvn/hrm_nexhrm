@@ -1,12 +1,7 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Criteria.Employee;
     using Criteria.Overtime;
-    using Fanex.Data.Repository;
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
@@ -17,6 +12,10 @@
     using Models.Overtime;
     using Newtonsoft.Json;
     using Services.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using ViewModels.Overtime;
 
     public class OvertimeController : BaseController
@@ -351,7 +350,7 @@
                 TeamId = teamId,
                 Year = year
             };
-           var listSummary = await baseService.GetDataAsync<OvertimeSummary>(criteria);
+            var listSummary = await baseService.GetDataAsync<OvertimeSummary>(criteria);
 
             ViewBag.Year = year;
             return PartialView("_ListOvertimeSummary", listSummary);
@@ -531,7 +530,6 @@
             return Json(Json(new { listStaffInfoNexHour, dataErrors }));
         }
 
-
         [HttpPost]
         public IActionResult CreateImportEmployeeRecord(IEnumerable<StaffInfoNexHour> listStaffInfoNexHour, int index)
         {
@@ -639,7 +637,6 @@
                     await overtimeService.SendMailForNotification("NEX request Notification", model);
                 }
                 logService.LogFile("VerifyRequest - Finish");
-
             }
             catch (Exception ex)
             {

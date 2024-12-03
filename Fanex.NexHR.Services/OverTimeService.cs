@@ -1,11 +1,5 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Core;
     using Criteria.Employee;
     using Criteria.Overtime;
@@ -16,6 +10,12 @@
     using Models;
     using Models.Overtime;
     using OfficeOpenXml;
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
     using ViewModels.Overtime;
 
     public class OvertimeService : IOvertimeService
@@ -66,9 +66,12 @@
 
         public async Task<Overtime> GetOvertimeById(GetOvertimeByIdCriteria criteria)
         {
-            var result = await baseService.FetchMultipleAsync<Overtime, OvertimeRecord>(criteria);
-            var overtime = result.Item1.FirstOrDefault();
-            overtime.OvertimeRecords = result.Item2;
+            var (overtimes, records) = await baseService.FetchMultipleAsync<Overtime, OvertimeRecord>(criteria);
+            var overtime = overtimes.FirstOrDefault();
+            if (overtime is not null)
+            {
+                overtime.OvertimeRecords = records;
+            }
 
             return overtime;
         }
@@ -118,12 +121,12 @@
                         dataError.Add(row);
                     }
                 }
-
             }
             return (dataList, dataError);
         }
 
         private static bool IsConvertDate(string date) => DateTime.TryParse(date, CultureInfo.InvariantCulture, out _);
+
         private static bool IsConvertDuration(string Duration) => float.TryParse(Duration, out _);
 
         private static bool IsNullOrWhiteSpace(ExcelWorksheet workSheet, int row) =>

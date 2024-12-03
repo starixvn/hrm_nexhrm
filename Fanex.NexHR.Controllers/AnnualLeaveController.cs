@@ -1,19 +1,18 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Core.Enums;
     using Criteria.AnnualLeave;
     using Criteria.Employee;
-    using Fanex.Data.Repository;
     using Fanex.NexHR.Controllers.Attributes;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.AnnualLeave;
     using Resources;
     using Services.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using ViewModels.AnnualLeave;
 
     public class AnnualLeaveController : BaseController

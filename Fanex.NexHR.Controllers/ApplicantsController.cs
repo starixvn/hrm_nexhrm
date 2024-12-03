@@ -1,5 +1,15 @@
 namespace Fanex.NexHR.Controllers
 {
+    using Criteria.Applicant;
+    using Fanex.NexHR.Controllers.Attributes;
+    using Fanex.NexHR.Criteria.Position;
+    using Fanex.NexHR.Models;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Models.Applicant;
+    using Services.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -7,18 +17,6 @@ namespace Fanex.NexHR.Controllers
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
-    using Criteria.Applicant;
-    using Fanex.NexHR.Controllers.Attributes;
-    using Fanex.NexHR.Criteria.Position;
-    using Fanex.NexHR.Models;
-    using Fanex.NexHR.Services;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
-    using Microsoft.VisualBasic;
-    using Models.Applicant;
-    using Services.Interfaces;
     using ViewModels.Applicant;
 
     public class ApplicantsController(ISessionService sessionService,
@@ -29,7 +27,6 @@ namespace Fanex.NexHR.Controllers
             ICryptoService cryptoService1,
             IPromotionService promotionService) : BaseController(sessionService)
     {
-
         private const string UploadsFilePath = "common_files/cv";
 
         [HrmAuthorize(UserRoles = "HR")]

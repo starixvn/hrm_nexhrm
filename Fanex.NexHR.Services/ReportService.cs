@@ -1,13 +1,12 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Criteria.Report;
     using Interfaces;
     using Models;
     using Models.Report;
     using Repositories.Interfaces;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public class ReportService : IReportService
     {

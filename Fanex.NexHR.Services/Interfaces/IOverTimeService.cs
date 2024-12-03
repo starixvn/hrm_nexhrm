@@ -1,12 +1,11 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
+    using Criteria.Overtime;
+    using Microsoft.AspNetCore.Http;
+    using Models.Overtime;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Criteria.Overtime;
-    using Microsoft.AspNetCore.Http;
-    using Models;
-    using Models.Overtime;
     using ViewModels.Overtime;
 
     public interface IOvertimeService
