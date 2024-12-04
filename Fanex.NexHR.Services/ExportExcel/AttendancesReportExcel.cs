@@ -3,6 +3,7 @@
     using Fanex.NexHR.Models.Report;
     using OfficeOpenXml;
     using OfficeOpenXml.Style;
+    using System;
     using System.Collections.Generic;
     using System.Drawing;
 
@@ -30,8 +31,8 @@
                 rowIndex++;
                 stt++;
             }
-
         }
+
         protected internal virtual void SetValueRow(EmployeeAttendanceModel report, ExcelWorksheet worksheet)
         {
             int colIndex = 1;
@@ -44,10 +45,9 @@
             worksheet.Cells[rowIndex, colIndex++].Value = report.ShiftCode;
             worksheet.Cells[rowIndex, colIndex++].Value = report.InFixed?.ToString("hh:mm");
             worksheet.Cells[rowIndex, colIndex++].Value = report.OutFixed?.ToString("hh:mm");
-            var totalWorkHour = ((int)report.TotalWorkHours);
-            var totalWorkMinute = (report.TotalWorkHours - totalWorkHour) * 100;
+
             worksheet.Cells[rowIndex, colIndex++].Value = report.TotalWorkHours == 0 ? ""
-                : ($"{string.Format("{0:00}", totalWorkHour)}h:{string.Format("{0:00}", totalWorkMinute)}'");
+                : DisplayTotalWorkingHour(report.TotalWorkHours);
             worksheet.Cells[rowIndex, colIndex++].Value = report.LateIn == 0 ? "" : ($"00:{report.LateIn}");
             worksheet.Cells[rowIndex, colIndex++].Value = report.EarlyOut == 0 ? "" : ($"00:{report.EarlyOut}");
             worksheet.Cells[rowIndex, colIndex++].Value = report.IsWorkFromHome ? "Yes" : "No";
@@ -57,6 +57,21 @@
             {
                 SetBackgroundColor(worksheet.Cells[rowIndex, 1, rowIndex, colIndex], ColorTranslator.FromHtml("#C6C8FF"));
             }
+        }
+
+        private static string DisplayTotalWorkingHour(decimal totalWorkHour)
+        {
+            var display = string.Empty;
+            var hour = Math.Floor(totalWorkHour);
+
+            if (hour > 0)
+            {
+                display = string.Format("{0}h", hour < 10 ? "0" + hour : hour);
+            }
+
+            var minute = Math.Round((totalWorkHour - hour) * 60);
+
+            return string.Format("{0}{1}'", display, minute < 10 ? "0" + minute : minute);
         }
 
         protected internal override void RenderHeader(ExcelWorksheet templateWorksheet, ExcelWorksheet worksheet)
