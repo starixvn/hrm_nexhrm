@@ -4,6 +4,10 @@ $(document).ready(function () {
     initAutocomplete('#Recruiter', '#RecruiterId', null);
     $('.select-2').select2({ closeOnSelect: false });
 
+    $('#single-select').select2({
+        allowClear: true
+    });
+
     $('.resume-container a').on('click', function (e) {
         e.preventDefault();
         var newLocation = $(this).attr('href');

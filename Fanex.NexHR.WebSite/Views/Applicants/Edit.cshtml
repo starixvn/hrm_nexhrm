@@ -62,10 +62,9 @@
                                     <div class="left label--mxxl">
                                         <label>@Labels.Position</label>
                                     </div>
-                                    <div class="left select--m">
-                                        <select asp-for="PositionId"
-                                            asp-items="@(new SelectList(Model.Positions, "PositionId", "PositionName"))">
-                                        </select>
+                                    <div class="left select--m select-position">
+                                        <select asp-for="PositionId"  asp-items="@(new SelectList(Model.Positions, "PositionId", "PositionName"))"
+                                            class="select-2 disabled"></select>
                                     </div>
                                 </div>
                             </div>
