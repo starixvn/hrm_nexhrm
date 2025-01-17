@@ -85,11 +85,9 @@ function query(isFirstLoad) {
 
 function initEventForFromDateAndToDate() {
     var empId = parseInt($('#EmployeeId').val());
-    getAnnualLeaveBalanceInMonth(empId);
 
     $('#FromDate, #ToDate').on('change', function () {
         var empId = parseInt($('#EmployeeId').val());
-        getAnnualLeaveBalanceInMonth(empId);
         if (empId > 0) {
             if ($('#HalfDayOff').prop('checked')) {
                 $('#ToDate').val($('#FromDate').val());

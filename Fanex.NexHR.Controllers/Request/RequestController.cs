@@ -1,9 +1,5 @@
 ﻿namespace Fanex.NexHR.Controllers.Request
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Core;
     using Core.Enums;
     using Criteria.Request;
@@ -15,6 +11,10 @@
     using Resources;
     using Services;
     using Services.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using ViewModels;
     using ViewModels.Common;
 
@@ -293,7 +293,7 @@
                 FromDate = request.FromDate,
                 ToDate = request.ToDate,
                 EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
-                GroupId = request.TeamId,
+                GroupId = request.TeamId != 0 ? request.TeamId : null,
                 LeaveTypeId = request.LeaveTypeId == 0 ? null : new int?(request.LeaveTypeId),
                 Status = request.StatusId != 0 ? new byte?(request.StatusId) : null,
                 ExcludeEmployeeId = role == (short)Role.AssistantLeader ? new int?(CurrentUser.Id) : null,
