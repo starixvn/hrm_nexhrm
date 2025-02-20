@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Functions>
+    <Function Name="Sync Data">
+        <Setting Key="HRM_SyncData_GroupReport_GetEmployeeInfo" SpName="HRM_SyncData_GroupReport_GetEmployeeInfo" DbName="nexhr" Plain="0" />
+    </Function>
+</Functions>
