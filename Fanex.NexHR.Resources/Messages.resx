@@ -492,7 +492,7 @@ Please access {2}/Leave/Create to request leave. Thank you.</value>
 Dear **{1}**,
 
 
-You forgot to log your working hours for yesterday - {2}.
+You forgot to log your working hours on {2}.
 
 
 Thank you!</value>
@@ -502,7 +502,7 @@ Thank you!</value>
 
 Dear **{0}**,
 
-This is a message to inform that your member forgot to log time this month.
+This is a message to inform that your member(s) forgot to log time this month.
 
 {1}
 

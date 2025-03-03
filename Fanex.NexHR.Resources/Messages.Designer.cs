@@ -832,7 +832,7 @@ namespace Fanex.NexHR.Resources {
         ///
         ///Dear **{0}**,
         ///
-        ///This is a message to inform that your member forgot to log time this month.
+        ///This is a message to inform that your member(s) forgot to log time this month.
         ///
         ///{1}
         ///
@@ -850,7 +850,7 @@ namespace Fanex.NexHR.Resources {
         ///Dear **{1}**,
         ///
         ///
-        ///You forgot to log your working hours for yesterday - {2}.
+        ///You forgot to log your working hours on {2}.
         ///
         ///
         ///Thank you!.
