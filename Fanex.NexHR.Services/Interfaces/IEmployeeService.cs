@@ -43,6 +43,8 @@
 
         Task<IEnumerable<LuminetShift>> GetLuminetShifts();
 
+        Task<IEnumerable<EmployeesMissedLogTime>> GetEmployeesMissedLogTime();
+
         IList<string> UserRoles(UserSession currentUser);
     }
 }

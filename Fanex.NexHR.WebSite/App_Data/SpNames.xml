@@ -60,6 +60,8 @@
         <Setting Key="Report_GetEmployeeWorkLoad" SpName="Report_GetEmployeeWorkLoad" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeAttendance_GetMissingCheckInCheckOut" SpName="EmployeeAttendance_GetMissingCheckInCheckOut" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_GetListStaffInfoNexHour" SpName="Employee_GetListStaffInfoNexHour" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Employee_GetMissedLogTime" SpName="Employee_GetMissedLogTime" DbName="nexhr" Plain="0"></Setting>
+	    <Setting Key="EmployeeLogTimeMissed_UpdateMultiple" SpName="EmployeeLogTimeMissed_UpdateMultiple" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="GroupSupervisor">
         <Setting Key="GroupSupervisor_Get" SpName="GroupSupervisor_Get" DbName="nexhr" Plain="0"></Setting>

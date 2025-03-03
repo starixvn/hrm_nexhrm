@@ -486,4 +486,26 @@ Please access {2}/Leave/Create to request leave. Thank you.</value>
   <data name="EmployeeLateInEarlyOutMoreThanSixtyMinutes" xml:space="preserve">
     <value>_- {0} ({1}) has been Late In/Early Out on {2}_ {3}</value>
   </data>
+  <data name="RemindLogTimeMember" xml:space="preserve">
+    <value>Forgot to log time - **{0}** time(s) this month.
+
+Dear **{1}**,
+
+
+You forgot to log your working hours for yesterday - {2}.
+
+
+Thank you!</value>
+  </data>
+  <data name="RemindLogTimeLeader" xml:space="preserve">
+    <value>Team member forgot to log time - this month.
+
+Dear **{0}**,
+
+This is a message to inform that your member forgot to log time this month.
+
+{1}
+
+Thank you!</value>
+  </data>
 </root>

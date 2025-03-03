@@ -828,6 +828,40 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Team member forgot to log time - this month.
+        ///
+        ///Dear **{0}**,
+        ///
+        ///This is a message to inform that your member forgot to log time this month.
+        ///
+        ///{1}
+        ///
+        ///Thank you!.
+        /// </summary>
+        public static string RemindLogTimeLeader {
+            get {
+                return ResourceManager.GetString("RemindLogTimeLeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forgot to log time - **{0}** time(s) this month.
+        ///
+        ///Dear **{1}**,
+        ///
+        ///
+        ///You forgot to log your working hours for yesterday - {2}.
+        ///
+        ///
+        ///Thank you!.
+        /// </summary>
+        public static string RemindLogTimeMember {
+            get {
+                return ResourceManager.GetString("RemindLogTimeMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dear {0},
         ///You have just reached {1} working hours today. 
         ///
