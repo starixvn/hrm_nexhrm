@@ -8,6 +8,7 @@
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.LogTime;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
     using static NPOI.HSSF.Util.HSSFColor;
@@ -18,9 +19,10 @@
         private readonly IBaseService baseService;
         private readonly IEmployeeService employeeService;
         private readonly AppSetting appSetting;
-        private readonly string testCon = "a:1PUIjUwYI8CbF6yt5xPwFu-dyfctabmG08RNWhNrn8id1TxZNU94RYyTWISjA0CN1APg17i3lcu1abksDC5Snjc3s2N1qV0hcGpGHQurfOyZ7Q27jgJN2dTm_A9f7_R9_";
-        //private readonly string testCon = "a:10BICN4Nk97-YCHuleeAG0IOybfNbN2GCGxrxKm1VMk0esBBF5OHpiEVPfqrD2yY1LdIblV8g7O85VgGm_FyHLeWodqM8OmD6Fak32yZmAWHJF5MwBaX6IW26jCgVYVU6";
-
+        // Lita local
+        private readonly string testCon = "a:1enODRExESjqlZKOU-lSgzu9YfbCQVczwTs84VqXaWtYsTRefm7gbJp_19hCvXVWfclrsrmITnWqPEKSSNP0ycRN5XCNzDzCBMrE_5sMI15dfZd3ZKiDIzCfZ11j6sIUN";
+        // Henry local
+        //private readonly string testCon = "a:10rtfbre13QNMhvXp3qxeMWc0TQIOBxA51gI1iQkzg4t1ZN0Pyj_FuZYNXZGfCqDA3aZ0P_OMWU38v90sNeODdQvjigM5Nw5G1UgHSuvuMGZnhdcf2qUru-NL46vHJdoG";
 
         public BotLogTimeRemindService(IBaseService baseService,
             IEmployeeService employeeService,
@@ -58,25 +60,27 @@
 
         private async Task SendMessageToLeaders(IEnumerable<EmployeesMissedLogTime> employees)
         {
-            var groupedTeams = employees
-                .Where(e => !e.IsLeader) 
-                .GroupBy(e => e.TeamCode)
-                .ToList();
-            
+            var groupedTeams = employees.Where(e => !e.IsLeader).GroupBy(e => e.TeamCode).ToList();
+
             foreach (var team in groupedTeams)
             {
                 var leader = employees.FirstOrDefault(e => e.TeamCode == team.Key && e.IsLeader);
                 if (leader == null) continue;
 
-                var missedEmployees = team.ToList();
+                var missedEmployees = team.Where(e => (e.MissedCount + 1) % 3 == 0).ToList();
+                if (missedEmployees.Count == 0) continue;
 
-                var missedList = string.Join("\n", missedEmployees
-                    .Where(e => (e.MissedCount + 1) % 3 == 0)
-                    .Select(e => $"- {e.NickName} ({e.MissedCount + 1} times)"));
-
-                if (string.IsNullOrEmpty(missedList)) continue;
-                var message = string.Format(Messages.RemindLogTimeLeader, leader.NickName, missedList);
-                await nexbotService.SendMessageAsync(testCon, message).ConfigureAwait(false);
+                var data = new MissedLogTimeLeaderModel
+                {
+                    ConversationId = testCon,
+                    LeaderName = leader.NickName,
+                    Members = missedEmployees.Select(e => new MemberModel
+                    {
+                        NickName = e.NickName,
+                        MissedCount = e.MissedCount + 1
+                    }).ToList()
+                };
+                await nexbotService.SendMissedLogTimeRemindLeader(data).ConfigureAwait(false);
             }
         }
 
@@ -89,8 +93,14 @@
             }
             foreach (var employee in employees)
             {
-                var message = string.Format(Messages.RemindLogTimeMember, employee.MissedCount + 1, employee.NickName, yesterday.ToDateMonthYearFormatedDate());
-                await nexbotService.SendMessageAsync(testCon, message).ConfigureAwait(false);
+                var data = new MissedLogTimeMemberModel
+                {
+                    ConversationId = testCon,
+                    MissedCount = employee.MissedCount + 1,
+                    NickName = employee.NickName,
+                    LogDate = yesterday.ToDateMonthYearFormatedDate()
+                };
+                await nexbotService.SendMissedLogTimeRemindMember(data).ConfigureAwait(false);
             }
         }
     }

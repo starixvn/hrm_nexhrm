@@ -1,0 +1,10 @@
+﻿namespace Fanex.NexHR.Models.LogTime
+{
+    public class MissedLogTimeMemberModel
+    {
+        public string ConversationId { get; set; }
+        public string NickName { get; set; }
+        public int MissedCount { get; set; }
+        public string LogDate { get; set; }
+    }
+}

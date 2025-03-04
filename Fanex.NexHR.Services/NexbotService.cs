@@ -12,6 +12,7 @@
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Conversation;
     using Fanex.NexHR.Models.LateInEarlyOut;
+    using Fanex.NexHR.Models.LogTime;
     using Fanex.NexHR.Models.Staff;
     using Fanex.NexHR.Models.TimeSheet;
     using Fanex.NexHR.Resources;
@@ -46,10 +47,6 @@
 
         public async Task<bool> SendMessageAsync(string conversationId, string message)
         {
-            if (conversationId != "a:1PUIjUwYI8CbF6yt5xPwFu-dyfctabmG08RNWhNrn8id1TxZNU94RYyTWISjA0CN1APg17i3lcu1abksDC5Snjc3s2N1qV0hcGpGHQurfOyZ7Q27jgJN2dTm_A9f7_R9_"
-            && conversationId != "a:10BICN4Nk97-YCHuleeAG0IOybfNbN2GCGxrxKm1VMk0esBBF5OHpiEVPfqrD2yY1LdIblV8g7O85VgGm_FyHLeWodqM8OmD6Fak32yZmAWHJF5MwBaX6IW26jCgVYVU6")
-                return false;
-
             if (nexBotSettings.Enable && !string.IsNullOrWhiteSpace(conversationId))
             {
                 var request = CreateRequestAsync("/messages/forward", HttpMethod.Post);
@@ -457,6 +454,37 @@
                 };
 
                 await SendHttpClientAsync<Task>("/messages/RemindApproveMultipleRequest", HttpMethod.Post, data);
+            }
+        }
+
+        public async Task SendMissedLogTimeRemindLeader(MissedLogTimeLeaderModel model)
+        {
+            if (nexBotSettings.Enable)
+            {
+                var data = new Dictionary<string, string>
+                {
+                    {conversationIdName, model.ConversationId},
+                    {"leaderName", model.LeaderName},
+                    {"StringMembers", JsonConvert.SerializeObject(model.Members.ToArray())},
+                };
+
+                await SendHttpClientAsync<Task>("/remind/MissedLogTimeLeader", HttpMethod.Post, data);
+            }
+        }
+
+        public async Task SendMissedLogTimeRemindMember(MissedLogTimeMemberModel model)
+        {
+            if (nexBotSettings.Enable)
+            {
+                var data = new Dictionary<string, string>
+                {
+                    {conversationIdName, model.ConversationId},
+                    {"nickName", model.NickName},
+                    {"missedCount", model.MissedCount.ToString()},
+                    {"logDate", model.LogDate},
+                };
+
+                await SendHttpClientAsync<Task>("/remind/MissedLogTimeMember", HttpMethod.Post, data);
             }
         }
     }

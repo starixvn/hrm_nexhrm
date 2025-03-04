@@ -7,6 +7,7 @@
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Conversation;
     using Fanex.NexHR.Models.LateInEarlyOut;
+    using Fanex.NexHR.Models.LogTime;
     using Fanex.NexHR.Models.Staff;
     using Fanex.NexHR.Models.TimeSheet;
     using Models.Request;
@@ -46,5 +47,9 @@
         Task SendReachedWorkingHoursNotification(WorkingHour workingHour);
 
         Task SendMultipleRequestsToApprover(ApproverRequestSumup approver);
+
+        Task SendMissedLogTimeRemindLeader(MissedLogTimeLeaderModel model);
+
+        Task SendMissedLogTimeRemindMember(MissedLogTimeMemberModel model);
     }
 }
