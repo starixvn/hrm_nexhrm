@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="App_Data\SpNames.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="App_Data\SpNames.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Cronos" Version="0.9.0" />
+    <PackageReference Include="Fanex.Data" Version="4.2.5.3" />
+    <PackageReference Include="Fanex.Data.Repository" Version="4.2.5.3" />
+    <PackageReference Include="Fanex.Data.SqlServer" Version="4.2.5.3" />
+    <PackageReference Include="Fanex.Logging.Extensions.AspNetCore" Version="1.0.1" />
+    <PackageReference Include="Fanex.Logging.Extensions.Database" Version="1.0.8" />
+    <PackageReference Include="Fanex.Logging.Sentry" Version="1.0.6" />
+    <PackageReference Include="jose-jwt" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="5.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="nlog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+</Project>
