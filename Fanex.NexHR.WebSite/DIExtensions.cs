@@ -141,6 +141,7 @@
             services.AddSingleton<IBotFogotLogtimeReminderService, FogotLogtimeReminderService>();
             services.AddSingleton<IBotLateInLateOutAutoJobService, BotLateInEarlyOutViolateOnMonthWarningSerivce>();
             services.AddSingleton<IBotAutoJobService, BotMissingCheckInCheckOutReminderSerivce>();
+            services.AddSingleton<IBotLogTimeRemindService, BotLogTimeRemindService>();
             services.AddSingleton<IMailBirthdayAndFirstWorkingdayReminderService, MailBirthdayAndFirstWorkingdayReminderService>();
             services.AddSingleton<ISyncDataService, SyncDataService>();
             services.AddSingleton<ITimeSheetService, TimeSheetService>();

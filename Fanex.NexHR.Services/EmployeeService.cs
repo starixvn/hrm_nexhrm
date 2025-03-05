@@ -11,6 +11,7 @@
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.EmployeeTransfer;
+    using Fanex.NexHR.Models;
     using Interfaces;
     using Models;
     using Models.Report;
@@ -185,6 +186,12 @@
         {
             return await baseService.GetDataAsync<LuminetShift>(new GetLuminetShiftCriteria());
         }
+
+        public async Task<IEnumerable<EmployeesMissedLogTime>> GetEmployeesMissedLogTime()
+        {
+            return await baseService.GetDataAsync<EmployeesMissedLogTime>(new GetEmployeeMissedLogTimeCriteria());
+        }
+
 
         private static string getCompanyWorkFromHome(IList<DashBoardCompanySpace> dashBoard)
         {

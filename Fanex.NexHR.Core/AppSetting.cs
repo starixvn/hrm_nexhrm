@@ -8,6 +8,8 @@
         public string IgnoreTeams { get; set; }
         public string DomainName { get; set; }
         public string IgnoreTeamWorkload { get; set; }
+        public string IgnoreTeamLogTime { get; set; }
+        public string IgnoreEmployeeLogTime { get; set; }
         public string RedmineBaseUrl { get; set; }
         public string RedmineDisplayUrl { get; set; }
         public string RedmineSecret { get; set; }

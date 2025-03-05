@@ -12,6 +12,7 @@
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Conversation;
     using Fanex.NexHR.Models.LateInEarlyOut;
+    using Fanex.NexHR.Models.LogTime;
     using Fanex.NexHR.Models.Staff;
     using Fanex.NexHR.Models.TimeSheet;
     using Fanex.NexHR.Resources;
@@ -453,6 +454,39 @@
                 };
 
                 await SendHttpClientAsync<Task>("/messages/RemindApproveMultipleRequest", HttpMethod.Post, data);
+            }
+        }
+
+        public async Task SendMissedLogTimeRemindLeader(MissedLogTimeLeaderModel model)
+        {
+            if (nexBotSettings.Enable)
+            {
+                var data = new Dictionary<string, string>
+                {
+                    {conversationIdName, model.ConversationId},
+                    {"leaderName", model.LeaderName},
+                    {"logMonth", model.LogMonth},
+                    {"StringMembers", JsonConvert.SerializeObject(model.Members.ToArray())},
+                };
+
+                await SendHttpClientAsync<Task>("/remind/MissedLogTimeLeader", HttpMethod.Post, data);
+            }
+        }
+
+        public async Task SendMissedLogTimeRemindMember(MissedLogTimeMemberModel model)
+        {
+            if (nexBotSettings.Enable)
+            {
+                var data = new Dictionary<string, string>
+                {
+                    {conversationIdName, model.ConversationId},
+                    {"nickName", model.NickName},
+                    {"missedCount", model.MissedCount.ToString()},
+                    {"logDate", model.LogDate},
+                    {"logMonth", model.LogMonth},
+                };
+
+                await SendHttpClientAsync<Task>("/remind/MissedLogTimeMember", HttpMethod.Post, data);
             }
         }
     }
