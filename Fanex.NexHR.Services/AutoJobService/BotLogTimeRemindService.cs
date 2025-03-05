@@ -8,7 +8,6 @@
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.LogTime;
-    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
 
     public class BotLogTimeRemindService : IBotLogTimeRemindService
@@ -39,8 +38,7 @@
             var employees = await employeeService.GetEmployeesMissedLogTime().ConfigureAwait(false);
             var ignoreEmployees = appSetting.IgnoreEmployeeLogTime.Split(',');
             var ignoreTeams = appSetting.IgnoreTeamLogTime.Split(',');
-            employees = employees.Where(e => 
-                    e.TeamCode is "ZUR" or "NOS" &&
+            employees = employees.Where(e =>
                     Array.IndexOf(ignoreEmployees, e.EmpID.ToString()) < 0 &&
                     Array.IndexOf(ignoreTeams, e.TeamCode) < 0)
                 .ToList();
@@ -63,7 +61,7 @@
             foreach (var team in groupedTeams)
             {
                 var leader = employees.FirstOrDefault(e => e.TeamCode == team.Key && e.IsLeader);
-                if (leader == null) continue;
+                if (leader == null || string.IsNullOrWhiteSpace(leader.ConversationId)) continue;
 
                 var missedEmployees = team.Where(e => (e.MissedCount + 1) % 3 == 0).ToList();
                 if (missedEmployees.Count == 0) continue;
@@ -87,6 +85,9 @@
         {
             foreach (var employee in employees)
             {
+                if (string.IsNullOrWhiteSpace(employee.ConversationId))
+                    continue;
+
                 var data = new MissedLogTimeMemberModel
                 {
                     ConversationId = employee.ConversationId,
