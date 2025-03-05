@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Criteria.Employee;
@@ -11,7 +10,6 @@
     using Fanex.NexHR.Models.LogTime;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
-    using static NPOI.HSSF.Util.HSSFColor;
 
     public class BotLogTimeRemindService : IBotLogTimeRemindService
     {
@@ -19,10 +17,6 @@
         private readonly IBaseService baseService;
         private readonly IEmployeeService employeeService;
         private readonly AppSetting appSetting;
-        // Lita local
-        private readonly string testCon = "a:1enODRExESjqlZKOU-lSgzu9YfbCQVczwTs84VqXaWtYsTRefm7gbJp_19hCvXVWfclrsrmITnWqPEKSSNP0ycRN5XCNzDzCBMrE_5sMI15dfZd3ZKiDIzCfZ11j6sIUN";
-        // Henry local
-        //private readonly string testCon = "a:10rtfbre13QNMhvXp3qxeMWc0TQIOBxA51gI1iQkzg4t1ZN0Pyj_FuZYNXZGfCqDA3aZ0P_OMWU38v90sNeODdQvjigM5Nw5G1UgHSuvuMGZnhdcf2qUru-NL46vHJdoG";
 
         public BotLogTimeRemindService(IBaseService baseService,
             IEmployeeService employeeService,
@@ -33,7 +27,6 @@
             this.nexbotService = nexbotService;
             this.employeeService = employeeService;
             this.appSetting = appSetting;
-
         }
 
         public async Task<CommandResult> SendMessageLogTimeRemindAsync()
@@ -42,7 +35,7 @@
             var ignoreEmployees = appSetting.IgnoreEmployeeLogTime.Split(',');
             var ignoreTeams = appSetting.IgnoreTeamLogTime.Split(',');
             employees = employees.Where(e => 
-                    //e.TeamCode is "ZUR" or "NS" &&
+                    e.TeamCode is "ZUR" or "NS" &&
                     Array.IndexOf(ignoreEmployees, e.EmpID.ToString()) < 0 &&
                     Array.IndexOf(ignoreTeams, e.TeamCode) < 0)
                 .ToList();
@@ -72,7 +65,7 @@
 
                 var data = new MissedLogTimeLeaderModel
                 {
-                    ConversationId = testCon,
+                    ConversationId = leader.ConversationId,
                     LeaderName = leader.NickName,
                     Members = missedEmployees.Select(e => new MemberModel
                     {
@@ -95,7 +88,7 @@
             {
                 var data = new MissedLogTimeMemberModel
                 {
-                    ConversationId = testCon,
+                    ConversationId = employee.ConversationId,
                     MissedCount = employee.MissedCount + 1,
                     NickName = employee.NickName,
                     LogDate = yesterday.ToDateMonthYearFormatedDate()

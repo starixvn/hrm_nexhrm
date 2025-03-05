@@ -50,7 +50,6 @@
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<IActionResult> MissingLogTime()
         {
             var result = await botLogTime.SendMessageLogTimeRemindAsync().ConfigureAwait(false);
