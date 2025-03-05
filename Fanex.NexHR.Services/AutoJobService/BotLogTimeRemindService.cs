@@ -40,7 +40,7 @@
             var ignoreEmployees = appSetting.IgnoreEmployeeLogTime.Split(',');
             var ignoreTeams = appSetting.IgnoreTeamLogTime.Split(',');
             employees = employees.Where(e => 
-                    e.TeamCode is "ZUR" or "NS" &&
+                    e.TeamCode is "ZUR" or "NOS" &&
                     Array.IndexOf(ignoreEmployees, e.EmpID.ToString()) < 0 &&
                     Array.IndexOf(ignoreTeams, e.TeamCode) < 0)
                 .ToList();
