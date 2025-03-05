@@ -6,6 +6,7 @@ namespace Fanex.NexHR.Models.LogTime
     {
         public string ConversationId { get; set; }
         public string LeaderName { get; set; }
+        public string LogMonth { get; set; }
         public List<MemberModel> Members { get; set; }
     }
 

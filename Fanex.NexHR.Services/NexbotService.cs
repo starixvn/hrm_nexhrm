@@ -465,6 +465,7 @@
                 {
                     {conversationIdName, model.ConversationId},
                     {"leaderName", model.LeaderName},
+                    {"logMonth", model.LogMonth},
                     {"StringMembers", JsonConvert.SerializeObject(model.Members.ToArray())},
                 };
 
@@ -482,6 +483,7 @@
                     {"nickName", model.NickName},
                     {"missedCount", model.MissedCount.ToString()},
                     {"logDate", model.LogDate},
+                    {"logMonth", model.LogMonth},
                 };
 
                 await SendHttpClientAsync<Task>("/remind/MissedLogTimeMember", HttpMethod.Post, data);
