@@ -9,6 +9,7 @@
         public string DomainName { get; set; }
         public string IgnoreTeamWorkload { get; set; }
         public string IgnoreTeamLogTime { get; set; }
+        public string IgnoreJobTitleLogTime { get; set; }
         public string IgnoreEmployeeLogTime { get; set; }
         public string RedmineBaseUrl { get; set; }
         public string RedmineDisplayUrl { get; set; }
