@@ -37,8 +37,10 @@
             }
             var employees = await employeeService.GetEmployeesMissedLogTime().ConfigureAwait(false);
             var ignoreEmployees = appSetting.IgnoreEmployeeLogTime.Split(',');
+            var ignoreJobTitles = appSetting.IgnoreJobTitleLogTime.Split(',');
             var ignoreTeams = appSetting.IgnoreTeamLogTime.Split(',');
             employees = employees.Where(e =>
+                    !ignoreJobTitles.Any(keyword => e.JobTitle.Contains(keyword)) &&
                     Array.IndexOf(ignoreEmployees, e.EmpID.ToString()) < 0 &&
                     Array.IndexOf(ignoreTeams, e.TeamCode) < 0)
                 .ToList();
