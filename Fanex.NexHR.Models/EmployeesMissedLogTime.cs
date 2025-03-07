@@ -11,6 +11,7 @@ namespace Fanex.NexHR.Models
         public string TeamCode { get; set; }
         public int EmpID { get; set; }
         public string NickName { get; set; }
+        public string JobTitle { get; set; }
         public bool IsLeader { get; set; }
         public int MissedCount { get; set; }
         public string ConversationId { get; set; }
