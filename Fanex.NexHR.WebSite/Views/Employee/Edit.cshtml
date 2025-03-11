@@ -36,6 +36,7 @@
     <div class="row content">
         <input type="hidden" asp-for="@Model.Id" />
         <input type="hidden" asp-for="@Model.JobGradeId" />
+        <input type="hidden" asp-for="@Model.ManagementGradeId" />
         <div id="dialog-show-history-jobgrade" class="full-view-width over-auto"></div>
         <div class="col s12 card-container-base">
             <div class="card">
@@ -179,16 +180,16 @@
                                         </div>
                                     </div>
                                     <div class="row form-input">
-                                        <div class="col m-r--m">
-                                            <div class="left label--mxxl">
-                                                <label for="JobTitleId">@Labels.JobTitle</label>
-                                            </div>
-                                            <div class="left select--l">
-                                                <select asp-for="JobTitleId" asp-items="@(new SelectList(Model.JobTitles, "Id", "Name"))">
-                                                </select>
-                                                <span asp-validation-for="JobTitleId"></span>
-                                            </div>
-                                        </div>
+	                                    <div class="col m-r--m">
+		                                    <div class="left label--mxxl">
+			                                    <label for="JobTitleId">@Labels.JobTitle</label>
+		                                    </div>
+		                                    <div class="left select--l">
+			                                    <select asp-for="JobTitleId" asp-items="@(new SelectList(Model.JobTitles, "Id", "Name"))">
+			                                    </select>
+			                                    <span asp-validation-for="JobTitleId"></span>
+		                                    </div>
+	                                    </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col">
@@ -196,22 +197,38 @@
                                                 <label>@Labels.JobGrade</label>
                                             </div>
                                             <div class="left input--l">
-                                                @if (Model.JobGradeCode != null)
-                                                {
-                                                    <span class="txt-bold tooltip" title="@($"{Labels.EffectiveDate}: {Model.AffectedDate.ToDateMonthYearFormatedDate()}")">@Model.JobGradeCode</span>
-                                                    <a class="viewhistoryjobgrade" href="javascript:;" style="margin-left:5px;">
-                                                        <i class="mdi mdi-information-outline mdi-dark tooltip" title="View history"></i>
-                                                    </a>
-                                                }
-                                                else
-                                                {
-                                                    <a class="btn-ok waves-effect waves-light" id="jobGrade" href="javascript:;">@Labels.Update</a>
-                                                    <span id="JobGradeCode" class="black-text" hidden></span>
-                                                }
+                                                <span id="JobGradeCode" class="txt-bold tooltip"
+	                                                  title="@(Model.JobGradeCode != null ? $"{Labels.EffectiveDate}: {Model.AffectedDate.ToDateMonthYearFormatedDate()}" : "")">
+		                                            @(Model.JobGradeCode ?? "")
+	                                            </span>
+                                                <a class="viewhistoryjobgrade" id="viewhistoryjobgrade" href="javascript:;" style="margin-left:5px; margin-right:10px;" @(Model.JobGradeCode == null ? "hidden" : "")>
+		                                            <i class="mdi mdi-information-outline mdi-dark tooltip" title="View history"></i>
+	                                            </a>
+	                                            <a class="btn-ok waves-effect waves-light" id="jobGrade" href="javascript:;">
+		                                            @Labels.Update
+	                                            </a>
                                             </div>
                                         </div>
                                     </div>
-                                   
+                                    <div class="row form-input m-t--m">
+	                                    <div class="col">
+		                                    <div class="left label--mxxl">
+			                                    <label>@Labels.ManagementGrade</label>
+		                                    </div>
+		                                    <div class="left input--l">
+                                                <span id="ManagementGradeCode" class="txt-bold tooltip"
+			                                          title="@(Model.ManagementGradeCode != null ? $"{Labels.EffectiveDate}: {Model.AffectedDate.ToDateMonthYearFormatedDate()}" : "")">
+				                                    @(Model.ManagementGradeCode ?? "")
+			                                    </span>
+                                                <a class="viewhistoryjobgrade" id="viewhistorymanagementgrade" href="javascript:;" style="margin-left:5px; margin-right:10px;" @(Model.ManagementGradeCode == null ? "hidden" : "")>
+				                                    <i class="mdi mdi-information-outline mdi-dark tooltip" title="View history"></i>
+			                                    </a>
+			                                    <a class="btn-ok waves-effect waves-light" id="managementGrade" href="javascript:;">
+				                                    @Labels.Update
+			                                    </a>
+		                                    </div>
+	                                    </div>
+                                    </div>
                                     <div class="row form-input m-t--m">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
@@ -699,6 +716,7 @@
                             }
                             <div id="dialog-toeic" title="Update TOEIC Score">&nbsp;</div>
                             <div id="dialog-jobGrade" title="Update Job Grade">&nbsp;</div>
+                            <div id="dialog-managementGrade" title="Update Management Grade">&nbsp;</div>
                             <div id="dialog-approver" title="Update Employee's Approver">&nbsp;</div>
                         }
                         else

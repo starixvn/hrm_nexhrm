@@ -109,46 +109,82 @@ namespace Fanex.NexHR.Controllers
         {
             var criteria = new GetApplicantByIdCriteria { ApplicantId = id };
             var applicant = await applicantService.GetById(criteria);
+            if (applicant == null)
+            {
+                return View(new DetailApplicantViewModel());
+            }
+
+            var model = await MapApplicantToViewModel(applicant);
+            ViewBag.IsManager = IsCurrentUserManager();
+
+            return View(model);
+        }
+
+        private async Task<DetailApplicantViewModel> MapApplicantToViewModel(EditApplicantViewModel applicant)
+        {
             var positions = await GetPositions();
             var statusList = await GetCVStatus();
             var proLevelList = await GetProLevel();
             var resultList = await GetResult();
             var gradeList = await promotionService.GetJobGrade();
+            var managementGradeList = await promotionService.GetManagementGrade();
             var sourceList = await GetSource();
-            var model = new DetailApplicantViewModel();
-            if (applicant != null)
-            {
-                model.FullName = applicant.FullName;
-                model.Phone = applicant.Phone;
-                model.DOB = applicant.DOB;
-                model.Email = applicant.Email;
-                model.YearsOfExperience = applicant.YearsOfExperience;
-                model.ApplyDate = applicant.ApplyDate;
-                model.ProfessionalMajor = applicant.ProfessionalMajor;
-                model.InterviewDate1 = applicant.InterviewDate1;
-                model.InterviewDate2 = applicant.InterviewDate2;
-                model.JoinDate = applicant.JoinDate;
-                model.EducationBackground = applicant.EducationBackground;
-                model.InterviewerComment = applicant.InterviewerComment;
-                model.Note = applicant.Note;
-                model.FinalComment = DecryptValue(applicant.FinalComment);
-                model.OfferSalary = DecryptValue(applicant.OfferSalary);
-                model.ExpectedSalary = DecryptValue(applicant.ExpectedSalary);
-                model.Recruiter = applicant.NickNameRecruiter + (string.IsNullOrWhiteSpace(applicant.FullNameRecruiter) ? string.Empty : " (" + applicant.FullNameRecruiter + ")");
-                model.Position = positions.Find(p => p.PositionId == applicant.PositionId).PositionName;
-                model.Status = applicant.Status != null ? statusList.Find(p => p.Value == applicant.Status.ToString()).Name : null;
-                model.ProfessionalLevel = applicant.ProfessionalLevel != null
-                ? proLevelList.Find(p => p.Value == applicant.ProfessionalLevel.ToString()).Name : null;
-                model.Result1 = applicant.Result1 != null ? resultList.Find(p => p.Value == applicant.Result1.ToString()).Name : null;
-                model.Result2 = applicant.Result2 != null ? resultList.Find(p => p.Value == applicant.Result2.ToString()).Name : null;
-                model.Source = applicant.Source != null ? sourceList.Find(p => p.Value == applicant.Source.ToString()).Name : null;
-                model.Grade = applicant.Grade != null ? gradeList.FirstOrDefault(p => p.Id == applicant.Grade)?.Name : null;
-                model.Interviewer = await GetInterviewerNames(applicant.InterviewerIdString);
-                model.Resume = applicant.Resume;
-            }
-            ViewBag.IsManager = IsCurrentUserManager();
 
-            return View(model);
+            return new DetailApplicantViewModel
+            {
+                FullName = applicant.FullName,
+                Phone = applicant.Phone,
+                DOB = applicant.DOB,
+                Email = applicant.Email,
+                YearsOfExperience = applicant.YearsOfExperience,
+                ApplyDate = applicant.ApplyDate,
+                ProfessionalMajor = applicant.ProfessionalMajor,
+                InterviewDate1 = applicant.InterviewDate1,
+                InterviewDate2 = applicant.InterviewDate2,
+                JoinDate = applicant.JoinDate,
+                EducationBackground = applicant.EducationBackground,
+                InterviewerComment = applicant.InterviewerComment,
+                Note = applicant.Note,
+                FinalComment = DecryptValue(applicant.FinalComment),
+                OfferSalary = DecryptValue(applicant.OfferSalary),
+                ExpectedSalary = DecryptValue(applicant.ExpectedSalary),
+                Recruiter = FormatRecruiter(applicant.NickNameRecruiter, applicant.FullNameRecruiter),
+                Position = GetPositionName(positions, applicant.PositionId),
+                Status = GetSourceData(statusList, applicant.Status),
+                ProfessionalLevel = GetSourceData(proLevelList, applicant.ProfessionalLevel),
+                Result1 = GetSourceData(resultList, applicant.Result1),
+                Result2 = GetSourceData(resultList, applicant.Result2),
+                Source = GetSourceData(sourceList, applicant.Source),
+                Grade = GetGradeName(gradeList, applicant.Grade),
+                ManagementGrade = GetManagementGradeName(managementGradeList, applicant.ManagementGrade),
+                Interviewer = await GetInterviewerNames(applicant.InterviewerIdString),
+                Resume = applicant.Resume
+            };
+        }
+
+        private string FormatRecruiter(string nickName, string fullName)
+        {
+            return string.IsNullOrWhiteSpace(fullName) ? nickName : $"{nickName} ({fullName})";
+        }
+
+        private string GetPositionName(List<Position> positions, int? positionId)
+        {
+            return positions.Find(p => p.PositionId == positionId)?.PositionName;
+        }
+
+        private string GetSourceData(List<Source> sourceList, int? value)
+        {
+            return sourceList.Find(p => p.Value == value?.ToString())?.Name;
+        }
+
+        private string GetGradeName(IList<JobGrade> gradeList, int? grade)
+        {
+            return gradeList.ToList().Find(p => p.Id == grade)?.Name;
+        }
+
+        private string GetManagementGradeName(IList<ManagementGrade> managementGradeList, int? managementGrade)
+        {
+            return managementGradeList.ToList().Find(p => p.Id == managementGrade)?.Name;
         }
 
         private bool IsCurrentUserManager()
@@ -187,6 +223,7 @@ namespace Fanex.NexHR.Controllers
                 ProLevelList = await GetProLevel(),
                 ResultList = await GetResult(),
                 GradeList = await promotionService.GetJobGrade(),
+                ManagementGradeList = await promotionService.GetManagementGrade(),
                 SourceList = await GetSource(),
                 Employees = new SelectList(interviews, nameof(Employee.Id), nameof(Employee.NickName))
             };
@@ -226,6 +263,7 @@ namespace Fanex.NexHR.Controllers
                     EducationBackground = model.EducationBackground,
                     InterviewerComment = model.InterviewerComment,
                     Grade = model.Grade,
+                    ManagementGrade = model.ManagementGrade,
                     Note = model.Note,
                     InterviewerIds = model.InterviewerIds != null ? string.Join(",", model.InterviewerIds) : null,
                     ExpectedSalary = model.ExpectedSalary != null
@@ -253,6 +291,7 @@ namespace Fanex.NexHR.Controllers
                 model.ProLevelList = await GetProLevel();
                 model.ResultList = await GetResult();
                 model.GradeList = await promotionService.GetJobGrade();
+                model.ManagementGradeList = await promotionService.GetManagementGrade();
                 model.SourceList = await GetSource();
             }
 
@@ -283,6 +322,7 @@ namespace Fanex.NexHR.Controllers
                 applicant.ProLevelList = await GetProLevel();
                 applicant.ResultList = await GetResult();
                 applicant.GradeList = await promotionService.GetJobGrade();
+                applicant.ManagementGradeList = await promotionService.GetManagementGrade();
                 applicant.SourceList = await GetSource();
             }
 
@@ -322,6 +362,7 @@ namespace Fanex.NexHR.Controllers
                     EducationBackground = model.EducationBackground,
                     InterviewerComment = model.InterviewerComment,
                     Grade = model.Grade,
+                    ManagementGrade = model.ManagementGrade,
                     Note = model.Note,
                     InterviewerIds = model.InterviewerIds != null ? string.Join(",", model.InterviewerIds) : null,
                     ExpectedSalary = model.ExpectedSalary != null ? cryptoService1.RsaEncrypt(model.ExpectedSalary) : null,
@@ -346,6 +387,7 @@ namespace Fanex.NexHR.Controllers
                 model.ProLevelList = await GetProLevel();
                 model.ResultList = await GetResult();
                 model.GradeList = await promotionService.GetJobGrade();
+                model.ManagementGradeList = await promotionService.GetManagementGrade();
                 model.SourceList = await GetSource();
             }
 

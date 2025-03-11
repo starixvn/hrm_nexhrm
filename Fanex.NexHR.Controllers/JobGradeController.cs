@@ -4,6 +4,7 @@
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Criteria.JobGrade;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels.JobGrade;
     using Microsoft.AspNetCore.Mvc;
@@ -57,7 +58,7 @@
             {
                 Employee = nickname + " (" + fullName + ")",
                 EmployeeId = id,
-                JobGradeId =  JobGradeId ?? 0
+                OldJobGradeId =  JobGradeId ?? 0,
             };
             ViewBag.JobGrade = await promotionService.GetJobGrade();
 
@@ -68,17 +69,30 @@
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Update(UpdateJobGradeViewModel model)
         {
-            var command = new InsertEmployeeJobGradeCommnand
+            var result = new CommandResult
             {
-                EmpId = model.EmployeeId,
-                JobGradeId = model.JobGradeId,
-                EffectiveDate = model.EffectiveDate,
-                Note = model.Note,
-                ModifiedBy = CurrentUser.Id
+                Code = 1,
+                Message = Messages.InvalidInputData
             };
 
-            CommandResult result = await baseService.ExecuteNonQueryAsync(command);
-
+            if (model != null && ModelState.IsValid)
+            {
+                var command = new InsertEmployeeJobGradeCommnand
+                {
+                    EmpId = model.EmployeeId,
+                    JobGradeId = model.JobGradeId,
+                    OldJobGradeId = model.OldJobGradeId,
+                    IsPromotion = model.IsPromotion,
+                    EffectiveDate = model.EffectiveDate,
+                    Note = model.Note,
+                    ModifiedBy = CurrentUser.Id
+                };
+                result = await baseService.ExecuteNonQueryAsync(command);
+                if (!result.IsSuccessful)
+                {
+                    ModelState.AddModelError(string.Empty, result.Message);
+                }
+            }
             return Json(result);
         }
     }

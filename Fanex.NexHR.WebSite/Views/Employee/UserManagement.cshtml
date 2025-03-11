@@ -112,11 +112,16 @@
                                         <div class="sorter" data-property="Gender">
                                         </div>
                                     </th>
-                                    <th class="col-sorter">
-                                        @Labels.JobGrade
-                                        <div class="sorter" data-property="JobGradeCode">
-                                        </div>
-                                    </th>
+	                                <th class="col-sorter">
+		                                @Labels.JobGrade
+		                                <div class="sorter" data-property="JobGradeCode">
+		                                </div>
+	                                </th>
+	                                <th class="col-sorter">
+		                                @Labels.ManagementGrade
+										<div class="sorter" data-property="ManagementGradeCode">
+		                                </div>
+	                                </th>
                                     <th class="col-sorter">
                                         @Labels.JobTitle
                                         <div class="sorter" data-property="JobTitles">
@@ -179,7 +184,8 @@
                 M
                 {{/if}}
             </td>
-            <td>{{:JobGradeCode}}</td>
+	        <td>{{:JobGradeCode}}</td>
+	        <td>{{:ManagementGradeCode}}</td>
             <td class="align-left">
                 {{if JobTitle != null}}
                 {{:JobTitle && JobTitle.Name}}

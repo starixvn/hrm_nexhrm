@@ -182,23 +182,40 @@
                                         }
                                     </span>
                                 </p>
-                                <p class="accinfo">
-                                    <span class="label--xl">@Labels.JobGrade:</span>
-                                    <span class="txt-bold tooltip"
-                                        title="@($"{Labels.EffectiveDate}: {Model.AffectedDate.ToString("dd MMM, yyyy")}")">
-                                        @if (Model.JobGradeCode != null)
-                                        {
-                                            @Model.JobGradeCode
-                                        }
-                                    </span>
-                                    @if (Model.JobGradeCode != null)
-                                    {
-                                        <a class="viewhistoryjobgrade" href="javascript:;" id="">
-                                            <i class="mdi mdi-information-outline mdi-dark mdi-24px tooltip"
-                                                title="View history"></i>
-                                        </a>
-                                    }
-                                </p>
+	                            <p class="accinfo">
+		                            <span class="label--xl">@Labels.JobGrade:</span>
+		                            <span class="txt-bold tooltip"
+		                                  title="@($"{Labels.EffectiveDate}: {Model.AffectedDate.ToString("dd MMM, yyyy")}")">
+			                            @if (Model.JobGradeCode != null)
+			                            {
+				                            @Model.JobGradeCode
+			                            }
+		                            </span>
+		                            @if (Model.JobGradeCode != null)
+		                            {
+                                        <a class="viewhistoryjobgrade" id="viewhistoryjobgrade" href="javascript:;" id="">
+				                            <i class="mdi mdi-information-outline mdi-dark mdi-24px tooltip"
+				                               title="View history"></i>
+			                            </a>
+		                            }
+	                            </p>
+	                            <p class="accinfo">
+		                            <span class="label--xl">@Labels.ManagementGrade:</span>
+		                            <span class="txt-bold tooltip"
+                                          title="@($"{Labels.EffectiveDate}: {Model.ManagementAffectedDate.ToString("dd MMM, yyyy")}")">
+			                            @if (Model.ManagementGradeCode != null)
+			                            {
+                                            @Model.ManagementGradeCode
+			                            }
+		                            </span>
+                                    @if (Model.ManagementGradeCode != null)
+		                            {
+                                        <a class="viewhistoryjobgrade" id="viewhistorymanagementgrade" href="javascript:;" id="">
+				                            <i class="mdi mdi-information-outline mdi-dark mdi-24px tooltip"
+				                               title="View history"></i>
+			                            </a>
+		                            }
+	                            </p>
                                 <p class="accinfo">
                                     <span class="label--xl">@Labels.Team:</span> <span
                                         class="txt-bold">@Model.Team.Name</span>

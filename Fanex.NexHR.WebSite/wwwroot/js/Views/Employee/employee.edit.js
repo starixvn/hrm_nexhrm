@@ -171,18 +171,84 @@ function initDialogJobGrade(divContent) {
                                 errorCont.addClass('success validation-summary-success');
                                 errorCont.append('Update Job Grade successfully');
                                 var jobGradeCodeElement = document.getElementById('JobGradeCode');
+                                var historyJobGradeElement = document.getElementById('viewhistoryjobgrade');
                                 var jobGradeIdElement = document.getElementById('frmUpdateJobGrade').querySelector('#JobGradeId');
                                 var selectedOption = jobGradeIdElement.options[jobGradeIdElement.selectedIndex];
                                 jobGradeCodeElement.removeAttribute('hidden');
                                 jobGradeCodeElement.textContent = selectedOption.text;
-                                document.getElementById('jobGrade').remove();
+                                historyJobGradeElement.removeAttribute('hidden');
+                                $('input#JobGradeId').val(jobGradeIdElement.value);
                                 setTimeout(function () { $('#dialog-jobGrade').dialog("close"); query(); }, 3000);
                             }
                             else {
                                 var errors = '<ul>';
-                                $(data.error).each(function (i, value) {
-                                    errors += '<li>' + value.ErrorMessage + '</li>';
-                                });
+                                errors += '<li>' + data.Message + '</li>';
+                                errors += '</ul>';
+
+                                errorCont.addClass('validation-summary-errors');
+                                errorCont.append(errors);
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(textStatus + ': ' + errorThrown);
+                        }
+                    });
+                }
+            }
+        ],
+        show: {
+            effect: "blind",
+            duration: 200
+        },
+        hide: {
+            effect: "blind",
+            duration: 100
+        }
+    });
+}
+
+function initDialogManagementGrade(divContent) {
+    divContent.dialog({
+        modal: true,
+        width: 'auto',
+        buttons: [
+            {
+                text: 'Close',
+                class: 'btn-cancel waves-effect waves-light m-r--m',
+                click: function () {
+                    $(this).dialog('close');
+                }
+            },
+            {
+                text: 'Submit',
+                class: 'btn-submit waves-effect waves-light',
+                click: function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: _global.root + 'ManagementGrade/Update',
+                        dataType: 'json',
+                        data: $('#frmUpdateManagementGrade').serialize(),
+                        success: function (data) {
+                            var errorCont = $('#divManagementErrorCont');
+                            errorCont.removeClass();
+                            errorCont.html('');
+
+                            if (data.Code === 0) {
+                                errorCont.addClass('success validation-summary-success');
+                                errorCont.append('Update Management Grade successfully');
+                                var managementGradeCodeElement = document.getElementById('ManagementGradeCode');
+                                var historyManagementGradeElement = document.getElementById('viewhistorymanagementgrade');
+                                var managementGradeIdElement = document.getElementById('frmUpdateManagementGrade').querySelector('#ManagementGradeId');
+                                var selectedOption = managementGradeIdElement.options[managementGradeIdElement.selectedIndex];
+                                managementGradeCodeElement.removeAttribute('hidden');
+                                managementGradeCodeElement.textContent = selectedOption.text;
+                                historyManagementGradeElement.removeAttribute('hidden');
+                                $('input#ManagementGradeId').val(managementGradeIdElement.value);
+                                setTimeout(function () { $('#dialog-managementGrade').dialog("close"); query(); }, 3000);
+                            }
+                            else {
+                                var errors = '<ul>';
+                                errors += '<li>' + data.Message + '</li>';
                                 errors += '</ul>';
 
                                 errorCont.addClass('validation-summary-errors');
@@ -233,8 +299,8 @@ function initDialogUpdateApprover(divContent) {
                             if (response.IsSuccessful) {
                                 valid.addClass('success validation-summary-success');
                                 valid.append('Update successfully');
-                                setTimeout(function () { $('#dialog-approver').dialog("close");}, 3000);
-                            } 
+                                setTimeout(function () { $('#dialog-approver').dialog("close"); }, 3000);
+                            }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             alert(textStatus + ': ' + errorThrown);
@@ -386,6 +452,31 @@ function initEventForUpdateJobGrade() {
                         divContent.append(data);
                         initDatePicker();
                         initDialogJobGrade(divContent);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(textStatus + ': ' + errorThrown);
+                }
+            });
+        }
+    });
+}
+
+function initEventForUpdateManagementGrade() {
+    $('#managementGrade').on('click', function () {
+        var id = parseInt($('#Id').val());
+        if (id > 0) {
+            $.ajax({
+                type: 'GET',
+                url: _global.root + 'ManagementGrade/Update?id=' + id + '&nickname=' + $('#NickName').val() + '&fullName=' + $('#FullName').val() + '&ManagementGradeId=' + $('#ManagementGradeId').val(),
+                dataType: 'html',
+                success: function (data) {
+                    if (data) {
+                        var divContent = $('#dialog-managementGrade');
+                        divContent.html('');
+                        divContent.append(data);
+                        initDatePicker();
+                        initDialogManagementGrade(divContent);
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -649,6 +740,8 @@ $(document).ready(function () {
     initEventForUpdateToeic();
 
     initEventForUpdateJobGrade();
+
+    initEventForUpdateManagementGrade();
 
     initEventForUpdateApprover();
 

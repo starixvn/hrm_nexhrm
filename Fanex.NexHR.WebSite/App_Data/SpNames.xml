@@ -386,6 +386,11 @@
         <Setting Key="EmployeeJobGrade_Insert" SpName="EmployeeJobGrade_Insert" DbName="hrm" Plain="0"></Setting>
         <Setting Key="JobGrade_GetAll" SpName="JobGrade_GetAll" DbName="hrm" Plain="0"></Setting>
     </Function>
+	<Function Name="Management Grade">
+		<Setting Key="EmployeeManagementGrade_Get" SpName="EmployeeManagementGrade_Get" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="EmployeeManagementGrade_Insert" SpName="EmployeeManagementGrade_Insert" DbName="hrm" Plain="0"></Setting>
+		<Setting Key="ManagementGrade_GetAll" SpName="ManagementGrade_GetAll" DbName="hrm" Plain="0"></Setting>
+	</Function>
     <Function Name="Promotion">
         <Setting Key="Promotion_Get" SpName="Promotion_Get" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Promotion_GetById" SpName="Promotion_GetById" DbName="nexhr" Plain="0"></Setting>
