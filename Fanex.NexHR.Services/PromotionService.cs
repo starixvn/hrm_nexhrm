@@ -32,5 +32,11 @@
             var jobGrade = await baseService.GetDataAsync<JobGrade>(new GetJobGradeCriteria());
             return jobGrade.ToList();
         }
+
+        public async Task<IList<ManagementGrade>> GetManagementGrade()
+        {
+            var managementGrades = await baseService.GetDataAsync<ManagementGrade>(new GetManagementGradeCriteria());
+            return managementGrades.ToList();
+        }
     }
 }

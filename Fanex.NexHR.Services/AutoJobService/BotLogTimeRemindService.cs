@@ -31,7 +31,7 @@
         public async Task<CommandResult> SendMessageLogTimeRemindAsync()
         {
             var yesterday = DateTimeOffset.Now.DateTime.AddDays(-1);
-            if (DateTime.Now.DayOfWeek == DayOfWeek.Monday)
+            if (DateTimeOffset.Now.DayOfWeek == DayOfWeek.Monday)
             {
                 yesterday = DateTimeOffset.Now.DateTime.AddDays(-3);
             }
@@ -40,7 +40,7 @@
             var ignoreJobTitles = appSetting.IgnoreJobTitleLogTime.Split(',');
             var ignoreTeams = appSetting.IgnoreTeamLogTime.Split(',');
             employees = employees.Where(e =>
-                    !ignoreJobTitles.Any(keyword => e.JobTitle.Contains(keyword)) &&
+                    !Array.Exists(ignoreJobTitles, keyword => e.JobTitle.Contains(keyword)) &&
                     Array.IndexOf(ignoreEmployees, e.EmpID.ToString()) < 0 &&
                     Array.IndexOf(ignoreTeams, e.TeamCode) < 0)
                 .ToList();
@@ -63,10 +63,23 @@
             foreach (var team in groupedTeams)
             {
                 var leader = employees.FirstOrDefault(e => e.TeamCode == team.Key && e.IsLeader);
-                if (leader == null || string.IsNullOrWhiteSpace(leader.ConversationId)) continue;
+                if (leader == null)
+                {
+                    continue;
+                }
+                if (string.IsNullOrWhiteSpace(leader.ConversationId))
+                {
+                    continue;
+                }
 
-                var missedEmployees = team.Where(e => (e.MissedCount + 1) % 3 == 0).ToList();
-                if (missedEmployees.Count == 0) continue;
+                var missedEmployees = team
+                    .Where(e => (e.MissedCount + 1) % 3 == 0)
+                    .ToList();
+
+                if (missedEmployees.Count == 0)
+                {
+                    continue;
+                }
 
                 var data = new MissedLogTimeLeaderModel
                 {
@@ -88,7 +101,9 @@
             foreach (var employee in employees)
             {
                 if (string.IsNullOrWhiteSpace(employee.ConversationId))
+                {
                     continue;
+                }
 
                 var data = new MissedLogTimeMemberModel
                 {

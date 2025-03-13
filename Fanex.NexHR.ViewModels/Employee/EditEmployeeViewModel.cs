@@ -122,6 +122,16 @@
 
         public string Note { get; set; }
 
+        public int ManagementGradeId { get; set; }
+
+        public string ManagementGradeCode { get; set; }
+
+        public string ManagementGradeName { get; set; }
+
+        public DateTime ManagementAffectedDate { get; set; }
+
+        public string ManagementNote { get; set; }
+
         public string SocialInsuranceNo { get; set; }
 
         public IList<Team> Teams { get; set; }
@@ -208,6 +218,11 @@
                 JobGradeName = employee.JobGradeName;
                 AffectedDate = employee.AffectedDate;
                 Note = employee.Note;
+                ManagementGradeId = employee.ManagementGradeId;
+                ManagementGradeCode = employee.ManagementGradeCode;
+                ManagementGradeName = employee.ManagementGradeName;
+                ManagementAffectedDate = employee.ManagementAffectedDate;
+                ManagementNote = employee.ManagementNote;
                 SocialInsuranceNo = employee.SocialInsuranceNo;
             }
         }

@@ -13,7 +13,6 @@
     using Fanex.NexHR.Criteria.EmployeeTransfer;
     using Fanex.NexHR.Models;
     using Interfaces;
-    using Models;
     using Models.Report;
     using Models.Workload;
     using Repositories.Interfaces;

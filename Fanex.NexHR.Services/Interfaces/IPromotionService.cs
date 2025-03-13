@@ -12,5 +12,7 @@
         Task<Promotion> GetById(GetPromotionByIdCriteria criteria);
 
         Task<IList<JobGrade>> GetJobGrade();
+
+        Task<IList<ManagementGrade>> GetManagementGrade();
     }
 }

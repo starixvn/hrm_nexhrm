@@ -1819,6 +1819,9 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   <data name="JobGrade" xml:space="preserve">
     <value>Job Grade</value>
   </data>
+  <data name="ManagementGrade" xml:space="preserve">
+    <value>Management Grade</value>
+  </data>
   <data name="EmployeeJobGrade" xml:space="preserve">
     <value>Employee Job Grade</value>
   </data>
@@ -1827,6 +1830,9 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   </data>
   <data name="CurrentGrade" xml:space="preserve">
     <value>Current Grade</value>
+  </data>
+  <data name="NewGrade" xml:space="preserve">
+    <value>New Grade</value>
   </data>
   <data name="PromotedGrade" xml:space="preserve">
     <value>Promoted Grade</value>

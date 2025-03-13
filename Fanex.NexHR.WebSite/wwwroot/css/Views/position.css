@@ -1,15 +1,20 @@
-﻿table input[type="checkbox"] + label {
+﻿table input[type=checkbox] + label {
   height: initial;
   padding-top: 12px;
-  cursor: default; }
+  cursor: default;
+}
 
 @media (max-width: 1024px) {
   .group-button {
     display: flex;
-    padding-right: 6px !important; }
+    padding-right: 6px !important;
+  }
   .form-input {
-    margin-bottom: 12px; } }
-
+    margin-bottom: 12px;
+  }
+}
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
   .btn-submit, .btn-request, .btn-back {
-    margin-top: 0 !important; } }
+    margin-top: 0 !important;
+  }
+}

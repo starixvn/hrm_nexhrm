@@ -49,14 +49,18 @@
   },
   {
     "outputFile": "wwwroot/css/Views/applicant.css",
-    "inputFile":  "wwwroot/css/Views/applicant.scss"
+    "inputFile": "wwwroot/css/Views/applicant.scss"
   },
   {
     "outputFile": "wwwroot/css/Views/suppervisor-flow.css",
-    "inputFile":  "wwwroot/css/Views/suppervisor-flow.scss"
+    "inputFile": "wwwroot/css/Views/suppervisor-flow.scss"
   },
   {
     "outputFile": "wwwroot/css/Views/time-record.css",
-    "inputFile":  "wwwroot/css/Views/time-record.scss"
+    "inputFile": "wwwroot/css/Views/time-record.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Views/employee.edit.css",
+    "inputFile": "wwwroot/css/Views/employee.edit.scss"
   }
 ]

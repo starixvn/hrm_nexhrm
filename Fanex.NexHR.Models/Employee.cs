@@ -133,6 +133,16 @@
 
         public string Note { get; set; }
 
+        public int ManagementGradeId { get; set; }
+
+        public string ManagementGradeCode { get; set; }
+
+        public string ManagementGradeName { get; set; }
+
+        public DateTime ManagementAffectedDate { get; set; }
+
+        public string ManagementNote { get; set; }
+
         public string SocialInsuranceNo { get; set; }
 
         public DefaultSchedule DefaultSchedule { get; set; }

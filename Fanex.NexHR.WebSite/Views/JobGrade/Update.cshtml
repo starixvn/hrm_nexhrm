@@ -1,56 +1,75 @@
-﻿@using Fanex.NexHR.Models
-@using Fanex.NexHR.Resources
+﻿@using Fanex.NexHR.Resources
 @model Fanex.NexHR.ViewModels.JobGrade.UpdateJobGradeViewModel
 
 @{
-    DateTime currentDate = DateTime.Today;
-     var jobGrade = ViewBag.JobGrade;
+	DateTime currentDate = DateTime.Today;
+	var jobGrade = ViewBag.JobGrade;
+	var hasOldJobGrade = Model.OldJobGradeId > 0;
 }
 
 <form id="frmUpdateJobGrade" class="form job-grade">
-    <div id="divErrorCont" class="">
-        &nbsp;
-    </div>
-    <div class="row form-input">
-        <div class="col employee-name">
-            <div class="left label--l">
-                <label>@Labels.Employee</label>
-            </div>
-            <div class="left input--m">
-                @Model.Employee
-                <input asp-for="EmployeeId" type="hidden"/>
-            </div>
-        </div>
-    </div>
-    <div class="row form-input">
-        <div class="col">
-            <div class="left label--l">
-                <label>@Labels.CurrentGrade</label>
-            </div>
-            <div class="left select--m">
-                <select asp-for="JobGradeId" asp-items="@(new SelectList(jobGrade, "Id", "Name"))"></select>
-            </div>
-        </div>
-    </div>
-    <div class="row form-input">
-        <div class="col">
-            <div class="left label--l">
-                <label>@Labels.EffectiveDate</label>
-            </div>
-            <div class="datepicker-button left">
-                <date-picker name="EffectiveDate" value="currentDate"></date-picker>
-                <i class="mdi-action-event calendar-icon left"></i>
-            </div>
-        </div>
-    </div>
-     <div class="row form-input">
-        <div class="col">
-            <div class="left label--l">
-                <label>@Labels.Remark</label>
-            </div>
-            <div class="left input--m">
-            <textarea class="textarea" asp-for="Note"/>
-        </div>
-        </div>
-    </div>
+	<date-picker name="EffectiveDate" value="currentDate" hidden></date-picker>
+	<div id="divErrorCont" class="">
+		&nbsp;
+	</div>
+	<div class="row form-input">
+		<div class="col employee-name">
+			<div class="left label--l">
+				<label>@Labels.Employee</label>
+			</div>
+			<div class="left input--m">
+				@Model.Employee
+				<input asp-for="EmployeeId" type="hidden"/>
+			</div>
+		</div>
+	</div>
+	@if (hasOldJobGrade)
+	{
+		<div class="row form-input">
+			<div class="col">
+				<div class="left label--l">
+					<label>@Labels.CurrentGrade</label>
+				</div>
+				<div class="left select--m">
+					<select asp-for="OldJobGradeId" asp-items="@(new SelectList(jobGrade, "Id", "Name"))" disabled>
+					</select>
+					<input asp-for="OldJobGradeId" type="hidden" />
+				</div>
+			</div>
+		</div>
+	}
+	<div class="row form-input">
+		<div class="col">
+			<div class="left label--l">
+				<label>@Labels.NewGrade</label>
+			</div>
+			<div class="left select--m">
+				<select asp-for="JobGradeId" asp-items="@(new SelectList(jobGrade, "Id", "Name"))">
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="row form-input">
+		<div class="col">
+			<div class="left label--l">
+				<label>@Labels.Remark</label>
+			</div>
+			<div class="left input--m">
+				<textarea class="textarea" asp-for="Note"/>
+			</div>
+		</div>
+	</div>
+	@if (hasOldJobGrade)
+	{
+		<div class="row form-input">
+			<div class="col">
+				<div class="left label--l">
+					<label class="promotion-label">@Labels.Promotion</label>
+				</div>
+				<div class="left input--m">
+					<input asp-for="IsPromotion" type="checkbox" class="styled-checkbox"/>
+				</div>
+			</div>
+		</div>
+	}
 </form>

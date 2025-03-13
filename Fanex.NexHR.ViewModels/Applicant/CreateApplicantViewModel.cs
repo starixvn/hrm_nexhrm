@@ -43,6 +43,8 @@
 
         public IList<JobGrade> GradeList { get; set; }
 
+        public IList<ManagementGrade> ManagementGradeList { get; set; }
+
         public DateTime? DOB { get; set; }
 
         public DateTime ApplyDate { get; set; }
@@ -78,6 +80,8 @@
         public string EducationBackground { get; set; }
 
         public int? Grade { get; set; }
+
+        public int? ManagementGrade { get; set; }
 
         public string InterviewerComment { get; set; }
 

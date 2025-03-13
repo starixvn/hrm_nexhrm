@@ -48,6 +48,8 @@
 
         public string Grade { get; set; }
 
+        public string ManagementGrade { get; set; }
+
         public string InterviewerComment { get; set; }
 
         public string Note { get; set; }

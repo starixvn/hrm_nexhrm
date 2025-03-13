@@ -11,6 +11,7 @@
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Criteria.History;
     using Fanex.NexHR.Criteria.JobGrade;
+    using Fanex.NexHR.Criteria.ManagementGrade;
     using Fanex.NexHR.Criteria.TrainingAndDevelopment;
     using Fanex.NexHR.Resources;
     using Microsoft.AspNetCore.Authorization;
@@ -290,7 +291,7 @@
             employee.JoinedDate = joinDate ?? employee.JoinedDate;
             employee.GroupDate = joinDate ?? employee.GroupDate;
             employee.EducationBackground = educationBackground ?? employee.EducationBackground;
-            employee.JobGradeId = gradeId ?? employee.JobGradeId;
+
             EditEmployeeViewModel model = new EditEmployeeViewModel(employee)
             {
                 Teams = await teamService.GetAll(),
@@ -510,6 +511,18 @@
             var employeeJobGrades = await baseService.GetDataAsync<EmployeeJobGrade>(criteria);
             return PartialView("ViewHistoryJobGrade", employeeJobGrades);
         }
+
+        public async Task<IActionResult> ViewHistoryManagementGrade(int id)
+        {
+            var criteria = new GetEmployeeManagementGradeCriteria
+            {
+                EmployeeId = id,
+                IsOnlyCurrentUsed = false
+            };
+            var employeeManagementGrades = await baseService.GetDataAsync<EmployeeManagementGrade>(criteria);
+            return PartialView("ViewHistoryManagementGrade", employeeManagementGrades);
+        }
+
 
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Transfer()

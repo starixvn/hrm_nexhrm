@@ -664,6 +664,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Certificate.
+        /// </summary>
+        public static string Certificate {
+            get {
+                return ResourceManager.GetString("Certificate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change from shift.
         /// </summary>
         public static string ChangeFromShift {
@@ -2068,6 +2077,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to History Work.
+        /// </summary>
+        public static string HistoryWork {
+            get {
+                return ResourceManager.GetString("HistoryWork", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Holiday.
         /// </summary>
         public static string Holiday {
@@ -2968,6 +2986,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Management Grade.
+        /// </summary>
+        public static string ManagementGrade {
+            get {
+                return ResourceManager.GetString("ManagementGrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manager.
         /// </summary>
         public static string Manager {
@@ -3391,11 +3418,29 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Grade.
+        /// </summary>
+        public static string NewGrade {
+            get {
+                return ResourceManager.GetString("NewGrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Hire.
         /// </summary>
         public static string NewHire {
             get {
                 return ResourceManager.GetString("NewHire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New History.
+        /// </summary>
+        public static string NewHistory {
+            get {
+                return ResourceManager.GetString("NewHistory", resourceCulture);
             }
         }
         
@@ -3409,20 +3454,20 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Job Grade.
+        /// </summary>
+        public static string NewJobGrade {
+            get {
+                return ResourceManager.GetString("NewJobGrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Job Title.
         /// </summary>
         public static string NewJobTitle {
             get {
                 return ResourceManager.GetString("NewJobTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to New Job Title or Team.
-        /// </summary>
-        public static string NewJobGrade {
-            get {
-                return ResourceManager.GetString("NewJobGrade", resourceCulture);
             }
         }
         
@@ -5637,33 +5682,6 @@ namespace Fanex.NexHR.Resources {
         public static string Yesterday {
             get {
                 return ResourceManager.GetString("Yesterday", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to New History.
-        /// </summary>
-        public static string NewHistory {
-            get {
-                return ResourceManager.GetString("NewHistory", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to History Work.
-        /// </summary>
-        public static string HistoryWork {
-            get {
-                return ResourceManager.GetString("HistoryWork", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Certificate.
-        /// </summary>
-        public static string Certificate {
-            get {
-                return ResourceManager.GetString("Certificate", resourceCulture);
             }
         }
     }

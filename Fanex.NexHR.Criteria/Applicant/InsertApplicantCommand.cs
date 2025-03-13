@@ -44,6 +44,8 @@
 
         public int? Grade { get; set; }
 
+        public int? ManagementGrade { get; set; }
+
         public string InterviewerComment { get; set; }
 
         public string Note { get; set; }
