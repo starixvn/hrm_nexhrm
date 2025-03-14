@@ -36,14 +36,16 @@
                 yesterday = DateTimeOffset.Now.DateTime.AddDays(-3);
             }
             var employees = await employeeService.GetEmployeesMissedLogTime().ConfigureAwait(false);
-            var ignoreEmployees = appSetting.IgnoreEmployeeLogTime.Split(',');
-            var ignoreJobTitles = appSetting.IgnoreJobTitleLogTime.Split(',');
-            var ignoreTeams = appSetting.IgnoreTeamLogTime.Split(',');
+            var ignoreEmployees = (appSetting.IgnoreEmployeeLogTime ?? "").Split(',');
+            var ignoreJobTitles = (appSetting.IgnoreJobTitleLogTime ?? "").Split(',');
+            var ignoreTeams = (appSetting.IgnoreTeamLogTime ?? "").Split(',');
+
             employees = employees.Where(e =>
-                    !Array.Exists(ignoreJobTitles, keyword => e.JobTitle.Contains(keyword)) &&
-                    Array.IndexOf(ignoreEmployees, e.EmpID.ToString()) < 0 &&
-                    Array.IndexOf(ignoreTeams, e.TeamCode) < 0)
-                .ToList();
+                !Array.Exists(ignoreJobTitles, keyword => e.JobTitle?.Contains(keyword) ?? false) &&
+                Array.IndexOf(ignoreEmployees, e.EmpID.ToString()) < 0 &&
+                Array.IndexOf(ignoreTeams, e.TeamCode ?? string.Empty) < 0
+            ).ToList();
+
             var employeesMissedLogging = employees.Where(e => !e.IsLeader).ToList();
             await SendMessageToEmployees(employeesMissedLogging, yesterday).ConfigureAwait(false);
             await SendMessageToLeaders(employees, yesterday).ConfigureAwait(false);

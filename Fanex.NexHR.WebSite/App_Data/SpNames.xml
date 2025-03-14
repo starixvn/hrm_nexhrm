@@ -71,6 +71,7 @@
     </Function>
     <Function Name="EmployeeSupervisor">
         <Setting Key="EmployeeSupervisor_Get" SpName="EmployeeSupervisor_Get" DbName="nexhr" Plain="0"></Setting>
+	    <Setting Key="EmployeeSupervisor_GetById" SpName="EmployeeSupervisor_GetById" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeSupervisor_Insert" SpName="EmployeeSupervisor_Insert" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeSupervisor_Update" SpName="EmployeeSupervisor_Update" DbName="nexhr" Plain="0"></Setting>
     </Function>
