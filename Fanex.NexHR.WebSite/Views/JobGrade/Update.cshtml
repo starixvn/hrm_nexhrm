@@ -8,7 +8,6 @@
 }
 
 <form id="frmUpdateJobGrade" class="form job-grade">
-	<date-picker name="EffectiveDate" value="currentDate" hidden></date-picker>
 	<div id="divErrorCont" class="">
 		&nbsp;
 	</div>
@@ -46,6 +45,17 @@
 			<div class="left select--m">
 				<select asp-for="JobGradeId" asp-items="@(new SelectList(jobGrade, "Id", "Name"))">
 				</select>
+			</div>
+		</div>
+	</div>
+	<div class="row form-input">
+		<div class="col">
+			<div class="left label--l">
+				<label>@Labels.EffectiveDate</label>
+			</div>
+			<div class="datepicker-button left">
+				<date-picker name="EffectiveDate" value="currentDate"></date-picker>
+				<i class="mdi-action-event calendar-icon left"></i>
 			</div>
 		</div>
 	</div>
