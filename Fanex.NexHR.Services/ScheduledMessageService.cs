@@ -25,7 +25,7 @@
         private readonly AppSetting appSetting;
         private const string FirstLunar = "01";
         private const int FifteenLunar = 15;
-        private const int IdEmpCreateVegetarianMessages = 125;
+        private const int IdEmpCreateVegetarianMessages = 88;
         private const int NumMonthOfScheduleVegetarianMessages = 2;
         private const int itemEachBatch = 10;
         private const string CacheKeyIgnoredReminder = "UserIgnoredReminderVegetarianRestration";
