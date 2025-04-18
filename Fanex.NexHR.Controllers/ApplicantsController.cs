@@ -189,7 +189,7 @@ namespace Fanex.NexHR.Controllers
 
         private bool IsCurrentUserManager()
         {
-            return CurrentUser.CodeOfTeam.Equals("MGT") || CurrentUser.IsLeaderHR;
+            return CurrentUser.CodeOfTeam.Equals("COR") || CurrentUser.IsLeaderHR;
         }
 
         private string DecryptValue(string encryptedValue)

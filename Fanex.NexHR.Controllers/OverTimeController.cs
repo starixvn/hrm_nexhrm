@@ -69,7 +69,7 @@
         public IActionResult MemberOvertime()
         {
             var model = new MemberOvertimeViewModel();
-            ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT");
+            ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("COR");
             return PartialView(model);
         }
 
@@ -93,7 +93,7 @@
                     item.Own = CurrentUser.Id == item.CreatedById;
                 }
             }
-            ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("MGT");
+            ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("COR");
             return PartialView("_ListMemberOvertime", result);
         }
 
