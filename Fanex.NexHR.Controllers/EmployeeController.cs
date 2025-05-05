@@ -35,6 +35,7 @@
         private readonly ITrainingAndDevelopmentService trainingAndDevelopmentService;
         private readonly IHistoryService historyService;
         private readonly IWebHostEnvironment environment;
+        private readonly IAuthService authService;
         private readonly AppSetting appSetting;
 
 #pragma warning disable S107 // Methods should not have too many parameters
@@ -48,6 +49,7 @@
             IMailEmployeeService mailEmployeeService,
             ITrainingAndDevelopmentService trainingAndDevelopmentService,
             IHistoryService historyService,
+            IAuthService authService,
             IWebHostEnvironment environment,
             AppSetting appSetting) : base(sessionService)
 #pragma warning restore S107 // Methods should not have too many parameters
@@ -61,6 +63,7 @@
             this.environment = environment;
             this.trainingAndDevelopmentService = trainingAndDevelopmentService;
             this.historyService = historyService;
+            this.authService = authService;
             this.appSetting = appSetting;
         }
 
@@ -320,12 +323,8 @@
                 ViewBag.Updated = true;
                 if (CurrentUser.Id == model.Id)
                 {
-                    var getEmployeeCriteria = new GetEmployeeByIdCriteria { EmployeeId = model.Id };
-                    Employee currentUser = await employeeService.GetEmployeeById(getEmployeeCriteria);
-                    if (HttpContext.Session != null)
-                    {
-                        HttpContext.Session.Set("CurrentUser", currentUser);
-                    }
+                    var currentUser = await authService.GetEmployeeByDomain(model.DomainUsername);
+                    HttpContext.Session.Set("CurrentUser", currentUser);
                 }
 
                 Task.Factory.StartNew(async () =>
