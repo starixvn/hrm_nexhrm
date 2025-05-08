@@ -50,6 +50,12 @@
             return View(appSetting.LoginView);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> TestKey()
+        {
+            return Json(cryptoService.RsaEncrypt("1") + "----" + cryptoService.RsaDecrypt("9wnrJBPycdT2WLFbFFtA9w=="));
+        }
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginModel model, string returnUrl)
         {
@@ -91,7 +97,7 @@
                 else
                 {
                     ViewBag.ReturnUrl = returnUrl;
-                    ViewBag.ErrorMessage = cryptoService.RsaEncrypt(model.Password) + "----" + cryptoService.RsaDecrypt("9wnrJBPycdT2WLFbFFtA9w==");
+                    ViewBag.ErrorMessage = Messages.IncorrectUsernameOrPassword;
                 }
             }
             return View(appSetting.LoginView, model);
