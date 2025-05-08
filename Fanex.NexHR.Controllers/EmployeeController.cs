@@ -34,6 +34,7 @@
         private readonly IMailEmployeeService mailEmployeeService;
         private readonly ITrainingAndDevelopmentService trainingAndDevelopmentService;
         private readonly IHistoryService historyService;
+        private readonly ICryptoService cryptoService;
         private readonly IWebHostEnvironment environment;
         private readonly IAuthService authService;
         private readonly AppSetting appSetting;
@@ -50,6 +51,7 @@
             ITrainingAndDevelopmentService trainingAndDevelopmentService,
             IHistoryService historyService,
             IAuthService authService,
+            ICryptoService cryptoService,
             IWebHostEnvironment environment,
             AppSetting appSetting) : base(sessionService)
 #pragma warning restore S107 // Methods should not have too many parameters
@@ -65,6 +67,7 @@
             this.historyService = historyService;
             this.authService = authService;
             this.appSetting = appSetting;
+            this.cryptoService = cryptoService;
         }
 
         public async Task<IActionResult> Index()
@@ -240,6 +243,7 @@
                 var criteria = new InsertEmployeeCriteria
                 {
                     Code = model.Code,
+                    Password = cryptoService.RsaEncrypt(model.DomainUsername),
                     CreateBy = CurrentUser.Id,
                     DomainUsername = model.DomainUsername,
                     FriShift = model.FriShift,
@@ -585,6 +589,40 @@
             }
             return View(model);
         }
+
+        public IActionResult ChangePassword()
+        {
+            return View("ChangePassword");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SubmitChangePassword(ChangePasswordViewModel model)
+        {
+            if (model.ConfirmNewPassword != model.NewPassword)
+            {
+                ModelState.AddModelError(string.Empty, Messages.PasswordNotMatch);
+                return View("ChangePassword");
+            }
+
+            var encryptedPassword = cryptoService.RsaEncrypt(model.CurrentPassword);
+            var isLoginSuccess = await authService.IsLoginSuccess(HttpContext.User.Identity.Name, encryptedPassword);
+            if (!isLoginSuccess)
+            {
+                ModelState.AddModelError(string.Empty, Messages.IncorrectCurrentPassword);
+                return View("ChangePassword");
+            }
+
+            var encryptedNewPassword = cryptoService.RsaEncrypt(model.NewPassword);
+            var commandResult = await authService.ChangePassword(CurrentUser.Id, encryptedNewPassword);
+            if (commandResult.IsSuccessful)
+            {
+                ViewBag.Success = true;
+                return View("ChangePassword");
+            }
+            ModelState.AddModelError(string.Empty, Messages.FailedToChangePassword);
+            return View("ChangePassword");
+        }
+
 
         private UpdateEmployeeCriteria FillDataUpdateEmployeeCriteria(EditEmployeeViewModel model)
         {

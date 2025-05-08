@@ -16,6 +16,8 @@
 
         public string Code { get; set; }
 
+        public string Password { get; set; }
+
         public int? MonShift { get; set; }
 
         public int? TueShift { get; set; }

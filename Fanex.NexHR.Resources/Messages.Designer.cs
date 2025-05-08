@@ -505,11 +505,29 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to change password.
+        /// </summary>
+        public static string FailedToChangePassword {
+            get {
+                return ResourceManager.GetString("FailedToChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You forgot log time on: {0}.
         /// </summary>
         public static string FogotLogtime {
             get {
                 return ResourceManager.GetString("FogotLogtime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current password is incorrect.
+        /// </summary>
+        public static string IncorrectCurrentPassword {
+            get {
+                return ResourceManager.GetString("IncorrectCurrentPassword", resourceCulture);
             }
         }
         
@@ -770,6 +788,15 @@ namespace Fanex.NexHR.Resources {
         public static string PaidDescription {
             get {
                 return ResourceManager.GetString("PaidDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New password and confirm new password do not match.
+        /// </summary>
+        public static string PasswordNotMatch {
+            get {
+                return ResourceManager.GetString("PasswordNotMatch", resourceCulture);
             }
         }
         

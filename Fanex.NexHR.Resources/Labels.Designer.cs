@@ -682,6 +682,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change Password.
+        /// </summary>
+        public static string ChangePassword {
+            get {
+                return ResourceManager.GetString("ChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change Shift.
         /// </summary>
         public static string ChangeShift {
@@ -876,6 +885,15 @@ namespace Fanex.NexHR.Resources {
         public static string ConfirmedDate {
             get {
                 return ResourceManager.GetString("ConfirmedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Password.
+        /// </summary>
+        public static string ConfirmNewPassword {
+            get {
+                return ResourceManager.GetString("ConfirmNewPassword", resourceCulture);
             }
         }
         
@@ -1092,6 +1110,15 @@ namespace Fanex.NexHR.Resources {
         public static string CurrentMonth {
             get {
                 return ResourceManager.GetString("CurrentMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current Password.
+        /// </summary>
+        public static string CurrentPassword {
+            get {
+                return ResourceManager.GetString("CurrentPassword", resourceCulture);
             }
         }
         
@@ -3544,6 +3571,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Password.
+        /// </summary>
+        public static string NewPassword {
+            get {
+                return ResourceManager.GetString("NewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Personal Setting.
         /// </summary>
         public static string NewPersonalSetting {
@@ -4076,6 +4112,15 @@ namespace Fanex.NexHR.Resources {
         public static string PassportNo {
             get {
                 return ResourceManager.GetString("PassportNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password changed successfully.
+        /// </summary>
+        public static string PasswordChangedSuccessfully {
+            get {
+                return ResourceManager.GetString("PasswordChangedSuccessfully", resourceCulture);
             }
         }
         

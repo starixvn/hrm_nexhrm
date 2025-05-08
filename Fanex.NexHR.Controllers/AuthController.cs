@@ -16,16 +16,19 @@
     {
         private readonly IAuthService authService;
         private readonly ISessionService sessionService;
+        private readonly ICryptoService cryptoService;
         private readonly AppSetting appSetting;
         private readonly LdapSettings ldapSettings;
 
         public AuthController(IAuthService authService,
             ISessionService sessionService,
+            ICryptoService cryptoService,
             AppSetting appSetting,
             LdapSettings ldapSettings)
         {
             this.authService = authService;
             this.sessionService = sessionService;
+            this.cryptoService = cryptoService;
             this.appSetting = appSetting;
             this.ldapSettings = ldapSettings;
         }
@@ -52,7 +55,7 @@
         {
             if (ModelState.IsValid)
             {
-                if (IsLoginLdapSuccess(model))
+                if (await IsLoginSuccess(model))
                 {
                     string domainUsername = appSetting.DomainName + model.Username.Trim();
                     var employee = await authService.GetEmployeeByDomain(domainUsername);
@@ -92,6 +95,18 @@
                 }
             }
             return View(appSetting.LoginView, model);
+        }
+
+        private async Task<bool> IsLoginSuccess(LoginModel model)
+        {
+            return appSetting.LoginType == 1 ? IsLoginLdapSuccess(model) : await IsLoginByPasswordSuccess(model);
+        }
+
+        private async Task<bool> IsLoginByPasswordSuccess(LoginModel model)
+        {
+            var password = cryptoService.RsaEncrypt(model.Password);
+            var isLoginSuccess = await authService.IsLoginSuccess(model.Username, password);
+            return isLoginSuccess;
         }
 
         private bool IsLoginLdapSuccess(LoginModel model)

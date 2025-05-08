@@ -8,5 +8,9 @@
         Task<UserSession> GetEmployeeByDomain(string domainUserName);
 
         Task<EmployeeSetting> GetEmployeeSetting(int employeeId);
+
+        Task<CommandResult> ChangePassword(int id, string password);
+
+        Task<bool> IsLoginSuccess(string domainUsername, string password);
     }
 }
