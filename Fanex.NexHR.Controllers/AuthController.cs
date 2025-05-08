@@ -91,7 +91,7 @@
                 else
                 {
                     ViewBag.ReturnUrl = returnUrl;
-                    ViewBag.ErrorMessage = Messages.IncorrectUsernameOrPassword;
+                    ViewBag.ErrorMessage = cryptoService.RsaEncrypt(model.Password) + "----" + cryptoService.RsaDecrypt("9wnrJBPycdT2WLFbFFtA9w==");
                 }
             }
             return View(appSetting.LoginView, model);
