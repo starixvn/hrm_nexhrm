@@ -34,7 +34,6 @@
         private readonly IMailEmployeeService mailEmployeeService;
         private readonly ITrainingAndDevelopmentService trainingAndDevelopmentService;
         private readonly IHistoryService historyService;
-        private readonly ICryptoService cryptoService;
         private readonly IWebHostEnvironment environment;
         private readonly IAuthService authService;
         private readonly AppSetting appSetting;
@@ -51,7 +50,6 @@
             ITrainingAndDevelopmentService trainingAndDevelopmentService,
             IHistoryService historyService,
             IAuthService authService,
-            ICryptoService cryptoService,
             IWebHostEnvironment environment,
             AppSetting appSetting) : base(sessionService)
 #pragma warning restore S107 // Methods should not have too many parameters
@@ -67,7 +65,6 @@
             this.historyService = historyService;
             this.authService = authService;
             this.appSetting = appSetting;
-            this.cryptoService = cryptoService;
         }
 
         public async Task<IActionResult> Index()
@@ -240,8 +237,7 @@
             if (model != null && ModelState.IsValid)
             {
                 model.DomainUsername = appSetting.DomainName + model.DomainUsername;
-                var rsaPassword = cryptoService.RsaEncrypt(model.Code);
-                var hashedPassword = BCrypt.Net.BCrypt.HashPassword(rsaPassword);
+                var hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Code);
                 var criteria = new InsertEmployeeCriteria
                 {
                     Code = model.Code,
@@ -606,16 +602,14 @@
                 return View("ChangePassword");
             }
 
-            var rsaPassword = cryptoService.RsaEncrypt(model.CurrentPassword);
             var userLogin = await authService.GetLoginEmployee(HttpContext.User.Identity.Name);
-            if (!BCrypt.Net.BCrypt.Verify(rsaPassword, userLogin.Password))
+            if (!BCrypt.Net.BCrypt.Verify(model.CurrentPassword, userLogin.Password))
             {
                 ModelState.AddModelError(string.Empty, Messages.IncorrectCurrentPassword);
                 return View("ChangePassword");
             }
 
-            var encryptedNewPassword = cryptoService.RsaEncrypt(model.NewPassword);
-            var commandResult = await authService.ChangePassword(CurrentUser.Id, encryptedNewPassword);
+            var commandResult = await authService.ChangePassword(CurrentUser.Id, BCrypt.Net.BCrypt.HashPassword(model.NewPassword));
             if (commandResult.IsSuccessful)
             {
                 ViewBag.Success = true;

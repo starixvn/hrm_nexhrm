@@ -16,19 +16,16 @@
     {
         private readonly IAuthService authService;
         private readonly ISessionService sessionService;
-        private readonly ICryptoService cryptoService;
         private readonly AppSetting appSetting;
         private readonly LdapSettings ldapSettings;
 
         public AuthController(IAuthService authService,
             ISessionService sessionService,
-            ICryptoService cryptoService,
             AppSetting appSetting,
             LdapSettings ldapSettings)
         {
             this.authService = authService;
             this.sessionService = sessionService;
-            this.cryptoService = cryptoService;
             this.appSetting = appSetting;
             this.ldapSettings = ldapSettings;
         }
@@ -48,12 +45,6 @@
             }
 
             return View(appSetting.LoginView);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> TestKey()
-        {
-            return Json(cryptoService.RsaEncrypt("1") + "----" + cryptoService.RsaDecrypt("9wnrJBPycdT2WLFbFFtA9w=="));
         }
 
         [HttpPost]
@@ -110,10 +101,8 @@
 
         private async Task<bool> IsLoginByPasswordSuccess(LoginModel model)
         {
-            var rsaPassword = cryptoService.RsaEncrypt(model.Password);
-
             var loginEmployee = await authService.GetLoginEmployee(model.Username);
-            return BCrypt.Net.BCrypt.Verify(rsaPassword, loginEmployee.Password);
+            return BCrypt.Net.BCrypt.Verify(model.Password, loginEmployee.Password);
         }
 
         private bool IsLoginLdapSuccess(LoginModel model)
