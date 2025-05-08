@@ -240,10 +240,12 @@
             if (model != null && ModelState.IsValid)
             {
                 model.DomainUsername = appSetting.DomainName + model.DomainUsername;
+                var rsaPassword = cryptoService.RsaEncrypt(model.Code);
+                var hashedPassword = BCrypt.Net.BCrypt.HashPassword(rsaPassword);
                 var criteria = new InsertEmployeeCriteria
                 {
                     Code = model.Code,
-                    Password = cryptoService.RsaEncrypt(model.DomainUsername),
+                    Password = hashedPassword,
                     CreateBy = CurrentUser.Id,
                     DomainUsername = model.DomainUsername,
                     FriShift = model.FriShift,
@@ -604,9 +606,9 @@
                 return View("ChangePassword");
             }
 
-            var encryptedPassword = cryptoService.RsaEncrypt(model.CurrentPassword);
-            var isLoginSuccess = await authService.IsLoginSuccess(HttpContext.User.Identity.Name, encryptedPassword);
-            if (!isLoginSuccess)
+            var rsaPassword = cryptoService.RsaEncrypt(model.CurrentPassword);
+            var userLogin = await authService.GetLoginEmployee(HttpContext.User.Identity.Name);
+            if (!BCrypt.Net.BCrypt.Verify(rsaPassword, userLogin.Password))
             {
                 ModelState.AddModelError(string.Empty, Messages.IncorrectCurrentPassword);
                 return View("ChangePassword");

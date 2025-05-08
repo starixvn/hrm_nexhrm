@@ -431,7 +431,7 @@
         <Setting Key="CheckInCheckOut_GetByConversationId" SpName="CheckInCheckOut_GetByConversationId" DbName="nexhr" Plain="1"></Setting>
     </Function>
 	<Function Name="Authentication">
-		<Setting Key="EmployeeExt_LogIn" SpName="EmployeeExt_LogIn" DbName="nexhr" Plain="1"></Setting>
+		<Setting Key="EmployeeExt_GetLoginEmployee" SpName="EmployeeExt_GetLoginEmployee" DbName="nexhr" Plain="1"></Setting>
 		<Setting Key="EmployeeExt_ChangePassword" SpName="EmployeeExt_ChangePassword" DbName="nexhr" Plain="1"></Setting>
 	</Function>
 </Functions>

@@ -34,15 +34,14 @@
             return employeeSetting;
         }
 
-        public async Task<bool> IsLoginSuccess(string domainUsername, string password)
+        public async Task<LoginEmployee> GetLoginEmployee(string domainUsername)
         {
-            var criteria = new LoginCriteria
+            var criteria = new GetLoginEmployeeCriteria
             {
                 DomainUsername = domainUsername,
-                Password = password
             };
-            var isLoginSuccess = await baseService.GetDataEntityAsync<bool>(criteria);
-            return isLoginSuccess;
+            var loginEmployee = await baseService.GetDataEntityAsync<LoginEmployee>(criteria);
+            return loginEmployee;
         }
 
         public async Task<CommandResult> ChangePassword(int id, string password)

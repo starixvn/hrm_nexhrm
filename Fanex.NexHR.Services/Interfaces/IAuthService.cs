@@ -11,6 +11,6 @@
 
         Task<CommandResult> ChangePassword(int id, string password);
 
-        Task<bool> IsLoginSuccess(string domainUsername, string password);
+        Task<LoginEmployee> GetLoginEmployee(string domainUsername);
     }
 }

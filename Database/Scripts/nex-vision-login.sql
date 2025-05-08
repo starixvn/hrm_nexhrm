@@ -197,8 +197,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE OR ALTER PROCEDURE [dbo].[EmployeeExt_LogIn] @DomainUsername VARCHAR(50)
-    ,@Password NVARCHAR(100)
+CREATE OR ALTER PROCEDURE [dbo].[EmployeeExt_GetLoginEmployee] @DomainUsername VARCHAR(50)
 AS
 /*
     Created: 20250507@Henry.Dinh
@@ -210,13 +209,7 @@ AS
 */
 BEGIN
     SET NOCOUNT ON;
-    DECLARE @IsLoginSuccess BIT = 0;
-
-    IF EXISTS (SELECT 1 FROM EmployeeExt WHERE DomainUsername = @DomainUsername AND Password = @Password AND Enabled = 1)
-    BEGIN
-        SET @IsLoginSuccess = 1;
-    END
-
-    SELECT @IsLoginSuccess;
+    SELECT Id, DomainUsername, Password, IsDeleted, Enabled
+    FROM EmployeeExt WHERE DomainUsername = @DomainUsername
 END
 GO

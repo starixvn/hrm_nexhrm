@@ -110,9 +110,10 @@
 
         private async Task<bool> IsLoginByPasswordSuccess(LoginModel model)
         {
-            var password = cryptoService.RsaEncrypt(model.Password);
-            var isLoginSuccess = await authService.IsLoginSuccess(model.Username, password);
-            return isLoginSuccess;
+            var rsaPassword = cryptoService.RsaEncrypt(model.Password);
+
+            var loginEmployee = await authService.GetLoginEmployee(model.Username);
+            return BCrypt.Net.BCrypt.Verify(rsaPassword, loginEmployee.Password);
         }
 
         private bool IsLoginLdapSuccess(LoginModel model)
