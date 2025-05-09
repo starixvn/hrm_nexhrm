@@ -102,7 +102,7 @@
         private async Task<bool> IsLoginByPasswordSuccess(LoginModel model)
         {
             var loginEmployee = await authService.GetLoginEmployee(model.Username);
-            return BCrypt.Net.BCrypt.Verify(model.Password, loginEmployee.Password);
+            return loginEmployee != null && BCrypt.Net.BCrypt.Verify(model.Password, loginEmployee.Password);
         }
 
         private bool IsLoginLdapSuccess(LoginModel model)
