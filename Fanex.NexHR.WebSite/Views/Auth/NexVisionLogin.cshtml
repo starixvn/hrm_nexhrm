@@ -9,7 +9,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Welcome to @appSetting.HRMName</title>
-    <link href="~/css/nex-login.min.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/Login.min.css" rel="stylesheet" asp-append-version="true" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -18,7 +18,7 @@
             <div class="container">
                 <div class="login__flex">
                     <div class="login__left">
-                        <img src="/css/Images/image-login-nexcel.svg" alt="leftLogo" class="img-res">
+                        <img src="/css/Images/leftLogin.png" alt="leftLogo" class="img-res">
                     </div>
                     <div class="login__form">
                         <form method="post" asp-controller="Auth" asp-action="Login" asp-route-returnUrl="@ViewBag.ReturnUrl" novalidate="novalidate">
