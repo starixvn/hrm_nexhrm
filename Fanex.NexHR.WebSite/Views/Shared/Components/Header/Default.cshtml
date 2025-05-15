@@ -4,9 +4,8 @@
 @inject AppSetting settings;
 
 @{
-    var logoSrc = "/css/Images/" + settings.HRMName + ".png";
     var HRMName = settings.HRMName;
-    bool isLumi = settings.HRMName == "LumiHRM";
+    var logoSrc = "/css/Images/" + HRMName + ".png";
     bool isShowChangePassword = settings.LoginType == 2;
 }
 
@@ -17,13 +16,10 @@
             <i class="mdi-content-clear icon-close"></i>
         </a>
     </div>
-    <nav class="right">
+    <nav class="right @HRMName">
         <div class="logo">
-            @{
-                var lumiLogoStyle = isLumi ? "margin-top: 3px!important;" : "";
-            }
-            <a id="logo-container" class="brand-logo" href="~/" style="@lumiLogoStyle">
-                <img src="@logoSrc" alt="." />
+            <a id="logo-container" class="brand-logo" href="~/">
+                <img src="@logoSrc" alt="."/>
             </a>
         </div>
         <div class="right nav-wrapper">

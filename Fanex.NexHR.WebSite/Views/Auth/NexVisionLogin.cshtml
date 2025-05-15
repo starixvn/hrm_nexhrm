@@ -6,12 +6,14 @@
 }
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Welcome to @appSetting.HRMName</title>
-    <link href="~/css/Login.min.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/nex-vision-login.min.css" rel="stylesheet" asp-append-version="true" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="login">
         <div class="login__main">
@@ -21,24 +23,29 @@
                         <img src="/css/Images/leftLogin.png" alt="leftLogo" class="img-res">
                     </div>
                     <div class="login__form">
-                        <form method="post" asp-controller="Auth" asp-action="Login" asp-route-returnUrl="@ViewBag.ReturnUrl" novalidate="novalidate">
+                        <form method="post" asp-controller="Auth" asp-action="Login"
+                            asp-route-returnUrl="@ViewBag.ReturnUrl" novalidate="novalidate">
                             @Html.AntiForgeryToken()
                             <div class="login__logo">
                                 <Img src="/css/Images/LogoNexvison.svg" alt="logo" class="img-res">
                             </div>
                             @if (!string.IsNullOrWhiteSpace(ViewBag.ErrorMessage))
                             {
-                                 <span class="field-validation-error textdanger" data-valmsg-for="errorSummary" data-valmsg-replace="true">@ViewBag.ErrorMessage</span>
+                                <span class="field-validation-error textdanger" data-valmsg-for="errorSummary"
+                                    data-valmsg-replace="true">@ViewBag.ErrorMessage</span>
                             }
                             <div class="material-textfield">
-                                <input type="text" asp-for="Username" class="custom-input text-box single-line" , data-val="true" data-val-required="The username field is required." placeholder=" ">
+                                <input type="text" asp-for="Username" class="custom-input text-box single-line" ,
+                                    data-val="true" data-val-required="The username field is required." placeholder=" ">
                                 <label asp-for="Username"></label>
                                 <span asp-validation-for="Username" class="textdanger"></span>
                             </div>
                             <div class="material-textfield">
-                                 <input type="password" asp-for="Password" class="custom-input text-box single-line password" placeholder=" " data-val="true" data-val-required="The password field is required.">
-                                 <label asp-for="Password"></label>
-                                 <span asp-validation-for="Password" class="textdanger"></span>
+                                <input type="password" asp-for="Password"
+                                    class="custom-input text-box single-line password" placeholder=" " data-val="true"
+                                    data-val-required="The password field is required.">
+                                <label asp-for="Password"></label>
+                                <span asp-validation-for="Password" class="textdanger"></span>
                             </div>
                             <div class="custom-check">
                                 <input type="checkbox" asp-for="RememberMe" class="styled-checkbox">
@@ -56,5 +63,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    </body>
+</body>
+
 </html>

@@ -32,6 +32,10 @@
     "inputFile": "wwwroot/css/nex-login.scss"
   },
   {
+    "outputFile": "wwwroot/css/nex-vision-login.css",
+    "inputFile": "wwwroot/css/nex-vision-login.scss"
+  },
+  {
     "outputFile": "wwwroot/css/Views/training-and-development.css",
     "inputFile": "wwwroot/css/Views/training-and-development.scss"
   },

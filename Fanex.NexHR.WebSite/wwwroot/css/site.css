@@ -1304,6 +1304,22 @@ input#fileName::-webkit-file-upload-button:focus, input#fileName::-webkit-file-u
   color: #f15555;
 }
 
+.navbar-fixed .NexVisionHRM {
+  background-color: #9AA2B8;
+  box-shadow: none;
+  color: black;
+  font-weight: 500;
+}
+.navbar-fixed .NexVisionHRM img {
+  width: 180px;
+}
+.navbar-fixed .NexVisionHRM .mdi-action-search,
+.navbar-fixed .NexVisionHRM .mdi-social-notifications {
+  color: #1F3062;
+}
+.navbar-fixed .LumiHRM .brand-logo {
+  margin-top: 3px !important;
+}
 .navbar-fixed .top-nav {
   font-size: 2.4rem;
   padding: 1.2rem 0;
@@ -1493,7 +1509,8 @@ input#fileName::-webkit-file-upload-button:focus, input#fileName::-webkit-file-u
 }
 
 @media only screen and (min-width: 1025px) {
-  nav .right.nav-wrapper .box-search .icon-close, nav .right.nav-wrapper .box-search .icon-open {
+  nav .right.nav-wrapper .box-search .icon-close,
+  nav .right.nav-wrapper .box-search .icon-open {
     display: none;
   }
 }
@@ -1599,17 +1616,20 @@ input#fileName::-webkit-file-upload-button:focus, input#fileName::-webkit-file-u
   nav .right.nav-wrapper .box-search.active .icon-close {
     display: block;
   }
-  nav .right.nav-wrapper .box-search.active .search_bar, nav .right.nav-wrapper .box-search.active .search_bar.focused {
+  nav .right.nav-wrapper .box-search.active .search_bar,
+  nav .right.nav-wrapper .box-search.active .search_bar.focused {
     display: block;
   }
   nav .right.nav-wrapper .box-search .icon-close {
     display: none;
   }
-  nav .right.nav-wrapper .box-search .icon-open, nav .right.nav-wrapper .box-search icon-close {
+  nav .right.nav-wrapper .box-search .icon-open,
+  nav .right.nav-wrapper .box-search icon-close {
     font-size: 2.4rem;
     color: #ffffff;
   }
-  nav .right.nav-wrapper .box-search .search_bar, nav .right.nav-wrapper .box-search .search_bar.focused {
+  nav .right.nav-wrapper .box-search .search_bar,
+  nav .right.nav-wrapper .box-search .search_bar.focused {
     margin: 0;
     width: 100vw;
     right: 0;
@@ -1621,7 +1641,8 @@ input#fileName::-webkit-file-upload-button:focus, input#fileName::-webkit-file-u
     -moz-box-shadow: inset 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
     box-shadow: inset 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
   }
-  nav .right.nav-wrapper .box-search .search_bar .placeholder, nav .right.nav-wrapper .box-search .search_bar.focused .placeholder {
+  nav .right.nav-wrapper .box-search .search_bar .placeholder,
+  nav .right.nav-wrapper .box-search .search_bar.focused .placeholder {
     width: 100%;
     margin: 0;
     font-size: 1.3rem;
@@ -1629,7 +1650,8 @@ input#fileName::-webkit-file-upload-button:focus, input#fileName::-webkit-file-u
     padding: 10px 18px 9px;
     color: #24272F;
   }
-  nav .right.nav-wrapper .box-search .search_bar label, nav .right.nav-wrapper .box-search .search_bar.focused label {
+  nav .right.nav-wrapper .box-search .search_bar label,
+  nav .right.nav-wrapper .box-search .search_bar.focused label {
     display: none;
   }
 }
