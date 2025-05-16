@@ -20,7 +20,7 @@ VALUES
     ('Pentagon', 'Pentagon', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE()),
     ('Core Team', 'Core Team', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE()),
     ('HR & Admin', 'HR & Admin', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE()),
-    ('MARKETING BU', 'MARKETING BU', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE()),
+    ('Marketing BU', 'Marketing BU', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE()),
     ('FI BU', 'FI BU', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE())
 GO
 
@@ -32,8 +32,9 @@ INNER JOIN [dbo].[Department] d ON
         WHEN 'HOD-PE' THEN 'Pentagon'
         WHEN 'MGT' THEN 'Core Team'
         WHEN 'HR' THEN 'HR & Admin'
-        WHEN 'HOR' THEN 'MARKETING BU'
-        WHEN 'MAG' THEN 'MARKETING BU'
+        WHEN 'HOR' THEN 'Marketing BU'
+        WHEN 'MAG' THEN 'Marketing BU'
+        WHEN 'MOM' THEN 'Marketing BU'
         WHEN 'PRI' THEN 'Pentagon'
         WHEN 'PAD' THEN 'Pentagon'
         WHEN 'POL' THEN 'Pentagon'
@@ -41,7 +42,6 @@ INNER JOIN [dbo].[Department] d ON
         WHEN 'PIX' THEN 'Pentagon'
         WHEN 'AT' THEN 'Pentagon'
         WHEN 'PAT' THEN 'Pentagon'
-        WHEN 'MOM' THEN 'Pentagon'
         WHEN 'FA' THEN 'FI BU'
     END = d.Name
 WHERE d.IsDisabled = 0
