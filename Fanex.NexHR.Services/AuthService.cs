@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System.Threading.Tasks;
+    using Fanex.NexHR.Criteria.Auth;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services.Interfaces;
@@ -31,6 +32,27 @@
             };
             var employeeSetting = await baseService.GetDataEntityAsync<EmployeeSetting>(employeeSettingCriteria);
             return employeeSetting;
+        }
+
+        public async Task<LoginEmployee> GetLoginEmployee(string domainUsername)
+        {
+            var criteria = new GetLoginEmployeeCriteria
+            {
+                DomainUsername = domainUsername,
+            };
+            var loginEmployee = await baseService.GetDataEntityAsync<LoginEmployee>(criteria);
+            return loginEmployee;
+        }
+
+        public async Task<CommandResult> ChangePassword(int id, string password)
+        {
+            var criteria = new ChangePasswordCommand
+            {
+                Id = id,
+                Password = password
+            };
+            var commandResult = await baseService.ExecuteNonQueryAsync(criteria);
+            return commandResult;
         }
     }
 }

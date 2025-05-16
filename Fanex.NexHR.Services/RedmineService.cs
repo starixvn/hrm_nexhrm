@@ -36,7 +36,8 @@
 
         public async Task<int> GetCurrentRedmineId(string loginName)
         {
-            var nickName = loginName.Split('\\')[1];
+            var splitName = loginName.Split('\\');
+            var nickName = splitName.Length > 1 ? splitName[1] : splitName[0];
             var redmineId = 0;
             using var request = CreateRequest(string.Format("/users.json?name={0}&offset=0&limit=100", nickName), HttpMethod.Get);
 

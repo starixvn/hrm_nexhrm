@@ -52,7 +52,7 @@
         {
             if (ModelState.IsValid)
             {
-                if (IsLoginLdapSuccess(model))
+                if (await IsLoginSuccess(model))
                 {
                     string domainUsername = appSetting.DomainName + model.Username.Trim();
                     var employee = await authService.GetEmployeeByDomain(domainUsername);
@@ -92,6 +92,17 @@
                 }
             }
             return View(appSetting.LoginView, model);
+        }
+
+        private async Task<bool> IsLoginSuccess(LoginModel model)
+        {
+            return appSetting.LoginType == 1 ? IsLoginLdapSuccess(model) : await IsLoginByPasswordSuccess(model);
+        }
+
+        private async Task<bool> IsLoginByPasswordSuccess(LoginModel model)
+        {
+            var loginEmployee = await authService.GetLoginEmployee(model.Username);
+            return loginEmployee != null && BCrypt.Net.BCrypt.Verify(model.Password, loginEmployee.Password);
         }
 
         private bool IsLoginLdapSuccess(LoginModel model)

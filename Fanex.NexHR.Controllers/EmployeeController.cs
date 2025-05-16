@@ -237,9 +237,11 @@
             if (model != null && ModelState.IsValid)
             {
                 model.DomainUsername = appSetting.DomainName + model.DomainUsername;
+                var hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Code);
                 var criteria = new InsertEmployeeCriteria
                 {
                     Code = model.Code,
+                    Password = hashedPassword,
                     CreateBy = CurrentUser.Id,
                     DomainUsername = model.DomainUsername,
                     FriShift = model.FriShift,
@@ -585,6 +587,38 @@
             }
             return View(model);
         }
+
+        public IActionResult ChangePassword()
+        {
+            return View("ChangePassword");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SubmitChangePassword(ChangePasswordViewModel model)
+        {
+            if (model.ConfirmNewPassword != model.NewPassword)
+            {
+                ModelState.AddModelError(string.Empty, Messages.PasswordNotMatch);
+                return View("ChangePassword");
+            }
+
+            var userLogin = await authService.GetLoginEmployee(HttpContext.User.Identity.Name);
+            if (!BCrypt.Net.BCrypt.Verify(model.CurrentPassword, userLogin.Password))
+            {
+                ModelState.AddModelError(string.Empty, Messages.IncorrectCurrentPassword);
+                return View("ChangePassword");
+            }
+
+            var commandResult = await authService.ChangePassword(CurrentUser.Id, BCrypt.Net.BCrypt.HashPassword(model.NewPassword));
+            if (commandResult.IsSuccessful)
+            {
+                ViewBag.Success = true;
+                return View("ChangePassword");
+            }
+            ModelState.AddModelError(string.Empty, Messages.FailedToChangePassword);
+            return View("ChangePassword");
+        }
+
 
         private UpdateEmployeeCriteria FillDataUpdateEmployeeCriteria(EditEmployeeViewModel model)
         {

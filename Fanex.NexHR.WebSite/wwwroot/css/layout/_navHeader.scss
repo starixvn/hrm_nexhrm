@@ -1,6 +1,27 @@
 ﻿@import "../utils/variables";
 
 .navbar-fixed {
+    .NexVisionHRM {
+        background-color: #9AA2B8;
+        box-shadow: none;
+        color: black;
+        font-weight: 500;
+
+        img {
+            width: 180px;
+        }
+
+        .mdi-action-search,
+        .mdi-social-notifications {
+            color: #1F3062;
+        }
+    }
+
+    .LumiHRM {
+        .brand-logo {
+            margin-top: 3px !important;
+        }
+    }
     //Icon hambuger responsive
     .top-nav {
         font-size: 2.4rem;
@@ -19,7 +40,7 @@
 .nav-wrapper {
     padding-right: 1.1rem;
 
-    > div {
+    >div {
         float: right;
         font-size: 1.3rem;
     }
@@ -133,8 +154,9 @@
         }
 
         li {
-            padding: 0 1.8rem;            
-            > a {
+            padding: 0 1.8rem;
+
+            >a {
                 padding: 1.8rem 0;
                 border-bottom: 1px solid #e0e0e0;
                 color: inherit;
@@ -146,14 +168,14 @@
                 }
             }
 
-            &:last-child > a {
+            &:last-child>a {
                 border-bottom: none;
             }
 
             &:hover {
                 background: none;
 
-                > a {
+                >a {
                     color: $c-primary;
                 }
             }
@@ -191,6 +213,7 @@
         color: $c-text-header;
         cursor: pointer;
         border-radius: 50%;
+
         /*&:hover, &:focus {
 			background: rgba(255,255,255,0.5);
 			transition: background 0.3s ease-out;
@@ -234,18 +257,22 @@
         }
     }
 }
+
 // update css mobile
 @media only screen and (min-width: $large-extra-screen-up) {
     nav {
         .right.nav-wrapper {
             .box-search {
-                .icon-close, .icon-open {
+
+                .icon-close,
+                .icon-open {
                     display: none;
                 }
             }
         }
     }
 }
+
 @media only screen and (max-width: $large-extra-screen-up) {
     .nav-wrapper {
         .drop-down {
@@ -398,7 +425,8 @@
                         display: block;
                     }
 
-                    .search_bar, .search_bar.focused {
+                    .search_bar,
+                    .search_bar.focused {
                         display: block;
                     }
                 }
@@ -407,12 +435,14 @@
                     display: none;
                 }
 
-                .icon-open, icon-close {
+                .icon-open,
+                icon-close {
                     font-size: 2.4rem;
                     color: #ffffff;
                 }
 
-                .search_bar, .search_bar.focused {
+                .search_bar,
+                .search_bar.focused {
                     margin: 0;
                     width: 100vw;
                     right: 0;
@@ -440,4 +470,4 @@
             }
         }
     }
-} 
+}

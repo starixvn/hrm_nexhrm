@@ -486,4 +486,13 @@ Please access {2}/Leave/Create to request leave. Thank you.</value>
   <data name="EmployeeLateInEarlyOutMoreThanSixtyMinutes" xml:space="preserve">
     <value>_- {0} ({1}) has been Late In/Early Out on {2}_ {3}</value>
   </data>
+  <data name="PasswordNotMatch" xml:space="preserve">
+    <value>New password and confirm new password do not match</value>
+  </data>
+  <data name="IncorrectCurrentPassword" xml:space="preserve">
+    <value>Current password is incorrect</value>
+  </data>
+  <data name="FailedToChangePassword" xml:space="preserve">
+    <value>Failed to change password</value>
+  </data>
 </root>
