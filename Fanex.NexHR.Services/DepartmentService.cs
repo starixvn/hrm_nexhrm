@@ -17,7 +17,7 @@
 
         public async Task<IEnumerable<Department>> GetAll()
         {
-            var criteria = new GetAllDepartmentCriteria { IsDisabled = true };
+            var criteria = new GetAllDepartmentCriteria { IsDisabled = false };
             var departments = await baseService.GetDataAsync<Department>(criteria);
 
             return departments;
