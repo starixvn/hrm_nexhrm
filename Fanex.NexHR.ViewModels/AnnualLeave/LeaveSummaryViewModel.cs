@@ -11,6 +11,8 @@
 
         public int? TeamId { get; set; }
 
+        public int? DepartmentId { get; set; }
+
         public string Employee { get; set; }
 
         public int EmployeeId { get; set; }
@@ -18,6 +20,8 @@
         public int MinAnnualBalance { get; set; }
 
         public IList<Team> Teams { get; set; }
+
+        public IEnumerable<Department> Departments { get; set; }
 
         public ShowOpenAndCloseAnnualBalance ShowOpenAndCloseAnnualBalance { get; set; }
 

@@ -33,6 +33,8 @@
                     NickName = g.First().NickName,
                     FullName = g.First().FullName,
                     TeamCode = g.First().TeamCode,
+                    TeamName = g.First().TeamName,
+                    DepartmentName = g.First().DepartmentName,
                     LeaveSchedules = g.OrderBy(e => e.WorkDate).ToList()
                 }).ToList();
 

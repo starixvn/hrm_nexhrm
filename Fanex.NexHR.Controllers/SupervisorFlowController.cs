@@ -14,23 +14,37 @@
     public class SupervisorFlowController : BaseController
     {
         private readonly ISupervisorFlowService supervisorFlowService;
+
+        private readonly IDepartmentService departmentService;
+
+        private readonly ITeamService teamService;
+
         private readonly IBaseService baseService;
 
         public SupervisorFlowController(
             ISessionService sessionService,
             ISupervisorFlowService supervisorFlowService,
-            IBaseService baseService) : base(sessionService)
+            IBaseService baseService,
+            IDepartmentService departmentService,
+            ITeamService teamService) : base(sessionService)
         {
             this.supervisorFlowService = supervisorFlowService;
             this.baseService = baseService;
+            this.departmentService = departmentService;
+            this.teamService = teamService;
         }
 
         [HttpGet]
         [HrmAuthorize(UserRoles = "HR")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var model = new SupervisorFlowViewModel
+            {
+                Departments = await departmentService.GetAll(),
+                Teams = await teamService.GetTeam()
+            };
             ViewBag.Tab = "Team";
-            return View();
+            return View(model);
         }
 
         [HttpPost]
@@ -55,11 +69,13 @@
 
         [HttpPost]
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<IActionResult> GetListDetail(string keyword)
+        public async Task<IActionResult> GetListDetail(string keyword, int? departmentId, int? teamId)
         {
             var criteria = new GetDetailSupervisorCriteria
             {
-                Keyword = keyword ?? string.Empty
+                Keyword = keyword ?? string.Empty,
+                DepartmentId = departmentId,
+                GroupId = teamId
             };
             var listDetail = await supervisorFlowService.GetListDetailSupervisors(criteria);
 

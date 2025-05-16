@@ -1,4 +1,3 @@
-
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9,6 +8,7 @@ ALTER PROCEDURE [dbo].[Overtime_GetSummary]
 	@year			INT
 	,@employeeId	INT = NULL
 	,@groupId		INT = NULL
+	,@departmentId	INT = NULL
 AS
 /*
 	Created: 
@@ -65,6 +65,7 @@ BEGIN
 		AND oty.[Year] = (@Year - 1)
 		LEFT JOIN dbo.LateInEarlyOutYearly AS la WITH (NOLOCK) ON e.Id = la.EmpId
 		AND la.[Year] = (@Year - 1)
+		LEFT JOIN dbo.EmployeeGroup AS eg WITH (NOLOCK) ON e.GroupId = eg.Id
 	WHERE e.IsSpecialUser = 0
 		AND ISNULL(e.isDeleted, 0) = 0
 		AND (
@@ -74,6 +75,10 @@ BEGIN
 		AND (
 			@groupId IS NULL
 			OR e.GroupId = @groupId
+			)
+		AND (
+			@departmentId IS NULL
+			OR eg.DepartmentId = @departmentId
 			)
 
 	INSERT INTO #CurrentYearBalance (
@@ -95,6 +100,7 @@ BEGIN
 		AND oty.[Year] = @Year
 		LEFT JOIN dbo.LateInEarlyOutYearly AS la WITH (NOLOCK) ON e.Id = la.EmpId
 		AND la.[Year] = @year
+		LEFT JOIN dbo.EmployeeGroup AS eg WITH (NOLOCK) ON e.GroupId = eg.Id
 	WHERE e.IsSpecialUser = 0
 		AND ISNULL(e.isDeleted, 0) = 0
 		AND (
@@ -104,7 +110,11 @@ BEGIN
 		AND (
 			@groupId IS NULL
 			OR e.GroupId = @groupId
-			);
+			)
+		AND (
+			@departmentId IS NULL
+			OR eg.DepartmentId = @departmentId
+			)
 
 	SELECT ott.EmpId AS EmployeeId
 		,SUM(CASE 
@@ -220,11 +230,14 @@ BEGIN
 		,e.Code
 		,e.NickName
 		,e.FullName
+		,eg.DepartmentId
+		,d.Name AS DepartmentName
 		,e.GroupId AS TeamId
 		,eg.Code AS TeamCode
 		,eg.NAME AS TeamName
 	FROM dbo.Employee e
 		INNER JOIN dbo.EmployeeGroup AS eg WITH (NOLOCK) ON e.GroupId = eg.Id
+		LEFT JOIN dbo.Department AS d WITH (NOLOCK) ON eg.DepartmentId = d.DepartmentId
 		LEFT JOIN #OvertimeSummary AS os WITH (NOLOCK) ON e.Id = os.EmployeeId
 		LEFT JOIN #CurrentYearBalance AS cur WITH (NOLOCK) ON e.Id = cur.EmpId
 		LEFT JOIN #PreviousYearBalance AS prev WITH (NOLOCK) ON e.Id = prev.EmpId
@@ -237,6 +250,10 @@ BEGIN
 		AND (
 			@groupid IS NULL
 			OR e.GroupId = @groupId
+			)
+		AND (
+			@departmentId IS NULL
+			OR eg.DepartmentId = @departmentId
 			)
 		AND ISNULL(e.isDeleted, 0) = 0
 		AND e.GroupId NOT IN (1081, 40)

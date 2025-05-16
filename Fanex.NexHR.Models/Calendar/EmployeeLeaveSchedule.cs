@@ -12,6 +12,10 @@
 
         public string TeamCode { get; set; }
 
+        public string TeamName { get; set; }
+
+        public string DepartmentName { get; set; }
+
         public IList<LeaveSchedule> LeaveSchedules { get; set; }
     }
 }

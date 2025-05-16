@@ -24,6 +24,7 @@
         private readonly IEmployeeService employeeService;
         private readonly IBaseService baseService;
         private readonly ITeamService teamService;
+        private readonly IDepartmentService departmentService;
         private readonly ILogServiceProvider logService;
 
         public OvertimeController(ISessionService sessionService,
@@ -31,12 +32,14 @@
             IEmployeeService employeeService,
             IBaseService baseService,
             ITeamService teamService,
+            IDepartmentService departmentService,
             ILogServiceProvider logService) : base(sessionService)
         {
             this.overtimeService = overtimeService;
             this.employeeService = employeeService;
             this.teamService = teamService;
             this.baseService = baseService;
+            this.departmentService = departmentService;
             this.logService = logService;
         }
 
@@ -329,6 +332,7 @@
             var summary = new OvertimeSummaryViewModel
             {
                 Teams = await teamService.GetTeam(),
+                Departments = await departmentService.GetAll(),
                 Year = DateTimeOffset.Now.Year
             };
 
@@ -336,7 +340,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> OvertimeSummary(int? empId, int? teamId, int year)
+        public async Task<IActionResult> OvertimeSummary(int? empId, int? teamId, int? departmentId, int year)
         {
             int? employeeId = null;
             if (empId.HasValue && empId.Value >= 0)
@@ -348,6 +352,7 @@
             {
                 EmployeeId = employeeId,
                 TeamId = teamId,
+                DepartmentId = departmentId,
                 Year = year
             };
             var listSummary = await baseService.GetDataAsync<OvertimeSummary>(criteria);

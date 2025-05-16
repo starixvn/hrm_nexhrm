@@ -20,15 +20,18 @@
         private readonly IBaseService baseService;
         private readonly IEmployeeService employeeService;
         private readonly ITeamService teamService;
+        private readonly IDepartmentService departmentService;
 
         public AnnualLeaveController(
             ISessionService sessionService,
             IEmployeeService employeeService,
             ITeamService teamService,
+            IDepartmentService departmentService,
             IBaseService baseService) : base(sessionService)
         {
             this.employeeService = employeeService;
             this.teamService = teamService;
+            this.departmentService = departmentService;
             this.baseService = baseService;
         }
 
@@ -437,6 +440,7 @@
                 Year = DateTimeOffset.Now.Year,
                 EmployeeId = -1,
                 Teams = await teamService.GetTeam(),
+                Departments = await departmentService.GetAll(),
                 ShowOpenAndCloseAnnualBalance = await GetOpenAndCloseAnnualBalance()
             };
 
@@ -453,6 +457,7 @@
                 {
                     EmployeeId = model.EmployeeId != -1 ? new int?(model.EmployeeId) : null,
                     GroupId = model.TeamId,
+                    DepartmentId = model.DepartmentId,
                     Year = model.Year,
                     MinAnnualBalance = model.MinAnnualBalance
                 };

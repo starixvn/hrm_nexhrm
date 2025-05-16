@@ -22,17 +22,19 @@
         {
             if (month == notMonthColumn)
             {
-                <td class ="@(value > 0 ? string.Empty : "red-color")">@value.ToString("0.0")</td>
-            }else{
+                <td class="@(value > 0 ? string.Empty : "red-color")">@value.ToString("0.0")</td>
+            }
+            else
+            {
                 var addMonth = month + 1;
                 <td>
                     <a class="@(value > 0 ? "viewhistorybymonth" : "red-color")" href="javascript:;" data-name="@nickName"
-                       id="/AnnualLeave/ViewHistoryAnnualByMonth?employeeId=@empId&year=@year&month=@addMonth">
+                        id="/AnnualLeave/ViewHistoryAnnualByMonth?employeeId=@empId&year=@year&month=@addMonth">
                         @value.ToString("0.0")
                     </a>
                 </td>
             }
-            
+
         }
     }
 
@@ -46,7 +48,7 @@
         {
             <td>
                 <a class="@(value > 0 ? "viewhistorybymonth" : "red-color")" href="javascript:;" data-name="@nickName"
-                   id="/AnnualLeave/ViewDetailCreditDaysInYear?employeeId=@empId&year=@year">
+                    id="/AnnualLeave/ViewDetailCreditDaysInYear?employeeId=@empId&year=@year">
                     @value.ToString("0.0")
                 </a>
             </td>
@@ -59,7 +61,8 @@
             @if (@isHRRole)
             {
                 <th rowspan="2" class="col-checkbox">
-                    <input class="checkuncheckall filled-in" id="checkuncheckall" name="checkuncheckall" type="checkbox" value="true">
+                    <input class="checkuncheckall filled-in" id="checkuncheckall" name="checkuncheckall" type="checkbox"
+                        value="true">
                     <label for="checkuncheckall"></label>
                     <input name="checkuncheckall" type="hidden" value="false">
                 </th>
@@ -69,6 +72,7 @@
                 <th rowspan="2">#</th>
             }
             <th rowspan="2">@Labels.EnglishName</th>
+            <th rowspan="2">@Labels.Team</th>
             <th rowspan="2">@year</th>
             <th colspan="12">
                 Take Annual Leave @year
@@ -79,7 +83,9 @@
             @if (@isHRRole)
             {
                 <th rowspan="2">@Labels.Edit</th>
-            }else{
+            }
+            else
+            {
                 <th rowspan="2">@Labels.Action</th>
             }
         </tr>
@@ -101,30 +107,31 @@
     @if (Model != null && Model.Any())
     {
         int index = 1;
-        var leaveSummaryByTeams = Model.GroupBy(t => t.TeamId).Select(grp => grp.First());
+        var leaveSummaryByDepartments = Model.GroupBy(t => t.DepartmentId).Select(grp => grp.First());
         <tbody>
-            @foreach (LeaveSummary leaveSummaryByTeam in leaveSummaryByTeams)
+            @foreach (LeaveSummary leaveSummaryByDepartment in leaveSummaryByDepartments)
             {
                 <tr class="row-divider">
-                    <td colspan="19">
-                        <b>@leaveSummaryByTeam.TeamName.ToUpper()</b>
+                    <td colspan="20">
+                        <b>@leaveSummaryByDepartment.DepartmentName.ToUpper()</b>
                     </td>
                 </tr>
 
-                var leaveSummariesByEmp = Model.Where(t => t.TeamId == leaveSummaryByTeam.TeamId);
+                var leaveSummariesByEmp = Model.Where(t => t.DepartmentId == leaveSummaryByDepartment.DepartmentId);
                 foreach (LeaveSummary leaveSummary in leaveSummariesByEmp)
                 {
                     var htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(
-                        new
-                        {
-                            @class = "aba filled-in",
-                            data_id = leaveSummary.EmpId
-                        });
+                    new
+                    {
+                        @class = "aba filled-in",
+                        data_id = leaveSummary.EmpId
+                    });
                     <tr>
                         @if (@isHRRole)
                         {
                             <td class="col-checkbox">
-                                <input class="aba filled-in" id="checkbox_@leaveSummary.EmpId" data-id="@leaveSummary.EmpId" name="checkbox_@leaveSummary.EmpId" type="checkbox" value="true">
+                                <input class="aba filled-in" id="checkbox_@leaveSummary.EmpId" data-id="@leaveSummary.EmpId"
+                                    name="checkbox_@leaveSummary.EmpId" type="checkbox" value="true">
                                 <label for="checkbox_@leaveSummary.EmpId"></label>
                                 <input name="checkbox_@leaveSummary.EmpId" type="hidden" value="false">
                             </td>
@@ -134,6 +141,7 @@
                             <td>@(index++)</td>
                         }
                         <td class="tooltip" title="@leaveSummary.FullName">@leaveSummary.NickName</td>
+                        <td class="tooltip" title="@leaveSummary.TeamName">@leaveSummary.TeamCode</td>
                         @{
                             DisplayNumberForYear(leaveSummary.AnnualLeaveCurrentYear, leaveSummary.EmpId, leaveSummary.NickName);
                             DisplayNumber((int)Months.January, leaveSummary.Jan, leaveSummary.EmpId, leaveSummary.NickName);
@@ -157,7 +165,9 @@
                                     <i class="mdi mdi-border-color mdi-18px mdi-dark"></i>
                                 </a>
                             </td>
-                        }else{
+                        }
+                        else
+                        {
                             <td class="center">
                                 <a class="viewhistory" href="~/annualleave/employee?employeeId=@leaveSummary.EmpId&Year=@year">View</a>
                             </td>
@@ -170,12 +180,12 @@
     else
     {
         <tr>
-            <td colspan="17"></td>
+            <td colspan="18"></td>
         </tr>
         <tr>
-            <td colspan="17" rowspan="2">
+            <td colspan="18" rowspan="2">
                 @Messages.NoInformation
             </td>
-        </tr>      
+        </tr>
     }
 </table>

@@ -27,6 +27,8 @@
         private readonly IEmployeeService employeeService;
         private readonly IReportService reportService;
         private readonly ITeamService teamService;
+
+        private readonly IDepartmentService departmentService;
         private readonly IBaseService baseService;
 
         private readonly bool isEditableSettingCheckInOut;
@@ -36,12 +38,14 @@
             IReportService reportService,
             ITeamService teamService,
             IBaseService baseService,
+            IDepartmentService departmentService,
             IConfiguration configuration) : base(sessionService)
         {
             this.employeeService = employeeService;
             this.reportService = reportService;
             this.teamService = teamService;
             this.baseService = baseService;
+            this.departmentService = departmentService;
             isEditableSettingCheckInOut = configuration.GetValue<bool>("IsEditableSettingCheckInOut");
         }
 
@@ -65,6 +69,7 @@
                 employeeAttendanceViewModel.CurrentPage = Constants.CurrentPage;
                 employeeAttendanceViewModel.ItemsPerPage = numberItems;
                 employeeAttendanceViewModel.Teams = await teamService.GetTeam();
+                employeeAttendanceViewModel.Departments = await departmentService.GetAll();
             }
 
             return View(employeeAttendanceViewModel);
@@ -87,6 +92,7 @@
                     ReportType = model.AttendanceType,
                     EmployeeId = model.EmployeeId,
                     GroupId = model.GroupId,
+                    DepartmentId = model.DepartmentId,
                     ExcludeUserDelete = model.ExcludeUserDelete,
                     ItemsPerPage = model.ItemsPerPage,
                     PageIndex = model.CurrentPage - 1
@@ -272,7 +278,7 @@
             var model = new RequestsMonitoringViewModel
             {
                 FromDate = new DateTimeOffset(year, month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
-                ToDate = new DateTimeOffset(year, month, DateTime.DaysInMonth(year, month), 0 , 0, 0, TimeSpan.Zero).DateTime,
+                ToDate = new DateTimeOffset(year, month, DateTime.DaysInMonth(year, month), 0, 0, 0, TimeSpan.Zero).DateTime,
                 RequestType = 0,
                 MaxRequest = 2,
                 DateOption = 0,
@@ -340,6 +346,7 @@
         public async Task<IActionResult> TotalWorkingHour()
         {
             IList<Team> teams = await teamService.GetTeam();
+            var departments = await departmentService.GetAll();
 
             var model = new TotalWorkingHoursViewModel
             {
@@ -347,7 +354,8 @@
                 ToDate = DateTimeOffset.Now.DateTime,
                 DateOption = 5,
                 IsExportExcel = false,
-                Teams = teams
+                Teams = teams,
+                Departments = departments
             };
 
             return View(model);
@@ -377,7 +385,8 @@
                 FromDate = totalWorkingHoursViewModel.FromDate,
                 ToDate = totalWorkingHoursViewModel.ToDate,
                 EmployeeId = (totalWorkingHoursViewModel.EmployeeId > 0) ? new int?(totalWorkingHoursViewModel.EmployeeId) : null,
-                GroupId = totalWorkingHoursViewModel.TeamId
+                GroupId = totalWorkingHoursViewModel.TeamId,
+                DepartmentId = totalWorkingHoursViewModel.DepartmentId
             };
 
             IList<TotalWorkingHours> totalWorkingHours = await reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
@@ -670,7 +679,8 @@
                 FromDateLastMonth = model.FromDateLastMonth,
                 ToDateLastMonth = model.ToDateLastMonth,
                 EmployeeId = (model.EmployeeId > 0) ? new int?(model.EmployeeId) : null,
-                GroupId = model.TeamId
+                GroupId = model.TeamId,
+                DepartmentId = model.DepartmentId
             };
 
             IList<WorkingHoursStatistic> totalWorkingHours = await reportService.GetWorkingHoursStatistic(getWorkingHoursCriteria);
@@ -682,6 +692,7 @@
         public async Task<IActionResult> WorkingHoursStatistic()
         {
             var teams = await teamService.GetTeam();
+            var departments = await departmentService.GetAll();
 
             DateTime date = new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
             var model = new WorkingHoursStatisticViewModel
@@ -693,6 +704,7 @@
                 DateOption = 0,
                 IsExportExcel = false,
                 Teams = teams,
+                Departments = departments,
                 Month = date.Month,
                 Year = date.Year
             };

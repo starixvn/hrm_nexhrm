@@ -15,16 +15,19 @@
     {
         private readonly ICalendarService calendarService;
         private readonly ITeamService teamService;
+        private readonly IDepartmentService departmentService;
         private readonly IBaseService baseService;
 
         public CalendarController(
             ISessionService sessionService,
             ICalendarService calendarService,
             ITeamService teamService,
+            IDepartmentService departmentService,
             IBaseService baseService) : base(sessionService)
         {
             this.calendarService = calendarService;
             this.teamService = teamService;
+            this.departmentService = departmentService;
             this.baseService = baseService;
         }
 
@@ -93,6 +96,7 @@
                 }
 
                 model.Teams = await teamService.GetTeam();
+                model.Departments = await departmentService.GetAll();
                 model.Month = model.Month == 0 ? DateTimeOffset.Now.Month : model.Month;
                 model.Year = model.Year == 0 ? DateTimeOffset.Now.Year : model.Year;
                 var date = new DateTimeOffset(model.Year, model.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
@@ -101,7 +105,8 @@
                     FromDate = date,
                     ToDate = date.AddMonths(1).AddDays(-1),
                     EmployeeId = model.EmployeeId < 0 ? (int?)null : model.EmployeeId,
-                    TeamId = model.TeamId
+                    TeamId = model.TeamId,
+                    DepartmentId = model.DepartmentId
                 };
                 var schedules = await baseService.GetDataAsync<WorkingSchedule>(criteria);
                 model.WorkingSchedules = schedules;
@@ -120,6 +125,7 @@
                 }
 
                 model.Teams = await teamService.GetTeam();
+                model.Departments = await departmentService.GetAll();
                 model.Month = model.Month == 0 ? DateTimeOffset.Now.Month : model.Month;
                 model.Year = model.Year == 0 ? DateTimeOffset.Now.Year : model.Year;
             }
@@ -136,7 +142,8 @@
                 FromDate = date,
                 ToDate = date.AddMonths(1).AddDays(-1),
                 EmployeeId = model.EmployeeId < 0 ? (int?)null : model.EmployeeId,
-                TeamId = model.TeamId
+                TeamId = model.TeamId,
+                DepartmentId = model.DepartmentId
             };
 
             var schedules = await calendarService.GetLeaveSchedule(criteria);

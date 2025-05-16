@@ -286,6 +286,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All departments.
+        /// </summary>
+        public static string AllDepartments {
+            get {
+                return ResourceManager.GetString("AllDepartments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All shifts.
         /// </summary>
         public static string AllShifts {
@@ -3135,6 +3144,15 @@ namespace Fanex.NexHR.Resources {
         public static string MemoDetail {
             get {
                 return ResourceManager.GetString("MemoDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to M-Grade.
+        /// </summary>
+        public static string MGrade {
+            get {
+                return ResourceManager.GetString("MGrade", resourceCulture);
             }
         }
         

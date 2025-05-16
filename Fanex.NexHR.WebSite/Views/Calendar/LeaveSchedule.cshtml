@@ -24,8 +24,8 @@
     ViewBag.Title = Labels.LeaveSchedules;
     var teams = new SelectList(Model.Teams, "Id", "Name");
 }
-@{ 
-    
+@{
+
     int Month = 12;
     int year = DateTime.Now.GetMaxDate().Year + 1;
 
@@ -54,8 +54,19 @@
                                         <input type="hidden" id="hdtoday" value="@maxDate.ToString()" />
                                         <input type="hidden" id="hdmonth" value="@currentDate" />
                                         <input type="hidden" id="maxDate" value="@maxDate.ToString()" />
-                                        <input type="hidden" asp-for="@Model.Month"/>
-                                        <input type="hidden" asp-for="@Model.Year"/>
+                                        <input type="hidden" asp-for="@Model.Month" />
+                                        <input type="hidden" asp-for="@Model.Year" />
+                                    </div>
+                                </div>
+                                <div class="col m-l--l m-r--l">
+                                    <div class="left label--m">
+                                        <label asp-for="@Labels.Department">@Labels.Department</label>
+                                    </div>
+                                    <div class="left select-team">
+                                        <select asp-for="@Model.DepartmentId"
+                                            asp-items="@(new SelectList(Model.Departments, "Id", "Name"))">
+                                            <option value="">@Labels.AllDepartments</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col m-l--l m-r--l">
@@ -63,8 +74,13 @@
                                         <label asp-for="@Labels.Team">@Labels.Team</label>
                                     </div>
                                     <div class="left select-team">
-                                        <select asp-for="@Model.TeamId" asp-items="@teams">
+                                        <select name="TeamId" asp-for="TeamId">
                                             <option value="">@Labels.AllTeams</option>
+                                            @foreach (var team in Model.Teams)
+                                            {
+                                                <option value="@team.Id" data-department-id="@team.DepartmentId">@team.Name
+                                                </option>
+                                            }
                                         </select>
                                     </div>
                                 </div>
@@ -73,13 +89,16 @@
                                         <label asp-for="@Labels.Employee">@Labels.Employee</label>
                                     </div>
                                     <div class="left input--m">
-                                        <input asp-for="@Model.Employee" placeholder="@Messages.SearchEmployeeWatermark"/>
-                                        <input type="hidden" asp-for="@Model.EmployeeId"/>
+                                        <input asp-for="@Model.Employee"
+                                            placeholder="@Messages.SearchEmployeeWatermark" />
+                                        <input type="hidden" asp-for="@Model.EmployeeId" />
                                     </div>
                                 </div>
                                 <div class="col col-btn-submit-excel">
-                                    <input type="submit" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />
-                                    <input id="exportExcel" type="button" value="@Labels.Excel" class="waves-effect waves-light btn-export-excel m-r--b" />
+                                    <input type="submit" value="@Labels.Submit"
+                                        class="processing-submit btn-submit waves-effect waves-light m-r--m" />
+                                    <input id="exportExcel" type="button" value="@Labels.Excel"
+                                        class="waves-effect waves-light btn-export-excel m-r--b" />
                                 </div>
                             </div>
                         </form>

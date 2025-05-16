@@ -16,6 +16,8 @@
         [SpParam(SqlParamName = "GroupId")]
         public int? TeamId { get; set; }
 
+        public int? DepartmentId { get; set; }
+
         public bool? IsDisable { get; set; }
 
         public bool? IsDelete { get; set; }

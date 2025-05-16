@@ -9,12 +9,14 @@
 
         [SpParam(SqlParamName = "GroupId")]
         public int? TeamId { get; set; }
+        
+        public int? DepartmentId { get; set; }
 
         public bool? IsSpecial { get; set; }
 
         public override bool IsValid() => true;
 
         public override string GetSettingKey() => "Employee_GetStaffInfo";
-        
+
     }
 }

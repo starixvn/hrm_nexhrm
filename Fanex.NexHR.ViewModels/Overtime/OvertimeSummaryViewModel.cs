@@ -11,8 +11,12 @@
 
         public int? TeamId { get; set; }
 
+        public int? DepartmentId { get; set; }
+
         public int Year { get; set; }
 
         public IList<Team> Teams { get; set; }
+
+        public IEnumerable<Department> Departments { get; set; }
     }
 }

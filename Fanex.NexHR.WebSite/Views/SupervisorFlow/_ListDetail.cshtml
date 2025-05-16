@@ -12,10 +12,11 @@
     <thead>
         <tr>
             <th style="width:5%">@Labels.SymbolCount</th>
-            <th style="width:14%">@Labels.EnglishName</th>
-            <th style="width:23%">@Labels.FullName</th>
-            <th style="width:22%">@Labels.Team</th>
-            <th style="width:36%">@Labels.Supervisor</th>
+            <th style="width:10%">@Labels.EnglishName</th>
+            <th style="width:22%">@Labels.FullName</th>
+            <th style="width:21%">@Labels.Department</th>
+            <th style="width:21%">@Labels.Team</th>
+            <th style="width:21%">@Labels.Supervisor</th>
         </tr>
     </thead>
     <tbody>
@@ -24,9 +25,10 @@
             foreach (var item in Model)
             {
                 <tr id="row@(item.EmpId)">
-                    <td >@(index++)</td>
+                    <td>@(index++)</td>
                     <td class="align-left">@item.Nickname</td>
                     <td class="align-left">@item.FullName</td>
+                    <td class="align-left">@item.DepartmentName</td>
                     <td class="align-left">@item.GroupName</td>
                     <td class="align-left">@item.Approvers</td>
                 </tr>

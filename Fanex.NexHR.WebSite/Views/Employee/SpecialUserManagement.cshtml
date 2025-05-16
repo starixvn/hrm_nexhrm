@@ -1,4 +1,4 @@
-﻿@using Fanex.NexHR.Resources
+@using Fanex.NexHR.Resources
 @using Fanex.NexHR.ViewModels.Employee
 @model UserManagementViewModel
 @{
@@ -35,13 +35,29 @@
                                         <input asp-for="Keyword" placeholder="@Messages.SearchEmployeeWatermark" />
                                     </div>
                                 </div>
+                            <div class="col m-r--l">
+                                <div class="left label--m">
+                                    <label>@Labels.Department</label>
+                                </div>
+                                <div class="left select--m team">
+                                    <select asp-for="DepartmentId"
+                                        asp-items="@(new SelectList(Model.Departments, "Id", "Name"))">
+                                        <option value="">@Labels.AllDepartments</option>
+                                    </select>
+                                </div>
+                            </div>
                                 <div class="col m-r--l">
                                     <div class="left label--s">
                                         <label>@Labels.Team</label>
                                     </div>
-                                    <div class="left select--m team">
-                                        <select asp-for="TeamId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
+                                <div class="left select-team">
+                                    <select id="TeamId" name="TeamId" asp-for="TeamId">
                                             <option value="">@Labels.AllTeams</option>
+                                        @foreach (var team in Model.Teams)
+                                        {
+                                            <option value="@team.Id" data-department-id="@team.DepartmentId">@team.Name
+                                            </option>
+                                        }
                                         </select>
                                     </div>
                                 </div>
@@ -99,6 +115,11 @@
                                         <div class="sorter" data-property="FullName">
                                         </div>
                                     </th>
+                                <th class="col-sorter">
+                                    @Labels.Department
+                                    <div class="sorter" data-property="CodeOfTeam">
+                                    </div>
+                                </th>
                                     <th class="col-sorter">
                                         @Labels.Team
                                         <div class="sorter" data-property="CodeOfTeam">
@@ -155,6 +176,7 @@
                 <a href="/employee/detail?employeeId={{:Id}}">{{:NickName}}</a>
             </td>
             <td class="align-left">{{:FullName}}</td>
+            <td >{{:DepartmentName}}</td>
             <td title="{{:Team.Name}}" class="tooltip">{{:Team.Code}}</td>
             <td>
                 {{if Gender == 0 }}

@@ -1,85 +1,93 @@
 .form {
-    margin-top: 1.6rem;
-    margin-bottom: 1.6rem;
-    padding: 0 !important;
-      .btn {
-        text-transform: none;
-      }
+	margin-top: 1.6rem;
+	margin-bottom: 1.6rem;
+	padding: 0 !important;
+
+	.btn {
+		text-transform: none;
+	}
 }
 
 .input {
-    width: 16.3rem;
+	width: 16.3rem;
 }
 
 .radioButton {
-    float: left;
-    margin-right: 2.1rem;
-    label {
-        margin-top: .2rem !important;
-    }
+	float: left;
+	margin-right: 2.1rem;
+
+	label {
+		margin-top: .2rem !important;
+	}
 }
 
 .column-truncate {
-    display: inline-block;
-    overflow: hidden;
-    position: relative;
-    text-overflow: ellipsis;
-    white-space: pre;
-    width: 7.7rem;
+	display: inline-block;
+	overflow: hidden;
+	position: relative;
+	text-overflow: ellipsis;
+	white-space: pre;
+	width: 7.7rem;
 }
 
 .col.button {
-    padding-left: 0;
+	padding-left: 0;
 }
 
-.select--xs, .input--xs {
-    width: 7rem;
+.select--xs,
+.input--xs {
+	width: 7rem;
 }
 
-.select--s, .input--s {
-    width: 15rem;
+.select--s,
+.input--s {
+	width: 15rem;
 }
 
-.select--m, .input--m {
-    width: 22rem;
+.select--m,
+.input--m {
+	width: 22rem;
 }
 
 .select--datepicker {
-    width: 11rem;
+	width: 11rem;
 }
 
 .select--daterange {
-    width: 15rem;
-    @media (min-width: 1300px) {
-        width: 22rem;
-    }
+	width: 15rem;
+
+	@media (min-width: 1300px) {
+		width: 22rem;
+	}
 }
 
 .input-subject {
 	width: 51.8rem;
 }
+
 .select-team {
 	width: 20rem;
 }
 
-.select--l, .input--l {
-    width: 40rem;
+.select--l,
+.input--l {
+	width: 40rem;
 }
 
 .label--s {
-    width: 5rem;
+	width: 5rem;
 }
 
 .label--m {
-    width: 7.8rem;
+	width: 7.8rem;
 }
 
 .label--l {
-    width: 11rem;
+	width: 11rem;
 }
 
 .label--xl {
-    width: 12rem;
+	width: 12rem;
 }
 
 .label--mxxl {
@@ -91,32 +99,35 @@
 }
 
 .input-spvn {
-    width: 32.4rem;
-	margin-left:1rem;
+	width: 32.4rem;
+	margin-left: 1rem;
 }
 
 //------------------Filter specific -----------------//
 .filter-status {
 	width: 22rem;
-	
+
 }
 
 //------------------Filter specific usermanagement -----------------//
 .filter-title-lbl {
 	width: 7.8rem;
 
-	@media (min-width: 1900px){
-		 width: 5rem;
+	@media (min-width: 1900px) {
+		width: 5rem;
 	}
 }
-.filter-title, .filter-keyword {
-	width: 30rem;
+
+.filter-title,
+.filter-keyword {
+	width: 24rem;
 }
 
 //------------------Filter specific attendace report -----------------//
 .label--m.label {
 	width: 7.8rem;
 	margin-bottom: 1rem;
+
 	@media (min-width: 1900px) {
 		width: 0;
 	}
@@ -124,23 +135,27 @@
 
 .checkBox {
 	margin-top: .8rem;
+
 	@media (min-width: 1900px) {
 		margin-top: 0;
-	}	
+	}
 }
 
 //---------------------------------------------
 //            FORM INPUT
 //---------------------------------------------
 .mgr-b-15 {
-    margin-bottom: 15px;
+	margin-bottom: 15px;
 }
+
 .form-input {
 	.col {
 		padding-right: 1.6rem;
 	}
 
-	input[type="text"], textarea, input[type=number] {
+	input[type="text"],
+	textarea,
+	input[type=number] {
 		@include css3(box-shadow, (0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.1)));
 		padding-left: 7px !important;
 		border: 1px solid #d0d0d0;
@@ -204,13 +219,14 @@
 		}
 	}
 }
+
 //---------------------------------------------
 //            DATE TIME PICKER
 //---------------------------------------------
 
 
 #ui-datepicker-div {
-    z-index: 1002 !important;
+	z-index: 1002 !important;
 	padding: 0;
 	width: 300px;
 	border: none;
@@ -225,33 +241,35 @@
 	}
 
 	.ui-icon {
-        width: 2.5rem;
-        height: 2.5rem;
-        background: none;
-        text-indent: initial;		
-
-        &.ui-icon-circle-triangle-e:after, &.ui-icon-circle-triangle-w:after {                       
-            width: 2.5rem;
-			height: 2.5rem;
-            font-family: "Material Design Icons";
-            font-size: 1.9rem;
-			color: #fff;
-			line-height: 2.5rem;						
-			padding-left: .3rem;
-        }
-
-        &.ui-icon-circle-triangle-e:after {
-            content: "\f417";
-        }
-
-        &.ui-icon-circle-triangle-w:after {
-            content: "\f416";
-        }
-    }
-
-	.ui-datepicker-prev, .ui-datepicker-next {
 		width: 2.5rem;
-        height: 2.5rem;
+		height: 2.5rem;
+		background: none;
+		text-indent: initial;
+
+		&.ui-icon-circle-triangle-e:after,
+		&.ui-icon-circle-triangle-w:after {
+			width: 2.5rem;
+			height: 2.5rem;
+			font-family: "Material Design Icons";
+			font-size: 1.9rem;
+			color: #fff;
+			line-height: 2.5rem;
+			padding-left: .3rem;
+		}
+
+		&.ui-icon-circle-triangle-e:after {
+			content: "\f417";
+		}
+
+		&.ui-icon-circle-triangle-w:after {
+			content: "\f416";
+		}
+	}
+
+	.ui-datepicker-prev,
+	.ui-datepicker-next {
+		width: 2.5rem;
+		height: 2.5rem;
 		background: #78828c;
 		top: inherit;
 		border-radius: 1px;
@@ -269,18 +287,20 @@
 
 	.ui-datepicker-prev {
 		left: 1.3rem;
+
 		&-hover {
-			left: 1.3rem;		
+			left: 1.3rem;
 		}
 	}
 
 	.ui-datepicker-next {
 		right: 1.3rem;
+
 		&-hover {
 			right: 1.3rem;
 		}
 	}
-	
+
 	.ui-datepicker-header {
 		padding: 10px 15px;
 		background: #343b4d;
@@ -290,22 +310,27 @@
 		table {
 			margin: .5rem 0 .5rem;
 		}
+
 		thead {
 			border: none;
+
 			th {
 				color: $c-primary;
 			}
 		}
+
 		tbody {
 			td {
 				padding: 5px;
-				span, a {
+
+				span,
+				a {
 					padding: 7px 5px;
-					text-align: center;									
+					text-align: center;
 					border-radius: 2px;
 				}
 
-				&.ui-datepicker-current-day {					
+				&.ui-datepicker-current-day {
 					.ui-state-active {
 						background: $c-primary;
 						border: none;
@@ -319,7 +344,7 @@
 						color: $c-primary;
 						font-weight: 600;
 					}
-					
+
 				}
 			}
 		}
@@ -327,7 +352,7 @@
 }
 
 .ui-datepicker table {
-   margin: .5em 0 .5em !important;
+	margin: .5em 0 .5em !important;
 }
 
 .datetime-picker {
@@ -343,13 +368,12 @@
 //---------------------------------------------
 
 .ui-autocomplete {
-    max-height: 40rem;
-    overflow-y: auto;
-    overflow-x: hidden;
-    z-index: 1050 !important;
+	max-height: 40rem;
+	overflow-y: auto;
+	overflow-x: hidden;
+	z-index: 1050 !important;
 
-    .ui-state-focus {
-    }
+	.ui-state-focus {}
 }
 
 //----------------------DIALOG POPUP-----------------------
@@ -360,7 +384,8 @@
 	}
 }
 
-#dialog-toeic, #dialog-error-excel {
+#dialog-toeic,
+#dialog-error-excel {
 	text-align: left;
 	padding-top: 0;
 }
@@ -371,27 +396,32 @@
 	padding-top: 0;
 }
 
-#dialog-form, #dialog-form_edit, #insertform {
-    height: 100% !important;
-    .form {
-        margin-bottom: 0;
-        margin-top: 0;
-    }
-    .validateTips {
-        //display: none;
-    }
+#dialog-form,
+#dialog-form_edit,
+#insertform {
+	height: 100% !important;
+
+	.form {
+		margin-bottom: 0;
+		margin-top: 0;
+	}
+
+	.validateTips {
+		//display: none;
+	}
 }
 
 #insertform {
-    text-align: left;
+	text-align: left;
 
-    .text-box {
-        margin: 0;
-    }
+	.text-box {
+		margin: 0;
+	}
 
-    .row {
-        margin-bottom: 1rem;
-    }
+	.row {
+		margin-bottom: 1rem;
+	}
+
 	.waves-input-wrapper {
 		float: none;
 	}
@@ -404,15 +434,18 @@
 	}
 }
 
-#frmUpdateTOEIC, #frmUpdFullTOEIC {
+#frmUpdateTOEIC,
+#frmUpdFullTOEIC {
 	margin-bottom: 0;
 }
 
-#frmAddTrainingAndDevelopment, #frmUpdateTrainingAndDevelopment {
+#frmAddTrainingAndDevelopment,
+#frmUpdateTrainingAndDevelopment {
 	margin-top: 0;
 }
 
-#updateform, #addform {
+#updateform,
+#addform {
 	text-align: left;
 }
 
@@ -427,7 +460,7 @@
 
 //------------------------------Toast Container----------------------------//
 #toast-container {
-	display:block;
+	display: block;
 	position: fixed;
 	z-index: 10000;
 
@@ -436,19 +469,16 @@
 		right: 27%;
 	}
 
-	@media (min-width: 1300px) {
-		
-		
-	}
+	@media (min-width: 1300px) {}
 
 	@media (min-width: 1900px) {
-		
+
 		right: 35%;
 	}
 
-	.toast {  
-		background-color: #fccccc; 
-		font-size: 1.3rem;  
+	.toast {
+		background-color: #fccccc;
+		font-size: 1.3rem;
 		color: #ff0909;
 		border: 1px solid #f5a7a7;
 		font-weight: 400;
@@ -458,7 +488,7 @@
 		padding: 0 15px;
 
 		i {
-		color: #f15555;
+			color: #f15555;
 		}
 	}
 }

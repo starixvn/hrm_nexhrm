@@ -8,6 +8,10 @@
 
         public string FullName { get; set; }
 
+        public int DepartmentId { get; set; }
+
+        public string DepartmentName { get; set; }
+
         public int TeamId { get; set; }
 
         public string TeamCode { get; set; }
