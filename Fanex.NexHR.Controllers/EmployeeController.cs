@@ -112,37 +112,29 @@
         }
 
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<JsonResult> GetEmployees(
-            string query,
-            int? teamId = null,
-            int? departmentId = null,
-            bool? isDisable = null,
-            bool? isDelete = null,
-            int? jobTitleId = null,
-            string sort = null,
-            bool? isSpecial = null)
+        public async Task<JsonResult> GetEmployees(EmployeeListFilterViewModel filter)
         {
             var listEmployee = new EmployeeListViewModel
             {
-                IsShowResignedDate = isDisable.HasValue && isDisable.Value || isDelete.HasValue && isDelete.Value
+                IsShowResignedDate = filter.IsDisable.HasValue && filter.IsDisable.Value || filter.IsDelete.HasValue && filter.IsDelete.Value
             };
 
             var criteria = new GetEmployeeCriteria
             {
-                Query = query ?? string.Empty,
-                TeamId = teamId == -1 ? null : teamId,
-                DepartmentId = departmentId == -1 ? null : departmentId,
-                JobTitleId = jobTitleId,
-                IsDisable = isDisable,
-                IsDelete = isDelete,
+                Query = filter.Query ?? string.Empty,
+                TeamId = filter.TeamId == -1 ? null : filter.TeamId,
+                DepartmentId = filter.DepartmentId == -1 ? null : filter.DepartmentId,
+                JobTitleId = filter.JobTitleId,
+                IsDisable = filter.IsDisable,
+                IsDelete = filter.IsDelete,
                 PageNumber = 1,
                 PageSize = int.MaxValue,
                 TotalRow = 2000,
-                IsSpecial = isSpecial
+                IsSpecial = filter.IsSpecial,
             };
 
             listEmployee.Employees = await employeeService.Query(criteria);
-            listEmployee.Employees = SortEmployee(sort, listEmployee.Employees);
+            listEmployee.Employees = SortEmployee(filter.Sort, listEmployee.Employees);
 
             return Json(listEmployee);
         }
