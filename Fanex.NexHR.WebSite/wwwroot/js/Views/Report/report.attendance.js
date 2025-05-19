@@ -153,7 +153,7 @@ function initExportExcel() {
       '&empId=' +
       $('#EmployeeId').val() +
       '&groupId=' +
-      $('#GroupId').val() +
+      $('#TeamId').val() +
       '&departmentId=' +
       $('#DepartmentId').val() +
       '&attendanceType=' +

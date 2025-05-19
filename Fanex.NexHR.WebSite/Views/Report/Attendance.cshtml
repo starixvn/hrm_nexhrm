@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
 }
 
-    @section Scripts {
+@section Scripts {
     <environment include="Development">
         <script src="~/js/Libs/jquery.simplePagination.js" asp-append-version="true"></script>
         <script src="~/js/Views/Report/report.attendance.js" asp-append-version="true"></script>
@@ -22,31 +22,35 @@
         <script src="~/minify/js/attendance.min.js" asp-append-version="true"></script>
     </environment>
 }
-    @section Breadcrumb {
+@section Breadcrumb {
 }
-    <div class="row content">
-        <div class="col s12 card-container-base">
-            <div class="card">
-                <div class="card-content">
-                    <div class="card-title-block">
-                        <span class="card-title txt-uppercase left">@ViewBag.Title</span>
-                    </div>
-                    <div class="card-body">
-                        <div class="form form-stl-table">
-                            <input id="DateTime-Now" name="DateTime-Now" type="hidden" value="@DateTime.Now.ToString("MMMM dd, yyyy")">
-                            <form action="" class="form-filter">
-                                <div class="row form-input">
-                                    <div class="col m-r--l">
-                                        <div class="left label--m">
-                                            <label>@Labels.DateRange</label>
-                                        </div>
-                                        <div class="left select--s">
-                                            <select id="Date" name="Date">
-                                                @{
-                                                foreach (DateRangeFilter requestType in (DateRangeFilter[])Enum.GetValues(typeof(DateRangeFilter)))
+<div class="row content">
+    <div class="col s12 card-container-base">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title-block">
+                    <span class="card-title txt-uppercase left">@ViewBag.Title</span>
+                </div>
+                <div class="card-body">
+                    <div class="form form-stl-table">
+                        <input id="DateTime-Now" name="DateTime-Now" type="hidden"
+                            value="@DateTime.Now.ToString("MMMM dd, yyyy")">
+                        <form action="" class="form-filter">
+                            <div class="row form-input">
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
+                                        <label>@Labels.DateRange</label>
+                                    </div>
+                                    <div class="left select--s">
+                                        <select id="Date" name="Date">
+                                            @{
+                                                foreach (DateRangeFilter requestType in
+                                                (DateRangeFilter[])Enum.GetValues(typeof(DateRangeFilter)))
                                                 {
                                                     var value = (int)requestType;
-                                                    <option value="@value" selected="@(value == (int)DateRangeFilter.DateRange)">@Utilities.GetDescription(requestType)</option>
+                                                    <option value="@value"
+                                                        selected="@(value == (int)DateRangeFilter.DateRange)">
+                                                        @Utilities.GetDescription(requestType)</option>
                                                 }
                                             }
                                         </select>
@@ -58,10 +62,9 @@
                                         <label>@Labels.FromDate</label>
                                     </div>
                                     <div class="left datepicker-button select--s">
-                                        <date-picker name="FromDate"
-                                                     min-date="@(new DateTime(2010, 1, 1))"
-                                                     max-date="DateTime.Now.AddMonths(4)"
-                                                     value="@(Model != null ? Model.FromDate : null)">
+                                        <date-picker name="FromDate" min-date="@(new DateTime(2010, 1, 1))"
+                                            max-date="DateTime.Now.AddMonths(4)"
+                                            value="@(Model != null ? Model.FromDate : null)">
                                         </date-picker>
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
@@ -85,10 +88,13 @@
                                     <div class="left select--s">
                                         <select id="AttendanceType" name="AttendanceType">
                                             @{
-                                                foreach (RequestTypeFilterForAttendance requestType in (RequestTypeFilterForAttendance[])Enum.GetValues(typeof(RequestTypeFilterForAttendance)))
+                                                foreach (RequestTypeFilterForAttendance requestType in
+                                                (RequestTypeFilterForAttendance[])Enum.GetValues(typeof(RequestTypeFilterForAttendance)))
                                                 {
                                                     var value = (int)requestType;
-                                                    <option value="@value" selected="@(value == (Model != null ? Model.AttendanceType : 0))">@Utilities.GetDescription(requestType)</option>
+                                                    <option value="@value"
+                                                        selected="@(value == (Model != null ? Model.AttendanceType : 0))">
+                                                        @Utilities.GetDescription(requestType)</option>
                                                 }
                                             }
                                         </select>
@@ -110,7 +116,7 @@
                                         <label>@Labels.Team</label>
                                     </div>
                                     <div class="left select-team">
-                                        <select id="GroupId" name="GroupId">
+                                        <select id="TeamId" name="GroupId">
                                             <option value="">@Labels.AllTeams</option>
                                             @foreach (var team in Model.Teams)
                                             {
@@ -150,8 +156,10 @@
                                     <div class="left">
                                         <input asp-for="CurrentPage" type="hidden" />
                                         <input asp-for="ItemsPerPage" type="hidden" />
-                                        <input class="btn-submit waves-effect waves-light m-r--m" type="button" value="@Labels.Submit" id="submit" />
-                                        <input class="btn-export-excel waves-effect waves-light" type="button" value="@Labels.Excel" id="exportExcel" />
+                                        <input class="btn-submit waves-effect waves-light m-r--m" type="button"
+                                            value="@Labels.Submit" id="submit" />
+                                        <input class="btn-export-excel waves-effect waves-light" type="button"
+                                            value="@Labels.Excel" id="exportExcel" />
                                     </div>
                                 </div>
                             </div>
