@@ -154,6 +154,8 @@ function initExportExcel() {
       $('#EmployeeId').val() +
       '&groupId=' +
       $('#GroupId').val() +
+      '&departmentId=' +
+      $('#DepartmentId').val() +
       '&attendanceType=' +
       $('#AttendanceType').val() +
       '&excludeUserDelete=' +

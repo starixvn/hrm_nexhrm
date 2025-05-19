@@ -18,10 +18,10 @@ function query(isFirstLoad) {
   }
   var data = 'query=' + keyword + '&teamId=' + $('#TeamId').val() + '&departmentId=' + $('#DepartmentId').val() + '&sort=' + JSON.stringify(sorts);
   var teamName = $('.team .select-dropdown').val();
-
+  var departmentName = $('.department .select-dropdown').val();
   var url = _global.root + 'employee/getstaffinfo?' + data;
   if (!isFirstLoad) {
-    var orgUrl = _global.root + 'employee?' + data + '&teamName=' + teamName;
+    var orgUrl = _global.root + 'employee?' + data + '&teamName=' + teamName + '&departmentName=' + departmentName;
     window.history.replaceState(null, null, orgUrl);
   }
 
@@ -83,11 +83,13 @@ function initDataFirstQuery(queryString) {
   var query = urlParams.get('query');
   var teamId = urlParams.get('teamId');
   var teamName = urlParams.get('teamName');
-
+  var departmentId = urlParams.get('departmentId');
+  var departmentName = urlParams.get('departmentName');
   $('#Keyword').val(query);
   $('#TeamId').val(teamId);
-
+  $('#DepartmentId').val(departmentId);
   $('.team .select-dropdown').val(teamName);
+  $('.department .select-dropdown').val(departmentName);
 }
 
 function eventSorting() {
@@ -148,6 +150,8 @@ function eventExportExcel() {
       $('#Keyword').val() +
       '&teamId=' +
       $('#TeamId').val() +
+      '&departmentId=' +
+      $('#DepartmentId').val() +
       '&isDisable=' +
       isDisable +
       '&isDelete=' +

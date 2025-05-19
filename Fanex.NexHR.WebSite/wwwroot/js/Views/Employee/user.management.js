@@ -62,12 +62,13 @@ function query(jobTitleId, isFirstLoad) {
     '&isSpecial=' +
     isSpecial;
   var teamName = $('.team .select-dropdown').val();
+  var departmentName = $('.department .select-dropdown').val();
   var url = _global.root + 'employee/getemployees?' + data;
 
   var actionOrgUrl = isSpecial === 'True' ? 'SpecialUserManagement?' : 'UserManagement?';
 
   if (!isFirstLoad) {
-    var orgUrl = _global.root + 'employee/' + actionOrgUrl + data + '&teamName=' + teamName;
+    var orgUrl = _global.root + 'employee/' + actionOrgUrl + data + '&teamName=' + teamName + '&departmentName=' + departmentName;
     window.history.replaceState(null, null, orgUrl);
   }
 
@@ -141,6 +142,7 @@ function initDataFirstQuery(queryString) {
   var teamId = urlParams.get('teamId');
   var jobTitleId = urlParams.get('jobTitleId');
   var teamName = urlParams.get('teamName');
+  var departmentName = urlParams.get('departmentName');
   //var jobTitleName = urlParams.get('jobTitleName');
   var isDisable = urlParams.get('isDisable');
   var isDelete = urlParams.get('isDelete');
@@ -149,6 +151,7 @@ function initDataFirstQuery(queryString) {
   $('#TeamId').val(teamId);
   $('#JobTitleId').val(jobTitleId);
   $('.team .select-dropdown').val(teamName);
+  $('.department .select-dropdown').val(departmentName);
 
   if (isDisable === 'true') {
     $('#IsDisable').prop('checked', true);
@@ -237,6 +240,8 @@ function eventExportExcel(jobTitleId) {
       $('#Keyword').val() +
       '&teamId=' +
       $('#TeamId').val() +
+      '&departmentId=' +
+      $('#DepartmentId').val() +
       '&isDisable=' +
       isDisable +
       '&isDelete=' +
