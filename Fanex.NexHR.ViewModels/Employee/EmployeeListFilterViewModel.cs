@@ -1,8 +1,5 @@
 namespace Fanex.NexHR.ViewModels.Employee
 {
-    using System.Collections.Generic;
-    using Models;
-
     public class EmployeeListFilterViewModel
     {
         public string Query { get; set; }
