@@ -1,8 +1,13 @@
 USE [NexHRM]
 GO
 
+ALTER TABLE [dbo].[Department]
+ADD [IsSpecial] BIT NOT NULL DEFAULT 0
+GO
+
 UPDATE [dbo].[Department]
 SET [IsDisabled] = 1
+GO
 
 INSERT INTO [dbo].[Department]
     ([Code]
@@ -15,20 +20,21 @@ INSERT INTO [dbo].[Department]
     ,[CreatedBy]
     ,[CreatedDate]
     ,[ModifiedBy]
-    ,[ModifiedDate])
+    ,[ModifiedDate]
+    ,[IsSpecial])
 VALUES
-    ('FI BU', 'FI BU', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE()),
-    ('OmniFlow', 'OmniFlow', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE()),
-    ('Expat', 'Expat', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE()),
-    ('DEV Pool', 'DEV Pool', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE()),
-    ('Atomix', 'Atomix', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE()),
-    ('GM Office', 'GM Office', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE()),
-    ('Core Team', 'Core Team', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE()),
-    ('Synergy', 'Synergy', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE()),
-    ('Pioneers', 'Pioneers', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE()),
-    ('Subarashi', 'Subarashi', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE()),
-    ('Wabi Sabi', 'Wabi Sabi', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE()),
-    ('HR & Admin', 'HR & Admin', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE())
+    ('FI BU', 'FI BU', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE(), 0),
+    ('OmniFlow', 'OmniFlow', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE(), 0),
+    ('Expat', 'Expat', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE(), 0),
+    ('DEV Pool', 'DEV Pool', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE(), 0),
+    ('Atomix', 'Atomix', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE(), 0),
+    ('GM Office', 'GM Office', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE(), 0),
+    ('Core Team', 'Core Team', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE(), 0),
+    ('Synergy', 'Synergy', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE(), 0),
+    ('Pioneers', 'Pioneers', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE(), 0),
+    ('Subarashi', 'Subarashi', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE(), 0),
+    ('Wabi Sabi', 'Wabi Sabi', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE(), 0),
+    ('HR & Admin', 'HR & Admin', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE(), 0)
 GO
 
 UPDATE g

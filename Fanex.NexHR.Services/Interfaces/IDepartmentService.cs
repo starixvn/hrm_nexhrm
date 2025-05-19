@@ -7,7 +7,7 @@
 
     public interface IDepartmentService
     {
-        Task<IEnumerable<Department>> GetAll();
+        Task<IEnumerable<Department>> GetAll(bool? isSpecial = false);
 
         Task<Department> GetDepartmentById(GetDepartmentByIdCriteria criteria);
     }

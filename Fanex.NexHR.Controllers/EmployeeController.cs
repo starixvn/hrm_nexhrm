@@ -102,8 +102,8 @@
             var model = new UserManagementViewModel
             {
                 JobTitleId = jobTitleId,
-                Teams = await teamService.GetTeam(),
-                Departments = await departmentService.GetAll(),
+                Teams = await teamService.GetAll(),
+                Departments = await departmentService.GetAll(null),
                 IsSpecial = true,
                 JobTitles = await jobTitleService.GetAll(),
             };

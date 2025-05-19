@@ -1,8 +1,13 @@
 USE [LumiHRM]
 GO
 
+ALTER TABLE [dbo].[Department]
+ADD [IsSpecial] BIT NOT NULL DEFAULT 0
+GO
+
 UPDATE [dbo].[Department]
 SET [IsDisabled] = 1
+GO
 
 INSERT INTO [dbo].[Department]
     ([Code]
@@ -15,13 +20,14 @@ INSERT INTO [dbo].[Department]
     ,[CreatedBy]
     ,[CreatedDate]
     ,[ModifiedBy]
-    ,[ModifiedDate])
+    ,[ModifiedDate]
+    ,[IsSpecial])
 VALUES
-    ('Pentagon', 'Pentagon', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE()),
-    ('Core Team', 'Core Team', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE()),
-    ('HR & Admin', 'HR & Admin', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE()),
-    ('Marketing BU', 'Marketing BU', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE()),
-    ('FI BU', 'FI BU', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE())
+    ('Pentagon', 'Pentagon', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE(), 0),
+    ('Core Team', 'Core Team', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE(), 1),
+    ('HR & Admin', 'HR & Admin', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE(), 1),
+    ('Marketing BU', 'Marketing BU', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE(), 0),
+    ('FI BU', 'FI BU', NULL, NULL, NULL, NULL, 0, NULL, GETDATE(), NULL, GETDATE(), 1)
 GO
 
 UPDATE g

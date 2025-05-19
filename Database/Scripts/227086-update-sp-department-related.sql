@@ -2360,10 +2360,11 @@ GO
 ALTER PROCEDURE [dbo].[Department_Get]
 	@ParentId INT = NULL
 	,@IsDisabled BIT = NULL
+	,@IsSpecial BIT = NULL
 AS
 /*
 Created: 20140818@Josh.Phan
-Task: Get departments by departmentid.
+Task: Get departments by departmentId.
 DB: NexEPA
 Original: 
 
@@ -2405,6 +2406,10 @@ BEGIN
 		AND (
 			@IsDisabled IS NULL
 			OR dep.IsDisabled = @IsDisabled
+			)
+		AND (
+			@IsSpecial IS NULL
+			OR dep.IsSpecial = @IsSpecial
 			)
     ORDER BY dep.DisplayOrder, dep.Name
 END

@@ -8,6 +8,8 @@
 
         public bool? IsDisabled { get; set; }
 
+        public bool? IsSpecial { get; set; }
+
         public override string GetSettingKey()
         {
             return "Department_Get";
