@@ -8,6 +8,7 @@
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Criteria.Applicant;
     using Fanex.NexHR.Models.Applicant;
+    using Fanex.NexHR.Models.Export;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using Models;
@@ -138,33 +139,25 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Attendance(
-            DateTime fromDate,
-            DateTime toDate,
-            int? empId,
-            int? groupId,
-            int? departmentId,
-            short attendanceType,
-            bool excludeUserDelete,
-            string sort = null)
+        public async Task<IActionResult> Attendance(AttendanceExportModel model)
         {
             const string fileName = "EmployeeAttendance.xlsx";
             var getEmployeeAttendanceReportCriteria = new GetEmployeeAttendanceReportByTypeCriteria
             {
-                FromDate = fromDate,
-                ToDate = toDate,
-                ReportType = attendanceType,
-                EmployeeId = empId,
-                GroupId = groupId == -1 ? null : groupId,
-                DepartmentId = departmentId == -1 ? null : departmentId,
-                ExcludeUserDelete = excludeUserDelete
+                FromDate = model.FromDate,
+                ToDate = model.ToDate,
+                ReportType = model.AttendanceType,
+                EmployeeId = model.EmployeeId,
+                GroupId = model.GroupId == -1 ? null : model.GroupId,
+                DepartmentId = model.DepartmentId == -1 ? null : model.DepartmentId,
+                ExcludeUserDelete = model.ExcludeUserDelete
             };
 
             IList<EmployeeAttendanceModel> employeeAttendances = await reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
 
-            if (sort != null)
+            if (model.Sort != null)
             {
-                var sorts = JsonConvert.DeserializeObject<List<SortModel>>(sort);
+                var sorts = JsonConvert.DeserializeObject<List<SortModel>>(model.Sort);
 
                 employeeAttendances = Utilities.MultipleSort(employeeAttendances, sorts);
             }
