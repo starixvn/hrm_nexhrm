@@ -15,7 +15,7 @@ namespace Fanex.NexHR.Services.ExportExcel
         private const byte RowStartTitle = 2;
         private const byte RowStartHeader = 4;
         private const byte RowStartBody = 6;
-        private const byte TotalCols = 16;
+        private const byte TotalCols = 17;
         private const byte FontSizeTitle = 16;
         private const byte RowDeductHeader = 2;
         private int rowIndex = RowStartBody;
@@ -66,6 +66,7 @@ namespace Fanex.NexHR.Services.ExportExcel
             worksheet.Cells[rowIndex, colIndex++].Value = totalWorking.Employee.Code.Trim();
             worksheet.Cells[rowIndex, colIndex++].Value = totalWorking.Employee.FullName;
             worksheet.Cells[rowIndex, colIndex++].Value = totalWorking.Employee.NickName;
+            worksheet.Cells[rowIndex, colIndex++].Value = totalWorking.Employee.DepartmentName;
             worksheet.Cells[rowIndex, colIndex++].Value = totalWorking.Employee.Team.Code;
             worksheet.Cells[rowIndex, colIndex++].Value = totalWorking.WorkingDay;
             worksheet.Cells[rowIndex, colIndex++].Value = totalWorking.ActualWorkingDay;
@@ -114,7 +115,7 @@ namespace Fanex.NexHR.Services.ExportExcel
             const int RowHeightTitle = 25;
             worksheet.Row(1).Height = RowHeightTitle;
 
-            int[] widthCol = new[] { 5, 15, 30, 15, 15, 15, 20, 15, 15, 15, 15, 15, 15, 15, 15, 15 };
+            int[] widthCol = new[] { 5, 15, 30, 15, 15, 15, 15, 15, 20, 15, 15, 15, 15, 15, 15, 15, 15 };
             for (int i = 0; i < widthCol.Length; i++)
             {
                 worksheet.Column(i + 1).Width = widthCol[i];

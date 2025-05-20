@@ -11,7 +11,7 @@ namespace Fanex.NexHR.Services.ExportExcel
         private readonly IList<Employee> employee;
         private const byte RowStartHeader = 3;
         private const byte RowStartBody = 4;
-        private const byte TotalCols = 33;
+        private const byte TotalCols = 34;
         private int rowIndex = RowStartBody;
         private const string fomatDate = "dd/MM/yyyy";
         private int rowNumber = 1;
@@ -57,6 +57,7 @@ namespace Fanex.NexHR.Services.ExportExcel
             worksheet.Cells[rowIndex, colIndex++].Value = employee.JobGradeName;
             worksheet.Cells[rowIndex, colIndex++].Value = employee.ManagementGradeName;
             worksheet.Cells[rowIndex, colIndex++].Value = JobTitle(employee);
+            worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.DepartmentName);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.Team.Name);
             worksheet.Cells[rowIndex, colIndex++].Value = employee.GroupDate.ToString(fomatDate);
             worksheet.Cells[rowIndex, colIndex++].Value = employee.JoinedDate?.ToString(fomatDate);
@@ -125,8 +126,8 @@ namespace Fanex.NexHR.Services.ExportExcel
 
         protected internal virtual void SetStyle(ExcelWorksheet worksheet)
         {
-            int[] colWithCenter = new[] { 1, 2, 4, 5, 6, 7, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19, 20, 23, 24, 25, 27, 28, 30, 31 };
-            int[] colWithLeft = new[] { 3, 10, 11, 21, 22, 29, 32 };
+            int[] colWithCenter = new[] { 1, 2, 4, 5, 6, 7, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19, 20, 23, 24, 25, 27, 28, 30, 31, 32 };
+            int[] colWithLeft = new[] { 3, 10, 11, 21, 22, 29, 33 };
             foreach (int index in colWithCenter)
             {
                 worksheet.Column(index).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
@@ -148,7 +149,7 @@ namespace Fanex.NexHR.Services.ExportExcel
             const int RowHeightTitle = 25;
             worksheet.Row(1).Height = RowHeightTitle;
 
-            int[] widthCol = new[] { 5, 10, 30, 15, 20, 15, 25, 15, 25, 30, 25, 25, 25, 25, 25, 30, 15, 17, 15, 15, 70, 70, 15, 15, 15, 15, 15, 15, 15, 30, 15, 30, 70 };
+            int[] widthCol = new[] { 5, 10, 30, 15, 20, 15, 25, 15, 25, 30, 25, 25, 25, 25, 25, 25, 30, 15, 17, 15, 15, 70, 70, 15, 15, 15, 15, 15, 15, 15, 30, 15, 30, 70 };
             for (int i = 0; i < widthCol.Length; i++)
             {
                 worksheet.Column(i + 1).Width = widthCol[i];

@@ -75,7 +75,8 @@
                 EmployeeId = (totalWorkingHoursViewModel.EmployeeId != -1 && totalWorkingHoursViewModel.EmployeeId != 0)
                     ? new int?(totalWorkingHoursViewModel.EmployeeId)
                     : null,
-                GroupId = totalWorkingHoursViewModel.TeamId
+                GroupId = totalWorkingHoursViewModel.TeamId,
+                DepartmentId = totalWorkingHoursViewModel.DepartmentId
             };
 
             IList<TotalWorkingHours> listTotalWorkingHours = await reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
@@ -99,6 +100,7 @@
         public async Task<IActionResult> EmployeeProfileAsync(
             string query = null,
             int? teamId = null,
+            int? departmentId = null,
             bool? isDisable = null,
             bool? isDelete = null,
             int? jobTitleId = null,
@@ -108,6 +110,7 @@
             {
                 Query = query ?? string.Empty,
                 TeamId = teamId == -1 ? null : teamId,
+                DepartmentId = departmentId == -1 ? null : departmentId,
                 JobTitleId = jobTitleId,
                 IsDisable = isDisable,
                 IsDelete = isDelete,
@@ -140,6 +143,7 @@
             DateTime toDate,
             int? empId,
             int? groupId,
+            int? departmentId,
             short attendanceType,
             bool excludeUserDelete,
             string sort = null)
@@ -152,6 +156,7 @@
                 ReportType = attendanceType,
                 EmployeeId = empId,
                 GroupId = groupId == -1 ? null : groupId,
+                DepartmentId = departmentId == -1 ? null : departmentId,
                 ExcludeUserDelete = excludeUserDelete
             };
 
@@ -179,6 +184,7 @@
                 FromDateLastMonth = model.FromDateLastMonth,
                 ToDateLastMonth = model.ToDateLastMonth,
                 EmployeeId = (model.EmployeeId != -1 && model.EmployeeId != 0) ? new int?(model.EmployeeId) : null,
+                DepartmentId = model.DepartmentId,
                 GroupId = model.TeamId
             };
 
@@ -209,7 +215,7 @@
                 Status = status,
                 PositionId = positionId,
                 PageNumber = pageNumber,
-                PageSize = pageSize 
+                PageSize = pageSize
             };
             IEnumerable<Applicant> listApplicants = await applicantService.GetAll(criteria);
             const string fileName = "ApplicantsReport.xlsx";
@@ -227,7 +233,8 @@
                 FromDate = date,
                 ToDate = date.AddMonths(1).AddDays(-1),
                 EmployeeId = model.EmployeeId < 0 ? (int?)null : model.EmployeeId,
-                TeamId = model.TeamId
+                TeamId = model.TeamId,
+                DepartmentId = model.DepartmentId
             };
 
             var schedules = await calendarService.GetLeaveSchedule(criteria);
