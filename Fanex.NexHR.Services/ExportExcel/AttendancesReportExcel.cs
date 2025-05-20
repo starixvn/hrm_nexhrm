@@ -12,7 +12,7 @@
         private readonly IList<EmployeeAttendanceModel> employeeAttendanceModel;
         private const byte RowStartHeader = 3;
         private const byte RowStartBody = 4;
-        private const byte TotalCols = 14;
+        private const byte TotalCols = 15;
         private const byte Five = 5;
         private int rowIndex = RowStartBody;
         private int stt = 1;
@@ -41,6 +41,7 @@
             worksheet.Cells[rowIndex, colIndex++].Value = report.Code;
             worksheet.Cells[rowIndex, colIndex++].Value = report.NickName;
             worksheet.Cells[rowIndex, colIndex++].Value = report.FullName;
+            worksheet.Cells[rowIndex, colIndex++].Value = report.DepartmentName;
             worksheet.Cells[rowIndex, colIndex++].Value = report.TeamCode;
             worksheet.Cells[rowIndex, colIndex++].Value = report.ShiftCode;
             worksheet.Cells[rowIndex, colIndex++].Value = report.InFixed?.ToString("hh:mm");
@@ -111,7 +112,7 @@
         {
             const int RowHeightTitle = 25;
             worksheet.Row(1).Height = RowHeightTitle;
-            int[] widthCol = new[] { 5, 15, 10, 13, 30, 13, 8, 12, 12, 12, 12, 12, 25, 30 };
+            int[] widthCol = new[] { 5, 15, 10, 13, 30, 15, 13, 8, 12, 12, 12, 12, 12, 25, 30 };
             for (int i = 0; i < widthCol.Length; i++)
             {
                 worksheet.Column(i + 1).Width = widthCol[i];

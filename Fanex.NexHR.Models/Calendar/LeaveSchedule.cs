@@ -10,7 +10,11 @@
 
         public string FullName { get; set; }
 
+        public string DepartmentName { get; set; }
+
         public string TeamCode { get; set; }
+
+        public string TeamName { get; set; }
 
         public DateTime WorkDate { get; set; }
 

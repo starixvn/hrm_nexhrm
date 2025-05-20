@@ -29,6 +29,10 @@
                 <div class="sorter" data-property="FullName"></div>
             </th>
             <th class="col-sorter">
+	            @Labels.Department
+	            <div class="sorter" data-property="Team"></div>
+            </th>
+            <th class="col-sorter">
                 @Labels.Team
                 <div class="sorter" data-property="Team"></div>
             </th>
@@ -93,6 +97,7 @@
                     <td>@employeeAttendance.Code</td>
                     <td>@employeeAttendance.NickName</td>
                     <td class="align-left">@employeeAttendance.FullName</td>
+                    <td >@employeeAttendance.DepartmentName</td>
                     <td class="tooltip" title="@employeeAttendance.Team">
                         @employeeAttendance.TeamCode
                     </td>

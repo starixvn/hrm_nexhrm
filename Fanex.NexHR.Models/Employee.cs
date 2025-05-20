@@ -37,6 +37,8 @@
 
         public string CodeOfTeam => Team != null ? Team.Code : string.Empty;
 
+        public string DepartmentName { get; set; }
+
         public Team Team { get; set; }
 
         public string Roles { get; set; }

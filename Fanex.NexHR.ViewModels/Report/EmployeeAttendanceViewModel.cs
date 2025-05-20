@@ -21,6 +21,8 @@
 
         public int? GroupId { get; set; }
 
+        public int? DepartmentId { get; set; }
+
         public short AttendanceType { get; set; }
 
         public int DateOption { get; set; }
@@ -28,6 +30,8 @@
         public bool ExcludeUserDelete { get; set; }
 
         public IList<Team> Teams { get; set; }
+
+        public IEnumerable<Department> Departments { get; set; }
 
         public bool IsDisplayTeamAttendence { get; set; }
 

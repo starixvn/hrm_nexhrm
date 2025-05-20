@@ -7,7 +7,6 @@
 @{
     ViewBag.Title = Labels.StaffInfo;
     var isHRRole = sessionService.CurrentEmployee.HasHRRole;
-    var teams = new SelectList(Model.Teams, "Id", "Name");
 }
 
 @section Styles {
@@ -37,7 +36,18 @@
                                     <label asp-for="@Model.Keyword">@Labels.Keyword</label>
                                 </div>
                                 <div class="left input--m">
-                                    <input asp-for="@Model.Keyword" placeholder="@Messages.SearchEmployeeWatermark"/>
+                                    <input asp-for="@Model.Keyword" placeholder="@Messages.SearchEmployeeWatermark" />
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="left label--m">
+                                    <label asp-for="@Model.DepartmentId">@Labels.Department</label>
+                                </div>
+                                <div class="left select--m department">
+                                    <select asp-for="@Model.DepartmentId"
+                                        asp-items="@(new SelectList(Model.Departments, "Id", "Name"))">
+                                        <option value="">@Labels.AllDepartments</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col">
@@ -45,18 +55,25 @@
                                     <label asp-for="@Model.TeamId">@Labels.Team</label>
                                 </div>
                                 <div class="left select--m team">
-                                    <select asp-for="@Model.TeamId" asp-items="@teams">
+                                    <select asp-for="TeamId">
                                         <option value="">@Labels.AllTeams</option>
+                                        @foreach (var team in Model.Teams)
+                                        {
+                                            <option value="@team.Id" data-department-id="@team.DepartmentId">@team.Name</option>
+                                        }
                                     </select>
                                 </div>
                             </div>
                             <div class="col col-btn-submit-excel">
-                                <a id="query" class="btn-submit waves-effect waves-light m-r--b" href="javascript:;">@Labels.Submit</a>
+                                <a id="query" class="btn-submit waves-effect waves-light m-r--b"
+                                    href="javascript:;">@Labels.Submit</a>
                                 @if (@isHRRole)
                                 {
-                                    <a id="exportExcel" class="waves-effect waves-light btn-export-excel m-r--b">@Labels.Excel</a>
+                                    <a id="exportExcel"
+                                        class="waves-effect waves-light btn-export-excel m-r--b">@Labels.Excel</a>
                                 }
-                                <a class="btn-request waves-effect waves-light" href="@Url.Action("birthday", "employee")">@Labels.StaffBirthday</a>
+                                <a class="btn-request waves-effect waves-light"
+                                    href="@Url.Action("birthday", "employee")">@Labels.StaffBirthday</a>
                             </div>
                         </div>
                     </div>
@@ -74,16 +91,16 @@
                                         <div class="sorter" data-property="FullName"></div>
                                     </th>
                                     <th class="col-sorter">
+                                        @Labels.Department
+                                        <div class="sorter" data-property="DepartmentName"></div>
+                                    </th>
+                                    <th class="col-sorter">
                                         @Labels.Team
                                         <div class="sorter" data-property="CodeOfTeam"></div>
                                     </th>
                                     <th class="col-sorter">
                                         @Labels.JobTitle
                                         <div class="sorter" data-property="JobTitles"></div>
-                                    </th>
-                                    <th class="col-sorter">
-                                        @Labels.Skype
-                                        <div class="sorter" data-property="Skype"></div>
                                     </th>
                                     <th>@Labels.Phone</th>
                                     <th class="col-sorter">
@@ -112,9 +129,9 @@
             <a href="/employee/detail?employeeId={{:Id}}">{{:NickName}}</a>
         </td>
         <td class="align-left">{{:FullName}}</td>
+        <td>{{:DepartmentName}}</td>
         <td title="{{:TeamName}}" class="tooltip">{{:TeamCode}}</td>
         <td class="align-left">{{:JobTitle}}</td>
-        <td class="align-left"><a href="skype:{{:Skype}}?chat">{{:Skype}}</a></td>
         <td>{{:Phone}}</td>
         <td>{{:~formatDate(DateOfBirth, 'dd MMM, yyyy')}}</td>W
         <td>

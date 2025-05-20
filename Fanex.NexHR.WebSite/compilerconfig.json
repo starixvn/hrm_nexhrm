@@ -66,5 +66,9 @@
   {
     "outputFile": "wwwroot/css/Views/employee.edit.css",
     "inputFile": "wwwroot/css/Views/employee.edit.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Views/report.timesheet.css",
+    "inputFile": "wwwroot/css/Views/report.timesheet.scss"
   }
 ]

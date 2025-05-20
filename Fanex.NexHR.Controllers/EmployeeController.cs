@@ -27,6 +27,7 @@
     public class EmployeeController : BaseController
     {
         private readonly ITeamService teamService;
+        private readonly IDepartmentService departmentService;
         private readonly IJobTitleService jobTitleService;
         private readonly IShiftService shiftService;
         private readonly IEmployeeService employeeService;
@@ -43,6 +44,7 @@
         public EmployeeController(ISessionService sessionService,
             IEmployeeService employeeService,
             ITeamService teamService,
+            IDepartmentService departmentService,
             IJobTitleService jobTitleService,
             IShiftService shiftService,
             IBaseService baseService,
@@ -56,6 +58,7 @@
         {
             this.employeeService = employeeService;
             this.teamService = teamService;
+            this.departmentService = departmentService;
             this.jobTitleService = jobTitleService;
             this.shiftService = shiftService;
             this.baseService = baseService;
@@ -69,7 +72,11 @@
 
         public async Task<IActionResult> Index()
         {
-            var model = new StaffInfoViewModel { Teams = await teamService.GetTeam() };
+            var model = new StaffInfoViewModel
+            {
+                Teams = await teamService.GetTeam(),
+                Departments = await departmentService.GetAll()
+            };
 
             return View(model);
         }
@@ -81,6 +88,7 @@
             {
                 JobTitleId = jobTitleId,
                 Teams = await teamService.GetTeam(),
+                Departments = await departmentService.GetAll(),
                 IsSpecial = false,
                 JobTitles = await jobTitleService.GetAll()
             };
@@ -94,7 +102,8 @@
             var model = new UserManagementViewModel
             {
                 JobTitleId = jobTitleId,
-                Teams = await teamService.GetTeam(),
+                Teams = await teamService.GetAll(),
+                Departments = await departmentService.GetAll(null),
                 IsSpecial = true,
                 JobTitles = await jobTitleService.GetAll(),
             };
@@ -103,35 +112,29 @@
         }
 
         [HrmAuthorize(UserRoles = "HR")]
-        public async Task<JsonResult> GetEmployees(
-            string query,
-            int? teamId = null,
-            bool? isDisable = null,
-            bool? isDelete = null,
-            int? jobTitleId = null,
-            string sort = null,
-            bool? isSpecial = null)
+        public async Task<JsonResult> GetEmployees(EmployeeListFilterViewModel filter)
         {
             var listEmployee = new EmployeeListViewModel
             {
-                IsShowResignedDate = isDisable.HasValue && isDisable.Value || isDelete.HasValue && isDelete.Value
+                IsShowResignedDate = filter.IsDisable.HasValue && filter.IsDisable.Value || filter.IsDelete.HasValue && filter.IsDelete.Value
             };
 
             var criteria = new GetEmployeeCriteria
             {
-                Query = query ?? string.Empty,
-                TeamId = teamId == -1 ? null : teamId,
-                JobTitleId = jobTitleId,
-                IsDisable = isDisable,
-                IsDelete = isDelete,
+                Query = filter.Query ?? string.Empty,
+                TeamId = filter.TeamId == -1 ? null : filter.TeamId,
+                DepartmentId = filter.DepartmentId == -1 ? null : filter.DepartmentId,
+                JobTitleId = filter.JobTitleId,
+                IsDisable = filter.IsDisable,
+                IsDelete = filter.IsDelete,
                 PageNumber = 1,
                 PageSize = int.MaxValue,
                 TotalRow = 2000,
-                IsSpecial = isSpecial
+                IsSpecial = filter.IsSpecial,
             };
 
             listEmployee.Employees = await employeeService.Query(criteria);
-            listEmployee.Employees = SortEmployee(sort, listEmployee.Employees);
+            listEmployee.Employees = SortEmployee(filter.Sort, listEmployee.Employees);
 
             return Json(listEmployee);
         }
@@ -139,12 +142,14 @@
         public async Task<JsonResult> GetStaffInfo(
             string query,
             int? teamId = null,
+            int? departmentId = null,
             string sort = null)
         {
             var criteria = new GetStaffInfoCriteria
             {
                 Query = query ?? string.Empty,
                 TeamId = teamId == -1 ? null : teamId,
+                DepartmentId = departmentId == -1 ? null : departmentId,
                 IsSpecial = false
             };
 

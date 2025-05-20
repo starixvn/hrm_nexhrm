@@ -8,6 +8,7 @@
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Criteria.Applicant;
     using Fanex.NexHR.Models.Applicant;
+    using Fanex.NexHR.Models.Export;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using Models;
@@ -75,7 +76,8 @@
                 EmployeeId = (totalWorkingHoursViewModel.EmployeeId != -1 && totalWorkingHoursViewModel.EmployeeId != 0)
                     ? new int?(totalWorkingHoursViewModel.EmployeeId)
                     : null,
-                GroupId = totalWorkingHoursViewModel.TeamId
+                GroupId = totalWorkingHoursViewModel.TeamId,
+                DepartmentId = totalWorkingHoursViewModel.DepartmentId
             };
 
             IList<TotalWorkingHours> listTotalWorkingHours = await reportService.GetTotalWorkingHours(getWorkingHoursCriteria);
@@ -99,6 +101,7 @@
         public async Task<IActionResult> EmployeeProfileAsync(
             string query = null,
             int? teamId = null,
+            int? departmentId = null,
             bool? isDisable = null,
             bool? isDelete = null,
             int? jobTitleId = null,
@@ -108,6 +111,7 @@
             {
                 Query = query ?? string.Empty,
                 TeamId = teamId == -1 ? null : teamId,
+                DepartmentId = departmentId == -1 ? null : departmentId,
                 JobTitleId = jobTitleId,
                 IsDisable = isDisable,
                 IsDelete = isDelete,
@@ -135,31 +139,25 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Attendance(
-            DateTime fromDate,
-            DateTime toDate,
-            int? empId,
-            int? groupId,
-            short attendanceType,
-            bool excludeUserDelete,
-            string sort = null)
+        public async Task<IActionResult> Attendance(AttendanceExportModel model)
         {
             const string fileName = "EmployeeAttendance.xlsx";
             var getEmployeeAttendanceReportCriteria = new GetEmployeeAttendanceReportByTypeCriteria
             {
-                FromDate = fromDate,
-                ToDate = toDate,
-                ReportType = attendanceType,
-                EmployeeId = empId,
-                GroupId = groupId == -1 ? null : groupId,
-                ExcludeUserDelete = excludeUserDelete
+                FromDate = model.FromDate,
+                ToDate = model.ToDate,
+                ReportType = model.AttendanceType,
+                EmployeeId = model.EmployeeId,
+                GroupId = model.GroupId == -1 ? null : model.GroupId,
+                DepartmentId = model.DepartmentId == -1 ? null : model.DepartmentId,
+                ExcludeUserDelete = model.ExcludeUserDelete
             };
 
             IList<EmployeeAttendanceModel> employeeAttendances = await reportService.GetEmployeeAttendanceReport(getEmployeeAttendanceReportCriteria);
 
-            if (sort != null)
+            if (model.Sort != null)
             {
-                var sorts = JsonConvert.DeserializeObject<List<SortModel>>(sort);
+                var sorts = JsonConvert.DeserializeObject<List<SortModel>>(model.Sort);
 
                 employeeAttendances = Utilities.MultipleSort(employeeAttendances, sorts);
             }
@@ -179,6 +177,7 @@
                 FromDateLastMonth = model.FromDateLastMonth,
                 ToDateLastMonth = model.ToDateLastMonth,
                 EmployeeId = (model.EmployeeId != -1 && model.EmployeeId != 0) ? new int?(model.EmployeeId) : null,
+                DepartmentId = model.DepartmentId,
                 GroupId = model.TeamId
             };
 
@@ -209,7 +208,7 @@
                 Status = status,
                 PositionId = positionId,
                 PageNumber = pageNumber,
-                PageSize = pageSize 
+                PageSize = pageSize
             };
             IEnumerable<Applicant> listApplicants = await applicantService.GetAll(criteria);
             const string fileName = "ApplicantsReport.xlsx";
@@ -227,7 +226,8 @@
                 FromDate = date,
                 ToDate = date.AddMonths(1).AddDays(-1),
                 EmployeeId = model.EmployeeId < 0 ? (int?)null : model.EmployeeId,
-                TeamId = model.TeamId
+                TeamId = model.TeamId,
+                DepartmentId = model.DepartmentId
             };
 
             var schedules = await calendarService.GetLeaveSchedule(criteria);

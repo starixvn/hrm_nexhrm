@@ -120,6 +120,9 @@
   <data name="AllTeams" xml:space="preserve">
     <value>All teams</value>
   </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>All departments</value>
+  </data>
   <data name="Approved" xml:space="preserve">
     <value>Approved</value>
   </data>
@@ -1821,6 +1824,9 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   </data>
   <data name="ManagementGrade" xml:space="preserve">
     <value>Management Grade</value>
+  </data>
+  <data name="MGrade" xml:space="preserve">
+    <value>M-Grade</value>
   </data>
   <data name="EmployeeJobGrade" xml:space="preserve">
     <value>Employee Job Grade</value>

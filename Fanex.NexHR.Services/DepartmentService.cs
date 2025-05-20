@@ -15,9 +15,9 @@
             this.baseService = baseService;
         }
 
-        public async Task<IEnumerable<Department>> GetAll()
+        public async Task<IEnumerable<Department>> GetAll(bool? isSpecial = false)
         {
-            var criteria = new GetAllDepartmentCriteria();
+            var criteria = new GetAllDepartmentCriteria { IsDisabled = false, IsSpecial = isSpecial };
             var departments = await baseService.GetDataAsync<Department>(criteria);
 
             return departments;

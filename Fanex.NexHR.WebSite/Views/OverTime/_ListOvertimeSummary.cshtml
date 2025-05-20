@@ -12,89 +12,91 @@
 @if (Model != null && Model.Any())
 {
     int index = 1;
-    var overtimeSummaryByTeams = Model.GroupBy(t => t.TeamId).Select(grp => grp.First()).ToList();
-    foreach (OvertimeSummary overtimeSummaryByTeam in overtimeSummaryByTeams)
+    var overtimeSummaryByDepartments = Model.GroupBy(t => t.DepartmentId).Select(grp => grp.First()).ToList();
+    foreach (OvertimeSummary overtimeSummaryByDepartment in overtimeSummaryByDepartments)
     {
         <tr class="row-divider">
-            <td colspan="21">
-                <b>@overtimeSummaryByTeam.TeamName.ToUpper()</b>
+            <td colspan="22">
+                <b>@overtimeSummaryByDepartment.DepartmentName.ToUpper()</b>
             </td>
         </tr>
 
-        IList<OvertimeSummary> overtimeSummaries = Model.Where(t => t.TeamId == overtimeSummaryByTeam.TeamId).ToList();
+        IList<OvertimeSummary> overtimeSummaries = Model.Where(t => t.DepartmentId ==
+        overtimeSummaryByDepartment.DepartmentId).ToList();
         foreach (OvertimeSummary overtimeSummary in overtimeSummaries)
         {
-        <tr>
-
-            <td>@(index++)</td>
-            <td class="tooltip" title="@overtimeSummary.FullName">@overtimeSummary.NickName</td>
-            <td>@OvertimeSummary.DisplayValue(overtimeSummary.BalanceLastYear)</td>
-            <td>@OvertimeSummary.DisplayValue(overtimeSummary.Jan)</td>
-            <td>@OvertimeSummary.DisplayValue(overtimeSummary.Feb)</td>
-            <td>@OvertimeSummary.DisplayValue(overtimeSummary.Mar)</td>
-            <td>@OvertimeSummary.DisplayValue(overtimeSummary.Apr)</td>
-            <td>@OvertimeSummary.DisplayValue(overtimeSummary.May)</td>
-            <td>@OvertimeSummary.DisplayValue(overtimeSummary.Jun)</td>
-            <td>@OvertimeSummary.DisplayValue(overtimeSummary.Jul)</td>
-            <td>@OvertimeSummary.DisplayValue(overtimeSummary.Aug)</td>
-            <td>@OvertimeSummary.DisplayValue(overtimeSummary.Sep)</td>
-            <td>@OvertimeSummary.DisplayValue(overtimeSummary.Oct)</td>
-            <td>@OvertimeSummary.DisplayValue(overtimeSummary.Nov)</td>
-            <td>@OvertimeSummary.DisplayValue(overtimeSummary.Dec)</td>
-            <td>@OvertimeSummary.DisplayValue(overtimeSummary.TotalHour)</td>
-            @if (overtimeSummary.LeaveConversion != 0)
-            {
-                var url = "/request/employeeview?DateOption=0&TeamId=-2&IsFilterByEffectedDate=true&RequestType=6&LeaveTypeId=31&StatusId=2&FromDate="
+            <tr>
+                <td>@(index++)</td>
+                <td class="tooltip" title="@overtimeSummary.FullName">@overtimeSummary.NickName</td>
+                <td class="tooltip" title="@overtimeSummary.TeamName">@overtimeSummary.TeamCode</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.BalanceLastYear)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.Jan)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.Feb)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.Mar)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.Apr)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.May)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.Jun)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.Jul)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.Aug)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.Sep)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.Oct)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.Nov)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.Dec)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.TotalHour)</td>
+                @if (overtimeSummary.LeaveConversion != 0)
+                {
+                    var url =
+                    "/request/employeeview?DateOption=0&TeamId=-2&IsFilterByEffectedDate=true&RequestType=6&LeaveTypeId=31&StatusId=2&FromDate="
                     + new DateTime(ViewBag.Year, 1, 1).ToDateMonthYearFormatedDate()
                     + "&toDate=" + new DateTime(ViewBag.Year, 12, 31).ToDateMonthYearFormatedDate()
                     + "&EmployeeId=" + overtimeSummary.EmployeeId
                     + "&Employee=" + overtimeSummary.DisplayName;
 
-                <td>
-                    <a href="@url">@(overtimeSummary.LeaveConversion.ToString("0.0"))</a>
-                </td>
-            }
-            else
-            {
-                <td>-</td>
-            }
-            @if (overtimeSummary.OvertimeDeduct > 0)
-            {
-                var url = "/overtime/overtimeConversionDetail?employeeId=" + overtimeSummary.EmployeeId
-                                + "&fromDate=" + new DateTime(ViewBag.Year, 1, 1).ToDateMonthYearFormatedDate()
-                                + "&toDate=" + new DateTime(ViewBag.Year, 12, 31).ToDateMonthYearFormatedDate();
-                <td>
-                    <a href="@url">@(overtimeSummary.OvertimeDeduct.ToString("0.0"))</a>
-                </td>
-            }
-            else
-            {
-                <td>-</td>
-            }
-            <td>@OvertimeSummary.DisplayValue(overtimeSummary.LateInEarlyOut)</td>
-            <td>@OvertimeSummary.DisplayValue(overtimeSummary.BalanceCurrentYear)</td>
-            @if (@isHRRole)
-            {
-                <td>
-                    @if (overtimeSummary.BalanceCurrentYear > 0)
-                    {
-                        <a href="#" class="createConversion" data-id="@overtimeSummary.EmployeeId">
-                            <i class="mdi mdi-border-color mdi-dark"></i>
-                        </a>
-                    }
-                </td>
-            }
-        </tr>
+                    <td>
+                        <a href="@url">@(overtimeSummary.LeaveConversion.ToString("0.0"))</a>
+                    </td>
+                }
+                else
+                {
+                    <td>-</td>
+                }
+                @if (overtimeSummary.OvertimeDeduct > 0)
+                {
+                    var url = "/overtime/overtimeConversionDetail?employeeId=" + overtimeSummary.EmployeeId
+                    + "&fromDate=" + new DateTime(ViewBag.Year, 1, 1).ToDateMonthYearFormatedDate()
+                    + "&toDate=" + new DateTime(ViewBag.Year, 12, 31).ToDateMonthYearFormatedDate();
+                    <td>
+                        <a href="@url">@(overtimeSummary.OvertimeDeduct.ToString("0.0"))</a>
+                    </td>
+                }
+                else
+                {
+                    <td>-</td>
+                }
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.LateInEarlyOut)</td>
+                <td>@OvertimeSummary.DisplayValue(overtimeSummary.BalanceCurrentYear)</td>
+                @if (@isHRRole)
+                {
+                    <td>
+                        @if (overtimeSummary.BalanceCurrentYear > 0)
+                        {
+                            <a href="#" class="createConversion" data-id="@overtimeSummary.EmployeeId">
+                                <i class="mdi mdi-border-color mdi-dark"></i>
+                            </a>
+                        }
+                    </td>
+                }
+            </tr>
         }
     }
 }
 else
 {
     <tr>
-        <td colspan="21"></td>
+        <td colspan="22"></td>
     </tr>
     <tr>
-        <td colspan="21" rowspan="2">
+        <td colspan="22" rowspan="2">
             @Messages.NoInformation
         </td>
     </tr>

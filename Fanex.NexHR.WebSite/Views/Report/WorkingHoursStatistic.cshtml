@@ -1,4 +1,4 @@
-﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Core
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.ViewModels.Report
 @model WorkingHoursStatisticViewModel
@@ -124,11 +124,23 @@
 
                                 <div class="row">
                                     <div class="col m-l--l m-r--s">
+                                        <div class="left label--m">
+                                            <label>@Labels.Department</label>
+                                        </div>
+                                        <div class="left select-team">
+                                            <select asp-for="DepartmentId"
+                                                asp-items="@(new SelectList(Model.Departments, "Id", "Name"))">
+                                                <option value="">@Labels.AllDepartments</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col m-l--l m-r--s">
                                         <div class="left label--s">
                                             <label>@Labels.Team</label>
                                         </div>
                                         <div class="left select-team">
-                                            <select asp-for="TeamId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
+                                            <select asp-for="TeamId"
+                                                asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
                                                 <option value="">@Labels.AllTeams</option>
                                             </select>
                                         </div>
@@ -157,8 +169,8 @@
                                 <tr>
                                     <th rowspan="2">@Labels.SymbolCount</th>
                                     <th rowspan="2">@Labels.Code</th>
-                                    <th rowspan="2">@Labels.FullName</th>
                                     <th rowspan="2">@Labels.EnglishName</th>
+                                    <th rowspan="2">@Labels.Department</th>
                                     <th rowspan="2">@Labels.Team</th>
                                     <th rowspan="2">@Labels.ActualWorkingDay</th>
                                     <th colspan="2">@Labels.PaidLeave</th>
@@ -195,8 +207,8 @@
     <tr>
         <td>{{:~index()}}</td>
         <td>{{:Employee.Code}}</td>
-        <td class="align-left">{{:Employee.FullName}}</td>
-        <td>{{:Employee.NickName}}</td>
+        <td title="{{:Employee.FullName}}" class="tooltip">{{:Employee.NickName}}</td>
+        <td class="align-left">{{:Employee.DepartmentName}}</td>
         <td class="tooltip" title="{{:Employee.Team.Name}}">{{:Employee.Team.Code}}</td>
         <td>{{:ActualWorkingDay}}</td>
         <td>{{:AnnualLeave.toFixed(1)}}</td>
@@ -236,4 +248,12 @@
         <td>{{:PreMonthBusinessLeave.toFixed(1)}}</td>
         <td>{{:PreWorkFromHome.toFixed(1)}}</td>
     </tr>
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        @foreach (var team in Model.Teams)
+            {
+                @:$('#TeamId option[value="@team.Id"]').attr('data-department-id', '@team.DepartmentId');
+        }
+    });
 </script>

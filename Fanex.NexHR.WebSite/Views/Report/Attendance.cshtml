@@ -1,4 +1,4 @@
-﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Core
 @using Fanex.NexHR.Core.Enums
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.ViewModels.Common
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
 }
 
-    @section Scripts {
+@section Scripts {
     <environment include="Development">
         <script src="~/js/Libs/jquery.simplePagination.js" asp-append-version="true"></script>
         <script src="~/js/Views/Report/report.attendance.js" asp-append-version="true"></script>
@@ -22,9 +22,9 @@
         <script src="~/minify/js/attendance.min.js" asp-append-version="true"></script>
     </environment>
 }
-    @section Breadcrumb {
+@section Breadcrumb {
 }
-    <div class="row content">
+<div class="row content">
         <div class="col s12 card-container-base">
             <div class="card">
                 <div class="card-content">
@@ -96,11 +96,27 @@
                                 </div>
                                 <div class="col m-r--l">
                                     <div class="left label--m">
+                                        <label>@Labels.Department</label>
+                                    </div>
+                                    <div class="left select-team">
+                                        <select id="DepartmentId" name="DepartmentId"
+                                            asp-items="@(new SelectList(Model.Departments, "Id", "Name"))">
+                                            <option value="">@Labels.AllDepartments</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
                                         <label>@Labels.Team</label>
                                     </div>
                                     <div class="left select-team">
-                                        <select id="GroupId" name="GroupId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
-                                            <option>@Labels.AllTeams</option>
+                                        <select id="TeamId" name="GroupId">
+                                            <option value="">@Labels.AllTeams</option>
+                                            @foreach (var team in Model.Teams)
+                                            {
+                                                <option value="@team.Id" data-department-id="@team.DepartmentId">@team.Name
+                                                </option>
+                                            }
                                         </select>
                                     </div>
                                 </div>
@@ -134,8 +150,10 @@
                                     <div class="left">
                                         <input asp-for="CurrentPage" type="hidden" />
                                         <input asp-for="ItemsPerPage" type="hidden" />
-                                        <input class="btn-submit waves-effect waves-light m-r--m" type="button" value="@Labels.Submit" id="submit" />
-                                        <input class="btn-export-excel waves-effect waves-light" type="button" value="@Labels.Excel" id="exportExcel" />
+                                        <input class="btn-submit waves-effect waves-light m-r--m" type="button"
+                                            value="@Labels.Submit" id="submit" />
+                                        <input class="btn-export-excel waves-effect waves-light" type="button"
+                                            value="@Labels.Excel" id="exportExcel" />
                                     </div>
                                 </div>
                             </div>

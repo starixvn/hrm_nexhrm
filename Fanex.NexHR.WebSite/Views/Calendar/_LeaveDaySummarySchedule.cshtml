@@ -10,7 +10,7 @@
                     <table cellspacing="0" cellpadding="0" border="0">
                         <tbody>
                             <tr>
-                                <td colspan="3" align="right">
+                                <td colspan="4" align="right">
                                     <div class="datagrid-cell p-l--s">
                                         <b style="text-transform: uppercase">@Model.Month.ToString("MMM yyyy")</b>
                                     </div>
@@ -20,11 +20,14 @@
                                 <td class="rownumber">
                                     <div class="datagrid-cell-rownumber center">@Labels.SymbolCount</div>
                                 </td>
-                                <td class="p-l--s rowfullname">
-                                    <div class="datagrid-cell ">@Labels.FullName</div>
-                                </td>
                                 <td class="p-l--s rownick">
                                     <div class="datagrid-cell ">@Labels.EnglishName</div>
+                                </td>
+                                <td class="p-l--s rownick">
+                                    <div class="datagrid-cell ">@Labels.Department</div>
+                                </td>
+                                <td class="p-l--s rownick">
+                                    <div class="datagrid-cell ">@Labels.Team</div>
                                 </td>
                             </tr>
                         </tbody>
@@ -44,17 +47,20 @@
                                         <td class="datagrid-header-rownumber center">
                                             <div class="datagrid-cell-rownumber">@rowId</div>
                                         </td>
-                                        <td class="datagrid-fullname p-l--s">
-                                            <div class="datagrid-cell">@employeeSchedule.FullName</div>
+                                        <td>
+                                            <div class="datagrid-cell p-l--s tooltip" title="@employeeSchedule.FullName">@employeeSchedule.NickName</div>
                                         </td>
                                         <td>
-                                            <div class="datagrid-cell p-l--s">@employeeSchedule.NickName</div>
+                                            <div class="datagrid-cell p-l--s">@employeeSchedule.DepartmentName</div>
+                                        </td>
+                                        <td>
+                                            <div class="datagrid-cell p-l--s tooltip" title="@employeeSchedule.TeamName">@employeeSchedule.TeamCode</div>
                                         </td>
                                     </tr>
                                     rowId++;
                                 }
                                 <tr class="table-footer">
-                                    <td colspan="3" align="center">
+                                    <td colspan="4" align="center">
                                         <div class="datagrid-cell p-l--s">
                                             <b>Sum</b>
                                         </div>

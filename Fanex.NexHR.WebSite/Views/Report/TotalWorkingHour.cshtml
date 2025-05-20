@@ -4,7 +4,7 @@
 @model TotalWorkingHoursViewModel
 @{
     ViewBag.Title = Labels.TotalWorkingHours;
-    var teams = new SelectList(Model.Teams, "Id", "Name");
+    var departments = new SelectList(Model.Departments, "Id", "Name");
 }
 @section Styles {
     <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
@@ -82,11 +82,26 @@
                             <div class="row form-input">
                                 <div class="col m-r--l">
                                     <div class="left label--m">
+                                        <label asp-for="@Model.DepartmentId">@Labels.Department</label>
+                                    </div>
+                                    <div class="left select--m">
+                                        <select asp-for="@Model.DepartmentId" asp-items="@departments">
+                                            <option value="">@Labels.AllDepartments</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col m-r--l">
+                                    <div class="left label--m">
                                         <label asp-for="@Model.Team">@Labels.Team</label>
                                     </div>
                                     <div class="left select--m">
-                                        <select asp-for="@Model.TeamId" asp-items="@teams">
+                                        <select id="TeamId" name="TeamId" asp-for="TeamId">
                                             <option value="">@Labels.AllTeams</option>
+                                            @foreach (var team in Model.Teams)
+                                            {
+                                                <option value="@team.Id" data-department-id="@team.DepartmentId">@team.Name
+                                                </option>
+                                            }
                                         </select>
                                     </div>
                                 </div>
@@ -117,13 +132,13 @@
                                                 </div>
                                             </th>
                                             <th class="col-sorter" rowspan="2">
-                                                @Labels.FullName
-                                                <div class="sorter" data-property="FullName">
+                                                @Labels.EnglishName
+                                                <div class="sorter" data-property="NickName">
                                                 </div>
                                             </th>
                                             <th class="col-sorter" rowspan="2">
-                                                @Labels.EnglishName
-                                                <div class="sorter" data-property="NickName">
+                                                @Labels.Department
+                                                <div class="sorter" data-property="Department">
                                                 </div>
                                             </th>
                                             <th class="col-sorter" rowspan="2">
@@ -211,8 +226,8 @@
     <tr>
         <td>{{:~index()}}</td>
         <td>{{:Employee.Code}}</td>
-        <td class="align-left">{{:Employee.FullName}}</td>
-        <td>{{:Employee.NickName}}</td>
+        <td class="tooltip" title="{{:Employee.FullName}}">{{:Employee.NickName}}</td>
+        <td>{{:Employee.DepartmentName}}</td>
         <td class="tooltip" title="{{:Employee.Team.Name}}">{{:Employee.Team.Code}}</td>
         <td>{{:WorkingDay}}</td>
         <td>{{:ActualWorkingDay}}</td>

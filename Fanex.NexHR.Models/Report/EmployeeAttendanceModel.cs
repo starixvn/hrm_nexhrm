@@ -28,6 +28,8 @@ namespace Fanex.NexHR.Models.Report
 
         public string NickName { get; set; }
 
+        public string DepartmentName { get; set; }
+
         public string Team { get; set; }
 
         public string TeamCode { get; set; }

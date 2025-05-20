@@ -12,6 +12,8 @@
         [SpParam(SqlParamName = "GroupId")]
         public int? TeamId { get; set; }
 
+        public int? DepartmentId { get; set; }
+
         public int Year { get; set; }
 
         public override string GetSettingKey() => "Overtime_GetSummary";

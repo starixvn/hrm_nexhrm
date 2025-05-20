@@ -1,7 +1,9 @@
 ﻿@using Fanex.NexHR.Resources
+@using Fanex.NexHR.ViewModels.SupervisorFlow
 @{
     ViewBag.Title = @Labels.FlowSetting;
 }
+@model SupervisorFlowViewModel
 @section Styles {
     <link rel="stylesheet" href="~/minify/css/view-mobile.min.css" asp-append-version="true">
     <link rel="stylesheet" href="~/css/Views/suppervisor-flow.min.css" asp-append-version="true">
@@ -52,6 +54,31 @@
                             </div>
                             <div class="col filter-keyword m-r--l">
                                 <input type="text" id="Keyword" placeholder="@Messages.SearchEmployeeWatermark" />
+                            </div>
+                            <div class="col m-r--l">
+                                <div class="left label--m">
+                                    <label>@Labels.Department</label>
+                                </div>
+                                <div class="left select-team">
+                                    <select id="DepartmentId" name="DepartmentId"
+                                        asp-items="@(new SelectList(Model.Departments, "Id", "Name"))">
+                                        <option value="">@Labels.AllDepartments</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col m-r--l">
+                                <div class="left label--s">
+                                    <label>@Labels.Team</label>
+                                </div>
+                                <div class="left select-team">
+                                    <select id="TeamId" name="TeamId">
+                                        <option value="">@Labels.AllTeams</option>
+                                        @foreach (var team in Model.Teams)
+                                        {
+                                            <option value="@team.Id" data-department-id="@team.DepartmentId">@team.Name</option>
+                                        }
+                                    </select>
+                                </div>
                             </div>
                             <div class="col">
                                 <input type="button" id="submit" class="btn-submit waves-effect waves-light" value="@Labels.Submit" />

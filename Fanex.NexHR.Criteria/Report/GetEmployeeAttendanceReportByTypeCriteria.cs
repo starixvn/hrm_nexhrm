@@ -18,6 +18,8 @@
 
         public int? GroupId { get; set; }
 
+        public int? DepartmentId { get; set; }
+
         public bool ExcludeUserDelete { get; set; }
 
         [SpParam(SqlParamName = "Type")]

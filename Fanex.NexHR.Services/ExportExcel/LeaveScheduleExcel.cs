@@ -10,9 +10,9 @@ namespace Fanex.NexHR.Services.ExportExcel
     {
         private readonly LeaveDaySummarySchedule schedules;
         private const byte RowStartHeader = 2;
-        private const byte RowStartBody = 5;
-        private const byte TotalCols = 35;
-        private const byte RowSum = 6;
+        private const byte RowStartBody = 6;
+        private const byte TotalCols = 36;
+        private const byte RowSum = 7;
         private int rowIndex = RowStartBody;
         private int rowNumber = 1;
 
@@ -51,7 +51,7 @@ namespace Fanex.NexHR.Services.ExportExcel
 
         private static void RenderLeaveDaysSchedule(LeaveDaySummarySchedule schedules, ExcelWorksheet worksheet)
         {
-            var startCol = 5;
+            var startCol = 6;
 
             worksheet.Cells[RowStartHeader, RowStartBody, RowStartHeader, TotalCols].Value = schedules.Month.ToString("MMM yyyy");
             foreach (var date in schedules.ListDates)
@@ -63,7 +63,7 @@ namespace Fanex.NexHR.Services.ExportExcel
 
         private static void RenderLeaveDayScheduleSumRow(IList<double> totalLeaves, ExcelWorksheet templateWorksheet, ExcelWorksheet worksheet, int rowIndex)
         {
-            var startCol = 5;
+            var startCol = 6;
 
             templateWorksheet.Cells[RowSum, 1, RowSum, TotalCols]
                 .Copy(worksheet.Cells[rowIndex, 1, rowIndex, TotalCols]);
@@ -81,6 +81,7 @@ namespace Fanex.NexHR.Services.ExportExcel
             worksheet.Cells[rowIndex, colIndex++].Value = rowNumber;
             worksheet.Cells[rowIndex, colIndex++].Value = empSchedule.FullName;
             worksheet.Cells[rowIndex, colIndex++].Value = empSchedule.NickName;
+            worksheet.Cells[rowIndex, colIndex++].Value = empSchedule.DepartmentName;
             worksheet.Cells[rowIndex, colIndex++].Value = empSchedule.TeamCode;
 
             foreach (var leaveSchedule in empSchedule.LeaveSchedules)
@@ -130,7 +131,7 @@ namespace Fanex.NexHR.Services.ExportExcel
             worksheet.Row(1).Height = RowHeightTitle;
 
             int[] widthCol = new[] {
-                5, 30, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+                5, 30, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
                 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15
             };
             for (int i = 0; i < widthCol.Length; i++)

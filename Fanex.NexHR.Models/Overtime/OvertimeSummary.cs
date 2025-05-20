@@ -18,7 +18,11 @@
 
         public string FullName { get; set; }
 
-        public string DisplayName => NickName +  " (" + FullName + ")";
+        public string DisplayName => NickName + " (" + FullName + ")";
+
+        public int DepartmentId { get; set; }
+
+        public string DepartmentName { get; set; }
 
         public int TeamId { get; set; }
 

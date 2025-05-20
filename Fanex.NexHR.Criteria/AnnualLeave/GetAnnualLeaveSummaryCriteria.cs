@@ -10,6 +10,8 @@
 
         public int? GroupId { get; set; }
 
+        public int? DepartmentId { get; set; }
+
         public int Year { get; set; }
 
         public int MinAnnualBalance { get; set; }
