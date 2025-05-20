@@ -14,11 +14,11 @@
 
         public string Name { get; set; }
 
-        public DateTime FromDate { get; set; }
-        public DateTime ToDate { get; set; }
+        public DateTime? FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
 
         public override string GetSettingKey() => "TrainingAndDevelopment_Get";
 
-        public override bool IsValid() => ToDate >= FromDate && CurrentUserId > 0;
+        public override bool IsValid() => CurrentUserId > 0;
     }
 }
