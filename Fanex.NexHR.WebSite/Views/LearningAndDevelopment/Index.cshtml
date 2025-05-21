@@ -1,4 +1,4 @@
-﻿@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Core.Enums
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.ViewModels.TrainingAndDevelopment
 @using Fanex.NexHR.Services.Interfaces
@@ -45,9 +45,8 @@
                                         <label asp-for="FromDate">@Labels.FromDate</label>
                                     </div>
                                     <div class="left datepicker-button select--m">
-                                        <date-picker name="FromDate"
-                                                     min-date="currentDate.AddYears(-100)"
-                                                     value="currentDate.AddYears(-1)">
+                                        <date-picker name="FromDate" min-date="currentDate.AddYears(-100)"
+                                            value="@Model.FromDate">
                                         </date-picker>
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>

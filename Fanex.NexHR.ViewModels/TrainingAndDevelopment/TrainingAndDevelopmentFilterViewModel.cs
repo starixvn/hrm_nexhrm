@@ -6,7 +6,7 @@
     using System.ComponentModel.DataAnnotations;
     public class TrainingAndDevelopmentFilterViewModel
     {
-        public DateTime FromDate { get; set; }
+        public DateTime? FromDate { get; set; }
 
         public DateTime ToDate { get; set; }
 

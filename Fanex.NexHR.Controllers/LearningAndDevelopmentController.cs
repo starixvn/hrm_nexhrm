@@ -42,7 +42,6 @@
         {
             var model = new TrainingAndDevelopmentFilterViewModel
             {
-                FromDate = DateTimeOffset.Now.DateTime,
                 ToDate = DateTimeOffset.Now.DateTime,
                 Teams = await teamService.GetTeam(),
                 Types = await trainingAndDevelopmentService.GetTrainingAndDevelopmentType()
