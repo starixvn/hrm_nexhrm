@@ -147,7 +147,7 @@
                 FromDate = model.FromDate,
                 ToDate = model.ToDate,
                 ReportType = model.AttendanceType,
-                EmployeeId = model.EmployeeId,
+                EmployeeId = model.EmpId,
                 GroupId = model.GroupId == -1 ? null : model.GroupId,
                 DepartmentId = model.DepartmentId == -1 ? null : model.DepartmentId,
                 ExcludeUserDelete = model.ExcludeUserDelete
