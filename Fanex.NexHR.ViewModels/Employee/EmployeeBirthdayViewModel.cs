@@ -1,28 +1,18 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="EmployeeBirthdayViewModel.cs" company=".">
-// Copyright (c) .. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <history>
-//   <change who="Aaron.Cao" date="2015.3.13">Apply StyleCop</change>
-// </history>
+﻿namespace Fanex.NexHR.ViewModels.Employee;
 
-namespace Fanex.NexHR.ViewModels.Employee
+using System.ComponentModel.DataAnnotations;
+
+public class EmployeeBirthdayViewModel
 {
-    using System.ComponentModel.DataAnnotations;
+    [Display(Name = "Month")]
+    public int Month { get; set; }
 
-    public class EmployeeBirthdayViewModel
-    {
-        [Display(Name = "Month")]
-        public int Month { get; set; }
+    [Display(Name = "DoB")]
+    public string DateOfBirth { get; set; }
 
-        [Display(Name = "DoB")]
-        public string DateOfBirth { get; set; }
+    [Display(Name = "Name")]
+    public string FullName { get; set; }
 
-        [Display(Name = "Name")]
-        public string FullName { get; set; }
-
-        [Display(Name = "Nick")]
-        public string NickName { get; set; }
-    }
+    [Display(Name = "Nick")]
+    public string NickName { get; set; }
 }

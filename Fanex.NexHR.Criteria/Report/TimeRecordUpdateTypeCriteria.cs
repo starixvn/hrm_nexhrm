@@ -1,38 +1,25 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="TimeRecordUpdateTypeCriteria.cs" company=".">
-// Copyright (c) .. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2015.7.14">Created</change>
-// </history>
+﻿namespace Fanex.NexHR.Criteria.Report;
 
-namespace Fanex.NexHR.Criteria.Report
+using System;
+
+public class TimeRecordUpdateTypeCriteria : BaseCommand
 {
-    using System;
+    public int RecordTimeId { get; set; }
+    public int EmployeeId { get; set; }
 
-    /// <summary>
-    /// TimeRecordUpdateType Criteria.
-    /// </summary>
-    public class TimeRecordUpdateTypeCriteria : BaseCommand
+    public short? InOutType { get; set; }
+
+    public int ModifiedBy { get; set; }
+
+    public DateTime ModifiedDate { get; set; }
+
+    public override string GetSettingKey()
     {
-        public int RecordTimeId { get; set; }
-        public int EmployeeId { get; set; }
+        return "TimeRecord_UpdateType";
+    }
 
-        public short? InOutType { get; set; }
-
-        public int ModifiedBy { get; set; }
-
-        public DateTime ModifiedDate { get; set; }
-
-        public override string GetSettingKey()
-        {
-            return "TimeRecord_UpdateType";
-        }
-
-        public override bool IsValid()
-        {
-            return true;
-        }
+    public override bool IsValid()
+    {
+        return true;
     }
 }

@@ -1,35 +1,22 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="DisapproveRequestCriteria.cs" company=".">
-// Copyright (c) .. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.3.11">Created</change>
-// </history>
+﻿namespace Fanex.NexHR.Criteria.Request;
 
-namespace Fanex.NexHR.Criteria.Request
+using System;
+
+public class DisapproveRequestCriteria : BaseCommand
 {
-    using System;
+    public long RequestId { get; set; }
 
-    /// <summary>
-    /// Disapprove Request Criteria.
-    /// </summary>
-    public class DisapproveRequestCriteria : BaseCommand
+    public int ModifiedBy { get; set; }
+
+    public DateTime ModifiedDate { get; set; }
+
+    public override bool IsValid()
     {
-        public long RequestId { get; set; }
+        return true;
+    }
 
-        public int ModifiedBy { get; set; }
-
-        public DateTime ModifiedDate { get; set; }
-
-        public override bool IsValid()
-        {
-            return true;
-        }
-
-        public override string GetSettingKey()
-        {
-            return "WorkingTimeRequest_DisapproveRequest";
-        }
+    public override string GetSettingKey()
+    {
+        return "WorkingTimeRequest_DisapproveRequest";
     }
 }

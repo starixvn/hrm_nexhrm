@@ -1,35 +1,22 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="RejectRequestCriteria.cs" company=".">
-// Copyright (c) .. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.3.11">Created</change>
-// </history>
+﻿namespace Fanex.NexHR.Criteria.Request;
 
-namespace Fanex.NexHR.Criteria.Request
+using System;
+
+public class RejectRequestCriteria : BaseCommand
 {
-    using System;
+    public long RequestId { get; set; }
 
-    /// <summary>
-    /// Reject Request Criteria.
-    /// </summary>
-    public class RejectRequestCriteria : BaseCommand
+    public int ProcessedBy { get; set; }
+
+    public DateTime ProcessedDate { get; set; }
+
+    public override bool IsValid()
     {
-        public long RequestId { get; set; }
+        return true;
+    }
 
-        public int ProcessedBy { get; set; }
-
-        public DateTime ProcessedDate { get; set; }
-
-        public override bool IsValid()
-        {
-            return true;
-        }
-
-        public override string GetSettingKey()
-        {
-            return "WorkingTimeRequest_RejectRequest";
-        }
+    public override string GetSettingKey()
+    {
+        return "WorkingTimeRequest_RejectRequest";
     }
 }

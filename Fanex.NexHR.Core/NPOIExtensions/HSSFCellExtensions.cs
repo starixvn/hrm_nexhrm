@@ -1,167 +1,112 @@
-﻿// ----------------------------------------------------------------------
-// <copyright file="HSSFCellExtensions.cs" company="Nexcel Solutions Viet Nam">
-// Copyright (c) .. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------
-// <history>
-//   <change who="Tim.Trinh" date="2016.27.01">Created.</change>
-// </history>
+﻿namespace Fanex.NexHR.Core.NPOIExtensions;
 
-namespace Fanex.NexHR.Core.NPOIExtensions
+using System;
+using NPOI.SS.UserModel;
+using NPOI.SS.Util;
+
+public static class HSSFCellExtensions
 {
-    using NPOI.SS.UserModel;
-    using NPOI.SS.Util;
-    using System;
-
-    public static class HSSFCellExtensions
+    public static void SetCellValue(this ICell cell, object value)
     {
-        public static void SetCellValue(this ICell cell, object value)
+        if (value == null)
         {
-            if (value == null)
-            {
-                cell.SetCellValue(string.Empty);
-                return;
-            }
-
-            var stringValue = value as string;
-            ////var richTextString = value as IRichTextString;
-
-            if (!string.IsNullOrEmpty(stringValue))
-            {
-                ////if (richTextString != null)
-                ////{
-                ////    cell.SetCellValue(richTextString);
-                ////}
-                ////else
-                ////{
-                cell.SetCellValue(stringValue);
-                ////}
-            }
-            else
-            {
-                dynamic dynamicValue = value;
-                cell.SetCellValue(dynamicValue);
-            }
-
-            ////if (stringValue != null)
-            ////{
-            ////    cell.SetCellValue(stringValue);
-            ////}
-            ////else if (value is int)
-            ////{
-            ////    cell.SetCellValue((int)value);
-            ////}
-            ////else if (value is long)
-            ////{
-            ////    cell.SetCellValue((long)value);
-            ////}
-            ////else if (value is float)
-            ////{
-            ////    cell.SetCellValue((float)value);
-            ////}
-            ////else if (value is double)
-            ////{
-            ////    cell.SetCellValue((double)value);
-            ////}
-            ////else if (value is decimal)
-            ////{
-            ////    SetCellValue(cell, (object)(decimal)value);
-            ////}
-            ////else if (value is bool)
-            ////{
-            ////    cell.SetCellValue((bool)value);
-            ////}
-            ////else if (value is DateTime)
-            ////{
-            ////    cell.SetCellValue((DateTime)value);
-            ////}
-            ////else if (richTextString != null)
-            ////{
-            ////    cell.SetCellValue(richTextString);
-            ////}
+            cell.SetCellValue(string.Empty);
+            return;
         }
 
-        public static void SetCellValue(this ICell cell, double? value)
-        {
-            if (value != null)
-            {
-                cell.SetCellValue((double)value);
-            }
-            else
-            {
-                cell.SetCellValue(0);
-            }
-        }
+        var stringValue = value as string;
 
-        public static void SetCellValue(this ICell cell, decimal value)
+        if (!string.IsNullOrEmpty(stringValue))
         {
-            cell.SetCellValue(Convert.ToDouble(value));
+            cell.SetCellValue(stringValue);
         }
-
-        public static void SetCellValue(this ICell cell, decimal? value)
+        else
         {
-            if (value != null)
+            dynamic dynamicValue = value;
+            cell.SetCellValue(dynamicValue);
+        }
+    }
+
+    public static void SetCellValue(this ICell cell, double? value)
+    {
+        if (value != null)
+        {
+            cell.SetCellValue((double)value);
+        }
+        else
+        {
+            cell.SetCellValue(0);
+        }
+    }
+
+    public static void SetCellValue(this ICell cell, decimal value)
+    {
+        cell.SetCellValue(Convert.ToDouble(value));
+    }
+
+    public static void SetCellValue(this ICell cell, decimal? value)
+    {
+        if (value != null)
+        {
+            cell.SetCellValue((decimal)value);
+        }
+        else
+        {
+            cell.SetCellValue(0);
+        }
+    }
+
+    public static void SetCellValue(this ICell cell, int value)
+    {
+        cell.SetCellValue(Convert.ToDouble(value));
+    }
+
+    public static void SetCellValue(this ICell cell, int? value)
+    {
+        cell.SetCellValue(value ?? 0);
+    }
+
+    public static void SetCellValue(this ICell cell, long value)
+    {
+        cell.SetCellValue(Convert.ToDouble(value));
+    }
+
+    public static void SetCellValue(this ICell cell, long? value)
+    {
+        if (value != null)
+        {
+            cell.SetCellValue((long)value);
+        }
+        else
+        {
+            cell.SetCellValue(0);
+        }
+    }
+
+    public static void CopyFrom(this ICell cell, ICell sourceCell)
+    {
+        // Copy merged cells.
+        CellRangeAddress sourceRange = null;
+
+        for (var i = 0; i < sourceCell.Sheet.NumMergedRegions && sourceRange == null; i++)
+        {
+            CellRangeAddress range = sourceCell.Sheet.GetMergedRegion(i);
+
+            if ((range.FirstColumn <= sourceCell.ColumnIndex)
+                && (range.LastColumn >= sourceCell.ColumnIndex)
+                && (range.FirstRow <= sourceCell.RowIndex)
+                && (range.LastRow >= sourceCell.RowIndex))
             {
-                cell.SetCellValue((decimal)value);
-            }
-            else
-            {
-                cell.SetCellValue(0);
-            }
-        }
-
-        public static void SetCellValue(this ICell cell, int value)
-        {
-            cell.SetCellValue(Convert.ToDouble(value));
-        }
-
-        public static void SetCellValue(this ICell cell, int? value)
-        {
-            cell.SetCellValue(value ?? 0);
-        }
-
-        public static void SetCellValue(this ICell cell, long value)
-        {
-            cell.SetCellValue(Convert.ToDouble(value));
-        }
-
-        public static void SetCellValue(this ICell cell, long? value)
-        {
-            if (value != null)
-            {
-                cell.SetCellValue((long)value);
-            }
-            else
-            {
-                cell.SetCellValue(0);
+                sourceRange = range;
             }
         }
 
-        public static void CopyFrom(this ICell cell, ICell sourceCell)
+        if (sourceRange != null)
         {
-            // Copy merged cells.
-            CellRangeAddress sourceRange = null;
-
-            for (var i = 0; i < sourceCell.Sheet.NumMergedRegions && sourceRange == null; i++)
-            {
-                CellRangeAddress range = sourceCell.Sheet.GetMergedRegion(i);
-
-                if ((range.FirstColumn <= sourceCell.ColumnIndex)
-                    && (range.LastColumn >= sourceCell.ColumnIndex)
-                    && (range.FirstRow <= sourceCell.RowIndex)
-                    && (range.LastRow >= sourceCell.RowIndex))
-                {
-                    sourceRange = range;
-                }
-            }
-
-            if (sourceRange != null)
-            {
-                cell.Sheet.AddMergedRegion(sourceRange.Clone());
-            }
-
-            // Copy style
-            cell.CellStyle = sourceCell.CellStyle;
+            cell.Sheet.AddMergedRegion(sourceRange.Clone());
         }
+
+        // Copy style
+        cell.CellStyle = sourceCell.CellStyle;
     }
 }
