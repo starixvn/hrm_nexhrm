@@ -38,10 +38,14 @@
         private readonly IWebHostEnvironment environment;
         private readonly IAuthService authService;
         private readonly AppSetting appSetting;
+        private readonly ILookupDataService lookupDataService;
 
 #pragma warning disable S107 // Methods should not have too many parameters
 
-        public EmployeeController(ISessionService sessionService,
+        public EmployeeController(
+            IWebHostEnvironment environment,
+            AppSetting appSetting,
+            ISessionService sessionService,
             IEmployeeService employeeService,
             ITeamService teamService,
             IDepartmentService departmentService,
@@ -52,8 +56,7 @@
             ITrainingAndDevelopmentService trainingAndDevelopmentService,
             IHistoryService historyService,
             IAuthService authService,
-            IWebHostEnvironment environment,
-            AppSetting appSetting) : base(sessionService)
+            ILookupDataService lookupDataService) : base(sessionService)
 #pragma warning restore S107 // Methods should not have too many parameters
         {
             this.employeeService = employeeService;
@@ -68,6 +71,7 @@
             this.historyService = historyService;
             this.authService = authService;
             this.appSetting = appSetting;
+            this.lookupDataService = lookupDataService;
         }
 
         public async Task<IActionResult> Index()
@@ -190,7 +194,7 @@
 
         public async Task<IActionResult> Detail(int employeeId)
         {
-            Employee employee = await GetEmployeeById(employeeId);
+            var employee = await GetEmployeeById(employeeId);
             employee.TrainingAndDevelopments = await trainingAndDevelopmentService.GetByEmpId(new GetTrainingAndDevelopmentByEmpIdCriteria
             {
                 EmpId = employeeId,
@@ -201,6 +205,7 @@
             {
                 EmpId = employeeId
             });
+            ViewBag.SalaryGroups = lookupDataService.GetSalaryGroups();
 
             return View(employee);
         }
@@ -497,13 +502,15 @@
             {
                 EmployeeId = CurrentUser.Id
             };
-            Employee employee = await employeeService.GetEmployeeById(criteria);
+            var employee = await employeeService.GetEmployeeById(criteria);
             employee.TrainingAndDevelopments = await trainingAndDevelopmentService.GetByEmpId(new GetTrainingAndDevelopmentByEmpIdCriteria
             {
                 EmpId = CurrentUser.Id,
                 CurrentUserId = CurrentUser.Id
             }, CurrentUser);
             employee.TrainingAndDevelopmentTypes = await trainingAndDevelopmentService.GetTrainingAndDevelopmentType();
+            ViewBag.SalaryGroups = lookupDataService.GetSalaryGroups();
+
             return View(employee);
         }
 

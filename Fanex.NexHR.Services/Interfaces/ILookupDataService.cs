@@ -8,5 +8,7 @@
     public interface ILookupDataService
     {
         Task<IEnumerable<LookupData>> GetAll(GetAllLookupDataCriteria criteria);
+
+        IEnumerable<SalaryGroup> GetSalaryGroups();
     }
 }

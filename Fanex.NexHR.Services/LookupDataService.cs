@@ -17,8 +17,32 @@
 
         public async Task<IEnumerable<LookupData>> GetAll(GetAllLookupDataCriteria criteria)
         {
-            IEnumerable<LookupData> lookupDatas = await baseService.GetDataAsync<LookupData>(criteria);
-            return lookupDatas;
+            return await baseService.GetDataAsync<LookupData>(criteria);
+        }
+
+        public IEnumerable<SalaryGroup> GetSalaryGroups()
+        {
+            return new List<SalaryGroup>
+            {
+                new SalaryGroup
+                {
+                    SalaryGroupId = 1,
+                    Name = "SD1",
+                    Description = "Software Engineer, Database Administrator, Business Analyst, System Analyst, Data Analyst"
+                },
+                new SalaryGroup
+                {
+                    SalaryGroupId = 2,
+                    Name = "SD2",
+                    Description = "Software Test Engineer, Front-end Software Engineer, Application Support Analyst, Graphic Designer, Technical Writer, Project Support Officer"
+                },
+                new SalaryGroup
+                {
+                    SalaryGroupId = 3,
+                    Name = "ITNW",
+                    Description = string.Empty
+                }
+            };
         }
     }
 }
