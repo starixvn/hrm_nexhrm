@@ -230,7 +230,7 @@
                                         </span>
                                         @if (Model.ManagementGradeCode != null)
                                         {
-                                            <a class="viewhistoryjobgrade" id="viewhistorymanagementgrade" href="javascript:;" id="">
+                                            <a class="viewhistoryjobgrade" id="viewhistorymanagementgrade" href="javascript:;">
                                                 <i class="mdi mdi-information-outline mdi-dark mdi-24px tooltip"
                                                    title="View history"></i>
                                             </a>
@@ -241,9 +241,9 @@
                                         <span class="txt-bold">@salaryGroup?.Name</span>
                                         @if (salaryGroup != null)
                                         {
-                                            <span class="tooltip" title="@salaryGroup.Description" style="display: flex; margin-left: 6px;">
-                                                <i class="mdi mdi-information-outline mdi-dark mdi-24px tooltip"></i>
-                                            </span>
+                                            <a class="viewhistoryjobgrade tooltip-sd-group" href="javascript:;" data-title="@salaryGroup.Description">
+                                                <span class="mdi mdi-information-outline mdi-dark mdi-24px"></span>
+                                            </a>
                                         }
                                     </p>
                                     <p class="accinfo">
