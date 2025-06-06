@@ -290,8 +290,8 @@
             {
                 ActorId = CurrentUser.Id,
                 Role = role,
-                FromDate = request.FromDate.ToServerTimeZone(),
-                ToDate = request.ToDate.ToServerTimeZone(),
+                FromDate = request.FromDate,
+                ToDate = request.ToDate,
                 EmployeeId = request.EmployeeId != -1 ? new int?(request.EmployeeId) : null,
                 GroupId = request.TeamId != 0 ? request.TeamId : null,
                 LeaveTypeId = request.LeaveTypeId == 0 ? null : new int?(request.LeaveTypeId),

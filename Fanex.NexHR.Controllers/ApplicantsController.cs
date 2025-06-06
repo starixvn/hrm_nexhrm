@@ -2,7 +2,6 @@ namespace Fanex.NexHR.Controllers
 {
     using Criteria.Applicant;
     using Fanex.NexHR.Controllers.Attributes;
-    using Fanex.NexHR.Core;
     using Fanex.NexHR.Criteria.Position;
     using Fanex.NexHR.Models;
     using Microsoft.AspNetCore.Hosting;
@@ -51,8 +50,8 @@ namespace Fanex.NexHR.Controllers
             {
                 var criteria = new GetAllApplicantCriteria
                 {
-                    FromDate = model.FromDate?.ToServerTimeZone(),
-                    ToDate = model.ToDate?.ToServerTimeZone(),
+                    FromDate = model.FromDate,
+                    ToDate = model.ToDate,
                     Status = model.Status,
                     PositionId = model.PositionId,
                     FullName = model.FullName,

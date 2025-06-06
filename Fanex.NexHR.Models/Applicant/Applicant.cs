@@ -2,13 +2,9 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using Fanex.NexHR.Core;
 
     public class Applicant
     {
-        private DateTime? serverInterviewDate1;
-        private DateTime? serverInterviewDate2;
-
         public int Id { get; set; }
 
         public string FullName { get; set; }
@@ -27,18 +23,10 @@
         public string PositionCode { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime? InterviewDate1
-        {
-            get => serverInterviewDate1;
-            set => serverInterviewDate1 = value.HasValue ? value.Value.ToClientTimeZone() : null;
-        }
+        public DateTime? InterviewDate1 { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime? InterviewDate2
-        {
-            get => serverInterviewDate2;
-            set => serverInterviewDate2 = value.HasValue ? value.Value.ToClientTimeZone() : null;
-        }
+        public DateTime? InterviewDate2 { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime? JoinDate { get; set; }

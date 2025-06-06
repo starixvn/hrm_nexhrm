@@ -9,19 +9,9 @@
 
         private DateTime serverModifiedDate;
 
-        private DateTime serverRequestedDate;
-
-        private DateTime serverFromDate;
-
-        private DateTime serverToDate;
-
         public Employee Requester { get; set; }
 
-        public DateTime RequestedDate
-        {
-            get => serverRequestedDate;
-            set => serverRequestedDate = value.ToClientTimeZone();
-        }
+        public DateTime RequestedDate { get; set; }
 
         public RequestTypeModel RequestType { get; set; }
 
@@ -52,17 +42,9 @@
         public bool IsAllowUpdateStatus { get; set; }
 
         // Leave
-        public DateTime FromDate
-        {
-            get => serverFromDate;
-            set => serverFromDate = value.ToClientTimeZone();
-        }
+        public DateTime FromDate { get; set; }
 
-        public DateTime ToDate
-        {
-            get => serverToDate;
-            set => serverToDate = value.ToClientTimeZone();
-        }
+        public DateTime ToDate { get; set; }
 
         public decimal TotalDays { get; set; }
 

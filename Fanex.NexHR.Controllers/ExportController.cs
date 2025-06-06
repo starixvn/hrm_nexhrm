@@ -203,8 +203,8 @@
             var criteria = new GetAllApplicantCriteria
             {
                 FullName = fullName,
-                FromDate = fromDate?.ToServerTimeZone(),
-                ToDate = toDate?.ToServerTimeZone(),
+                FromDate = fromDate,
+                ToDate = toDate,
                 Status = status,
                 PositionId = positionId,
                 PageNumber = pageNumber,
