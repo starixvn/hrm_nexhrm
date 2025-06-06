@@ -277,8 +277,8 @@
 
             var model = new RequestsMonitoringViewModel
             {
-                FromDate = new DateTimeOffset(year, month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
-                ToDate = new DateTimeOffset(year, month, DateTime.DaysInMonth(year, month), 0, 0, 0, TimeSpan.Zero).DateTime,
+                FromDate = new DateTimeOffset(year, month, 1, 0, 0, 0, TimeSpan.Zero).DateTime.ToServerTimeZone(),
+                ToDate = new DateTimeOffset(year, month, DateTime.DaysInMonth(year, month), 0, 0, 0, TimeSpan.Zero).DateTime.ToServerTimeZone(),
                 RequestType = 0,
                 MaxRequest = 2,
                 DateOption = 0,
@@ -325,8 +325,8 @@
         {
             var criteria = new GetRequestMonitorReportCriteria
             {
-                FromDate = model.FromDate,
-                ToDate = model.ToDate,
+                FromDate = model.FromDate.ToServerTimeZone(),
+                ToDate = model.ToDate.ToServerTimeZone(),
                 RequestType = model.RequestType,
                 MaxRequest = model.MaxRequest,
                 Role = model.IsLeader ? (int)Role.AssistantLeader : (int)Role.HR,
