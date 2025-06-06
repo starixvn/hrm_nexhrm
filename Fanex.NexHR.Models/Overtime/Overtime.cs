@@ -3,9 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Fanex.NexHR.Core;
 
     public class Overtime
     {
+        private DateTime serverCreatedDate;
+
         public int Id { get; set; }
 
         public string Description { get; set; }
@@ -18,15 +21,19 @@
 
         public string CreatedByFullName { get; set; }
 
-        public string CreatedByDisplayName 
+        public string CreatedByDisplayName
         {
-            get 
-            { 
+            get
+            {
                 return CreatedByNickName + " (" + CreatedByFullName + ")";
             }
-        } 
+        }
 
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedDate
+        {
+            get => serverCreatedDate;
+            set => serverCreatedDate = value.ToClientTimeZone();
+        }
 
         public int TotalMember => OvertimeRecords.Count();
 
