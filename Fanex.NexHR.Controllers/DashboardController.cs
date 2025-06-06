@@ -93,8 +93,8 @@
         private async Task<EmployeeAttendanceViewModel> GetEmployeeAttendaneAsync()
             => new EmployeeAttendanceViewModel
             {
-                FromDate = DateTimeOffset.Now.DateTime,
-                ToDate = DateTimeOffset.Now.DateTime,
+                FromDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
+                ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                 GroupId = CurrentUser.TeamId,
                 DateOption = 0,
                 ExcludeUserDelete = true,
@@ -106,7 +106,7 @@
         {
             var criteria = new GetAllLatInEarlyOutNotificationCriteria
             {
-                Date = DateTimeOffset.Now.Date
+                Date = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date
             };
 
             return await lateinearlyoutService.GetAllEmployee(criteria);
@@ -116,7 +116,7 @@
         {
             var criteria = new GetBirthdayAndFirstWorkingdayCriteria
             {
-                OnDate = DateTimeOffset.Now.Date
+                OnDate = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date
             };
 
             var lstEmployee = await employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);

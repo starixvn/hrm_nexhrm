@@ -188,10 +188,10 @@
                     {{:ShiftCode}}
                 </td>
                 <td>
-                    {{if InFixed}} {{:~formatJsonDate(InFixed, 'HH:mm')}} {{/if}}
+                    {{if InFixed}} {{:~formatJsonDate(InFixed.ToClientTimeZone(), 'HH:mm')}} {{/if}}
                 </td>
                 <td>
-                    {{if OutFixed}} {{:~formatJsonDate(OutFixed, 'HH:mm')}} {{/if}}
+                    {{if OutFixed}} {{:~formatJsonDate(OutFixed.ToClientTimeZone(), 'HH:mm')}} {{/if}}
                 </td>
                 <td>
                     {{if TotalWorkHours > 0}}

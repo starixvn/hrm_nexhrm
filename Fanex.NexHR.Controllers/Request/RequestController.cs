@@ -103,7 +103,7 @@
                 model = new RequestViewModel
                 {
                     DateOption = 0,
-                    ToDate = DateTimeOffset.Now.DateTime,
+                    ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                     FromDate = model.ToDate.AddMonths(-months),
                     RequestType = (int)RequestTypeFilterForRequest.All,
                     TeamId = null,
@@ -247,7 +247,7 @@
             if (requestViewType == RequestViewType.LeaderView)
             {
                 model.DateOption = 0;
-                model.ToDate = DateTimeOffset.Now.DateTime;
+                model.ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone();
                 model.FromDate = model.ToDate.AddMonths(-months);
                 model.IsFilterByEffectedDate = false;
             }

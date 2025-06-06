@@ -1,5 +1,6 @@
 ﻿@using Fanex.NexHR.Resources
 @using Fanex.NexHR.ViewModels
+@using Fanex.NexHR.Core
 @model MySpaceViewModel
 
 @{
@@ -132,12 +133,12 @@
                 <div class="card-content white-text hidden">
                     <div class="slide">
                         <div class="slide-content">
-                            <a class="white-text noEvent" href="@Url.Action("Birthday", "Employee", new {month = DateTime.Now.Month})">
+                            <a class="white-text noEvent" href="@Url.Action("Birthday", "Employee", new {month = DateTimeOffset.Now.DateTime.ToClientTimeZone().Month})">
                                 <div class="col s3">
                                     <img class="circle" alt="" src="~/css/Images/Dashboard/@MySpaceViewModel.RandomPictureName" />
                                 </div>
                                 <div class="col s9 center detail">
-                                    <span>Birthday in @DateTime.Now.ToString("MMMM")!</span>
+                                    <span>Birthday in @DateTimeOffset.Now.DateTime.ToClientTimeZone().ToString("MMMM")!</span>
                                 </div>
                             </a>
                         </div>
