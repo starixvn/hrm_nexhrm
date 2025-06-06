@@ -73,8 +73,8 @@
             {
                 Employee = CurrentUser.DisplayName,
                 EmployeeId = CurrentUser.Id,
-                FromDate = fromDate ?? DateTimeOffset.Now.Date,
-                ToDate = toDate ?? DateTimeOffset.Now.Date,
+                FromDate = fromDate ?? DateTimeOffset.Now.DateTime.ToClientTimeZone().Date,
+                ToDate = toDate ?? DateTimeOffset.Now.DateTime.ToClientTimeZone().Date,
                 TotalDays = 1,
                 LeaveTypes = await leaveTypeService.GetAll(),
                 UnavailDates = await requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null),

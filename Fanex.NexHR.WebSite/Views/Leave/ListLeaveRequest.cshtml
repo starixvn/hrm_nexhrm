@@ -61,7 +61,7 @@ else
                     }
                     <td>@request.TotalDays.ToString("0.0")</td>
                     <td class="tooltip" title="@request.CreatedDate.ToShortFormatedDate()">
-                        @request.CreatedDate.ToDateMonthYearFormatedDate()
+                        @request.CreatedDate.ToClientTimeZone().ToDateMonthYearFormatedDate()
                     </td>
                     @if (!string.IsNullOrWhiteSpace(request.Remark))
                     {

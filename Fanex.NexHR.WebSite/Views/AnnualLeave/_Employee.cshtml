@@ -30,7 +30,7 @@
             {
                 <tr>
                     <td>@(index++)</td>
-                    <td>@item.AffectedFrom.ToDateMonthYearFormatedDate()</td>
+                    <td>@item.AffectedFrom.ToClientTimeZone().ToDateMonthYearFormatedDate()</td>
                     <td>@item.TotalDays</td>
                     <td class="align-left">
                         @if (item.RequestId != null)
@@ -39,7 +39,7 @@
                         }
                         @item.Description
                     </td>
-                    <td>@item.CreatedDate.ToShortFormatedDate()</td>
+                    <td>@item.CreatedDate.ToClientTimeZone().ToShortFormatedDate()</td>
                     @if (isHRRole)
                     {
                         @if (item.RequestId == null)

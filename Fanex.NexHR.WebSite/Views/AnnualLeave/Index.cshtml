@@ -12,7 +12,7 @@
     var departments = new SelectList(Model.Departments, "Id", "Name");
     var addMultiAnnualLeaveTransactionViewModel = new AddMultiAnnualLeaveTransactionViewModel
     {
-        AffectedFrom = DateTime.Now
+        AffectedFrom = DateTime.Now.ToClientTimeZone()
     };
 }
 @section Styles {
@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="left select--xs select--year">
                                         <select id="Year" name="Year"
-                                            asp-items="@Extensions.YearPicker(2010, DateTime.Now.Year)">
+                                            asp-items="@Extensions.YearPicker(2010, DateTime.Now.ToClientTimeZone().Year)">
                                         </select>
                                     </div>
                                 </div>
