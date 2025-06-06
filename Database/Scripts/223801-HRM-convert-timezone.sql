@@ -39,3 +39,35 @@ SET ModifiedDate = ModifiedDate AT TIME ZONE @CurrentTimeZone AT TIME ZONE @Targ
 
 UPDATE JobGrade
 SET ModifiedDate = ModifiedDate AT TIME ZONE @CurrentTimeZone AT TIME ZONE @TargetTimeZone;
+
+/* JobTitle */
+UPDATE dbo.[JobTitle]
+SET CreatedDate = CreatedDate AT TIME ZONE @CurrentTimeZone AT TIME ZONE @TargetTimeZone,
+	ModifiedDate = ModifiedDate AT TIME ZONE @CurrentTimeZone AT TIME ZONE @TargetTimeZone;
+
+/* Log */
+UPDATE dbo.[Log]
+SET LogDate = LogDate AT TIME ZONE @CurrentTimeZone AT TIME ZONE @TargetTimeZone;
+
+/* ManagementGrade */
+UPDATE dbo.[ManagementGrade]
+SET ModifiedDate = ModifiedDate AT TIME ZONE @CurrentTimeZone AT TIME ZONE @TargetTimeZone;
+
+/* Position */
+UPDATE dbo.[Position]
+SET ModifiedDate = ModifiedDate AT TIME ZONE @CurrentTimeZone AT TIME ZONE @TargetTimeZone;
+
+/* ScheduledMessage */
+UPDATE dbo.[ScheduledMessage]
+SET SendDate = SendDate AT TIME ZONE @CurrentTimeZone AT TIME ZONE @TargetTimeZone,
+	CreatedDate = CreatedDate AT TIME ZONE @CurrentTimeZone AT TIME ZONE @TargetTimeZone;
+
+/* TOEIC */
+UPDATE dbo.[TOEIC]
+SET ModifiedDate = ModifiedDate AT TIME ZONE @CurrentTimeZone AT TIME ZONE @TargetTimeZone,
+	CreatedDate = CreatedDate AT TIME ZONE @CurrentTimeZone AT TIME ZONE @TargetTimeZone;
+
+/* TrainingAndDevelopment */
+UPDATE dbo.[TrainingAndDevelopment]
+SET ModifyDate = ModifyDate AT TIME ZONE @CurrentTimeZone AT TIME ZONE @TargetTimeZone,
+	CreatedDate = CreatedDate AT TIME ZONE @CurrentTimeZone AT TIME ZONE @TargetTimeZone;
