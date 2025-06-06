@@ -2,7 +2,7 @@
 @using Fanex.NexHR.Resources
 @{
     ViewBag.Title = Labels.WorkFromHomeRequest;
-    var CurrentYear = DateTime.Now.Year;
+    var CurrentYear = DateTime.Now.ToClientTimeZone().Year;
     var FromYear = 2010;
     var ToYear = CurrentYear + 1;
     var ListSelectYear = new List<SelectListItem>();
@@ -47,7 +47,7 @@
                                     <label>@Labels.Year</label>
                                 </div>
                                 <div class="left select--xs year">
-                                    <select id="Year" asp-items="@Extensions.YearPicker(2010, DateTime.Now.Year)">
+                                    <select id="Year" asp-items="@Extensions.YearPicker(2010, DateTime.Now.ToClientTimeZone().Year)">
                                     </select>    
                                 </div>
                             </div>

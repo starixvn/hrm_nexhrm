@@ -46,7 +46,7 @@ else
                     </td>
                     <td>@request.FromDate.ToDateMonthYearFormatedDate()</td>
                     <td>@request.ToDate.ToDateMonthYearFormatedDate()</td>
-                    <td class="tooltip" title="@request.CreatedDate.ToShortFormatedDate()">
+                    <td class="tooltip" title="@request.CreatedDate.ToClientTimeZone().ToShortFormatedDate()">
                         @request.CreatedDate.ToDateMonthYearFormatedDate()
                     </td>
                     @if (!string.IsNullOrWhiteSpace(request.Remark))
@@ -69,7 +69,7 @@ else
                     }
                     else
                     {
-                        <td class="tooltip" title="@request.Status by @request.ProcessedBy (@request.ProcessedDate.ToShortFormatedDate())">
+                        <td class="tooltip" title="@request.Status by @request.ProcessedBy (@request.ProcessedDate.ToClientTimeZone().ToShortFormatedDate())">
                             @request.Status.ToString()
                         </td>
                     }
