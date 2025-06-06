@@ -28,33 +28,38 @@
                 {
                     SalaryGroupId = 1,
                     Name = "SD1",
-                    Description = @"Principle/Staff/Senior/Business Analyst;
-                        Principle/Staff/Senior/Software Engineer;
-                        Principle/Staff/Senior/Database Administrator;
-                        Principle/Staff/Senior/Data Analyst;
-                        Principle/Staff/Senior/AI Engineer;
-                        Principle/Staff/Senior/BI Engineer;
-                        Principle/Staff/Senior/Platform Engineer;
-                        Principle/Staff/Senior/Site Reliability Engineer"
+                    Description = @"AI Engineer;
+                        BI Engineer;
+                        Business Analyst;
+                        Data Analyst;
+                        Database Administrator;
+                        Platform Engineer;
+                        Product Database Administrator;
+                        Product Software Engineer;
+                        Site Reliability Engineer;
+                        Software Engineer"
                 },
                 new SalaryGroup
                 {
                     SalaryGroupId = 2,
                     Name = "SD2",
-                    Description = @"Principle/Staff/Senior/Application Support Analyst;
-                        Principle/Staff/Senior/Software Test Engineer;
-                        Principle/Staff/Senior/Graphic Designer;
+                    Description = @"Application Support Analyst;
+                        Front-end Software Engineer;
+                        Graphic Designer;
+                        Product Graphic Designer;
+                        Product Sound Designer;
                         Project Support Officer;
-                        Principle/Staff/Senior/Technical Writer;
-                        Principle/Staff/Senior/Front-end Software Engineer;
-                        Principle/Staff/Senior/Product Sound Designer;
-                        Principle/Staff/Senior/Product UI Artist"
+                        Product Test Engineer;
+                        Product UI Artist;
+                        Product UI Designer;
+                        Software Test Engineer;
+                        Technical Writer"
                 },
                 new SalaryGroup
                 {
                     SalaryGroupId = 3,
                     Name = "SD3",
-                    Description = "Staff/Senior/ITNW"
+                    Description = "IT Network Engineer"
                 }
             };
         }
