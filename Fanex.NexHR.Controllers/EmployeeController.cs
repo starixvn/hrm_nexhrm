@@ -38,10 +38,14 @@
         private readonly IWebHostEnvironment environment;
         private readonly IAuthService authService;
         private readonly AppSetting appSetting;
+        private readonly ILookupDataService lookupDataService;
 
 #pragma warning disable S107 // Methods should not have too many parameters
 
-        public EmployeeController(ISessionService sessionService,
+        public EmployeeController(
+            IWebHostEnvironment environment,
+            AppSetting appSetting,
+            ISessionService sessionService,
             IEmployeeService employeeService,
             ITeamService teamService,
             IDepartmentService departmentService,
@@ -52,8 +56,7 @@
             ITrainingAndDevelopmentService trainingAndDevelopmentService,
             IHistoryService historyService,
             IAuthService authService,
-            IWebHostEnvironment environment,
-            AppSetting appSetting) : base(sessionService)
+            ILookupDataService lookupDataService) : base(sessionService)
 #pragma warning restore S107 // Methods should not have too many parameters
         {
             this.employeeService = employeeService;
@@ -68,6 +71,7 @@
             this.historyService = historyService;
             this.authService = authService;
             this.appSetting = appSetting;
+            this.lookupDataService = lookupDataService;
         }
 
         public async Task<IActionResult> Index()
@@ -190,7 +194,7 @@
 
         public async Task<IActionResult> Detail(int employeeId)
         {
-            Employee employee = await GetEmployeeById(employeeId);
+            var employee = await GetEmployeeById(employeeId);
             employee.TrainingAndDevelopments = await trainingAndDevelopmentService.GetByEmpId(new GetTrainingAndDevelopmentByEmpIdCriteria
             {
                 EmpId = employeeId,
@@ -201,6 +205,7 @@
             {
                 EmpId = employeeId
             });
+            ViewBag.SalaryGroups = lookupDataService.GetSalaryGroups();
 
             return View(employee);
         }
@@ -261,7 +266,7 @@
                     WedShift = model.WedShift
                 };
 
-                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+                var result = await baseService.ExecuteNonQueryAsync(criteria);
                 if (result.IsSuccessful)
                 {
                     return RedirectToAction("Edit", new
@@ -295,14 +300,14 @@
             string phone,
             string educationBackground)
         {
-            Employee employee = await GetEmployeeById(id);
+            var employee = await GetEmployeeById(id);
             employee.Phone = phone ?? employee.Phone;
             employee.DateOfBirth = DOB ?? employee.DateOfBirth;
             employee.JoinedDate = joinDate ?? employee.JoinedDate;
             employee.GroupDate = joinDate ?? employee.GroupDate;
             employee.EducationBackground = educationBackground ?? employee.EducationBackground;
 
-            EditEmployeeViewModel model = new EditEmployeeViewModel(employee)
+            var model = new EditEmployeeViewModel(employee)
             {
                 Teams = await teamService.GetAll(),
                 JobTitles = await jobTitleService.GetAll(),
@@ -322,8 +327,8 @@
                 return View(model);
             }
 
-            UpdateEmployeeCriteria criteria = FillDataUpdateEmployeeCriteria(model);
-            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+            var criteria = FillDataUpdateEmployeeCriteria(model);
+            var result = await baseService.ExecuteNonQueryAsync(criteria);
 
             if (result.IsSuccessful)
             {
@@ -361,7 +366,7 @@
                 ResignedDate = resignedDate,
                 ModifiedBy = CurrentUser.Id
             };
-            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+            var result = await baseService.ExecuteNonQueryAsync(criteria);
 
             return Json(result);
         }
@@ -369,8 +374,8 @@
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> DefaultSchedule(int id)
         {
-            Employee employee = await GetEmployeeById(id);
-            DefaultScheduleViewModel model = GetDefaultScheduleFromEmployee(employee);
+            var employee = await GetEmployeeById(id);
+            var model = GetDefaultScheduleFromEmployee(employee);
             model.Shifts = await shiftService.GetAll();
 
             return View(model);
@@ -393,7 +398,7 @@
                     SatShift = model.SatShiftId,
                     SunShift = model.SunShiftId
                 };
-                CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
+                var result = await baseService.ExecuteNonQueryAsync(criteria);
                 if (result.IsSuccessful)
                 {
                     ViewBag.Updated = true;
@@ -412,8 +417,8 @@
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> MonthSchedule(int employeeId)
         {
-            Employee employee = await GetEmployeeById(employeeId);
-            MonthlyScheduleViewModel model = new MonthlyScheduleViewModel();
+            var employee = await GetEmployeeById(employeeId);
+            var model = new MonthlyScheduleViewModel();
             if (employee != null)
             {
                 model.EmployeeId = employee.Id;
@@ -427,8 +432,8 @@
         [AllowAnonymous]
         public FileResult Avatar(string id)
         {
-            string fileName = "/common_files/avatars/avatar.jpg";
-            string userId = id;
+            var fileName = "/common_files/avatars/avatar.jpg";
+            var userId = id;
 
             if (string.IsNullOrWhiteSpace(userId))
             {
@@ -456,8 +461,8 @@
         {
             if (file != null)
             {
-                string FileName = code + ".jpg";
-                var paths = new[] { environment.WebRootPath, "common_files", "avatars", FileName };
+                var fileName = code + ".jpg";
+                var paths = new[] { environment.WebRootPath, "common_files", "avatars", fileName };
                 var fullPath = Path.Combine(paths);
 
                 var stream = new FileStream(fullPath, FileMode.Create);
@@ -497,13 +502,15 @@
             {
                 EmployeeId = CurrentUser.Id
             };
-            Employee employee = await employeeService.GetEmployeeById(criteria);
+            var employee = await employeeService.GetEmployeeById(criteria);
             employee.TrainingAndDevelopments = await trainingAndDevelopmentService.GetByEmpId(new GetTrainingAndDevelopmentByEmpIdCriteria
             {
                 EmpId = CurrentUser.Id,
                 CurrentUserId = CurrentUser.Id
             }, CurrentUser);
             employee.TrainingAndDevelopmentTypes = await trainingAndDevelopmentService.GetTrainingAndDevelopmentType();
+            ViewBag.SalaryGroups = lookupDataService.GetSalaryGroups();
+
             return View(employee);
         }
 
@@ -581,8 +588,8 @@
                 ModifiedBy = CurrentUser.Id,
                 IsTransferNexBalance = model.IsTransferLateInEarlyOut ? 1 : 0
             };
-            CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
-            if (result.Code == 0 || result.Code == -1)
+            var result = await baseService.ExecuteNonQueryAsync(criteria);
+            if (result.Code is 0 or -1)
             {
                 ViewBag.Requested = true;
             }

@@ -1,8 +1,7 @@
-@using Fanex.NexHR.Core
-@using Fanex.NexHR.Resources
 @using Fanex.NexHR.Models
-@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Resources
 @using Fanex.NexHR.Services.Interfaces
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @inject ISessionService sessionService;
 @model Fanex.NexHR.Models.Employee
 @{
@@ -11,14 +10,18 @@
     const string InternalTraining = "Internal Training";
     const string FormatDate = "dd MMM yyyy";
     var index = 1;
-}
-@if (Model != null)
-{
-    ViewBag.Title = Model.NickName + " - " + Model.FullName;
-}
-else
-{
-    ViewBag.Title = string.Empty;
+
+    var salaryGroups = (IEnumerable<SalaryGroup>)ViewBag.SalaryGroups;
+    var salaryGroup = salaryGroups.FirstOrDefault(x => x.SalaryGroupId == Model.SalaryGroupId);
+
+    if (Model != null)
+    {
+        ViewBag.Title = Model.NickName + " - " + Model.FullName;
+    }
+    else
+    {
+        ViewBag.Title = string.Empty;
+    }
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/Views/training-and-development.css" asp-append-version="true">
@@ -198,46 +201,56 @@ else
                                             }
                                         </span>
                                     </p>
-	                                <p class="accinfo">
-		                                <span class="label--xl">@Labels.JobGrade:</span>
-		                                <span class="txt-bold tooltip"
-		                                      title="@($"{Labels.EffectiveDate}: {Model.AffectedDate.ToString("dd MMM, yyyy")}")">
-			                                @if (Model.JobGradeCode != null)
-			                                {
-				                                @Model.JobGradeCode
-			                                }
-		                                </span>
-		                                @if (Model.JobGradeCode != null)
-		                                {
+                                    <p class="accinfo">
+                                        <span class="label--xl">@Labels.JobGrade:</span>
+                                        <span class="txt-bold tooltip"
+                                              title="@($"{Labels.EffectiveDate}: {Model.AffectedDate.ToString("dd MMM, yyyy")}")">
+                                            @if (Model.JobGradeCode != null)
+                                            {
+                                                @Model.JobGradeCode
+                                            }
+                                        </span>
+                                        @if (Model.JobGradeCode != null)
+                                        {
                                             <a class="viewhistoryjobgrade" id="viewhistoryjobgrade" href="javascript:;" id="">
-				                                <i class="mdi mdi-information-outline mdi-dark mdi-24px tooltip"
-				                                   title="View history"></i>
-			                                </a>
-		                                }
-	                                </p>
+                                                <i class="mdi mdi-information-outline mdi-dark mdi-24px tooltip"
+                                                   title="View history"></i>
+                                            </a>
+                                        }
+                                    </p>
 
-	                                <p class="accinfo">
-		                                <span class="label--xl">@Labels.ManagementGrade:</span>
-		                                <span class="txt-bold tooltip"
+                                    <p class="accinfo">
+                                        <span class="label--xl">@Labels.ManagementGrade:</span>
+                                        <span class="txt-bold tooltip"
                                               title="@($"{Labels.EffectiveDate}: {Model.ManagementAffectedDate.ToString("dd MMM, yyyy")}")">
-			                                @if (Model.ManagementGradeCode != null)
-			                                {
-				                                @Model.ManagementGradeCode
-			                                }
-		                                </span>
-		                                @if (Model.ManagementGradeCode != null)
-		                                {
-                                            <a class="viewhistoryjobgrade" id="viewhistorymanagementgrade" href="javascript:;" id="">
-				                                <i class="mdi mdi-information-outline mdi-dark mdi-24px tooltip"
-				                                   title="View history"></i>
-			                                </a>
-		                                }
-	                                </p>
-	                                <p class="accinfo">
-		                                <span class="label--xl">@Labels.Team:</span>
-		                                <span
-			                                class="txt-bold">@Model.Team.Name</span>
-	                                </p>
+                                            @if (Model.ManagementGradeCode != null)
+                                            {
+                                                @Model.ManagementGradeCode
+                                            }
+                                        </span>
+                                        @if (Model.ManagementGradeCode != null)
+                                        {
+                                            <a class="viewhistoryjobgrade" id="viewhistorymanagementgrade" href="javascript:;">
+                                                <i class="mdi mdi-information-outline mdi-dark mdi-24px tooltip"
+                                                   title="View history"></i>
+                                            </a>
+                                        }
+                                    </p>
+                                    <p class="accinfo">
+                                        <span class="label--xl">SD Group:</span>
+                                        <span class="txt-bold">@salaryGroup?.Name</span>
+                                        @if (salaryGroup != null)
+                                        {
+                                            <a class="viewhistoryjobgrade tooltip-sd-group" href="javascript:;" data-title="@salaryGroup.Description">
+                                                <span class="mdi mdi-information-outline mdi-dark mdi-24px"></span>
+                                            </a>
+                                        }
+                                    </p>
+                                    <p class="accinfo">
+                                        <span class="label--xl">@Labels.Team:</span>
+                                        <span
+                                            class="txt-bold">@Model.Team.Name</span>
+                                    </p>
                                     <p class="accinfo">
                                         <span class="label--xl">@Labels.Roles:</span> <span
                                             class="txt-bold">@Model.DisplayRoles()</span>

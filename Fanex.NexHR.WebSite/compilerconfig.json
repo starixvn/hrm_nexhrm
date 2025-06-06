@@ -70,5 +70,9 @@
   {
     "outputFile": "wwwroot/css/Views/report.timesheet.css",
     "inputFile": "wwwroot/css/Views/report.timesheet.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Views/my.profile.css",
+    "inputFile": "wwwroot/css/Views/my.profile.scss"
   }
 ]

@@ -1,29 +1,16 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="DeleteExternalGroupCriteria.cs" company=".">
-// Copyright (c) .. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.3.14">Created</change>
-// </history>
+﻿namespace Fanex.NexHR.Criteria.ExtensionNo;
 
-namespace Fanex.NexHR.Criteria.ExtensionNo
+public class DeleteExternalGroupCriteria : BaseCommand
 {
-    /// <summary>
-    /// DeleteExternalGroup Criteria.
-    /// </summary>
-    public class DeleteExternalGroupCriteria : BaseCommand
+    public int ExtId { get; set; }
+
+    public override string GetSettingKey()
     {
-        public int ExtId { get; set; }
+        return "ExtensionNO_DELETE_GroupExternal";
+    }
 
-        public override string GetSettingKey()
-        {
-            return "ExtensionNO_DELETE_GroupExternal";
-        }
-
-        public override bool IsValid()
-        {
-            return true;
-        }
+    public override bool IsValid()
+    {
+        return true;
     }
 }

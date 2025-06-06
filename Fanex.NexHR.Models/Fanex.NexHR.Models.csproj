@@ -3,6 +3,11 @@
     <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="SkypeAccount\**" />
+    <EmbeddedResource Remove="SkypeAccount\**" />
+    <None Remove="SkypeAccount\**" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Fanex.NexHR.Core\Fanex.NexHR.Core.csproj" />
     <ProjectReference Include="..\Fanex.NexHR.Resources\Fanex.NexHR.Resources.csproj" />
   </ItemGroup>
@@ -15,8 +20,5 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SkypeAccount\" />
   </ItemGroup>
 </Project>

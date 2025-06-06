@@ -1,34 +1,21 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="GetShiftByDateCriteria.cs" company=".">
-// Copyright (c) .. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Bradley.Mac" date="2014.3.5">Created</change>
-// </history>
+﻿namespace Fanex.NexHR.Criteria.Shift;
 
-namespace Fanex.NexHR.Criteria.Shift
+using System;
+using Data.Repository;
+
+public class GetShiftByDateCriteria : CriteriaBase
 {
-    using System;
-    using Data.Repository;
+    public int EmployeeId { get; set; }
 
-    /// <summary>
-    /// Get Shift By Date Criteria.
-    /// </summary>
-    public class GetShiftByDateCriteria : CriteriaBase
+    public DateTime Date { get; set; }
+
+    public override bool IsValid()
     {
-        public int EmployeeId { get; set; }
+        return true;
+    }
 
-        public DateTime Date { get; set; }
-
-        public override bool IsValid()
-        {
-            return true;
-        }
-
-        public override string GetSettingKey()
-        {
-            return "EmployeeCalendar_GetShiftByDate";
-        }
+    public override string GetSettingKey()
+    {
+        return "EmployeeCalendar_GetShiftByDate";
     }
 }

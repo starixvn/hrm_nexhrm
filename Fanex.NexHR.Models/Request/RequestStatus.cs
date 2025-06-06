@@ -1,45 +1,32 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="RequestStatus.cs" company=".">
-// Copyright (c) .. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2013.1.16">Apply StyleCop</change>
-// </history>
+﻿namespace Fanex.NexHR.Models.Request;
 
-namespace Fanex.NexHR.Models.Request
+using Resources;
+
+public class RequestStatus : EntityBase<byte>
 {
-    using Resources;
-
-    /// <summary>
-    /// Request status.
-    /// </summary>
-    public class RequestStatus : EntityBase<byte>
+    public new string Name
     {
-        public new string Name
+        get
         {
-            get
-            {
-                const int secondCase = 2;
-                const int threeCase = 3;
+            const int secondCase = 2;
+            const int threeCase = 3;
 
-                switch (Id)
-                {
-                    case 1:
-                        return Labels.Pending;
-                    case secondCase:
-                        return Labels.Approved;
-                    case threeCase:
-                        return Labels.Rejected;
-                    default:
-                        return string.Empty;
-                }
+            switch (Id)
+            {
+                case 1:
+                    return Labels.Pending;
+                case secondCase:
+                    return Labels.Approved;
+                case threeCase:
+                    return Labels.Rejected;
+                default:
+                    return string.Empty;
             }
         }
+    }
 
-        public override string ToString()
-        {
-            return Name;
-        }
+    public override string ToString()
+    {
+        return Name;
     }
 }

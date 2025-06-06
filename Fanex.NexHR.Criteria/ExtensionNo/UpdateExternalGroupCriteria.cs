@@ -1,31 +1,18 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="UpdateExternalGroupCriteria.cs" company=".">
-// Copyright (c) .. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Quinn.Vo" date="2014.3.14">Created</change>
-// </history>
+﻿namespace Fanex.NexHR.Criteria.ExtensionNo;
 
-namespace Fanex.NexHR.Criteria.ExtensionNo
+public class UpdateExternalGroupCriteria : BaseCommand
 {
-    /// <summary>
-    /// AddNewExternalGroup Criteria.
-    /// </summary>
-    public class UpdateExternalGroupCriteria : BaseCommand
+    public int ExtId { get; set; }
+
+    public string FullName { get; set; }
+
+    public override string GetSettingKey()
     {
-        public int ExtId { get; set; }
+        return "ExtensionNO_Update_GroupExternal";
+    }
 
-        public string FullName { get; set; }
-
-        public override string GetSettingKey()
-        {
-            return "ExtensionNO_Update_GroupExternal";
-        }
-
-        public override bool IsValid()
-        {
-            return true;
-        }
+    public override bool IsValid()
+    {
+        return true;
     }
 }

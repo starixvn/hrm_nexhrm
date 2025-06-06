@@ -160,3 +160,14 @@
     min-width: auto;
   }
 }
+
+.tipsy-sd-group {
+  .tipsy-inner {
+    text-align: left;
+    max-width: 350px;
+
+    p {
+      margin: 0;
+    }
+  }
+}

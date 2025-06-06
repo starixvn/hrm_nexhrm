@@ -47,4 +47,15 @@ $(document).ready(function () {
             });
         });
     });
+
+    $('.tooltip-sd-group').tipsy({
+        className: 'tipsy-sd-group',
+        gravity: 'nw',
+        html: true,
+        offset: 5,
+        title: function () {
+            const titles = $(this).attr('data-title').split(';');
+            return "<div>" + titles.map(title => `<p>${title}</p>`).join('') + "</div>";
+        }
+    });
 });

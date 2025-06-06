@@ -285,5 +285,7 @@
 
             return roles.ToString();
         }
+
+        public short SalaryGroupId { get; set; }
     }
 }
