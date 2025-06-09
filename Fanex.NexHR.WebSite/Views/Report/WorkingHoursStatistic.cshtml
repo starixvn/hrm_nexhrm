@@ -24,7 +24,7 @@
 @{
     //Set max month we can select in MonthPick
     int Month = 12;
-    int year = DateTime.Now.GetMaxDate().Year + 1;
+    int year = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date.GetMaxDate().Year + 1;
 
     var maxDate = new System.Text.StringBuilder();
     maxDate.AppendFormat("{0}/{1}/1", year, Month);
@@ -45,28 +45,25 @@
                                 <div class="row">
                                     <div class="col m-r--l">
                                         <div class="left label--l">
-                                            <label>Current Monthe</label>  
+                                            <label>Current Month</label>
                                         </div>
                                         <div class="left select--s">
                                             <div id="monthPickr"></div>
                                             <input type="hidden" id="maxDate" value="@maxDate.ToString()" />
-                                            <input type="hidden" asp-for="Month"/>
-                                            <input type="hidden" asp-for="Year"/>
-                                            <input type="hidden" asp-for="DateOption"/>
+                                            <input type="hidden" asp-for="Month" />
+                                            <input type="hidden" asp-for="Year" />
+                                            <input type="hidden" asp-for="DateOption" />
                                         </div>
                                     </div>
 
                                     <div class="col m-r--s">
                                         <div class="left label--s">
-                                            <label>@Labels.From</label>  
+                                            <label>@Labels.From</label>
                                         </div>
                                         <div class="left datepicker-button input--s">
-                                            <date-picker 
-                                                name="FromDate"
-                                                min-date="new DateTime(2010, 01, 01)"
-                                                max-date="DateTime.Now"
-                                                value="Model.FromDate"
-                                            >
+                                            <date-picker name="FromDate" min-date="new DateTime(2010, 01, 01)"
+                                                max-date="DateTimeOffset.Now.DateTime.ToClientTimeZone()"
+                                                value="Model.FromDate">
                                             </date-picker>
                                             <i class="mdi-action-event calendar-icon from-date left"></i>
                                         </div>
@@ -74,15 +71,12 @@
 
                                     <div class="col m-l--l m-r--s">
                                         <div class="left label--s">
-                                            <label>@Labels.To</label>  
+                                            <label>@Labels.To</label>
                                         </div>
                                         <div class="left datepicker-button input--s">
-                                            <date-picker 
-                                                name="ToDate"
-                                                min-date="new DateTime(2010, 01, 01)"
-                                                max-date="DateTime.Now"
-                                                value="Model.ToDate"
-                                            >
+                                            <date-picker name="ToDate" min-date="new DateTime(2010, 01, 01)"
+                                                max-date="DateTimeOffset.Now.DateTime.ToClientTimeZone()"
+                                                value="Model.ToDate">
                                             </date-picker>
                                             <i class="mdi-action-event calendar-icon from-date left"></i>
                                         </div>
@@ -92,30 +86,24 @@
                                 <div class="row">
                                     <div class="col m-r--l">
                                         <div class="left label--l">
-                                            <label>@Labels.FromLastMonth</label>  
+                                            <label>@Labels.FromLastMonth</label>
                                         </div>
                                         <div class="left datepicker-button input--s">
-                                            <date-picker 
-                                                name="FromDateLastMonth"
-                                                min-date="new DateTime(2010, 01, 01)"
-                                                max-date="DateTime.Now"
-                                                value="Model.FromDateLastMonth"
-                                            >
+                                            <date-picker name="FromDateLastMonth" min-date="new DateTime(2010, 01, 01)"
+                                                max-date="DateTimeOffset.Now.DateTime.ToClientTimeZone()"
+                                                value="Model.FromDateLastMonth">
                                             </date-picker>
                                             <i class="mdi-action-event calendar-icon from-date left"></i>
                                         </div>
                                     </div>
                                     <div class="col m-l--l m-r--s">
                                         <div class="left label--s">
-                                            <label>@Labels.To</label>  
+                                            <label>@Labels.To</label>
                                         </div>
                                         <div class="left datepicker-button input--s">
-                                            <date-picker 
-                                                name="ToDateLastMonth"
-                                                min-date="new DateTime(2010, 01, 01)"
-                                                max-date="DateTime.Now"
-                                                value="Model.ToDateLastMonth"
-                                            >
+                                            <date-picker name="ToDateLastMonth" min-date="new DateTime(2010, 01, 01)"
+                                                max-date="DateTimeOffset.Now.DateTime.ToClientTimeZone()"
+                                                value="Model.ToDateLastMonth">
                                             </date-picker>
                                             <i class="mdi-action-event calendar-icon from-date left"></i>
                                         </div>
@@ -150,8 +138,8 @@
                                             <label>@Labels.Employee</label>
                                         </div>
                                         <div class="left input--m">
-                                            <input asp-for="Employee" placeholder = "@Messages.SearchEmployeeWatermark"/>
-                                            <input type="hidden" asp-for="EmployeeId"/>
+                                            <input asp-for="Employee" placeholder="@Messages.SearchEmployeeWatermark" />
+                                            <input type="hidden" asp-for="EmployeeId" />
                                         </div>
                                     </div>
                                     <div class="col m-r--l col-btn-submit-excel">

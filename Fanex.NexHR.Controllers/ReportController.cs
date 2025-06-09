@@ -278,8 +278,8 @@
 
             var model = new RequestsMonitoringViewModel
             {
-                FromDate = new DateTimeOffset(year, month, 1, 0, 0, 0, TimeSpan.Zero).DateTime.ToClientTimeZone(),
-                ToDate = new DateTimeOffset(year, month, DateTime.DaysInMonth(year, month), 0, 0, 0, TimeSpan.Zero).DateTime.ToClientTimeZone(),
+                FromDate = new DateTimeOffset(year, month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
+                ToDate = new DateTimeOffset(year, month, DateTime.DaysInMonth(year, month), 0, 0, 0, TimeSpan.Zero).DateTime,
                 RequestType = 0,
                 MaxRequest = 2,
                 DateOption = 0,
@@ -510,7 +510,7 @@
         public async Task<IActionResult> LateInEarlyOutDiscipline()
         {
             IList<Team> teams = await teamService.GetTeam();
-            var today = DateTimeOffset.Now.Date;
+            var today = DateTimeOffset.Now.DateTime.ToClientTimeZone();
 
             var model = new LateInEarlyOutSummaryViewModel
             {
@@ -694,8 +694,8 @@
         {
             var teams = await teamService.GetTeam();
             var departments = await departmentService.GetAll();
-
-            DateTime date = new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
+            var today = DateTimeOffset.Now.DateTime.ToClientTimeZone();
+            DateTime date = new DateTimeOffset(today.Year, today.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
             var model = new WorkingHoursStatisticViewModel
             {
                 FromDate = date,
