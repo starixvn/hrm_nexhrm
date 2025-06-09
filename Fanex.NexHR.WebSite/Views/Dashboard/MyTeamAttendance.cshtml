@@ -15,7 +15,7 @@
                     </div>
                     <div class="card-body">
                         <form method="get" id="team-attendance" style="display: none;">
-                            <input type="hidden" id="DateTime-Now" name="DateTime-Now" value="@DateTime.Now.ToString("MMMM dd, yyyy")"/>
+                            <input type="hidden" id="DateTime-Now" name="DateTime-Now" value="@DateTimeOffset.Now.DateTime.ToClientTimeZone().ToString("MMMM dd, yyyy")"/>
                             <div class="form">
                             <div class="row form-input">
                                 <div class="col m-r--l">

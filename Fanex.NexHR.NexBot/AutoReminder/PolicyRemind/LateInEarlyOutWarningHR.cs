@@ -43,7 +43,7 @@
             IList<LateInEarlyOutModel> lateInEarlyOuts = new List<LateInEarlyOutModel>();
             var criteria = new GetLateInEarlyOutReportCriteria
             {
-                Year = DateTime.Now.Year
+                Year = DateTimeOffset.Now.DateTime.ToClientTimeZone().Year
             };
 
             return reportService.GetLateInEarlyOut(criteria);
@@ -76,7 +76,7 @@
 
         private bool IsWarningUserInCurrentMonth(LateInEarlyOutModel lateInEarlyOut)
         {
-            string currentMonth = DateTime.Now.ToString("MMM");
+            string currentMonth = DateTimeOffset.Now.DateTime.ToClientTimeZone().ToString("MMM");
             var violateTimeInCurrentMonth = lateInEarlyOut.GetType().GetProperty($"TimesIn{currentMonth}").GetValue(lateInEarlyOut, null).ToString();
             int time = int.Parse(violateTimeInCurrentMonth);
             return time > 3;
@@ -84,7 +84,7 @@
 
         private IEnumerable<LateInEarlyOutDiscipline> GetViolateLateInEarlyOutDiscipline()
         {
-            var today = DateTime.Now;
+            var today = DateTimeOffset.Now.DateTime.ToClientTimeZone();
             var criteria = new GetLateInEarlyOutSummaryCriteria
             {
                 FromDate = new DateTime(today.Year, 1, 1),

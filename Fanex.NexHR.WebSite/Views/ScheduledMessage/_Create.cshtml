@@ -53,7 +53,7 @@
             <div class="datepicker-button left select-repeat">
                 <date-picker 
                     name="SendDate"
-                    value="DateTime.Now"
+                    value="DateTimeOffset.Now.DateTime.ToClientTimeZone()"
                 >
                 </date-picker>
                 <i class="mdi-action-event calendar-icon from-date left"></i>

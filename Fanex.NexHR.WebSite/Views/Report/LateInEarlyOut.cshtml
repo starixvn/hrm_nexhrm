@@ -7,7 +7,7 @@
     ViewBag.Title = Labels.LateInEarlyOut;
     var teams = new SelectList(Model.Teams, "Id", "Name");
     var leaveDeductionViewModel = new LeaveDeductionViewModel {
-        DeductDate = DateTime.Now,
+        DeductDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
         TotalDays = decimal.Parse("0.5"),
         Description = Labels.LeaveDeductionDescription,
         IsAnnual = true

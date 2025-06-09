@@ -20,7 +20,7 @@
         private readonly INexbotService nexbotService;
         private readonly IBioService bioService;
 
-        private readonly DateTime today = DateTime.Now;
+        private readonly DateTime today = DateTimeOffset.Now.DateTime.ToClientTimeZone();
 
         private readonly string intervalCronExpression = ConfigurationManager.AppSettings["BioMachineCronExpression"] ?? "0 0/12 * * 1-5";
 
