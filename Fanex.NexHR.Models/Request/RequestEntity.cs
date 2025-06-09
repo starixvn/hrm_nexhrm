@@ -5,10 +5,6 @@
 
     public class RequestEntity : EntityBase<long>
     {
-        private DateTime serverCreatedDate;
-
-        private DateTime serverModifiedDate;
-
         public Employee Requester { get; set; }
 
         public DateTime RequestedDate { get; set; }
@@ -19,19 +15,11 @@
 
         public Employee CreatedBy { get; set; }
 
-        public DateTime CreatedDate
-        {
-            get => serverCreatedDate;
-            set => serverCreatedDate = value.ToClientTimeZone();
-        }
+        public DateTime CreatedDate { get; set; }
 
         public Employee ModifiedBy { get; set; }
 
-        public DateTime ModifiedDate
-        {
-            get => serverModifiedDate;
-            set => serverModifiedDate = value.ToClientTimeZone();
-        }
+        public DateTime ModifiedDate { get; set; }
 
         public bool IsPlanned { get; set; }
 

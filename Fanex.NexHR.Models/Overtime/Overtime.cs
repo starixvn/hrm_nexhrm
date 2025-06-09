@@ -7,8 +7,6 @@
 
     public class Overtime
     {
-        private DateTime serverCreatedDate;
-
         public int Id { get; set; }
 
         public string Description { get; set; }
@@ -29,11 +27,7 @@
             }
         }
 
-        public DateTime CreatedDate
-        {
-            get => serverCreatedDate;
-            set => serverCreatedDate = value.ToClientTimeZone();
-        }
+        public DateTime CreatedDate { get; set; }
 
         public int TotalMember => OvertimeRecords.Count();
 
