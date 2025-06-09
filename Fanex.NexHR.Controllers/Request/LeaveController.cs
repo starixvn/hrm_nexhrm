@@ -112,7 +112,7 @@
                 RequestType = (short)RequestType.Leave,
                 IsPlanned = leaveRequestViewModel.IsPlanned,
                 Remark = leaveRequestViewModel.Remark,
-                CreatedDate = DateTimeOffset.Now.DateTime,
+                CreatedDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                 CreatedBy = CurrentUser.Id,
                 FromDate = leaveRequestViewModel.FromDate,
                 ToDate = leaveRequestViewModel.ToDate,
@@ -207,7 +207,7 @@
                     Remark = viewModel.Remark,
                     ModifiedBy = viewModel.EmployeeId,
                     FromDate = viewModel.FromDate,
-                    ModifiedDate = DateTimeOffset.Now.DateTime,
+                    ModifiedDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                     ToDate = viewModel.ToDate,
                     LeaveTypeId = viewModel.LeaveTypeId,
                     TotalDays = viewModel.TotalDays

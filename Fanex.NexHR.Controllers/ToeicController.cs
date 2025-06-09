@@ -177,13 +177,13 @@
                     var toeicScoreCriteria = new UpdateToeicScoreCriteria
                     {
                         CreatedBy = CurrentUser.Id,
-                        CreatedDate = DateTimeOffset.Now.DateTime,
+                        CreatedDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                         EmpId = model.EmpId,
                         InputDate = model.InputDate,
                         Listening = model.Listening,
                         LRExamDate = model.LRExamDate,
                         ModifiedBy = CurrentUser.Id,
-                        ModifiedDate = DateTimeOffset.Now.DateTime,
+                        ModifiedDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                         OldListening = model.OldListening,
                         OldReading = model.OldReading,
                         OldSpeaking = model.OldSpeaking,
@@ -257,18 +257,18 @@
 
         private void CheckTOEICDate(Toeic model)
         {
-            if (model.LRExamDate.HasValue && model.LRExamDate.Value > DateTimeOffset.Now.Date)
+            if (model.LRExamDate.HasValue && model.LRExamDate.Value > DateTimeOffset.Now.DateTime.ToClientTimeZone().Date)
             {
                 ModelState.AddModelError(
                     string.Empty,
-                    string.Format(Messages.InvalidTOEICLRExamDate, DateTimeOffset.Now.Date.ToString("dd MMM, yyyy")));
+                    string.Format(Messages.InvalidTOEICLRExamDate, DateTimeOffset.Now.DateTime.ToClientTimeZone().Date.ToString("dd MMM, yyyy")));
             }
 
-            if (model.SWExamDate.HasValue && model.SWExamDate.Value > DateTimeOffset.Now.Date)
+            if (model.SWExamDate.HasValue && model.SWExamDate.Value > DateTimeOffset.Now.DateTime.ToClientTimeZone().Date)
             {
                 ModelState.AddModelError(
                     string.Empty,
-                    string.Format(Messages.InvalidTOEICSWExamDate, DateTimeOffset.Now.Date.ToString("dd MMM, yyyy")));
+                    string.Format(Messages.InvalidTOEICSWExamDate, DateTimeOffset.Now.DateTime.ToClientTimeZone().Date.ToString("dd MMM, yyyy")));
             }
         }
 

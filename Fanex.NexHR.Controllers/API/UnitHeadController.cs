@@ -3,6 +3,7 @@ namespace Fanex.NexHR.Controllers.API
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Criteria.SyncData;
     using Fanex.NexHR.Models.SyncData;
     using Fanex.NexHR.Services.Interfaces;
@@ -36,8 +37,8 @@ namespace Fanex.NexHR.Controllers.API
         {
             var criteria = new GetUnitHeadScheduleCriteria
             {
-                FromDate = DateTimeOffset.Now.Date,
-                ToDate = DateTimeOffset.Now.Date.AddMonths(1)
+                FromDate = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date,
+                ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date.AddMonths(1)
             };
             var schedules = await baseService.GetDataAsync<UnitHeadDailySchedule>(criteria);
 

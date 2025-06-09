@@ -2,6 +2,7 @@ namespace Fanex.NexHR.Controllers
 {
     using Criteria.Applicant;
     using Fanex.NexHR.Controllers.Attributes;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Criteria.Position;
     using Fanex.NexHR.Models;
     using Microsoft.AspNetCore.Hosting;
@@ -448,7 +449,7 @@ namespace Fanex.NexHR.Controllers
             {
                 var baseFileName = Path.GetFileNameWithoutExtension(pathAttach);
                 var fileExtension = Path.GetExtension(pathAttach);
-                var newFileName = $"{baseFileName}({DateTimeOffset.Now.ToString("yyyy-MM-dd-HHmmss")}){fileExtension}";
+                var newFileName = $"{baseFileName}({DateTimeOffset.Now.DateTime.ToClientTimeZone().ToString("yyyy-MM-dd-HHmmss")}){fileExtension}";
 
                 return newFileName;
             }

@@ -150,7 +150,7 @@
 
         public IActionResult LogtimeIssue(int issueId, string issueName)
         {
-            var today = DateTimeOffset.Now.DateTime;
+            var today = DateTimeOffset.Now.DateTime.ToClientTimeZone();
             var model = new LogTimeIssue
             {
                 IssueId = issueId,
@@ -173,7 +173,7 @@
                 ModelState.AddModelError("Hours", Labels.LogtimeHoursErrrorMessage);
             }
 
-            if (model.SpentOn.Date > DateTimeOffset.Now.Date)
+            if (model.SpentOn.Date > DateTimeOffset.Now.DateTime.ToClientTimeZone().Date)
             {
                 ModelState.AddModelError("SpentOn", Labels.SpentOnErrorMessage);
             }
@@ -213,7 +213,7 @@
                 Hours = issue.Hours,
                 Comments = issue.Comments,
                 Activity = issue.Activity,
-                CreatedDate = DateTimeOffset.Now.DateTime
+                CreatedDate = DateTimeOffset.Now.DateTime.ToClientTimeZone()
             };
 
             await baseService.ExecuteNonQueryAsync(criteria);

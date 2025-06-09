@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
     using Criteria;
+    using Fanex.NexHR.Core;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
@@ -26,7 +27,7 @@
             List<Employee> employeesFirstWorkingday = null;
             var criteria = new GetBirthdayAndFirstWorkingdayCriteria
             {
-                OnDate = DateTimeOffset.Now.Date
+                OnDate = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date
             };
 
             var lstEmployee = await employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria).ConfigureAwait(false);

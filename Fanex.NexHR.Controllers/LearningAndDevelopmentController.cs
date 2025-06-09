@@ -169,7 +169,7 @@
             {
                 var baseFileName = Path.GetFileNameWithoutExtension(pathAttach);
                 var fileExtension = Path.GetExtension(pathAttach);
-                var newFileName = $"{baseFileName}({DateTimeOffset.Now.ToString("yyyy-MM-dd-HHmmss")}){fileExtension}";
+                var newFileName = $"{baseFileName}({DateTimeOffset.Now.DateTime.ToClientTimeZone().ToString("yyyy-MM-dd-HHmmss")}){fileExtension}";
 
                 return newFileName;
             }
