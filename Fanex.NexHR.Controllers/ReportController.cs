@@ -59,8 +59,8 @@
                 {
                     employeeAttendanceViewModel = new EmployeeAttendanceViewModel
                     {
-                        FromDate = DateTimeOffset.Now.DateTime,
-                        ToDate = DateTimeOffset.Now.DateTime,
+                        FromDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
+                        ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                         DateOption = 0,
                         ExcludeUserDelete = true
                     };
@@ -175,7 +175,7 @@
             var criteria = new InsertCheckInOutRecordCriteria
             {
                 EmpId = CurrentUser.Id,
-                RecordTime = DateTimeOffset.Now.DateTime,
+                RecordTime = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                 InOutType = 0,
                 IPAddress = GetClientIpAddress(),
                 Platform = Request.Headers["User-Agent"]
@@ -190,7 +190,7 @@
             var criteria = new InsertCheckInOutRecordCriteria
             {
                 EmpId = CurrentUser.Id,
-                RecordTime = DateTimeOffset.Now.DateTime,
+                RecordTime = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                 InOutType = 1,
                 IPAddress = GetClientIpAddress(),
                 Platform = Request.Headers["User-Agent"]
@@ -213,7 +213,7 @@
                 IPAddress = GetClientIpAddress(),
                 Platform = Request.Headers["User-Agent"],
                 ModifiedBy = CurrentUser.Id,
-                ModifiedDate = DateTimeOffset.Now.DateTime,
+                ModifiedDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                 IsEditCheckInOutOnline = true
             };
             CommandResult result = await baseService.ExecuteNonQueryAsync(criteria);
@@ -260,7 +260,7 @@
                 foreach (var attendance in employeeAttendances)
                 {
                     var parseAttendanceDate = (DateTime)attendance.AttendanceDate;
-                    var isOverOneWeek = DateTimeOffset.Now.DateTime >= parseAttendanceDate.AddDays(7);
+                    var isOverOneWeek = DateTimeOffset.Now.DateTime.ToClientTimeZone() >= parseAttendanceDate.AddDays(7);
                     attendance.IsWorkFromHome = attendance.IsWorkFromHome && isEditableSettingCheckInOut && !isOverOneWeek;
                 }
             }
@@ -300,8 +300,8 @@
         [HrmAuthorize(UserRoles = "AssistantLeader")]
         public IActionResult LeaderRequestMonitoring()
         {
-            var year = DateTimeOffset.Now.Year;
-            var month = DateTimeOffset.Now.Month;
+            var year = DateTimeOffset.Now.DateTime.ToClientTimeZone().Year;
+            var month = DateTimeOffset.Now.DateTime.ToClientTimeZone().Month;
 
             var model = new RequestsMonitoringViewModel
             {
@@ -351,8 +351,8 @@
 
             var model = new TotalWorkingHoursViewModel
             {
-                FromDate = new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
-                ToDate = DateTimeOffset.Now.DateTime,
+                FromDate = new DateTimeOffset(DateTimeOffset.Now.DateTime.ToClientTimeZone().Year, DateTimeOffset.Now.DateTime.ToClientTimeZone().Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
+                ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                 DateOption = 5,
                 IsExportExcel = false,
                 Teams = teams,
@@ -369,13 +369,13 @@
             var totalWorkingHoursViewModel = model;
             if (totalWorkingHoursViewModel == null)
             {
-                int year = DateTimeOffset.Now.Year;
-                int month = DateTimeOffset.Now.Month;
+                int year = DateTimeOffset.Now.DateTime.ToClientTimeZone().Year;
+                int month = DateTimeOffset.Now.DateTime.ToClientTimeZone().Month;
 
                 totalWorkingHoursViewModel = new TotalWorkingHoursViewModel
                 {
                     FromDate = new DateTimeOffset(year, month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
-                    ToDate = DateTimeOffset.Now.DateTime,
+                    ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                     DateOption = dayOptions,
                     IsExportExcel = false
                 };
@@ -421,14 +421,14 @@
             var model = empId != 0
                 ? new LateInEarlyOutViewModel
                 {
-                    Year = DateTimeOffset.Now.Year,
+                    Year = DateTimeOffset.Now.DateTime.ToClientTimeZone().Year,
                     Teams = teams,
                     EmployeeId = empId,
                     Employee = nickname
                 }
                 : new LateInEarlyOutViewModel
                 {
-                    Year = DateTimeOffset.Now.Year,
+                    Year = DateTimeOffset.Now.DateTime.ToClientTimeZone().Year,
                     Teams = teams,
                 };
 
@@ -553,8 +553,8 @@
             DateTime to;
             if (!fromDate.HasValue || !toDate.HasValue)
             {
-                from = new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
-                to = DateTimeOffset.Now.Date;
+                from = new DateTimeOffset(DateTimeOffset.Now.DateTime.ToClientTimeZone().Year, DateTimeOffset.Now.DateTime.ToClientTimeZone().Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
+                to = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date;
             }
             else
             {
@@ -613,8 +613,8 @@
 
             if (!fromDate.HasValue || !toDate.HasValue)
             {
-                from = DateTimeOffset.Now.Date;
-                to = DateTimeOffset.Now.Date;
+                from = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date;
+                to = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date;
             }
             else
             {

@@ -70,7 +70,7 @@
                                     <div class="datepicker-button left select--s">
                                         <date-picker
                                             name="WorkDate"
-                                            min-date="DateTime.Now"
+                                            min-date="DateTimeOffset.Now.DateTime.ToClientTimeZone()"
                                             max-date="Utilities.RequestAvailableToDate"
                                             value="Model.WorkDate"
                                         >

@@ -66,7 +66,7 @@
 
             var viewModel = new CreateScheduledMessageViewModel
             {
-                SendDate = DateTimeOffset.Now.Date,
+                SendDate = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date,
                 Hour = 8,
                 Minute = 0,
                 StepNumber = 1,
