@@ -272,13 +272,14 @@
         [HrmAuthorize(UserRoles = "HR")]
         public IActionResult HrRequestMonitoring()
         {
-            var year = DateTimeOffset.Now.Year;
-            var month = DateTimeOffset.Now.Month;
+            var currentDate = DateTimeOffset.Now.DateTime.ToClientTimeZone();
+            var year = currentDate.Year;
+            var month = currentDate.Month;
 
             var model = new RequestsMonitoringViewModel
             {
-                FromDate = new DateTimeOffset(year, month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
-                ToDate = new DateTimeOffset(year, month, DateTime.DaysInMonth(year, month), 0, 0, 0, TimeSpan.Zero).DateTime,
+                FromDate = new DateTimeOffset(year, month, 1, 0, 0, 0, TimeSpan.Zero).DateTime.ToClientTimeZone(),
+                ToDate = new DateTimeOffset(year, month, DateTime.DaysInMonth(year, month), 0, 0, 0, TimeSpan.Zero).DateTime.ToClientTimeZone(),
                 RequestType = 0,
                 MaxRequest = 2,
                 DateOption = 0,

@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
     using Common;
     using Core.Enums;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Models.Request;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Models;
@@ -15,8 +16,8 @@
         public RequestViewModel()
         {
             StatusId = (byte)RequestStatuse.Pending;
-            FromDate = DateTimeOffset.Now.DateTime;
-            ToDate = DateTimeOffset.Now.DateTime;
+            FromDate = DateTimeOffset.Now.DateTime.ToClientTimeZone();
+            ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone();
             DateOption = 1;
             TeamId = -1;
             EmployeeId = -1;
@@ -50,8 +51,9 @@
 
         public RequestViewType RequestViewType { get; set; }
 
-        public string PartialActionName { 
-            get 
+        public string PartialActionName
+        {
+            get
             {
                 string partialAction;
                 if (RequestViewType == RequestViewType.LeaderView)
@@ -68,7 +70,7 @@
                 }
 
                 return partialAction;
-            } 
+            }
         }
 
         public IList<RequestEntity> Requests { get; set; }

@@ -3,6 +3,7 @@ namespace Fanex.NexHR.Controllers
     using System;
     using System.Threading.Tasks;
     using Fanex.NexHR.Controllers.Attributes;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Criteria.History;
     using Fanex.NexHR.Criteria.JobTitle;
     using Fanex.NexHR.Models;
@@ -23,8 +24,8 @@ namespace Fanex.NexHR.Controllers
         {
             var model = new FilterHistoryViewModel
             {
-                FromDate = DateTimeOffset.Now.Date,
-                ToDate = DateTimeOffset.Now.Date,
+                FromDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
+                ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                 Teams = await teamService.GetTeam()
             };
             return View(model);
