@@ -1,8 +1,9 @@
-﻿@using Fanex.NexHR.Resources
+@using Fanex.NexHR.Resources
+@using Fanex.NexHR.Core;
 @model Fanex.NexHR.ViewModels.Promotion.CreatePromotionViewModel
 
 @{
-    DateTime currentDate = DateTime.Today;
+    DateTime currentDate = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date;
     var jobGrade = ViewBag.JobGrade;
 }
 

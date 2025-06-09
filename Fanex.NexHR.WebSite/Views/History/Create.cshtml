@@ -1,14 +1,16 @@
 ﻿@using Fanex.NexHR.Resources
+@using Fanex.NexHR.Core;
+
 @model Fanex.NexHR.ViewModels.History.CreateHistoryViewModel
 @{
-    DateTime currentDate = DateTime.Today;
+    DateTime currentDate = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date;
     var categories = new List<SelectListItem>
-    {
-        new SelectListItem { Value = "0", Text = "" },
-        new SelectListItem { Value = "1", Text = "Team" },
-        new SelectListItem { Value = "2", Text = "Job Title" },
-        new SelectListItem { Value = "3", Text = "Job Grade" }
-    };
+{
+new SelectListItem { Value = "0", Text = "" },
+new SelectListItem { Value = "1", Text = "Team" },
+new SelectListItem { Value = "2", Text = "Job Title" },
+new SelectListItem { Value = "3", Text = "Job Grade" }
+};
 }
 
 <form id="create-form" asp-action="create" data-ajax="true" data-ajax-method="post"
