@@ -1,12 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[EmployeeConversation_Mapping]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE OR ALTER PROCEDURE [dbo].[EmployeeConversation_Mapping] 
+﻿CREATE OR ALTER PROCEDURE [dbo].[EmployeeConversation_Mapping] 
 AS
 /*
 Created: 20140604@Quinn.Vo

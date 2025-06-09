@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[ExtensionNO_GetEmployeeInfo]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE OR ALTER PROCEDURE [dbo].[ExtensionNO_GetEmployeeInfo] @isInternal BIT = NULL
+﻿CREATE OR ALTER PROCEDURE [dbo].[ExtensionNO_GetEmployeeInfo] @isInternal BIT = NULL
 	,@EmpExtID INT = NULL
 AS
 /*

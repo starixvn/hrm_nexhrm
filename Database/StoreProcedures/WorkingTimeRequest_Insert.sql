@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[WorkingTimeRequest_Insert]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE OR ALTER PROCEDURE [dbo].[WorkingTimeRequest_Insert] @id BIGINT OUT
+ï»¿CREATE OR ALTER PROCEDURE [dbo].[WorkingTimeRequest_Insert] @id BIGINT OUT
 	,@EmpId INT
 	,@RequestType SMALLINT
 	,@IsPlanned BIT
@@ -342,7 +333,7 @@ BEGIN
 		--		IF(@IsValidLeaveDay = 0)
 		--		BEGIN
 		--			SELECT @ErrCode = 111
-		--			,@ErrMsg = 'You have exceeded the number of allowed Annual Leave Days that can be taken. Please, submit the “Unpaid Leave” instead.'
+		--			,@ErrMsg = 'You have exceeded the number of allowed Annual Leave Days that can be taken. Please, submit the ï¿½Unpaid Leaveï¿½ instead.'
 
 		--			RETURN
 		--		END

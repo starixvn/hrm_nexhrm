@@ -1,12 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[EmployeeCalendar_GetUnavailRequestDate]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE OR ALTER PROCEDURE [dbo].[EmployeeCalendar_GetUnavailRequestDate] -- 245, '6/1/2014', '9/30/2014'
+﻿CREATE OR ALTER PROCEDURE [dbo].[EmployeeCalendar_GetUnavailRequestDate] -- 245, '6/1/2014', '9/30/2014'
 	@EmpId INT
 	,@fromDate DATETIME
 	,@toDate DATETIME

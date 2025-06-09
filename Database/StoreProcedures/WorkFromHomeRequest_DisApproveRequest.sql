@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[WorkFromHomeRequest_DisApproveRequest]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE OR ALTER PROCEDURE [dbo].[WorkFromHomeRequest_DisApproveRequest]
+﻿CREATE OR ALTER PROCEDURE [dbo].[WorkFromHomeRequest_DisApproveRequest]
     @WorkFromHomeRequestId INT,
     @ProcessedBy INT,
     @ErrCode INT = 0 OUTPUT,

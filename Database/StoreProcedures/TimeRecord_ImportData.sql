@@ -1,12 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[TimeRecord_ImportData]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE OR ALTER PROCEDURE [dbo].[TimeRecord_ImportData]
+ï»¿CREATE OR ALTER PROCEDURE [dbo].[TimeRecord_ImportData]
 	@ErrCode INT = 0 OUTPUT
 	,@ErrMsg NVARCHAR(200) = '' OUTPUT
 AS
@@ -18,7 +10,7 @@ Original:
 
 Revisions:    
 Param's Explanation:
-• @importdate: the date to import data
+ï¿½ @importdate: the date to import data
 */
 BEGIN
 	SET NOCOUNT ON

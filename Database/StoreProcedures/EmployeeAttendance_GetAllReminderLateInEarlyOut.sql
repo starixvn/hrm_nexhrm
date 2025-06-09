@@ -1,12 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[EmployeeAttendance_GetAllReminderLateInEarlyOut]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE OR ALTER PROCEDURE [dbo].[EmployeeAttendance_GetAllReminderLateInEarlyOut]
+﻿CREATE OR ALTER PROCEDURE [dbo].[EmployeeAttendance_GetAllReminderLateInEarlyOut]
 AS
 /*
 Created: 20230529@Brian.Nguyen

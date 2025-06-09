@@ -1,15 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Overtime_DeleteTransaction]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-/****** Object:  Stored Procedure dbo.Overtime_DeleteTransaction    Script Date: 3/13/2016 9:45:23 AM ******/
-
-CREATE OR ALTER PROCEDURE [dbo].[Overtime_DeleteTransaction]
+﻿CREATE OR ALTER PROCEDURE [dbo].[Overtime_DeleteTransaction]
 	@OvertimeId INT
 	,@ModifiedBy INT
 AS

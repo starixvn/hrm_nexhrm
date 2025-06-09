@@ -1,14 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Memo_Update]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-/****** Object:  Stored Procedure dbo.Memo_Update    Script Date: 3/13/2016 3:21:42 PM ******/
-
-CREATE OR ALTER PROCEDURE [dbo].[Memo_Update] @Id INT
+﻿CREATE OR ALTER PROCEDURE [dbo].[Memo_Update] @Id INT
     ,@RefNo NVARCHAR(50)
     ,@Contents NVARCHAR(MAX)
     ,@Subject NVARCHAR(4000)

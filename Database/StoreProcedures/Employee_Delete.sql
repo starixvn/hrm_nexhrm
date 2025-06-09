@@ -1,14 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Employee_Delete]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-
-CREATE OR ALTER PROCEDURE [dbo].[Employee_Delete] @employeeId INT
+﻿CREATE OR ALTER PROCEDURE [dbo].[Employee_Delete] @employeeId INT
     ,@ResignedDate SMALLDATETIME
 	,@ModifiedBy INT = NULL
     ,@ErrCode INT = 0 OUTPUT

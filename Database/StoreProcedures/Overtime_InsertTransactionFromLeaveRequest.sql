@@ -1,12 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Overtime_InsertTransactionFromLeaveRequest]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE OR ALTER PROCEDURE [dbo].[Overtime_InsertTransactionFromLeaveRequest] @RequestId INT
+﻿CREATE OR ALTER PROCEDURE [dbo].[Overtime_InsertTransactionFromLeaveRequest] @RequestId INT
 	,@EmployeeId INT
 	,@Date DATE
 	,@TotalDays NUMERIC(18, 1)

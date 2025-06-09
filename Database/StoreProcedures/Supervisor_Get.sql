@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Supervisor_Get]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
---[Supervisor_Get] ''
-CREATE OR ALTER PROCEDURE [dbo].[Supervisor_Get] 
+﻿CREATE OR ALTER PROCEDURE [dbo].[Supervisor_Get] 
     @keyword NVARCHAR(256),
     @groupId INT = NULL,
     @departmentId INT = NULL

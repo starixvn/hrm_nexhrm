@@ -1,12 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[History_Update]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE OR ALTER PROCEDURE [dbo].[History_Update] 
+ï»¿CREATE OR ALTER PROCEDURE [dbo].[History_Update] 
 	@Id INT
 	,@EmpId	INT
     ,@GroupId INT = NULL
@@ -26,10 +18,10 @@ Original:
 Revisions:  
 	- Remove check different from the current value for user init data
 Param's Explanation:
-• @ErrCode:
+ï¿½ @ErrCode:
     = 0: Transaction recorded successfully.
     > 0: Specific Error.
-• @ErrMsg: Error description.
+ï¿½ @ErrMsg: Error description.
 
 */
 BEGIN

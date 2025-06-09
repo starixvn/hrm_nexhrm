@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[LeaveConversion_Get]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE OR ALTER PROCEDURE [dbo].[LeaveConversion_Get] 
+ï»¿CREATE OR ALTER PROCEDURE [dbo].[LeaveConversion_Get] 
 	@FromDate DATETIME
 	,@ToDate DATETIME
 	,@Type TINYINT
@@ -22,10 +13,10 @@ Original:
 
 Revisions:  
 Param's Explanation:
-• @ErrCode:
+ï¿½ @ErrCode:
 	= 0: Transaction recorded successfully.
 	> 0: Specific Error.
-• @ErrMsg: Error description.
+ï¿½ @ErrMsg: Error description.
 
 */
 BEGIN

@@ -1,12 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Department_Update]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE OR ALTER PROCEDURE [dbo].[Department_Update] 
+ï»¿CREATE OR ALTER PROCEDURE [dbo].[Department_Update] 
     @DepartmentId    INT
     ,@Code VARCHAR(20)
     ,@Name VARCHAR(100)
@@ -26,10 +18,10 @@ Original:
 
 Revisions:  
 Param's Explanation:
-• @ErrCode:
+ï¿½ @ErrCode:
     = 0: Transaction recorded successfully.
     > 0: Specific Error.
-• @ErrMsg: Error description.
+ï¿½ @ErrMsg: Error description.
 
 */
 BEGIN

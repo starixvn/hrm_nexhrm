@@ -1,16 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Report_RequestMonitor]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-/*
---Report_RequestMonitor '2015/8/12', '2015/8/12',1, 3, 125
-*/
-CREATE OR ALTER PROCEDURE [dbo].[Report_RequestMonitor] @fromDate DATETIME
+ï»¿CREATE OR ALTER PROCEDURE [dbo].[Report_RequestMonitor] @fromDate DATETIME
     ,@toDate DATETIME
     ,@requestType INT = 0
     ,@maxRequest INT
@@ -115,7 +103,7 @@ BEGIN
         AND DATEDIFF(D, @fromdate, wk.FromDate) > = 0
         AND DATEDIFF(D, wk.FromDate, @toDate) > = 0
         AND cl.IsHoliday <> 1
-		AND cl.IsOffDay <> 1 -- l? or ngày cu?i tu?n
+		AND cl.IsOffDay <> 1 -- l? or ngï¿½y cu?i tu?n
     GROUP BY wk.EmpId
 
     INSERT INTO #LeaveRequestTimes (

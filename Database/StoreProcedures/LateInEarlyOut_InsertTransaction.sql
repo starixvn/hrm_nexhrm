@@ -1,14 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[LateInEarlyOut_InsertTransaction]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-/****** Object:  Stored Procedure dbo.LateInEarlyOut_InsertTransaction    Script Date: 3/13/2016 3:21:41 PM ******/
-
-CREATE OR ALTER PROCEDURE [dbo].[LateInEarlyOut_InsertTransaction] 
+﻿CREATE OR ALTER PROCEDURE [dbo].[LateInEarlyOut_InsertTransaction] 
     @EmpId INT
     ,@WorkDate DATE
     ,@LateIn INT

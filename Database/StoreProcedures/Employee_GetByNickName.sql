@@ -1,12 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Employee_GetByNickName]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE OR ALTER PROCEDURE [dbo].[Employee_GetByNickName] @NickName VARCHAR(50)
+﻿CREATE OR ALTER PROCEDURE [dbo].[Employee_GetByNickName] @NickName VARCHAR(50)
 AS
 /*
 Created: 20180829@Quinn.Vo

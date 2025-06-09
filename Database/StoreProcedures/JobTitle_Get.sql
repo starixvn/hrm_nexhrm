@@ -1,14 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[JobTitle_Get]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-
-CREATE OR ALTER PROCEDURE [dbo].[JobTitle_Get] @JobTitle NVARCHAR(100) = ''
+﻿CREATE OR ALTER PROCEDURE [dbo].[JobTitle_Get] @JobTitle NVARCHAR(100) = ''
 AS
 /*
 Created: 20160224@Quinn.Vo

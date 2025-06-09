@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Conversation_Update]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE OR ALTER PROCEDURE [dbo].[Conversation_Update]
+﻿CREATE OR ALTER PROCEDURE [dbo].[Conversation_Update]
 	@ConversationId INT
 	,@SkypeConversationId VARCHAR(255)
 	,@ConversationName NVARCHAR(255)

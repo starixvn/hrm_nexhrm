@@ -1,14 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[TimeRecord_ImportFromBioStar]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
--- [TimeRecord_ImportFromBioStar] '2020-06-30', '2020-07-01'
-
-CREATE OR ALTER PROCEDURE [dbo].[TimeRecord_ImportFromBioStar]
+﻿CREATE OR ALTER PROCEDURE [dbo].[TimeRecord_ImportFromBioStar]
 	@fromDate DATETIME
 	,@toDate DATETIME
 AS

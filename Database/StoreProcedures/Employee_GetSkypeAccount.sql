@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Employee_GetSkypeAccount]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE OR ALTER PROCEDURE [dbo].[Employee_GetSkypeAccount]
+﻿CREATE OR ALTER PROCEDURE [dbo].[Employee_GetSkypeAccount]
 	@EmployeeId INT = NULL
 	,@GroupId INT = NULL
 	,@IsConfirmed INT = NULL

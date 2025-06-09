@@ -1,12 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[AnnualLeave_DeleteTransaction]    Script Date: 6/9/2025 11:00:54 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE OR ALTER PROCEDURE [dbo].[AnnualLeave_DeleteTransaction] @LeaveTransactionId INT
+﻿CREATE OR ALTER PROCEDURE [dbo].[AnnualLeave_DeleteTransaction] @LeaveTransactionId INT
     ,@ModifiedBy INT
     ,@ErrCode INT = 0 OUTPUT
     ,@ErrMsg VARCHAR(200) = '' OUTPUT

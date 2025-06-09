@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[ExtensionNO_Update_GroupExternal]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE OR ALTER PROCEDURE [dbo].[ExtensionNO_Update_GroupExternal] @ExtID INT
+﻿CREATE OR ALTER PROCEDURE [dbo].[ExtensionNO_Update_GroupExternal] @ExtID INT
 	,@FullName NVARCHAR(200) = NULL
 	,@ErrCode INT = 0 OUTPUT
 	,@ErrMsg VARCHAR(200) = '' OUTPUT

@@ -1,14 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Report_GetLateInEarlyOutDetail]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-/****** Object:  Stored Procedure dbo.Report_GetLateInEarlyOutDetail    Script Date: 3/13/2016 3:21:42 PM ******/
-
-CREATE OR ALTER PROCEDURE [dbo].[Report_GetLateInEarlyOutDetail] --'2015-08-01', '2015-08-31'
+﻿CREATE OR ALTER PROCEDURE [dbo].[Report_GetLateInEarlyOutDetail] --'2015-08-01', '2015-08-31'
     @FromDate DATETIME
     ,@ToDate DATETIME
     ,@GroupId INT = NULL

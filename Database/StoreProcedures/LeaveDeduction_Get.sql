@@ -1,12 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[LeaveDeduction_Get]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE OR ALTER PROCEDURE [dbo].[LeaveDeduction_Get] 
+ï»¿CREATE OR ALTER PROCEDURE [dbo].[LeaveDeduction_Get] 
 	@FromDate DATETIME
 	,@ToDate DATETIME
 	,@GroupId INT = NULL
@@ -20,10 +12,10 @@ Original:
 
 Revisions:  
 Param's Explanation:
-• @ErrCode:
+ï¿½ @ErrCode:
 	= 0: Transaction recorded successfully.
 	> 0: Specific Error.
-• @ErrMsg: Error description.
+ï¿½ @ErrMsg: Error description.
 
 */
 BEGIN

@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[SyncData_GetDepartmentByLastModifiedDate]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE OR ALTER PROCEDURE [dbo].[SyncData_GetDepartmentByLastModifiedDate] @LastModifiedDate DATETIME
+﻿CREATE OR ALTER PROCEDURE [dbo].[SyncData_GetDepartmentByLastModifiedDate] @LastModifiedDate DATETIME
 AS
 /*
 Created: 20201126@Oliver.Dang

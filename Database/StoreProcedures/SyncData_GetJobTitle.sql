@@ -1,14 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[SyncData_GetJobTitle]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-
-CREATE OR ALTER PROCEDURE [dbo].[SyncData_GetJobTitle]
+﻿CREATE OR ALTER PROCEDURE [dbo].[SyncData_GetJobTitle]
 AS
 /*
 Created: 20201130@Oliver.Dang

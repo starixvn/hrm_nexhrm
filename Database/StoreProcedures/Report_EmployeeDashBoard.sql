@@ -1,17 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Report_EmployeeDashBoard]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-/****** Object:  Stored Procedure dbo.Report_EmployeeDashBoard    Script Date: 3/15/2016 10:01:07 AM ******/
-
-/*
---set @empid= 165--165--143
-[Report_EmployeeDashBoard] 125
-*/
-CREATE OR ALTER PROCEDURE [dbo].[Report_EmployeeDashBoard] @EmpId INT
+﻿CREATE OR ALTER PROCEDURE [dbo].[Report_EmployeeDashBoard] @EmpId INT
 AS
 /*
 Created: 20150817@Quinn.Vo

@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[History_Delete]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE OR ALTER PROCEDURE [dbo].[History_Delete]
+﻿CREATE OR ALTER PROCEDURE [dbo].[History_Delete]
 	@Id INT,
     @ErrCode INT = 0 OUTPUT,
     @ErrMsg VARCHAR(200) = '' OUTPUT

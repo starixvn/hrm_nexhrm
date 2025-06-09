@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[EmployeeAttendance_GetEmployeeReachedWorkingTime]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE OR ALTER PROCEDURE [dbo].[EmployeeAttendance_GetEmployeeReachedWorkingTime]
+﻿CREATE OR ALTER PROCEDURE [dbo].[EmployeeAttendance_GetEmployeeReachedWorkingTime]
 AS
 /*
 Created: 20190508@Quinn.Vo

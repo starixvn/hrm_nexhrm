@@ -1,12 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Employee_GetEmployees]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE OR ALTER PROCEDURE [dbo].[Employee_GetEmployees] @query NVARCHAR(256)
+﻿CREATE OR ALTER PROCEDURE [dbo].[Employee_GetEmployees] @query NVARCHAR(256)
     ,@groupId INT = NULL
     ,@departmentId INT = NULL
     ,@jobTitleId INT = NULL

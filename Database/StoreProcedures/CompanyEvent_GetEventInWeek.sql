@@ -1,12 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[CompanyEvent_GetEventInWeek]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE OR ALTER PROCEDURE [dbo].[CompanyEvent_GetEventInWeek]
+﻿CREATE OR ALTER PROCEDURE [dbo].[CompanyEvent_GetEventInWeek]
 AS
 /*
 Created: 20160512@Harvey.Nguyen

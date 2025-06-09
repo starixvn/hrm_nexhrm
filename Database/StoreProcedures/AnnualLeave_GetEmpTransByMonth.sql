@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[AnnualLeave_GetEmpTransByMonth]    Script Date: 6/9/2025 11:00:54 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE OR ALTER PROCEDURE [dbo].[AnnualLeave_GetEmpTransByMonth] @EmpId INT
+﻿CREATE OR ALTER PROCEDURE [dbo].[AnnualLeave_GetEmpTransByMonth] @EmpId INT
     ,@Year INT
     ,@Month INT
 AS

@@ -1,11 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Overtime_UpdateConversion]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE OR ALTER PROCEDURE [dbo].[Overtime_UpdateConversion]
+﻿CREATE OR ALTER PROCEDURE [dbo].[Overtime_UpdateConversion]
     @modifiedBy     INT
     ,@id            INT
     ,@deduct        NUMERIC (18, 1)

@@ -1,23 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Report_MonthlyAttendance]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-/*
-declare @fromtime datetime, @totime datetime, @empid int, @groupid int 
-
-set @fromtime ='2012/04/1'
-set @totime ='2012/04/30'
-
---set @empid= 144
-set @groupid= 1
-exec dbo.Report_MonthlyAttendance @fromtime , @totime , @empid, @groupid
-*/
-
-CREATE OR ALTER PROCEDURE [dbo].[Report_MonthlyAttendance]
+﻿CREATE OR ALTER PROCEDURE [dbo].[Report_MonthlyAttendance]
 	@fromtime datetime, 
 	@totime datetime, 
 	@empid int = null, 	

@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Overtime_VoidRequest]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE OR ALTER PROCEDURE [dbo].[Overtime_VoidRequest] 
+﻿CREATE OR ALTER PROCEDURE [dbo].[Overtime_VoidRequest] 
 	@Id INT
     ,@ModifiedBy INT
     ,@ErrCode INT = 0 OUTPUT

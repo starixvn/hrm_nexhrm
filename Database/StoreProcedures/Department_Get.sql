@@ -1,12 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Department_Get]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE OR ALTER PROCEDURE [dbo].[Department_Get]
+﻿CREATE OR ALTER PROCEDURE [dbo].[Department_Get]
 	@ParentId INT = NULL
 	,@IsDisabled BIT = NULL
 	,@IsSpecial BIT = NULL

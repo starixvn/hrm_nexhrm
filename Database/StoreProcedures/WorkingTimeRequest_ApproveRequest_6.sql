@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[WorkingTimeRequest_ApproveRequest_6]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE OR ALTER PROCEDURE [dbo].[WorkingTimeRequest_ApproveRequest_6] @RequestID BIGINT
+﻿CREATE OR ALTER PROCEDURE [dbo].[WorkingTimeRequest_ApproveRequest_6] @RequestID BIGINT
 	,@EmpId INT
 	,@ApprovedBy INT
 	,@ApprovedDate DATETIME

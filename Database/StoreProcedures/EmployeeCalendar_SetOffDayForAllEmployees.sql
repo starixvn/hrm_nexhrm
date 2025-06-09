@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[EmployeeCalendar_SetOffDayForAllEmployees]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
--- EmployeeCalendar_SetOffDayForAllEmployees '2012/07/02',0, 128 , '2012/07/19 11:11'
-
-CREATE OR ALTER PROCEDURE [dbo].[EmployeeCalendar_SetOffDayForAllEmployees]
+﻿CREATE OR ALTER PROCEDURE [dbo].[EmployeeCalendar_SetOffDayForAllEmployees]
 	@date datetime,
 	@isOffDay bit,
 	@ModifiedBy int,

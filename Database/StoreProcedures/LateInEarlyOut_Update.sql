@@ -1,19 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[LateInEarlyOut_Update]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-/****** Object:  Stored Procedure dbo.LateInEarlyOut_Update    Script Date: 3/13/2016 3:21:41 PM ******/
-
--- =============================================
--- Author:        Harvey.Nguyen
--- Create date:    19/02/2016
--- Description:    Task "LateIn/EarlyOut Notification"
--- =============================================
-CREATE OR ALTER PROCEDURE [dbo].[LateInEarlyOut_Update] @Id INT
+﻿CREATE OR ALTER PROCEDURE [dbo].[LateInEarlyOut_Update] @Id INT
     ,@WorkDate DATETIME
     ,@Type TINYINT
     ,@Minutes TINYINT

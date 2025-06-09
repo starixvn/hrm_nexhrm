@@ -1,11 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Employee_GetMissedLogTime]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE OR ALTER PROCEDURE [dbo].[Employee_GetMissedLogTime]
+﻿CREATE OR ALTER PROCEDURE [dbo].[Employee_GetMissedLogTime]
     @FromDate DATE = NULL,
     @ToDate DATE = NULL
 AS

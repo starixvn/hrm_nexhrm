@@ -1,15 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[History_Get]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-
-
-CREATE OR ALTER PROCEDURE [dbo].[History_Get] @FromDate DATETIME
+﻿CREATE OR ALTER PROCEDURE [dbo].[History_Get] @FromDate DATETIME
     ,@ToDate DATETIME
     ,@GroupId INT = NULL
 	,@EmpId INT = NULL

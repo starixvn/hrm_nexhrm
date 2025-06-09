@@ -1,14 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[WorkingTimeRequest_GetNumberRequestInMonth]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-/****** Object:  Stored Procedure dbo.WorkingTimeRequest_GetNumberRequestInMonth    Script Date: 3/13/2016 3:21:43 PM ******/
--- [dbo].[WorkingTimeRequest_GetNumberRequestInMonth] 125, '2015-07-01', '2015-07-31', 6
-CREATE OR ALTER PROCEDURE [dbo].[WorkingTimeRequest_GetNumberRequestInMonth]
+﻿CREATE OR ALTER PROCEDURE [dbo].[WorkingTimeRequest_GetNumberRequestInMonth]
     @empId INT
     ,@fromDate DATETIME
     ,@toDate DATETIME

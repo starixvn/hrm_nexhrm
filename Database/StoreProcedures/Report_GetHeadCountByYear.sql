@@ -1,18 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Report_GetHeadCountByYear]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-
-
-/*
---Report_RequestMonitor '2015/8/12', '2015/8/12',1, 3, 125
-*/
-CREATE OR ALTER PROCEDURE [dbo].[Report_GetHeadCountByYear]
+﻿CREATE OR ALTER PROCEDURE [dbo].[Report_GetHeadCountByYear]
 	 @startDateOfYear DATETIME
     ,@endDateOfYear DATETIME
 AS

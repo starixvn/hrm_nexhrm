@@ -1,17 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[EmployeePostnatal_GetAll]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
--- =============================================
--- Author:        Harvey.Nguyen
--- Create date:    26/02/2016
--- Task:            Implement "Employee Postnatal"
--- =============================================
-CREATE OR ALTER PROCEDURE [dbo].[EmployeePostnatal_GetAll] @EmpId INT
+﻿CREATE OR ALTER PROCEDURE [dbo].[EmployeePostnatal_GetAll] @EmpId INT
     ,@Year INT
 AS
 BEGIN

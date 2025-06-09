@@ -1,12 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[EmployeeCalendar_GetChangedShift]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
--- EmployeeCalendar_GetChangedShift '2012/06/6'
-CREATE OR ALTER PROCEDURE [dbo].[EmployeeCalendar_GetChangedShift]
+﻿CREATE OR ALTER PROCEDURE [dbo].[EmployeeCalendar_GetChangedShift]
 	@reportDate datetime,
 	@employeeId int = null,
 	@groupid int = null

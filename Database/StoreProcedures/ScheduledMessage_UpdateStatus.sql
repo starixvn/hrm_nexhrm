@@ -1,12 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[ScheduledMessage_UpdateStatus]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE OR ALTER PROCEDURE [dbo].[ScheduledMessage_UpdateStatus]
+﻿CREATE OR ALTER PROCEDURE [dbo].[ScheduledMessage_UpdateStatus]
 	@ScheduledMessageIds VARCHAR(MAX)
 	,@ErrCode INT = 0 OUTPUT
     ,@ErrMsg VARCHAR(200) = '' OUTPUT

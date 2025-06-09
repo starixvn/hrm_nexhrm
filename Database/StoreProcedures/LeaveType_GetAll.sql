@@ -1,18 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[LeaveType_GetAll]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-/****** Object:  Stored Procedure dbo.LeaveType_GetAll    Script Date: 3/13/2016 3:21:41 PM ******/
--- =============================================
--- Author:        <Author,,Name>
--- Create date: <Create Date,,>
--- Description:    <Description,,>
--- =============================================
-CREATE OR ALTER PROCEDURE [dbo].[LeaveType_GetAll]
+﻿CREATE OR ALTER PROCEDURE [dbo].[LeaveType_GetAll]
     @ExcludeNotShown bit = null
 AS
 BEGIN

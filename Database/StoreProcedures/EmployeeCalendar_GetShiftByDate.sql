@@ -1,17 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[EmployeeCalendar_GetShiftByDate]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
--- =============================================
--- Author:		<Author,,Name>
--- Create date: <Create Date,,>
--- Description:	<Description,,>
--- =============================================
-CREATE OR ALTER PROCEDURE [dbo].[EmployeeCalendar_GetShiftByDate]
+﻿CREATE OR ALTER PROCEDURE [dbo].[EmployeeCalendar_GetShiftByDate]
 	-- Add the parameters for the stored procedure here
 	@employeeId int,
 	@date datetime

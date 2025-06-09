@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Conversation_GetByCreator]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE OR ALTER PROCEDURE [dbo].[Conversation_GetByCreator]
+﻿CREATE OR ALTER PROCEDURE [dbo].[Conversation_GetByCreator]
 	@CreatedBy INT
 AS
 /*

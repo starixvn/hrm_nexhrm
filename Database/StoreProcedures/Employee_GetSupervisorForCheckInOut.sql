@@ -1,16 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Employee_GetSupervisorForCheckInOut]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-
-
-
-CREATE OR ALTER PROCEDURE [dbo].[Employee_GetSupervisorForCheckInOut] 
+﻿CREATE OR ALTER PROCEDURE [dbo].[Employee_GetSupervisorForCheckInOut] 
 	@employeeId INT
 	,@IsStandbyAtWeekend BIT 
 AS

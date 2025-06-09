@@ -1,14 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[TimeRecord_EditInsertCheckInOutTime]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-
-CREATE OR ALTER PROCEDURE [dbo].[TimeRecord_EditInsertCheckInOutTime] @EmpId INT
+ï»¿CREATE OR ALTER PROCEDURE [dbo].[TimeRecord_EditInsertCheckInOutTime] @EmpId INT
 	,@RecordTime DATETIME
 	,@InOutType TINYINT
 	,@Platform VARCHAR(255)
@@ -27,10 +17,10 @@ Original:
 
 Revisions:  
 Param's Explanation:
-• @ErrCode:
+ï¿½ @ErrCode:
 	= 0: Transaction recorded successfully.
 	> 0: Specific Error.
-• @ErrMsg: Error description.
+ï¿½ @ErrMsg: Error description.
 
 */
 BEGIN

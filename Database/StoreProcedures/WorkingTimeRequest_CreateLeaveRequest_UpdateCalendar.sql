@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[WorkingTimeRequest_CreateLeaveRequest_UpdateCalendar]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE OR ALTER PROCEDURE [dbo].[WorkingTimeRequest_CreateLeaveRequest_UpdateCalendar] 
+﻿CREATE OR ALTER PROCEDURE [dbo].[WorkingTimeRequest_CreateLeaveRequest_UpdateCalendar] 
 	@RequestId BIGINT
 	,@EmpId INT
 	,@LeaveTypeId INT

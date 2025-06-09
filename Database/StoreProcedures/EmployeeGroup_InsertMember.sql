@@ -1,11 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[EmployeeGroup_InsertMember]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE OR ALTER PROCEDURE [dbo].[EmployeeGroup_InsertMember]
+﻿CREATE OR ALTER PROCEDURE [dbo].[EmployeeGroup_InsertMember]
 	@EmpId INT
    ,@GroupId INT
    ,@isMainGroup bit

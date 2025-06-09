@@ -1,11 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[DBA_ReIndex]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE OR ALTER PROCEDURE [dbo].[DBA_ReIndex]
+﻿CREATE OR ALTER PROCEDURE [dbo].[DBA_ReIndex]
 AS
 -- Joe : reorganize all index with fragment > 30%
 -- Dan: reorganize all index with fragment > 10 %, rebuild for fragment > 30 %

@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[EmployeeAttendance_ProcessingAndInsert_ForShift]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE OR ALTER PROCEDURE [dbo].[EmployeeAttendance_ProcessingAndInsert_ForShift]
+﻿CREATE OR ALTER PROCEDURE [dbo].[EmployeeAttendance_ProcessingAndInsert_ForShift]
 	@empId INT
 	,@WorkDate DATETIME
 	,@IsLeaveDay BIT

@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[EmployeeAttendance_GetByType]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE OR ALTER PROCEDURE [dbo].[EmployeeAttendance_GetByType] @fromtime DATETIME
+﻿CREATE OR ALTER PROCEDURE [dbo].[EmployeeAttendance_GetByType] @fromtime DATETIME
     ,@totime DATETIME
     ,@type SMALLINT
     ,@empid INT = NULL

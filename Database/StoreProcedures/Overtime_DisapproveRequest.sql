@@ -1,16 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Overtime_DisapproveRequest]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-
-/****** Object:  Stored Procedure dbo.Overtime_DisapproveRequest    Script Date: 3/13/2016 3:21:42 PM ******/
-
-CREATE OR ALTER PROCEDURE [dbo].[Overtime_DisapproveRequest] 
+﻿CREATE OR ALTER PROCEDURE [dbo].[Overtime_DisapproveRequest] 
 	@Id INT
     ,@ModifiedBy INT
     ,@ErrCode INT = 0 OUTPUT

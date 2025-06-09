@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Employee_GetSubTeam]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
--- Employee_GetSubTeam 165
-
-CREATE OR ALTER PROCEDURE [dbo].[Employee_GetSubTeam]
+﻿CREATE OR ALTER PROCEDURE [dbo].[Employee_GetSubTeam]
 	-- Add the parameters for the stored procedure here
 	@empId int
 AS

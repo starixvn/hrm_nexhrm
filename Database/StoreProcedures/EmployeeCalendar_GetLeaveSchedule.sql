@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[EmployeeCalendar_GetLeaveSchedule]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE OR ALTER PROCEDURE [dbo].[EmployeeCalendar_GetLeaveSchedule]
+ï»¿CREATE OR ALTER PROCEDURE [dbo].[EmployeeCalendar_GetLeaveSchedule]
     @FromDate DATETIME
     ,@ToDate DATETIME
     ,@EmployeeId INT = NULL
@@ -35,7 +26,7 @@ BEGIN
        ,(CASE 
             WHEN cl.isHoliday = 1 THEN 'PH'
             WHEN isOffday = 1 THEN 'OFF'
-            WHEN LeaveDay = 0.5 THEN '½'
+            WHEN LeaveDay = 0.5 THEN 'ï¿½'
 			WHEN LeaveDay = 1 THEN 'x'
             ELSE ''
             END) AS LeaveType

@@ -1,12 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[CompanyEvent_Update]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE OR ALTER PROCEDURE [dbo].[CompanyEvent_Update] @Id INT
+﻿CREATE OR ALTER PROCEDURE [dbo].[CompanyEvent_Update] @Id INT
 	,@Title NVARCHAR(150)
 	,@FromDate DATE
 	,@ToDate DATE

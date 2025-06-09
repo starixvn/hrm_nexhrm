@@ -1,12 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[EmployeeAttendance_GetCheckOutTimeToNotify]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE OR ALTER PROCEDURE [dbo].[EmployeeAttendance_GetCheckOutTimeToNotify] 
+ï»¿CREATE OR ALTER PROCEDURE [dbo].[EmployeeAttendance_GetCheckOutTimeToNotify] 
 AS
 /*
 Created: 20240422@Oliver.Dang
@@ -26,7 +18,7 @@ BEGIN
 			@ToTime DATETIME = DATEADD(MINUTE, 5, @Today)
 	
 	--SELECT 363 as EmployeeId
-	--	 ,'Ð?ng Hoàng H?i' as FullName
+	--	 ,'ï¿½?ng Hoï¿½ng H?i' as FullName
 	--	 ,'Oliver' as NickName
 	--	 ,'a:1n1E_0q_MKn87JQjFcY4cUNN8zGV6bvS6Ro3r0hpxJajXRv7DkQBzWHTghLeJvPKBqYJxjzjx6LihOgdnKeIwPOg1WDfpOvdOnS5seek_idXMyy820POpN8W3EaPgvoIL' as ConversationId
 	--	 ,'2024-04-24 17:42:00' as CheckOutTime

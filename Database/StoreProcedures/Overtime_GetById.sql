@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Overtime_GetById]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE OR ALTER PROCEDURE [dbo].[Overtime_GetById] @Id INT
+﻿CREATE OR ALTER PROCEDURE [dbo].[Overtime_GetById] @Id INT
 AS
 /*
 Created: 20160129@Razor.Nguyen

@@ -1,14 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[TimeRecord_Get]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-
-CREATE OR ALTER PROCEDURE [dbo].[TimeRecord_Get] @EmpID INT = NULL
+﻿CREATE OR ALTER PROCEDURE [dbo].[TimeRecord_Get] @EmpID INT = NULL
 	,@fromDate DATETIME
 	,@toDate DATETIME
 	,@groupIds VARCHAR(MAX) = ''

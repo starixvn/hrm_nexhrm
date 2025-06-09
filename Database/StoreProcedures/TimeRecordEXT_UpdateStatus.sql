@@ -1,14 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[TimeRecordEXT_UpdateStatus]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-
-CREATE OR ALTER PROCEDURE [dbo].[TimeRecordEXT_UpdateStatus] @EmpId INT
+﻿CREATE OR ALTER PROCEDURE [dbo].[TimeRecordEXT_UpdateStatus] @EmpId INT
 	,@FromDate DATE
 	,@ToDate DATE
 	,@Status TINYINT

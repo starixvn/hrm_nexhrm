@@ -1,14 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[EmployeeCalendar_Insert]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-
-CREATE OR ALTER PROCEDURE [dbo].[EmployeeCalendar_Insert] @empid INT = NULL
+﻿CREATE OR ALTER PROCEDURE [dbo].[EmployeeCalendar_Insert] @empid INT = NULL
 	,@fromdate DATETIME
 	,@todate DATETIME
 	,@setOffDay BIT = 0

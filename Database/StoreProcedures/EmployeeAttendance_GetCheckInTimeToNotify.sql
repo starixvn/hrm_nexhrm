@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[EmployeeAttendance_GetCheckInTimeToNotify]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE OR ALTER PROCEDURE [dbo].[EmployeeAttendance_GetCheckInTimeToNotify] 
+﻿CREATE OR ALTER PROCEDURE [dbo].[EmployeeAttendance_GetCheckInTimeToNotify] 
 AS
 /*
 Created: 20240701@Oliver.Dang

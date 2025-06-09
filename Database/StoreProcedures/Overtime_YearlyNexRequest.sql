@@ -1,12 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Overtime_YearlyNexRequest]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE OR ALTER PROCEDURE [dbo].[Overtime_YearlyNexRequest] @year INT
+﻿CREATE OR ALTER PROCEDURE [dbo].[Overtime_YearlyNexRequest] @year INT
 	,@employeeId INT = NULL
 	,@groupId INT = NULL
 AS

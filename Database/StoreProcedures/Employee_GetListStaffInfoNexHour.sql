@@ -1,13 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Employee_GetListStaffInfoNexHour]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE OR ALTER PROCEDURE [dbo].[Employee_GetListStaffInfoNexHour] @ExcelData NVARCHAR(MAX)
+﻿CREATE OR ALTER PROCEDURE [dbo].[Employee_GetListStaffInfoNexHour] @ExcelData NVARCHAR(MAX)
 AS
 /*
 Created: 20240702@Brian.Nguyen

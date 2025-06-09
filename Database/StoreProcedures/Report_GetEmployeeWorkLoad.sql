@@ -1,15 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Report_GetEmployeeWorkLoad]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-
---Exec [Report_GetEmployeeWorkLoad] '2018/07/01','2018/07/10', 8, 1
-CREATE OR ALTER PROCEDURE [dbo].[Report_GetEmployeeWorkLoad]
+﻿CREATE OR ALTER PROCEDURE [dbo].[Report_GetEmployeeWorkLoad]
 	@FromDate DATETIME
 	,@ToDate DATETIME
 	,@GroupId INT

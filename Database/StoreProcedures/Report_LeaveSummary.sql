@@ -1,20 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[Report_LeaveSummary]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-/****** Object:  Stored Procedure dbo.Report_LeaveSummary    Script Date: 3/13/2016 3:21:43 PM ******/
-
-/*
-declare @empid int, @groupid int,
-        @todate datetime, @year datetime
-set @todate = '2012/06/1'
-exec Report_LeaveSummary @empid , @groupid, 2012
-*/
-CREATE OR ALTER PROCEDURE [dbo].[Report_LeaveSummary] @empid INT = NULL
+﻿CREATE OR ALTER PROCEDURE [dbo].[Report_LeaveSummary] @empid INT = NULL
     ,@groupid INT = NULL
     ,@year INT
 AS

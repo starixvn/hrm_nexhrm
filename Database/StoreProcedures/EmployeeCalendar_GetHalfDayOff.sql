@@ -1,12 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[EmployeeCalendar_GetHalfDayOff]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
--- EmployeeCalendar_GetHalfDayOff '2012/06/6'
-CREATE OR ALTER PROCEDURE [dbo].[EmployeeCalendar_GetHalfDayOff]
+﻿CREATE OR ALTER PROCEDURE [dbo].[EmployeeCalendar_GetHalfDayOff]
 	@reportDate datetime,
 	@employeeId int = null,
 	@groupid int = null

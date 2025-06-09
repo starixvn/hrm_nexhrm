@@ -1,16 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[WorkingTimeRequest_WriteHistory]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-/****** Object:  Stored Procedure dbo.WorkingTimeRequest_WriteHistory    Script Date: 3/13/2016 3:21:44 PM ******/
--- [WorkingTimeRequest_WriteHistory] 316
-
-CREATE OR ALTER PROCEDURE [dbo].[WorkingTimeRequest_WriteHistory]    
+﻿CREATE OR ALTER PROCEDURE [dbo].[WorkingTimeRequest_WriteHistory]    
     @RequestID bigint
 AS
 /*

@@ -1,11 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[ScheduledMessage_GetMessagesToProcess]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE OR ALTER PROCEDURE [dbo].[ScheduledMessage_GetMessagesToProcess]
+﻿CREATE OR ALTER PROCEDURE [dbo].[ScheduledMessage_GetMessagesToProcess]
     @FromDate DATETIME
     ,@ToDate DATETIME
 AS

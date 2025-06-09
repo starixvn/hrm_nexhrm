@@ -1,12 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[EmployeeManagementGrade_Get]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE OR ALTER PROCEDURE [dbo].[EmployeeManagementGrade_Get] 
+﻿CREATE OR ALTER PROCEDURE [dbo].[EmployeeManagementGrade_Get] 
 	 @GroupId INT = NULL
 	,@EmployeeId INT = NULL
 	,@IsOnlyCurrentUsed BIT = 1

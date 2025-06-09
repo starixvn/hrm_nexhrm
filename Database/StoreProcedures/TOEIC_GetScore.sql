@@ -1,15 +1,4 @@
-USE [NexHRM]
-GO
-/****** Object:  StoredProcedure [dbo].[TOEIC_GetScore]    Script Date: 6/9/2025 11:00:55 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-
-
-CREATE OR ALTER PROCEDURE [dbo].[TOEIC_GetScore] @empId INT
+﻿CREATE OR ALTER PROCEDURE [dbo].[TOEIC_GetScore] @empId INT
 AS
 /*
 Created: 
