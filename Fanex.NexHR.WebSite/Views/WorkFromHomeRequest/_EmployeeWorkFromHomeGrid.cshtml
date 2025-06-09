@@ -74,7 +74,7 @@
                         <td></td>
                     }
                     <td>@request.CreatedBy</td>
-                    <td>@request.CreatedDate.ToClientTimeZone().ToFormatedDate()</td>
+                    <td>@request.CreatedDate.ToFormatedDate()</td>
                     @{
                         switch (request.StatusId)
                         {
@@ -88,7 +88,7 @@
                             case 2: //Approve
                                 <td>
                                     <a workFromHomeRequestId="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip c-approve"
-                                       title="@request.Status by @request.ProcessedBy (@request.ProcessedDate.ToClientTimeZone().ToShortFormatedDate())">
+                                       title="@request.Status by @request.ProcessedBy (@request.ProcessedDate.ToShortFormatedDate())">
                                         @request.Status.ToString()
                                     </a>
                                 </td>
@@ -96,7 +96,7 @@
                             case 3: //Reject
                                 <td>
                                     <a workFromHomeRequestId="@request.Id" href="javascript:;" class="tooltip"
-                                       title="@request.Status by @request.ProcessedBy (@request.ProcessedDate.ToClientTimeZone().ToShortFormatedDate())">
+                                       title="@request.Status by @request.ProcessedBy (@request.ProcessedDate.ToShortFormatedDate())">
                                         @request.Status.ToString()
                                     </a>
                                 </td>
