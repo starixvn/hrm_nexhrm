@@ -1,4 +1,5 @@
 ﻿using System;
+using Fanex.NexHR.Core;
 
 namespace Fanex.NexHR.Models.RedmineAPI
 {
@@ -32,7 +33,7 @@ namespace Fanex.NexHR.Models.RedmineAPI
             {
                 if (DueDate.HasValue)
                 {
-                    return DueDate < DateTimeOffset.Now.Date;
+                    return DueDate < DateTimeOffset.Now.DateTime.ToClientTimeZone().Date;
                 }
 
                 return false;

@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.ViewModels.Overtime
 {
     using Core.Enums;
+    using Fanex.NexHR.Core;
     using Models.Overtime;
     using Resources;
     using System;
@@ -13,7 +14,7 @@
 
         public CreateOvertimeViewModel()
         {
-            Date = DateTimeOffset.Now.DateTime;
+            Date = DateTimeOffset.Now.DateTime.ToClientTimeZone();
             Status = (int)RequestStatuse.Pending;
             TimeSheets = new List<OvertimeRecord>();
         }

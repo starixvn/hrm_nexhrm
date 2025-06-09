@@ -30,10 +30,10 @@
 
         public async Task<CommandResult> SendMessageLogTimeRemindAsync()
         {
-            var yesterday = DateTimeOffset.Now.DateTime.AddDays(-1);
-            if (DateTimeOffset.Now.DayOfWeek == DayOfWeek.Monday)
+            var yesterday = DateTimeOffset.Now.DateTime.ToClientTimeZone().AddDays(-1);
+            if (DateTimeOffset.Now.DateTime.ToClientTimeZone().DayOfWeek == DayOfWeek.Monday)
             {
-                yesterday = DateTimeOffset.Now.DateTime.AddDays(-3);
+                yesterday = DateTimeOffset.Now.DateTime.ToClientTimeZone().AddDays(-3);
             }
             var employees = await employeeService.GetEmployeesMissedLogTime().ConfigureAwait(false);
             var ignoreEmployees = (appSetting.IgnoreEmployeeLogTime ?? "").Split(',');

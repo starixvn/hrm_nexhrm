@@ -2,17 +2,18 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using Fanex.NexHR.Core;
     using Resources;
 
     public class MemberOvertimeViewModel
     {
         public MemberOvertimeViewModel()
         {
-            FromDate = new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
-            ToDate = DateTimeOffset.Now.DateTime;
+            FromDate = new DateTimeOffset(DateTimeOffset.Now.DateTime.ToClientTimeZone().Year, DateTimeOffset.Now.DateTime.ToClientTimeZone().Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
+            ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone();
             Status = 0;
-            FromDateOT = new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
-            ToDateOT = DateTimeOffset.Now.DateTime;
+            FromDateOT = new DateTimeOffset(DateTimeOffset.Now.DateTime.ToClientTimeZone().Year, DateTimeOffset.Now.DateTime.ToClientTimeZone().Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
+            ToDateOT = DateTimeOffset.Now.DateTime.ToClientTimeZone();
         }
 
         public int? OvertimeId { get; set; }

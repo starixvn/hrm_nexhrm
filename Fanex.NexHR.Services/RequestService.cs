@@ -202,7 +202,7 @@
                     {
                         RequestId = id,
                         ModifiedBy = processBy,
-                        ModifiedDate = DateTimeOffset.Now.DateTime
+                        ModifiedDate = DateTimeOffset.Now.DateTime.ToClientTimeZone()
                     };
                     break;
 
@@ -211,7 +211,7 @@
                     {
                         RequestId = id,
                         ProcessedBy = processBy,
-                        ProcessedDate = DateTimeOffset.Now.DateTime
+                        ProcessedDate = DateTimeOffset.Now.DateTime.ToClientTimeZone()
                     };
                     break;
 
@@ -220,7 +220,7 @@
                     {
                         RequestId = id,
                         ApprovedBy = processBy,
-                        ApprovedDate = DateTimeOffset.Now.DateTime
+                        ApprovedDate = DateTimeOffset.Now.DateTime.ToClientTimeZone()
                     };
                     break;
             }

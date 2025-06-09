@@ -47,7 +47,7 @@
 
         public async Task<CommandResult> ReminderBirthdayAndFirstWorkingday()
         {
-            var today = DateTimeOffset.Now.DateTime;
+            var today = DateTimeOffset.Now.DateTime.ToClientTimeZone();
             const int secondDay = 2;
 
             if (!AllowSendMailReminderBirthday || today.DayOfWeek == DayOfWeek.Saturday)

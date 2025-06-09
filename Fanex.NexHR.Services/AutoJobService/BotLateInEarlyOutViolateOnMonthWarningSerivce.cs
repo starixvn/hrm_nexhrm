@@ -51,10 +51,11 @@
         public async Task<CommandResult> SendMessageViolateOnMonthAsync()
         {
             var result = new CommandResult { Code = 0 };
+            var now = DateTimeOffset.Now.DateTime.ToClientTimeZone();
             var criteria = new GetLateInEarlyOutViolaterOnCurrentMonthCriteria
             {
-                Month = DateTimeOffset.Now.Day == 1 ? (DateTimeOffset.Now.Month - 1) : DateTimeOffset.Now.Month,
-                Year = DateTimeOffset.Now.Year
+                Month = now.Day == 1 ? (now.Month - 1) : now.Month,
+                Year = now.Year
             };
 
             var violaters = await lateInEarlyOutService.GetLateInEarlyOutViolateOnMonth(criteria).ConfigureAwait(false);
@@ -76,10 +77,11 @@
 
         public async Task<CommandResult> SendMessageViolateDisciplineAsync()
         {
+            var now = DateTimeOffset.Now.DateTime.ToClientTimeZone();
             var result = new CommandResult { Code = 0 };
-            var toDate = new DateTimeOffset(DateTimeOffset.Now.Year,
-                                            DateTimeOffset.Now.Month,
-                                            DateTime.DaysInMonth(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month), 0, 0, 0, TimeSpan.Zero).DateTime;
+            var toDate = new DateTimeOffset(now.Year,
+                                            now.Month,
+                                            DateTime.DaysInMonth(now.Year, now.Month), 0, 0, 0, TimeSpan.Zero).DateTime;
             var fromDate = toDate.AddYears(-1).AddDays(1);
 
             var criteria = new GetViolateLateInEarlyOutDisciplineCriteria
@@ -107,7 +109,7 @@
         public async Task<CommandResult> SendMessageDeductAsync()
         {
             var result = new CommandResult { Code = 0 };
-            var criteria = new GetLateInEarlyOutDeductionCriteria { Year = DateTimeOffset.Now.Year };
+            var criteria = new GetLateInEarlyOutDeductionCriteria { Year = DateTimeOffset.Now.DateTime.ToClientTimeZone().Year };
             var deductedEmployees = await lateInEarlyOutService.GetLateInEarlyOutDeduction(criteria).ConfigureAwait(false);
 
             if (deductedEmployees.Any())
@@ -126,7 +128,7 @@
         public async Task<CommandResult> DeductAsync()
         {
             var result = new CommandResult { Code = 0 };
-            var criteria = new GetLateInEarlyOutDeductionCriteria { Year = DateTimeOffset.Now.Year };
+            var criteria = new GetLateInEarlyOutDeductionCriteria { Year = DateTimeOffset.Now.DateTime.ToClientTimeZone().Year };
             var deductedEmployees = await lateInEarlyOutService.GetLateInEarlyOutDeduction(criteria).ConfigureAwait(false);
 
             foreach (var item in deductedEmployees)
@@ -135,7 +137,7 @@
                 {
                     EmployeeId = item.EmpId,
                     Description = Messages.DescriptionAutoDeductLateInEarlyOut,
-                    DeductDate = DateTimeOffset.Now.DateTime,
+                    DeductDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                     IsAnnual = true,
                     TotalDays = Convert.ToDecimal(0.5),
                     CreatedBy = IdEmpDeductLateInEarlyOut
@@ -250,7 +252,7 @@
                 msg += string.Format(
                     Messages.EmployeeLateInEarlyOutViolateOnMonth,
                     violater.TimeOnMonth,
-                    DateTimeOffset.Now.DateTime.ToString(FormatShortDate),
+                    DateTimeOffset.Now.DateTime.ToClientTimeZone().ToString(FormatShortDate),
                     Constants.NewLine);
             }
             else
@@ -281,7 +283,7 @@
             var message = new StringBuilder();
             message.Append(string.Format(
                 Messages.ThereIsNumberEmployeeViolateLateInEarlyOutOnMonth,
-                violaters.Count(), DateTimeOffset.Now.DateTime.ToString(FormatShortDate),
+                violaters.Count(), DateTimeOffset.Now.DateTime.ToClientTimeZone().ToString(FormatShortDate),
                 Constants.NewLine));
 
             foreach (var violater in violaters)
