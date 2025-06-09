@@ -19,6 +19,7 @@ namespace Fanex.NexHR.Controllers
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
     using ViewModels.Applicant;
+    using Fanex.NexHR.Core;
 
     public class ApplicantsController(ISessionService sessionService,
             IBaseService baseService,

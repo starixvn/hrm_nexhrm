@@ -234,8 +234,8 @@
             {
                 ActorId = CurrentUser.Id,
                 Role = (short)Role.AssistantLeader,
-                FromDate = DateTimeOffset.Now.AddMonths(-3).DateTime,
-                ToDate = DateTimeOffset.Now.DateTime,
+                FromDate = DateTimeOffset.Now.AddMonths(-3).DateTime.ToClientTimeZone(),
+                ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                 GroupId = null,
                 Status = 1,
                 ExcludeEmployeeId = CurrentUser.Id,
@@ -271,17 +271,18 @@
 
         public async Task<IActionResult> GetTeamWorkload()
         {
+            var today = DateTimeOffset.Now.DateTime.ToClientTimeZone();
             var criteria = new GetEmployeeWorkloadCriteria
             {
                 TeamId = CurrentUser.TeamId,
-                FromDate = new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
-                ToDate = DateTimeOffset.Now.Date
+                FromDate = new DateTimeOffset(today.Year, today.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
+                ToDate = today.Date
             };
             IList<Workload> listWorkload = await employeeService.GetWorkloadDefaultByTeam(criteria);
             await GetWorkloadByTeam(
                 listWorkload,
-                new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
-                DateTimeOffset.Now.Date.AddDays(-1));
+                new DateTimeOffset(today.Year, today.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
+                today.Date.AddDays(-1));
 
             return PartialView("_ListTeamWorkload", listWorkload);
         }
