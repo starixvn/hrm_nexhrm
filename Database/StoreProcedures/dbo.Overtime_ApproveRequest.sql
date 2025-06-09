@@ -89,7 +89,7 @@ BEGIN
         SET
             [Status]        = @ApprovedStatus
             ,[ModifiedBy]   = @ModifiedBy
-            ,[ModifiedDate] = GETDATE()
+            ,[ModifiedDate] = dbo.fnc_GetClientDateTime()
         WHERE [OvertimeId] = @Id AND [Status]=1 -- pending;
 
 		COMMIT TRANSACTION;

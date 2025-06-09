@@ -28,10 +28,10 @@ BEGIN
     BEGIN TRY
         DECLARE @Yesterday DATE = 
             CASE 
-                WHEN DATEPART(WEEKDAY, GETDATE()) = 2 THEN
-                    DATEADD(DAY, -3, GETDATE())
+                WHEN DATEPART(WEEKDAY, dbo.fnc_GetClientDateTime()) = 2 THEN
+                    DATEADD(DAY, -3, dbo.fnc_GetClientDateTime())
                 ELSE
-                    DATEADD(DAY, -1, GETDATE())
+                    DATEADD(DAY, -1, dbo.fnc_GetClientDateTime())
             END;
             
         DECLARE @EmpTable TABLE (EmpID INT);

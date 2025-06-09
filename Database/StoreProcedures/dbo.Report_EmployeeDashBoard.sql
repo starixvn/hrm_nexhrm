@@ -50,7 +50,7 @@ BEGIN
 		,@MinuteLateInEarlyOutCurrentMonth int
 		,@TimesLateInEarlyOutCurrentMonth int
 
-	SET @Today = GETDATE()
+	SET @Today = dbo.fnc_GetClientDateTime()
 	SELECT @CurrentMonth = @Today
 		,@LastMonth = DATEADD(M, - 1, @Today)
 		,@Yesterday = DATEADD(D, - 1, @Today)
@@ -68,7 +68,7 @@ BEGIN
 		AND wk.RequestType = 6
 		AND wk.[Status] = 1
 		AND wk.LeaveTypeID IN (2, 30)
-		-- AND YEAR(wk.FromDate) = YEAR(GETDATE())
+		-- AND YEAR(wk.FromDate) = YEAR(dbo.fnc_GetClientDateTime())
 	GROUP BY e.Id
 
 	SELECT @TotalWorkingHoursCurrentMonth = SUM(CASE 
@@ -121,8 +121,8 @@ BEGIN
 	SELECT @MinuteLateInEarlyOutCurrentMonth = SUM(tr.Minutes), @TimesLateInEarlyOutCurrentMonth = COUNT(tr.Minutes)
 	FROM dbo.LateInEarlyOutTrans AS tr WITH (NOLOCK)
 		INNER JOIN dbo.Employee AS e WITH (NOLOCK) ON tr.EmpId = e.Id
-	WHERE --MONTH(WorkDate) = MONTH(GETDATE()) 
-		DATEDIFF(MM, WorkDate, GETDATE()) = 0
+	WHERE --MONTH(WorkDate) = MONTH(dbo.fnc_GetClientDateTime()) 
+		DATEDIFF(MM, WorkDate, dbo.fnc_GetClientDateTime()) = 0
 		AND tr.Type <> 0
 		AND (
 			@EmpId IS NULL

@@ -79,7 +79,7 @@ BEGIN
             ,@ToDate ToDate
             ,0 AS DeductDays
             ,CASE WHEN e.LastYearAL > 3 THEN 3 ELSE e.LastYearAL END LastYearMaxAL
-            ,GETDATE()
+            ,dbo.fnc_GetClientDateTime()
             ,NULL CreatedBy
             ,0 Deleted
             ,0 as IsOpenBalance

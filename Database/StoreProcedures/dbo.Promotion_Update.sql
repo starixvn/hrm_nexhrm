@@ -55,12 +55,12 @@ BEGIN
     END
 
 	
-	IF (GETDATE() >= @EffectiveDate)
+	IF (dbo.fnc_GetClientDateTime() >= @EffectiveDate)
     BEGIN
         UPDATE HRM.dbo.EmployeeJobGrade WITH (ROWLOCK, UPDLOCK)
 		SET 
 			IsCurrentUsed = 0
-		WHERE EmpId = @EmpId AND Id <> @Id AND GETDATE() >= AffectedDate AND  @EffectiveDate > AffectedDate
+		WHERE EmpId = @EmpId AND Id <> @Id AND dbo.fnc_GetClientDateTime() >= AffectedDate AND  @EffectiveDate > AffectedDate
     END
 
     UPDATE HRM.dbo.EmployeeJobGrade WITH (ROWLOCK, UPDLOCK)
@@ -69,12 +69,12 @@ BEGIN
 		,OldJobGradeId = @OldJobGradeId
 		,AffectedDate = @EffectiveDate
 		,IsCurrentUsed = CASE
-							WHEN @EffectiveDate > GETDATE() THEN 0
+							WHEN @EffectiveDate > dbo.fnc_GetClientDateTime() THEN 0
 							ELSE 1
 							END
 		,Note = @Note
         ,ModifiedBy = @ModifiedBy
-        ,ModifiedDate = GETDATE()
+        ,ModifiedDate = dbo.fnc_GetClientDateTime()
     WHERE Id = @Id
   
     IF @@ERROR <> 0

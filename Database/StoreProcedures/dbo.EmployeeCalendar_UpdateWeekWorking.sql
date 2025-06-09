@@ -81,7 +81,7 @@ BEGIN
 						when @dw=7 and @SatShift is null and @isHoliday=0 and LeaveTypeId is null  then 1
 						else 0
 					end,
-		ModifiedDate = GETDATE()
+		ModifiedDate = dbo.fnc_GetClientDateTime()
 	WHERE empId = @Id AND
 		WorkDate BETWEEN @fromdate AND @todate
 

@@ -77,8 +77,8 @@ IF OBJECT_ID('#LateInEarlyOutSummary') IS NOT NULL
 		AND ISNULL(e.isDeleted, 0) = 0
 		AND e.[Enabled] = 1
 	WHERE tr.[Type] IN (1, 2)
-		AND CAST(tr.WorkDate AS DATE) BETWEEN DATEADD(m, - 12, GETDATE())
-			AND GETDATE()
+		AND CAST(tr.WorkDate AS DATE) BETWEEN DATEADD(m, - 12, dbo.fnc_GetClientDateTime())
+			AND dbo.fnc_GetClientDateTime()
 		AND e.Id = @EmpId
 	GROUP BY tr.EmpId
 		,MONTH(tr.WorkDate)
@@ -123,8 +123,8 @@ IF OBJECT_ID('#LateInEarlyOutSummary') IS NOT NULL
 	DECLARE @StartOfMonth DATETIME
 		,@EndOfMonth DATETIME
 
-	SET @StartOfMonth = DATEADD(month, DATEDIFF(month, 0, GETDATE()), 0)
-	SET @EndOfMonth = DATEADD(month, DATEDIFF(month, 0, GETDATE()) + 1, - 1)
+	SET @StartOfMonth = DATEADD(month, DATEDIFF(month, 0, dbo.fnc_GetClientDateTime()), 0)
+	SET @EndOfMonth = DATEADD(month, DATEDIFF(month, 0, dbo.fnc_GetClientDateTime()) + 1, - 1)
 
 	INSERT INTO #LateinEarlyOutViolationInMonth (
 		EmpId

@@ -33,7 +33,7 @@ BEGIN
 		,@StartDateConnectBitoStar VARCHAR(10)
 
 	DECLARE @toDay DATETIME, @Yesterday DATETIME
-	SET @toDay =  GETDATE()
+	SET @toDay =  dbo.fnc_GetClientDateTime()
 	SET @Yesterday = DATEADD(DD, -1, @toDay)
 
 	CREATE TABLE #tempRecord (
@@ -50,8 +50,8 @@ BEGIN
 		,TimeRecord DATETIME
 		)
 
-	SELECT @CurrentMonthTableName = 'T_LG' + LEFT(CONVERT(VARCHAR, GETDATE(), 112), 6)
-		,@LastMonthTableName = 'T_LG' + LEFT(CONVERT(VARCHAR, DATEADD(MM, - 1, GETDATE()), 112), 6)
+	SELECT @CurrentMonthTableName = 'T_LG' + LEFT(CONVERT(VARCHAR, dbo.fnc_GetClientDateTime(), 112), 6)
+		,@LastMonthTableName = 'T_LG' + LEFT(CONVERT(VARCHAR, DATEADD(MM, - 1, dbo.fnc_GetClientDateTime()), 112), 6)
 		,@fromDateString = CONVERT(VARCHAR, @fromDate, 112)
 		,@toDateString = CONVERT(VARCHAR, @toDate, 112)
 		,@StartDateConnectBitoStar = '2022-10-01'
@@ -140,7 +140,7 @@ BEGIN
 			WHEN nTNAEvent = 2 THEN 1
 			ELSE NULL
 			END
-		,GETDATE()
+		,dbo.fnc_GetClientDateTime()
 		,f.ReaderId
 		,f.ReaderName
 		,f.EventName
@@ -156,7 +156,7 @@ BEGIN
 	INSERT INTO dbo.tmpEmployeeAttendance(EmpId, WorkDate, InsertedDate)
 	SELECT t.EmpId
 		,CAST(TimeRecord AS DATE)
-		,GETDATE()
+		,dbo.fnc_GetClientDateTime()
 	FROM #tempTimeRecord t
 	WHERE NOT EXISTS (
 		SELECT 1 
@@ -166,7 +166,7 @@ BEGIN
 	UNION
 	SELECT t.EmpId 
 		,CAST(TimeRecord AS DATE)
-		,GETDATE()
+		,dbo.fnc_GetClientDateTime()
 	FROM #tempTimeRecord t
 	WHERE NOT EXISTS (
 		SELECT 1 

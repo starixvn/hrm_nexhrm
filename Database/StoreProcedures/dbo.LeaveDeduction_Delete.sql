@@ -42,7 +42,7 @@ BEGIN
 		DELETE FROM dbo.LeaveTrans WHERE LeaveConversionId = @LeaveDeductionId
 
 		UPDATE dbo.LateInEarlyOutYearly WITH (ROWLOCK, UPDLOCK)
-		SET [Minutes] = [Minutes] + (@OldTotalDays * 8 * 60), ModifiedDate = GETDATE(), ModifiedBy = @ModifiedBy
+		SET [Minutes] = [Minutes] + (@OldTotalDays * 8 * 60), ModifiedDate = dbo.fnc_GetClientDateTime(), ModifiedBy = @ModifiedBy
 		WHERE EmpId = @EmployeeId AND [Year] >= YEAR(@DeductDate)
 
 		COMMIT

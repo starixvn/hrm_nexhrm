@@ -22,13 +22,13 @@ Param's Explanation:
 BEGIN
 	SET NOCOUNT ON;
 
-	DECLARE @Today DATETIME = GETDATE()
+	DECLARE @Today DATETIME = dbo.fnc_GetClientDateTime()
 		,@i INT
 		,@TempEmpId INT
 		,@TotalWorkHoursToday DECIMAL(18, 2)
 	
 	-- test
-	--declare @hour int = datediff(hh, getdate(), '2019-05-16 17:00')
+	--declare @hour int = datediff(hh, dbo.fnc_GetClientDateTime(), '2019-05-16 17:00')
 	--select dateadd(MI, @hour*60, @Today)
 
 	CREATE TABLE #Employee (
@@ -115,7 +115,7 @@ BEGIN
 			FROM #Employee
 			WHERE EmpId = wkr.EmpID
 			)
-		AND DATEDIFF(d, getdate(), FromDate) >= 0
+		AND DATEDIFF(d, dbo.fnc_GetClientDateTime(), FromDate) >= 0
 
 	CREATE TABLE #EmpCalendar (
 		Id INT PRIMARY KEY IDENTITY(1, 1)

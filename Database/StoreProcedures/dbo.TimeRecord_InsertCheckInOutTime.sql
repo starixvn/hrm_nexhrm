@@ -49,7 +49,7 @@ BEGIN
 		@EmpId
 		,@RecordTime
 		,CASE WHEN @InOutType = 0 THEN 0 ELSE 1 END
-		,GETDATE()
+		,dbo.fnc_GetClientDateTime()
 		)
 
 	SET @RecordDate = convert(VARCHAR(10), @RecordTime, 111)

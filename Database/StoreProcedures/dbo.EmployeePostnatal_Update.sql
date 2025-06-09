@@ -43,7 +43,7 @@ BEGIN
             ,dbo.EmployeePostnatal.FromDate = @NewFromDate
             ,dbo.EmployeePostnatal.ToDate = @NewToDate
             ,dbo.EmployeePostnatal.ModifiedBy = @ModifiedBy
-            ,dbo.EmployeePostnatal.ModifiedDate = GETDATE()
+            ,dbo.EmployeePostnatal.ModifiedDate = dbo.fnc_GetClientDateTime()
             ,dbo.EmployeePostnatal.Minutes = @Minutes
             ,dbo.EmployeePostnatal.Type = @Type
         WHERE dbo.EmployeePostnatal.EmpId = @OldEmpId

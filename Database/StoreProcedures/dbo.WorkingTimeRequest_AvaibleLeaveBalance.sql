@@ -30,7 +30,7 @@ BEGIN
 
 	IF @EffectedDate IS NULL
 	BEGIN
-		SELECT @EffectedDate = CONVERT(DATETIME, CONVERT(NVARCHAR(10), YEAR(GETDATE())) + '/12/31')
+		SELECT @EffectedDate = CONVERT(DATETIME, CONVERT(NVARCHAR(10), YEAR(dbo.fnc_GetClientDateTime())) + '/12/31')
 	END
 
 	SET @EndYear = CONVERT(DATETIME, CONVERT(NVARCHAR(10), YEAR(@EffectedDate)) + '/12/31')

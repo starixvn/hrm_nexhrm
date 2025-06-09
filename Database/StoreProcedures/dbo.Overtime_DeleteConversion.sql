@@ -95,7 +95,7 @@ BEGIN
         SET
             [Minutes]       = [Minutes] + @oldMinutes
             ,[ModifiedBy]   = @modifiedBy
-            ,[ModifiedDate] = GETDATE()
+            ,[ModifiedDate] = dbo.fnc_GetClientDateTime()
         WHERE [EmpId] = @empId
             AND [Year] >= @year;
         COMMIT TRANSACTION;

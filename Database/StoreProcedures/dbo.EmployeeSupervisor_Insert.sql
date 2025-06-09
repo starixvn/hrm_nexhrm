@@ -27,7 +27,7 @@ Param's Explanation:
 
 BEGIN
     SET NOCOUNT ON;
-	DECLARE @ModifiedDate DATETIME = GETDATE(), @logData NVARCHAR(MAX);
+	DECLARE @ModifiedDate DATETIME = dbo.fnc_GetClientDateTime(), @logData NVARCHAR(MAX);
 	
 	SELECT @logData = '<Setting_Old Approver="'+ COALESCE(STRING_AGG(ApproverId, ', '), SPACE(1)) + '" />' +  
 	'<Setting_New Approver="'+ COALESCE(CAST(@ApproverIds AS VARCHAR(255)), SPACE(1)) + '" />'
@@ -100,7 +100,7 @@ BEGIN
 			);
 
 	INSERT INTO dbo.[Log](LogActionID, LogDate, [Description], TrackingValue, UserID)
-	VALUES(8, GETDATE(), 'Insert Personal Flow Setting', @logData, @EmpId)
+	VALUES(8, dbo.fnc_GetClientDateTime(), 'Insert Personal Flow Setting', @logData, @EmpId)
 
 	DROP TABLE #tblSupervisor;
 

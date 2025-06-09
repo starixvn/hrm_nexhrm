@@ -63,7 +63,7 @@ BEGIN
 													WHEN @setOffDay = 0 THEN 0	
 													WHEN @setOffDay = 1 THEN 1
 													ELSE 0 END
-									,ModifiedDate = GETDATE()
+									,ModifiedDate = dbo.fnc_GetClientDateTime()
 									WHERE (WorkDate = @fromdate) AND (@empid is null OR EmpId = @empid)
 		END	
 	-- insert vao working calendar
@@ -106,7 +106,7 @@ BEGIN
 			ELSE 0
 			END AS isOffDay
 		,@isHoliday
-		,GETDATE()
+		,dbo.fnc_GetClientDateTime()
 	FROM dbo.EmployeeShift s WITH (NOLOCK)
 		INNER JOIN dbo.Employee e WITH (NOLOCK)
 			ON e.id = s.empid AND e.isDeleted = 0 AND e.IsSpecialUser = 0

@@ -22,8 +22,8 @@ Param's Explanation:
 BEGIN
 	SET NOCOUNT ON
 	DECLARE @Yesterday DATETIME
-	--SET @Yesterday = DATEADD(DD, -1, GETDATE())
-	SET @Yesterday =  GETDATE()
+	--SET @Yesterday = DATEADD(DD, -1, dbo.fnc_GetClientDateTime())
+	SET @Yesterday =  dbo.fnc_GetClientDateTime()
 
 	-- get data from BioAdmin
 	SELECT DATEADD(s, nDateTime, '1970-01-01') AS dtDateTime
@@ -83,7 +83,7 @@ BEGIN
 						) THEN 1
 				ELSE NULL
 				END
-			,getdate()
+			,dbo.fnc_GetClientDateTime()
 			,ReaderName
 			,EventName
 			,ReaderId

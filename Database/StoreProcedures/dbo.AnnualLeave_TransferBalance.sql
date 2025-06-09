@@ -55,7 +55,7 @@ BEGIN
 		--	,YEAR(@FromDate) + 1
 		--	,LateInEarlyOut
 		--	,@CreatedBy
-		--	,GETDATE()
+		--	,dbo.fnc_GetClientDateTime()
 		--FROM #EmpBanlance AS bl
 		--WHERE NOT EXISTS (
 		--SELECT 1 
@@ -73,7 +73,7 @@ BEGIN
 		--	,YEAR(@FromDate) + 1
 		--	,NexBalance
 		--	,@CreatedBy
-		--	,GETDATE()
+		--	,dbo.fnc_GetClientDateTime()
 		--FROM #EmpBanlance AS bl
 		--WHERE NOT EXISTS (
 		--SELECT 1 
@@ -112,7 +112,7 @@ BEGIN
 		@FromDate,
 		Balance,
 		0,
-		GETDATE(),
+		dbo.fnc_GetClientDateTime(),
 		@CreatedBy
 	FROM #EmpLeaveBanlance
 
@@ -132,7 +132,7 @@ BEGIN
 		'2024-01-31',
 		0,
 		Balance,
-		GETDATE(),
+		dbo.fnc_GetClientDateTime(),
 		@CreatedBy
 	FROM #EmpLeaveBanlance
 

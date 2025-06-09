@@ -95,7 +95,7 @@ AND e.NickName = 'Bill'
 						,@FromDate
 						,@TempLeaveBalance
 						,0
-						,GETDATE()
+						,dbo.fnc_GetClientDateTime()
 						,@CreatedBy
 						,1
 				END
@@ -117,7 +117,7 @@ AND e.NickName = 'Bill'
 					,@FromDate
 					,@TempLeaveBalance
 					,1
-					,GETDATE()
+					,dbo.fnc_GetClientDateTime()
 					,@CreatedBy
 					,1
 			END
@@ -172,7 +172,7 @@ AND e.NickName = 'Bill'
 			,YEAR(@FromDate) + 1
 			,LateInEarlyOut
 			,@CreatedBy
-			,GETDATE()
+			,dbo.fnc_GetClientDateTime()
 		FROM #EmpBanlance AS bl
 		WHERE NOT EXISTS (SELECT 1 FROM [dbo].[LateInEarlyOutYearly] WITH (NOLOCK) WHERE bl.EmpId = EmpId AND [Year] = YEAR(@FromDate) + 1)
 
@@ -187,7 +187,7 @@ AND e.NickName = 'Bill'
 			,YEAR(@FromDate) + 1
 			,NexBalance
 			,@CreatedBy
-			,GETDATE()
+			,dbo.fnc_GetClientDateTime()
 		FROM #EmpBanlance AS bl
 		WHERE NOT EXISTS (SELECT 1 FROM [dbo].[OvertimeYearly] WITH (NOLOCK) WHERE bl.EmpId = EmpId AND [Year] = YEAR(@FromDate) + 1)
 

@@ -44,7 +44,7 @@ BEGIN
 	UPDATE [dbo].[HistoryWork] WITH (ROWLOCK, UPDLOCK)
 	SET 
 	AffectedDate = @AffectedDate
-	,ModifiedDate = GETDATE()	
+	,ModifiedDate = dbo.fnc_GetClientDateTime()	
 	,JobTitleId = @JobTitleId
 	,GroupId = @GroupId
 	,OldGroupId = @OldGroupId

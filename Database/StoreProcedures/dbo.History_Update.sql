@@ -71,7 +71,7 @@ BEGIN
     SET 
 		AffectedDate = @AffectedDate
         ,ModifiedBy = @ModifiedBy
-        ,ModifiedDate = GETDATE()
+        ,ModifiedDate = dbo.fnc_GetClientDateTime()
     WHERE Id = @Id
 
 	UPDATE dbo.HistoryWorkDetail WITH (ROWLOCK, UPDLOCK)

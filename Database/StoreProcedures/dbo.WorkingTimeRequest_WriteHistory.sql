@@ -69,7 +69,7 @@ INSERT dbo.WorkingTimeRequest_history
             TotalDays,
             LateInMins,
             EarlyOutMins,    
-            getdate(),
+            dbo.fnc_GetClientDateTime(),
 			IsCrossDate
     FROM dbo.WorkingTimeRequest
     WHERE Id = @RequestID

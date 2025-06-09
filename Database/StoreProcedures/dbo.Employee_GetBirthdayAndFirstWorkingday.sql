@@ -54,7 +54,7 @@ BEGIN
 		AND DAY(DOB) = DAY(@OnDate)
 		AND (
 			ResignedDate IS NULL
-			OR DATEDIFF(DD, GETDATE(), ResignedDate) >= 0
+			OR DATEDIFF(DD, dbo.fnc_GetClientDateTime(), ResignedDate) >= 0
 			)
 		AND e.Enabled = 1
 		AND ISNULL(e.IsSpecialUser, 0) = 0
@@ -89,10 +89,10 @@ BEGIN
 			)
 		AND MONTH(GroupDate) = MONTH(@OnDate)
 		AND DAY(GroupDate) = DAY(@OnDate)
-		AND GroupDate < convert(VARCHAR(10), getdate(), 111)
+		AND GroupDate < convert(VARCHAR(10), dbo.fnc_GetClientDateTime(), 111)
 		AND (
 			ResignedDate IS NULL
-			OR DATEDIFF(DD, GETDATE(), ResignedDate) >= 0
+			OR DATEDIFF(DD, dbo.fnc_GetClientDateTime(), ResignedDate) >= 0
 			)
 		AND e.Enabled = 1
 		AND ISNULL(e.IsSpecialUser, 0) = 0

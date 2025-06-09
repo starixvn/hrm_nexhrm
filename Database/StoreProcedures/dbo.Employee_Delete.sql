@@ -47,7 +47,7 @@ BEGIN
 
 		UPDATE HRM.dbo.Employee WITH (UPDLOCK, ROWLOCK)
         SET ModifiedBy = @ModifiedBy
-            ,ModifiedDate = GETDATE()
+            ,ModifiedDate = dbo.fnc_GetClientDateTime()
         WHERE ID = @employeeId
 
         DELETE dbo.EmployeeCalendar

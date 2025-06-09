@@ -56,7 +56,7 @@ BEGIN
         @Minutes
         ,@EmpId
         ,@ModifiedBy
-        ,GETDATE()
+        ,dbo.fnc_GetClientDateTime()
         );
 
     IF @@ERROR <> 0

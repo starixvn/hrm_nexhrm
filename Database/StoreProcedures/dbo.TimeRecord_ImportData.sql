@@ -27,14 +27,14 @@ BEGIN
 		,@Today DATETIME
 		,@TempDate DATETIME
 
-	SELECT @Today = GETDATE()
+	SELECT @Today = dbo.fnc_GetClientDateTime()
 
 	SELECT @FromDate = DATEADD(dd, - 1, @Today)
 
 	EXEC dbo.TimeRecord_ImportFromBioStar @FromDate
 		,@Today
 
-	SELECT @TempDate = DATEADD(MM, 2, GETDATE())
+	SELECT @TempDate = DATEADD(MM, 2, dbo.fnc_GetClientDateTime())
 
 	IF (DATEDIFF(MI, CAST(@Today AS DATE), @Today) < 5)
 	BEGIN

@@ -88,7 +88,7 @@ BEGIN
             LeaveDays = @TotalDays,
             [Description] = @Description,
             ModifiedBy = @ModifiedBy,
-            ModifiedDate = GETDATE()
+            ModifiedDate = dbo.fnc_GetClientDateTime()
         WHERE Id = @LeaveDeductionId
 
         UPDATE dbo.LateInEarlyOutTrans WITH (ROWLOCK, UPDLOCK)
@@ -97,17 +97,17 @@ BEGIN
             [Minutes] = (@TotalDays * 8 * 60),
             LeaveDeductionId = @LeaveDeductionId,
             ModifiedBy = @ModifiedBy,
-            ModifiedDate = GETDATE()
+            ModifiedDate = dbo.fnc_GetClientDateTime()
         WHERE LeaveDeductionId = @LeaveDeductionId
 
         UPDATE dbo.LateInEarlyOutYearly WITH (ROWLOCK, UPDLOCK)
-            SET [Minutes] = [Minutes] + @oldMinutes, ModifiedDate = GETDATE()
+            SET [Minutes] = [Minutes] + @oldMinutes, ModifiedDate = dbo.fnc_GetClientDateTime()
             WHERE EmpId = @EmployeeId AND [Year] >= YEAR(@OldDeductDate)
 
         IF(EXISTS (SELECT 1 FROM dbo.LateInEarlyOutYearly WITH (NOLOCK) WHERE EmpId = @EmployeeId AND [Year] = YEAR(@DeductDate)))
         BEGIN
             UPDATE dbo.LateInEarlyOutYearly WITH (ROWLOCK, UPDLOCK)
-            SET [Minutes] = [Minutes] - (@TotalDays * 8 * 60), ModifiedDate = GETDATE()
+            SET [Minutes] = [Minutes] - (@TotalDays * 8 * 60), ModifiedDate = dbo.fnc_GetClientDateTime()
             WHERE EmpId = @EmployeeId AND [Year] >= YEAR(@DeductDate)
         END
         ELSE
@@ -118,7 +118,7 @@ BEGIN
                 AND [Year] = YEAR(@DeductDate) - 1
 
             INSERT INTO dbo.LateInEarlyOutYearly (EmpId, [Year], [Minutes], ModifiedDate)
-            VALUES (@EmployeeId, YEAR(@DeductDate), (ISNULL(@MinutesPreviousYear, 0) - (@TotalDays * 8 * 60)), GETDATE())
+            VALUES (@EmployeeId, YEAR(@DeductDate), (ISNULL(@MinutesPreviousYear, 0) - (@TotalDays * 8 * 60)), dbo.fnc_GetClientDateTime())
         END
 
         IF(@IsAnnual = 1 OR @OldIsAnnual = 1)
@@ -142,7 +142,7 @@ BEGIN
                 ,@DeductDate
                 ,@TotalDays
                 ,0
-                ,GETDATE()
+                ,dbo.fnc_GetClientDateTime()
                 ,@ModifiedBy
                 ,-1
                 ,@LeaveDeductionId

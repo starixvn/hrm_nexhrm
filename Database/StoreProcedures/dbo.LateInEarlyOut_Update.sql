@@ -38,7 +38,7 @@ BEGIN
         ,-- int
         dbo.LateInEarlyOut.ModifiedBy = @ModifiedBy
         ,-- int
-        dbo.LateInEarlyOut.ModifiedDate = GETDATE()
+        dbo.LateInEarlyOut.ModifiedDate = dbo.fnc_GetClientDateTime()
     WHERE dbo.LateInEarlyOut.Id = @Id;
 
     IF @@ERROR <> 0

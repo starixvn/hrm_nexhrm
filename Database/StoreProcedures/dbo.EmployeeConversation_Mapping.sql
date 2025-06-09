@@ -58,7 +58,7 @@ BEGIN
 
 	UPDATE ec
 	SET ec.ConversationId = cou.ConversationId
-		,ec.ModifiedDate = GETDATE()
+		,ec.ModifiedDate = dbo.fnc_GetClientDateTime()
 	FROM dbo.EmployeeConversation AS ec
 	INNER JOIN dbo.Employee AS e ON ec.EmpId = e.Id
 	INNER JOIN #tblConversationUser AS cou ON 
@@ -66,7 +66,7 @@ BEGIN
 	WHERE ec.ConversationId <> cou.ConversationId
 
 	INSERT INTO dbo.EmployeeConversation(EmpId, ConversationId, ModifiedDate)
-	SELECT e.Id, cou.ConversationId, GETDATE()
+	SELECT e.Id, cou.ConversationId, dbo.fnc_GetClientDateTime()
 	FROM #tblConversationUser AS cou
 	INNER JOIN dbo.Employee AS e WITH (NOLOCK)
 		ON e.isDeleted = 0

@@ -94,6 +94,6 @@ BEGIN
 			  WHERE ejg.IsCurrentUsed = 1
 			  AND ISNULL(ejg.IsDeleted,0) = 0
 		) AS gra ON e.Id = gra.EmpId
-	WHERE e.ModifiedDate BETWEEN @ModifiedDate AND GETDATE()
+	WHERE e.ModifiedDate BETWEEN @ModifiedDate AND dbo.fnc_GetClientDateTime()
 END
 GO

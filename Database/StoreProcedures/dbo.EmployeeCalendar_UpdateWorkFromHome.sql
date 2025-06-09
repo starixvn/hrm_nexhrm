@@ -30,7 +30,7 @@ BEGIN
 			)
 	BEGIN
 		UPDATE [dbo].[EmployeeCalendar] WITH (ROWLOCK, UPDLOCK)
-		SET IsWorkFromHome = @IsWorkFromHome, ModifiedDate = GETDATE()
+		SET IsWorkFromHome = @IsWorkFromHome, ModifiedDate = dbo.fnc_GetClientDateTime()
 		WHERE EmpId = @EmpId  
 		AND ( WorkDate BETWEEN @FromDate AND @ToDate )
 	END

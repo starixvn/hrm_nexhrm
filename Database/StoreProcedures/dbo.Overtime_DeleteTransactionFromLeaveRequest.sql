@@ -32,7 +32,7 @@ BEGIN
 	UPDATE dbo.OvertimeYearly
 	SET [Minutes] = ([Minutes] + (@TotalDays * 480))
 		,ModifiedBy = @ModifiedBy
-		,ModifiedDate = GETDATE()
+		,ModifiedDate = dbo.fnc_GetClientDateTime()
 	WHERE [Year] >= YEAR(@Date)
 		AND EmpId = @EmployeeId
 END

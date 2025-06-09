@@ -29,7 +29,7 @@ Param's Explanation:
 BEGIN
     DECLARE @CurrentDate DATETIME
 
-    SET @CurrentDate = GETDATE()
+    SET @CurrentDate = dbo.fnc_GetClientDateTime()
 
     IF OBJECT_ID('#Employee') IS NOT NULL
     BEGIN

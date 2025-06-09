@@ -389,7 +389,7 @@ BEGIN
 			IF (
 					(
 						@TotalDays = 0.5
-						AND DATEDIFF(D, @FromDate, GETDATE()) > 0
+						AND DATEDIFF(D, @FromDate, dbo.fnc_GetClientDateTime()) > 0
 						)
 					OR (
 						@TotalDays = 1
@@ -397,7 +397,7 @@ BEGIN
 							SELECT COUNT(1)
 							FROM dbo.EmployeeCalendar WITH (NOLOCK)
 							WHERE EmpId = @EmpId
-								AND DATEDIFF(D, GETDATE(), WorkDate) >= 0
+								AND DATEDIFF(D, dbo.fnc_GetClientDateTime(), WorkDate) >= 0
 								AND DATEDIFF(D, WorkDate, @FromDate) >= 0
 								AND IsOffDay <> 1
 								AND IsHoliday <> 1
@@ -410,7 +410,7 @@ BEGIN
 							SELECT COUNT(1)
 							FROM dbo.EmployeeCalendar WITH (NOLOCK)
 							WHERE EmpId = @EmpId
-								AND DATEDIFF(D, GETDATE(), WorkDate) >= 0
+								AND DATEDIFF(D, dbo.fnc_GetClientDateTime(), WorkDate) >= 0
 								AND DATEDIFF(D, WorkDate, @FromDate) >= 0
 								AND IsOffDay <> 1
 								AND IsHoliday <> 1
@@ -422,7 +422,7 @@ BEGIN
 							SELECT COUNT(1)
 							FROM dbo.EmployeeCalendar WITH (NOLOCK)
 							WHERE EmpId = @EmpId
-								AND DATEDIFF(D, GETDATE(), WorkDate) >= 0
+								AND DATEDIFF(D, dbo.fnc_GetClientDateTime(), WorkDate) >= 0
 								AND DATEDIFF(D, WorkDate, @FromDate) >= 0
 								AND IsOffDay <> 1
 								AND IsHoliday <> 1

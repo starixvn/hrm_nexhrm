@@ -126,7 +126,7 @@ BEGIN
         SET
 			[Description] = @Description
             ,[ModifiedBy] = @ModifiedBy
-            ,[ModifiedDate] = GETDATE()
+            ,[ModifiedDate] = dbo.fnc_GetClientDateTime()
 		WHERE [OvertimeId] = @Id
 
 		DELETE FROM [dbo].[OvertimeDetail]

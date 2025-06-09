@@ -51,7 +51,7 @@ BEGIN
             ,@FromDate
             ,@DeductDays
             ,@CreditDays
-            ,GETDATE()
+            ,dbo.fnc_GetClientDateTime()
             ,@CreatedBy
         FROM Employee
         WHERE (

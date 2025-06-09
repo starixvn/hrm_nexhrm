@@ -489,7 +489,7 @@ BEGIN
                     TotalWorkHours = @TotalWorkHours,
                     IsRightShift = @IsRightShift,
                     LeaveDay = @LeaveDay,
-                    InsertDate = GETDATE()
+                    InsertDate = dbo.fnc_GetClientDateTime()
                 WHERE EmpId = @empId AND DATEDIFF(d, AttendanceDate, @attendaceDate) = 0
             END
             ELSE
@@ -530,7 +530,7 @@ BEGIN
                     @TotalWorkHours,
                     @IsRightShift,
                     @LeaveDay,
-                    GETDATE()
+                    dbo.fnc_GetClientDateTime()
                 )            
             END
         END

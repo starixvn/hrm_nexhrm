@@ -25,7 +25,7 @@ Param's Explanation:
 BEGIN
     DECLARE @Today DATETIME
         ,@Yesterday DATETIME
-    SET @Today = GETDATE()
+    SET @Today = dbo.fnc_GetClientDateTime()
 
     SELECT @Yesterday = DATEADD(D, - 1, @Today)
 

@@ -122,7 +122,7 @@ EXEC [WorkingTimeRequest_WriteHistory] @RequestID
 
 -- write log
 Declare @LogSPData varchar(4000), @now datetime
-set @now=getdate()
+set @now=dbo.fnc_GetClientDateTime()
 --Log general info
 Select @LogSPData = '<WorkingTimeRequest_ApproveRequest RequestID="'+ coalesce(cast(@RequestID as varchar(50)),space(1)) + '" ' +
 'FromDate="'+ coalesce(cast(@FromDate as varchar(100)),space(1)) + '" ' +

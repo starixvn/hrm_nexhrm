@@ -36,7 +36,7 @@ BEGIN
 	IF (@Status = 1)
 	BEGIN
 		DECLARE @LogSPData VARCHAR(4000), @now DATETIME
-		SET @now = GETDATE()
+		SET @now = dbo.fnc_GetClientDateTime()
 		SELECT @LogSPData = '<WorkingTimeRequest_Delete RequestID="'+ coalesce(cast(@id as varchar(50)),space(1)) + '" />'
 
 		EXEC dbo.Log_WriteLog

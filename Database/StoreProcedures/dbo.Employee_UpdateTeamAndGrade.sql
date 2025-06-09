@@ -28,12 +28,12 @@ BEGIN
 	SET GroupId = h.GroupId
 	FROM Employee AS e WITH (UPDLOCK, ROWLOCK)
 	JOIN HistoryWork AS h WITH (UPDLOCK, ROWLOCK) ON e.Id = h.EmpId
-	WHERE CONVERT(DATE, h.AffectedDate) = CONVERT(DATE, GETDATE())
+	WHERE CONVERT(DATE, h.AffectedDate) = CONVERT(DATE, dbo.fnc_GetClientDateTime())
 	AND h.OldGroupId IS NOT NULL;
 
 	UPDATE dbo.EmployeeJobGrade WITH (UPDLOCK, ROWLOCK)
 	SET IsCurrentUsed = 1
-	WHERE CONVERT(DATE, AffectedDate) = CONVERT(DATE, GETDATE())
+	WHERE CONVERT(DATE, AffectedDate) = CONVERT(DATE, dbo.fnc_GetClientDateTime())
 	AND IsCurrentUsed <> 1
 	
 END

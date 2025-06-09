@@ -74,7 +74,7 @@ BEGIN
 						ELSE FLOOR(DATEDIFF(DAY, e.GroupDate, @EndDate)/365) 
 						END)
 					END AS CreditDays
-            ,GETDATE()
+            ,dbo.fnc_GetClientDateTime()
             ,NULL CreatedBy
             ,0 Deleted
             ,1 as IsOpenBalance

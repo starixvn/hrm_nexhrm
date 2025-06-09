@@ -21,7 +21,7 @@ Param's Explanation:
 BEGIN
     SET NOCOUNT ON;
 
-	DECLARE @Today DATETIME = GETDATE()
+	DECLARE @Today DATETIME = dbo.fnc_GetClientDateTime()
 	DECLARE @FromTime DATETIME = DATEADD(MINUTE, -5, @Today),
 			@ToTime DATETIME = DATEADD(MINUTE, 5, @Today)
 	

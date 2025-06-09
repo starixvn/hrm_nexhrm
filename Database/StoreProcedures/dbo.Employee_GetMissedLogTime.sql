@@ -24,14 +24,14 @@ Param's Explanation:
 BEGIN
     DECLARE @Yesterday DATE = 
         CASE 
-            WHEN DATEPART(WEEKDAY, GETDATE()) = 2 THEN
-                DATEADD(DAY, -3, GETDATE())
+            WHEN DATEPART(WEEKDAY, dbo.fnc_GetClientDateTime()) = 2 THEN
+                DATEADD(DAY, -3, dbo.fnc_GetClientDateTime())
             ELSE
-                DATEADD(DAY, -1, GETDATE())
+                DATEADD(DAY, -1, dbo.fnc_GetClientDateTime())
         END;
    
-    DECLARE @FirstDayOfMonth DATE = DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1);
-    DECLARE @LastDayOfMonth DATE = EOMONTH(GETDATE());
+    DECLARE @FirstDayOfMonth DATE = DATEFROMPARTS(YEAR(dbo.fnc_GetClientDateTime()), MONTH(dbo.fnc_GetClientDateTime()), 1);
+    DECLARE @LastDayOfMonth DATE = EOMONTH(dbo.fnc_GetClientDateTime());
     
     SET @FromDate = ISNULL(@FromDate, @FirstDayOfMonth);
     SET @ToDate = ISNULL(@ToDate, @LastDayOfMonth);

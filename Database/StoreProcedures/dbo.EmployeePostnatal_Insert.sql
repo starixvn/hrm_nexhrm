@@ -55,7 +55,7 @@ BEGIN
         ,@FromDate
         ,@ToDate
         ,@ModifiedBy
-        ,GETDATE()
+        ,dbo.fnc_GetClientDateTime()
         ,@Minutes
         ,@Type
         );

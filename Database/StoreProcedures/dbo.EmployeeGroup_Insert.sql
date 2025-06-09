@@ -55,9 +55,9 @@ BEGIN
         @Code
         ,@Name
         ,@DepartmentId
-        ,GETDATE()
+        ,dbo.fnc_GetClientDateTime()
         ,@CreatedBy
-        ,GETDATE()
+        ,dbo.fnc_GetClientDateTime()
         ,@ParentId
         )
 END

@@ -105,7 +105,7 @@ BEGIN
 	DECLARE @LogSPData VARCHAR(4000)
 		,@now DATETIME
 
-	SET @now = getdate()
+	SET @now = dbo.fnc_GetClientDateTime()
 
 	--Log general info
 	SELECT @LogSPData = '<WorkingTimeRequest_RejectRequest RequestID="' + coalesce(cast(@RequestID AS VARCHAR(50)), space(1)) + '" ' + 'ProcessedBy="' + coalesce(cast(@ProcessedBy AS VARCHAR(100)), space(1)) + '" ' + 'ProcessedDate="' + coalesce(convert(VARCHAR(10), @ProcessedDate, 111), space(1)) + '" ' + 'ErrCode="' + coalesce(cast(@ErrCode AS VARCHAR(50)), space(1)) + '" ' + 'ErrMsg="' + coalesce(cast(@ErrMsg AS VARCHAR(4000)), space(1)) + '" />'

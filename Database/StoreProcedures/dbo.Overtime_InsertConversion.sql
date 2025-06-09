@@ -99,14 +99,14 @@ BEGIN
             ,@deductDate
             ,@description
 			,@createdBy,
-			GETDATE()
+			dbo.fnc_GetClientDateTime()
         )
 
 		UPDATE [dbo].[OvertimeYearly] WITH (ROWLOCK, UPDLOCK)
         SET
             [Minutes]       = [Minutes] - (@deduct * 60.0)
             ,[ModifiedBy]   = @createdBy
-            ,[ModifiedDate] = GETDATE()
+            ,[ModifiedDate] = dbo.fnc_GetClientDateTime()
         WHERE [EmpId] = @empId
             AND [Year] >= @year;
 

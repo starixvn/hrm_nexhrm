@@ -43,7 +43,7 @@ BEGIN
         UPDATE dbo.EmployeeCalendar WITH (ROWLOCK, UPDLOCK)
         SET IsHoliday = 0
             ,ModifiedBy = @ModifiedBy
-            ,ModifiedDate = GETDATE()
+            ,ModifiedDate = dbo.fnc_GetClientDateTime()
         WHERE WorkDate BETWEEN @FromDate
                 AND @ToDate
 

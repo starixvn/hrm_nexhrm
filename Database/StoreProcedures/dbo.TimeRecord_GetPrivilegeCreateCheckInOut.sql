@@ -26,7 +26,7 @@ BEGIN
 	DECLARE @IsPrivilegeCreateCheckInOut BIT = 0,
 		@Today DATETIME
 		
-	SET @Today = CONVERT(date, GETDATE())
+	SET @Today = CONVERT(date, dbo.fnc_GetClientDateTime())
 
 	IF (EXISTS(SELECT 1 FROM dbo.WorkFromHomeRequest WITH (NOLOCK) 
 		WHERE EmpId = @EmpId 

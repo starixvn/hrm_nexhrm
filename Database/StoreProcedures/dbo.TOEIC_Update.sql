@@ -40,7 +40,7 @@ Param's Explanation:
 
 DECLARE @monthEvaluation1H TINYINT = 5,
 @monthEvaluation2H TINYINT = 11,
-@toDay DATETIME = GETDATE()
+@toDay DATETIME = dbo.fnc_GetClientDateTime()
 
 BEGIN
 	SET NOCOUNT ON;

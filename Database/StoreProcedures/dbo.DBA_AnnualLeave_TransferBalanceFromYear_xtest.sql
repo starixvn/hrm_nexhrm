@@ -46,7 +46,7 @@ BEGIN
 			)
 			,@Year + 1
 			,NULL
-			,GETDATE()
+			,dbo.fnc_GetClientDateTime()
 		FROM dbo.Employee AS e WITH (NOLOCK)
 			LEFT JOIN dbo.LateInEarlyOutYearly AS la WITH (NOLOCK) ON e.Id = la.EmpId
 			AND la.[Year] = @Year
@@ -72,7 +72,7 @@ BEGIN
 			AND ISNULL(e.isDeleted, 0) = 0
 
 		INSERT INTO dbo.LateInEarlyOutYearly(EmpId, Year, Minutes, ModifiedBy, ModifiedDate)
-		SELECT li.EmpId, @Year + 1, li.Minutes, NULL, GETDATE()
+		SELECT li.EmpId, @Year + 1, li.Minutes, NULL, dbo.fnc_GetClientDateTime()
 		FROM #LastYearLIEO li
 		WHERE NOT EXISTS (SELECT 1 FROM dbo.LateInEarlyOutYearly WHERE EmpId = li.EmpId AND Year = @Year + 1)
 
@@ -127,7 +127,7 @@ BEGIN
             ,NULL
             ,CASE WHEN e.PreYearAL > 3 THEN 3 ELSE e.PreYearAL END LastYearMaxAL
             ,0
-            ,GETDATE()
+            ,dbo.fnc_GetClientDateTime()
             ,NULL CreatedBy
             ,0 Deleted
             ,0 as IsOpenBalance
@@ -152,7 +152,7 @@ BEGIN
             ,@ToDate ToDate
             ,0 AS DeductDays
             ,CASE WHEN e.PreYearAL > 3 THEN 3 ELSE e.PreYearAL END LastYearMaxAL
-            ,GETDATE()
+            ,dbo.fnc_GetClientDateTime()
             ,NULL CreatedBy
             ,0 Deleted
             ,0 as IsOpenBalance

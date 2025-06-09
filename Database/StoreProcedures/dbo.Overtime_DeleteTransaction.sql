@@ -61,7 +61,7 @@ BEGIN
 		UPDATE oty
 		SET oty.[Minutes] = (oty.[Minutes] - otd.[Minutes])
 			,oty.[ModifiedBy] = @ModifiedBy
-			,oty.[ModifiedDate] = GETDATE()
+			,oty.[ModifiedDate] = dbo.fnc_GetClientDateTime()
 		FROM #OvertimeDetail AS otd
 			INNER JOIN dbo.OvertimeYearly AS oty WITH (UPDLOCK, ROWLOCK) ON oty.EmpId = otd.EmpId
 			AND [Year] >= YEAR(otd.[Date])

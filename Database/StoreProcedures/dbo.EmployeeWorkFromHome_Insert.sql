@@ -62,11 +62,11 @@ BEGIN
 		@EmpId
 	   ,2
 	   ,@Remark
-	   ,GETDATE()
+	   ,dbo.fnc_GetClientDateTime()
 	   ,@CreatedBy
 	   ,@FromDate
 	   ,@ToDate
-	   ,GETDATE()
+	   ,dbo.fnc_GetClientDateTime()
 	   ,@CreatedBy
 		)
 
@@ -88,7 +88,7 @@ BEGIN
 		,@ToDate
 		,@Remark
 		,@CreatedBy
-		,GETDATE()
+		,dbo.fnc_GetClientDateTime()
 		)
 
 	BEGIN

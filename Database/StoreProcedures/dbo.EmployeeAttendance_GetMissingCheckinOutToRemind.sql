@@ -173,7 +173,7 @@ Param's Explanation:
                     WHERE attendancedate BETWEEN @startday AND @today
                           --AND ISNULL(Absence, 0) = 0
                           AND InFixed IS NULL
-						  AND GETDATE() > c.WorkDate + ' ' + sh.EndCheckInTime
+						  AND dbo.fnc_GetClientDateTime() > c.WorkDate + ' ' + sh.EndCheckInTime
                           AND a.EmpId = @EmpId
                           AND isOffday = 0
                           AND IsHoliday = 0
@@ -215,7 +215,7 @@ Param's Explanation:
 						INNER JOIN dbo.Shift AS sh ON c.ShiftId = sh.Id
                     WHERE attendancedate BETWEEN @startday AND @yesterday
                           AND a.EmpId = @EmpId
-						  AND GETDATE() > c.WorkDate + ' ' + sh.EndCheckOutTime
+						  AND dbo.fnc_GetClientDateTime() > c.WorkDate + ' ' + sh.EndCheckOutTime
                           --AND ISNULL(Absence, 0) = 0
                           AND OutFixed IS NULL
                           AND isOffday = 0

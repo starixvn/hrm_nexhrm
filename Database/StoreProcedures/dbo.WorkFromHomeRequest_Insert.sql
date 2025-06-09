@@ -33,7 +33,7 @@ BEGIN
 		,@ProcessedDate DATETIME
 		,@CurrentTime DATETIME
 
-	SELECT @CurrentTime = GETDATE()
+	SELECT @CurrentTime = dbo.fnc_GetClientDateTime()
 
 	IF EXISTS (
 			SELECT 1
@@ -78,7 +78,7 @@ BEGIN
 	   ,@HRRemark
 	   ,@FromDate
 	   ,@ToDate
-	   ,GETDATE()
+	   ,dbo.fnc_GetClientDateTime()
 	   ,@CreatedBy
 	   ,@ProcessedBy
 	   ,@ProcessedDate

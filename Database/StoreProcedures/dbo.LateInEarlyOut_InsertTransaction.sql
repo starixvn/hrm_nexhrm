@@ -79,7 +79,7 @@ BEGIN
             IF(EXISTS (SELECT 1 FROM dbo.LateInEarlyOutYearly WITH (NOLOCK) WHERE EmpId = @EmpId AND [Year] = YEAR(@WorkDate)))
             BEGIN
                 UPDATE dbo.LateInEarlyOutYearly WITH (ROWLOCK, UPDLOCK)
-                SET [Minutes] = [Minutes] - @OldLateIn + @LateIn, ModifiedDate = GETDATE()
+                SET [Minutes] = [Minutes] - @OldLateIn + @LateIn, ModifiedDate = dbo.fnc_GetClientDateTime()
                 WHERE EmpId = @EmpId AND [Year] >= YEAR(@WorkDate)
             END
             ELSE
@@ -90,7 +90,7 @@ BEGIN
                     AND [Year] = YEAR(@WorkDate) - 1
 
                 INSERT INTO dbo.LateInEarlyOutYearly (EmpId, [Year], [Minutes], ModifiedDate)
-                VALUES (@EmpId, YEAR(@WorkDate), (ISNULL(@MinutesPreviousYear, 0) - @OldLateIn + @LateIn), GETDATE())
+                VALUES (@EmpId, YEAR(@WorkDate), (ISNULL(@MinutesPreviousYear, 0) - @OldLateIn + @LateIn), dbo.fnc_GetClientDateTime())
             END
 
             DELETE FROM dbo.LateInEarlyOutTrans 
@@ -102,7 +102,7 @@ BEGIN
             IF(@LateIn <> 0)
             BEGIN
                 INSERT INTO dbo.LateInEarlyOutTrans (EmpId, WorkDate, [Type], [Minutes], ModifiedDate)
-                VALUES (@EmpId, @WorkDate, 1, @LateIn, GETDATE())
+                VALUES (@EmpId, @WorkDate, 1, @LateIn, dbo.fnc_GetClientDateTime())
             END
         END
         
@@ -111,7 +111,7 @@ BEGIN
             IF(EXISTS (SELECT 1 FROM dbo.LateInEarlyOutYearly WITH (NOLOCK) WHERE EmpId = @EmpId AND [Year] = YEAR(@WorkDate)))
             BEGIN
                 UPDATE dbo.LateInEarlyOutYearly WITH (ROWLOCK, UPDLOCK)
-                SET [Minutes] = [Minutes] - @OldEarlyOut + @EarlyOut, ModifiedDate = GETDATE()
+                SET [Minutes] = [Minutes] - @OldEarlyOut + @EarlyOut, ModifiedDate = dbo.fnc_GetClientDateTime()
                 WHERE EmpId = @EmpId AND [Year] >= YEAR(@WorkDate)
             END
             ELSE
@@ -122,7 +122,7 @@ BEGIN
                     AND [Year] = YEAR(@WorkDate) - 1
 
                 INSERT INTO dbo.LateInEarlyOutYearly (EmpId, [Year], [Minutes], ModifiedDate)
-                VALUES (@EmpId, YEAR(@WorkDate), (ISNULL(@MinutesPreviousYear, 0) - @OldEarlyOut + @EarlyOut), GETDATE())
+                VALUES (@EmpId, YEAR(@WorkDate), (ISNULL(@MinutesPreviousYear, 0) - @OldEarlyOut + @EarlyOut), dbo.fnc_GetClientDateTime())
             END
 
             DELETE FROM dbo.LateInEarlyOutTrans 
@@ -134,7 +134,7 @@ BEGIN
             IF(@EarlyOut <> 0)
             BEGIN
                 INSERT INTO dbo.LateInEarlyOutTrans (EmpId, WorkDate, [Type], [Minutes], ModifiedDate)
-                VALUES (@EmpId, @WorkDate, 2, @EarlyOut, GETDATE())
+                VALUES (@EmpId, @WorkDate, 2, @EarlyOut, dbo.fnc_GetClientDateTime())
             END
         END
     END

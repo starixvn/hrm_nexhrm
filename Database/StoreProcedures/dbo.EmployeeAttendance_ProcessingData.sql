@@ -19,7 +19,7 @@ DECLARE @i INT
 		,@CurrentDateTime DATETIME
 		,@TempResignedDate DATETIME
 
-SELECT @CurrentDateTime = GETDATE()
+SELECT @CurrentDateTime = dbo.fnc_GetClientDateTime()
 
 
 DECLARE @tblEmployee TABLE (

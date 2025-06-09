@@ -109,7 +109,7 @@ BEGIN
             @Description
             ,1
             ,@CreatedBy
-            ,GETDATE()
+            ,dbo.fnc_GetClientDateTime()
         );
 
         SELECT @OTRequestId = SCOPE_IDENTITY();

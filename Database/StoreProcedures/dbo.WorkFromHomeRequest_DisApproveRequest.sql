@@ -25,7 +25,7 @@ Param's Explanation:
 BEGIN
 
 	DECLARE @EmpId INT, @Status TINYINT, @FromDate DATETIME, @ToDate DATETIME, @CurrentTime DATETIME
-	SELECT @CurrentTime =  GETDATE()
+	SELECT @CurrentTime =  dbo.fnc_GetClientDateTime()
 
 	SELECT @EmpId = wfhr.EmpId, @Status = wfhr.Status, 
 			@FromDate = wfhr.FromDate, @ToDate = wfhr.ToDate
@@ -78,7 +78,7 @@ BEGIN
 
 	-- write log
 	Declare @LogSPData varchar(4000), @now datetime
-	set @now=getdate()
+	set @now=dbo.fnc_GetClientDateTime()
 
 	--Log general info
 	Select @LogSPData = '<EmployeeWorkFromHome_DisApproveRequest @WorkFromHomeRequestId="'+ coalesce(cast(@WorkFromHomeRequestId as varchar(50)),space(1)) + '" ' +

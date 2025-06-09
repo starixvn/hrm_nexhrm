@@ -44,7 +44,7 @@ BEGIN
             ,YEAR(@Date)
             ,ISNULL(prev.[Minutes], 0)
             ,@ModifiedBy
-            ,GETDATE()
+            ,dbo.fnc_GetClientDateTime()
         FROM (
             SELECT EmpId
                 ,[Minutes]
@@ -92,7 +92,7 @@ BEGIN
         ,@OvertimeId
         ,1
         ,@ModifiedBy
-        ,GETDATE()
+        ,dbo.fnc_GetClientDateTime()
     FROM #OvertimeDetail
 
     UPDATE oty
@@ -118,7 +118,7 @@ BEGIN
         ,YEAR(otd.[Date])
         ,ISNULL(prev.[Minutes], 0) + otd.[Minutes]
         ,@ModifiedBy
-        ,GETDATE()
+        ,dbo.fnc_GetClientDateTime()
     FROM #OvertimeDetail AS otd
         LEFT JOIN (
         SELECT EmpId

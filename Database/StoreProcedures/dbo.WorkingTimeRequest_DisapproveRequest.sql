@@ -79,7 +79,7 @@ EXEC [WorkingTimeRequest_WriteHistory] @RequestID
 
 -- write log
 Declare @LogSPData varchar(4000), @now datetime
-set @now=getdate()
+set @now=dbo.fnc_GetClientDateTime()
 --Log general info
 Select @LogSPData = '<WorkingTimeRequest_DisapproveRequest RequestID="'+ coalesce(cast(@RequestID as varchar(50)),space(1)) + '" ' +
 'ModifiedBy="'+ coalesce(cast(@ModifiedBy as varchar(50)),space(1)) + '" ' +

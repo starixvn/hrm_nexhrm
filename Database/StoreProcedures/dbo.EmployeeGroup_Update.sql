@@ -51,7 +51,7 @@ BEGIN
         ,[Name] = @Name
         ,DepartmentId = @DepartmentId
         ,ParentId = @ParentId
-        ,ModifiedDate = GETDATE()
+        ,ModifiedDate = dbo.fnc_GetClientDateTime()
         ,ModifiedBy = @ModifiedBy
     WHERE Id = @Id
 END

@@ -23,7 +23,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	DECLARE @now DATE = GETDATE()
+	DECLARE @now DATE = dbo.fnc_GetClientDateTime()
 		,@startWeek DATE
 		,@endWeek DATE
 

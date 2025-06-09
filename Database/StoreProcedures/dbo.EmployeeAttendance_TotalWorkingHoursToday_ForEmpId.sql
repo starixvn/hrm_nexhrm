@@ -49,9 +49,9 @@ BEGIN
         ,@TimeForPostnatal INT
 
     SET @i = 0
-    SET @WorkDate = CONVERT(VARCHAR(10), GETDATE(), 111)
+    SET @WorkDate = CONVERT(VARCHAR(10), dbo.fnc_GetClientDateTime(), 111)
 
-    IF (DATEDIFF(d, @WorkDate, GETDATE()) >= 0)
+    IF (DATEDIFF(d, @WorkDate, dbo.fnc_GetClientDateTime()) >= 0)
     BEGIN                
         SELECT @Absence = 0
             ,@InOfMachine = NULL

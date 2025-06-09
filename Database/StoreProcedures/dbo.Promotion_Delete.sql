@@ -42,7 +42,7 @@ BEGIN
    UPDATE HRM.dbo.EmployeeJobGrade
         SET IsDeleted = 1
 			,ModifiedBy = @ModifiedBy
-            ,ModifiedDate = GETDATE()
+            ,ModifiedDate = dbo.fnc_GetClientDateTime()
         WHERE Id = @Id
 
     SELECT @ErrCode = 0, @ErrMsg = ''

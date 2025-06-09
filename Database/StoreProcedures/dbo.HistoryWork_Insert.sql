@@ -54,7 +54,7 @@ BEGIN
 		,@ModifiedBy
 		,@JobTitleId
 		,@GroupId
-		,GETDATE()
+		,dbo.fnc_GetClientDateTime()
 		,@OldGroupId
 		)
 END

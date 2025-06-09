@@ -29,7 +29,7 @@ BEGIN
         ,@SubGroup VARCHAR(50)
 		,@Approvers VARCHAR(255)
 
-    SET @Today = GETDATE()
+    SET @Today = dbo.fnc_GetClientDateTime()
 
     SELECT @AnnualLeaveBalance = SUM(CreditDays) - SUM(DeductDays)
     FROM dbo.LeaveTrans WITH (NOLOCK)

@@ -45,7 +45,7 @@ BEGIN
 		SET IsLeaveDay = 0
 			,LeaveTypeID = NULL
 			,LeaveDay = 0
-			,ModifiedDate = GETDATE()
+			,ModifiedDate = dbo.fnc_GetClientDateTime()
 			,ModifiedBy = @ModifiedBy
 		WHERE EmpID = @EmpId
 			AND WorkDate BETWEEN CONVERT(VARCHAR(10), @FromDate, 111)
@@ -60,7 +60,7 @@ BEGIN
 				UPDATE dbo.EmployeeCalendar
 				SET LeaveTypeId2 = NULL
 					,LeaveDay = 0.5
-					,ModifiedDate = GETDATE()
+					,ModifiedDate = dbo.fnc_GetClientDateTime()
 					,ModifiedBy = @ModifiedBy
 				WHERE EmpID = @EmpId
 					AND WorkDate BETWEEN CONVERT(VARCHAR(10), @FromDate, 111)
@@ -73,7 +73,7 @@ BEGIN
 				SET LeaveTypeId = @ExistLeaveTypeId2
 					,LeaveTypeId2 = NULL
 					,LeaveDay = 0.5
-					,ModifiedDate = GETDATE()
+					,ModifiedDate = dbo.fnc_GetClientDateTime()
 					,ModifiedBy = @ModifiedBy
 				WHERE EmpID = @EmpId
 					AND WorkDate BETWEEN CONVERT(VARCHAR(10), @FromDate, 111)
@@ -85,7 +85,7 @@ BEGIN
 			UPDATE dbo.EmployeeCalendar
 			SET LeaveTypeId2 = NULL
 				,LeaveDay = 0.5
-				,ModifiedDate = GETDATE()
+				,ModifiedDate = dbo.fnc_GetClientDateTime()
 				,ModifiedBy = @ModifiedBy
 			WHERE EmpID = @EmpId
 				AND WorkDate BETWEEN CONVERT(VARCHAR(10), @FromDate, 111)

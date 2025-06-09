@@ -116,7 +116,7 @@ BEGIN
 						,YEAR(@Date)
 						,@NexdHour * 60
 						,@ModifiedBy
-						,GETDATE()
+						,dbo.fnc_GetClientDateTime()
 				END
 				ELSE
 				BEGIN
@@ -131,7 +131,7 @@ BEGIN
 						,YEAR(@Date)
 						,ISNULL(prev.[Minutes], 0) + (@NexdHour * 60)
 						,@ModifiedBy
-						,GETDATE()
+						,dbo.fnc_GetClientDateTime()
 					FROM (
 						SELECT	EmpId
 								,[Minutes]
@@ -164,7 +164,7 @@ BEGIN
 				SET
 					[Minutes]	= @NexdHour * 60
 					,[ModifiedBy]   = @ModifiedBy
-					,[ModifiedDate] = GETDATE()
+					,[ModifiedDate] = dbo.fnc_GetClientDateTime()
 				WHERE [EmpId] = @EmployeeId
 					AND DATEDIFF(DAY, @Date, [Date]) = 0
 					AND [OvertimeId] = @Id;
@@ -173,7 +173,7 @@ BEGIN
 				SET
 					[Minutes]       = [Minutes] + @NexdHour * 60 - @OldNexMinute
 					,[ModifiedBy]   = @ModifiedBy
-					,[ModifiedDate] = GETDATE()
+					,[ModifiedDate] = dbo.fnc_GetClientDateTime()
 				WHERE [EmpId] = @EmployeeId
 					AND [Year] >= YEAR(@Date)
 			END
@@ -195,13 +195,13 @@ BEGIN
 						,@NexdHour * 60
 						,1
 						,@ModifiedBy
-						,GETDATE()
+						,dbo.fnc_GetClientDateTime()
 
 				UPDATE [dbo].[OvertimeYearly] WITH (ROWLOCK, UPDLOCK)
 				SET
 					[Minutes]       = [Minutes] + @NexdHour * 60
 					,[ModifiedBy]   = @ModifiedBy
-					,[ModifiedDate] = GETDATE()
+					,[ModifiedDate] = dbo.fnc_GetClientDateTime()
 				WHERE [EmpId] = @EmployeeId
 					AND [Year] >= YEAR(@Date)
 			END
@@ -223,7 +223,7 @@ BEGIN
 		SET
 			[Status] = @VerifiedStatus,
 			[ModifiedBy] = @ModifiedBy,
-			[ModifiedDate] = GETDATE()
+			[ModifiedDate] = dbo.fnc_GetClientDateTime()
 		WHERE [OvertimeId] = @Id
 
         COMMIT TRANSACTION;

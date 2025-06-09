@@ -34,7 +34,7 @@ BEGIN
 		)
 	SELECT val
 		,@WorkDate
-		,GETDATE()
+		,dbo.fnc_GetClientDateTime()
 		,@InsertedType
 	FROM dbo.fnc_strSplit(@EmployeeIds, ',')
 END

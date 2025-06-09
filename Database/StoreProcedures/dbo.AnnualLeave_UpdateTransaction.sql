@@ -48,7 +48,7 @@ BEGIN
             ,ToDate = @FromDate
             ,DeductDays = @DeductDays
             ,CreditDays = @CreditDays
-            ,ModifiedDate = GETDATE()
+            ,ModifiedDate = dbo.fnc_GetClientDateTime()
             ,ModifiedBy = @ModifiedBy
         WHERE Id = @LeaveTransactionId
 

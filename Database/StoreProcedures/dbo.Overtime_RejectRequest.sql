@@ -84,7 +84,7 @@ BEGIN
         SET
             [Status]        = @RejectStatus
             ,[ModifiedBy]   = @ModifiedBy
-            ,[ModifiedDate] = GETDATE()
+            ,[ModifiedDate] = dbo.fnc_GetClientDateTime()
         WHERE OvertimeId = @Id;
     END TRY
 

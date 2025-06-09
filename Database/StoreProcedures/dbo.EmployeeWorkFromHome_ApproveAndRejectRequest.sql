@@ -75,7 +75,7 @@ EXEC [dbo].[TimeRecordEXT_UpdateStatus] @EmpId, @FromDate, @ToDate, @StatusId
 
 -- write log
 Declare @LogSPData varchar(4000), @now datetime
-set @now=getdate()
+set @now=dbo.fnc_GetClientDateTime()
 
 --Log general info
 Select @LogSPData = '<EmployeeWorkFromHome_ApproveAndRejectRequest @WorkFromHomeRequestId="'+ coalesce(cast(@WorkFromHomeRequestId as varchar(50)),space(1)) + '" ' +

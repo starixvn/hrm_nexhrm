@@ -23,7 +23,7 @@ BEGIN
 		,@LastMonth DATETIME
 		,@Today DATETIME
 
-	SET @Today = GETDATE()
+	SET @Today = dbo.fnc_GetClientDateTime()
 
 	SELECT @CurrentMonth = @Today
 		,@LastMonth = DATEADD(M, - 1, @Today)

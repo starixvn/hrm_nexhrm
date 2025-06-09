@@ -40,7 +40,7 @@ BEGIN
 		,@RequestId
 		,0
 		,@ModifiedBy
-		,GETDATE()
+		,dbo.fnc_GetClientDateTime()
 
 	IF (
 			EXISTS (
@@ -54,7 +54,7 @@ BEGIN
 		UPDATE dbo.OvertimeYearly
 		SET [Minutes] = ([Minutes] - (@TotalDays * 480))
 			,ModifiedBy = @ModifiedBy
-			,ModifiedDate = GETDATE()
+			,ModifiedDate = dbo.fnc_GetClientDateTime()
 		WHERE [Year] >= YEAR(@Date)
 		AND EmpId = @EmployeeId
 	END
@@ -71,7 +71,7 @@ BEGIN
 			,YEAR(@Date)
 			,[Minutes] - (@TotalDays * 480)
 			,@ModifiedBy
-			,GETDATE()
+			,dbo.fnc_GetClientDateTime()
 		FROM dbo.OvertimeYearly WITH (NOLOCK)
 		WHERE EmpId = @EmployeeId
 			AND ([Year] = YEAR(@Date) - 1)

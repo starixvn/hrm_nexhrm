@@ -70,7 +70,7 @@ BEGIN
             SET IsHoliday = 1
 				,ShiftId = NULL
                 ,ModifiedBy = @ModifiedBy
-                ,ModifiedDate = GETDATE()
+                ,ModifiedDate = dbo.fnc_GetClientDateTime()
             WHERE WorkDate BETWEEN @FromDate
                     AND @ToDate
 

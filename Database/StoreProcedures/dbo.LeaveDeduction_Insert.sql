@@ -84,7 +84,7 @@ BEGIN
             ,@TotalDays
             ,0
             ,@CreatedBy
-            ,GETDATE()
+            ,dbo.fnc_GetClientDateTime()
             ,@Description
             ,1
 
@@ -106,13 +106,13 @@ BEGIN
             ,(@TotalDays * 8 * 60)
             ,@Id
             ,@CreatedBy
-            ,GETDATE()
+            ,dbo.fnc_GetClientDateTime()
             )
 
         IF(EXISTS (SELECT 1 FROM dbo.LateInEarlyOutYearly WITH (NOLOCK) WHERE EmpId = @EmployeeId AND [Year] = YEAR(@DeductDate)))
         BEGIN
             UPDATE dbo.LateInEarlyOutYearly WITH (ROWLOCK, UPDLOCK)
-            SET [Minutes] = [Minutes] - (@TotalDays * 8 * 60), ModifiedDate = GETDATE()
+            SET [Minutes] = [Minutes] - (@TotalDays * 8 * 60), ModifiedDate = dbo.fnc_GetClientDateTime()
             WHERE EmpId = @EmployeeId AND [Year] >= YEAR(@DeductDate)
         END
         ELSE
@@ -123,7 +123,7 @@ BEGIN
                 AND [Year] = YEAR(@DeductDate) - 1
 
             INSERT INTO dbo.LateInEarlyOutYearly (EmpId, [Year], [Minutes], ModifiedDate)
-            VALUES (@EmployeeId, YEAR(@DeductDate), (ISNULL(@MinutesPreviousYear, 0) - (@TotalDays * 8 * 60)), GETDATE())
+            VALUES (@EmployeeId, YEAR(@DeductDate), (ISNULL(@MinutesPreviousYear, 0) - (@TotalDays * 8 * 60)), dbo.fnc_GetClientDateTime())
         END
 
         IF (@IsAnnual = 1)
@@ -144,7 +144,7 @@ BEGIN
                 ,@DeductDate
                 ,@TotalDays
                 ,0
-                ,GETDATE()
+                ,dbo.fnc_GetClientDateTime()
                 ,@CreatedBy
                 ,- 1
                 ,@Id

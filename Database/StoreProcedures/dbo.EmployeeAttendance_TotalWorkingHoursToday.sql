@@ -13,7 +13,7 @@ AS
 BEGIN
 DECLARE @i INT, @TempEmpId INT, @CurrentDateTime DATETIME, @TempResignedDate DATETIME
 
-SELECT @CurrentDateTime = GETDATE()
+SELECT @CurrentDateTime = dbo.fnc_GetClientDateTime()
 
 IF OBJECT_ID('#Employee') IS NOT NULL
 BEGIN
@@ -36,7 +36,7 @@ WHERE (@empId IS NULL OR EmpID = @empId)
     AND DATEDIFF(d, @CurrentDateTime, RecordTime) <= 1
 ---- insert virtual checkout time (now)
 INSERT INTO #TimeRecord (Id, EmpID, RecordTime, InOutType)
-VALUES(null, @empid, getdate(), 1)
+VALUES(null, @empid, dbo.fnc_GetClientDateTime(), 1)
 
 IF OBJECT_ID('#LeaveRequestHalfDay') IS NOT NULL
 BEGIN
@@ -51,7 +51,7 @@ FROM dbo.WorkingTimeRequest WITH (NOLOCK)
 WHERE [Status] IN (1, 2)
     AND TotalDays = 0.5
     AND (@empId IS NULL OR EmpId = @empId)
-    AND DATEDIFF(d, getdate(), FromDate) >= 0
+    AND DATEDIFF(d, dbo.fnc_GetClientDateTime(), FromDate) >= 0
 
 -- Get all calendars of employees into temp table
 IF OBJECT_ID('#EmpCalendar') IS NOT NULL
@@ -142,7 +142,7 @@ LEFT JOIN dbo.Shift s WITH (NOLOCK)ON s.Id = ec.ShiftId
 LEFT JOIN dbo.EmployeePostnatal pos WITH (NOLOCK) ON ec.EmpId = pos.EmpId
 AND ec.WorkDate BETWEEN pos.FromDate AND pos.ToDate
 WHERE (@EmpId IS NULL OR ec.EmpId = @EmpId)
-AND ec.WorkDate = convert(date, getdate())
+AND ec.WorkDate = convert(date, dbo.fnc_GetClientDateTime())
 ORDER BY ec.EmpId, ec.WorkDate
 
 IF @empId IS NOT NULL

@@ -45,7 +45,7 @@ BEGIN
 				WHEN @TotalDays = 0.5 THEN @TotalDays
 				ELSE 1
 				END
-			,ModifiedDate = GETDATE()
+			,ModifiedDate = dbo.fnc_GetClientDateTime()
 			,ModifiedBy = @ApprovedBy
 		WHERE EmpID = @EmpId
 			AND WorkDate BETWEEN CONVERT(VARCHAR(10), @FromDate, 111)
@@ -56,7 +56,7 @@ BEGIN
 		UPDATE dbo.EmployeeCalendar
 		SET LeaveTypeId2 = @LeaveTypeID
 			,LeaveDay = 1
-			,ModifiedDate = GETDATE()
+			,ModifiedDate = dbo.fnc_GetClientDateTime()
 			,ModifiedBy = @ApprovedBy
 		WHERE EmpID = @EmpId
 			AND WorkDate BETWEEN CONVERT(VARCHAR(10), @FromDate, 111)

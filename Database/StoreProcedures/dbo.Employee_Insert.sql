@@ -70,7 +70,7 @@ BEGIN
             ,@fullName
             ,@nickName
             ,CAST('1-1-1990' AS SMALLDATETIME)
-            ,GETDATE()
+            ,dbo.fnc_GetClientDateTime()
             ,@createBy
             )
 
@@ -131,7 +131,7 @@ BEGIN
         DECLARE @fromdate DATETIME
             ,@todate DATETIME
 
-        SET @fromdate = GETDATE()
+        SET @fromdate = dbo.fnc_GetClientDateTime()
 		SELECT @todate = MAX(WorkDate) FROM dbo.EmployeeCalendar WITH (NOLOCK)
 
         EXECUTE EmployeeCalendar_Insert @employeeId

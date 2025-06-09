@@ -186,7 +186,7 @@ BEGIN
 			,UserRelationship = @userRelationship
 			,ContactPhone = @contactPhone
 			,ContactAddress = @contactAddress
-            ,ModifiedDate = GETDATE()
+            ,ModifiedDate = dbo.fnc_GetClientDateTime()
             ,ModifiedBy = @modifiedBy
 			,EducationBackground = @EducationBackground
         WHERE Id = @employeeId
@@ -228,7 +228,7 @@ BEGIN
         FROM dbo.fnc_strSplit(@subGroups, ',')
 
 		INSERT INTO dbo.[Log](LogActionID, LogDate, Description, TrackingValue, UserID)
-		VALUES(5, GETDATE(), 'Update Employee', @logData, @employeeId)
+		VALUES(5, dbo.fnc_GetClientDateTime(), 'Update Employee', @logData, @employeeId)
 
         COMMIT TRANSACTION;
 

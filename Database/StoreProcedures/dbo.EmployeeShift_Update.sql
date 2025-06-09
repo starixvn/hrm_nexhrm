@@ -28,7 +28,7 @@ BEGIN
 		,@dw INT
 		,@isHoliday BIT
 
-	SET @fromdate = GETDATE()
+	SET @fromdate = dbo.fnc_GetClientDateTime()
 
 	-- Insert statements for procedure here
 	UPDATE dbo.EmployeeShift WITH (UPDLOCK, ROWLOCK)
@@ -94,7 +94,7 @@ BEGIN
 				AND @isHoliday = 0 THEN 1
 			ELSE 0
 			END
-		,ModifiedDate = GETDATE()
+		,ModifiedDate = dbo.fnc_GetClientDateTime()
 	WHERE empId = @employeeId
 		AND DATEDIFF(dd, @fromdate, WorkDate) >= 0
 END

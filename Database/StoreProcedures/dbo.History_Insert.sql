@@ -73,7 +73,7 @@ BEGIN
         @EmpId
 		,@AffectedDate
 		,@ModifiedBy
-		,GETDATE()
+		,dbo.fnc_GetClientDateTime()
 		)
 
 	SET @NewId = SCOPE_IDENTITY();

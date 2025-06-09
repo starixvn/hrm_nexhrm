@@ -87,7 +87,7 @@ BEGIN
         UPDATE dbo.[Overtime] WITH (ROWLOCK, UPDLOCK)
         SET [Status] = @PendingStatus
             ,ModifiedBy = @ModifiedBy
-            ,ModifiedDate = GETDATE()
+            ,ModifiedDate = dbo.fnc_GetClientDateTime()
         WHERE OvertimeId = @Id;
 
 		EXECUTE dbo.[Overtime_DeleteTransaction] @Id, @ModifiedBy;

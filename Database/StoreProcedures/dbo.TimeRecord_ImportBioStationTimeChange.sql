@@ -20,7 +20,7 @@ Param's Explanation:
 BEGIN
     SET NOCOUNT ON;
 
-    DECLARE @FromDate DATETIME = DATEADD(DD, -30, GETDATE())
+    DECLARE @FromDate DATETIME = DATEADD(DD, -30, dbo.fnc_GetClientDateTime())
 
     CREATE TABLE #EventLog
     (
@@ -58,7 +58,7 @@ BEGIN
 	    ,con.nDateTime AS TimeChange
 	    ,pre.nDateTime AS PreviousLogTime
 	    ,nex.nDateTime AS NextLogTime
-		,GETDATE()
+		,dbo.fnc_GetClientDateTime()
     FROM (
 	SELECT timechanges.nEventLogIdn
 		,(

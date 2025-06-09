@@ -68,7 +68,7 @@ BEGIN
 		,@Location
 		,@Description
 		,@CreatedBy
-		,getdate()
+		,dbo.fnc_GetClientDateTime()
 		)
 
 	SELECT @ErrCode = 0

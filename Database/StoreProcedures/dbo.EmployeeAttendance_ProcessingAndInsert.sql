@@ -17,7 +17,7 @@ AS
 BEGIN
 DECLARE @i INT, @TempEmpId INT, @CurrentDateTime DATETIME, @TempResignedDate DATETIME
 
-SELECT @fromTime = CAST(@fromTime AS DATE), @toTime = CAST(@toTime AS DATE), @CurrentDateTime = GETDATE()
+SELECT @fromTime = CAST(@fromTime AS DATE), @toTime = CAST(@toTime AS DATE), @CurrentDateTime = dbo.fnc_GetClientDateTime()
 
 IF(@onlyUpdate = 0 
 AND (

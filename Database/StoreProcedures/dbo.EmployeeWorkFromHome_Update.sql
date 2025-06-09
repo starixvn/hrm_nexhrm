@@ -72,14 +72,14 @@ BEGIN
 		,ToDate = @ToDate
 		,Remark = @Remark
 		,ModifiedBy = @ModifiedBy
-		,ModifiedDate = GETDATE()
+		,ModifiedDate = dbo.fnc_GetClientDateTime()
 	WHERE EmployeeWorkFromHomeId = @EmployeeWorkFromHomeId
 
 	UPDATE dbo.WorkFromHomeRequest WITH (ROWLOCK, UPDLOCK)
 	SET FromDate = @FromDate
 		,ToDate = @ToDate
 		,ModifiedBy = @ModifiedBy
-		,ModifiedDate = GETDATE()
+		,ModifiedDate = dbo.fnc_GetClientDateTime()
 	WHERE Id = @WorkFromHomeRequestId
 
 	EXEC [dbo].[EmployeeCalendar_UpdateWorkFromHome] @EmpId ,@FromDateWFH ,@ToDateWFH , 0

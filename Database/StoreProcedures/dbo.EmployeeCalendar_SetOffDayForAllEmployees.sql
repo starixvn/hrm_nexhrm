@@ -53,7 +53,7 @@ END
  SET isOffDay = case when @isOffDay = 0 and ShiftID is null and isHoliday=0 and isLeaveday=0 then 1
 					else @isOffDay end,
 	ModifiedBy = @ModifiedBy,
-	ModifiedDate = GETDATE()					
+	ModifiedDate = dbo.fnc_GetClientDateTime()					
  WHERE WorkDate = @date
     
  -- update attendate record   
@@ -61,7 +61,7 @@ END
  
  -- write log
 Declare @LogSPData varchar(4000), @now datetime
-set @now=getdate()
+set @now=dbo.fnc_GetClientDateTime()
 --Log general info
 Select @LogSPData = '<EmployeeCalendar_SetOffDayForAllEmployees @date="'+ coalesce(convert(varchar(10),@date, 111 ),space(1)) + '" ' +
 'isOffDay="'+ coalesce(cast(@isOffDay as varchar(100)),space(1)) + '" ' +

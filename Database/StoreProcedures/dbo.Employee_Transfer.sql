@@ -127,7 +127,7 @@ BEGIN
             ,1
             )
 
-        SET @todate = DATEADD(yy, DATEDIFF(yy, 0, GETDATE()) + 1, -1)
+        SET @todate = DATEADD(yy, DATEDIFF(yy, 0, dbo.fnc_GetClientDateTime()) + 1, -1)
 
         EXECUTE LumiHRM.dbo.EmployeeCalendar_Insert @EmployeeId
             ,@AffectedDate
@@ -158,7 +158,7 @@ BEGIN
 				,@ToDate
 				,0
 				,@CreditDays
-				,GETDATE()
+				,dbo.fnc_GetClientDateTime()
 				)
 		END
 
@@ -180,7 +180,7 @@ BEGIN
 				  ,[ModifiedDate]
 				  ,[IsManual]
 				)
-				VALUES(@EmployeeId, @AffectedDate, 2, @LateInEarlyOut, GETDATE(), 1)
+				VALUES(@EmployeeId, @AffectedDate, 2, @LateInEarlyOut, dbo.fnc_GetClientDateTime(), 1)
 			END
 			
 			INSERT INTO LumiHRM.dbo.LateInEarlyOutYearly(
@@ -189,7 +189,7 @@ BEGIN
 				  ,[Minutes]
 				  ,[ModifiedDate]
 			)
-			VALUES(@EmployeeId, YEAR(@AffectedDate), ISNULL(@LateInEarlyOut, 0), GETDATE())
+			VALUES(@EmployeeId, YEAR(@AffectedDate), ISNULL(@LateInEarlyOut, 0), dbo.fnc_GetClientDateTime())
 
 		END
 
@@ -222,7 +222,7 @@ BEGIN
 							,@NexBalance
 							,1
 							,@ModifiedBy
-							,GETDATE()
+							,dbo.fnc_GetClientDateTime()
 			END
 
 			INSERT INTO LumiHRM.dbo.OvertimeYearly (
@@ -236,7 +236,7 @@ BEGIN
 					,YEAR(@AffectedDate)
 					,@NexBalance
 					,@ModifiedBy
-					,GETDATE()
+					,dbo.fnc_GetClientDateTime()
 				)
 		END
 	END
@@ -319,7 +319,7 @@ BEGIN
             ,1
             )
 
-        SET @todate = DATEADD(yy, DATEDIFF(yy, 0, GETDATE()) + 1, -1)
+        SET @todate = DATEADD(yy, DATEDIFF(yy, 0, dbo.fnc_GetClientDateTime()) + 1, -1)
 
         EXECUTE NexHRM.dbo.EmployeeCalendar_Insert @EmployeeId
             ,@AffectedDate
@@ -350,7 +350,7 @@ BEGIN
 				,@ToDate
 				,0
 				,@CreditDays
-				,GETDATE()
+				,dbo.fnc_GetClientDateTime()
 				)
 		END
 
@@ -372,7 +372,7 @@ BEGIN
 				  ,[ModifiedDate]
 				  ,[IsManual]
 				)
-				VALUES(@EmployeeId, @AffectedDate, 2, @LateInEarlyOut, GETDATE(), 1)
+				VALUES(@EmployeeId, @AffectedDate, 2, @LateInEarlyOut, dbo.fnc_GetClientDateTime(), 1)
 			END
 			
 			INSERT INTO NexHRM.dbo.LateInEarlyOutYearly(
@@ -381,7 +381,7 @@ BEGIN
 				  ,[Minutes]
 				  ,[ModifiedDate]
 			)
-			VALUES(@EmployeeId, YEAR(@AffectedDate), ISNULL(@LateInEarlyOut, 0), GETDATE())
+			VALUES(@EmployeeId, YEAR(@AffectedDate), ISNULL(@LateInEarlyOut, 0), dbo.fnc_GetClientDateTime())
 
 		END
 
@@ -414,7 +414,7 @@ BEGIN
 							,@NexBalance
 							,1
 							,@ModifiedBy
-							,GETDATE()
+							,dbo.fnc_GetClientDateTime()
 			END
 
 			INSERT INTO NexHRM.dbo.OvertimeYearly (
@@ -428,7 +428,7 @@ BEGIN
 					,YEAR(@AffectedDate)
 					,@NexBalance
 					,@ModifiedBy
-					,GETDATE()
+					,dbo.fnc_GetClientDateTime()
 				)
 		END
 	END
@@ -445,7 +445,7 @@ BEGIN
 	WHERE Id = @EmployeeId
 
 	UPDATE HRM.dbo.Employee WITH (ROWLOCK, UPDLOCK)
-	SET ModifiedDate = GETDATE()
+	SET ModifiedDate = dbo.fnc_GetClientDateTime()
 		,ModifiedBy = @ModifiedBy
 	WHERE Id = @EmployeeId
 END

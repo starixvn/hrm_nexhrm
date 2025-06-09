@@ -53,7 +53,7 @@ BEGIN
             ,@ToDate
             ,@DeductDays
             ,@CreditDays
-            ,GETDATE()
+            ,dbo.fnc_GetClientDateTime()
             ,@CreatedBy
             )
 

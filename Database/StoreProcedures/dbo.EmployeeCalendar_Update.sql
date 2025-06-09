@@ -58,7 +58,7 @@ BEGIN
             ELSE 0
             END
         ,ModifiedBy = @ModifiedBy
-        ,ModifiedDate = GETDATE()
+        ,ModifiedDate = dbo.fnc_GetClientDateTime()
     WHERE empId = @EmployeeId
         AND DATEDIFF(d, WorkDate, @date) = 0
 

@@ -43,7 +43,7 @@ BEGIN
 
     UPDATE [dbo].[EmployeeGroup] WITH (ROWLOCK, UPDLOCK)
     SET Deleted = 1
-        ,ModifiedDate = GETDATE()
+        ,ModifiedDate = dbo.fnc_GetClientDateTime()
         ,ModifiedBy = @ModifiedBy
     WHERE Id = @Id
 

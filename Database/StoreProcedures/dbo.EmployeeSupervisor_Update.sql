@@ -28,7 +28,7 @@ BEGIN
     SET NOCOUNT ON;
     SET XACT_ABORT ON;
 
-	DECLARE @ModifiedDate DATETIME = GETDATE(), @logData NVARCHAR(MAX);
+	DECLARE @ModifiedDate DATETIME = dbo.fnc_GetClientDateTime(), @logData NVARCHAR(MAX);
 	
 	SELECT @logData = '<Setting_Old Approver="'+ COALESCE(STRING_AGG(ApproverId, ', '), SPACE(1)) + '" />' +  
 	'<Setting_New Approver="'+ COALESCE(CAST(@ApproverIds AS VARCHAR(255)), SPACE(1)) + '" />'
@@ -87,7 +87,7 @@ BEGIN
 			);
 
 	INSERT INTO dbo.[Log](LogActionID, LogDate, [Description], TrackingValue, UserID)
-	VALUES(9, GETDATE(), 'Update Personal Flow Setting', @logData, @EmpId)
+	VALUES(9, dbo.fnc_GetClientDateTime(), 'Update Personal Flow Setting', @logData, @EmpId)
 
 	DROP TABLE #tblSupervisor;
 

@@ -41,7 +41,7 @@ BEGIN
            (@ConversationId
            ,@SendDate
            ,@Content
-           ,GETDATE()
+           ,dbo.fnc_GetClientDateTime()
            ,@CreatedBy)
 	ELSE
 		INSERT INTO [dbo].[ScheduledMessage]
@@ -57,7 +57,7 @@ BEGIN
            (@ConversationId
            ,@SendDate
            ,@Content
-           ,GETDATE()
+           ,dbo.fnc_GetClientDateTime()
            ,@CreatedBy
 		   ,@CronExpression
 		   ,@StepNumber

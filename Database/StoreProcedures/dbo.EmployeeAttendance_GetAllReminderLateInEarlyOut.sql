@@ -21,7 +21,7 @@ Param's Explanation:
 BEGIN
 	DECLARE @FromDate DATE
 		,@ToDate DATETIME
-	SET @ToDate = GETDATE()
+	SET @ToDate = dbo.fnc_GetClientDateTime()
 	SET @FromDate = DATEADD(DD, -1, @ToDate)
 
     SELECT att.AttendanceDate

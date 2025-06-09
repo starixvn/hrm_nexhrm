@@ -68,7 +68,7 @@ BEGIN
 		,ToDate = @ToDate
 		,Remark = @Remark
 		,ModifiedBy = @ModifiedBy
-		,ModifiedDate = GETDATE()
+		,ModifiedDate = dbo.fnc_GetClientDateTime()
 	WHERE Id = @WorkFromHomeRequestId
 
 	EXEC [dbo].[TimeRecordEXT_UpdateStatus] @EmpId, @FromDateWFH, @ToDateWFH, 3

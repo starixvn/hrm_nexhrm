@@ -45,7 +45,7 @@ BEGIN
 			UPDATE dbo.TimeRecord WITH (ROWLOCK, UPDLOCK)
 			SET InOutType = NULL,
 				ModifiedBy = @ModifiedBy,
-				ModifiedDate = GETDATE()
+				ModifiedDate = dbo.fnc_GetClientDateTime()
 			WHERE ID = @RecordTimeId
 		END
 	ELSE
@@ -53,7 +53,7 @@ BEGIN
 			UPDATE dbo.TimeRecord WITH (ROWLOCK, UPDLOCK)
 			SET InOutType = @InOutType,
 				ModifiedBy = @ModifiedBy,
-				ModifiedDate = GETDATE()
+				ModifiedDate = dbo.fnc_GetClientDateTime()
 			WHERE ID = @RecordTimeId
 		END
 
