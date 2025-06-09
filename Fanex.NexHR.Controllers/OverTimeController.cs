@@ -333,7 +333,7 @@
             {
                 Teams = await teamService.GetTeam(),
                 Departments = await departmentService.GetAll(),
-                Year = DateTimeOffset.Now.Year
+                Year = DateTimeOffset.Now.DateTime.ToClientTimeZone().Year
             };
 
             return View(summary);
