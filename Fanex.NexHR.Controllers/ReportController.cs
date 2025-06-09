@@ -743,7 +743,7 @@
             var model = new YearlyNexRequestViewModel
             {
                 Teams = teams,
-                Year = DateTimeOffset.Now.Year
+                Year = DateTimeOffset.Now.DateTime.ToClientTimeZone().Year
             };
 
             return View(model);
