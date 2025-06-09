@@ -5,6 +5,7 @@
     using Criteria.Calendar;
     using Fanex.NexHR.Controllers.Attributes;
     using Microsoft.AspNetCore.Mvc;
+    using Fanex.NexHR.Core;
     using Models;
     using Models.Calendar;
     using Services.Interfaces;
@@ -97,8 +98,8 @@
 
                 model.Teams = await teamService.GetTeam();
                 model.Departments = await departmentService.GetAll();
-                model.Month = model.Month == 0 ? DateTimeOffset.Now.Month : model.Month;
-                model.Year = model.Year == 0 ? DateTimeOffset.Now.Year : model.Year;
+                model.Month = model.Month == 0 ? DateTimeOffset.Now.DateTime.ToClientTimeZone().Month : model.Month;
+                model.Year = model.Year == 0 ? DateTimeOffset.Now.DateTime.ToClientTimeZone().Year : model.Year;
                 var date = new DateTimeOffset(model.Year, model.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
                 var criteria = new GetWorkingScheduleCriteria
                 {
@@ -126,8 +127,8 @@
 
                 model.Teams = await teamService.GetTeam();
                 model.Departments = await departmentService.GetAll();
-                model.Month = model.Month == 0 ? DateTimeOffset.Now.Month : model.Month;
-                model.Year = model.Year == 0 ? DateTimeOffset.Now.Year : model.Year;
+                model.Month = model.Month == 0 ? DateTimeOffset.Now.DateTime.ToClientTimeZone().Month : model.Month;
+                model.Year = model.Year == 0 ? DateTimeOffset.Now.DateTime.ToClientTimeZone().Year : model.Year;
             }
 
             return View(model);
@@ -155,8 +156,8 @@
         {
             return PartialView(new AddEmployeeCalendarViewModel
             {
-                FromDate = DateTimeOffset.Now.Date,
-                ToDate = DateTimeOffset.Now.Date,
+                FromDate = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date,
+                ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date,
             });
         }
     }

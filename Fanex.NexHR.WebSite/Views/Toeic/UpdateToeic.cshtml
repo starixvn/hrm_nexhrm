@@ -1,7 +1,8 @@
-﻿@using Fanex.NexHR.Models
+﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Models
 @using Fanex.NexHR.Resources
 @model Toeic
-@{ DateTime currentDate = DateTime.Today; }
+@{ DateTime currentDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(); }
 <form id="frmUpdateTOEIC" class="form form-update-toeic">
     <div id="divErrorCont" class="">
         &nbsp;

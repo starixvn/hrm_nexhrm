@@ -4,7 +4,7 @@
 @using Fanex.NexHR.ViewModels.TrainingAndDevelopment
 @model TrainingAndDevelopmentUpdateViewModel
 @{
-    DateTime currentDate = DateTime.Today; 
+    DateTime currentDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(); 
     var types = ViewBag.Types;
     var publishSelectList = new SelectList(
         new List<SelectListItem>

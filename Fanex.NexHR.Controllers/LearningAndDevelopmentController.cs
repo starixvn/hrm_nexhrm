@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
+    using Fanex.NexHR.Core;
     using System.Threading.Tasks;
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Criteria.TrainingAndDevelopment;
@@ -42,7 +43,7 @@
         {
             var model = new TrainingAndDevelopmentFilterViewModel
             {
-                ToDate = DateTimeOffset.Now.DateTime,
+                ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                 Teams = await teamService.GetTeam(),
                 Types = await trainingAndDevelopmentService.GetTrainingAndDevelopmentType()
             };

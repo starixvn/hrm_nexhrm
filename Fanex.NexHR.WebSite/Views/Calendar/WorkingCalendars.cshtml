@@ -12,8 +12,8 @@
     ViewBag.Title = Labels.Holidays;
     var addEmployeeCalendarViewModel = new AddEmployeeCalendarViewModel
     {
-        FromDate = DateTime.Now.Date,
-        ToDate = DateTime.Now.Date
+        FromDate = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date,
+        ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date
     };
 }
 
@@ -42,7 +42,7 @@
 @{
     //Set max month we can select in MonthPick
     int Month = 12;
-    int year = DateTime.Now.GetMaxDate().Year + 1;
+    int year = DateTimeOffset.Now.DateTime.ToClientTimeZone().GetMaxDate().Year + 1;
 
     var maxDate = new System.Text.StringBuilder();
     maxDate.AppendFormat("{0}/{1}/1", year, Month);
