@@ -6,7 +6,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE   PROCEDURE [dbo].[EmployeeExt_ChangePassword] @Id INT
+CREATE OR ALTER PROCEDURE [dbo].[EmployeeExt_ChangePassword] @Id INT
     ,@Password NVARCHAR(100)
     ,@ErrCode INT = 0 OUTPUT
     ,@ErrMsg VARCHAR(200) = '' OUTPUT
