@@ -161,7 +161,7 @@
         {
             var model = new TimesheetViewModel
             {
-                Year = DateTimeOffset.Now.Year,
+                Year = DateTimeOffset.Now.DateTime.ToClientTimeZone().Year,
                 EmpId = CurrentUser.Id,
                 IsHavePrivilegeCreateCheckInOutRecord = await IsPrivilegeCreateCheckInOut()
             };

@@ -76,7 +76,7 @@
             {
                 Employee = CurrentUser.DisplayName,
                 EmployeeId = CurrentUser.Id,
-                WorkDate = date ?? DateTimeOffset.Now.Date,
+                WorkDate = date ?? DateTimeOffset.Now.DateTime.ToClientTimeZone().Date,
                 CheckInOutType = type ?? (short)RequestType.CheckIn,
                 UnavailDates = await requestService.GetDisableRequestDate(CurrentUser.Id, requestId: null),
                 TotalRequest = await requestService.GetNumberRequestInMonth(CurrentUser.Id, RequestType.CheckIn),
@@ -111,7 +111,7 @@
                     RequestType = model.CheckInOutType,
                     IsPlanned = false,
                     IsCrossDate = model.IsCrossDate,
-                    CreatedDate = DateTimeOffset.Now.DateTime,
+                    CreatedDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                     CreatedBy = model.By,
                     FromDate = model.WorkDate
                 };
@@ -207,7 +207,7 @@
                     Remark = model.Remark,
                     ModifiedBy = model.EmployeeId,
                     FromDate = model.WorkDate,
-                    ModifiedDate = DateTimeOffset.Now.DateTime,
+                    ModifiedDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                     FromShift = null,
                     ToDate = null,
                     ToShift = null,
@@ -253,7 +253,7 @@
             var getShiftByDateCriteria = new GetShiftByDateCriteria
             {
                 EmployeeId = CurrentUser.Id,
-                Date = date ?? DateTimeOffset.Now.DateTime
+                Date = date ?? DateTimeOffset.Now.DateTime.ToClientTimeZone()
             };
 
             Shift shift = await shiftService.GetByDate(getShiftByDateCriteria);

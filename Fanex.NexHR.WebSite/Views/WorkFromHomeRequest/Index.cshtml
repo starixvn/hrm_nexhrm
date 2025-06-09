@@ -2,7 +2,7 @@
 @using Fanex.NexHR.Resources
 @{
     ViewBag.Title = Labels.WorkFromHomeRequest;
-    var CurrentYear = DateTime.Now.ToClientTimeZone().Year;
+    var CurrentYear = DateTime.Now.Year;
     var FromYear = 2010;
     var ToYear = CurrentYear + 1;
     var ListSelectYear = new List<SelectListItem>();
