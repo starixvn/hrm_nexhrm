@@ -32,5 +32,6 @@ WORKDIR /app
 COPY --from=builder /app .
 
 ENV TZ="Asia/Bangkok"
+ENV ASPNETCORE_URLS=http://+:5000
 
 ENTRYPOINT ["dotnet", "Fanex.NexHR.WebSite.dll"]
