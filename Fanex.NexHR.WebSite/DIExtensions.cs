@@ -149,9 +149,10 @@ namespace Fanex.NexHR.WebSite
             services.AddSingleton<ISyncDataService, SyncDataService>();
             services.AddSingleton<ITimeSheetService, TimeSheetService>();
             services.AddSingleton<IMessageCategoryLogService, MessageCategoryLogService>();
-            services.AddSingleton(configuration.GetSection("AmazonStorageConfig").Get<AmazonStorageConfig>());
+            var s3Config = configuration.GetSection("AmazonStorageConfig").Get<AmazonStorageConfig>();
+            services.AddSingleton(s3Config);
             services.AddSingleton<IMinIOService, MinIOService>();
-            FileHelpers.Initialize(services.BuildServiceProvider().GetRequiredService<IMinIOService>());
+            FileHelpers.Initialize(services.BuildServiceProvider().GetRequiredService<IMinIOService>(), s3Config);
         }
 
         private static void InjectRepository(IServiceCollection services)

@@ -454,7 +454,7 @@ namespace Fanex.NexHR.Controllers
                 return Json(null);
             }
             var path = $"1/{code}.jpg";
-            var uploadStatus = await minIOService.UploadFileAsync(file, Bucket.Avatar, path);
+            var uploadStatus = await minIOService.UploadFileAsync(file, StorageInfo.Avatar.Bucket, path);
             if (!uploadStatus)
             {
                 return Json(null);

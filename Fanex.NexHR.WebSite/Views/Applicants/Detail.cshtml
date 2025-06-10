@@ -3,11 +3,12 @@
 @using Fanex.NexHR.Core.Enums
 @using Fanex.NexHR.Services.Interfaces
 @using Fanex.NexHR.Core
+@using Fanex.NexHR.Core.Helpers
 @model DetailApplicantViewModel
 
 @{
     ViewBag.Title = Labels.Applicants;
-    string dirCV = "common_files/cv";
+    var dirCV = FileHelpers.GetResumeDir();
     var isManager = ViewBag.IsManager;
 }
 

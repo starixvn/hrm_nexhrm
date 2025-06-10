@@ -1,9 +1,10 @@
 ﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Core.Helpers
 @using Fanex.NexHR.Models.Applicant
 @using Fanex.NexHR.Resources
 @model IEnumerable<Applicant>
 @{
-    string dirCV = "common_files/cv";
+    var dirCV = FileHelpers.GetResumeDir();
 }
 <div id="divErrorCont"></div>
 <input id="total-row" value="@ViewBag.TotalRow" hidden>

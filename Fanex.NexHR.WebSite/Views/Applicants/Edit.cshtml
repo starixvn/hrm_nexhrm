@@ -1,12 +1,14 @@
 ﻿@using Fanex.NexHR.Resources
 @using Fanex.NexHR.ViewModels.Applicant
 @using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Core.Helpers
 @using Fanex.NexHR.Services.Interfaces
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model EditApplicantViewModel
 
 @{
     ViewBag.Title = Labels.Applicants;
-    string dirCV = "common_files/cv";
+    var dirCV = FileHelpers.GetResumeDir();
     var isManager = ViewBag.IsManager;
 }
 
