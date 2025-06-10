@@ -10,6 +10,7 @@ Original: Employee_GetMissedLogTime
 Revisions:  
 	- 20250307 - Added date range parameters and changed to use Date instead of Month/Year
 				 Default date range is now first day to last day of current month
+	- 20240319 - Removed RedmineNexcel dependencies as it's now handled by a separate API
 Param's Explanation:
 - @FromDate: Optional start date for filtering (defaults to first day of current month if NULL)
 - @ToDate: Optional end date for filtering (defaults to last day of current month if NULL)
@@ -37,7 +38,8 @@ BEGIN
                 WHEN CHARINDEX('\', DomainUsername) > 0 
                 THEN SUBSTRING(DomainUsername, CHARINDEX('\', DomainUsername) + 1, LEN(DomainUsername)) 
                 ELSE DomainUsername 
-            END AS ExtractedUsername
+            END AS ExtractedUsername,
+            DomainUsername
         FROM [dbo].[Employee] WITH (NOLOCK)
         WHERE IsDeleted = 0 OR IsDeleted IS NULL
     ),
@@ -76,19 +78,15 @@ BEGIN
         END AS IsLeader,
         ISNULL(mc.MissedCount, 0) AS MissedCount,
 		jt.Name As JobTitle,
-        ec.ConversationId
+        ec.ConversationId,
+        edu.DomainUsername
     FROM [dbo].[EmployeeGroup] eg WITH (NOLOCK)
     INNER JOIN [dbo].[Employee] e WITH (NOLOCK) ON eg.Id = e.GroupId
     LEFT JOIN [dbo].[GroupSupervisor] gs WITH (NOLOCK) ON eg.Id = gs.GroupId AND (gs.IsDeleted = 0 OR gs.IsDeleted IS NULL)
     LEFT JOIN [dbo].[EmployeeSupervisor] es WITH (NOLOCK) ON e.Id = es.EmpId AND (es.IsDeleted = 0 OR es.IsDeleted IS NULL)
-	LEFT JOIN [HRM].[dbo].[JobTitle] jt WITH (NOLOCK) ON e.JobTitleId = jt.JobTitleId AND (jt.IsDeleted = 0 OR jt.IsDeleted IS NULL)
+	LEFT JOIN [HRM].[dbo].[JobTitle] jt WITH (NOLOCK) ON e.JobTitleId = jt.JobTitleId
     LEFT JOIN ExtractedDomainUsers edu ON e.Id = edu.Id
     LEFT JOIN MissedCounts mc ON e.Id = mc.EmpID
-    LEFT JOIN [RedmineNexcel].[dbo].[Users] ru WITH (NOLOCK)
-        ON edu.ExtractedUsername = ru.Login
-    LEFT JOIN [RedmineNexcel].[dbo].[TimeEntries] te WITH (NOLOCK)
-        ON ru.Id = te.UserId 
-        AND CAST(te.SpentOn AS DATE) = @Yesterday
     LEFT JOIN [dbo].[EmployeeConversation] ec WITH (NOLOCK) ON e.Id = ec.EmpId
     LEFT JOIN [dbo].[EmployeeAttendance] ea WITH (NOLOCK)
         ON e.Id = ea.EmpId 
@@ -99,7 +97,7 @@ BEGIN
         AND e.Enabled = 1
         AND (
             e.Id = gs.ApproverId
-            OR (te.Id IS NULL AND ea.InFixed IS NOT NULL AND (ea.LeaveDay != 1 OR ea.LeaveDay IS NULL))
+            OR (ea.InFixed IS NOT NULL AND (ea.LeaveDay != 1 OR ea.LeaveDay IS NULL))
         )
         -- Exclude EmpId is not Leader but exist in EmployeeSupervisor
         AND e.Id NOT IN (SELECT EmpId FROM EmployeesToExclude)
