@@ -1,9 +1,11 @@
-﻿using Fanex.NexHR.Core.Model;
+
 
 namespace Fanex.NexHR.WebSite
 {
     using System;
     using System.Text;
+    using Fanex.NexHR.Core.Model;
+    using Fanex.NexHR.Website.Middlewares;
     using Fanex.Data.Repository;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Helpers;
@@ -138,7 +140,7 @@ namespace Fanex.NexHR.WebSite
             services.AddSingleton<IHistoryService, HistoryService>();
             services.AddSingleton<IPositionService, PositionService>();
             services.AddSingleton<ISupervisorFlowService, SupervisorFlowService>();
-            services.AddSingleton<ICryptoService, CryptoService>();
+            services.AddSingleton<ICryptoService, CryptoService>(); 
 
             //API Service
             services.AddSingleton<IBotBioTasksService, BioTasksService>();
@@ -157,6 +159,7 @@ namespace Fanex.NexHR.WebSite
 
         private static void InjectRepository(IServiceCollection services)
         {
+            services.AddSingleton<IApiKeyValidator, ApiKeyValidator>();
             services.AddSingleton<IDynamicRepository, DynamicRepository>();
             services.AddSingleton<IBaseRepository, BaseRepository>();
             services.AddSingleton<IEmployeeRepository, EmployeeRepository>();

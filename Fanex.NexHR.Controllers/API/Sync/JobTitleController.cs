@@ -1,0 +1,29 @@
+﻿using System;
+using System.Threading.Tasks;
+using Fanex.NexHR.Criteria.SyncData.SyncNexGoal;
+using Fanex.NexHR.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+
+namespace Fanex.NexHR.Controllers.API.Sync;
+
+[ApiController]
+[Route("api/sync/[controller]")]
+public class JobTitleController(IJobTitleService jobTitleService) : ControllerBase
+{
+    [HttpGet]
+    public async Task<IActionResult> GetJobTitleByLastModifiedDate(DateTime lastModifiedDate)
+    {
+        var criteria = new GetJobTitleByLastModifiedDateCriteria
+        {
+            LastModifiedDate = lastModifiedDate
+        };
+
+        var result = await jobTitleService.GetJobTitleByLastModifiedDate(criteria);
+        var json = JsonConvert.SerializeObject(result, new JsonSerializerSettings
+        {
+            NullValueHandling = NullValueHandling.Ignore
+        });
+        return Ok(json);
+    }
+}

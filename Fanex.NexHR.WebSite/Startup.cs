@@ -1,8 +1,9 @@
 ﻿namespace Fanex.NexHR.WebSite
 {
     using AspNetCore.Unobtrusive.Ajax;
-    using Fanex.Data.SqlServer;
-    using Fanex.Logging;
+    using Data.SqlServer;
+    using Middlewares;
+    using Logging;
     using Fanex.Logging.Sentry;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -69,6 +70,10 @@
             app.UseSession();
 
             app.UseRouting();
+            app.UseWhen(context => context.Request.Path.StartsWithSegments("/api/sync"), branch =>
+            {
+                branch.UseMiddleware<ApiKeyMiddleware>();
+            });
 
             app.UseAuthorization();
 

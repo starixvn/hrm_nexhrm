@@ -6,6 +6,6 @@
 
         public string Name { get; set; }
 
-        public int NumberOfEmployee { get; set; }
+        public int? NumberOfEmployee { get; set; }
     }
 }

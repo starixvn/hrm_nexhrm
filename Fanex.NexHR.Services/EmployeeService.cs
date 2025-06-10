@@ -11,7 +11,9 @@
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.EmployeeTransfer;
+    using Fanex.NexHR.Criteria.SyncData.SyncNexGoal;
     using Fanex.NexHR.Models;
+    using Fanex.NexHR.Models.SyncData.SyncNexGoalModel;
     using Interfaces;
     using Models.Report;
     using Models.Workload;
@@ -24,7 +26,8 @@
         private readonly IBaseService baseService;
         private readonly ILogServiceProvider logServiceProvider;
 
-        public EmployeeService(IEmployeeRepository employeeRepository, IBaseService baseService, ILogServiceProvider logServiceProvider)
+        public EmployeeService(IEmployeeRepository employeeRepository, IBaseService baseService,
+            ILogServiceProvider logServiceProvider)
         {
             this.employeeRepository = employeeRepository;
             this.baseService = baseService;
@@ -54,7 +57,8 @@
             return employees;
         }
 
-        public async Task<IEnumerable<EmployeeInfo>> GetByEmployeeModifiedDate(GetEmployeeByModifiedDateCriteria criteria)
+        public async Task<IEnumerable<EmployeeInfo>> GetByEmployeeModifiedDate(
+            GetEmployeeByModifiedDateCriteria criteria)
         {
             var employeeInfo = await baseService.GetDataAsync<EmployeeInfo>(criteria);
             return employeeInfo;
@@ -111,32 +115,39 @@
             return employees ?? new List<Employee>();
         }
 
-        public async Task<SystemReminderModel> GetEmpployeeHasBirthdayAndFirstWorkingday(GetBirthdayAndFirstWorkingdayCriteria criteria)
+        public async Task<SystemReminderModel> GetEmpployeeHasBirthdayAndFirstWorkingday(
+            GetBirthdayAndFirstWorkingdayCriteria criteria)
         {
             SystemReminderModel employees = null;
             if (criteria != null && criteria.IsValid())
             {
-                employees = await employeeRepository.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria).ConfigureAwait(false);
+                employees = await employeeRepository.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria)
+                    .ConfigureAwait(false);
             }
 
             return employees;
         }
 
-        public async Task<IEnumerable<Employee>> GetUpdatingScoreRelatedPeople(GetUpdatingScoreRelatedPeopleCriteria criteria)
+        public async Task<IEnumerable<Employee>> GetUpdatingScoreRelatedPeople(
+            GetUpdatingScoreRelatedPeopleCriteria criteria)
         {
             IEnumerable<Employee> employees = await baseService.GetDataAsync<Employee>(criteria);
             return employees;
         }
 
-        public async Task<IEnumerable<MissingCheckInOutModel>> GetMissingCheckInOutByEmpId(GetMissingCheckInOutEmployeesCriteria criteria)
+        public async Task<IEnumerable<MissingCheckInOutModel>> GetMissingCheckInOutByEmpId(
+            GetMissingCheckInOutEmployeesCriteria criteria)
         {
-            IEnumerable<MissingCheckInOutModel> missingCheckInOuts = await baseService.GetDataAsync<MissingCheckInOutModel>(criteria);
+            IEnumerable<MissingCheckInOutModel> missingCheckInOuts =
+                await baseService.GetDataAsync<MissingCheckInOutModel>(criteria);
             return missingCheckInOuts;
         }
 
-        public async Task<IEnumerable<EmployeeLateInEarlyOut>> GetEmployeeLateInEarlyOut(GetEmployeeAttendanceLateInEarlyOutCriteria criteria)
+        public async Task<IEnumerable<EmployeeLateInEarlyOut>> GetEmployeeLateInEarlyOut(
+            GetEmployeeAttendanceLateInEarlyOutCriteria criteria)
         {
-            IEnumerable<EmployeeLateInEarlyOut> employees = await baseService.GetDataAsync<EmployeeLateInEarlyOut>(criteria);
+            IEnumerable<EmployeeLateInEarlyOut> employees =
+                await baseService.GetDataAsync<EmployeeLateInEarlyOut>(criteria);
             return employees;
         }
 
@@ -150,7 +161,8 @@
             var personal = await employeeRepository.GetDashBoardPersonalSpace(criteria);
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
-            logServiceProvider.LogFile($"SP name: Report_EmployeeSpaceDashBoard - EmpID: {employeeId} - Execute time: {elapsedMs} ms");
+            logServiceProvider.LogFile(
+                $"SP name: Report_EmployeeSpaceDashBoard - EmpID: {employeeId} - Execute time: {elapsedMs} ms");
             return personal;
         }
 
@@ -171,7 +183,8 @@
 
         public async Task<IEnumerable<MissingCheckInOutEmployee>> GetMissingCheckInOutEmployeeAsync()
         {
-            var missingCheckInOuts = await baseService.GetDataAsync<MissingCheckInOutEmployee>(new GetMissingCheckInCheckOutCriteria()).ConfigureAwait(false);
+            var missingCheckInOuts = await baseService
+                .GetDataAsync<MissingCheckInOutEmployee>(new GetMissingCheckInCheckOutCriteria()).ConfigureAwait(false);
 
             return missingCheckInOuts;
         }
@@ -207,7 +220,8 @@
                 .OrderBy(t => t.Employee.NickName)
                 .ToList();
 
-            var requests = workFromHomes.Where(x => !leaveDay.Any(leave => leave.Employee.Id == x.Employee.Id)).ToList();
+            var requests = workFromHomes.Where(x => !leaveDay.Any(leave => leave.Employee.Id == x.Employee.Id))
+                .ToList();
             foreach (var request in requests)
             {
                 employees.Append(request.Employee.NickName);
@@ -215,7 +229,8 @@
             }
 
             var leaveHalfDay = leaveDay.Where(x => x.LeaveDay.Equals(numberEqual));
-            var halfDayRequests = workFromHomes.Where(x => leaveHalfDay.Any(y => y.Employee.Id == x.Employee.Id)).ToList();
+            var halfDayRequests = workFromHomes.Where(x => leaveHalfDay.Any(y => y.Employee.Id == x.Employee.Id))
+                .ToList();
 
             foreach (var halfDayRequest in halfDayRequests)
             {
@@ -224,7 +239,9 @@
                 employees.Append(", ");
             }
 
-            return employees.Length > numberLength ? employees.ToString().Substring(0, employees.Length - numberLength) : string.Empty;
+            return employees.Length > numberLength
+                ? employees.ToString().Substring(0, employees.Length - numberLength)
+                : string.Empty;
         }
 
         public IList<string> UserRoles(UserSession currentUser)
@@ -273,6 +290,36 @@
             }
 
             return roles.ToArray();
+        }
+
+        public async Task<IEnumerable<SyncEmployeeModel>> GetEmployeesByLastModifiedDate(
+            GetEmployeesByLastModifiedDateCriteria criteria)
+        {
+            return await baseService.GetDataAsync<SyncEmployeeModel>(criteria);
+        }
+
+        public async Task<IEnumerable<SyncEmployeeAttendanceModel>> GetEmployeeAttendances(
+            GetEmployeeAttendancesCriteria criteria)
+        {
+            return await baseService.GetDataAsync<SyncEmployeeAttendanceModel>(criteria);
+        }
+
+        public async Task<IEnumerable<EmployeeCalendarModel>> GetEmployeeCalendarsByLastModifiedDate(
+            GetEmployeeCalendarsByLastModifiedDateCriteria criteria)
+        {
+            return await baseService.GetDataAsync<EmployeeCalendarModel>(criteria);
+        }
+
+        public async Task<IEnumerable<EmployeeOverTimeModel>> GetEmployeeOvertimesByLastModifiedDate(
+            GetEmployeeOvertimeByLastModifiedDateCriteria criteria)
+        {
+            return await baseService.GetDataAsync<EmployeeOverTimeModel>(criteria);
+        }
+
+        public async Task<IEnumerable<EmployeeTOEIC>> GetEmployeeTOEICsByLastModifiedDate(
+            GetEmployeeTOEICByLastModifiedDateCriteria criteria)
+        {
+            return await baseService.GetDataAsync<EmployeeTOEIC>(criteria);
         }
     }
 }
