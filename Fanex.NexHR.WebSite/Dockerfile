@@ -17,13 +17,15 @@ COPY ["nuget.config", ""]
 
 RUN dotnet nuget add source https://nuget.nexdev.net/api/v2
 
-RUN dotnet restore -v n -r linux-x64 ./Fanex.NexHR.WebSite/Fanex.NexHR.WebSite.csproj
+RUN --mount=type=cache,target=/root/.nuget/packages \
+    dotnet restore -v n -r linux-x64 ./Fanex.NexHR.WebSite/Fanex.NexHR.WebSite.csproj
 
 COPY . .
 
 WORKDIR "/src/Fanex.NexHR.WebSite"
 
-RUN dotnet publish -r linux-x64 --self-contained false -o /app
+RUN --mount=type=cache,target=/root/.nuget/packages \
+    dotnet publish -r linux-x64 --self-contained false -o /app
 
 FROM hub.nexdev.net/base/dotnet/core/aspnet:9.0-alpine AS base
 
