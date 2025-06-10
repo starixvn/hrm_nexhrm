@@ -12,6 +12,7 @@
     using Criteria.Employee;
     using Criteria.Request;
     using Data.Repository;
+    using Fanex.NexHR.Core.Helpers;
     using Fanex.NexHR.Models.Core;
     using Fanex.NexHR.Models.LateInEarlyOut;
     using Fanex.NexHR.Models.Staff;
@@ -678,21 +679,21 @@
         public async Task<IEnumerable<ApproverRequestSumup>> GetPendingRequestGroupByApproverAsync()
         {
             var pendingRequests = await baseService.GetDataAsync<PendingRequestApprover>(new GetPendingRequestCriteria());
-            var needApprovedRequests = pendingRequests.GroupBy(r => r.ApproverId)
-                .Select(g => new ApproverRequestSumup
+            var needApprovedRequests = await Task.WhenAll(pendingRequests.GroupBy(r => r.ApproverId)
+                .Select(async g => new ApproverRequestSumup
                 {
                     ApproverId = g.Key,
                     ApproverNickname = g.FirstOrDefault()?.Approver,
                     ConversationId = g.FirstOrDefault()?.ApproverConversationId,
                     CallbackUrl = appSetting.BaseUrl,
-                    Requests = g.Select(i => new MemberRequest
+                    Requests = await Task.WhenAll(g.Select(async i => new MemberRequest
                     {
                         RequestId = i.RequestId,
                         NickName = i.Requester,
                         TeamName = i.TeamName,
                         FullName = i.FullNameRequester,
                         ApproverId = i.ApproverId,
-                        Avatar = string.Format("{0}/common_files/avatars/{1}.jpg", appSetting.BaseUrl, i.Code),
+                        Avatar = await FileHelpers.GetAvatar(i.Code),
                         IsLeaveRequest = !IsCheckInOutRequest(i.RequestType),
                         DateDetails = GenerateDisplayDate(i.FromDate, i.ToDate, i.RequestType, i.TotalDays, i.FromShift),
                         FromDate = i.FromDate.ToDateMonthYearFormatedDate(),
@@ -702,8 +703,8 @@
                         CallbackUrl = appSetting.BaseUrl,
                         CreatedDate = i.CreatedDate.ToFormattedDateTime(),
                         CreatedAt = i.CreatedDate
-                    })
-                });
+                    }))
+                }));
 
             return needApprovedRequests;
         }

@@ -1,9 +1,13 @@
-﻿namespace Fanex.NexHR.WebSite
+﻿using Fanex.NexHR.Core.Model;
+
+namespace Fanex.NexHR.WebSite
 {
     using System;
     using System.Text;
     using Fanex.Data.Repository;
     using Fanex.NexHR.Core;
+    using Fanex.NexHR.Core.Helpers;
+    using Fanex.NexHR.Core.Services;
     using Fanex.NexHR.Models.Core;
     using Fanex.NexHR.Models.NexBot;
     using Fanex.NexHR.Models.SyncData;
@@ -23,11 +27,11 @@
 
     public static class DIExtensions
     {
-        public static void RegisterServices(this IServiceCollection services)
+        public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
             InjectRepository(services);
 
-            InjectServices(services);
+            InjectServices(services, configuration);
         }
 
         public static void RegisterAuthentication(this IServiceCollection services, IConfiguration configuration)
@@ -95,7 +99,7 @@
             services.AddSingleton(ldapSettings);
         }
 
-        private static void InjectServices(IServiceCollection services)
+        private static void InjectServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<Logging.ILogger, Logging.Logger>();
             services.AddScoped<ISessionService, SessionService>();
@@ -134,7 +138,7 @@
             services.AddSingleton<IHistoryService, HistoryService>();
             services.AddSingleton<IPositionService, PositionService>();
             services.AddSingleton<ISupervisorFlowService, SupervisorFlowService>();
-            services.AddSingleton<ICryptoService, CryptoService>(); 
+            services.AddSingleton<ICryptoService, CryptoService>();
 
             //API Service
             services.AddSingleton<IBotBioTasksService, BioTasksService>();
@@ -145,6 +149,9 @@
             services.AddSingleton<ISyncDataService, SyncDataService>();
             services.AddSingleton<ITimeSheetService, TimeSheetService>();
             services.AddSingleton<IMessageCategoryLogService, MessageCategoryLogService>();
+            services.AddSingleton(configuration.GetSection("AmazonStorageConfig").Get<AmazonStorageConfig>());
+            services.AddSingleton<IMinIOService, MinIOService>();
+            FileHelpers.Initialize(services.BuildServiceProvider().GetRequiredService<IMinIOService>());
         }
 
         private static void InjectRepository(IServiceCollection services)

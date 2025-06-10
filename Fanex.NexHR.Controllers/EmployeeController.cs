@@ -1,4 +1,8 @@
-﻿namespace Fanex.NexHR.Controllers
+﻿using Fanex.NexHR.Core.Enums;
+using Fanex.NexHR.Core.Helpers;
+using NPOI.OpenXml4Net.OPC.Internal;
+
+namespace Fanex.NexHR.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -9,6 +13,7 @@
     using Core.Model;
     using Criteria.Employee;
     using Fanex.NexHR.Controllers.Attributes;
+    using Fanex.NexHR.Core.Services;
     using Fanex.NexHR.Criteria.History;
     using Fanex.NexHR.Criteria.JobGrade;
     using Fanex.NexHR.Criteria.ManagementGrade;
@@ -20,6 +25,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Newtonsoft.Json;
+    using NPOI.SS.Formula.Functions;
     using Services.Interfaces;
     using ViewModels;
     using ViewModels.Employee;
@@ -39,6 +45,7 @@
         private readonly IAuthService authService;
         private readonly AppSetting appSetting;
         private readonly ILookupDataService lookupDataService;
+        private readonly IMinIOService minIOService;
 
 #pragma warning disable S107 // Methods should not have too many parameters
 
@@ -56,6 +63,7 @@
             ITrainingAndDevelopmentService trainingAndDevelopmentService,
             IHistoryService historyService,
             IAuthService authService,
+            IMinIOService minIOService,
             ILookupDataService lookupDataService) : base(sessionService)
 #pragma warning restore S107 // Methods should not have too many parameters
         {
@@ -430,52 +438,30 @@
         }
 
         [AllowAnonymous]
-        public FileResult Avatar(string id)
+        public async Task<IActionResult> Avatar(string id)
         {
-            var fileName = "/common_files/avatars/avatar.jpg";
-            var userId = id;
-
-            if (string.IsNullOrWhiteSpace(userId))
-            {
-                userId = CurrentUser.Code + ".jpg";
-            }
-            else
-            {
-                userId += ".jpg";
-            }
-
-            var paths = new[] { environment.WebRootPath, "common_files", "avatars/", userId };
-            var avaPath = Path.Combine(paths);
-
-            if (System.IO.File.Exists(avaPath))
-            {
-                fileName = "/common_files/avatars/" + userId;
-            }
-
-            return File(fileName, "image/jpeg");
+            var avatarUrl = await FileHelpers.GetAvatar(id);
+            return Redirect(avatarUrl);
         }
 
         [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<JsonResult> UploadAvatar(string code, IFormFile file)
         {
-            if (file != null)
+            if (file is not { Length: > 0 })
             {
-                var fileName = code + ".jpg";
-                var paths = new[] { environment.WebRootPath, "common_files", "avatars", fileName };
-                var fullPath = Path.Combine(paths);
-
-                var stream = new FileStream(fullPath, FileMode.Create);
-                await CopyFiles(file, stream);
-                stream.Close();
-                return Json(true);
+                return Json(null);
             }
-            return Json(null);
-        }
+            var path = $"1/{code}.jpg";
+            var uploadStatus = await minIOService.UploadFileAsync(file, Bucket.Avatar, path);
+            if (!uploadStatus)
+            {
+                return Json(null);
+            }
 
-        private static async Task CopyFiles(IFormFile file, FileStream stream)
-        {
-            await file.CopyToAsync(stream);
+            var avatarUrl = await FileHelpers.GetAvatar(code);
+
+            return Json(avatarUrl);
         }
 
         public async Task<IActionResult> Birthday(int month = 0)
