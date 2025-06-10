@@ -138,7 +138,6 @@
 
             //API Service
             services.AddSingleton<IBotBioTasksService, BioTasksService>();
-            services.AddSingleton<IBotFogotLogtimeReminderService, FogotLogtimeReminderService>();
             services.AddSingleton<IBotLateInLateOutAutoJobService, BotLateInEarlyOutViolateOnMonthWarningSerivce>();
             services.AddSingleton<IBotAutoJobService, BotMissingCheckInCheckOutReminderSerivce>();
             services.AddSingleton<IBotLogTimeRemindService, BotLogTimeRemindService>();
