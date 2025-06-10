@@ -16,8 +16,6 @@
 
         Task<double> GetTotalSpentHoursOnDate(string domainName, DateTime onDate);
 
-        Task<IEnumerable<RedmineUser>> GetForgotLogtimeEmployees();
-
         Task<int> GetCurrentRedmineId(string loginName);
 
         Task<IList<TimeEntry>> GetTimeEntries(int currentUserId, DateTime fromDate, DateTime toDate);

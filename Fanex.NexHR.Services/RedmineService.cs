@@ -294,20 +294,5 @@
 
             return spentHours;
         }
-
-        public async Task<IEnumerable<RedmineUser>> GetForgotLogtimeEmployees()
-        {
-            var employees = await baseService.GetDataAsync<RedmineUser>(new GetRedmineUserCriteria());
-
-            if (employees.Any())
-            {
-                foreach (var employee in employees)
-                {
-                    await GetForgotDates(employee);
-                }
-            }
-
-            return employees.Where(e => e.ForgotLogtimeDates.Any());
-        }
     }
 }
