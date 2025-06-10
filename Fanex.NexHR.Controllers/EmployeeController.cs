@@ -80,6 +80,7 @@ namespace Fanex.NexHR.Controllers
             this.authService = authService;
             this.appSetting = appSetting;
             this.lookupDataService = lookupDataService;
+            this.minIOService = minIOService;
         }
 
         public async Task<IActionResult> Index()

@@ -35,11 +35,7 @@ function query() {
 
 function uploadComplete(evt) {
     if (evt.target.status === 200) {
-        console.log("ok done")
-        var url = $('#avatar').attr('src'),
-            parts = url.split('?f=');
-
-        $('#avatar').attr('src', parts[0] + '?f=' + Math.random());
+        $("#file").val("");
     }
     reloadButtonText('#upload');
 }
@@ -49,20 +45,36 @@ function uploadFailed() {
     reloadButtonText('#upload');
 }
 
+$("#file").on("change", function (e) {
+    var file = e.target.files[0];
+    if (file) {
+        if (file.size / 1024 > 5120) {
+            alert(
+                "File is to big (" +
+                file.size / 1024 +
+                "KB) to upload. Maximum = 5120KB"
+            );
+            this.value = "";
+            return;
+        }
+        var pass = /\.(gif|jpe?g|png)$/i.test(file.name);
+        if (!pass) {
+            alert("Please choose an image!");
+            this.value = "";
+            return;
+        }
+
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $("#avatar").attr("src", e.target.result);
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
 function upload() {
     var file = document.getElementById('file').files[0];
     if (file === undefined) {
-        return;
-    }
-
-    if (file.size / 1024 > 5120) {
-        alert('File is to big (' + file.size / 1024 + 'KB) to upload. Maximum = 5120KB');
-        return;
-    }
-
-    var pass = /\.(gif|jpe?g|png)$/i.test(file.name);
-    if (!pass) {
-        alert('Please choose an image!');
         return;
     }
 
