@@ -4,6 +4,6 @@
         <Setting Key="API_TimeRecord_Get" SpName="Nex_API_TimeRecord_Get" DbName="bodb_HRM" Plain="0" />
     </Function>
     <Function Name="Redmine">
-        <Setting Key="API_Redmine_GetTimeEntries" SpName="API_Redmine_GetTimeEntries" DbName="bodb_Redmine" Plain="0" />
+        <Setting Key="API_Redmine_GetTimeEntries" SpName="API_Redmine_GetTimeEntries" DbName="bodb_HRM" Plain="0" />
     </Function>
 </Functions>
