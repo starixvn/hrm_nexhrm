@@ -12,21 +12,14 @@
     using Fanex.NexHR.Models.TimeSheet;
     using Fanex.NexHR.Services.Interfaces;
 
-    public class TimeSheetService : ITimeSheetService
+    public class TimeSheetService(
+        INexbotService nexbotService,
+        IBaseService baseService) : ITimeSheetService
     {
         private const string CacheKeyIgnoredReminder = "UserIgnoredReminderReachedWorkingTime";
         private const string CacheKeyIgnoredCheckOutNotify = "UserIgnoredCheckOutNotify";
         private const string CacheKeyIgnoredChecInNotify = "UserIgnoredCheckInNotify";
         private const int itemEachBatch = 10;
-
-        private readonly INexbotService nexbotService;
-        private readonly IBaseService baseService;
-
-        public TimeSheetService(INexbotService nexbotService, IBaseService baseService)
-        {
-            this.nexbotService = nexbotService;
-            this.baseService = baseService;
-        }
 
         public async Task SendReminderReachedWorkingTime()
         {
@@ -98,13 +91,6 @@
             }
 
             return conversations;
-        }
-
-        public async Task ImportDataFromBioStar()
-        {
-            var criteria = new ImportDataFromBioStarCriteria();
-
-            await baseService.ExecuteNonQueryAsync(criteria);
         }
 
         public async Task NotifyEmployeeAfterCheckOut()
