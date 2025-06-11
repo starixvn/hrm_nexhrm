@@ -112,6 +112,8 @@ namespace Fanex.NexHR.WebSite
             services.AddSingleton<IAuthService, AuthService>();
             services.AddSingleton<ILogServiceProvider, LogServiceProvider>();
             services.AddSingleton<IEmployeeService, EmployeeService>();
+            services.AddSingleton<IWorkingTimeRequestService, WorkingTimeRequestService>();
+            services.AddSingleton<IGroupService, GroupService>();
             services.AddSingleton<ITrainingAndDevelopmentService, TrainingAndDevelopmentService>();
             services.AddSingleton<IPromotionService, PromotionService>();
             services.AddSingleton<ITeamService, TeamService>();
