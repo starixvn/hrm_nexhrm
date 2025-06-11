@@ -470,7 +470,7 @@ namespace Fanex.NexHR.Controllers
 
             if (result.IsSuccessful && !string.IsNullOrEmpty(fileName))
             {
-                var filePath = $"{FileHelpers.GetResumeDir()}/{fileName}";
+                var filePath = $"{StorageInfo.Path}/{fileName}";
 
                 await minIOService.DeleteFileAsync(StorageInfo.Bucket, filePath);
             }

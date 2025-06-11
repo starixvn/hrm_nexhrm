@@ -232,7 +232,7 @@ namespace Fanex.NexHR.Controllers
             });
             if (result.IsSuccessful && !string.IsNullOrEmpty(fileName))
             {
-                var filePath = $"{FileHelpers.GetCertificatesDir()}/{fileName}";
+                var filePath = $"{StorageInfo.Path}/{fileName}";
 
                 await minIOService.DeleteFileAsync(StorageInfo.Bucket, filePath);
             }
@@ -242,7 +242,7 @@ namespace Fanex.NexHR.Controllers
 
         private async Task DeleteFile(string fileName)
         {
-            var filePath = $"{FileHelpers.GetCertificatesDir()}/{fileName}";
+            var filePath = $"{StorageInfo.Path}/{fileName}";
 
             await minIOService.DeleteFileAsync(StorageInfo.Bucket, filePath);
         }
