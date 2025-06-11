@@ -15,16 +15,19 @@
         private readonly INexbotService nexbotService;
         private readonly IBaseService baseService;
         private readonly IEmployeeService employeeService;
+        private readonly IBioWebApiService bioWebApiService;
         private readonly AppSetting appSetting;
 
         public BotLogTimeRemindService(IBaseService baseService,
             IEmployeeService employeeService,
             INexbotService nexbotService,
+            IBioWebApiService bioWebApiService,
             AppSetting appSetting)
         {
             this.baseService = baseService;
             this.nexbotService = nexbotService;
             this.employeeService = employeeService;
+            this.bioWebApiService = bioWebApiService;
             this.appSetting = appSetting;
         }
 
@@ -35,6 +38,8 @@
             {
                 yesterday = DateTimeOffset.Now.DateTime.ToClientTimeZone().AddDays(-3);
             }
+
+            var timeEntries = await bioWebApiService.GetTimeEntriesAsync(yesterday);
             var employees = await employeeService.GetEmployeesMissedLogTime().ConfigureAwait(false);
             var ignoreEmployees = (appSetting.IgnoreEmployeeLogTime ?? "").Split(',');
             var ignoreJobTitles = (appSetting.IgnoreJobTitleLogTime ?? "").Split(',');
@@ -43,7 +48,8 @@
             employees = employees.Where(e =>
                 !Array.Exists(ignoreJobTitles, keyword => e.JobTitle?.Contains(keyword) ?? false) &&
                 Array.IndexOf(ignoreEmployees, e.EmpID.ToString()) < 0 &&
-                Array.IndexOf(ignoreTeams, e.TeamCode ?? string.Empty) < 0
+                Array.IndexOf(ignoreTeams, e.TeamCode ?? string.Empty) < 0 &&
+                !timeEntries.Any(te => te.Login.Equals(e.DomainUsername?.Split('\\').LastOrDefault(), StringComparison.OrdinalIgnoreCase))
             ).ToList();
 
             var employeesMissedLogging = employees.Where(e => !e.IsLeader).ToList();

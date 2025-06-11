@@ -91,6 +91,9 @@ namespace Fanex.NexHR.WebSite
             var syncDataSettings = configuration.GetSection("SyncDataSettings").Get<SyncDataSettings>();
             services.AddSingleton(syncDataSettings);
 
+            var bioWebApiSettings = configuration.GetSection("BioWebApiSettings").Get<BioWebApiSettings>();
+            services.AddSingleton(bioWebApiSettings);
+
             var authSettings = configuration.GetSection("AuthorizedSettings").Get<AuthorizedSettings>();
             services.AddSingleton(authSettings);
 
@@ -153,6 +156,7 @@ namespace Fanex.NexHR.WebSite
             services.AddSingleton<ISyncDataService, SyncDataService>();
             services.AddSingleton<ITimeSheetService, TimeSheetService>();
             services.AddSingleton<IMessageCategoryLogService, MessageCategoryLogService>();
+            services.AddSingleton<IBioWebApiService, BioWebApiService>();
             var s3Config = configuration.GetSection("AmazonStorageConfig").Get<AmazonStorageConfig>();
             services.AddSingleton(s3Config);
             services.AddSingleton<IMinIOService, MinIOService>();
