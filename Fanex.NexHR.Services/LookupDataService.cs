@@ -58,7 +58,7 @@
                 new SalaryGroup
                 {
                     SalaryGroupId = 3,
-                    Name = "SD3",
+                    Name = "SD9",
                     Description = "IT Network Engineer"
                 }
             };
