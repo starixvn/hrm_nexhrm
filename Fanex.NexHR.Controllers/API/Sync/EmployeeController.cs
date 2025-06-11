@@ -20,7 +20,7 @@ public class EmployeeController(IEmployeeService employeeService) : ControllerBa
 
         var result = await employeeService.GetEmployeesByLastModifiedDate(criteria);
 
-        return Ok(result);
+        return new JsonResult(result);
     }
 
     [HttpGet("attendance")]
