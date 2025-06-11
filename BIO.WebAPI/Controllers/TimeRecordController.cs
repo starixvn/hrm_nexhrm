@@ -17,17 +17,12 @@ public class TimeRecordController(
     [HttpGet]
     public async Task<IActionResult> Get(DateTime fromDate, DateTime toDate)
     {
-        var company = configuration.GetValue<string>("Company");
         var criteria = new GetTimeRecordCriteria
         {
             FromDate = fromDate,
             ToDate = toDate
         };
         var records = await baseService.GetDataAsync<TimeRecord>(criteria);
-        foreach (var record in records)
-        {
-            record.Company = company;
-        }
 
         return Ok(records);
     }
