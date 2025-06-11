@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE [dbo].[Sync_EmployeeAttendance_Get]
+CREATE OR ALTER   PROCEDURE [dbo].[Sync_EmployeeAttendance_Get] @Year INT
 AS
 /*
 Created: Jay.Do@20250610
@@ -12,7 +12,7 @@ Param's Explanation:
 */
 BEGIN
     SET NOCOUNT ON
-	
+
 	SELECT EmpId, 
 		AttendanceDate, 
 		InFixed, 
@@ -25,4 +25,5 @@ BEGIN
 		Absence, 
 		TotalWorkHours
 	FROM dbo.EmployeeAttendance WITH (NOLOCK)
+	WHERE @Year = YEAR(InsertDate)
 END

@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE [dbo].[Sync_EmployeeCalendar_Get] @LastModifiedDate DATETIME
+CREATE OR ALTER   PROCEDURE [dbo].[Sync_EmployeeCalendar_Get] @Year INT
 AS
 /*
 Created: Jay.Do@20250610
@@ -20,4 +20,5 @@ BEGIN
 		IsLeaveDay, 
 		LeaveDay
 	FROM dbo.EmployeeCalendar WITH (NOLOCK)
+	WHERE YEAR(ModifiedDate) = @Year
 END

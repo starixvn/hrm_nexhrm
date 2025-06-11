@@ -24,19 +24,22 @@ public class EmployeeController(IEmployeeService employeeService) : ControllerBa
     }
 
     [HttpGet("attendance")]
-    public async Task<IActionResult> GetEmployeeAttendance()
+    public async Task<IActionResult> GetEmployeeAttendance(int year)
     {
-        var criteria = new GetEmployeeAttendancesCriteria();
+        var criteria = new GetEmployeeAttendancesCriteria
+        {
+            Year = year
+        };
         var result = await employeeService.GetEmployeeAttendances(criteria);
         return Ok(result);
     }
 
     [HttpGet("calendar")]
-    public async Task<IActionResult> GetEmployeeCalendarsByLastModifiedDate(DateTime lastModifiedDate)
+    public async Task<IActionResult> GetEmployeeCalendarsByLastModifiedDate(int year)
     {
         var criteria = new GetEmployeeCalendarsByLastModifiedDateCriteria
         {
-            LastModifiedDate = lastModifiedDate
+            Year = year
         };
 
         var result = await employeeService.GetEmployeeCalendarsByLastModifiedDate(criteria);
