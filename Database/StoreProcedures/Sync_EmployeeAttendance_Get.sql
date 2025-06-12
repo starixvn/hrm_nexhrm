@@ -1,4 +1,4 @@
-CREATE OR ALTER   PROCEDURE [dbo].[Sync_EmployeeAttendance_Get] @Year INT
+CREATE OR ALTER   PROCEDURE [dbo].[Sync_EmployeeAttendance_Get] @LastModifiedDate DATETIME
 AS
 /*
 Created: Jay.Do@20250610
@@ -25,5 +25,5 @@ BEGIN
 		Absence, 
 		TotalWorkHours
 	FROM dbo.EmployeeAttendance WITH (NOLOCK)
-	WHERE @Year = YEAR(InsertDate)
+	WHERE InsertDate > @LastModifiedDate
 END

@@ -5,7 +5,7 @@ namespace Fanex.NexHR.Criteria.SyncData.SyncNexGoal;
 
 public class GetEmployeeAttendancesCriteria : CriteriaBase
 {
-    public int Year { get; set; }
+    public DateTime LastModifiedDate { get; set; }
 
     public override string GetSettingKey() => "Sync_EmployeeAttendance_Get";
 

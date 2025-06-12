@@ -10,6 +10,8 @@ public class GroupModel
 
     public int DepartmentId { get; set; }
 
+    public int ParentId { get; set; }
+
     public int Rank { get; set; }
 
     public bool IsDeleted { get; set; }
