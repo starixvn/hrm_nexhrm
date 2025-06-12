@@ -18,7 +18,8 @@ BEGIN
 		CAST(InputDate AS DATE) AS InputDate, 
 		CAST(LRExamDate AS DATE) AS LRExamDate, 
 		Listening, 
-		Reading
+		Reading,
+		ModifiedDate
 	FROM  dbo.TOEIC_ WITH (NOLOCK)
 	WHERE ModifiedDate > @LastModifiedDate
 END

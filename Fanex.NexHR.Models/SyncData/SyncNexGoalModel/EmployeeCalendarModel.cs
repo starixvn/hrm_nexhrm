@@ -17,4 +17,6 @@ public class EmployeeCalendarModel
     public bool IsHoliday { get; set; }
 
     public decimal? LeaveDay { get; set; }
+
+    public DateTime ModifiedDate { get; set; }
 }

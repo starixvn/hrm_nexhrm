@@ -17,4 +17,6 @@ public class WorkingTimeRequestModel
     public decimal? TotalDays { get; set; }
 
     public int Status { get; set; }
+
+    public DateTime ModifiedDate { get; set; }
 }

@@ -19,7 +19,8 @@ BEGIN
 		IsOffDay, 
 		IsHoliday,
 		IsLeaveDay, 
-		LeaveDay
+		LeaveDay,
+		ModifiedDate
 	FROM dbo.EmployeeCalendar WITH (NOLOCK)
 	WHERE ModifiedDate > @LastModifiedDate
 END

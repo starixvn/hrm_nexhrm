@@ -17,4 +17,5 @@ public class SyncEmployeeModel
     public int JobTitleId { get; set; }
     public string Email { get; set; }
     public string ConversationId { get; set; }
+    public DateTime ModifiedDate { get; set; }
 }

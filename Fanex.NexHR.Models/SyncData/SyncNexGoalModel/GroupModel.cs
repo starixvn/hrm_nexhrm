@@ -1,4 +1,6 @@
-﻿namespace Fanex.NexHR.Models.SyncData.SyncNexGoalModel;
+﻿using System;
+
+namespace Fanex.NexHR.Models.SyncData.SyncNexGoalModel;
 
 public class GroupModel
 {
@@ -15,4 +17,6 @@ public class GroupModel
     public int Rank { get; set; }
 
     public bool IsDeleted { get; set; }
+
+    public DateTime ModifiedDate { get; set; }
 }

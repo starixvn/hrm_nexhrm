@@ -18,7 +18,8 @@ BEGIN
 		FromDate, 
 		ToDate, 
 		TotalDays, 
-		[Status]
+		[Status],
+		ModifiedDate
 	FROM dbo.WorkingTimeRequest WITH (NOLOCK)
 	WHERE ModifiedDate > @LastModifiedDate
 END

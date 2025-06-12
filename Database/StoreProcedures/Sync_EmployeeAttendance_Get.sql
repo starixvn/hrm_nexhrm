@@ -24,7 +24,8 @@ BEGIN
 		LeaveTypeId, 
 		LeaveTypeId2, 
 		Absence, 
-		TotalWorkHours
+		TotalWorkHours,
+		InsertDate
 	FROM dbo.EmployeeAttendance WITH (NOLOCK)
 	WHERE InsertDate > @LastModifiedDate
 END

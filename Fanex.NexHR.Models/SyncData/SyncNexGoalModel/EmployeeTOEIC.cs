@@ -15,4 +15,7 @@ public class EmployeeTOEIC
     public int Listening { get; set; }
 
     public int Reading { get; set; }
+
+    public DateTime ModifiedDate { get; set; }
+
 }

@@ -27,4 +27,6 @@ public class SyncEmployeeAttendanceModel
     public int Absence { get; set; }
 
     public decimal? TotalWorkHours { get; set; }
+
+    public DateTime InsertDate { get; set; }
 }

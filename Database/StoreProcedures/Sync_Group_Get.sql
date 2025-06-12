@@ -25,8 +25,8 @@ BEGIN
 		END AS DepartmentId, 
 		ISNULL(Deleted, 0) AS IsDeleted, 
 		[Rank],
-		ParentId
+		ParentId,
+		ModifiedDate
 	FROM dbo.EmployeeGroup WITH (NOLOCK)
 	WHERE ModifiedDate > @LastModifiedDate
 END
-

@@ -11,4 +11,6 @@ public class EmployeeOverTimeModel
     public decimal? Hour { get; set; }
 
     public DateTime Date { get; set; }
+
+    public DateTime ModifiedDate { get; set; }
 }

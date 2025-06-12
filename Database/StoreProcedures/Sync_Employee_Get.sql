@@ -26,9 +26,9 @@ BEGIN
         AS ConfirmedDate, 
 		e.JobTitleId, 
 		e.Email, 
-		ec.ConversationId
+		ec.ConversationId,
+		e.ModifiedDate
 	FROM dbo.Employee AS e WITH (NOLOCK) LEFT OUTER JOIN
         dbo.EmployeeConversation AS ec WITH (NOLOCK) ON e.Id = ec.EmpId
 	WHERE e.ModifiedDate > @LastModifiedDate
 END
-

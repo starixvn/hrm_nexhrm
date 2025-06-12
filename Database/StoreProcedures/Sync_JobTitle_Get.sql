@@ -14,7 +14,8 @@ BEGIN
     SET NOCOUNT ON
 	
 	SELECT JobTitleId, 
-		[Name]
+		[Name],
+		ModifiedDate
 	FROM  HRM.dbo.JobTitle WITH (NOLOCK)
 	WHERE ModifiedDate > @LastModifiedDate
 END

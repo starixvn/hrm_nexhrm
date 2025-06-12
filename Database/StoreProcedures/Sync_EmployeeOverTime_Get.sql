@@ -16,8 +16,9 @@ BEGIN
 	SELECT ot.OvertimeId,
 		otd.EmployeeId, 
 		otd.[Date], 
-		otd.[Hour]
-	FROM NexHRM.dbo.Overtime AS ot WITH (NOLOCK) 
-	INNER JOIN NexHRM.dbo.OvertimeDetail AS otd WITH (NOLOCK) ON ot.OvertimeId = otd.OvertimeId
+		otd.[Hour],
+		ModifiedDate
+	FROM dbo.Overtime AS ot WITH (NOLOCK) 
+	INNER JOIN dbo.OvertimeDetail AS otd WITH (NOLOCK) ON ot.OvertimeId = otd.OvertimeId
 	WHERE ot.ModifiedDate > @LastModifiedDate
 END
