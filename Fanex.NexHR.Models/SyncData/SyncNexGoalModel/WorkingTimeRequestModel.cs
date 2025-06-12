@@ -4,6 +4,8 @@ namespace Fanex.NexHR.Models.SyncData.SyncNexGoalModel;
 
 public class WorkingTimeRequestModel
 {
+    public int Id { get; set; }
+
     public int EmpId { get; set; }
 
     public int RequestType { get; set; }

@@ -4,6 +4,8 @@ namespace Fanex.NexHR.Models.SyncData.SyncNexGoalModel;
 
 public class SyncEmployeeAttendanceModel
 {
+    public int Id { get; set; }
+
     public int EmpId { get; set; }
 
     public DateTime AttendanceDate { get; set; }

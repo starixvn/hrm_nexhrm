@@ -13,7 +13,8 @@ Param's Explanation:
 BEGIN
     SET NOCOUNT ON
 	
-	SELECT otd.EmployeeId, 
+	SELECT ot.OvertimeId,
+		otd.EmployeeId, 
 		otd.[Date], 
 		otd.[Hour]
 	FROM NexHRM.dbo.Overtime AS ot WITH (NOLOCK) 
