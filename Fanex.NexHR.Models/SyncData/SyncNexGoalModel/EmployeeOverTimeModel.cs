@@ -8,9 +8,9 @@ public class EmployeeOverTimeModel
 
     public int EmployeeId { get; set; }
 
-    public decimal? Hour { get; set; }
+    public decimal Hour { get; set; }
 
     public DateTime Date { get; set; }
 
-    public DateTime ModifiedDate { get; set; }
+    public DateTime? ModifiedDate { get; set; }
 }

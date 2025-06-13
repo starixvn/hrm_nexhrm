@@ -10,7 +10,7 @@ public class WorkingTimeRequestModel
 
     public int RequestType { get; set; }
 
-    public DateTime? FromDate { get; set; }
+    public DateTime FromDate { get; set; }
 
     public DateTime? ToDate { get; set; }
 
@@ -18,5 +18,5 @@ public class WorkingTimeRequestModel
 
     public int Status { get; set; }
 
-    public DateTime ModifiedDate { get; set; }
+    public DateTime? ModifiedDate { get; set; }
 }

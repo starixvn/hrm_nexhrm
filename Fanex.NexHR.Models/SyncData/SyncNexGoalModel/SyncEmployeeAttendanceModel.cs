@@ -10,23 +10,23 @@ public class SyncEmployeeAttendanceModel
 
     public DateTime AttendanceDate { get; set; }
 
-    public DateTime InFixed { get; set; }
+    public DateTime? InFixed { get; set; }
 
-    public DateTime OutFixed { get; set; }
+    public DateTime? OutFixed { get; set; }
 
-    public bool LateIn { get; set; }
+    public bool? LateIn { get; set; }
 
-    public bool EarlyOut { get; set; }
+    public bool? EarlyOut { get; set; }
 
     public decimal? LeaveDay { get; set; }
 
-    public int LeaveTypeId { get; set; }
+    public int? LeaveTypeId { get; set; }
 
-    public int LeaveTypeId2 { get; set; }
+    public int? LeaveTypeId2 { get; set; }
 
-    public int Absence { get; set; }
+    public int? Absence { get; set; }
 
     public decimal? TotalWorkHours { get; set; }
 
-    public DateTime InsertDate { get; set; }
+    public DateTime? InsertDate { get; set; }
 }

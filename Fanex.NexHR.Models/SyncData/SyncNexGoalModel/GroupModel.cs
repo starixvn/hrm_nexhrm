@@ -10,13 +10,13 @@ public class GroupModel
 
     public string Code { get; set; }
 
-    public int DepartmentId { get; set; }
+    public int? DepartmentId { get; set; }
 
-    public int ParentId { get; set; }
+    public int? ParentId { get; set; }
 
-    public int Rank { get; set; }
+    public int? Rank { get; set; }
 
-    public bool IsDeleted { get; set; }
+    public bool? IsDeleted { get; set; }
 
-    public DateTime ModifiedDate { get; set; }
+    public DateTime? ModifiedDate { get; set; }
 }
