@@ -1,6 +1,5 @@
 ﻿namespace Fanex.NexHR.Controllers.API
 {
-    using System;
     using System.Threading.Tasks;
     using Criteria.Employee;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -9,7 +8,7 @@
     using Services.Interfaces;
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class EmployeeController(IEmployeeService employeeService) : ControllerBase
+    public class EmployeeController(IEmployeeService employeeService, IBaseService baseService) : ControllerBase
     {
         [HttpPost]
         public async Task<IActionResult> GetByUsername(string username)
@@ -25,16 +24,15 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetByModifiedDate(DateTime modifiedDate)
+        public async Task<IActionResult> MappingConversation(string username, string conversationId)
         {
-            var criteria = new GetEmployeeByModifiedDateCriteria
+            var command = new MappingEmployeeConversationCommand
             {
-                ModifiedDate = modifiedDate
+                Username = username,
+                ConversationId = conversationId
             };
-
-            var result = await employeeService.GetByEmployeeModifiedDate(criteria);
-
-            return result == null ? Ok("Not Found") : Ok(result);
+            var result = await baseService.ExecuteNonQueryAsync(command);
+            return Ok(result);
         }
     }
 }
