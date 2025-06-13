@@ -13,7 +13,7 @@ Param's Explanation:
 BEGIN
     SET NOCOUNT ON
 	
-	SELECT JobTitleId, 
+	SELECT JobTitleId AS Id, 
 		[Name],
 		ModifiedDate
 	FROM  HRM.dbo.JobTitle WITH (NOLOCK)
