@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE [dbo].[Sync_Group_Get] @LastModifiedDate DATETIME
+CREATE OR ALTER   PROCEDURE [dbo].[Sync_Group_Get] @LastModifiedDate DATETIME
 AS
 /*
 Created: Jay.Do@20250610
@@ -26,7 +26,7 @@ BEGIN
 		ISNULL(Deleted, 0) AS IsDeleted, 
 		[Rank],
 		ParentId,
-		ModifiedDate
+		ISNULL(ModifiedDate, CreatedDate) AS ModifiedDate
 	FROM dbo.EmployeeGroup WITH (NOLOCK)
-	WHERE ModifiedDate > @LastModifiedDate
+	WHERE ISNULL(ModifiedDate, CreatedDate) > @LastModifiedDate
 END

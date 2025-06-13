@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE [dbo].[Sync_WorkingTimeRequest_Get] @LastModifiedDate DATETIME
+CREATE OR ALTER   PROCEDURE [dbo].[Sync_WorkingTimeRequest_Get] @LastModifiedDate DATETIME
 AS
 /*
 Created: Jay.Do@20250610
@@ -20,7 +20,7 @@ BEGIN
 		ToDate, 
 		TotalDays, 
 		[Status],
-		ModifiedDate
+		ISNULL(ModifiedDate, CreatedDate) AS ModifiedDate
 	FROM dbo.WorkingTimeRequest WITH (NOLOCK)
-	WHERE ModifiedDate > @LastModifiedDate
+	WHERE ISNULL(ModifiedDate, CreatedDate) > @LastModifiedDate
 END

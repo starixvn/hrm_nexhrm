@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE [dbo].[Sync_EmployeeOverTime_Get] @LastModifiedDate DATETIME
+CREATE OR ALTER   PROCEDURE [dbo].[Sync_EmployeeOverTime_Get] @LastModifiedDate DATETIME
 AS
 /*
 Created: Jay.Do@20250610
@@ -17,8 +17,8 @@ BEGIN
 		otd.EmployeeId, 
 		otd.[Date], 
 		otd.[Hour],
-		ModifiedDate
+		ISNULL(ModifiedDate, CreatedDate) AS ModifiedDate
 	FROM dbo.Overtime AS ot WITH (NOLOCK) 
 	INNER JOIN dbo.OvertimeDetail AS otd WITH (NOLOCK) ON ot.OvertimeId = otd.OvertimeId
-	WHERE ot.ModifiedDate > @LastModifiedDate
+	WHERE ISNULL(ot.ModifiedDate, ot.CreatedDate) > @LastModifiedDate
 END

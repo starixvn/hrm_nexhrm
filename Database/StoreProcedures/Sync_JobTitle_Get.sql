@@ -15,7 +15,7 @@ BEGIN
 	
 	SELECT JobTitleId AS Id, 
 		[Name],
-		ModifiedDate
+		ISNULL(ModifiedDate, CreatedDate) AS ModifiedDate
 	FROM  HRM.dbo.JobTitle WITH (NOLOCK)
-	WHERE ModifiedDate > @LastModifiedDate
+	WHERE ISNULL(ModifiedDate, CreatedDate) > @LastModifiedDate
 END
