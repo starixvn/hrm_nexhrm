@@ -34,6 +34,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.MapControllerRoute(
+    "default",
+    "{controller=Whoami}/{action=Index}/{id?}");
 
 await app.RunAsync();
