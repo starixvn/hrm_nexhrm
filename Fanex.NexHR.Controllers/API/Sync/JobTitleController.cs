@@ -20,10 +20,7 @@ public class JobTitleController(IJobTitleService jobTitleService) : ControllerBa
         };
 
         var result = await jobTitleService.GetJobTitleByLastModifiedDate(criteria);
-        var json = JsonConvert.SerializeObject(result, new JsonSerializerSettings
-        {
-            NullValueHandling = NullValueHandling.Ignore
-        });
-        return Ok(json);
+
+        return Ok(result);
     }
 }
