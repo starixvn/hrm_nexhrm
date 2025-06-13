@@ -20,6 +20,6 @@ BEGIN
 		Listening, 
 		Reading,
 		ModifiedDate
-	FROM  dbo.TOEIC_ WITH (NOLOCK)
+	FROM  HRM.dbo.TOEIC WITH (NOLOCK)
 	WHERE ModifiedDate > @LastModifiedDate
 END
