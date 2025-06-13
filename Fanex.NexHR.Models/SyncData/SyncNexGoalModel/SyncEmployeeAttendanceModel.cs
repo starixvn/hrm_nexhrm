@@ -14,9 +14,9 @@ public class SyncEmployeeAttendanceModel
 
     public DateTime? OutFixed { get; set; }
 
-    public bool? LateIn { get; set; }
+    public int? LateIn { get; set; }
 
-    public bool? EarlyOut { get; set; }
+    public int? EarlyOut { get; set; }
 
     public decimal? LeaveDay { get; set; }
 
