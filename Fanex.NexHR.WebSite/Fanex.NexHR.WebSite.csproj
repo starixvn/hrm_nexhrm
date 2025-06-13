@@ -119,18 +119,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="appsettings.NEXAWS_1.json">
+    <Content Update="appsettings.KLPROD_1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="Navigation.NEXAWS_2.json">
+    <Content Update="Navigation.KLPROD_2.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="Navigation.NEXAWS_1.json">
+    <Content Update="Navigation.KLPROD_1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="Navigation.NEXAWS.json">
+    <Content Update="Navigation.KLPROD.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Navigation.LOCAL.json">

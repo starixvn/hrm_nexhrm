@@ -37,7 +37,7 @@
 
             services.AddHttpClient();
             services.RegisterAuthentication(configuration);
-            services.RegisterServices(Configuration);
+            services.RegisterServices(configuration);
             services.InjectConfiguration(configuration);
             services.AddUnobtrusiveAjax();
         }
