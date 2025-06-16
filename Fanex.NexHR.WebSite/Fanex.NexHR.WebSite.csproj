@@ -59,7 +59,7 @@
     <None Update="EmailTemplates\OvertimeNotification.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="EmailTemplates\process.request.txt">
+    <None Update="EmailTemplates\Process.Request.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="EmailTemplates\ReminderBirthday.txt">
