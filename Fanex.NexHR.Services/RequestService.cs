@@ -509,8 +509,17 @@
                 ? " from " + request.FromDate.ToDateMonthYearFormatedDate() + " to " +
                   request.ToDate.ToDateMonthYearFormatedDate()
                 : " on " + request.FromDate.ToDateMonthYearFormatedDate();
+            logService.LogFile("templateEmailToRequesterPath: " + templateEmailToRequesterPath + " request: " + forDate);
+            var body = string.Empty;
+            try
+            {
+                body = Utilities.ReadTextFile(templateEmailToRequesterPath);
+            }
+            catch (Exception ex)
+            {
+                logService.LogFile(ex.Message);
+            }
 
-            var body = Utilities.ReadTextFile(templateEmailToRequesterPath);
             var action = Labels.Disapproved;
 
             if (command == Command.Reject.EnumToString())
