@@ -27,6 +27,9 @@
         [HtmlAttributeName("disabled-dates")]
         public IEnumerable<DateTime> InvaidDates { get; set; }
 
+        [HtmlAttributeName("year-range")]
+        public string YearRange { get; set; } = "c-100:c+20";
+
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             output.TagMode = TagMode.StartTagAndEndTag;
@@ -46,12 +49,13 @@
             var dateValue = Date?.ToString(Format) ?? string.Empty;
 
             var stringBuilder = new StringBuilder();
-            stringBuilder.AppendFormat("<input type=\"text\" class=\"datepicker\" id=\"{0}\" name=\"{0}\" minDate=\"{1}\" maxDate=\"{2}\" disabledDate=\"{3}\" value=\"{4}\"></input>",
+            stringBuilder.AppendFormat("<input type=\"text\" class=\"datepicker\" id=\"{0}\" name=\"{0}\" minDate=\"{1}\" maxDate=\"{2}\" disabledDate=\"{3}\" value=\"{4}\" yearRange=\"{5}\"></input>",
                     Name,
                     minDateString,
                     maxDateString,
                     disabledDate,
-                    dateValue);
+                    dateValue,
+                    YearRange);
             output.Content.SetHtmlContent(stringBuilder.ToString());
         }
     }
