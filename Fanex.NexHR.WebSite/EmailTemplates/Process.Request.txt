@@ -1,0 +1,13 @@
+<div>
+    <strong>Dear {0}</strong>
+</div>
+<p>
+    This is to inform you about your {1} request {2} has been
+    {3} by {4} ({5}).
+    <br />
+    For more detail, please visit: <a href="{6}">{6}
+    </a>
+</p>
+<p>
+    {7}
+</p>
