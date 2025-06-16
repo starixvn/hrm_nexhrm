@@ -489,7 +489,6 @@
             string templateLeaveEmailToHR)
         {
             var request = await GetRequestEntity(id);
-            logService.LogFile("request: " + request.Id + " email: " + request.Requester.Email);
             SendMailToRequester(request, command, templateEmailToRequesterPath);
 
             if (command == Command.Approve.EnumToString())
@@ -509,16 +508,8 @@
                 ? " from " + request.FromDate.ToDateMonthYearFormatedDate() + " to " +
                   request.ToDate.ToDateMonthYearFormatedDate()
                 : " on " + request.FromDate.ToDateMonthYearFormatedDate();
-            logService.LogFile("templateEmailToRequesterPath: " + templateEmailToRequesterPath + " request: " + forDate);
-            var body = string.Empty;
-            try
-            {
-                body = Utilities.ReadTextFile(templateEmailToRequesterPath);
-            }
-            catch (Exception ex)
-            {
-                logService.LogFile(ex.Message);
-            }
+          
+            var body = Utilities.ReadTextFile(templateEmailToRequesterPath);
 
             var action = Labels.Disapproved;
 
@@ -551,8 +542,6 @@
                 forDate,
                 action,
                 request.ModifiedBy.NickName);
-
-            logService.LogFile("subject: " + subject);
 
             emailService.SendEmail(
                 emailSettings.Email,
