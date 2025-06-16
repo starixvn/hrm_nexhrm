@@ -7,6 +7,7 @@
     using System.Security.Cryptography.X509Certificates;
     using System.Text;
     using Core;
+    using Fanex.Logging;
     using Fanex.NexHR.Models.Core;
     using Interfaces;
 
@@ -25,6 +26,9 @@
 
         public void SendEmail(string senderEmail, string receiverEmail, string mailCC, string subject, string body)
         {
+            logServiceProvider.LogFile("senderEmail: " + senderEmail + " receiverEmail: " + receiverEmail + " mailCC: " + mailCC + " subject: " + subject + " body: " + body);
+            logServiceProvider.LogFile("emailSettings: " + System.Text.Json.JsonSerializer.Serialize(emailSettings));
+
             if (!Utilities.IsValidEmail(senderEmail)
                 || !Utilities.IsValidEmail(receiverEmail)
                 || emailSettings.IsDisabledSendMail)

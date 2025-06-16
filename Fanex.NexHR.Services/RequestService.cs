@@ -169,6 +169,7 @@
             INonQueryCommand processRequestCriteria = GetProcessRequestCriteria(command, id, processBy);
 
             CommandResult result = await baseService.ExecuteNonQueryAsync(processRequestCriteria);
+            logService.LogFile("approve request status: " + result.IsSuccessful);
             if (result.IsSuccessful)
             {
                 string templateEmailToRequester = Path.Combine(environment.ContentRootPath, Constants.EmailTemplatePathForRequester);
@@ -488,7 +489,7 @@
             string templateLeaveEmailToHR)
         {
             var request = await GetRequestEntity(id);
-
+            logService.LogFile("request: " + request.Id + " email: " + request.Requester.Email);
             SendMailToRequester(request, command, templateEmailToRequesterPath);
 
             if (command == Command.Approve.EnumToString())
@@ -541,6 +542,8 @@
                 forDate,
                 action,
                 request.ModifiedBy.NickName);
+
+            logService.LogFile("subject: " + subject);
 
             emailService.SendEmail(
                 emailSettings.Email,
