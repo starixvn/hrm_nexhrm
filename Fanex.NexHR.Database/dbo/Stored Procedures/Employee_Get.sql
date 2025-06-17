@@ -14,7 +14,7 @@ Param's Explanation:
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT e.OldId AS EmpId
+    SELECT ISNULL(e.OldId, e.Id) AS EmpId
         ,'' AS [Password]
         ,e.Code
         ,e.NickName

@@ -1,7 +1,7 @@
 ﻿
 /****** Object:  Stored Procedure dbo.EmployeeCalendar_Get    Script Date: 3/13/2016 3:21:40 PM ******/
 
-CREATE PROCEDURE [dbo].[EmployeeCalendar_Get] 
+ALTER PROCEDURE [dbo].[EmployeeCalendar_Get] -- '2022-01-04 11:20:25.000'
     @FromDate DATETIME = NULL
 AS
 /*
@@ -17,17 +17,19 @@ Param's Explanation:
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT --TOP 10
+    SELECT 
       [WorkDate]
-      ,[EmpId] AS UserId
-      ,[ShiftId]
+      ,ISNULL(e.OldId, e.Id) AS UserId
+      ,CASE WHEN ISNULL(IsWorkFromHome, 0) = 1 THEN NULL ELSE [ShiftId] END [ShiftId]
+	  --,[ShiftId]
       ,[IsHoliday]
-      ,[IsOffDay]
-      ,[IsLeaveDay]
+      ,CAST(CASE WHEN [IsOffDay] = 1 OR ISNULL(IsWorkFromHome, 0) = 1 THEN 1 ELSE 0 END AS BIT) AS [IsOffDay]
+       ,[IsLeaveDay]
       ,[LeaveTypeId]
       ,[LeaveDay]
       ,cl.ModifiedDate
     FROM dbo.EmployeeCalendar AS cl WITH (NOLOCK)
+	INNER JOIN dbo.Employee AS e WITH (NOLOCK) ON cl.EmpId = e.Id
     WHERE @FromDate IS NULL
     OR cl.ModifiedDate > @FromDate
     ORDER BY cl.ModifiedDate
