@@ -133,6 +133,12 @@ FROM dbo.GroupSupervisor gs
     INNER JOIN HRM.dbo.Employee e ON gs.ModifiedBy = e.OldId;
 GO
 
+UPDATE gs
+SET gs.ApproverId = e.UserId
+FROM dbo.GroupSupervisor gs
+    INNER JOIN HRM.dbo.Employee e ON gs.ApproverId = e.OldId;
+GO
+
 UPDATE hw
 SET hw.EmpId = e.UserId
 FROM dbo.HistoryWork hw
