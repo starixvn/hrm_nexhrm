@@ -7,6 +7,8 @@ namespace Fanex.NexHR.WebSite
     using Middlewares;
     using Logging;
     using Fanex.Logging.Sentry;
+    using GO.UserControl.Client.Core.Session;
+    using GO.UserControl.Client.Core;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -16,6 +18,10 @@ namespace Fanex.NexHR.WebSite
 
     public class Startup(IConfiguration configuration)
     {
+
+        public IConfiguration Configuration { get; }
+        public static IConfiguration StaticConfiguration { get; private set; }
+            StaticConfiguration = configuration;
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddJsonOptions(options =>
@@ -56,6 +62,8 @@ namespace Fanex.NexHR.WebSite
                 app.UseMiddleware<ErrorHandler>();
                 app.UseHsts();
             }
+            UserControlClient
+                .UseSession(app.ApplicationServices.GetRequiredService<IUserControlSession>(), StaticConfiguration);
 
             app.UseCookiePolicy();
             app.UseStaticFiles();

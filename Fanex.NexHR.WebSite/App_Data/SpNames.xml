@@ -29,6 +29,7 @@
         <Setting Key="EmployeeSetting_Get" SpName="EmployeeSetting_Get" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_GetBirthdayAndFirstWorkingday" SpName="Employee_GetBirthdayAndFirstWorkingday" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_Insert" SpName="Employee_Insert" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="Employee_Insert_CheckExist" SpName="Employee_Insert_CheckExist" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_Delete" SpName="Employee_Delete" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_UpdateEmployee" SpName="Employee_UpdateEmployee" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeShift_Get" SpName="EmployeeShift_Get" DbName="nexhr" Plain="0"></Setting>

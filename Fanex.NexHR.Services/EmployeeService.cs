@@ -306,6 +306,9 @@
         public async Task<IEnumerable<SyncEmployeeModel>> GetEmployeesByLastModifiedDate(
             GetEmployeesByLastModifiedDateCriteria criteria)
         {
+        public async Task<CommandResult> CheckExistAsync(CheckExistEmployeeCriteria criteria)
+        {
+            return await baseService.GetDataEntityAsync<CommandResult>(criteria);
             return await baseService.GetDataAsync<SyncEmployeeModel>(criteria);
         }
 

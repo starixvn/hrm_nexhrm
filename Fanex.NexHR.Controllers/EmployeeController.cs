@@ -1,7 +1,10 @@
 ﻿namespace Fanex.NexHR.Controllers;
+using GO.UserControl.Client.Core.Models.User;
+
 
 using System;
 using System.Collections.Generic;
+    using System.ComponentModel.Design;
 using System.Linq;
 using System.Threading.Tasks;
 using Attributes;
@@ -15,6 +18,8 @@ using Criteria.JobGrade;
 using Criteria.ManagementGrade;
 using Criteria.TrainingAndDevelopment;
 using Fanex.NexHR.Core.Services;
+    using Fanex.NexHR.Services;
+    using HRM.Criteria.Employee;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +29,8 @@ using Newtonsoft.Json;
 using Services.Interfaces;
 using ViewModels;
 using ViewModels.Employee;
+    using GOServices = GO.UserControl.Client.Core.Services;
+    using GOModels = GO.UserControl.Client.Core.Models;
 
 public class EmployeeController : BaseController
 {
@@ -40,6 +47,8 @@ public class EmployeeController : BaseController
     private readonly AppSetting appSetting;
     private readonly ILookupDataService lookupDataService;
     private readonly IMinIOService minIOService;
+        private readonly GOServices.ICryptoService cryptoService;
+        private readonly GOServices.IUserService userService;
 
 #pragma warning disable S107 // Methods should not have too many parameters
     public EmployeeController(
@@ -56,7 +65,9 @@ public class EmployeeController : BaseController
         IHistoryService historyService,
         IAuthService authService,
         IMinIOService minIOService,
-        ILookupDataService lookupDataService) : base(sessionService)
+            ILookupDataService lookupDataService,
+            GOServices.ICryptoService cryptoService,
+            GOServices.IUserService userService) : base(sessionService)
 #pragma warning restore S107 // Methods should not have too many parameters
     {
         this.employeeService = employeeService;
@@ -72,6 +83,8 @@ public class EmployeeController : BaseController
         this.appSetting = appSetting;
         this.lookupDataService = lookupDataService;
         this.minIOService = minIOService;
+            this.cryptoService = cryptoService;
+            this.userService = userService;
     }
 
     public async Task<IActionResult> Index()
@@ -248,6 +261,26 @@ public class EmployeeController : BaseController
         {
             model.DomainUsername = appSetting.DomainName + model.DomainUsername;
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Code);
+
+
+                var isExistCriteria = new CheckExistEmployeeCriteria
+                {
+                    Code = model.Code,
+                    Nickname = model.NickName,
+                };
+
+                var commandResult = await employeeService.CheckExistAsync(isExistCriteria);
+                if (!commandResult.IsSuccessful)
+                {
+                    ModelState.AddModelError(string.Empty, commandResult.Message);
+                }
+                var createUserResponse = await CreateUserAsync(model);
+
+                if (!createUserResponse.IsSuccessful)
+                {
+                    ModelState.AddModelError(string.Empty, createUserResponse.Message);
+                }
+
             var criteria = new InsertEmployeeCriteria
             {
                 Code = model.Code,
@@ -263,7 +296,8 @@ public class EmployeeController : BaseController
                 SatShift = model.SatShift,
                 SunShift = model.SunShift,
                 ThuShift = model.ThuShift,
-                WedShift = model.WedShift
+                    WedShift = model.WedShift,
+                    UserId = createUserResponse.ObjectId
             };
 
             var result = await baseService.ExecuteNonQueryAsync(criteria);
@@ -289,6 +323,38 @@ public class EmployeeController : BaseController
         }
 
         return View(model);
+        }
+
+        private async Task<GOModels.CommandResult> CreateUserAsync(CreateEmployeeViewModel model)
+        {
+            try
+            {
+                var token = cryptoService.GenerateRijndaelKeyIV();
+                var keyIv = token.Split(':');
+                var rijndaelKey = keyIv[0];
+                var rijndaelIv = keyIv[1];
+
+                var param = new CreateUserParam
+                {
+                    Code = model.Code,
+                    Nickname = model.NickName,
+                    FullName = model.FullName,
+                    BCryptPassword = cryptoService.Encrypt(model.Code, rijndaelKey, rijndaelIv),
+                    Token = token
+                };
+                var response = await userService.CreateAsync(param);
+                var commandResult = new GOModels.CommandResult
+                {
+                    Code = response.Code,
+                    Message = response.Message
+                };
+
+                return commandResult;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
     }
 
     [HrmAuthorize(UserRoles = "HR")]

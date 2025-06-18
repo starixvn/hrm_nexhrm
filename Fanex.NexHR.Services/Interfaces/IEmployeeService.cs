@@ -6,6 +6,7 @@
     using Criteria.Employee;
     using Criteria.Workload;
     using Fanex.NexHR.Criteria.SyncData.SyncNexGoal;
+    using HRM.Criteria.Employee;
     using Fanex.NexHR.Models.SyncData.SyncNexGoalModel;
     using Models;
     using Models.Report;
@@ -49,6 +50,7 @@
 
         IList<string> UserRoles(UserSession currentUser);
 
+        Task<CommandResult> CheckExistAsync(CheckExistEmployeeCriteria criteria);
         Task<IEnumerable<SyncEmployeeModel>> GetEmployeesByLastModifiedDate(GetEmployeesByLastModifiedDateCriteria criteria);
 
         Task<IEnumerable<SyncEmployeeAttendanceModel>> GetEmployeeAttendances(

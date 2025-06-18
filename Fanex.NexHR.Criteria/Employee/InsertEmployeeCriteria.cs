@@ -18,6 +18,8 @@
 
         public string Password { get; set; }
 
+        public int UserId { get; set; }
+
         public int? MonShift { get; set; }
 
         public int? TueShift { get; set; }
