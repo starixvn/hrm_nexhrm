@@ -57,7 +57,7 @@ GO
 CREATE OR ALTER VIEW [dbo].[Department]
 
 AS
-SELECT d.DepartmentId
+SELECT DISTINCT d.DepartmentId
       ,d.Code
       ,d.[Name]
       ,0 as ParentId
@@ -77,7 +77,8 @@ SELECT d.DepartmentId
       ,d.ModifiedDate
       ,0 as IsSpecial
   FROM bodb_HRM_bk.dbo.Department d
-
+  INNER JOIN bodb_HRM_bk.dbo.[Group] g WITH (NOLOCK) ON d.DepartmentId = g.DepartmentId
+  INNER JOIN dbo.SystemSetting AS st WITH (NOLOCK) ON g.CompanyId = st.[Value] AND st.Id = 4
 GO
 
 
