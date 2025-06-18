@@ -122,7 +122,7 @@ SELECT
 FROM [NexHRM_bk].[dbo].[EmployeeExt] ee WITH (NOLOCK)
 LEFT JOIN #GroupEmployeeMapping ON #GroupEmployeeMapping.CompanyId = 1 AND #GroupEmployeeMapping.OldGroupId = ee.GroupId
 LEFT JOIN [bodb_HRM_bk].[dbo].[Department] d WITH (NOLOCK) ON d.Code = #GroupEmployeeMapping.NewDeptCode
-LEFT JOIN [bodb_HRM_bk].[dbo].[Group] g WITH (NOLOCK) ON g.Name = #GroupEmployeeMapping.NewGroupName AND g.DepartmentId = d.DepartmentId
+LEFT JOIN [bodb_HRM_bk].[dbo].[Group] g WITH (NOLOCK) ON g.Name = #GroupEmployeeMapping.NewGroupName AND g.DepartmentId = d.DepartmentId AND g.CompanyId = 1
 
 -- -- Insert data from LumiHRM (CompanyId = 2)
 -- INSERT INTO #TempCompanyEmployee
@@ -145,7 +145,7 @@ LEFT JOIN [bodb_HRM_bk].[dbo].[Group] g WITH (NOLOCK) ON g.Name = #GroupEmployee
 -- FROM [LumiHRM_bk].[dbo].[EmployeeExt] ee WITH (NOLOCK)
 -- LEFT JOIN #GroupEmployeeMapping ON #GroupEmployeeMapping.CompanyId = 2 AND #GroupEmployeeMapping.OldGroupId = ee.GroupId
 -- LEFT JOIN [bodb_HRM_bk].[dbo].[Department] d WITH (NOLOCK) ON d.Code = #GroupEmployeeMapping.NewDeptCode
--- LEFT JOIN [bodb_HRM_bk].[dbo].[Group] g WITH (NOLOCK) ON g.Name = #GroupEmployeeMapping.NewGroupName AND g.DepartmentId = d.DepartmentId
+-- LEFT JOIN [bodb_HRM_bk].[dbo].[Group] g WITH (NOLOCK) ON g.Name = #GroupEmployeeMapping.NewGroupName AND g.DepartmentId = d.DepartmentId AND g.CompanyId = 2
 
 -- -- Insert data from NexVisionHRM (CompanyId = 3)
 -- INSERT INTO #TempCompanyEmployee
@@ -168,7 +168,7 @@ LEFT JOIN [bodb_HRM_bk].[dbo].[Group] g WITH (NOLOCK) ON g.Name = #GroupEmployee
 -- FROM [NexVisionHRM_bk].[dbo].[EmployeeExt] ee WITH (NOLOCK)
 -- LEFT JOIN #GroupEmployeeMapping ON #GroupEmployeeMapping.CompanyId = @NexVisionCompanyId AND #GroupEmployeeMapping.OldGroupId = ee.GroupId
 -- LEFT JOIN [bodb_HRM_bk].[dbo].[Department] d WITH (NOLOCK) ON d.Code = #GroupEmployeeMapping.NewDeptCode
--- LEFT JOIN [bodb_HRM_bk].[dbo].[Group] g WITH (NOLOCK) ON g.Name = #GroupEmployeeMapping.NewGroupName AND g.DepartmentId = d.DepartmentId
+-- LEFT JOIN [bodb_HRM_bk].[dbo].[Group] g WITH (NOLOCK) ON g.Name = #GroupEmployeeMapping.NewGroupName AND g.DepartmentId = d.DepartmentId AND g.CompanyId = @NexVisionCompanyId
 
 -- Insert into final table
 INSERT INTO [bodb_HRM_bk].[dbo].[CompanyEmployee]
