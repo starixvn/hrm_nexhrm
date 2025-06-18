@@ -1,4 +1,4 @@
-CREATE OR ALTER   PROCEDURE [dbo].[Sync_EmployeeAttendance_Get] @LastModifiedDate DATETIME
+CREATE OR ALTER  PROCEDURE [dbo].[Sync_EmployeeAttendance_Get] @LastModifiedDate DATETIME
 AS
 /*
 Created: Jay.Do@20250610
@@ -28,4 +28,5 @@ BEGIN
 		InsertDate
 	FROM dbo.EmployeeAttendance WITH (NOLOCK)
 	WHERE InsertDate > @LastModifiedDate
+	
 END

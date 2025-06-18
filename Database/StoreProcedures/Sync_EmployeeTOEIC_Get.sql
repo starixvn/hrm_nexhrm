@@ -1,4 +1,4 @@
-CREATE OR ALTER   PROCEDURE [dbo].[Sync_EmployeeTOEIC_Get] @LastModifiedDate DATETIME
+CREATE OR ALTER PROCEDURE [dbo].[Sync_EmployeeTOEIC_Get] @LastModifiedDate DATETIME
 AS
 /*
 Created: Jay.Do@20250610
