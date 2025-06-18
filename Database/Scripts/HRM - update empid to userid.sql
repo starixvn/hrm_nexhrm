@@ -580,6 +580,31 @@ UPDATE dbo.Employee
 SET OldId = Id
 GO
 
+ALTER TABLE dbo.Employee ADD Id_New INT;
+GO
+
+UPDATE dbo.Employee SET Id_New = Id;
+GO
+
+ALTER TABLE dbo.Employee DROP CONSTRAINT PK_Employee;
+GO
+
+ALTER TABLE dbo.Employee DROP COLUMN Id;
+GO
+
+EXEC sp_rename 'Employee.Id_New', 'Id', 'COLUMN';
+GO
+
+ALTER TABLE dbo.Employee ALTER COLUMN Id INT NOT NULL;
+GO
+
+ALTER TABLE dbo.Employee ADD CONSTRAINT PK_Employee PRIMARY KEY (Id);
+GO
+
+UPDATE dbo.Employee
+SET Id = UserId
+GO
+
 UPDATE dbo.Employee
 SET Id = UserId
 GO
