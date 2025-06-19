@@ -1,4 +1,4 @@
-INSERT INTO [bodb_HRM_bk].[dbo].[Employee]
+INSERT INTO [bodb_HRM].[dbo].[Employee]
 (
     EmpId,
     Code,

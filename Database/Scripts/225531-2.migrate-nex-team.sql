@@ -1,7 +1,7 @@
 -- Insert Company if needed
-IF NOT EXISTS (SELECT 1 FROM [bodb_HRM_bk].[dbo].[Company] WHERE Name = 'NexVision')
+IF NOT EXISTS (SELECT 1 FROM [bodb_HRM].[dbo].[Company] WHERE Name = 'NexVision')
 BEGIN
-    INSERT INTO [bodb_HRM_bk].[dbo].[Company] ([Name], [CountryCode], [IsActive])
+    INSERT INTO [bodb_HRM].[dbo].[Company] ([Name], [CountryCode], [IsActive])
     VALUES ('NexVision', 'VN', 1);
 END;
 
@@ -10,11 +10,11 @@ DECLARE @LumiHRMCompanyId INT = 2;
 DECLARE @NexVisionHRMCompanyId INT;
 
 SELECT @NexVisionHRMCompanyId = CompanyId 
-FROM [bodb_HRM_bk].[dbo].[Company] WITH (NOLOCK)
+FROM [bodb_HRM].[dbo].[Company] WITH (NOLOCK)
 WHERE Name = 'NexVision';
 
 -- ✅ Insert Groups by JOINing directly to Department table
-INSERT INTO [bodb_HRM_bk].[dbo].[Group]
+INSERT INTO [bodb_HRM].[dbo].[Group]
     ([Code], [Name], [CreatedDate], [CompanyId], [DepartmentId], [GroupTeamId], [AccountableArea], [OldGroupId])
 SELECT
     s.Code,
@@ -49,7 +49,7 @@ FROM
         ('HR3', 'OptiGo', 'NexHRM', 'NX66', N'NX OptiGo', 1082),
         -- NexHRM Omni Flow Network
         ('TS3', 'IT Network', 'NexHRM', 'NX03', N'NX IT Network', 2),
-        ('EV3', 'Pontus', 'NexHRM', 'NX03', N'NX Pontus', 51),
+        ('EV3', 'Pontus', 'NexHRM', 'NX03', N'NX Pontus', 1083),
         ('S13', 'SAS', 'NexHRM', 'NX03', N'NX SAS', 59),
         -- NexHRM Pioneers
         ('P13', 'Forge', 'NexHRM', 'NX18', N'NX FORGE', 1089),
@@ -87,9 +87,9 @@ FROM
         ('M13', 'Polaris', 'LumiHRM', 'NX69', N'NX POLARIS', 2015),
         ('V13', 'Prime', 'LumiHRM', 'NX69', N'NX PRIME', 2013),
         -- LumiHRM Rad
-        ('NX5', 'RAID - NX', 'LumiHRM', 'XX55', N'RAID NX', NULL)
+        ('NX5', 'RAID - NX', 'LumiHRM', 'XX55', N'RAID NX', NULL),
     ) AS s (Code, Name, Company, DeptCode, AccountableArea, OldGroupId)
 JOIN 
-    [bodb_HRM_bk].[dbo].[Department] d 
+    [bodb_HRM].[dbo].[Department] d 
     ON d.Code = s.DeptCode;
 GO
