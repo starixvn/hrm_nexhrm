@@ -13,6 +13,14 @@ AS
 */
 BEGIN
     SET NOCOUNT ON;
+    DECLARE @CoreTeamId NVARCHAR(50);
+    DECLARE @ExpId NVARCHAR(50);
+
+    SELECT @ExpId = MAX(CASE WHEN ss.Name = 'EXPCode' THEN gs.GroupId END),
+           @CoreTeamId = MAX(CASE WHEN ss.Name = 'CoreTeamCode' THEN gs.GroupId END)
+    FROM bodb_HRM.dbo.GroupSetting as gs WITH (NOLOCK)
+    INNER JOIN dbo.SystemSetting ss WITH (NOLOCK) ON ss.Name IN ('EXPCode', 'CoreTeamCode')
+    WHERE gs.OldGroupCode = ss.Value
 
     IF OBJECT_ID('#LateInEarlyOutSummary') IS NOT NULL
     BEGIN

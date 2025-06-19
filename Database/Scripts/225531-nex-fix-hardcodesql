@@ -1,3 +1,4 @@
+-- run in bodb_HRM database
 
 INSERT INTO [dbo].[SystemSetting]
            (
@@ -10,6 +11,7 @@ INSERT INTO [dbo].[SystemSetting]
            (8, 'ITNetWorkCode', 'ITNW'),
            (9, 'EXPCode', 'EXP'),
            (10, 'FACode', 'FA'),
+           (11, 'MGTHeadCode', '02197')
 GO
 
 

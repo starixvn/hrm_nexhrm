@@ -12,6 +12,7 @@ AS
 	Revisions:  
 		- 20250327@Henry: Update MGT Code -> MGT/COR code
 		- 20250506@Henry: Add HR-ADM group code
+		- 20250618@Assistant: Fix SystemSetting usage for comma-separated values
 	Param's Explanation:
 
 */
@@ -30,7 +31,12 @@ BEGIN
 					(e.Roles LIKE '%2%'
 						OR e.Roles LIKE '%3%'
 						OR e.Roles LIKE '%4%'
-						OR g.Code IN ('HR', 'EXP','FA','HR-ADM','PM', 'MGT', 'COR', 'ITNW')
+						OR EXISTS (
+							SELECT 1 FROM bodb_HRM.dbo.GroupSetting AS gs WITH (NOLOCK)
+							INNER JOIN dbo.SystemSetting AS ss WITH (NOLOCK) ON ss.Name = 'ListOPTeamCode'
+							WHERE gs.OldGroupCode = g.Code
+								AND CHARINDEX(gs.OldGroupCode, ss.Value) > 0
+						)
 					)
 		)
 	)

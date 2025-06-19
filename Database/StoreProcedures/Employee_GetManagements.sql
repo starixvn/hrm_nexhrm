@@ -13,6 +13,12 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
+	DECLARE @CoreTeamId NVARCHAR(50)
+	SELECT @CoreTeamId = GroupId 
+	FROM bodb_HRM.dbo.GroupSetting as gs WITH (NOLOCK)
+	INNER JOIN dbo.SystemSetting ss WITH (NOLOCK) ON ss.Name = 'CoreTeamCode'
+	WHERE gs.OldGroupCode = ss.Value
+
     SELECT DISTINCT e.Id AS EmpId
         ,e.NickName
         ,e.FullName
@@ -20,7 +26,7 @@ BEGIN
 		,con.ConversationId
     FROM [dbo].[Employee] AS e WITH (NOLOCK)
 		LEFT JOIN dbo.EmployeeConversation AS con WITH (NOLOCK) ON e.Id = con.EmpId
-    WHERE e.GroupId = 1081
+    WHERE e.GroupId = @CoreTeamId
 	AND e.isDeleted = 0
 END
 

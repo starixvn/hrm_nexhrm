@@ -2,6 +2,13 @@ USE [NexHRM]
 
 GO
 
+EXEC sp_rename 'Employee', 'Employee_bk';
+EXEC sp_rename 'EmployeeGroup', 'EmployeeGroup_bk';
+EXEC sp_rename 'Department', 'Department_bk';
+
+GO
+
+
 CREATE OR ALTER VIEW [dbo].[Employee]
 AS
 
@@ -76,18 +83,20 @@ SELECT DISTINCT d.DepartmentId
       ,d.ModifiedBy
       ,d.ModifiedDate
       ,0 as IsSpecial
-  FROM bodb_HRM_bk.dbo.Department d
-  INNER JOIN bodb_HRM_bk.dbo.[Group] g WITH (NOLOCK) ON d.DepartmentId = g.DepartmentId
+  FROM bodb_HRM.dbo.Department d
+  INNER JOIN bodb_HRM.dbo.[Group] g WITH (NOLOCK) ON d.DepartmentId = g.DepartmentId
   INNER JOIN dbo.SystemSetting AS st WITH (NOLOCK) ON g.CompanyId = st.[Value] AND st.Id = 4
 GO
 
 
 
-USE [HRM_bk]
+USE [HRM]
 GO
 
+sp_rename 'Employee', 'Employee_bk';
+GO
 
-CREATE OR ALTER VIEW [dbo].[Employee_bk1]
+CREATE OR ALTER VIEW [dbo].[Employee]
 
 AS
 
