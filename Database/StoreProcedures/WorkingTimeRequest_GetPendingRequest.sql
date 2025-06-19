@@ -14,6 +14,13 @@ Param's Explanation:
 BEGIN
 	DECLARE @LeaderOfStandbyTeam INT,
 		@StandByTeam VARCHAR(50)
+		,@CoreTeamId INT;
+
+	SELECT @CoreTeamId = MAX(CASE WHEN ss.Name = 'CoreTeamCode' THEN gs.GroupId END)
+	FROM bodb_HRM.dbo.GroupSetting as gs WITH (NOLOCK)
+	INNER JOIN dbo.SystemSetting ss WITH (NOLOCK) ON ss.Name = 'CoreTeamCode'
+	WHERE gs.OldGroupCode = ss.Value
+
 	SELECT @LeaderOfStandbyTeam = e.Id FROM dbo.Employee AS e WITH (NOLOCK)
 	INNER JOIN dbo.SystemSetting AS st WITH (NOLOCK) ON e.Id = st.Value AND st.Name = 'LeaderOfStandbyTeam'
 
@@ -112,7 +119,7 @@ BEGIN
 		FROM dbo.Employee AS e WITH (NOLOCK)
 		INNER JOIN dbo.EmployeeGroup AS eg ON e.GroupId = eg.Id
 		LEFT JOIN dbo.EmployeeConversation AS con WITH (NOLOCK) ON e.Id = con.EmpId
-		WHERE e.[Enabled] = 1 AND eg.Code IN ('COR', 'MGT') AND con.ConversationId <> ''
+		WHERE e.[Enabled] = 1 AND eg.Id = @CoreTeamId AND con.ConversationId <> ''
 	END
 
 	SELECT pr.RequestId

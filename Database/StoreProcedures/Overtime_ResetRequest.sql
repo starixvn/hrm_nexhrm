@@ -21,8 +21,13 @@ BEGIN
 	SET NOCOUNT ON;
 
     DECLARE
-		@GroupManagerId		INT	= 1081
-        ,@PendingStatus		INT = 1;
+        @PendingStatus		INT = 1;
+
+	DECLARE @CoreTeamId INT;
+	SELECT @CoreTeamId = gs.GroupId
+	FROM bodb_HRM.dbo.GroupSetting as gs WITH (NOLOCK)
+	INNER JOIN dbo.SystemSetting ss WITH (NOLOCK) ON ss.Name = 'CoreTeamCode'
+	WHERE gs.OldGroupCode = ss.Value
 
 	IF (
 		NOT EXISTS (
@@ -60,7 +65,7 @@ BEGIN
             SELECT 1
             FROM [dbo].[Employee] e WITH (NOLOCK)
 			WHERE e.[Id] = @ModifiedBy
-				AND (e.[GroupId] = @GroupManagerId OR 
+				AND (e.[GroupId] = @CoreTeamId OR 
 					(e.Roles IN (3, 4))) -- HR, SA
         )
     )

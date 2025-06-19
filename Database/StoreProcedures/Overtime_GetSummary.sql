@@ -16,6 +16,13 @@ AS
 */
 BEGIN
 	
+	DECLARE @CoreTeamId INT;
+	DECLARE @ExpId INT;
+	SELECT @ExpId = MAX(CASE WHEN ss.Name = 'EXPCode' THEN gs.GroupId END),
+		@CoreTeamId = MAX(CASE WHEN ss.Name = 'CoreTeamCode' THEN gs.GroupId END)
+	FROM bodb_HRM.dbo.GroupSetting as gs WITH (NOLOCK)
+	INNER JOIN dbo.SystemSetting ss WITH (NOLOCK) ON ss.Name IN ('EXPCode', 'CoreTeamCode')
+	WHERE gs.OldGroupCode = ss.Value
 
 	IF OBJECT_ID('#PreviousYearBalance') IS NOT NULL
 	BEGIN
@@ -250,7 +257,7 @@ BEGIN
 			OR eg.DepartmentId = @departmentId
 			)
 		AND ISNULL(e.isDeleted, 0) = 0
-		AND e.GroupId NOT IN (1081, 40)
+		AND e.GroupId NOT IN (@CoreTeamId, @ExpId)
 	ORDER BY eg.[Rank]
 		,eg.Code
 		,e.Roles DESC

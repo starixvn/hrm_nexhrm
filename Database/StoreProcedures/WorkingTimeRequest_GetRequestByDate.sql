@@ -30,6 +30,13 @@ BEGIN
     DECLARE @RequestTypeId TABLE (RequestType INT)
 	DECLARE @LeaderOfStandbyTeam INT,
 		@StandByTeam VARCHAR(50)
+		,@CoreTeamId INT;
+
+	SELECT @CoreTeamId = MAX(CASE WHEN ss.Name = 'CoreTeamCode' THEN gs.GroupId END)
+	FROM bodb_HRM.dbo.GroupSetting as gs WITH (NOLOCK)
+	INNER JOIN dbo.SystemSetting ss WITH (NOLOCK) ON ss.Name = 'CoreTeamCode'
+	WHERE gs.OldGroupCode = ss.Value
+
 	SELECT @LeaderOfStandbyTeam = e.Id FROM dbo.Employee AS e WITH (NOLOCK)
 	INNER JOIN dbo.SystemSetting AS st WITH (NOLOCK) ON e.Id = st.Value AND st.Name = 'LeaderOfStandbyTeam'
 
@@ -77,7 +84,7 @@ BEGIN
                 FROM [dbo].[Employee] AS e WITH (NOLOCK)
 				INNER JOIN dbo.EmployeeGroup AS g WITH (NOLOCK) ON e.GroupId = g.Id
                 WHERE e.ID = @excludedEmpID
-                    AND g.Code IN ('COR', 'MGT')
+                    AND g.Id = @CoreTeamId
                 )
             )
     BEGIN

@@ -42,6 +42,7 @@ CREATE OR ALTER VIEW [dbo].[EmployeeGroup]
 AS 
 SELECT 
 		g.GroupId as Id
+    ,g.OldGroupId as OldId
       ,g.Code
       ,g.Name
       ,g.DepartmentId

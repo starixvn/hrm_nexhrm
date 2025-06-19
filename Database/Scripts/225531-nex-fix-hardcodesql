@@ -41,3 +41,5 @@ UPDATE gs
 SET gs.GroupId = eg.GroupId
 FROM GroupSetting gs
 LEFT JOIN dbo.[Group] eg WITH (NOLOCK) ON gs.OldGroupId = eg.OldGroupId AND eg.CompanyId = 1
+
+

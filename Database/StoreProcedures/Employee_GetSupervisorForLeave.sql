@@ -16,7 +16,7 @@ BEGIN
     SET NOCOUNT ON;
 
 	DECLARE @IsSupReadOnly BIT = 0
-	DECLARE @CoreTeamId NVARCHAR(50)
+	DECLARE @CoreTeamId INT
 	
 	SELECT @CoreTeamId = GroupId 
 	FROM bodb_HRM.dbo.GroupSetting as gs WITH (NOLOCK)

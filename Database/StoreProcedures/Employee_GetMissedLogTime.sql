@@ -1,4 +1,4 @@
-﻿CREATE OR ALTER PROCEDURE [dbo].[Employee_GetMissedLogTime]
+﻿CREATE OR ALTER   PROCEDURE [dbo].[Employee_GetMissedLogTime]
     @FromDate DATE = NULL,
     @ToDate DATE = NULL
 AS
@@ -73,6 +73,7 @@ BEGIN
         eg.Code AS TeamCode,
         e.Id AS EmpID,
         e.NickName,
+		e.Code,
         CASE 
             WHEN e.Id = gs.ApproverId THEN 1 ELSE 0
         END AS IsLeader,
@@ -106,4 +107,4 @@ BEGIN
         IsLeader DESC, 
         e.NickName;
 END
-GO
+

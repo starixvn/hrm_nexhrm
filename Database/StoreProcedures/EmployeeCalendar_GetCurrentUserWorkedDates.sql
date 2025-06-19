@@ -31,12 +31,7 @@ BEGIN
 					(e.Roles LIKE '%2%'
 						OR e.Roles LIKE '%3%'
 						OR e.Roles LIKE '%4%'
-						OR EXISTS (
-							SELECT 1 FROM bodb_HRM.dbo.GroupSetting AS gs WITH (NOLOCK)
-							INNER JOIN dbo.SystemSetting AS ss WITH (NOLOCK) ON ss.Name = 'ListOPTeamCode'
-							WHERE gs.OldGroupCode = g.Code
-								AND CHARINDEX(gs.OldGroupCode, ss.Value) > 0
-						)
+						OR g.Id IN (select GroupId FROM GroupSetting)
 					)
 		)
 	)

@@ -13,7 +13,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-	DECLARE @CoreTeamId NVARCHAR(50)
+	DECLARE @CoreTeamId INT
 	SELECT @CoreTeamId = GroupId 
 	FROM bodb_HRM.dbo.GroupSetting as gs WITH (NOLOCK)
 	INNER JOIN dbo.SystemSetting ss WITH (NOLOCK) ON ss.Name = 'CoreTeamCode'

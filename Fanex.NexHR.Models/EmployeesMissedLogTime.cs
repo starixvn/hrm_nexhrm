@@ -4,6 +4,7 @@
     {
         public string TeamCode { get; set; }
         public int EmpID { get; set; }
+        public string Code { get; set; }
         public string NickName { get; set; }
         public string JobTitle { get; set; }
         public bool IsLeader { get; set; }

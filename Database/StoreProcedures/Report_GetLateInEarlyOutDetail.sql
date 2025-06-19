@@ -19,6 +19,14 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
+    DECLARE @CoreTeamId INT;
+    DECLARE @ExpId INT;
+    SELECT @ExpId = MAX(CASE WHEN ss.Name = 'EXPCode' THEN gs.GroupId END),
+        @CoreTeamId = MAX(CASE WHEN ss.Name = 'CoreTeamCode' THEN gs.GroupId END)
+    FROM bodb_HRM.dbo.GroupSetting as gs WITH (NOLOCK)
+    INNER JOIN dbo.SystemSetting ss WITH (NOLOCK) ON ss.Name IN ('EXPCode', 'CoreTeamCode')
+    WHERE gs.OldGroupCode = ss.Value
+
     SELECT 
         la.WorkDate
         ,la.[Minutes]
@@ -35,7 +43,7 @@ BEGIN
         INNER JOIN dbo.Employee AS e WITH (NOLOCK) ON la.EmpId = e.Id
         INNER JOIN dbo.EmployeeGroup AS g WITH (NOLOCK) ON e.GroupId = g.Id
     WHERE 
-        e.GroupId NOT IN (1081,40)
+        e.GroupId NOT IN (@CoreTeamId, @ExpId)
         AND DATEDIFF(D, @FromDate, la.WorkDate) >= 0
         AND DATEDIFF(D, la.WorkDate, @ToDate) >= 0
         AND (@IncludeLeaveDeduction = 1 OR la.[Type] <> 0)

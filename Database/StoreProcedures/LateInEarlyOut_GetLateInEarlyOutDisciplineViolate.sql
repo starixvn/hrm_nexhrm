@@ -13,8 +13,8 @@ AS
 */
 BEGIN
     SET NOCOUNT ON;
-    DECLARE @CoreTeamId NVARCHAR(50);
-    DECLARE @ExpId NVARCHAR(50);
+    DECLARE @CoreTeamId INT;
+    DECLARE @ExpId INT;
 
     SELECT @ExpId = MAX(CASE WHEN ss.Name = 'EXPCode' THEN gs.GroupId END),
            @CoreTeamId = MAX(CASE WHEN ss.Name = 'CoreTeamCode' THEN gs.GroupId END)

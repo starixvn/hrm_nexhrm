@@ -42,8 +42,18 @@ BEGIN
 		,@OldToDate DATETIME
 		,@OldTotalDays NUMERIC(5, 1)
 
-	DECLARE @HRGroupId INT
-	SELECT @HRGroupId = Id FROM dbo.EmployeeGroup WITH (NOLOCK) WHERE Code = 'HR-ADM'
+	DECLARE @HRGroupId INT;
+	DECLARE @HeadId INT;
+	
+	SELECT @HRGroupId = MAX(CASE WHEN ss.Name = 'HRTeamCode' THEN gs.GroupId END)
+	FROM bodb_HRM.dbo.GroupSetting as gs WITH (NOLOCK)
+	INNER JOIN dbo.SystemSetting ss WITH (NOLOCK) ON ss.Name = 'HRTeamCode'
+	WHERE gs.OldGroupCode = ss.Value
+
+	SELECT @HeadId = e.Id
+	FROM dbo.Employee AS e WITH (NOLOCK)
+	INNER JOIN dbo.SystemSetting ss WITH (NOLOCK) ON ss.Name = 'MGTHeadCode'
+	WHERE e.Code = ss.Value
 
 	SELECT @annualLeaveType = 2
 		,@callInLeaveType = 30
@@ -149,7 +159,7 @@ BEGIN
 
 		-- END
 		
-		IF(@EmpId = 88) -- user Thien is auto approve check in/out request.
+		IF(@EmpId = @HeadId) -- user Thien is auto approve check in/out request.
 		BEGIN
 			SELECT @ErrCode = - 1
 		END
@@ -492,7 +502,7 @@ BEGIN
 
     EXEC [WorkingTimeRequest_WriteHistory] @Id
 
-	IF (@LeaveTypeID = @BusinessLeave AND @EmpId = 88)
+	IF (@LeaveTypeID = @BusinessLeave AND @EmpId = @HeadId)
 	BEGIN
 		SELECT @ErrCode = - 1
 	END

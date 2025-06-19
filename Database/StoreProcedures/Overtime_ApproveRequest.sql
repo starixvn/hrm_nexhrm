@@ -19,6 +19,11 @@ Param's Explanation:
 */
 BEGIN
     SET NOCOUNT ON;
+	DECLARE @CoreTeamId INT;
+	SELECT @CoreTeamId = GroupId 
+	FROM bodb_HRM.dbo.GroupSetting as gs WITH (NOLOCK)
+	INNER JOIN dbo.SystemSetting ss WITH (NOLOCK) ON ss.Name = 'CoreTeamCode'
+	WHERE gs.OldGroupCode = ss.Value
 
     DECLARE
 		@PendingStatus		INT = 1
@@ -61,7 +66,7 @@ BEGIN
             FROM [dbo].[Employee] e WITH (NOLOCK)
 			INNER JOIN [dbo].[EmployeeGroup] eg WITH (NOLOCK) ON e.[GroupId] = eg.[Id]
 			WHERE e.[Id] = @ModifiedBy
-				AND (eg.[Code] = 'COR' OR eg.[Code] = 'MGT')
+				AND eg.[Id] = @CoreTeamId
         )
     )
 	BEGIN

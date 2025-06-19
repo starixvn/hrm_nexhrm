@@ -14,9 +14,25 @@ AS
 */
 BEGIN
     SET NOCOUNT ON;
+
+	DECLARE @HRTeamId INT,
+	@ITTeamId INT,
+	@ExpId INT,
+	@FinanceId INT,
+	@MGTId INT;
+
+	SELECT @HRTeamId = MAX(CASE WHEN ss.Name = 'HRTeamCode' THEN gs.GroupId END),
+		@ITTeamId = MAX(CASE WHEN ss.Name = 'ITNetWorkCode' THEN gs.GroupId END),
+		@ExpId = MAX(CASE WHEN ss.Name = 'EXPCode' THEN gs.GroupId END),
+		@FinanceId = MAX(CASE WHEN ss.Name = 'FACode' THEN gs.GroupId END),
+		@MGTId = MAX(CASE WHEN ss.Name = 'CoreTeamCode' THEN gs.GroupId END)
+	FROM bodb_HRM.dbo.GroupSetting as gs WITH (NOLOCK)
+	INNER JOIN dbo.SystemSetting ss WITH (NOLOCK) ON ss.Name IN ('HRTeamCode', 'ITNetWorkCode', 'EXPCode', 'FACode', 'CoreTeamCode')
+	WHERE gs.OldGroupCode = ss.Value
+
 		
 			IF EXISTS (SELECT 1 FROM [dbo].[Employee] WITH (NOLOCK) WHERE Id = @employeeId
-				AND (GroupId IN (40, 1, 1104, 2, 11) OR CompanyId = 2)
+				AND (GroupId IN (@ExpId, @FinanceId, @HRTeamId, @ITTeamId, @MGTId) OR CompanyId = 2)
 			)
 			BEGIN
 				SELECT @employeeId AS [EmpId]
@@ -26,36 +42,6 @@ BEGIN
 				,0 AS [DisplayRedmineTask]
 				,0 AS [DisplayRedmineInputSpendTime]
 				,0 AS [DisplayRemindLogtime]
-			END
-			ELSE IF EXISTS (SELECT 1 FROM [dbo].[Employee] WITH (NOLOCK) WHERE Id = @employeeId
-				AND (GroupId IN (51, 63, 13, 44, 54)
-				 OR Roles IN ('1', '2', '4'))
-			)
-			BEGIN
-				
-				IF NOT EXISTS (SELECT 1 FROM [dbo].[EmployeeSetting]  WITH (NOLOCK) WHERE EmpId = @employeeId)
-				BEGIN
-					SELECT @employeeId AS [EmpId]
-					,1 AS [DisplayInfoAndTodoList]
-					,1 AS [DisplayTeamAttendence]
-					,1 AS [DisplayTeamWorkLoad]
-					,1 AS [DisplayRedmineTask]
-					,1 AS [DisplayRedmineInputSpendTime]
-					,0 AS [DisplayRemindLogtime]
-				END
-				ELSE
-				BEGIN
-					SELECT [EmpId]
-				  ,[DisplayInfoAndTodoList]
-				  ,[DisplayTeamAttendence]
-				  ,[DisplayTeamWorkLoad]
-				  ,[DisplayRedmineTask]
-				  ,[DisplayRedmineInputSpendTime]
-				  ,[DisplayRemindLogtime] 
-			  FROM dbo.EmployeeSetting WITH (NOLOCK) WHERE EmpId = @employeeId
-				END
-
-				
 			END
 			ELSE
 			BEGIN

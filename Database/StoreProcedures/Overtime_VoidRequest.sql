@@ -21,8 +21,7 @@ BEGIN
 	SET NOCOUNT ON;
 
     DECLARE
-		@GroupManagerId		INT	= 1081
-        ,@VoidStatus		INT = 5
+        @VoidStatus		INT = 5
         ,@ApprovedStatus	INT = 2
 		,@VerifiedStatus	INT = 4;
 
