@@ -15,6 +15,7 @@ namespace Fanex.NexHR.WebSite
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Sentry;
+    using Fanex.NexHR.Models;
 
     public class Startup(IConfiguration configuration)
     {
@@ -42,6 +43,8 @@ namespace Fanex.NexHR.WebSite
                 });
 
             services.AddFanexSql(configuration);
+
+            services.Configure<UserControlClientOptions>(Configuration.GetSection("GO.UserControl.Client"));
 
             services.AddHttpClient();
             services.AddHttpClient(Constants.Fnb_Client);

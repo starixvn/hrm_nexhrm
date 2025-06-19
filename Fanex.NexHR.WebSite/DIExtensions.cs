@@ -115,6 +115,7 @@ namespace Fanex.NexHR.WebSite
             services.AddSingleton<IBaseService, BaseService>();
             services.AddSingleton<GOServices.ICryptoService, GOServices.CryptoService>();
             services.AddSingleton<GOServices.IUserService, GOServices.UserService>();
+            services.AddSingleton<GOServices.IAuthService, GOServices.AuthService>();
             services.AddSingleton<IUserControlSession, UserControlSession>();
 
             services.AddSingleton<IAuthService, AuthService>();

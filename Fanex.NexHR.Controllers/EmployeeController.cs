@@ -262,7 +262,6 @@ public class EmployeeController : BaseController
             model.DomainUsername = appSetting.DomainName + model.DomainUsername;
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Code);
 
-
                 var isExistCriteria = new CheckExistEmployeeCriteria
                 {
                     Code = model.Code,
@@ -342,12 +341,7 @@ public class EmployeeController : BaseController
                     BCryptPassword = cryptoService.Encrypt(model.Code, rijndaelKey, rijndaelIv),
                     Token = token
                 };
-                var response = await userService.CreateAsync(param);
-                var commandResult = new GOModels.CommandResult
-                {
-                    Code = response.Code,
-                    Message = response.Message
-                };
+                var commandResult = await userService.CreateAsync(param);
 
                 return commandResult;
             }

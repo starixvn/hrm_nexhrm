@@ -13,7 +13,7 @@
         public string NickName { get; set; }
         public string EmployeeCard { get; set; }
         [SpParam(SqlParamName = "dob")]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         public string Email { get; set; }
         public int? JobTitleId { get; set; }
         public bool Enabled { get; set; }
