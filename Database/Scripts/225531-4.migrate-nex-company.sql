@@ -3,6 +3,10 @@ IF OBJECT_ID('tempdb..#GroupEmployeeMapping') IS NOT NULL
     DROP TABLE #GroupEmployeeMapping;
 GO
 
+IF OBJECT_ID('tempdb..#TempCompanyEmployee') IS NOT NULL
+    DROP TABLE #TempCompanyEmployee;
+GO
+
 CREATE TABLE #GroupEmployeeMapping (
     CompanyId INT,
     OldGroupId INT,
@@ -19,7 +23,7 @@ CREATE TABLE #TempCompanyEmployee (
     Email varchar(50) NULL,
     GroupId int NULL,
     Roles varchar(20) NULL,
-    JoinedDate smalldatetime NULL,
+    CompanyDate smalldatetime NULL,
     ConfirmedDate smalldatetime NULL,
     ResignedDate smalldatetime NULL,
     NickName2 nvarchar(20) NULL,
@@ -101,6 +105,11 @@ VALUES
     (@NexVisionCompanyId, 2, 'Core Team', 'NX01'),  -- Core Team
     (@NexVisionCompanyId, 3, 'Finance - HMA', 'FI01') -- Finance
 
+DECLARE @DeletedGroupNexcel INT;
+DECLARE @DeletedGroupLumiplus INT;
+SELECT @DeletedGroupNexcel = GroupId FROM [bodb_HRM].[dbo].[Group] WITH (NOLOCK) WHERE Name = 'Deleted Group Nexcel' AND CompanyId = 1;
+SELECT @DeletedGroupLumiplus = GroupId FROM [bodb_HRM].[dbo].[Group] WITH (NOLOCK) WHERE Name = 'Deleted Group Lumiplus' AND CompanyId = 2;
+
 -- Insert data from NexHRM (CompanyId = 1)
 INSERT INTO #TempCompanyEmployee
 SELECT 
@@ -108,9 +117,12 @@ SELECT
     1 as CompanyId, -- NexHRM
     ee.DomainUsername,
     ee.Email,
-    g.GroupId,
+    CASE 
+        WHEN g.GroupId IS NULL THEN @DeletedGroupNexcel 
+        ELSE g.GroupId 
+    END,
     ee.Roles,
-    ee.JoinedDate,
+    ee.JoinedDate AS CompanyDate,
     ee.ConfirmedDate,
     ee.ResignedDate,
     ee.NickName2,
@@ -122,7 +134,7 @@ SELECT
 FROM [NexHRM].[dbo].[EmployeeExt] ee WITH (NOLOCK)
 LEFT JOIN #GroupEmployeeMapping ON #GroupEmployeeMapping.CompanyId = 1 AND #GroupEmployeeMapping.OldGroupId = ee.GroupId
 LEFT JOIN [bodb_HRM].[dbo].[Department] d WITH (NOLOCK) ON d.Code = #GroupEmployeeMapping.NewDeptCode
-LEFT JOIN [bodb_HRM].[dbo].[Group] g WITH (NOLOCK) ON g.Name = #GroupEmployeeMapping.NewGroupName AND g.DepartmentId = d.DepartmentId AND g.CompanyId = 1 AND g.IsDeleted = 0
+LEFT JOIN [bodb_HRM].[dbo].[Group] g WITH (NOLOCK) ON g.Name = #GroupEmployeeMapping.NewGroupName AND g.DepartmentId = d.DepartmentId AND g.CompanyId IN (1, 2, @NexVisionCompanyId) AND g.IsDeleted = 0
 
 -- Insert data from LumiHRM (CompanyId = 2)
 INSERT INTO #TempCompanyEmployee
@@ -131,9 +143,12 @@ SELECT
     2 as CompanyId, -- LumiHRM
     ee.DomainUsername,
     ee.Email,
-    g.GroupId,
+    CASE 
+        WHEN g.GroupId IS NULL THEN @DeletedGroupLumiplus 
+        ELSE g.GroupId 
+    END,
     ee.Roles,
-    ee.JoinedDate,
+    ee.JoinedDate AS CompanyDate,
     ee.ConfirmedDate,
     ee.ResignedDate,
     ee.NickName2,
@@ -145,7 +160,7 @@ SELECT
 FROM [LumiHRM].[dbo].[EmployeeExt] ee WITH (NOLOCK)
 LEFT JOIN #GroupEmployeeMapping ON #GroupEmployeeMapping.CompanyId = 2 AND #GroupEmployeeMapping.OldGroupId = ee.GroupId
 LEFT JOIN [bodb_HRM].[dbo].[Department] d WITH (NOLOCK) ON d.Code = #GroupEmployeeMapping.NewDeptCode
-LEFT JOIN [bodb_HRM].[dbo].[Group] g WITH (NOLOCK) ON g.Name = #GroupEmployeeMapping.NewGroupName AND g.DepartmentId = d.DepartmentId AND g.CompanyId = 2 AND g.IsDeleted = 0
+LEFT JOIN [bodb_HRM].[dbo].[Group] g WITH (NOLOCK) ON g.Name = #GroupEmployeeMapping.NewGroupName AND g.DepartmentId = d.DepartmentId AND g.CompanyId IN (1, 2, @NexVisionCompanyId) AND g.IsDeleted = 0
 
 -- Insert data from NexVisionHRM (CompanyId = 3)
 INSERT INTO #TempCompanyEmployee
@@ -156,7 +171,7 @@ SELECT
     ee.Email,
     g.GroupId,
     ee.Roles,
-    ee.JoinedDate,
+    ee.JoinedDate AS CompanyDate,
     ee.ConfirmedDate,
     ee.ResignedDate,
     ee.NickName2,
@@ -168,7 +183,7 @@ SELECT
 FROM [NexVisionHRM].[dbo].[EmployeeExt] ee WITH (NOLOCK)
 LEFT JOIN #GroupEmployeeMapping ON #GroupEmployeeMapping.CompanyId = @NexVisionCompanyId AND #GroupEmployeeMapping.OldGroupId = ee.GroupId
 LEFT JOIN [bodb_HRM].[dbo].[Department] d WITH (NOLOCK) ON d.Code = #GroupEmployeeMapping.NewDeptCode
-LEFT JOIN [bodb_HRM].[dbo].[Group] g WITH (NOLOCK) ON g.Name = #GroupEmployeeMapping.NewGroupName AND g.DepartmentId = d.DepartmentId AND g.CompanyId = @NexVisionCompanyId AND g.IsDeleted = 0
+LEFT JOIN [bodb_HRM].[dbo].[Group] g WITH (NOLOCK) ON g.Name = #GroupEmployeeMapping.NewGroupName AND g.DepartmentId = d.DepartmentId AND g.CompanyId IN (1, 2, @NexVisionCompanyId) AND g.IsDeleted = 0
 
 -- Insert into final table
 INSERT INTO [bodb_HRM].[dbo].[CompanyEmployee]
@@ -179,7 +194,7 @@ INSERT INTO [bodb_HRM].[dbo].[CompanyEmployee]
    [Email],
    [GroupId],
    [Roles],
-   [JoinedDate],
+   [CompanyDate],
    [ConfirmedDate],
    [ResignedDate],
    [NickName2],
@@ -196,7 +211,7 @@ SELECT
    Email,
    GroupId,
    Roles,
-   JoinedDate,
+   CompanyDate,
    ConfirmedDate,
    ResignedDate,
    NickName2,
@@ -323,4 +338,7 @@ WHERE GroupId NOT IN (
 
 -- Clean up
 DROP TABLE #TempCompanyEmployee
+GO
+
+DROP TABLE #GroupEmployeeMapping;
 GO
