@@ -19,9 +19,8 @@ namespace Fanex.NexHR.WebSite
 
     public class Startup(IConfiguration configuration)
     {
+        public IConfiguration Configuration { get; } = configuration;
 
-        public IConfiguration Configuration { get; }
-        public static IConfiguration StaticConfiguration { get; private set; }
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddJsonOptions(options =>
@@ -43,7 +42,7 @@ namespace Fanex.NexHR.WebSite
 
             services.AddFanexSql(configuration);
 
-            services.Configure<UserControlClientOptions>(Configuration.GetSection("GO.UserControl.Client"));
+            services.Configure<UserControlClientOptions>(configuration.GetSection("GO.UserControl.Client"));
 
             services.AddHttpClient();
             services.AddHttpClient(Constants.Fnb_Client);
@@ -66,7 +65,7 @@ namespace Fanex.NexHR.WebSite
                 app.UseHsts();
             }
             UserControlClient
-                .UseSession(app.ApplicationServices.GetRequiredService<IUserControlSession>(), StaticConfiguration);
+                .UseSession(app.ApplicationServices.GetRequiredService<IUserControlSession>(), Configuration);
 
             app.UseCookiePolicy();
             app.UseStaticFiles();
