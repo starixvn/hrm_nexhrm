@@ -4,23 +4,21 @@ namespace Fanex.NexHR.WebSite
 {
     using AspNetCore.Unobtrusive.Ajax;
     using Data.SqlServer;
-    using Middlewares;
-    using Logging;
     using Fanex.Logging.Sentry;
-    using GO.UserControl.Client.Core.Session;
+    using Fanex.NexHR.Models;
     using GO.UserControl.Client.Core;
+    using GO.UserControl.Client.Core.Session;
+    using Logging;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Middlewares;
     using Sentry;
-    using Fanex.NexHR.Models;
 
     public class Startup(IConfiguration configuration)
     {
-        public IConfiguration Configuration { get; } = configuration;
-
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddJsonOptions(options =>
@@ -66,7 +64,7 @@ namespace Fanex.NexHR.WebSite
             }
 
             UserControlClient
-                .UseSession(app.ApplicationServices.GetRequiredService<IUserControlSession>(), Configuration);
+                .UseSession(app.ApplicationServices.GetRequiredService<IUserControlSession>(), configuration);
 
             app.UseCookiePolicy();
             app.UseStaticFiles();

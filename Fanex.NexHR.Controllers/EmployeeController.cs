@@ -1,6 +1,4 @@
-﻿namespace Fanex.NexHR.Controllers;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,8 +9,8 @@ using Core.Helpers;
 using Core.Model;
 using Criteria.Employee;
 using Criteria.History;
-using Criteria.JobGrade;
-using Criteria.ManagementGrade;
+    using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Core.Helpers;
 using Criteria.TrainingAndDevelopment;
 using Fanex.NexHR.Core.Services;
     using GO.UserControl.Client.Core.Models.User;
@@ -22,7 +20,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Newtonsoft.Json;
-    using NPOI.SS.Formula.Functions;
 using Services.Interfaces;
 using ViewModels;
 using ViewModels.Employee;

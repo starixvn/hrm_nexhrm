@@ -165,27 +165,27 @@ namespace Fanex.NexHR.Controllers
             };
         }
 
-        private string FormatRecruiter(string nickName, string fullName)
+        private static string FormatRecruiter(string nickName, string fullName)
         {
             return string.IsNullOrWhiteSpace(fullName) ? nickName : $"{nickName} ({fullName})";
         }
 
-        private string GetPositionName(List<Position> positions, int? positionId)
+        private static string GetPositionName(List<Position> positions, int? positionId)
         {
             return positions.Find(p => p.PositionId == positionId)?.PositionName;
         }
 
-        private string GetSourceData(List<Source> sourceList, int? value)
+        private static string GetSourceData(List<Source> sourceList, int? value)
         {
             return sourceList.Find(p => p.Value == value?.ToString())?.Name;
         }
 
-        private string GetGradeName(IList<JobGrade> gradeList, int? grade)
+        private static string GetGradeName(IList<JobGrade> gradeList, int? grade)
         {
             return gradeList.ToList().Find(p => p.Id == grade)?.Name;
         }
 
-        private string GetManagementGradeName(IList<ManagementGrade> managementGradeList, int? managementGrade)
+        private static string GetManagementGradeName(IList<ManagementGrade> managementGradeList, int? managementGrade)
         {
             return managementGradeList.ToList().Find(p => p.Id == managementGrade)?.Name;
         }
