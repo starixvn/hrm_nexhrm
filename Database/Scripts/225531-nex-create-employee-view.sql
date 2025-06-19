@@ -10,7 +10,7 @@ SELECT e.EmpId as Id, e.OldEmpId as OldId, e.Code, ec.DomainUsername, e.FullName
     ,e.DOB, ec.Email, e.JobTitleId, ec.[Enabled], e.Phone, e.Gender, ec.GroupId, ec.Roles
     ,ec.JoinedDate, ec.ConfirmedDate, ec.ResignedDate, e.Skype, e.Yahoo, e.Marriage
     ,e.CreatedDate, e.CreatedBy, e.ModifiedDate, e.ModifiedBy, ec.IsDeleted, e.PermanentAddress, e.CurrentAddress, e.IdCardNumber, e.PassportNo
-    ,e.PassportExp, e.GeoMapLatitude, e.GeoMapLongtitude, e.DistanceToCompany, e.EmployeeCard, e.DateOfIDCard as IssuedDate, e.PlaceOfIDCard as IssuedPlace, ec.IsSpecialUser, e.GroupDate
+    ,e.PassportExp, e.GeoMapLatitude, e.GeoMapLongtitude, e.DistanceToCompany, e.EmployeeCard, e.DateOfIDCard as IssuedDate, e.PlaceOfIDCard as IssuedPlace, ec.IsSpecialUser, e.JoinedDate as GroupDate
     ,e.PlaceOfBirth, e.ContactName, e.UserRelationship, e.ContactPhone
     ,e.ContactAddress, e.EducationBackground, e.Telegram, e.SocialInsuranceNo, ec.CompanyId, ec.SalaryGroupId
 FROM bodb_HRM.dbo.Employee AS e WITH (NOLOCK)
@@ -130,7 +130,7 @@ SELECT e.[EmpId] as Id
       ,e.[RefCompanyId]
       ,e.[IsDeleted]
   FROM bodb_HRM.dbo.Employee e
-  INNER JOIN bodb_HRM.dbo.CompanyEmployee ce WITH(NOLOCK) ON e.EmpId = ce.EmpId AND ce.CompanyId IN (3,4)
+  INNER JOIN bodb_HRM.dbo.CompanyEmployee ce WITH(NOLOCK) ON e.EmpId = ce.EmpId AND ce.CompanyId IN (1,2)
 
 GO
 
