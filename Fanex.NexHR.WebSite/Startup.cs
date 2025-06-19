@@ -64,6 +64,7 @@ namespace Fanex.NexHR.WebSite
                 app.UseMiddleware<ErrorHandler>();
                 app.UseHsts();
             }
+
             UserControlClient
                 .UseSession(app.ApplicationServices.GetRequiredService<IUserControlSession>(), Configuration);
 

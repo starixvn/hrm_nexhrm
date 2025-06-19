@@ -1,6 +1,8 @@
 USE HRM;
+GO
 
 ALTER TABLE Employee ADD UserId INT, OldId INT;
+GO
 
 CREATE TABLE #tmpEmp (UserId INT, EmpId INT);
 

@@ -58,7 +58,7 @@ GO
 UPDATE eg
 SET eg.EmpId = e.UserId
 FROM dbo.EmployeeGroup_Employee eg
-    INNER JOIN HRM.dbo.Employee e ON ec.EmpId = e.OldId;
+    INNER JOIN HRM.dbo.Employee e ON eg.EmpId = e.OldId;
 GO
 
 UPDATE em

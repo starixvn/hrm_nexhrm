@@ -1,10 +1,7 @@
 ﻿namespace Fanex.NexHR.Controllers;
-using GO.UserControl.Client.Core.Models.User;
-
 
 using System;
 using System.Collections.Generic;
-    using System.ComponentModel.Design;
 using System.Linq;
 using System.Threading.Tasks;
 using Attributes;
@@ -18,7 +15,7 @@ using Criteria.JobGrade;
 using Criteria.ManagementGrade;
 using Criteria.TrainingAndDevelopment;
 using Fanex.NexHR.Core.Services;
-    using Fanex.NexHR.Services;
+    using GO.UserControl.Client.Core.Models.User;
     using HRM.Criteria.Employee;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -29,8 +26,8 @@ using Newtonsoft.Json;
 using Services.Interfaces;
 using ViewModels;
 using ViewModels.Employee;
-    using GOServices = GO.UserControl.Client.Core.Services;
     using GOModels = GO.UserControl.Client.Core.Models;
+    using GOServices = GO.UserControl.Client.Core.Services;
 
 public class EmployeeController : BaseController
 {
@@ -304,7 +301,7 @@ public class EmployeeController : BaseController
             {
                 return RedirectToAction("Edit", new
                 {
-                    id = criteria.EmployeeId,
+                        id = criteria.UserId,
                     phone = model.Phone,
                     DOB = model.DateOfBirth,
                     joinDate = model.JoinDate,
@@ -326,7 +323,7 @@ public class EmployeeController : BaseController
 
         private async Task<GOModels.CommandResult> CreateUserAsync(CreateEmployeeViewModel model)
         {
-            await authService.AuthorizeGoSystem(); 
+            await authService.AuthorizeGoSystemAsync();
             var token = cryptoService.GenerateRijndaelKeyIV();
             var keyIv = token.Split(':');
             var rijndaelKey = keyIv[0];

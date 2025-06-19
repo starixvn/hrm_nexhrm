@@ -1,7 +1,6 @@
 ﻿namespace Fanex.NexHR.Controllers;
 
 using System.Collections.Generic;
-using GO.UserControl.Client.Core.Session;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Fanex.NexHR.Core;

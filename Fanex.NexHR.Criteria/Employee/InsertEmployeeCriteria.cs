@@ -1,13 +1,9 @@
 ﻿namespace Fanex.NexHR.Criteria.Employee
 {
-    using Core.Attributes;
     using Data;
 
     public class InsertEmployeeCriteria : BaseCommand
     {
-        [Output]
-        public int EmployeeId { get; set; }
-
         public string FullName { get; set; }
 
         public string NickName { get; set; }
@@ -47,9 +43,6 @@
                 && !string.IsNullOrWhiteSpace(FullName);
         }
 
-        public override string GetSettingKey()
-        {
-            return "Employee_Insert";
-        }
+        public override string GetSettingKey() => "Employee_Insert";
     }
 }

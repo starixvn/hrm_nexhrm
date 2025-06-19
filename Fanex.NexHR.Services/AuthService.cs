@@ -2,7 +2,6 @@
 {
     using System;
     using System.Threading.Tasks;
-    using Fanex.Logging;
     using Fanex.NexHR.Criteria.Auth;
     using Fanex.NexHR.Criteria.Employee;
     using Fanex.NexHR.Models;
@@ -21,7 +20,7 @@
         private readonly GOServices.IAuthService goService;
         private readonly UserControlClientOptions options;
         private readonly GOServices.ICryptoService cryptoService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
         public AuthService(IEmployeeService employeeService, 
             IBaseService baseService,
@@ -37,7 +36,7 @@
             this.goService = goService;
             options = config.Value;
             this.cryptoService = cryptoService;
-            _httpContextAccessor = httpContextAccessor;
+            this.httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<UserSession> GetEmployeeByDomain(string domainUserName)
@@ -78,11 +77,9 @@
             return commandResult;
         }
 
-
-
-        public async Task AuthorizeGoSystem()
+        public async Task AuthorizeGoSystemAsync()
         {
-            var context = _httpContextAccessor.HttpContext;
+            var context = httpContextAccessor.HttpContext;
             var token = cryptoService.GenerateRijndaelKeyIV();
             var keyIv = token.Split(':');
             var rijndaelKey = keyIv[0];

@@ -110,7 +110,6 @@ namespace Fanex.NexHR.WebSite
         {
             services.AddSingleton<Logging.ILogger, Logging.Logger>();
             services.AddScoped<ISessionService, SessionService>();
-            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
             services.AddSingleton<IBaseService, BaseService>();
             services.AddSingleton<GOServices.ICryptoService, GOServices.CryptoService>();
