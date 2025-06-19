@@ -14,6 +14,7 @@
     using Fanex.NexHR.Criteria.SyncData.SyncNexGoal;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.SyncData.SyncNexGoalModel;
+    using HRM.Criteria.Employee;
     using Interfaces;
     using Models.Report;
     using Models.Workload;
@@ -306,10 +307,12 @@
         public async Task<IEnumerable<SyncEmployeeModel>> GetEmployeesByLastModifiedDate(
             GetEmployeesByLastModifiedDateCriteria criteria)
         {
+            return await baseService.GetDataAsync<SyncEmployeeModel>(criteria);
+        }
+
         public async Task<CommandResult> CheckExistAsync(CheckExistEmployeeCriteria criteria)
         {
-            return await baseService.GetDataEntityAsync<CommandResult>(criteria);
-            return await baseService.GetDataAsync<SyncEmployeeModel>(criteria);
+           return await baseService.GetDataEntityAsync<CommandResult>(criteria);
         }
 
         public async Task<IEnumerable<SyncEmployeeAttendanceModel>> GetEmployeeAttendances(

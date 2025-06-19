@@ -22,7 +22,6 @@ namespace Fanex.NexHR.WebSite
 
         public IConfiguration Configuration { get; }
         public static IConfiguration StaticConfiguration { get; private set; }
-            StaticConfiguration = configuration;
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddJsonOptions(options =>
