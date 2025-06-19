@@ -1,0 +1,41 @@
+
+INSERT INTO [dbo].[SystemSetting]
+           (
+            [Id]
+           ,[Name]
+           ,[Value])
+     VALUES
+           (6, 'HRTeamCode', 'HR-ADM'),
+           (7, 'CoreTeamCode', 'Core'),
+           (8, 'ITNetWorkCode', 'ITNW'),
+           (9, 'EXPCode', 'EXP'),
+           (10, 'FACode', 'FA'),
+GO
+
+
+
+
+CREATE TABLE GroupSetting
+(
+    GroupId INT,
+    OldGroupId INT,
+    OldGroupCode NVARCHAR(50)
+)
+
+GO
+
+INSERT INTO GroupSetting (OldGroupId, OldGroupCode) VALUES
+(1104, 'HR-ADM'), --include HR-38
+(1081, 'Core'), -- include MGT - 11
+(2, 'ITNW'),
+(40, 'EXP'),
+--(51, 'DEV'),
+(1, 'FA')
+
+GO
+
+
+UPDATE gs
+SET gs.GroupId = eg.GroupId
+FROM GroupSetting gs
+LEFT JOIN dbo.[Group] eg WITH (NOLOCK) ON gs.OldGroupId = eg.OldGroupId AND eg.CompanyId = 1
