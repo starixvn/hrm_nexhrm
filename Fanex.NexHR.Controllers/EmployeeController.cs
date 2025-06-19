@@ -326,30 +326,24 @@ public class EmployeeController : BaseController
 
         private async Task<GOModels.CommandResult> CreateUserAsync(CreateEmployeeViewModel model)
         {
-            try
-            {
-                var token = cryptoService.GenerateRijndaelKeyIV();
-                var keyIv = token.Split(':');
-                var rijndaelKey = keyIv[0];
-                var rijndaelIv = keyIv[1];
+            await authService.AuthorizeGoSystem(); 
+            var token = cryptoService.GenerateRijndaelKeyIV();
+            var keyIv = token.Split(':');
+            var rijndaelKey = keyIv[0];
+            var rijndaelIv = keyIv[1];
 
-                var param = new CreateUserParam
-                {
-                    Code = model.Code,
-                    Nickname = model.NickName,
-                    FullName = model.FullName,
-                    BCryptPassword = cryptoService.Encrypt(model.Code, rijndaelKey, rijndaelIv),
-                    Token = token
-                };
-                var commandResult = await userService.CreateAsync(param);
-
-                return commandResult;
-            }
-            catch (Exception ex)
+            var param = new CreateUserParam
             {
-                return null;
-            }
-    }
+                Code = model.Code,
+                Nickname = model.NickName,
+                FullName = model.FullName,
+                BCryptPassword = cryptoService.Encrypt(model.Code, rijndaelKey, rijndaelIv),
+                Token = token
+            };
+            var commandResult = await userService.CreateAsync(param);
+
+            return commandResult;
+        }
 
     [HrmAuthorize(UserRoles = "HR")]
     public async Task<IActionResult> Edit(

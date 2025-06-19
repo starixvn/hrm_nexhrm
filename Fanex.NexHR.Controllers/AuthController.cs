@@ -12,12 +12,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Novell.Directory.Ldap;
-using GOServices = GO.UserControl.Client.Core.Services;
-using GO.UserControl.Client.Core.Models.Auth;
-using Fanex.NexHR.Models;
-using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Http;
-using System;
 
 public class AuthController : Controller
 {
@@ -25,29 +19,17 @@ public class AuthController : Controller
     private readonly ISessionService sessionService;
     private readonly AppSetting appSetting;
     private readonly LdapSettings ldapSettings;
-    private readonly IUserControlSession userControlSession;
-    private readonly GOServices.IAuthService goService;
-    private readonly UserControlClientOptions options;
-    private readonly GOServices.ICryptoService cryptoService;
 
         public AuthController(
             IAuthService authService,
         ISessionService sessionService,
         AppSetting appSetting,
-        LdapSettings ldapSettings,
-        IUserControlSession userControlSession,
-        GOServices.IAuthService goService,
-        IOptions<UserControlClientOptions> config,
-        GOServices.ICryptoService cryptoService)
+        LdapSettings ldapSettings)
     {
         this.authService = authService;
         this.sessionService = sessionService;
         this.appSetting = appSetting;
         this.ldapSettings = ldapSettings;
-        this.userControlSession = userControlSession;
-        this.goService = goService;
-        options = config.Value;
-        this.cryptoService = cryptoService;
     }
 
     [HttpGet]
@@ -81,23 +63,6 @@ public class AuthController : Controller
                     var employeeSetting = await authService.GetEmployeeSetting(employee.Id);
                     sessionService.CurrentEmployee = employee;
                     sessionService.CurrentUserSetting = employeeSetting;
-                    var token = cryptoService.GenerateRijndaelKeyIV();
-                    var keyIv = token.Split(':');
-                    var rijndaelKey = keyIv[0];
-                    var rijndaelIv = keyIv[1];
-                    var loginParam = new LoginParam
-                    {
-                        Username = cryptoService.Encrypt(options.Username, rijndaelKey, rijndaelIv),
-                        Password = cryptoService.Encrypt(options.Password, rijndaelKey, rijndaelIv),
-                        Token = token,
-                        IP = GetClientIp(HttpContext),
-                        Platform = HttpContext.Request.Headers["User-Agent"].ToString(),
-                        BrowserName = HttpContext.Request.Headers["User-Agent"].ToString(),
-                        NetSessionId = HttpContext.Session.Id
-                    };
-                    var loginResult = await goService.LoginAsync(loginParam);
-                    userControlSession.UserId = loginResult.UserId;
-                    userControlSession.JwtToken = loginResult.JwtToken;
 
                     var claims = new List<Claim>
                     {
@@ -129,23 +94,6 @@ public class AuthController : Controller
             }
         }
         return View(appSetting.LoginView, model);
-    }
-
-    private static string GetClientIp(HttpContext httpContext)
-    {
-        var clientIp = httpContext.Request.Headers["x-forwarded-for"].ToString();
-        if (string.IsNullOrEmpty(clientIp))
-        {
-            clientIp = httpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
-        }
-        else
-        {
-            var forwardedIps = clientIp.Split([','], StringSplitOptions.RemoveEmptyEntries);
-
-            clientIp = forwardedIps[0];
-        }
-
-        return clientIp;
     }
 
     private async Task<bool> IsLoginSuccess(LoginModel model)

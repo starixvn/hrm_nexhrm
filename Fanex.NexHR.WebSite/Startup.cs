@@ -49,6 +49,7 @@ namespace Fanex.NexHR.WebSite
             services.AddHttpClient();
             services.AddHttpClient(Constants.Fnb_Client);
             services.RegisterAuthentication(configuration);
+            services.AddHttpContextAccessor();
             services.RegisterServices(configuration);
             services.InjectConfiguration(configuration);
             services.AddUnobtrusiveAjax();

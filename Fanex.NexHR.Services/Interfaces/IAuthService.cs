@@ -12,5 +12,7 @@
         Task<CommandResult> ChangePassword(int id, string password);
 
         Task<LoginEmployee> GetLoginEmployee(string domainUsername);
+        
+        Task AuthorizeGoSystem();
     }
 }
