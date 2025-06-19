@@ -15,7 +15,7 @@ AS
 
 SELECT e.EmpId as Id, e.OldEmpId as OldId, e.Code, ec.DomainUsername, e.FullName, (CASE WHEN ec.NickName2 IS NULL THEN e.NickName ELSE ec.NickName2 END) AS NickName
     ,e.DOB, ec.Email, e.JobTitleId, ec.[Enabled], e.Phone, e.Gender, ec.GroupId, ec.Roles
-    ,ec.JoinedDate, ec.ConfirmedDate, ec.ResignedDate, e.Skype, e.Yahoo, e.Marriage
+    ,ec.CompanyDate as JoinedDate, ec.ConfirmedDate, ec.ResignedDate, e.Skype, e.Yahoo, e.Marriage
     ,e.CreatedDate, e.CreatedBy, e.ModifiedDate, e.ModifiedBy, ec.IsDeleted, e.PermanentAddress, e.CurrentAddress, e.IdCardNumber, e.PassportNo
     ,e.PassportExp, e.GeoMapLatitude, e.GeoMapLongtitude, e.DistanceToCompany, e.EmployeeCard, e.DateOfIDCard as IssuedDate, e.PlaceOfIDCard as IssuedPlace, ec.IsSpecialUser, e.JoinedDate as GroupDate
     ,e.PlaceOfBirth, e.ContactName, e.UserRelationship, e.ContactPhone
@@ -28,7 +28,7 @@ GO
 
 CREATE OR ALTER VIEW [dbo].[Employee2]
 AS
-SELECT e.EmpId as Id, e.Code, ec.DomainUsername, e.FullName, (CASE WHEN ec.NickName2 IS NULL THEN e.NickName ELSE ec.NickName2 END) AS NickName, e.DOB, ec.Email, e.JobTitleId, ec.Enabled, e.Phone, e.Gender, ec.GroupId, ec.JoinedDate, 
+SELECT e.EmpId as Id, e.Code, ec.DomainUsername, e.FullName, (CASE WHEN ec.NickName2 IS NULL THEN e.NickName ELSE ec.NickName2 END) AS NickName, e.DOB, ec.Email, e.JobTitleId, ec.Enabled, e.Phone, e.Gender, ec.GroupId, ec.CompanyDate as JoinedDate, 
                   ec.ConfirmedDate, ec.ResignedDate, e.Skype, e.Yahoo, e.Marriage, e.CreatedDate, e.CreatedBy, e.ModifiedDate, e.ModifiedBy, ec.IsDeleted, e.EmployeeCard, ec.IsSpecialUser, e.GroupDate, e.PlaceOfBirth, e.EducationBackground, 
                   e.Telegram
 FROM     bodb_HRM.dbo.Employee AS e WITH (NOLOCK) 
