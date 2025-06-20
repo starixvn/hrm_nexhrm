@@ -10,8 +10,8 @@ AS
 */
 BEGIN
     SET NOCOUNT ON;
-    SELECT Id, DomainUsername, Password, IsDeleted, Enabled
-    FROM EmployeeExt WHERE DomainUsername = @DomainUsername
+    SELECT EmpId AS Id, DomainUsername, Password, IsDeleted, Enabled
+    FROM bodb_HRM.dbo.CompanyEmployee WHERE DomainUsername = @DomainUsername
 END
 
 GO

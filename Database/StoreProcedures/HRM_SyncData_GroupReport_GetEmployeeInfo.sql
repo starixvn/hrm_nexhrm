@@ -33,7 +33,6 @@ BEGIN
 		,e.ModifiedDate 
 	FROM dbo.Employee AS e WITH (NOLOCK)
         INNER JOIN dbo.EmployeeGroup AS team WITH (NOLOCK) ON e.GroupId = team.Id
-        INNER JOIN dbo.EmployeeExt AS ext WITH (NOLOCK) ON e.Id = ext.Id
         LEFT JOIN HRM.dbo.EmployeeJobGrade AS ejl WITH (NOLOCK) ON e.Id = ejl.EmpId
         AND ejl.IsCurrentUsed = 1
         LEFT JOIN dbo.Department AS dept WITH (NOLOCK) ON team.DepartmentId = dept.DepartmentId

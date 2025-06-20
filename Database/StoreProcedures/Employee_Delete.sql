@@ -30,15 +30,15 @@ BEGIN
     BEGIN TRY
         BEGIN TRANSACTION;
 
-        UPDATE dbo.EmployeeExt WITH (UPDLOCK, ROWLOCK)
+        UPDATE bodb_HRM.dbo.CompanyEmployee WITH (UPDLOCK, ROWLOCK)
         SET ResignedDate = @ResignedDate
             ,isDeleted = 1
-        WHERE ID = @employeeId
+        WHERE EmpId = @employeeId
 
-		UPDATE HRM.dbo.Employee WITH (UPDLOCK, ROWLOCK)
+		UPDATE bodb_HRM.dbo.Employee WITH (UPDLOCK, ROWLOCK)
         SET ModifiedBy = @ModifiedBy
             ,ModifiedDate = dbo.fnc_GetClientDateTime()
-        WHERE ID = @employeeId
+        WHERE EmpId = @employeeId
 
         DELETE dbo.EmployeeCalendar
         WHERE WorkDate > @ResignedDate

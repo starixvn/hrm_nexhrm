@@ -18,6 +18,7 @@ DB: NexHRM
 Original: 
 
 Revisions:
+     - 20250620@Henry: migrate to bodb_HRM
 Param's Explanation:
 
 */
@@ -46,7 +47,7 @@ BEGIN
 		SELECT @ToDomain = [Value] FROM LumiHRM.dbo.SystemSetting WITH (NOLOCK) WHERE [Name] = 'DomainName'
 		SELECT @ToDomainEmail = [Value] FROM LumiHRM.dbo.SystemSetting WITH (NOLOCK) WHERE [Name] = 'DomainEmail'
 
-		IF EXISTS (SELECT 1 FROM LumiHRM.dbo.EmployeeExt WITH (NOLOCK) WHERE Id = @EmployeeId)
+		IF EXISTS (SELECT 1 FROM bodb_HRM.dbo.CompanyEmployee WITH (NOLOCK) WHERE EmpId = @EmployeeId AND CompanyId = @ToCompanyId)
 		BEGIN
 			UPDATE a WITH (UPDLOCK, ROWLOCK)
 				SET a.DomainUsername = @ToDomain + REPLACE(a.DomainUsername, @FromDomain, '') 
@@ -56,16 +57,16 @@ BEGIN
 				,a.Enabled = 1
 				,a.GroupId = @ToGroupId
 				,a.Roles = b.Roles
-				,a.JoinedDate = @AffectedDate
+				,a.CompanyDate = @AffectedDate
 				,a.ConfirmedDate = @AffectedDate
-			FROM LumiHRM.dbo.EmployeeExt AS a 
-			INNER JOIN dbo.EmployeeExt AS b ON a.Id = b.Id 
-			WHERE a.Id = @employeeId
+			FROM bodb_HRM.dbo.CompanyEmployee AS a 
+			INNER JOIN bodb_HRM.dbo.CompanyEmployee AS b ON a.EmpId = b.EmpId AND b.CompanyId = @FromCompanyId
+			WHERE a.EmpId = @employeeId AND a.CompanyId = @ToCompanyId
 		END
 		ELSE
 		BEGIN
-			INSERT INTO LumiHRM.dbo.EmployeeExt (
-				Id
+			INSERT INTO bodb_HRM.dbo.CompanyEmployee (
+				EmpId
 				,DomainUsername
 				,Email
 				,IsSpecialUser
@@ -73,7 +74,7 @@ BEGIN
 				,Enabled
 				,GroupID
 				,Roles
-				,JoinedDate
+				,CompanyDate
 				,ConfirmedDate
 			)
 			SELECT 
@@ -87,8 +88,8 @@ BEGIN
 				,Roles
 				,@AffectedDate
 				,@AffectedDate
-			FROM dbo.EmployeeExt WITH (NOLOCK)
-			WHERE Id = @EmployeeId
+			FROM bodb_HRM.dbo.CompanyEmployee WITH (NOLOCK)
+			WHERE EmpId = @EmployeeId AND CompanyId = @FromCompanyId
 		END
 
 		INSERT INTO LumiHRM.dbo.EmployeeShift (
@@ -238,7 +239,7 @@ BEGIN
 		SELECT @ToDomain = [Value] FROM NexHRM.dbo.SystemSetting WITH (NOLOCK) WHERE [Name] = 'DomainName'
 		SELECT @ToDomainEmail = [Value] FROM NexHRM.dbo.SystemSetting WITH (NOLOCK) WHERE [Name] = 'DomainEmail'
 
-		IF EXISTS (SELECT 1 FROM NexHRM.dbo.EmployeeExt WITH (NOLOCK) WHERE Id = @EmployeeId)
+		IF EXISTS (SELECT 1 FROM bodb_HRM.dbo.CompanyEmployee WITH (NOLOCK) WHERE EmpId = @EmployeeId AND CompanyId = @ToCompanyId)
 		BEGIN
 			UPDATE a WITH (UPDLOCK, ROWLOCK)
 				SET a.DomainUsername = @ToDomain + REPLACE(a.DomainUsername, @FromDomain, '') 
@@ -248,16 +249,16 @@ BEGIN
 				,a.Enabled = 1
 				,a.GroupId = @ToGroupId
 				,a.Roles = b.Roles
-				,a.JoinedDate = @AffectedDate
+				,a.CompanyDate = @AffectedDate
 				,a.ConfirmedDate = @AffectedDate
-			FROM NexHRM.dbo.EmployeeExt AS a 
-			INNER JOIN dbo.EmployeeExt AS b ON a.Id = b.Id 
-			WHERE a.Id = @employeeId
+			FROM bodb_HRM.dbo.CompanyEmployee AS a 
+			INNER JOIN bodb_HRM.dbo.CompanyEmployee AS b ON a.EmpId = b.EmpId AND b.CompanyId = @FromCompanyId
+			WHERE a.EmpId = @employeeId AND a.CompanyId = @ToCompanyId
 		END
 		ELSE
 		BEGIN
-			INSERT INTO NexHRM.dbo.EmployeeExt (
-				Id
+			INSERT INTO bodb_HRM.dbo.CompanyEmployee (
+				EmpId
 				,DomainUsername
 				,Email
 				,IsSpecialUser
@@ -265,7 +266,7 @@ BEGIN
 				,Enabled
 				,GroupID
 				,Roles
-				,JoinedDate
+				,CompanyDate
 				,ConfirmedDate
 			)
 			SELECT 
@@ -279,8 +280,8 @@ BEGIN
 				,Roles
 				,@AffectedDate
 				,@AffectedDate
-			FROM dbo.EmployeeExt WITH (NOLOCK)
-			WHERE Id = @EmployeeId
+			FROM bodb_HRM.dbo.CompanyEmployee WITH (NOLOCK)
+			WHERE EmpId = @EmployeeId AND CompanyId = @FromCompanyId
 		END
 
 		INSERT INTO NexHRM.dbo.EmployeeShift (
@@ -425,20 +426,14 @@ BEGIN
 		END
 	END
 
-	IF NOT EXISTS (SELECT 1 FROM HRM.dbo.EmployeeCompany WITH (NOLOCK) WHERE EmpId = @EmployeeId AND CompanyId = @ToCompanyId)
-	BEGIN
-		INSERT INTO HRM.dbo.EmployeeCompany(EmpId, CompanyId)
-		VALUES (@EmployeeId, @ToCompanyId)
-	END
-
-	UPDATE dbo.EmployeeExt WITH (ROWLOCK, UPDLOCK)
+	UPDATE bodb_HRM.dbo.CompanyEmployee WITH (ROWLOCK, UPDLOCK)
 	SET [Enabled] = 0
 		,ResignedDate = @LastWorkingDate
-	WHERE Id = @EmployeeId
+	WHERE EmpId = @EmployeeId
 
-	UPDATE HRM.dbo.Employee WITH (ROWLOCK, UPDLOCK)
+	UPDATE bodb_HRM.dbo.Employee WITH (ROWLOCK, UPDLOCK)
 	SET ModifiedDate = dbo.fnc_GetClientDateTime()
 		,ModifiedBy = @ModifiedBy
-	WHERE Id = @EmployeeId
+	WHERE EmpId = @EmployeeId
 END
 GO
