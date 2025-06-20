@@ -1,10 +1,8 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
-    using System;
     using System.Collections.Generic;
     using System.Security.Claims;
     using System.Threading.Tasks;
-    using Fanex.Logging;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Resources;
     using Fanex.NexHR.Services.Interfaces;
@@ -16,20 +14,17 @@
 
     public class AuthController : Controller
     {
-        private readonly ILogger logger;
         private readonly IAuthService authService;
         private readonly ISessionService sessionService;
         private readonly AppSetting appSetting;
         private readonly LdapSettings ldapSettings;
 
         public AuthController(
-            ILogger logger,
             IAuthService authService,
             ISessionService sessionService,
             AppSetting appSetting,
             LdapSettings ldapSettings)
         {
-            this.logger = logger;
             this.authService = authService;
             this.sessionService = sessionService;
             this.appSetting = appSetting;
@@ -102,7 +97,7 @@
 
         private async Task<bool> IsLoginSuccess(LoginModel model)
         {
-            return appSetting.LoginType == 1 ? await IsLoginLdapSuccess(model) : await IsLoginByPasswordSuccess(model);
+            return appSetting.LoginType == 1 ? IsLoginLdapSuccess(model) : await IsLoginByPasswordSuccess(model);
         }
 
         private async Task<bool> IsLoginByPasswordSuccess(LoginModel model)
@@ -111,7 +106,7 @@
             return loginEmployee != null && BCrypt.Net.BCrypt.Verify(model.Password, loginEmployee.Password);
         }
 
-        private async Task<bool> IsLoginLdapSuccess(LoginModel model)
+        private bool IsLoginLdapSuccess(LoginModel model)
         {
             bool isValid;
             using var connection = new LdapConnection();
@@ -121,9 +116,8 @@
                 connection.Bind(string.Format(ldapSettings.UserLoginSchema, model.Username), model.Password);
                 isValid = connection.Bound;
             }
-            catch (Exception e)
+            catch
             {
-                await logger.InfoAsync(e.Message);
                 isValid = false;
             }
 
