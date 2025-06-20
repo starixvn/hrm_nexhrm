@@ -15,20 +15,19 @@ BEGIN
     SET NOCOUNT ON;
 
     SELECT 
-      [WorkDate]
-      ,[EmpId] AS UserId
+      cl.[WorkDate]
+      ,ISNULL(e.OldId, e.Id) AS UserId
       ,CASE WHEN ISNULL(IsWorkFromHome, 0) = 1 THEN NULL ELSE [ShiftId] END [ShiftId]
 	  --,[ShiftId]
-      ,[IsHoliday]
-      ,CAST(CASE WHEN [IsOffDay] = 1 OR ISNULL(IsWorkFromHome, 0) = 1 THEN 1 ELSE 0 END AS BIT) AS [IsOffDay]
-       ,[IsLeaveDay]
-      ,[LeaveTypeId]
-      ,[LeaveDay]
+      ,cl.[IsHoliday]
+      ,CAST(CASE WHEN cl.[IsOffDay] = 1 OR ISNULL(cl.IsWorkFromHome, 0) = 1 THEN 1 ELSE 0 END AS BIT) AS [IsOffDay]
+       ,cl.[IsLeaveDay]
+      ,cl.[LeaveTypeId]
+      ,cl.[LeaveDay]
       ,cl.ModifiedDate
     FROM dbo.EmployeeCalendar AS cl WITH (NOLOCK)
+	INNER JOIN dbo.Employee AS e WITH (NOLOCK) ON e.Id = cl.EmpId
     WHERE @FromDate IS NULL
     OR cl.ModifiedDate > @FromDate
     ORDER BY cl.ModifiedDate
 END
-
-GO

@@ -14,11 +14,12 @@ BEGIN
     SET NOCOUNT ON
 	
 	SELECT ot.OvertimeId,
-		otd.EmployeeId, 
+		ISNULL(e.OldId, e.Id) AS EmployeeId, 
 		otd.[Date], 
 		otd.[Hour],
-		ISNULL(ModifiedDate, CreatedDate) AS ModifiedDate
+		ISNULL(ot.ModifiedDate, ot.CreatedDate) AS ModifiedDate
 	FROM dbo.Overtime AS ot WITH (NOLOCK) 
 	INNER JOIN dbo.OvertimeDetail AS otd WITH (NOLOCK) ON ot.OvertimeId = otd.OvertimeId
+	INNER JOIN dbo.Employee AS e WITH (NOLOCK) ON e.Id = otd.EmployeeId
 	WHERE ISNULL(ot.ModifiedDate, ot.CreatedDate) > @LastModifiedDate
 END

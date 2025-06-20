@@ -13,22 +13,23 @@ Param's Explanation:
 BEGIN
     SET NOCOUNT ON
 	
-	SELECT e.Id AS EmployeeId, 
+	SELECT ISNULL(e.OldId, e.Id) AS EmployeeId, 
 		e.DomainUsername, 
 		e.Code, 
 		e.FullName, 
 		e.NickName, 
-		e.GroupId, 
+		ISNULL(eg.OldId, e.GroupId) AS GroupId, 
 		e.[Enabled], 
 		e.isDeleted, 
 		CAST(e.JoinedDate AS DATE) AS JoinedDate, 
 		CAST(e.ConfirmedDate AS DATE) 
-        AS ConfirmedDate, 
-		e.JobTitleId, 
-		e.Email, 
+        AS ConfirmedDate,
+		e.JobTitleId,
+		e.Email,
 		ec.ConversationId,
 		e.ModifiedDate
-	FROM dbo.Employee AS e WITH (NOLOCK) LEFT OUTER JOIN
-        dbo.EmployeeConversation AS ec WITH (NOLOCK) ON e.Id = ec.EmpId
+	FROM dbo.Employee AS e WITH (NOLOCK) 
+	INNER JOIN dbo.EmployeeGroup AS eg WITH (NOLOCK) ON e.GroupId = eg.Id
+	LEFT OUTER JOIN dbo.EmployeeConversation AS ec WITH (NOLOCK) ON e.Id = ec.EmpId
 	WHERE e.ModifiedDate > @LastModifiedDate
 END

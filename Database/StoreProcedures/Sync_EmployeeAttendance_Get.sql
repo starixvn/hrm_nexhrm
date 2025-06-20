@@ -13,20 +13,21 @@ Param's Explanation:
 BEGIN
     SET NOCOUNT ON
 
-	SELECT Id,
-		EmpId, 
-		AttendanceDate, 
-		InFixed, 
-		LeaveDay, 
-		OutFixed, 
-		LateIn,
-		EarlyOut, 
-		LeaveTypeId, 
-		LeaveTypeId2, 
-		Absence, 
-		TotalWorkHours,
-		InsertDate
-	FROM dbo.EmployeeAttendance WITH (NOLOCK)
-	WHERE InsertDate > @LastModifiedDate
+	SELECT att.Id,
+		ISNULL(e.OldId, e.Id) AS EmpId, 
+		att.AttendanceDate, 
+		att.InFixed, 
+		att.LeaveDay, 
+		att.OutFixed, 
+		att.LateIn,
+		att.EarlyOut, 
+		att.LeaveTypeId, 
+		att.LeaveTypeId2, 
+		att.Absence, 
+		att.TotalWorkHours,
+		att.InsertDate
+	FROM dbo.EmployeeAttendance AS att WITH (NOLOCK)
+	INNER JOIN dbo.Employee AS e WITH (NOLOCK) ON e.Id = att.EmpId
+	WHERE att.InsertDate > @LastModifiedDate
 	
 END
