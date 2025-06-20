@@ -113,20 +113,18 @@
 
         private async Task<bool> IsLoginLdapSuccess(LoginModel model)
         {
-            var isValid = false;
-            using (var connection = new LdapConnection())
+            bool isValid;
+            using var connection = new LdapConnection();
+            try
             {
-                try
-                {
-                    connection.Connect(ldapSettings.Host, ldapSettings.Port);
-                    connection.Bind(string.Format(ldapSettings.UserLoginSchema, model.Username), model.Password);
-                    isValid = connection.Bound;
-                }
-                catch (Exception e)
-                {
-                    await logger.InfoAsync(e.Message);
-                    isValid = false;
-                }
+                connection.Connect(ldapSettings.Host, ldapSettings.Port);
+                connection.Bind(string.Format(ldapSettings.UserLoginSchema, model.Username), model.Password);
+                isValid = connection.Bound;
+            }
+            catch (Exception e)
+            {
+                await logger.InfoAsync(e.Message);
+                isValid = false;
             }
 
             return isValid;
