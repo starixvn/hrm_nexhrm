@@ -336,6 +336,33 @@ WHERE GroupId NOT IN (
     WHERE gem.CompanyId = @NexVisionCompanyId
 );
 
+-- Update NexHRM HistoryWorkDetail
+UPDATE hwd
+SET hwd.GroupId = g.GroupId
+FROM [NexHRM].[dbo].[HistoryWorkDetail] hwd WITH (NOLOCK)
+INNER JOIN #GroupEmployeeMapping gem ON hwd.GroupId = gem.OldGroupId
+INNER JOIN [bodb_HRM].[dbo].[Department] d ON d.Code = gem.NewDeptCode
+INNER JOIN [bodb_HRM].[dbo].[Group] g ON g.Name = gem.NewGroupName AND g.DepartmentId = d.DepartmentId AND g.CompanyId = 1
+WHERE gem.CompanyId = 1;
+
+-- Update LumiHRM HistoryWorkDetail
+UPDATE hwd
+SET hwd.GroupId = g.GroupId
+FROM [LumiHRM].[dbo].[HistoryWorkDetail] hwd WITH (NOLOCK)
+INNER JOIN #GroupEmployeeMapping gem ON hwd.GroupId = gem.OldGroupId
+INNER JOIN [bodb_HRM].[dbo].[Department] d ON d.Code = gem.NewDeptCode
+INNER JOIN [bodb_HRM].[dbo].[Group] g ON g.Name = gem.NewGroupName AND g.DepartmentId = d.DepartmentId AND g.CompanyId = 1
+WHERE gem.CompanyId = 2;
+
+-- Update NexVisionHRM HistoryWorkDetail
+UPDATE hwd
+SET hwd.GroupId = g.GroupId
+FROM [NexVisionHRM].[dbo].[HistoryWorkDetail] hwd WITH (NOLOCK)
+INNER JOIN #GroupEmployeeMapping gem ON hwd.GroupId = gem.OldGroupId
+INNER JOIN [bodb_HRM].[dbo].[Department] d ON d.Code = gem.NewDeptCode
+INNER JOIN [bodb_HRM].[dbo].[Group] g ON g.Name = gem.NewGroupName AND g.DepartmentId = d.DepartmentId AND g.CompanyId = @NexVisionCompanyId
+WHERE gem.CompanyId = @NexVisionCompanyId;
+
 -- Clean up
 DROP TABLE #TempCompanyEmployee
 GO

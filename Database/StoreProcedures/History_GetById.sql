@@ -19,6 +19,7 @@ BEGIN
 	,e.NickName
 	,e.FullName
 	,hd.GroupId
+	,hd.GroupName
 	,hd.JobTitleId
 	,hd.JobGradeId
 	,h.AffectedDate
@@ -27,5 +28,4 @@ BEGIN
 		LEFT JOIN dbo.Employee AS e WITH (NOLOCK) ON e.Id = h.EmpId
     WHERE h.Id = @Id
 END
-
 GO

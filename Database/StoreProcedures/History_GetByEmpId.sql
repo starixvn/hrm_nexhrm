@@ -15,7 +15,7 @@ BEGIN
     SET NOCOUNT ON;
 
     SELECT h.Id
-	,eg.[Name] AS GroupName
+	,hd.GroupName
 	,jt.[Name] AS JobTitleName
 	,jg.[Name] AS JobGradeName
 	,mg.[Name] AS ManagementGradeName
@@ -23,7 +23,6 @@ BEGIN
     FROM dbo.HistoryWork AS h WITH (NOLOCK)
 		INNER JOIN dbo.HistoryWorkDetail AS hd WITH (NOLOCK) ON hd.HistoryWorkId = h.Id
 		LEFT JOIN dbo.Employee AS e WITH (NOLOCK) ON e.Id = h.EmpId
-		LEFT JOIN dbo.EmployeeGroup AS eg WITH (NOLOCK) ON eg.Id = hd.GroupId
 		LEFT JOIN HRM.dbo.JobGrade AS jg WITH (NOLOCK) ON jg.JobGradeId = hd.JobGradeId
 		LEFT JOIN HRM.dbo.ManagementGrade AS mg WITH (NOLOCK) ON mg.ManagementGradeId = hd.ManagementGradeId
 		LEFT JOIN HRM.dbo.JobTitle AS jt WITH (NOLOCK) ON jt.JobTitleId = hd.JobTitleId

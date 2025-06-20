@@ -8,8 +8,8 @@ Created: 20240723@Lilac.Nguyen
 Task: Get history.
 DB: NexHRM
 Original: 
-
 Revisions:  
+	- 20250619@Henry.Dinh: Use GroupName from HistoryWorkDetail.
 Param's Explanation:
 
 */
@@ -20,14 +20,13 @@ BEGIN
 	,h.EmpId
 	,e.NickName
 	,e.FullName
-	,eg.[Name] AS GroupName
+	,hd.GroupName
 	,jt.[Name] AS JobTitleName
 	,jg.[Name] AS JobGradeName
 	,h.AffectedDate
 	FROM dbo.HistoryWork AS h WITH (NOLOCK)
 		INNER JOIN dbo.HistoryWorkDetail AS hd WITH (NOLOCK) ON hd.HistoryWorkId = h.Id
 		LEFT JOIN dbo.Employee AS e WITH (NOLOCK) ON e.Id = h.EmpId
-		LEFT JOIN dbo.EmployeeGroup AS eg WITH (NOLOCK) ON eg.Id = hd.GroupId
 		LEFT JOIN HRM.dbo.JobGrade AS jg WITH (NOLOCK) ON jg.JobGradeId = hd.JobGradeId
 		LEFT JOIN HRM.dbo.JobTitle AS jt WITH (NOLOCK) ON jt.JobTitleId = hd.JobTitleId
 	WHERE (@GroupId IS NULL OR hd.GroupId = @GroupId)

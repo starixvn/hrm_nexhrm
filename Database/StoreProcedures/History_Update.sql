@@ -26,6 +26,7 @@ Param's Explanation:
 */
 BEGIN
     SET NOCOUNT ON;
+	DECLARE @GroupName NVARCHAR(255);
 	--DECLARE @CurrentGroupId INT, @CurrentJobTitleId INT, @CurrentJobGradeId INT;
 
 	--SELECT 
@@ -59,6 +60,8 @@ BEGIN
 	--	RETURN;
 	--END
 
+	SELECT @GroupName = Name FROM dbo.EmployeeGroup WITH (NOLOCK) WHERE Id = @GroupId;
+
     UPDATE dbo.HistoryWork WITH (ROWLOCK, UPDLOCK)
     SET 
 		AffectedDate = @AffectedDate
@@ -69,6 +72,7 @@ BEGIN
 	UPDATE dbo.HistoryWorkDetail WITH (ROWLOCK, UPDLOCK)
     SET 
 		GroupId = @GroupId
+		,GroupName = @GroupName
         ,JobTitleId = @JobTitleId
         ,JobGradeId = @JobGradeId
     WHERE HistoryWorkId = @Id
