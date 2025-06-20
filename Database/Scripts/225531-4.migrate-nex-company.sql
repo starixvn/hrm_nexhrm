@@ -82,7 +82,7 @@ VALUES
     -- NexHRM HR&ADM
     (1, 1104, 'HRA NEX', 'SR36'), -- HR&ADM
     -- NexHRM Finance
-    (1, 1, 'Finance - HMA', 'FI01'), -- Finance
+    (1, 1, 'Finance ', 'FI01'), -- Finance
     -- LumiHRM Pentagon
     (2, 2018, 'AscentisTech', 'NX69'),  -- AscentisTech
     (2, 1, 'HOD Pentagon', 'NX69'),  -- HOD Pentagon
@@ -95,7 +95,7 @@ VALUES
     -- LumiHRM Special 
     (2, 3, 'HRA NEX', 'SR36'), -- HR&ADM
     (2, 2, 'Core Team', 'NX01'),  -- Core Team
-    (2, 2021, 'Finance - HMA', 'FI01'), -- Finance
+    (2, 2021, 'Finance', 'FI01'), -- Finance
     -- NexVisionHRM Marketing
     (@NexVisionCompanyId, 4, 'Momentum', 'MW11'),  -- Momentum
     (@NexVisionCompanyId, 5, 'Horizon', 'MW11'),  -- Horizon
@@ -103,7 +103,7 @@ VALUES
     -- NexVisionHRM Special 
     (@NexVisionCompanyId, 1, 'HRA NEX', 'SR36'), -- HR&ADM
     (@NexVisionCompanyId, 2, 'Core Team', 'NX01'),  -- Core Team
-    (@NexVisionCompanyId, 3, 'Finance - HMA', 'FI01') -- Finance
+    (@NexVisionCompanyId, 3, 'Finance', 'FI01') -- Finance
 
 DECLARE @DeletedGroupNexcel INT;
 DECLARE @DeletedGroupLumiplus INT;

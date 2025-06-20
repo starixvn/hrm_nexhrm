@@ -36,7 +36,7 @@ FROM
         ('C77', 'Horizon', 'NexVisionHRM', 'MW11', N'NX Marketing Horizon', 5, 0),
         ('C88', 'Magnetic', 'NexVisionHRM', 'MW11', N'NX Marketing Magnetic', 6, 0),
         -- NexHRM Finance 
-        ('FI1', 'Finance - HMA', 'NexHRM', 'FI01', N'Finance SU01', 1, 0),
+        ('FI1', 'Finance', 'NexHRM', 'FI01', N'Finance SU01', 1, 0),
         -- NexHRM Atomix 
         ('O13', 'NEXOPS', 'NexHRM', 'NX27', N'NX NEXOPS', 1063, 0),
         ('E13', 'NEXPE', 'NexHRM', 'NX27', N'NX NEXPE', 1078, 0),
