@@ -376,6 +376,23 @@ public class EmployeeController : BaseController
         }
 
         var criteria = FillDataUpdateEmployeeCriteria(model);
+
+            var employee = await GetEmployeeById(criteria.EmployeeId);
+            var updatedGoResponse = await UpdateUserAsync(new UpdateUserInfoParam
+            {
+                RefId = model.Id,
+                UserId = employee.Id,
+                Code = employee.Code,
+                Nickname = employee.NickName,
+                FullName = employee.FullName,
+                Email = employee.Email,
+                IsActive = employee.Enabled
+            });
+
+            if (!updatedGoResponse.IsSuccessful)
+            {
+                ModelState.AddModelError(string.Empty, updatedGoResponse.Message);
+            }
         var result = await baseService.ExecuteNonQueryAsync(criteria);
 
         if (result.IsSuccessful)
@@ -389,7 +406,6 @@ public class EmployeeController : BaseController
 
             Task.Factory.StartNew(async () =>
             {
-                var employee = await GetEmployeeById(criteria.EmployeeId);
                 mailEmployeeService.SendMailUpdateSuccess(employee);
             });
         }
@@ -404,16 +420,42 @@ public class EmployeeController : BaseController
         return View(model);
     }
 
+        private async Task<GOModels.CommandResult> UpdateUserAsync(UpdateUserInfoParam model)
+        {
+            await authService.AuthorizeGoSystemAsync();
+
+            var commandResult = await userService.UpdateInfoAsync(new UpdateUserInfoParam
+            {
+                RefId = model.RefId,
+                UserId = model.UserId,
+                Code = model.Code,
+                Nickname = model.Nickname,
+                FullName = model.FullName,
+                Email = model.Email,
+                IsActive = model.IsActive
+            });
+
+            return commandResult;
+        }
+
     [HrmAuthorize(UserRoles = "HR")]
     [HttpPost]
     public async Task<IActionResult> Delete(int employeeId, DateTime resignedDate)
     {
+            var employee = await GetEmployeeById(employeeId);
         var criteria = new DeleteEmployeeCriteria
         {
             EmployeeId = employeeId,
             ResignedDate = resignedDate,
             ModifiedBy = CurrentUser.Id
         };
+            await authService.AuthorizeGoSystemAsync();
+            var response = await userService.DeleteAsync(employee.UserId);
+
+            if (!response.IsSuccessful)
+            {
+                ModelState.AddModelError(string.Empty, response.Message);
+            }
         var result = await baseService.ExecuteNonQueryAsync(criteria);
 
         return Json(result);
