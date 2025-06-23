@@ -108,7 +108,7 @@
             }
             else
             {
-                var forwardedIps = clientIp.Split([','], StringSplitOptions.RemoveEmptyEntries);
+                var forwardedIps = clientIp.Split(',', StringSplitOptions.RemoveEmptyEntries);
 
                 clientIp = forwardedIps[0];
             }
