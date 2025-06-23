@@ -1,15 +1,5 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using Core;
-    using Core.Enums;
-    using Criteria.Employee;
-    using Criteria.RedmineAPI;
-    using Fanex.Data;
-    using Interfaces;
-    using Models;
-    using Models.RedmineAPI;
-    using Newtonsoft.Json;
-    using Resources;
     using System;
     using System.Collections.Generic;
     using System.Globalization;
@@ -19,6 +9,15 @@
     using System.Net.Http.Headers;
     using System.Text;
     using System.Threading.Tasks;
+    using Core;
+    using Core.Enums;
+    using Criteria.Employee;
+    using Fanex.Data;
+    using Interfaces;
+    using Models;
+    using Models.RedmineAPI;
+    using Newtonsoft.Json;
+    using Resources;
 
     public class RedmineService : IRedmineService
     {
@@ -269,16 +268,6 @@
                 return onWorkedDates.Except(hadLogtimeDates).OrderBy(x => x).ToList();
             }
             return new List<DateTime>();
-        }
-
-        private async Task GetForgotDates(RedmineUser employee)
-        {
-            var toDate = DateTimeOffset.Now.DateTime.ToClientTimeZone().AddDays(-1);
-            var fromDate = toDate.AddDays(-6);
-            var logtimeDates = await GetTimeEntries(employee.RedmineId, fromDate, toDate);
-            var workingDates = await GetWorkedDatesOfUser(fromDate, toDate, employee.EmpId);
-            var hadLogtimeDates = logtimeDates.GroupBy(x => x.SpentOn).Select(d => d.Key).ToList();
-            employee.ForgotLogtimeDates = workingDates.Except(hadLogtimeDates).Distinct().OrderBy(x => x).ToList();
         }
 
         public async Task<double> GetTotalSpentHoursOnDate(string domainName, DateTime onDate)

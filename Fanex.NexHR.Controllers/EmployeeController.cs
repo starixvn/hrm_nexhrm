@@ -20,12 +20,10 @@ namespace Fanex.NexHR.Controllers
     using Fanex.NexHR.Criteria.TrainingAndDevelopment;
     using Fanex.NexHR.Resources;
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Newtonsoft.Json;
-    using NPOI.SS.Formula.Functions;
     using Services.Interfaces;
     using ViewModels;
     using ViewModels.Employee;
@@ -41,16 +39,13 @@ namespace Fanex.NexHR.Controllers
         private readonly IMailEmployeeService mailEmployeeService;
         private readonly ITrainingAndDevelopmentService trainingAndDevelopmentService;
         private readonly IHistoryService historyService;
-        private readonly IWebHostEnvironment environment;
         private readonly IAuthService authService;
         private readonly AppSetting appSetting;
         private readonly ILookupDataService lookupDataService;
         private readonly IMinIOService minIOService;
 
 #pragma warning disable S107 // Methods should not have too many parameters
-
         public EmployeeController(
-            IWebHostEnvironment environment,
             AppSetting appSetting,
             ISessionService sessionService,
             IEmployeeService employeeService,
@@ -74,7 +69,6 @@ namespace Fanex.NexHR.Controllers
             this.shiftService = shiftService;
             this.baseService = baseService;
             this.mailEmployeeService = mailEmployeeService;
-            this.environment = environment;
             this.trainingAndDevelopmentService = trainingAndDevelopmentService;
             this.historyService = historyService;
             this.authService = authService;
@@ -523,7 +517,6 @@ namespace Fanex.NexHR.Controllers
             return PartialView("ViewHistoryManagementGrade", employeeManagementGrades);
         }
 
-
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Transfer()
         {
@@ -617,7 +610,6 @@ namespace Fanex.NexHR.Controllers
             ModelState.AddModelError(string.Empty, Messages.FailedToChangePassword);
             return View("ChangePassword");
         }
-
 
         private UpdateEmployeeCriteria FillDataUpdateEmployeeCriteria(EditEmployeeViewModel model)
         {

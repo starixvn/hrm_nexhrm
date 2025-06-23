@@ -4,16 +4,13 @@ using System.Threading.Tasks;
 using Core;
 using Core.Helpers;
 using Criteria.Employee;
-using Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Services.Interfaces;
 
 public class AvatarController(
-    IWebHostEnvironment environment,
     IEmployeeService employeeService,
-    AppSetting appSetting)
-    : Controller
+    AppSetting appSetting) : Controller
 {
     [AllowAnonymous]
     [Route("Avatars/{id}")]
@@ -31,7 +28,7 @@ public class AvatarController(
         var nickName = imgNickName.EndsWith(".jpg") ? imgNickName[..index] : imgNickName;
         var domainName = $"{appSetting.DomainName}{nickName}";
         var employee = await employeeService.GetEmployeeByDomainName(new GetEmployeeByDomainNameCriteria
-            { DomainUserName = domainName });
+        { DomainUserName = domainName });
 
         var avatarUrl = await FileHelpers.GetAvatar(employee?.Code);
         return Content(avatarUrl, "text/plain");

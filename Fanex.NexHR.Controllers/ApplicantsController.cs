@@ -1,20 +1,5 @@
-using Fanex.NexHR.Core.Enums;
-using Fanex.NexHR.Core.Helpers;
-using Fanex.NexHR.Core.Services;
-
 namespace Fanex.NexHR.Controllers
 {
-    using Criteria.Applicant;
-    using Fanex.NexHR.Controllers.Attributes;
-    using Fanex.NexHR.Core;
-    using Fanex.NexHR.Criteria.Position;
-    using Fanex.NexHR.Models;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
-    using Models.Applicant;
-    using Services.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -22,17 +7,28 @@ namespace Fanex.NexHR.Controllers
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
-    using ViewModels.Applicant;
+    using Criteria.Applicant;
+    using Fanex.NexHR.Controllers.Attributes;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Core.Services;
+    using Fanex.NexHR.Criteria.Position;
+    using Fanex.NexHR.Models;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Models.Applicant;
+    using Services.Interfaces;
+    using ViewModels.Applicant;
 
-    public class ApplicantsController(ISessionService sessionService,
-            IBaseService baseService,
-            IWebHostEnvironment environment,
-            IApplicantService applicantService,
-            IPositionService positionService,
-            ICryptoService cryptoService1,
-            IMinIOService minIOService,
-            IPromotionService promotionService) : BaseController(sessionService)
+    public class ApplicantsController(
+        ISessionService sessionService,
+        IBaseService baseService,
+        IApplicantService applicantService,
+        IPositionService positionService,
+        ICryptoService cryptoService1,
+        IMinIOService minIOService,
+        IPromotionService promotionService) : BaseController(sessionService)
     {
         private static readonly Storage StorageInfo = Core.Enums.StorageInfo.Resume;
 
