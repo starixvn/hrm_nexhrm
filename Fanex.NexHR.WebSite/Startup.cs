@@ -11,15 +11,8 @@
     using Microsoft.Extensions.Hosting;
     using Sentry;
 
-    public class Startup
+    public class Startup(IConfiguration configuration)
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
-
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddJsonOptions(options =>
@@ -29,26 +22,26 @@
             services.AddControllersWithViews();
 
             LogManager
-            .SetDefaultLogCategory(Configuration.GetSection("LogCategory").Value)
-            .Use(new List<ILogEngine>
-            {
-                new SentryLogging(new SentryEngineOptions
+                .SetDefaultLogCategory(configuration.GetSection("LogCategory").Value)
+                .Use(new List<ILogEngine>
                 {
-                    Dsn = new Dsn(Configuration.GetSection("SentryEngineOptions:Dsn").Value),
-                    FrontEndDsn = new Dsn(Configuration.GetSection("SentryEngineOptions:FrontEndDsn").Value)
-                })
-            });
+                    new SentryLogging(new SentryEngineOptions
+                    {
+                        Dsn = new Dsn(configuration.GetSection("SentryEngineOptions:Dsn").Value),
+                        FrontEndDsn = new Dsn(configuration.GetSection("SentryEngineOptions:FrontEndDsn").Value)
+                    })
+                });
 
-            services.AddFanexSql(Configuration);
+            services.AddFanexSql(configuration);
 
             services.AddHttpClient();
-            services.RegisterAuthentication(Configuration);
+            services.RegisterAuthentication(configuration);
             services.RegisterServices();
-            services.InjectConfiguration(Configuration);
+            services.InjectConfiguration(configuration);
             services.AddUnobtrusiveAjax();
         }
 
-        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -62,6 +55,16 @@
 
             app.UseCookiePolicy();
             app.UseStaticFiles();
+
+            if (configuration.GetValue<bool>("MAINTENANCE_MODE"))
+            {
+                app.Run(async (context) =>
+                {
+                    context.Response.ContentType = "text/html";
+                    await context.Response.SendFileAsync("wwwroot/maintenance.html");
+                });
+            }
+
             app.UseAuthentication();
             app.UseSession();
 
