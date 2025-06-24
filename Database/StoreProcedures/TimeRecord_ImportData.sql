@@ -52,14 +52,13 @@ BEGIN
 		)
     SELECT EmpNo
 		,RecordTime
-		,InOutType
+		,NULL
 		,ReaderId
 		,ReaderName
 		,EventName
     FROM OPENXML(@DocHandler, '/Root/Row', 1) WITH (
         EmpNo VARCHAR(32)
 		,RecordTime DATETIME
-		,InOutType TINYINT
 		,ReaderId INT
 		,ReaderName NVARCHAR(48)
 		,EventName NVARCHAR(100)) AS d
