@@ -51,7 +51,7 @@
         public async Task ImportTimeRecordAsync()
         {
             var toDate = DateTimeOffset.Now.DateTime.ToClientTimeZone();
-            var fromDate = toDate.AddHours(6);
+            var fromDate = toDate.AddHours(-6);
             var url = $"{settings.BaseUrl}/TimeRecord?fromDate={fromDate:yyyy-MM-dd HH:mm:ss}&toDate={toDate:yyyy-MM-dd HH:mm:ss}";
             var response = await httpClient.GetAsync(url);
             if (response.IsSuccessStatusCode)
