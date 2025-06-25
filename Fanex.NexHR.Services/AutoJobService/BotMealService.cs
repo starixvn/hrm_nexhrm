@@ -10,7 +10,6 @@ using System.Linq;
 using Fanex.NexHR.Core;
 using Fanex.NexHR.Services.Interfaces;
 using Newtonsoft.Json;
-using Fanex.MailDeliver.MailClient;
 
 namespace Fanex.NexHR.Services.AutoJobService;
 
@@ -25,13 +24,17 @@ public class BotMealService(IHolidayService holidayService,
     public async Task SendCancelMealMessage()
     {
         var validDate = await GetNextValidMealDate();
+        if (validDate == null)
+        {
+            return;
+        }
 
-        var employees = await GetEmployeesByValidDate(validDate);
+        var employees = await GetEmployeesByValidDate(validDate.Value);
 
         var employeeConversationCriteria = new Criteria.Employee.GetEmployeeConversationCriteria
         {
             EmployeeJson = JsonConvert.SerializeObject(employees),
-            OnDate = validDate
+            OnDate = validDate.Value
         };
         var employeeConversations = await baseService.GetDataAsync<EmployeeMealModel>(employeeConversationCriteria);
 
@@ -77,30 +80,50 @@ public class BotMealService(IHolidayService holidayService,
 
         var response = await client.PostAsync($"{setting.FBUrl}/api/{Endpoint.Get_Employees_Meal_Cancel_Register}", content);
 
-        if (!response.IsSuccessStatusCode) return employees;
+        if (!response.IsSuccessStatusCode)
+        {
+            return employees;
+        }
         var responseContent = await response.Content.ReadAsStringAsync();
-        if (string.IsNullOrWhiteSpace(responseContent)) return employees;
+        if (string.IsNullOrWhiteSpace(responseContent))
+        {
+            return employees;
+        }
         employees = JsonConvert.DeserializeObject<List<EmployeeMealModel>>(responseContent);
 
         return employees;
     }
 
-    private async Task<DateTime> GetNextValidMealDate()
+    private async Task<DateTime?> GetNextValidMealDate()
     {
         var currentDate = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date;
         var holidayCriteria = new GetHolidayByYearCriteria
         {
             Year = currentDate.Year
         };
-        var holidays = await holidayService.GetByYear(holidayCriteria);
+        var holidays = (await holidayService.GetByYear(holidayCriteria)).ToList();
+        var isOffDay = CheckOffDay(currentDate, holidays);
+        if (isOffDay)
+        {
+            return null;
+        }
         while (true)
         {
             var nextDay = currentDate.AddDays(1);
-            var isWeekend = nextDay.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday;
-            var isHoliday = holidays.Any(h => nextDay >= h.FromDate && nextDay <= h.ToDate);
-            if (!isWeekend && !isHoliday) return nextDay;
+            var isNextDayInvalid = CheckOffDay(nextDay, holidays);
+            if (!isNextDayInvalid)
+            {
+                return nextDay;
+            }
 
             currentDate = nextDay;
         }
+    }
+
+    private static bool CheckOffDay(DateTime date, IEnumerable<Holiday> holidays)
+    {
+        var isWeekend = date.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday;
+        var isHoliday = holidays.Any(h => date >= h.FromDate && date <= h.ToDate);
+        return isWeekend || isHoliday;
     }
 }
