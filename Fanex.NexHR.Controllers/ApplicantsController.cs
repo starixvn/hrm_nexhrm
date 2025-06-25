@@ -1,15 +1,5 @@
 namespace Fanex.NexHR.Controllers
 {
-    using Criteria.Applicant;
-    using Fanex.NexHR.Controllers.Attributes;
-    using Fanex.NexHR.Criteria.Position;
-    using Fanex.NexHR.Models;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
-    using Models.Applicant;
-    using Services.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -17,17 +7,30 @@ namespace Fanex.NexHR.Controllers
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
+    using Criteria.Applicant;
+    using Fanex.NexHR.Controllers.Attributes;
+    using Fanex.NexHR.Core;
+    using Fanex.NexHR.Core.Enums;
+    using Fanex.NexHR.Core.Services;
+    using Fanex.NexHR.Criteria.Position;
+    using Fanex.NexHR.Models;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Models.Applicant;
+    using Services.Interfaces;
     using ViewModels.Applicant;
 
-    public class ApplicantsController(ISessionService sessionService,
-            IBaseService baseService,
-            IWebHostEnvironment environment,
-            IApplicantService applicantService,
-            IPositionService positionService,
-            ICryptoService cryptoService1,
-            IPromotionService promotionService) : BaseController(sessionService)
+    public class ApplicantsController(
+        ISessionService sessionService,
+        IBaseService baseService,
+        IApplicantService applicantService,
+        IPositionService positionService,
+        ICryptoService cryptoService1,
+        IMinIOService minIOService,
+        IPromotionService promotionService) : BaseController(sessionService)
     {
-        private const string UploadsFilePath = "common_files/cv";
+        private static readonly Storage StorageInfo = Core.Enums.StorageInfo.Resume;
 
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Index()
@@ -394,23 +397,13 @@ namespace Fanex.NexHR.Controllers
             return View(model);
         }
 
-        private void CreateOrOpenDirectory()
-        {
-            string[] filePath = { environment.WebRootPath, UploadsFilePath };
-            var path = Path.Combine(filePath);
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-        }
-
         private async Task<string> UploadFileAsync(IFormFile file)
         {
             if (file == null)
             {
                 return string.Empty;
             }
-            CreateOrOpenDirectory();
+
             string savedFilePath = await SaveFile(file);
 
             return savedFilePath;
@@ -424,31 +417,26 @@ namespace Fanex.NexHR.Controllers
             }
             var fileName = Path.GetFileName(file.FileName);
             var pathAttachFinal = RemoveAccents(fileName);
-            pathAttachFinal = CheckDuplicatedFileName(pathAttachFinal);
-            var path = Path.Combine(environment.WebRootPath, UploadsFilePath, pathAttachFinal);
-            using (var stream = new FileStream(path, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
+            pathAttachFinal = await CheckDuplicatedFileName(pathAttachFinal);
+            await minIOService.UploadFileAsync(file, StorageInfo.Bucket, $"{StorageInfo.Path}/{pathAttachFinal}");
 
             return pathAttachFinal;
         }
 
-        private string RemoveAccents(string fileName)
+        private static string RemoveAccents(string fileName)
         {
             return Regex.Replace(fileName.Normalize(NormalizationForm.FormD), @"[\p{Mn}]", string.Empty);
         }
 
-        private string CheckDuplicatedFileName(string fileName)
+        private async Task<string> CheckDuplicatedFileName(string fileName)
         {
-            var pathAttach = $"{UploadsFilePath}/{fileName}";
-            var filePath = Path.Combine(environment.WebRootPath, pathAttach);
+            var pathAttach = $"{StorageInfo}/{fileName}";
 
-            if (System.IO.File.Exists(filePath))
+            if (await minIOService.IsFileExistsAsync(StorageInfo.Bucket, pathAttach))
             {
                 var baseFileName = Path.GetFileNameWithoutExtension(pathAttach);
                 var fileExtension = Path.GetExtension(pathAttach);
-                var newFileName = $"{baseFileName}({DateTimeOffset.Now.ToString("yyyy-MM-dd-HHmmss")}){fileExtension}";
+                var newFileName = $"{baseFileName}({DateTimeOffset.Now.DateTime.ToClientTimeZone().ToString("yyyy-MM-dd-HHmmss")}){fileExtension}";
 
                 return newFileName;
             }
@@ -474,26 +462,16 @@ namespace Fanex.NexHR.Controllers
         public async Task<IActionResult> Delete(int id, string fileName)
         {
             var command = new DeleteApplicantCommand { Id = id };
-            CommandResult result = await baseService.ExecuteNonQueryAsync(command);
+            var result = await baseService.ExecuteNonQueryAsync(command);
 
             if (result.IsSuccessful && !string.IsNullOrEmpty(fileName))
             {
-                string filePath = Path.Combine(environment.WebRootPath, UploadsFilePath, fileName);
-                System.IO.File.Delete(filePath);
+                var filePath = $"{StorageInfo.Path}/{fileName}";
 
-                DeleteFile(fileName);
+                await minIOService.DeleteFileAsync(StorageInfo.Bucket, filePath);
             }
 
             return Json(result);
-        }
-
-        private void DeleteFile(string fileName)
-        {
-            string filePath = Path.Combine(environment.WebRootPath, UploadsFilePath, fileName);
-            if (System.IO.File.Exists(filePath))
-            {
-                System.IO.File.Delete(filePath);
-            }
         }
     }
 }

@@ -63,7 +63,7 @@
 
         public static DateTime GetMaxDate(this DateTime date)
         {
-            if (date.AddMonths(1).Year > DateTimeOffset.Now.Year)
+            if (date.AddMonths(1).Year > DateTimeOffset.Now.DateTime.ToClientTimeZone().Year)
             {
                 return DateTimeOffset.Now.DateTime.AddYears(1);
             }
@@ -94,7 +94,7 @@
                 });
             }
 
-            var toYear = DateTimeOffset.Now.DateTime.GetMaxDate().Year + 1;
+            var toYear = DateTimeOffset.Now.DateTime.ToClientTimeZone().GetMaxDate().Year + 1;
 
             for (var index = toYear; index >= fromYear; index--)
             {

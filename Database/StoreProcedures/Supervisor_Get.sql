@@ -1,10 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
---[Supervisor_Get] ''
-ALTER PROCEDURE [dbo].[Supervisor_Get] 
+﻿CREATE OR ALTER PROCEDURE [dbo].[Supervisor_Get] 
     @keyword NVARCHAR(256),
     @groupId INT = NULL,
     @departmentId INT = NULL

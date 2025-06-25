@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Services.Interfaces;
+    using Fanex.NexHR.Core;
 
     public class AjaxController : BaseController
     {
@@ -26,12 +27,12 @@
                 const short typeOfNone = 2;
                 criteria.InOutType = typeOfNone;
                 criteria.ModifiedBy = CurrentUser.Id;
-                criteria.ModifiedDate = DateTimeOffset.Now.DateTime;
+                criteria.ModifiedDate = DateTimeOffset.Now.DateTime.ToClientTimeZone();
             }
             else
             {
                 criteria.ModifiedBy = CurrentUser.Id;
-                criteria.ModifiedDate = DateTimeOffset.Now.DateTime;
+                criteria.ModifiedDate = DateTimeOffset.Now.DateTime.ToClientTimeZone();
             }
 
             CommandResult commandResult = await baseService.ExecuteNonQueryAsync(criteria);
@@ -50,12 +51,12 @@
                     const short typeOfNone = 2;
                     criteria.InOutType = typeOfNone;
                     criteria.ModifiedBy = CurrentUser.Id;
-                    criteria.ModifiedDate = DateTimeOffset.Now.DateTime;
+                    criteria.ModifiedDate = DateTimeOffset.Now.DateTime.ToClientTimeZone();
                 }
                 else
                 {
                     criteria.ModifiedBy = CurrentUser.Id;
-                    criteria.ModifiedDate = DateTimeOffset.Now.DateTime;
+                    criteria.ModifiedDate = DateTimeOffset.Now.DateTime.ToClientTimeZone();
                 }
 
                 commandResult = await baseService.ExecuteNonQueryAsync(criteria);

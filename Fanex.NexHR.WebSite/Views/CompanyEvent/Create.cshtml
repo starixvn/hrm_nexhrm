@@ -1,3 +1,4 @@
+@using Fanex.NexHR.Core
 @using Fanex.NexHR.Resources
 @model Fanex.NexHR.Models.CompanyEvent.CompanyEvent
 @{
@@ -60,8 +61,7 @@
                                             name="FromDate"
                                             value="Model.FromDate"
                                             min-date="new DateTime(2010, 1, 1)"
-                                            max-date="DateTime.Now.AddMonths(4)"
-                                        >
+                                            max-date="DateTimeOffset.Now.DateTime.ToClientTimeZone().AddMonths(4)">
                                         </date-picker>
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>

@@ -1,15 +1,5 @@
 ﻿namespace Fanex.NexHR.Services
 {
-    using Core;
-    using Core.Enums;
-    using Criteria.Employee;
-    using Criteria.RedmineAPI;
-    using Fanex.Data;
-    using Interfaces;
-    using Models;
-    using Models.RedmineAPI;
-    using Newtonsoft.Json;
-    using Resources;
     using System;
     using System.Collections.Generic;
     using System.Globalization;
@@ -19,6 +9,15 @@
     using System.Net.Http.Headers;
     using System.Text;
     using System.Threading.Tasks;
+    using Core;
+    using Core.Enums;
+    using Criteria.Employee;
+    using Fanex.Data;
+    using Interfaces;
+    using Models;
+    using Models.RedmineAPI;
+    using Newtonsoft.Json;
+    using Resources;
 
     public class RedmineService : IRedmineService
     {
@@ -255,7 +254,7 @@
 
         public async Task<IList<DateTime>> GetHaveNotLogTimeDates(string domainUser, int currentUserId)
         {
-            var toDate = DateTimeOffset.Now.DateTime.AddDays(-1);
+            var toDate = DateTimeOffset.Now.DateTime.ToClientTimeZone().AddDays(-1);
             var fromDate = toDate.AddDays(-6);
             var currentUser = await GetCurrentRedmineId(domainUser);
 
@@ -271,16 +270,6 @@
             return new List<DateTime>();
         }
 
-        private async Task GetForgotDates(RedmineUser employee)
-        {
-            var toDate = DateTimeOffset.Now.DateTime.AddDays(-1);
-            var fromDate = toDate.AddDays(-6);
-            var logtimeDates = await GetTimeEntries(employee.RedmineId, fromDate, toDate);
-            var workingDates = await GetWorkedDatesOfUser(fromDate, toDate, employee.EmpId);
-            var hadLogtimeDates = logtimeDates.GroupBy(x => x.SpentOn).Select(d => d.Key).ToList();
-            employee.ForgotLogtimeDates = workingDates.Except(hadLogtimeDates).Distinct().OrderBy(x => x).ToList();
-        }
-
         public async Task<double> GetTotalSpentHoursOnDate(string domainName, DateTime onDate)
         {
             double spentHours = 0;
@@ -293,21 +282,6 @@
             }
 
             return spentHours;
-        }
-
-        public async Task<IEnumerable<RedmineUser>> GetForgotLogtimeEmployees()
-        {
-            var employees = await baseService.GetDataAsync<RedmineUser>(new GetRedmineUserCriteria());
-
-            if (employees.Any())
-            {
-                foreach (var employee in employees)
-                {
-                    await GetForgotDates(employee);
-                }
-            }
-
-            return employees.Where(e => e.ForgotLogtimeDates.Any());
         }
     }
 }

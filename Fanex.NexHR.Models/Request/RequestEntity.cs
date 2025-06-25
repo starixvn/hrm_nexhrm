@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Models.Request
 {
     using System;
+    using Fanex.NexHR.Core;
 
     public class RequestEntity : EntityBase<long>
     {

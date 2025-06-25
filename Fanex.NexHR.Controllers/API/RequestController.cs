@@ -70,7 +70,7 @@
         [HttpGet]
         public async Task<IActionResult> RemindApproveRequest()
         {
-            var now = DateTimeOffset.Now.Date;
+            var now = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date;
             var pendingRequest = await requestService.GetPendingRequestGroupByApproverAsync();
 
             foreach (var request in from request in pendingRequest
@@ -103,7 +103,7 @@
                 RequestType = model.CheckInOutType,
                 IsPlanned = false,
                 IsCrossDate = model.IsCrossDate,
-                CreatedDate = DateTimeOffset.Now.DateTime,
+                CreatedDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                 CreatedBy = model.EmployeeId,
                 FromDate = model.WorkDate
             };

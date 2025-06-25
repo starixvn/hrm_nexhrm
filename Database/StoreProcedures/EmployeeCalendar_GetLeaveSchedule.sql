@@ -1,10 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-ALTER PROCEDURE [dbo].[EmployeeCalendar_GetLeaveSchedule]
+﻿CREATE OR ALTER PROCEDURE [dbo].[EmployeeCalendar_GetLeaveSchedule]
     @FromDate DATETIME
     ,@ToDate DATETIME
     ,@EmployeeId INT = NULL
@@ -32,7 +26,7 @@ BEGIN
        ,(CASE 
             WHEN cl.isHoliday = 1 THEN 'PH'
             WHEN isOffday = 1 THEN 'OFF'
-            WHEN LeaveDay = 0.5 THEN '½'
+            WHEN LeaveDay = 0.5 THEN '�'
 			WHEN LeaveDay = 1 THEN 'x'
             ELSE ''
             END) AS LeaveType

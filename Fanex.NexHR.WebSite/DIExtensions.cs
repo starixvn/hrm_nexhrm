@@ -1,9 +1,15 @@
-﻿namespace Fanex.NexHR.WebSite
+
+
+namespace Fanex.NexHR.WebSite
 {
     using System;
     using System.Text;
+    using Fanex.NexHR.Core.Model;
+    using Fanex.NexHR.Website.Middlewares;
     using Fanex.Data.Repository;
     using Fanex.NexHR.Core;
+    using Fanex.NexHR.Core.Helpers;
+    using Fanex.NexHR.Core.Services;
     using Fanex.NexHR.Models.Core;
     using Fanex.NexHR.Models.NexBot;
     using Fanex.NexHR.Models.SyncData;
@@ -23,11 +29,11 @@
 
     public static class DIExtensions
     {
-        public static void RegisterServices(this IServiceCollection services)
+        public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
             InjectRepository(services);
 
-            InjectServices(services);
+            InjectServices(services, configuration);
         }
 
         public static void RegisterAuthentication(this IServiceCollection services, IConfiguration configuration)
@@ -85,6 +91,9 @@
             var syncDataSettings = configuration.GetSection("SyncDataSettings").Get<SyncDataSettings>();
             services.AddSingleton(syncDataSettings);
 
+            var bioWebApiSettings = configuration.GetSection("BioWebApiSettings").Get<BioWebApiSettings>();
+            services.AddSingleton(bioWebApiSettings);
+
             var authSettings = configuration.GetSection("AuthorizedSettings").Get<AuthorizedSettings>();
             services.AddSingleton(authSettings);
 
@@ -95,7 +104,7 @@
             services.AddSingleton(ldapSettings);
         }
 
-        private static void InjectServices(IServiceCollection services)
+        private static void InjectServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<Logging.ILogger, Logging.Logger>();
             services.AddScoped<ISessionService, SessionService>();
@@ -106,6 +115,8 @@
             services.AddSingleton<IAuthService, AuthService>();
             services.AddSingleton<ILogServiceProvider, LogServiceProvider>();
             services.AddSingleton<IEmployeeService, EmployeeService>();
+            services.AddSingleton<IWorkingTimeRequestService, WorkingTimeRequestService>();
+            services.AddSingleton<IGroupService, GroupService>();
             services.AddSingleton<ITrainingAndDevelopmentService, TrainingAndDevelopmentService>();
             services.AddSingleton<IPromotionService, PromotionService>();
             services.AddSingleton<ITeamService, TeamService>();
@@ -138,7 +149,6 @@
 
             //API Service
             services.AddSingleton<IBotBioTasksService, BioTasksService>();
-            services.AddSingleton<IBotFogotLogtimeReminderService, FogotLogtimeReminderService>();
             services.AddSingleton<IBotLateInLateOutAutoJobService, BotLateInEarlyOutViolateOnMonthWarningSerivce>();
             services.AddSingleton<IBotAutoJobService, BotMissingCheckInCheckOutReminderSerivce>();
             services.AddSingleton<IBotLogTimeRemindService, BotLogTimeRemindService>();
@@ -146,10 +156,16 @@
             services.AddSingleton<ISyncDataService, SyncDataService>();
             services.AddSingleton<ITimeSheetService, TimeSheetService>();
             services.AddSingleton<IMessageCategoryLogService, MessageCategoryLogService>();
+            services.AddSingleton<IBioWebApiService, BioWebApiService>();
+            var s3Config = configuration.GetSection("AmazonStorageConfig").Get<AmazonStorageConfig>();
+            services.AddSingleton(s3Config);
+            services.AddSingleton<IMinIOService, MinIOService>();
+            FileHelpers.Initialize(services.BuildServiceProvider().GetRequiredService<IMinIOService>(), s3Config);
         }
 
         private static void InjectRepository(IServiceCollection services)
         {
+            services.AddSingleton<IApiKeyValidator, ApiKeyValidator>();
             services.AddSingleton<IDynamicRepository, DynamicRepository>();
             services.AddSingleton<IBaseRepository, BaseRepository>();
             services.AddSingleton<IEmployeeRepository, EmployeeRepository>();

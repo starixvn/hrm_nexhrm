@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Applicant;
     using Microsoft.AspNetCore.Http;
@@ -12,7 +13,7 @@
     {
         public CreateApplicantViewModel()
         {
-            ApplyDate = DateTimeOffset.Now.DateTime;
+            ApplyDate = DateTimeOffset.Now.DateTime.ToClientTimeZone();
         }
 
         [Required]
@@ -55,7 +56,7 @@
 
         public string ProfessionalMajor { get; set; }
 
-         public string Resume { get; set; }
+        public string Resume { get; set; }
 
         public DateTime? InterviewDate1 { get; set; }
 
@@ -72,7 +73,7 @@
         public int? RecruiterId { get; set; }
 
         public string Recruiter { get; set; }
-        
+
         public string FullNameRecruiter { get; set; }
 
         public string NickNameRecruiter { get; set; }

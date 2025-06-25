@@ -3,6 +3,7 @@ namespace Fanex.NexHR.Controllers
     using System;
     using System.Threading.Tasks;
     using Fanex.NexHR.Controllers.Attributes;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Criteria.Promotion;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Resources;
@@ -31,8 +32,8 @@ namespace Fanex.NexHR.Controllers
         {
             var model = new FilterPromotionViewModel
             {
-                FromDate = DateTimeOffset.Now.Date,
-                ToDate = DateTimeOffset.Now.Date,
+                FromDate = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date,
+                ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date,
                 Teams = await teamService.GetTeam()
             };
             return View(model);

@@ -1,9 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-/****** Object:  Stored Procedure dbo.Overtime_RejectRequest    Script Date: 3/13/2016 3:21:42 PM ******/
-ALTER PROCEDURE [dbo].[Overtime_RejectRequest] @Id INT
+﻿CREATE OR ALTER PROCEDURE [dbo].[Overtime_RejectRequest] @Id INT
     ,@ModifiedBy INT
     ,@ErrCode INT = 0 OUTPUT
     ,@ErrMsg VARCHAR(200) = '' OUTPUT
@@ -81,7 +76,7 @@ BEGIN
         SET
             [Status]        = @RejectStatus
             ,[ModifiedBy]   = @ModifiedBy
-            ,[ModifiedDate] = GETDATE()
+            ,[ModifiedDate] = dbo.fnc_GetClientDateTime()
         WHERE OvertimeId = @Id;
     END TRY
 

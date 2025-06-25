@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Fanex.NexHR.Criteria.JobTitle;
+    using Fanex.NexHR.Criteria.SyncData.SyncNexGoal;
     using Interfaces;
     using Models;
 
@@ -26,6 +27,12 @@
         {
             var jobTitles = await baseService.GetDataAsync<JobTitle>(criteria);
             return jobTitles;
+        }
+
+        public async Task<IEnumerable<JobTitle>> GetJobTitleByLastModifiedDate(
+            GetJobTitleByLastModifiedDateCriteria criteria)
+        {
+            return await baseService.GetDataAsync<JobTitle>(criteria);
         }
     }
 }

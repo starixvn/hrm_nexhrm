@@ -58,8 +58,9 @@
         public async Task<IActionResult> TotalWorkingHours(TotalWorkingHoursViewModel model)
         {
             const int dateOption = 5;
-            var year = DateTimeOffset.Now.Year;
-            var month = DateTimeOffset.Now.Month;
+            var now = DateTimeOffset.Now.DateTime.ToClientTimeZone();
+            var year = now.Year;
+            var month = now.Month;
             var totalWorkingHoursViewModel = model;
 
             totalWorkingHoursViewModel ??= new TotalWorkingHoursViewModel
@@ -89,7 +90,7 @@
                 listTotalWorkingHours = Utilities.MultipleSort(listTotalWorkingHours, sorts);
             }
 
-            string fileName = "TotalWorkingHours_" + DateTimeOffset.Now.Day + DateTimeOffset.Now.Month + DateTimeOffset.Now.Year + ".xlsx";
+            string fileName = "TotalWorkingHours_" + now.Day + now.Month + now.Year + ".xlsx";
             string templatePath = Path.Combine(environment.ContentRootPath, TotalWorkingHoursTemplatePath);
             var bytes = ExportService.ExportTotalWorkingHours(listTotalWorkingHours, totalWorkingHoursViewModel.FromDate, totalWorkingHoursViewModel.ToDate, templatePath);
 
@@ -170,6 +171,8 @@
 
         public async Task<IActionResult> WorkingHoursStatistic(WorkingHoursStatisticViewModel model)
         {
+            var now = DateTimeOffset.Now.DateTime.ToClientTimeZone();
+
             var getWorkingHoursCriteria = new GetWorkingHoursStatisticCriteria
             {
                 FromDate = model.FromDate,
@@ -181,7 +184,7 @@
                 GroupId = model.TeamId
             };
 
-            string fileName = "WorkingHoursStatistic_" + DateTimeOffset.Now.Day + DateTimeOffset.Now.Month + DateTimeOffset.Now.Year + ".xlsx";
+            string fileName = "WorkingHoursStatistic_" + now.Day + now.Month + now.Year + ".xlsx";
             IList<WorkingHoursStatistic> listTotalWorkingHours = await reportService.GetWorkingHoursStatistic(getWorkingHoursCriteria);
             string templatePath = Path.Combine(environment.ContentRootPath, WorkingHoursStatisticTemplatePath);
             var bytes = ExportService.ExportWorkingHoursStatistic(listTotalWorkingHours, getWorkingHoursCriteria.FromDateLastMonth, getWorkingHoursCriteria.ToDate, templatePath);

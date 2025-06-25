@@ -1,10 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-ALTER PROCEDURE [dbo].[WorkingTimeRequest_Insert] @id BIGINT OUT
+﻿CREATE OR ALTER PROCEDURE [dbo].[WorkingTimeRequest_Insert] @id BIGINT OUT
 	,@EmpId INT
 	,@RequestType SMALLINT
 	,@IsPlanned BIT
@@ -339,7 +333,7 @@ BEGIN
 		--		IF(@IsValidLeaveDay = 0)
 		--		BEGIN
 		--			SELECT @ErrCode = 111
-		--			,@ErrMsg = 'You have exceeded the number of allowed Annual Leave Days that can be taken. Please, submit the “Unpaid Leave” instead.'
+		--			,@ErrMsg = 'You have exceeded the number of allowed Annual Leave Days that can be taken. Please, submit the �Unpaid Leave� instead.'
 
 		--			RETURN
 		--		END
@@ -386,7 +380,7 @@ BEGIN
 			IF (
 					(
 						@TotalDays = 0.5
-						AND DATEDIFF(D, @FromDate, GETDATE()) > 0
+						AND DATEDIFF(D, @FromDate, dbo.fnc_GetClientDateTime()) > 0
 						)
 					OR (
 						@TotalDays = 1
@@ -394,7 +388,7 @@ BEGIN
 							SELECT COUNT(1)
 							FROM dbo.EmployeeCalendar WITH (NOLOCK)
 							WHERE EmpId = @EmpId
-								AND DATEDIFF(D, GETDATE(), WorkDate) >= 0
+								AND DATEDIFF(D, dbo.fnc_GetClientDateTime(), WorkDate) >= 0
 								AND DATEDIFF(D, WorkDate, @FromDate) >= 0
 								AND IsOffDay <> 1
 								AND IsHoliday <> 1
@@ -407,7 +401,7 @@ BEGIN
 							SELECT COUNT(1)
 							FROM dbo.EmployeeCalendar WITH (NOLOCK)
 							WHERE EmpId = @EmpId
-								AND DATEDIFF(D, GETDATE(), WorkDate) >= 0
+								AND DATEDIFF(D, dbo.fnc_GetClientDateTime(), WorkDate) >= 0
 								AND DATEDIFF(D, WorkDate, @FromDate) >= 0
 								AND IsOffDay <> 1
 								AND IsHoliday <> 1
@@ -419,7 +413,7 @@ BEGIN
 							SELECT COUNT(1)
 							FROM dbo.EmployeeCalendar WITH (NOLOCK)
 							WHERE EmpId = @EmpId
-								AND DATEDIFF(D, GETDATE(), WorkDate) >= 0
+								AND DATEDIFF(D, dbo.fnc_GetClientDateTime(), WorkDate) >= 0
 								AND DATEDIFF(D, WorkDate, @FromDate) >= 0
 								AND IsOffDay <> 1
 								AND IsHoliday <> 1

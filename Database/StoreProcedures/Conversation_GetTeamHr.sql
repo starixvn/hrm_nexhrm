@@ -1,10 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-ALTER PROCEDURE [dbo].[Conversation_GetTeamHr]
+﻿CREATE OR ALTER PROCEDURE [dbo].[Conversation_GetTeamHr]
 AS
 /*
 	Created: 2023@Brian.nguyen

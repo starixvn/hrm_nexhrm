@@ -1,11 +1,12 @@
-﻿@using Fanex.NexHR.Core
+@using Fanex.NexHR.Core
 @using Fanex.NexHR.Core.Enums
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.ViewModels
 @model RequestViewModel
 
 <div class="form form-stl-table">
-    <input id="DateTime-Now" name="DateTime-Now" type="hidden" value="@DateTime.Now.ToString("MMMM dd, yyyy")">
+    <input id="DateTime-Now" name="DateTime-Now" type="hidden"
+        value="@DateTimeOffset.Now.DateTime.ToClientTimeZone().ToString("MMMM dd, yyyy")">
     <input id="ActionName" name="ActionName" type="hidden" value="@Model.PartialActionName">
     <form class="form-filter" action="">
         <div class="row form-input">

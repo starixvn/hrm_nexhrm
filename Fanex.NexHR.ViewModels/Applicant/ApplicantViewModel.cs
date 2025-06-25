@@ -4,14 +4,15 @@
     using System.Collections.Generic;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Applicant;
+    using Fanex.NexHR.Core;
 
     public class ApplicantViewModel
     {
-        private const int month= -3;
+        private const int month = -3;
         public ApplicantViewModel()
         {
-            FromDate = DateTimeOffset.Now.AddMonths(month).Date;
-            ToDate = DateTimeOffset.Now.Date;
+            FromDate = DateTimeOffset.Now.DateTime.ToClientTimeZone().AddMonths(month).Date;
+            ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date;
             PageNumber = 1;
         }
 
@@ -27,7 +28,7 @@
 
         public IEnumerable<Position> Positions { get; set; }
 
-        public  IEnumerable<Source> StatusList { get; set; }
+        public IEnumerable<Source> StatusList { get; set; }
 
         public int PageNumber { get; set; }
 

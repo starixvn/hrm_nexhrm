@@ -72,7 +72,7 @@
                                             <date-picker 
                                                 name="WorkDate"
                                                 min-date="Utilities.RequestAvailableFromDate"
-                                                max-date="DateTime.Now"
+                                                max-date="DateTimeOffset.Now.DateTime.ToClientTimeZone()"
                                                 value="Model.WorkDate"
                                             >
                                             </date-picker>

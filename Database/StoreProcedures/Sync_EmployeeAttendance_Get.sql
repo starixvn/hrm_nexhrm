@@ -1,0 +1,32 @@
+CREATE OR ALTER  PROCEDURE [dbo].[Sync_EmployeeAttendance_Get] @LastModifiedDate DATETIME
+AS
+/*
+Created: Jay.Do@20250610
+Task: Get employee attendence
+DB: NexHR
+Original: 
+
+Revisions:    
+Param's Explanation:
+
+*/
+BEGIN
+    SET NOCOUNT ON
+
+	SELECT Id,
+		EmpId, 
+		AttendanceDate, 
+		InFixed, 
+		LeaveDay, 
+		OutFixed, 
+		LateIn,
+		EarlyOut, 
+		LeaveTypeId, 
+		LeaveTypeId2, 
+		Absence, 
+		TotalWorkHours,
+		InsertDate
+	FROM dbo.EmployeeAttendance WITH (NOLOCK)
+	WHERE InsertDate > @LastModifiedDate
+	
+END

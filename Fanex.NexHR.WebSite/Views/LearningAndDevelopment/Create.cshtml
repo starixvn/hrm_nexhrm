@@ -4,7 +4,7 @@
 @using Fanex.NexHR.ViewModels.TrainingAndDevelopment
 @model TrainingAndDevelopmentCreateViewModel
 @{
-    DateTime currentDate = DateTime.Today;
+    DateTime currentDate = DateTimeOffset.Now.DateTime.ToClientTimeZone();
     var types = ViewBag.Types;
 }
 <form id="frmAddTrainingAndDevelopment" class="form form-add-training-and-development">

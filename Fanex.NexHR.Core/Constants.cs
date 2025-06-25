@@ -16,7 +16,7 @@
         public const string ContentEmployeeWithDay = "- <strong>{0}</strong> ({1}): {2}";
         public const string ContentEmployeeOvertime = "<li><strong>{0}</strong> ({1}) - {2}: {3} hour(s).";
 
-        public const string EmailTemplatePathForRequester = "EmailTemplates/process.request.txt";
+        public const string EmailTemplatePathForRequester = "EmailTemplates/Process.Request.txt";
         public const string EmailTemplatePathForLeave = "EmailTemplates/Leave.Request.txt";
         public const string EmailTemplatePathForUnpaidLeave = "EmailTemplates/UnpaidLeave.Request.txt";
         public const string EmailTemplatePathForCheckInOut = "EmailTemplates/CheckInOut.Request.txt";

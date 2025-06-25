@@ -277,7 +277,7 @@
                                             <div class="left datepicker-button select--s">
                                                 <date-picker name="IssuedDate"
                                                      value="@Model.IssuedDate"
-                                                     max-date="@DateTime.Now">
+                                                     max-date="@DateTimeOffset.Now.DateTime.ToClientTimeZone()">
                                                 </date-picker>
                                                 <i class="mdi-action-event calendar-icon left"></i>
                                             </div>
@@ -599,7 +599,7 @@
                                             <label>@Labels.LeaveBalance</label>
                                         </div>
                                         <div class="left input--l">
-                                            <a class="btn-ok waves-effect waves-light" href="~/annualleave/employee?employeeId=@Model.Id&Year=@DateTime.Now.Year">@Labels.Update</a>
+                                            <a class="btn-ok waves-effect waves-light" href="~/annualleave/employee?employeeId=@Model.Id&Year=@DateTimeOffset.Now.DateTime.ToClientTimeZone().Year">@Labels.Update</a>
                                         </div>
                                     </div>
                                 </div>

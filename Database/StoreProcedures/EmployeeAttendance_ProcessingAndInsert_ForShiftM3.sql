@@ -1,0 +1,261 @@
+﻿CREATE OR ALTER PROCEDURE [dbo].[EmployeeAttendance_ProcessingAndInsert_ForShiftM3] 
+    @empId INT
+    ,@WorkDate DATETIME
+    ,@RequestedCheckinTime DATETIME
+    ,@RequestedCheckoutTime DATETIME
+    ,@BeginCheckInTime DATETIME
+    ,@EndCheckInTime DATETIME
+    ,@BeginCheckOutTime DATETIME
+    ,@EndCheckOutTime DATETIME
+    ,@BreakTimeMins INT
+    ,@BeginBreakTime DATETIME
+    ,@EndBreakTime DATETIME
+    ,@LeaveDay DECIMAL(18, 1)
+    ,@InOfMachine DATETIME OUT
+    ,@OutOfMachine DATETIME OUT
+    ,@ExpectedInTime DATETIME OUT
+    ,@ExpectedOutTime DATETIME OUT
+    ,@ActualLateIn INT OUT
+    ,@ActualEarlyOut INT OUT
+    ,@TotalWorkHours DECIMAL(18, 2) OUT
+AS
+/*
+Created: 20150729@Quinn.Vo
+Task: Calculate time for shift M3.
+DB: NexEPA
+Original: 
+
+Revisions:  
+	- 20250403@Henry: 
+Param's Explanation: @ActualLateIn => Always = 0
+*/
+BEGIN
+	
+    DECLARE @DeductEarlyOut INT
+        ,@BreakTime INT
+        ,@RequestLeaveTimeBegin DATETIME
+        ,@RequestLeaveTimeEnd DATETIME
+        ,@IsUserStandby BIT
+	SET @ActualLateIn = 0
+
+    SELECT @DeductEarlyOut = 0, @IsUserStandby = 0
+    IF (EXISTS(SELECT 1 FROM Employee WITH (NOLOCK) WHERE GroupId IN (61, 59, 46)))
+    BEGIN
+        SET @IsUserStandby = 1
+    END
+
+    SELECT @InOfMachine = MIN(RecordTime)
+    FROM #TimeRecord
+    WHERE EmpID = @empId
+        AND InOutType = 0
+        AND DATEDIFF(d, @WorkDate, RecordTime) = 0
+
+	IF (@InOfMachine IS NULL)
+	BEGIN
+		SELECT @InOfMachine = MIN(RecordTime)
+		FROM #TimeRecord
+		WHERE EmpID = @empId
+			AND InOutType IS NULL
+			AND DATEDIFF(HH, @WorkDate, DATEADD(MI, 1, RecordTime)) < 14
+			AND DATEDIFF(d, @WorkDate, RecordTime) = 0
+
+	END
+
+    IF @RequestedCheckinTime IS NOT NULL
+    BEGIN
+        SET @InOfMachine = @RequestedCheckinTime
+    END
+	
+    SELECT @OutOfMachine = MIN(RecordTime)
+    FROM #TimeRecord
+    WHERE EmpID = @empId
+        AND InOutType = 1
+        -- AND DATEDIFF(d, @WorkDate, RecordTime) = 0
+        -- AND DATEDIFF(d, @WorkDate, RecordTime) >= 0
+        AND DATEDIFF(MI, DATEADD(HH, 5, @WorkDate), RecordTime) >= 0
+        --AND DATEDIFF(MI, RecordTime, DATEADD(HH, 5, DATEADD(D, 1, @WorkDate))) >= 0
+
+        AND ((@IsUserStandby = 0 AND DATEDIFF(MI, RecordTime, DATEADD(HH, 5, DATEADD(D, 1, @WorkDate))) >= 0)
+            OR (@IsUserStandby = 1 AND DATEDIFF(MI, RecordTime, DATEADD(HH, 9, DATEADD(D, 1, @WorkDate))) >= 0) -- to 9h
+        )
+        AND (
+            @InOfMachine IS NULL
+            OR RecordTime > DATEADD(MI, 2, @InOfMachine)
+            )
+	
+	IF (@OutOfMachine IS NULL)
+	BEGIN
+		SELECT @OutOfMachine = MIN(RecordTime)
+		FROM #TimeRecord
+		WHERE EmpID = @empId
+			AND InOutType IS NULL
+			AND DATEDIFF(HH, @WorkDate, RecordTime) >= 17
+			AND DATEDIFF(d, @WorkDate, RecordTime) = 0
+	END
+
+	IF (@OutOfMachine IS NULL)
+	BEGIN
+		SELECT @OutOfMachine = MAX(RecordTime)
+		FROM #TimeRecord
+		WHERE EmpID = @empId
+			AND InOutType IS NULL
+			AND DATEDIFF(HH, @WorkDate, RecordTime) >= 11
+			AND DATEDIFF(d, @WorkDate, RecordTime) = 0
+
+		IF (DATEDIFF(HH, @InOfMachine, @OutOfMachine) < 3)
+		BEGIN
+			SELECT @OutOfMachine = NULL 
+		END
+	END
+
+    IF @RequestedCheckoutTime IS NOT NULL
+    BEGIN
+        SET @OutOfMachine = @RequestedCheckoutTime
+    END
+
+    SELECT @RequestLeaveTimeBegin = FromTime
+                    ,@RequestLeaveTimeEnd = ToTime
+                FROM #LeaveRequestHalfDay
+                WHERE EmpId = @empId
+                    AND OnDate = @WorkDate
+
+    IF (@InOfMachine IS NOT NULL)
+    BEGIN
+        IF (ISNULL(@LeaveDay, 0) = 0)
+        BEGIN
+            IF (DATEDIFF(MI, @InOfMachine, @BeginCheckInTime) >= 0) -- <8h
+            BEGIN
+                SELECT @ExpectedInTime = @BeginCheckInTime
+                    ,@ExpectedOutTime = @BeginCheckOutTime
+            END
+            ELSE IF (DATEDIFF(MI, @InOfMachine, DATEADD(HH, 2, @BeginCheckInTime)) >= 0) -- 8->10h
+            BEGIN
+                SELECT @ExpectedInTime = @InOfMachine
+                    ,@ExpectedOutTime = DATEADD(HH, 9, @InOfMachine)
+            END
+            ELSE -- >10h
+            BEGIN
+                SELECT @ExpectedInTime = @EndCheckInTime
+                    ,@ExpectedOutTime = @EndCheckOutTime
+            END
+        END
+        ELSE IF (@LeaveDay = 0.5)
+        BEGIN
+                IF (DATEDIFF(MI, @InOfMachine, @BeginCheckInTime) >= 0) -- <8h
+                BEGIN
+                    SELECT @ExpectedInTime = @BeginCheckInTime
+                        ,@ExpectedOutTime = DATEADD(HH, 4, @BeginCheckInTime)
+                END
+                ELSE IF (DATEDIFF(MI, @InOfMachine, @EndCheckInTime) >= 0) -- 8->10h
+                BEGIN
+                    SELECT @ExpectedInTime = @InOfMachine
+                        ,@ExpectedOutTime = DATEADD(HH, 5, @InOfMachine)
+                END
+                ELSE IF (DATEDIFF(MI, @InOfMachine, @EndBreakTime) >= 0) -- 10h->12h30
+                BEGIN
+
+                    IF (@RequestLeaveTimeBegin < @BeginBreakTime)
+                    BEGIN
+                        SELECT @ExpectedInTime = @EndBreakTime
+                            ,@ExpectedOutTime = DATEADD(HH, 4, @EndBreakTime)
+                    END
+                    ELSE
+                    BEGIN
+                        SELECT @ExpectedInTime = @EndCheckInTime
+                            ,@ExpectedOutTime = DATEADD(HH, 5, @EndCheckInTime)
+                    END
+                END
+                ELSE IF (DATEDIFF(MI, @InOfMachine, DATEADD(HH, 4, @EndCheckInTime)) >= 0) -- 12h30-->14h00
+                BEGIN
+                    SELECT @ExpectedInTime = @InOfMachine
+                        ,@ExpectedOutTime = DATEADD(HH, 4, @InOfMachine)
+                END
+                ELSE -- >14h00
+                BEGIN
+                    SELECT @ExpectedInTime = DATEADD(HH, 4, @EndCheckInTime)
+                        ,@ExpectedOutTime = DATEADD(HH, 8, @EndCheckInTime)
+                END
+
+        END
+
+        IF (
+                @OutOfMachine < @EndBreakTime
+                AND @ExpectedOutTime > @EndBreakTime
+                )
+        BEGIN
+            SELECT @DeductEarlyOut = CASE 
+                    WHEN DATEDIFF(MI, @OutOfMachine, @EndBreakTime) > @BreakTimeMins THEN @BreakTimeMins
+                    ELSE DATEDIFF(MI, @OutOfMachine, @EndBreakTime)
+                    END
+        END
+
+        IF (@OutOfMachine < @ExpectedOutTime)
+        BEGIN
+            SET @ActualEarlyOut = DATEDIFF(MI, @OutOfMachine, @ExpectedOutTime) - @DeductEarlyOut
+        END
+
+        --IF (@InOfMachine > @ExpectedINTime)
+        --BEGIN
+        --    SET @ActualLateIn = DATEDIFF(MI, @ExpectedINTime, @InOfMachine)
+        --END
+    END
+    ELSE
+    BEGIN
+        SELECT @ExpectedInTime = @EndCheckInTime
+            ,@ExpectedOutTime = @EndCheckOutTime
+    END
+
+    -- Break time for total hours
+    IF (
+            @InOfMachine IS NOT NULL
+            AND @OutOfMachine IS NOT NULL
+		  AND (ISNULL(@LeaveDay, 0) <> 1)
+            )
+    BEGIN
+        SET @BreakTime = 0
+
+        IF (@InOfMachine < @BeginCheckInTime)
+        BEGIN
+            SET @BreakTime = DATEDIFF(MI, @InOfMachine, @BeginCheckInTime)
+        END
+
+        IF (
+                @InOfMachine <= @BeginBreakTime
+                AND @OutOfMachine >= @EndBreakTime
+                )
+        BEGIN
+            SET @BreakTime = @BreakTime + @BreakTimeMins
+        END
+        ELSE IF (
+                @InOfMachine >= @BeginBreakTime
+                AND @OutOfMachine <= @EndBreakTime
+                )
+        BEGIN
+            SET @BreakTime = 1440
+        END
+        ELSE IF (
+                @InOfMachine >= @BeginBreakTime
+                AND @InOfMachine <= @EndBreakTime
+                AND @OutOfMachine >= @EndBreakTime
+                )
+        BEGIN
+            SET @BreakTime = @BreakTime + (DATEDIFF(MI, @InOfMachine, @EndBreakTime))
+        END
+        ELSE IF (
+                @InOfMachine <= @BeginBreakTime
+                AND @OutOfMachine >= @BeginBreakTime
+                AND @OutOfMachine <= @EndBreakTime
+                )
+        BEGIN
+            SET @BreakTime = @BreakTime + (DATEDIFF(MI, @BeginBreakTime, @OutOfMachine))
+        END
+        
+        SET @TotalWorkHours = ((DATEDIFF(mi, @InOfMachine, @OutOfMachine) - @BreakTime) / 60.0)
+
+        IF (@TotalWorkHours < 0)
+        BEGIN
+            SET @TotalWorkHours = 0
+        END
+    END
+END
+GO

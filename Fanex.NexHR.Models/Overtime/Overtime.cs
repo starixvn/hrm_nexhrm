@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Fanex.NexHR.Core;
 
     public class Overtime
     {
@@ -18,13 +19,13 @@
 
         public string CreatedByFullName { get; set; }
 
-        public string CreatedByDisplayName 
+        public string CreatedByDisplayName
         {
-            get 
-            { 
+            get
+            {
                 return CreatedByNickName + " (" + CreatedByFullName + ")";
             }
-        } 
+        }
 
         public DateTime CreatedDate { get; set; }
 

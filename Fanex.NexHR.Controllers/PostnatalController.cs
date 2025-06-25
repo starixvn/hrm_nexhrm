@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Criteria.Postnatal;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Microsoft.AspNetCore.Mvc;
     using Models;
@@ -38,8 +39,8 @@
             PostnatalViewModel model = new PostnatalViewModel
             {
                 EmpId = CurrentUser.Id,
-                FromDate = DateTimeOffset.Now.DateTime,
-                ToDate = DateTimeOffset.Now.DateTime,
+                FromDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
+                ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                 Types = 0,
                 Minutes = ThirtyMinutes
             };

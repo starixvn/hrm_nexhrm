@@ -1,4 +1,8 @@
-﻿namespace Fanex.NexHR.Controllers
+﻿using Fanex.NexHR.Core.Enums;
+using Fanex.NexHR.Core.Helpers;
+using NPOI.OpenXml4Net.OPC.Internal;
+
+namespace Fanex.NexHR.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -9,13 +13,13 @@
     using Core.Model;
     using Criteria.Employee;
     using Fanex.NexHR.Controllers.Attributes;
+    using Fanex.NexHR.Core.Services;
     using Fanex.NexHR.Criteria.History;
     using Fanex.NexHR.Criteria.JobGrade;
     using Fanex.NexHR.Criteria.ManagementGrade;
     using Fanex.NexHR.Criteria.TrainingAndDevelopment;
     using Fanex.NexHR.Resources;
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Models;
@@ -35,15 +39,13 @@
         private readonly IMailEmployeeService mailEmployeeService;
         private readonly ITrainingAndDevelopmentService trainingAndDevelopmentService;
         private readonly IHistoryService historyService;
-        private readonly IWebHostEnvironment environment;
         private readonly IAuthService authService;
         private readonly AppSetting appSetting;
         private readonly ILookupDataService lookupDataService;
+        private readonly IMinIOService minIOService;
 
 #pragma warning disable S107 // Methods should not have too many parameters
-
         public EmployeeController(
-            IWebHostEnvironment environment,
             AppSetting appSetting,
             ISessionService sessionService,
             IEmployeeService employeeService,
@@ -56,6 +58,7 @@
             ITrainingAndDevelopmentService trainingAndDevelopmentService,
             IHistoryService historyService,
             IAuthService authService,
+            IMinIOService minIOService,
             ILookupDataService lookupDataService) : base(sessionService)
 #pragma warning restore S107 // Methods should not have too many parameters
         {
@@ -66,12 +69,12 @@
             this.shiftService = shiftService;
             this.baseService = baseService;
             this.mailEmployeeService = mailEmployeeService;
-            this.environment = environment;
             this.trainingAndDevelopmentService = trainingAndDevelopmentService;
             this.historyService = historyService;
             this.authService = authService;
             this.appSetting = appSetting;
             this.lookupDataService = lookupDataService;
+            this.minIOService = minIOService;
         }
 
         public async Task<IActionResult> Index()
@@ -430,52 +433,30 @@
         }
 
         [AllowAnonymous]
-        public FileResult Avatar(string id)
+        public async Task<IActionResult> Avatar(string id)
         {
-            var fileName = "/common_files/avatars/avatar.jpg";
-            var userId = id;
-
-            if (string.IsNullOrWhiteSpace(userId))
-            {
-                userId = CurrentUser.Code + ".jpg";
-            }
-            else
-            {
-                userId += ".jpg";
-            }
-
-            var paths = new[] { environment.WebRootPath, "common_files", "avatars/", userId };
-            var avaPath = Path.Combine(paths);
-
-            if (System.IO.File.Exists(avaPath))
-            {
-                fileName = "/common_files/avatars/" + userId;
-            }
-
-            return File(fileName, "image/jpeg");
+            var avatarUrl = await FileHelpers.GetAvatar(id);
+            return Redirect(avatarUrl);
         }
 
         [HrmAuthorize(UserRoles = "HR")]
         [HttpPost]
         public async Task<JsonResult> UploadAvatar(string code, IFormFile file)
         {
-            if (file != null)
+            if (file is not { Length: > 0 })
             {
-                var fileName = code + ".jpg";
-                var paths = new[] { environment.WebRootPath, "common_files", "avatars", fileName };
-                var fullPath = Path.Combine(paths);
-
-                var stream = new FileStream(fullPath, FileMode.Create);
-                await CopyFiles(file, stream);
-                stream.Close();
-                return Json(true);
+                return Json(null);
             }
-            return Json(null);
-        }
+            var path = $"1/{code}.jpg";
+            var uploadStatus = await minIOService.UploadFileAsync(file, StorageInfo.Avatar.Bucket, path);
+            if (!uploadStatus)
+            {
+                return Json(null);
+            }
 
-        private static async Task CopyFiles(IFormFile file, FileStream stream)
-        {
-            await file.CopyToAsync(stream);
+            var avatarUrl = await FileHelpers.GetAvatar(code);
+
+            return Json(avatarUrl);
         }
 
         public async Task<IActionResult> Birthday(int month = 0)
@@ -536,7 +517,6 @@
             return PartialView("ViewHistoryManagementGrade", employeeManagementGrades);
         }
 
-
         [HrmAuthorize(UserRoles = "HR")]
         public async Task<IActionResult> Transfer()
         {
@@ -546,8 +526,8 @@
             {
                 LumiGroups = luminetGroups.ToList(),
                 LumiShifts = luminetShifts.ToList(),
-                LastWorkingDate = DateTimeOffset.Now.DateTime,
-                AffectedDate = DateTimeOffset.Now.DateTime
+                LastWorkingDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
+                AffectedDate = DateTimeOffset.Now.DateTime.ToClientTimeZone()
             };
 
             return View(model);
@@ -630,7 +610,6 @@
             ModelState.AddModelError(string.Empty, Messages.FailedToChangePassword);
             return View("ChangePassword");
         }
-
 
         private UpdateEmployeeCriteria FillDataUpdateEmployeeCriteria(EditEmployeeViewModel model)
         {

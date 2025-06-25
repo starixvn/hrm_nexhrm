@@ -1,9 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-ALTER PROCEDURE [dbo].[Employee_GetEmployees] @query NVARCHAR(256)
+﻿CREATE OR ALTER PROCEDURE [dbo].[Employee_GetEmployees] @query NVARCHAR(256)
     ,@groupId INT = NULL
     ,@departmentId INT = NULL
     ,@jobTitleId INT = NULL
@@ -258,5 +253,3 @@ BEGIN
 
 END
 GO
-
-

@@ -3,6 +3,8 @@
     using System;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+    using Fanex.NexHR.Core;
+
     public class Toeic
     {
         private DateTime? _listeningReadingExamDate;
@@ -112,7 +114,7 @@
                 if (MinimumScore.HasValue && InputDate.HasValue)
                 {
                     return (!LRTotal.HasValue || (MinimumScore + rangeNotRemind) > LRTotal.Value) 
-                        && (InputDate.Value < DateTimeOffset.Now.DateTime);
+                        && (InputDate.Value < DateTimeOffset.Now.DateTime.ToClientTimeZone());
                 }
 
                 return false;

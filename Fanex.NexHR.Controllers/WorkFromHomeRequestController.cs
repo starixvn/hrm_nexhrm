@@ -11,6 +11,7 @@
     using Fanex.NexHR.Services.Interfaces;
     using Fanex.NexHR.ViewModels.WorkFromHomeRequest;
     using Microsoft.AspNetCore.Mvc;
+    using Fanex.NexHR.Core;
 
     public class WorkFromHomeRequestController : BaseController
     {
@@ -47,8 +48,8 @@
         {
             var model = new EmployeeWorkFromHomeFilterViewModel
             {
-                FromDate = DateTimeOffset.Now.DateTime,
-                ToDate = DateTimeOffset.Now.DateTime,
+                FromDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
+                ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                 Teams = await teamService.GetTeam(),
             };
             return View(model);
@@ -74,8 +75,8 @@
         {
             var model = new CreateWorkFromHomeRequestViewModel
             {
-                FromDate = DateTimeOffset.Now.DateTime,
-                ToDate = DateTimeOffset.Now.DateTime
+                FromDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
+                ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone()
             };
             return View(model);
         }
@@ -113,8 +114,8 @@
         {
             var model = new CreateWorkFromHomeRequestByHRViewModel
             {
-                FromDate = DateTimeOffset.Now.DateTime,
-                ToDate = DateTimeOffset.Now.DateTime
+                FromDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
+                ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone()
             };
             return View(model);
         }

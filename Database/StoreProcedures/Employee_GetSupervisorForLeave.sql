@@ -1,9 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-ALTER PROCEDURE [dbo].[Employee_GetSupervisorForLeave] 
+﻿CREATE OR ALTER PROCEDURE [dbo].[Employee_GetSupervisorForLeave] 
 	@employeeId INT
 	,@IsManagementApprove BIT 
 AS
@@ -106,3 +101,6 @@ BEGIN
 
 	DROP TABLE #tempSupIds
 END
+
+SET ANSI_NULLS ON
+GO

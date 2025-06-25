@@ -1,10 +1,12 @@
 ﻿@using Fanex.NexHR.Models
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.Core
+@using Fanex.NexHR.Core.Helpers
 @using Fanex.NexHR.ViewModels.TrainingAndDevelopment
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model TrainingAndDevelopmentUpdateViewModel
 @{
-    DateTime currentDate = DateTime.Today; 
+    DateTime currentDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(); 
     var types = ViewBag.Types;
     var publishSelectList = new SelectList(
         new List<SelectListItem>
@@ -13,7 +15,7 @@
             new SelectListItem { Selected = (Model.Publish == Constants.Protected), Text = Constants.Protected, Value =Constants.Protected},
             new SelectListItem { Selected = (Model.Publish == Constants.Private), Text = Constants.Private, Value = Constants.Private},
         }, "Value", "Text", Model.Publish);
-    string dirCertificate = "common_files/certificates";
+    var dirCertificate = FileHelpers.GetCertificatesDir();
 }
 <form id="frmUpdateTrainingAndDevelopment" class="form form-update-training-and-development">
     <div id="divErrorCont" class="">

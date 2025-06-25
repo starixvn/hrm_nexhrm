@@ -111,7 +111,7 @@
                             Date = Convert.ToDateTime(workSheet.Cells[row, CollumnDate].Text, CultureInfo.InvariantCulture),
                             Duration = float.Parse(workSheet.Cells[row, CollumnDuration].Text),
                             Notes = workSheet.Cells[row, CollumnNotes].Text,
-                            Unique = DateTimeOffset.Now.ToString(TypeTimeUnique),
+                            Unique = DateTimeOffset.Now.DateTime.ToClientTimeZone().ToString(TypeTimeUnique),
                             Row = row
                         };
                         dataList.Add(data);

@@ -1,5 +1,6 @@
 ﻿@using Fanex.NexHR.Core.Enums
 @model Fanex.NexHR.Models.RedmineAPI.LogTimeIssue
+@using Fanex.NexHR.Core
 
 <form id="formLogtime" class="form">
 
@@ -10,7 +11,7 @@
             <label>Spent On</label>
         </div>
         <div class="left datepicker-button select--m">
-            <date-picker name="SpentOn" max-date="DateTime.Now" value="DateTime.Now"></date-picker>
+            <date-picker name="SpentOn" max-date="DateTimeOffset.Now.DateTime.ToClientTimeZone()" value="DateTimeOffset.Now.DateTime.ToClientTimeZone()"></date-picker>
             <i class="mdi-action-event calendar-icon left"></i>
             <p class="bold total-hour-message"></p>
             <span asp-validation-for="SpentOn"></span>

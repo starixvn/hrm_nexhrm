@@ -1,4 +1,6 @@
-﻿namespace Fanex.NexHR.Models
+﻿using System;
+
+namespace Fanex.NexHR.Models
 {
     public class JobTitle
     {
@@ -6,6 +8,8 @@
 
         public string Name { get; set; }
 
-        public int NumberOfEmployee { get; set; }
+        public int? NumberOfEmployee { get; set; }
+
+        public DateTime? ModifiedDate { get; set; }
     }
 }

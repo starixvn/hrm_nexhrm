@@ -1,11 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-/****** Object:  Stored Procedure dbo.Overtime_ApproveRequest    Script Date: 3/13/2016 3:21:42 PM ******/
-ALTER PROCEDURE [dbo].[Overtime_ApproveRequest] 
+﻿CREATE OR ALTER PROCEDURE [dbo].[Overtime_ApproveRequest] 
 	@Id             INT
     ,@ModifiedBy    INT
     ,@ErrCode       INT				= 0 OUTPUT
@@ -86,7 +79,7 @@ BEGIN
         SET
             [Status]        = @ApprovedStatus
             ,[ModifiedBy]   = @ModifiedBy
-            ,[ModifiedDate] = GETDATE()
+            ,[ModifiedDate] = dbo.fnc_GetClientDateTime()
         WHERE [OvertimeId] = @Id AND [Status]=1 -- pending;
 
 		COMMIT TRANSACTION;

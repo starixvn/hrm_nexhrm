@@ -1,12 +1,13 @@
-@using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Core;
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.ViewModels.Promotion
 @using Fanex.NexHR.Services.Interfaces;
+
 @inject ISessionService sessionService;
 @model FilterPromotionViewModel
 @{
     var isHRRole = sessionService.CurrentEmployee.HasHRRole;
-    DateTime currentDate = DateTime.Today;
+    DateTime currentDate = DateTimeOffset.Now.DateTime.ToClientTimeZone();
     ViewBag.Title = Labels.Promotion;
 }
 @section Styles {

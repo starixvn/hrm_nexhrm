@@ -1,21 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-/****** Object:  Stored Procedure dbo.Report_WorkingHoursSummary    Script Date: 3/13/2016 3:21:43 PM ******/
-/*
-declare @fromdate datetime,
-        @todate datetime,
-        @empid int,
-        @groupid int
-set @fromdate = '2012/07/01'
-set @todate = '2012/07/30'
-set @empid=128
---set @groupid =3
-EXEC Report_WorkingHoursSummary '2015-08-01' , '2015-08-24' ,    165 , null 
-*/
-ALTER PROCEDURE [dbo].[Report_WorkingHoursSummary] @fromdate DATETIME
+﻿CREATE OR ALTER PROCEDURE [dbo].[Report_WorkingHoursSummary] @fromdate DATETIME
 	,@todate DATETIME
 	,@empid INT = NULL
 	,@groupid INT = NULL

@@ -52,7 +52,7 @@
                                 <div class="ui-state-error ui-corner-all" style="padding: 0.7em; margin: 0.7em;">
                                     <p>
                                         <a href="@Url.Action("EmployeeView")">
-                                            You've already requested for Leave <strong>@ViewBag.TotalRequest day(s)</strong> in @DateTime.Now.ToString("MMM yyyy")
+                                            You've already requested for Leave <strong>@ViewBag.TotalRequest day(s)</strong> in @DateTimeOffset.Now.DateTime.ToClientTimeZone().ToString("MMM yyyy")
                                         </a>
                                     </p>
                                 </div>
@@ -101,7 +101,7 @@
                                                          min-date="Utilities.RequestAvailableFromDate"
                                                          max-date="Utilities.RequestAvailableToDate"
                                                          disabled-dates="Model.UnavailDates"
-                                                         value="DateTime.Now">
+                                                         value="DateTimeOffset.Now.DateTime.ToClientTimeZone()">
                                             </date-picker>
                                             <i class="mdi-action-event calendar-icon from-date left"></i>
                                         </div>
@@ -138,7 +138,7 @@
                                                          min-date="Utilities.RequestAvailableFromDate"
                                                          max-date="Utilities.RequestAvailableToDate"
                                                          disabled-dates="Model.UnavailDates"
-                                                         value="DateTime.Now">
+                                                         value="DateTimeOffset.Now.DateTime.ToClientTimeZone()">
                                             </date-picker>
                                             <i class="mdi-action-event calendar-icon from-date left"></i>
                                         </div>

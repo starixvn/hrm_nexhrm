@@ -1,10 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-ALTER PROCEDURE [dbo].[Overtime_ResetRequest] 
+﻿CREATE OR ALTER PROCEDURE [dbo].[Overtime_ResetRequest] 
 	@Id INT
     ,@ModifiedBy INT
     ,@ErrCode INT = 0 OUTPUT
@@ -84,7 +78,7 @@ BEGIN
         UPDATE dbo.[Overtime] WITH (ROWLOCK, UPDLOCK)
         SET [Status] = @PendingStatus
             ,ModifiedBy = @ModifiedBy
-            ,ModifiedDate = GETDATE()
+            ,ModifiedDate = dbo.fnc_GetClientDateTime()
         WHERE OvertimeId = @Id;
 
 		EXECUTE dbo.[Overtime_DeleteTransaction] @Id, @ModifiedBy;

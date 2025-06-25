@@ -1,11 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-
-ALTER PROCEDURE [dbo].[Employee_GetStaffInfo] @query NVARCHAR(256)
+﻿CREATE OR ALTER PROCEDURE [dbo].[Employee_GetStaffInfo] @query NVARCHAR(256)
     ,@groupId INT = NULL
 	,@isSpecial BIT = NULL
 	,@departmentId INT = NULL

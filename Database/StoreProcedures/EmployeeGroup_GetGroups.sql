@@ -1,9 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-ALTER PROCEDURE [dbo].[EmployeeGroup_GetGroups] 
+﻿CREATE OR ALTER PROCEDURE [dbo].[EmployeeGroup_GetGroups] 
 	@IncludeSpecialTeam BIT = NULL
 AS
 BEGIN

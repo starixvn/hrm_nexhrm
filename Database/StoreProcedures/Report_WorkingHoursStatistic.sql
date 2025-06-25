@@ -1,10 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-ALTER PROCEDURE [dbo].[Report_WorkingHoursStatistic]
+﻿CREATE OR ALTER PROCEDURE [dbo].[Report_WorkingHoursStatistic]
 	 @fromdate DATETIME
 	,@todate DATETIME
 	,@FromDateLastMonth DATETIME

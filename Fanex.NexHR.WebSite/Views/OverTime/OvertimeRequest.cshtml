@@ -7,7 +7,7 @@
 <div class="loading-process" style="display: none;"></div>
 <div class="form form-stl-table">
     <form id="form">
-        <input id="DateTime-Now" name="DateTime-Now" type="hidden" value="@DateTime.Now.ToString("MMMM dd, yyyy")">
+        <input id="DateTime-Now" name="DateTime-Now" type="hidden" value="@DateTimeOffset.Now.DateTime.ToClientTimeZone().ToString("MMMM dd, yyyy")">
         <input type="hidden" asp-for="OvertimeId"/>
         <div class="row form-input">
             <div class="col m-r--l">

@@ -1,4 +1,4 @@
-ALTER PROCEDURE [dbo].[Department_Get]
+﻿CREATE OR ALTER PROCEDURE [dbo].[Department_Get]
 	@ParentId INT = NULL
 	,@IsDisabled BIT = NULL
 	,@IsSpecial BIT = NULL

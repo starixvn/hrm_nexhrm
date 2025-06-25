@@ -1,5 +1,6 @@
 ﻿@using Fanex.NexHR.Core
 @using Fanex.NexHR.Core.Enums
+@using Fanex.NexHR.Core.Helpers
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.Models
 @using Fanex.NexHR.Services.Interfaces
@@ -15,7 +16,7 @@
     const string StartDate = "- Start Date:";
     const string EndDate = ", End Date: ";
     const string ConductedBy = "- Conducted By:";
-    const string dirCertificate = "common_files/certificates";
+    var dirCertificate = FileHelpers.GetCertificatesDir();
 }
 <table id="data" class="table bordered striped highlight centered table-custom">
     <thead>

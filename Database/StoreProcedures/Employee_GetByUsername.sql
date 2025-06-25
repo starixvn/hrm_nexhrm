@@ -1,13 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-
--- [Employee_GetByUsername] 'quinn.vo'
-
-ALTER PROCEDURE [dbo].[Employee_GetByUsername] @Username VARCHAR(50)
+﻿CREATE OR ALTER PROCEDURE [dbo].[Employee_GetByUsername] @Username VARCHAR(50)
 AS
 /*
 Created: 20230205@Quinn.Vo

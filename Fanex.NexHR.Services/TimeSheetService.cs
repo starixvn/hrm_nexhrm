@@ -5,33 +5,27 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Fanex.Caching;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.TimeSheet;
     using Fanex.NexHR.Models.Conversation;
     using Fanex.NexHR.Models.TimeSheet;
     using Fanex.NexHR.Services.Interfaces;
 
-    public class TimeSheetService : ITimeSheetService
+    public class TimeSheetService(
+        INexbotService nexbotService,
+        IBaseService baseService) : ITimeSheetService
     {
         private const string CacheKeyIgnoredReminder = "UserIgnoredReminderReachedWorkingTime";
         private const string CacheKeyIgnoredCheckOutNotify = "UserIgnoredCheckOutNotify";
         private const string CacheKeyIgnoredChecInNotify = "UserIgnoredCheckInNotify";
         private const int itemEachBatch = 10;
 
-        private readonly INexbotService nexbotService;
-        private readonly IBaseService baseService;
-
-        public TimeSheetService(INexbotService nexbotService, IBaseService baseService)
-        {
-            this.nexbotService = nexbotService;
-            this.baseService = baseService;
-        }
-
         public async Task SendReminderReachedWorkingTime()
         {
             var criteria = new GetEmployeeReachedWorkingTimeCriteria();
             var workingHours = await baseService.GetDataAsync<WorkingHour>(criteria);
-            var today = DateTimeOffset.Now.Date;
+            var today = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date;
 
             if (workingHours != null && workingHours.Any())
             {
@@ -99,16 +93,9 @@
             return conversations;
         }
 
-        public async Task ImportDataFromBioStar()
-        {
-            var criteria = new ImportDataFromBioStarCriteria();
-
-            await baseService.ExecuteNonQueryAsync(criteria);
-        }
-
         public async Task NotifyEmployeeAfterCheckOut()
         {
-            var currentDate = DateTimeOffset.Now.Date;
+            var currentDate = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date;
 
             var criteria = new GetEmployeeHadCheckOutCriteria();
             var checkoutEmployees = await baseService.GetDataAsync<CheckInCheckOutNotifyRecord>(criteria);
@@ -130,7 +117,7 @@
 
         public async Task NotifyEmployeeAfterCheckIn()
         {
-            var currentDate = DateTimeOffset.Now.Date;
+            var currentDate = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date;
 
             var criteria = new GetEmployeeCheckinRecordCriteria();
             var checkinEmployees = await baseService.GetDataAsync<CheckInCheckOutNotifyRecord>(criteria);

@@ -2,6 +2,7 @@
 {
     using System;
     using Data.Repository;
+    using Fanex.NexHR.Core;
 
     public class GetHeadCountByYearCriteria : CriteriaBase
     {
@@ -11,6 +12,6 @@
 
         public override string GetSettingKey() => "Report_GetHeadCountByYear";
 
-        public override bool IsValid() => EndDateOfYear.Year <= DateTimeOffset.Now.Year && StartDateOfYear < EndDateOfYear;
+        public override bool IsValid() => EndDateOfYear.Year <= DateTimeOffset.Now.DateTime.ToClientTimeZone().Year && StartDateOfYear < EndDateOfYear;
     }
 }

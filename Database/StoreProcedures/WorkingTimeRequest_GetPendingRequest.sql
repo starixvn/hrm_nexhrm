@@ -1,9 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-ALTER PROCEDURE [dbo].[WorkingTimeRequest_GetPendingRequest] 
+﻿CREATE OR ALTER PROCEDURE [dbo].[WorkingTimeRequest_GetPendingRequest] 
 AS
 /*
 Created: 20240621@Oliver.Dang

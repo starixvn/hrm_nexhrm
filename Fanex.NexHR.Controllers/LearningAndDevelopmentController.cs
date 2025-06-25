@@ -1,10 +1,13 @@
-﻿namespace Fanex.NexHR.Controllers
+﻿using Fanex.NexHR.Core.Enums;
+
+namespace Fanex.NexHR.Controllers
 {
     using System;
     using System.IO;
     using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
+    using Fanex.NexHR.Core;
     using System.Threading.Tasks;
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Criteria.TrainingAndDevelopment;
@@ -15,34 +18,27 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using Fanex.NexHR.Core.Services;
+    using Fanex.NexHR.Core.Helpers;
 
-    public class LearningAndDevelopmentController : BaseController
+    public class LearningAndDevelopmentController(
+        ISessionService sessionService,
+        ITeamService teamService,
+        ITrainingAndDevelopmentService trainingAndDevelopmentService,
+        IWebHostEnvironment environment,
+        IMinIOService minIOService,
+        IBaseService baseService)
+        : BaseController(sessionService)
     {
-        private readonly ITeamService teamService;
-        private readonly IBaseService baseService;
-        private readonly ITrainingAndDevelopmentService trainingAndDevelopmentService;
-        private readonly IWebHostEnvironment environment;
         private const string Certificate = "Certificates";
-        private const string UploadsFilePath = "common_files/certificates";
-
-        public LearningAndDevelopmentController(ISessionService sessionService,
-            ITeamService teamService,
-            ITrainingAndDevelopmentService trainingAndDevelopmentService,
-            IWebHostEnvironment environment,
-            IBaseService baseService) : base(sessionService)
-        {
-            this.baseService = baseService;
-            this.teamService = teamService;
-            this.environment = environment;
-            this.trainingAndDevelopmentService = trainingAndDevelopmentService;
-        }
+        private static readonly Storage StorageInfo = Core.Enums.StorageInfo.Certificates;
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             var model = new TrainingAndDevelopmentFilterViewModel
             {
-                ToDate = DateTimeOffset.Now.DateTime,
+                ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                 Teams = await teamService.GetTeam(),
                 Types = await trainingAndDevelopmentService.GetTrainingAndDevelopmentType()
             };
@@ -116,7 +112,6 @@
             {
                 return string.Empty;
             }
-            CreateOrOpenDirectory();
             string savedFilePath = await SaveFile(file);
             if (!string.IsNullOrEmpty(certificate))
             {
@@ -124,16 +119,6 @@
             }
 
             return savedFilePath;
-        }
-
-        private void CreateOrOpenDirectory()
-        {
-            string[] filePath = { environment.WebRootPath, UploadsFilePath };
-            var path = Path.Combine(filePath);
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
         }
 
         private async Task<string> SaveFile(IFormFile file)
@@ -145,11 +130,7 @@
             var fileName = Path.GetFileName(file.FileName);
             var pathAttachFinal = RemoveAccents(fileName);
             pathAttachFinal = CheckDuplicatedFileName(pathAttachFinal);
-            var path = Path.Combine(environment.WebRootPath, UploadsFilePath, pathAttachFinal);
-            using (var stream = new FileStream(path, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
+            await minIOService.UploadFileAsync(file, StorageInfo.Bucket, $"{StorageInfo.Path}/{pathAttachFinal}");
 
             return pathAttachFinal;
         }
@@ -161,14 +142,14 @@
 
         private string CheckDuplicatedFileName(string fileName)
         {
-            var pathAttach = $"{UploadsFilePath}/{fileName}";
+            var pathAttach = $"{StorageInfo}/{fileName}";
             var filePath = Path.Combine(environment.WebRootPath, pathAttach);
 
             if (System.IO.File.Exists(filePath))
             {
                 var baseFileName = Path.GetFileNameWithoutExtension(pathAttach);
                 var fileExtension = Path.GetExtension(pathAttach);
-                var newFileName = $"{baseFileName}({DateTimeOffset.Now.ToString("yyyy-MM-dd-HHmmss")}){fileExtension}";
+                var newFileName = $"{baseFileName}({DateTimeOffset.Now.DateTime.ToClientTimeZone().ToString("yyyy-MM-dd-HHmmss")}){fileExtension}";
 
                 return newFileName;
             }
@@ -251,22 +232,19 @@
             });
             if (result.IsSuccessful && !string.IsNullOrEmpty(fileName))
             {
-                string filePath = Path.Combine(environment.WebRootPath, UploadsFilePath, fileName);
-                System.IO.File.Delete(filePath);
+                var filePath = $"{StorageInfo.Path}/{fileName}";
 
-                DeleteFile(fileName);
+                await minIOService.DeleteFileAsync(StorageInfo.Bucket, filePath);
             }
 
             return result;
         }
 
-        private void DeleteFile(string fileName)
+        private async Task DeleteFile(string fileName)
         {
-            string filePath = Path.Combine(environment.WebRootPath, UploadsFilePath, fileName);
-            if (System.IO.File.Exists(filePath))
-            {
-                System.IO.File.Delete(filePath);
-            }
+            var filePath = $"{StorageInfo.Path}/{fileName}";
+
+            await minIOService.DeleteFileAsync(StorageInfo.Bucket, filePath);
         }
     }
 }

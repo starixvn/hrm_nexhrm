@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using Criteria.Holiday;
     using Fanex.NexHR.Controllers.Attributes;
+    using Fanex.NexHR.Core;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.Holiday;
@@ -27,7 +28,7 @@
 
         public IActionResult Index(int? year)
         {
-            ViewBag.year = year ?? DateTimeOffset.Now.Year;
+            ViewBag.year = year ?? DateTimeOffset.Now.DateTime.ToClientTimeZone().Year;
             return View();
         }
 
@@ -49,8 +50,8 @@
             var newHoliday = new HolidayViewModel
             {
                 Name = string.Empty,
-                FromDate = DateTimeOffset.Now.DateTime,
-                ToDate = DateTimeOffset.Now.DateTime
+                FromDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
+                ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone() 
             };
 
             return View(newHoliday);

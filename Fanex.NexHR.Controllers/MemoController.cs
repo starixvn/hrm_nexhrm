@@ -141,7 +141,7 @@
                 SentTo = "All Staff",
                 SentFrom = "Management",
                 TotalPages = 1,
-                SentDate = DateTimeOffset.Now.DateTime,
+                SentDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                 Contents = "[Contents]",
                 MemoType = 1
             };

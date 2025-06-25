@@ -1,9 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-ALTER PROCEDURE [dbo].[Employee_Insert] @fullName NVARCHAR(50)
+﻿CREATE OR ALTER PROCEDURE [dbo].[Employee_Insert] @fullName NVARCHAR(50)
     ,@nickName NVARCHAR(20)
     ,@domainUserName VARCHAR(50)
     ,@code VARCHAR(20)
@@ -67,7 +62,7 @@ BEGIN
             ,@fullName
             ,@nickName
             ,CAST('1-1-1990' AS SMALLDATETIME)
-            ,GETDATE()
+            ,dbo.fnc_GetClientDateTime()
             ,@createBy
             )
 
@@ -128,7 +123,7 @@ BEGIN
         DECLARE @fromdate DATETIME
             ,@todate DATETIME
 
-        SET @fromdate = GETDATE()
+        SET @fromdate = dbo.fnc_GetClientDateTime()
 		SELECT @todate = MAX(WorkDate) FROM dbo.EmployeeCalendar WITH (NOLOCK)
 
         EXECUTE EmployeeCalendar_Insert @employeeId
@@ -148,5 +143,6 @@ BEGIN
     --        ,@ErrMsg = N'Insert Employee unsuccessfully.'
     --END CATCH;
 END
+
 
 GO

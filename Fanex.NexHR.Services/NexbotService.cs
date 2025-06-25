@@ -8,6 +8,7 @@
     using System.Threading.Tasks;
     using Core;
     using Core.Enums;
+    using Fanex.NexHR.Core.Helpers;
     using Fanex.NexHR.Criteria.ScheduledMessage;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Conversation;
@@ -20,6 +21,7 @@
     using Models.NexBot;
     using Models.Request;
     using Newtonsoft.Json;
+    using NPOI.SS.Formula.Functions;
     using ViewModels;
     using ViewModels.CheckInOutRequest;
 
@@ -153,14 +155,14 @@
                         Nick = employeeSupervisor.NickName,
                         FullName = employeeSupervisor.FullName,
                         Code = employeeSupervisor.Code,
-                        CreatedDate = (request.IsEdit ? "Edited at " : "Created at ") + DateTimeOffset.Now.ToString("dd MMM, yyyy HH:mm"),
+                        CreatedDate = (request.IsEdit ? "Edited at " : "Created at ") + DateTimeOffset.Now.DateTime.ToClientTimeZone().ToString("dd MMM, yyyy HH:mm"),
                         RequestDate = forDate,
                         RequestType = "leave",
                         LeaveType = request.LeaveTypeName,
                         Remark = request.Remark,
                         IsReadOnly = employeeSupervisor.IsReadOnly,
                         CallBackUrl = $"{appSetting.BaseUrl}/api",
-                        AvatarUrl = $"{appSetting.BaseUrl}/common_files/avatars/{employeeSupervisor.Code}.jpg"
+                        AvatarUrl = await FileHelpers.GetAvatar(employeeSupervisor.Code)
                     };
 
                     await SendApproveMessageAsync(requestMessage);
@@ -282,13 +284,13 @@
                         Nick = employeeSupervisor.NickName,
                         FullName = employeeSupervisor.FullName,
                         Code = employeeSupervisor.Code,
-                        CreatedDate = request.IsEdit ? "Edited at " : "Created at " + DateTimeOffset.Now.ToString("dd MMM, yyyy HH:mm"),
+                        CreatedDate = request.IsEdit ? "Edited at " : "Created at " + DateTimeOffset.Now.DateTime.ToClientTimeZone().ToString("dd MMM, yyyy HH:mm"),
                         RequestDate = request.WorkDate.ToDateMonthYearFormatedDate(),
                         Shift = request.Shift,
                         Time = request.Hour.ToString().PadLeft(2, '0') + ":" + request.Minute.ToString().PadLeft(2, '0'),
                         RequestType = requestType,
                         CallBackUrl = $"{appSetting.BaseUrl}/api",
-                        AvatarUrl = $"{appSetting.BaseUrl}/common_files/avatars/{employeeSupervisor.Code}.jpg"
+                        AvatarUrl = await FileHelpers.GetAvatar(employeeSupervisor.Code)
                     };
 
                     await SendApproveMessageAsync(requestMessage);

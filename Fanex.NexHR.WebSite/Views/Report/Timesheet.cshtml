@@ -36,9 +36,9 @@
                                     </div>
                                     <div class="left select--m">
                                         <div id="monthPickr"></div>
-                                        <input type="hidden" id="Year" name="Year" value="@DateTime.Now.Year" />
-                                        <input type="hidden" id="Month" name="Month" value="@DateTime.Now.Month" />
-                                        <input type="hidden" id="maxDate" value="@DateTime.Now.AddMonths(3).GetMaxDate().ToString("yyyy/MM/dd")" />
+                                        <input type="hidden" id="Year" name="Year" value="@DateTimeOffset.Now.DateTime.ToClientTimeZone().Year" />
+                                        <input type="hidden" id="Month" name="Month" value="@DateTimeOffset.Now.DateTime.ToClientTimeZone().Month" />
+                                        <input type="hidden" id="maxDate" value="@DateTimeOffset.Now.DateTime.ToClientTimeZone().AddMonths(3).GetMaxDate().ToString("yyyy/MM/dd")" />
                                         <input asp-for="EmpId" type="hidden" />
                                     </div>
                                     <input id="submit" type="button" value="@Labels.Submit" class="processing-submit btn-submit waves-effect waves-light m-r--m" />

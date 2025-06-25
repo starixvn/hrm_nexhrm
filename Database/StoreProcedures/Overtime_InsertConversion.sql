@@ -1,8 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-ALTER PROCEDURE [dbo].[Overtime_InsertConversion]
+﻿CREATE OR ALTER PROCEDURE [dbo].[Overtime_InsertConversion]
     @createdBy      INT
     ,@empId    INT
     ,@deduct        NUMERIC (18, 1)
@@ -96,14 +92,14 @@ BEGIN
             ,@deductDate
             ,@description
 			,@createdBy,
-			GETDATE()
+			dbo.fnc_GetClientDateTime()
         )
 
 		UPDATE [dbo].[OvertimeYearly] WITH (ROWLOCK, UPDLOCK)
         SET
             [Minutes]       = [Minutes] - (@deduct * 60.0)
             ,[ModifiedBy]   = @createdBy
-            ,[ModifiedDate] = GETDATE()
+            ,[ModifiedDate] = dbo.fnc_GetClientDateTime()
         WHERE [EmpId] = @empId
             AND [Year] >= @year;
 

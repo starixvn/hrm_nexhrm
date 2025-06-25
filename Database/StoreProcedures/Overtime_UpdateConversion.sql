@@ -1,8 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-ALTER PROCEDURE [dbo].[Overtime_UpdateConversion]
+﻿CREATE OR ALTER PROCEDURE [dbo].[Overtime_UpdateConversion]
     @modifiedBy     INT
     ,@id            INT
     ,@deduct        NUMERIC (18, 1)
@@ -109,7 +105,7 @@ BEGIN
 			[Deduct]        = @deduct * 60
 			,[DeductDate] = @deductDate
 			,[Description]  = @description
-			,[ModifiedDate] = GETDATE()
+			,[ModifiedDate] = dbo.fnc_GetClientDateTime()
 			,[ModifiedBy] = @modifiedBy
 		WHERE [Id] = @id;
 
@@ -117,7 +113,7 @@ BEGIN
         SET
             [Minutes]       = [Minutes] + @oldMinutes - (@deduct * 60.0)
             ,[ModifiedBy]   = @modifiedBy
-            ,[ModifiedDate] = GETDATE()
+            ,[ModifiedDate] = dbo.fnc_GetClientDateTime()
         WHERE [EmpId] = @empId
             AND [Year] >= @year;
 
@@ -127,7 +123,7 @@ BEGIN
 			SET
 				[Minutes]       = [Minutes] + @oldMinutes
 				,[ModifiedBy]   = @modifiedBy
-				,[ModifiedDate] = GETDATE()
+				,[ModifiedDate] = dbo.fnc_GetClientDateTime()
 			WHERE [EmpId] = @empId
 				AND [Year] >= @oldYear AND [Year] < @year;
 		END;

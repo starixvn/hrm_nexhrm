@@ -62,8 +62,13 @@
         <Setting Key="Employee_GetListStaffInfoNexHour" SpName="Employee_GetListStaffInfoNexHour" DbName="nexhr" Plain="0"></Setting>
 		<Setting Key="Employee_GetMissedLogTime" SpName="Employee_GetMissedLogTime" DbName="nexhr" Plain="0"></Setting>
 	    <Setting Key="EmployeeLogTimeMissed_UpdateMultiple" SpName="EmployeeLogTimeMissed_UpdateMultiple" DbName="nexhr" Plain="0"></Setting>
+	    <Setting Key="Sync_Employee_Get" SpName="Sync_Employee_Get" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Sync_EmployeeAttendance_Get" SpName="Sync_EmployeeAttendance_Get" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Sync_EmployeeCalendar_Get" SpName="Sync_EmployeeCalendar_Get" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Sync_EmployeeOverTime_Get" SpName="Sync_EmployeeOverTime_Get" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Sync_EmployeeTOEIC_Get" SpName="Sync_EmployeeTOEIC_Get" DbName="nexhr" Plain="0"></Setting>
     </Function>
-    <Function Name="GroupSupervisor">
+	<Function Name="GroupSupervisor">
         <Setting Key="GroupSupervisor_Get" SpName="GroupSupervisor_Get" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="GroupSupervisor_Update" SpName="GroupSupervisor_Update" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="GroupSupervisor_GetById" SpName="GroupSupervisor_GetById" DbName="nexhr" Plain="0"></Setting>
@@ -107,6 +112,7 @@
         <Setting Key="EmployeeGroup_GetById" SpName="EmployeeGroup_GetById" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeGroup_GetGroups" SpName="EmployeeGroup_GetGroups" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeGroup_GetGroupsByManagerID" SpName="EmployeeGroup_GetGroupsByManagerID" DbName="nexhr" Plain="0"></Setting>
+	    <Setting Key="Sync_Group_Get" SpName="Sync_Group_Get" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Lookup">
         <Setting Key="Lookup_GetLookupData" SpName="Lookup_GetLookupData" DbName="hrm" Plain="0"></Setting>
@@ -115,7 +121,8 @@
     <Setting Key="JobTitle_Get" SpName="JobTitle_Get" DbName="nexhr" Plain="0"></Setting>
     <Setting Key="JobTitle_Delete" SpName="JobTitle_Delete" DbName="hrm" Plain="0"></Setting>
     <Setting Key="JobTitle_Insert" SpName="JobTitle_Insert" DbName="hrm" Plain="0"></Setting>
-    <Setting Key="JobTitle_Update" SpName="JobTitle_Update" DbName="hrm" Plain="0"></Setting>
+	<Setting Key="JobTitle_Update" SpName="JobTitle_Update" DbName="hrm" Plain="0"></Setting>
+	<Setting Key="Sync_JobTitle_Get" SpName="Sync_JobTitle_Get" DbName="nexhr" Plain="0"></Setting>
   </Function>
     <Function Name="Shift">
         <Setting Key="Shift_GetShifts" SpName="Shift_GetShifts" DbName="nexhr" Plain="0"></Setting>
@@ -135,7 +142,8 @@
         <Setting Key="WorkingTimeRequest_GetRequestHistory" SpName="WorkingTimeRequest_GetRequestHistory" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="WorkingTimeRequest_GetNumberRequestInMonth" SpName="WorkingTimeRequest_GetNumberRequestInMonth" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="WorkingTimeRequest_AvaibleLeaveBalance" SpName="WorkingTimeRequest_AvaibleLeaveBalance" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="WorkingTimeRequest_GetPendingRequest" SpName="WorkingTimeRequest_GetPendingRequest" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="WorkingTimeRequest_GetPendingRequest" SpName="WorkingTimeRequest_GetPendingRequest" DbName="nexhr" Plain="0"></Setting>
+	    <Setting Key="Sync_WorkingTimeRequest_Get" SpName="Sync_WorkingTimeRequest_Get" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="Holiday">
         <Setting Key="Holiday_Insert" SpName="Holiday_Insert" DbName="nexhr" Plain="0"></Setting>
@@ -175,7 +183,7 @@
         <Setting Key="Department_Insert" SpName="Department_Insert" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Department_Update" SpName="Department_Update" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Department_GetById" SpName="Department_GetById" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="Department_Delete" SpName="Department_Delete" DbName="nexhr" Plain="0"></Setting>
+		<Setting Key="Department_Delete" SpName="Department_Delete" DbName="nexhr" Plain="0"></Setting>
     </Function>
     <Function Name="TimeRecord">
         <Setting Key="TimeRecord_Get" SpName="TimeRecord_Get" DbName="nexhr" Plain="0">
@@ -300,7 +308,6 @@
     <Function Name="RedmineAPI">
         <Setting Key="Employee_GetRedmineUserByDomainName" SpName="Employee_GetRedmineUserByDomainName" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="RedmineSpendTimeWriteLog_Insert" SpName="RedmineSpendTimeWriteLog_Insert" DbName="nexhr" Plain="0"></Setting>
-        <Setting Key="HRM_GetRedmineUsers" SpName="HRM_GetRedmineUsers" DbName="nexhr" Plain="0"></Setting>
     </Function>
   
     <Function Name="BioStation">
@@ -331,6 +338,7 @@
         <Setting Key="EmployeeConversation_GetTeamHr" SpName="EmployeeConversation_GetTeamHr" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeConversation_Get" SpName="EmployeeConversation_Get" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="EmployeeConversation_GetById" SpName="EmployeeConversation_GetById" DbName="nexhr" Plain="0"></Setting>
+        <Setting Key="EmployeeConversation_MappingV2" SpName="EmployeeConversation_MappingV2" DbName="hrm" Plain="0"></Setting>
     </Function>
     <Function Name="TimeSheet">
         <Setting Key="EmployeeAttendance_GetEmployeeReachedWorkingTime" SpName="EmployeeAttendance_GetEmployeeReachedWorkingTime" DbName="nexhr" Plain="0"></Setting>

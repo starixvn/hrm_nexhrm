@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.AnnualLeave;
+    using Fanex.NexHR.Core;
     using Resources;
     using Services.Interfaces;
     using System;
@@ -132,7 +133,7 @@
             return View(new AddAnnualLeaveTransactionViewModel
             {
                 EmployeeId = employeeId,
-                AffectedFrom = DateTimeOffset.Now.DateTime
+                AffectedFrom = DateTimeOffset.Now.DateTime.ToClientTimeZone()
             });
         }
 
@@ -171,7 +172,7 @@
         {
             return PartialView(new LeaveConversionViewModel
             {
-                OnDate = DateTimeOffset.Now.DateTime,
+                OnDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                 TotalDays = decimal.Parse("0.5"),
                 Description = Labels.LeaveConversionDescription
             });
@@ -181,7 +182,7 @@
         {
             return PartialView(new LeaveDeductionViewModel
             {
-                DeductDate = DateTimeOffset.Now.DateTime,
+                DeductDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                 TotalDays = decimal.Parse("0.5"),
                 Description = Labels.LeaveDeductionDescription,
                 IsAnnual = true
@@ -280,7 +281,7 @@
         {
             return PartialView(new LeaveConversionViewModel
             {
-                OnDate = DateTimeOffset.Now.DateTime,
+                OnDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                 TotalDays = decimal.Parse("0.5"),
                 Description = Labels.LeaveConversionDescription
             });
@@ -319,7 +320,7 @@
         {
             return PartialView(new LeaveDeductionViewModel
             {
-                DeductDate = DateTimeOffset.Now.DateTime,
+                DeductDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                 TotalDays = decimal.Parse("0.5"),
                 Description = Labels.LeaveDeductionDescription,
                 IsAnnual = true
@@ -437,7 +438,7 @@
         {
             var model = new LeaveSummaryViewModel
             {
-                Year = DateTimeOffset.Now.Year,
+                Year = DateTimeOffset.Now.DateTime.ToClientTimeZone().Year,
                 EmployeeId = -1,
                 Teams = await teamService.GetTeam(),
                 Departments = await departmentService.GetAll(),
@@ -504,7 +505,7 @@
         {
             return PartialView(new AddMultiAnnualLeaveTransactionViewModel
             {
-                AffectedFrom = DateTimeOffset.Now.DateTime
+                AffectedFrom = DateTimeOffset.Now.DateTime.ToClientTimeZone()
             });
         }
 
@@ -513,7 +514,7 @@
         {
             return PartialView(new AddMultiAnnualLeaveTransactionViewModel
             {
-                AffectedFrom = DateTimeOffset.Now.DateTime
+                AffectedFrom = DateTimeOffset.Now.DateTime.ToClientTimeZone()
             });
         }
 

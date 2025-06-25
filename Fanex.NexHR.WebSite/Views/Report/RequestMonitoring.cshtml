@@ -27,7 +27,7 @@
                 </div>
                 <div class="card-body">
                     <div class="form form-stl-table">
-                        <input id="DateTime-Now" name="DateTime-Now" type="hidden" value="@DateTime.Now.ToString("MMMM dd, yyyy")">
+                        <input id="DateTime-Now" name="DateTime-Now" type="hidden" value="@DateTimeOffset.Now.DateTime.ToClientTimeZone().ToString("MMMM dd, yyyy")">
                         <form action="" class="form-filter">
                             <input type="hidden" asp-for="IsLeader"/>
                             <div class="row form-input">

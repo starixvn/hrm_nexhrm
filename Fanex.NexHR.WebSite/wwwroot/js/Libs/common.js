@@ -91,6 +91,7 @@ function initDatePicker() {
   $('.datepicker-button').each(function () {
     var $datepicker = $($(this).find('.datepicker')),
       $icon = $($(this).find('.calendar-icon'));
+    var yearRange = $datepicker.attr('yearRange');
 
     $datepicker.datepicker({
       dateFormat: 'dd M, yy',
@@ -98,7 +99,8 @@ function initDatePicker() {
       changeYear: true,
       nextText: '',
       prevText: '',
-      showAnim: 'blind'
+      showAnim: 'blind',
+      yearRange: yearRange
     });
 
     // get minDate, maxDate, disabledDates

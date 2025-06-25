@@ -20,8 +20,8 @@
         public string BaseUrl { get; set; }
         public string FBUrl { get; set; }
         public int FBCompanyId { get; set; }
-        public string RSAPublicKeyPath { get; set; }
-        public string RSAPrivateKeyPath { get; set; }
+        public string RijndaelKey { get; set; }
+        public string RijndaelIV { get; set; }
         public bool EnableEncrypt { get; set; }
         public string NLogConfigFilePath { get; set; } = "NLog.config";
     }

@@ -1,8 +1,9 @@
 ﻿@using Fanex.NexHR.Resources
+@using Fanex.NexHR.Core;
 @model Fanex.NexHR.ViewModels.ManagementGrade.UpdateManagementGradeViewModel
 
 @{
-	DateTime currentDate = DateTime.Today;
+	DateTime currentDate = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date;
 	var managementGrade = ViewBag.ManagementGrade;
 	var hasOldManagementGrade = Model.OldManagementGradeId > 0;
 }

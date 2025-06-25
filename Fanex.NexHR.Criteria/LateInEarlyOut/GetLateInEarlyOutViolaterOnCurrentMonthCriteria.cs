@@ -2,6 +2,7 @@
 {
     using System;
     using Fanex.Data.Repository;
+    using Fanex.NexHR.Core;
 
     public class GetLateInEarlyOutViolaterOnCurrentMonthCriteria : CriteriaBase
     {
@@ -11,6 +12,6 @@
 
         public override string GetSettingKey() => "LateInEarlyOut_GetLateInEarlyOutOnMonth";
 
-        public override bool IsValid() => Year <= DateTimeOffset.Now.Year;
+        public override bool IsValid() => Year <= DateTimeOffset.Now.DateTime.ToClientTimeZone().Year;
     }
 }

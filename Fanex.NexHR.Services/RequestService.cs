@@ -12,6 +12,7 @@
     using Criteria.Employee;
     using Criteria.Request;
     using Data.Repository;
+    using Fanex.NexHR.Core.Helpers;
     using Fanex.NexHR.Models.Core;
     using Fanex.NexHR.Models.LateInEarlyOut;
     using Fanex.NexHR.Models.Staff;
@@ -168,6 +169,7 @@
             INonQueryCommand processRequestCriteria = GetProcessRequestCriteria(command, id, processBy);
 
             CommandResult result = await baseService.ExecuteNonQueryAsync(processRequestCriteria);
+            logService.LogFile("approve request status: " + result.IsSuccessful);
             if (result.IsSuccessful)
             {
                 string templateEmailToRequester = Path.Combine(environment.ContentRootPath, Constants.EmailTemplatePathForRequester);
@@ -202,7 +204,7 @@
                     {
                         RequestId = id,
                         ModifiedBy = processBy,
-                        ModifiedDate = DateTimeOffset.Now.DateTime
+                        ModifiedDate = DateTimeOffset.Now.DateTime.ToClientTimeZone()
                     };
                     break;
 
@@ -211,7 +213,7 @@
                     {
                         RequestId = id,
                         ProcessedBy = processBy,
-                        ProcessedDate = DateTimeOffset.Now.DateTime
+                        ProcessedDate = DateTimeOffset.Now.DateTime.ToClientTimeZone()
                     };
                     break;
 
@@ -220,7 +222,7 @@
                     {
                         RequestId = id,
                         ApprovedBy = processBy,
-                        ApprovedDate = DateTimeOffset.Now.DateTime
+                        ApprovedDate = DateTimeOffset.Now.DateTime.ToClientTimeZone()
                     };
                     break;
             }
@@ -264,8 +266,8 @@
 
         public async Task<decimal> GetNumberRequestInMonth(int employeeId, RequestType requestType)
         {
-            int year = DateTimeOffset.Now.Year;
-            int month = DateTimeOffset.Now.Month;
+            int year = DateTimeOffset.Now.DateTime.ToClientTimeZone().Year;
+            int month = DateTimeOffset.Now.DateTime.ToClientTimeZone().Month;
 
             var criteria = new GetNumberRequestInMonthCriteria
             {
@@ -487,7 +489,6 @@
             string templateLeaveEmailToHR)
         {
             var request = await GetRequestEntity(id);
-
             SendMailToRequester(request, command, templateEmailToRequesterPath);
 
             if (command == Command.Approve.EnumToString())
@@ -507,8 +508,9 @@
                 ? " from " + request.FromDate.ToDateMonthYearFormatedDate() + " to " +
                   request.ToDate.ToDateMonthYearFormatedDate()
                 : " on " + request.FromDate.ToDateMonthYearFormatedDate();
-
+          
             var body = Utilities.ReadTextFile(templateEmailToRequesterPath);
+
             var action = Labels.Disapproved;
 
             if (command == Command.Reject.EnumToString())
@@ -678,21 +680,21 @@
         public async Task<IEnumerable<ApproverRequestSumup>> GetPendingRequestGroupByApproverAsync()
         {
             var pendingRequests = await baseService.GetDataAsync<PendingRequestApprover>(new GetPendingRequestCriteria());
-            var needApprovedRequests = pendingRequests.GroupBy(r => r.ApproverId)
-                .Select(g => new ApproverRequestSumup
+            var needApprovedRequests = await Task.WhenAll(pendingRequests.GroupBy(r => r.ApproverId)
+                .Select(async g => new ApproverRequestSumup
                 {
                     ApproverId = g.Key,
                     ApproverNickname = g.FirstOrDefault()?.Approver,
                     ConversationId = g.FirstOrDefault()?.ApproverConversationId,
                     CallbackUrl = appSetting.BaseUrl,
-                    Requests = g.Select(i => new MemberRequest
+                    Requests = await Task.WhenAll(g.Select(async i => new MemberRequest
                     {
                         RequestId = i.RequestId,
                         NickName = i.Requester,
                         TeamName = i.TeamName,
                         FullName = i.FullNameRequester,
                         ApproverId = i.ApproverId,
-                        Avatar = string.Format("{0}/common_files/avatars/{1}.jpg", appSetting.BaseUrl, i.Code),
+                        Avatar = await FileHelpers.GetAvatar(i.Code),
                         IsLeaveRequest = !IsCheckInOutRequest(i.RequestType),
                         DateDetails = GenerateDisplayDate(i.FromDate, i.ToDate, i.RequestType, i.TotalDays, i.FromShift),
                         FromDate = i.FromDate.ToDateMonthYearFormatedDate(),
@@ -702,8 +704,8 @@
                         CallbackUrl = appSetting.BaseUrl,
                         CreatedDate = i.CreatedDate.ToFormattedDateTime(),
                         CreatedAt = i.CreatedDate
-                    })
-                });
+                    }))
+                }));
 
             return needApprovedRequests;
         }

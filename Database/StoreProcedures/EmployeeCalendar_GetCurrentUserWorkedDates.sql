@@ -1,9 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-ALTER PROCEDURE [dbo].[EmployeeCalendar_GetCurrentUserWorkedDates]
+﻿CREATE OR ALTER PROCEDURE [dbo].[EmployeeCalendar_GetCurrentUserWorkedDates]
     @UserId INT
     ,@FromDate DATETIME
     ,@ToDate DATETIME
@@ -74,3 +69,6 @@ BEGIN
 
 	DROP TABLE #EmployeeCalendar2HalfDay
 END
+
+SET ANSI_NULLS ON
+GO

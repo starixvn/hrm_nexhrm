@@ -4,14 +4,12 @@ namespace Fanex.NexHR.Services
     using System.IO;
     using System.Security.Cryptography;
     using System.Text;
-    using Fanex.NexHR.Core;
-    using Fanex.NexHR.Services.Interfaces;
+    using Core;
+    using Interfaces;
 
     public class CryptoService(AppSetting appSetting) : ICryptoService
     {
         private const byte FeedbackSize = 128;
-        private const byte KeyLength = 16;
-        private string rsaPublicKey;
 
         public string Encrypt(string plainText, string rijndaelKey, string rijndaelIV)
         {
@@ -75,15 +73,11 @@ namespace Fanex.NexHR.Services
         public string RsaEncrypt(string plainText)
         {
             var cipherText = string.Empty;
-            if (string.IsNullOrWhiteSpace(rsaPublicKey))
-            {
-                rsaPublicKey = ReadTextFile(appSetting.RSAPublicKeyPath);
-            }
 
             if (!string.IsNullOrWhiteSpace(plainText))
             {
-                var rijndaelKey = rsaPublicKey.Substring(0, KeyLength);
-                var rijndaelIV = rsaPublicKey.Substring(rsaPublicKey.Length - KeyLength);
+                var rijndaelKey = appSetting.RijndaelKey;
+                var rijndaelIV = appSetting.RijndaelIV;
                 cipherText = Encrypt(plainText, rijndaelKey, rijndaelIV);
             }
 
@@ -93,30 +87,15 @@ namespace Fanex.NexHR.Services
         public string RsaDecrypt(string cipherText)
         {
             var plainText = string.Empty;
-            if (string.IsNullOrWhiteSpace(rsaPublicKey))
-            {
-                rsaPublicKey = ReadTextFile(appSetting.RSAPublicKeyPath);
-            }
 
             if (!string.IsNullOrWhiteSpace(cipherText))
             {
-                var rijndaelKey = rsaPublicKey.Substring(0, KeyLength);
-                var rijndaelIV = rsaPublicKey.Substring(rsaPublicKey.Length - KeyLength);
+                var rijndaelKey = appSetting.RijndaelKey;
+                var rijndaelIV = appSetting.RijndaelIV;
                 plainText = Decrypt(cipherText, rijndaelKey, rijndaelIV);
             }
 
             return plainText;
-        }
-
-        private static string ReadTextFile(string filePath)
-        {
-            var text = string.Empty;
-            if (File.Exists(filePath))
-            {
-                text = File.ReadAllText(filePath);
-            }
-
-            return text;
         }
     }
 }

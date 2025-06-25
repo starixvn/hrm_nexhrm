@@ -1,11 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-
-ALTER PROCEDURE [dbo].[Employee_GetHR]
+﻿CREATE OR ALTER PROCEDURE [dbo].[Employee_GetHR]
 AS
 	/*
 	Created: 

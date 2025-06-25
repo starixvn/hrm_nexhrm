@@ -3,12 +3,13 @@ namespace Fanex.NexHR.ViewModels.Overtime
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using Fanex.NexHR.Core;
 
     public class OvertimeConversionCreateViewModel
     {
         public OvertimeConversionCreateViewModel()
         {
-            this.DeductDate = DateTimeOffset.Now.DateTime;
+            this.DeductDate = DateTimeOffset.Now.DateTime.ToClientTimeZone();
         }
 
         [Required]

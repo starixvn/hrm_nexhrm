@@ -1,0 +1,37 @@
+﻿CREATE OR ALTER PROCEDURE [dbo].[Shift_GetShifts]
+AS
+/*
+Created: 20141002@Quinn.Vo
+Task: Get all shifts
+DB: NexEPA
+Original: 
+
+Revisions:  
+Param's Explanation:
+
+*/
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT [Id]
+      ,[Code]
+      ,[Name]
+      ,[BeginCheckInTime]
+      ,[EndCheckInTime]
+      ,[BeginCheckOutTime]
+      ,[EndCheckOutTime]
+      ,[BreakTimeMins]
+      ,[OrderNo]
+      ,[BeginBreakTime]
+      ,[EndBreakTime]
+      ,[IsInAfterDay]
+      ,[IsOutAfterDay]
+      ,[ModifiedBy]
+      ,[ModifiedDate]
+      ,[IsDisabled]
+    FROM dbo.[Shift]
+    WHERE IsDisabled = 0
+    ORDER BY OrderNo
+END
+
+GO

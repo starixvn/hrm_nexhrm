@@ -1,9 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
---[TOEIC_GetUpdatingScoreRelatedPeople] 3443
-ALTER PROCEDURE [dbo].[TOEIC_GetUpdatingScoreRelatedPeople] @id INT
+﻿CREATE OR ALTER PROCEDURE [dbo].[TOEIC_GetUpdatingScoreRelatedPeople] @id INT
 AS
 /*
     Created: 20150403@Tim.Trinh

@@ -1,3 +1,4 @@
+@using Fanex.NexHR.Core
 @using Fanex.NexHR.Core.Enums
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.ViewModels.TrainingAndDevelopment
@@ -6,7 +7,7 @@
 @model TrainingAndDevelopmentFilterViewModel
 @{
     var isHRRole = sessionService.CurrentEmployee.HasHRRole;
-    DateTime currentDate = DateTime.Today;
+    DateTime currentDate = DateTimeOffset.Now.DateTime.ToClientTimeZone();
     ViewBag.Title = Labels.LearningAndDevelopment;
 }
 @section Styles {

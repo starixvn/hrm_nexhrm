@@ -1,13 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-
-/****** Object:  Stored Procedure dbo.Overtime_DisapproveRequest    Script Date: 3/13/2016 3:21:42 PM ******/
-
-ALTER PROCEDURE [dbo].[Overtime_DisapproveRequest] 
+﻿CREATE OR ALTER PROCEDURE [dbo].[Overtime_DisapproveRequest] 
 	@Id INT
     ,@ModifiedBy INT
     ,@ErrCode INT = 0 OUTPUT
@@ -90,7 +81,7 @@ BEGIN
         UPDATE dbo.[Overtime] WITH (ROWLOCK, UPDLOCK)
         SET [Status] = @PendingStatus
             ,ModifiedBy = @ModifiedBy
-            ,ModifiedDate = GETDATE()
+            ,ModifiedDate = dbo.fnc_GetClientDateTime()
         WHERE OvertimeId = @Id;
 
         COMMIT TRANSACTION;

@@ -71,7 +71,8 @@
             var menuItems = menus.Where(m => m.ParentId == null && (roles.Any(r => r == m.Roles) || roles.Any(r => r == Role.SA)));
             foreach (var menuItem in menuItems)
             {
-                var childs = menus.Where(m => m.ParentId == menuItem.Id && (roles.Any(r => r == m.Roles) || roles.Any(r => r == Role.SA)));
+                var disabledMenuIds = new List<int> { 41, 43 };
+                var childs = menus.Where(m => m.ParentId == menuItem.Id && (roles.Any(r => r == m.Roles) || roles.Any(r => r == Role.SA)) && !disabledMenuIds.Contains(m.Id));
                 menuItem.Childs = childs.ToList();
             }
             return menuItems.ToList();

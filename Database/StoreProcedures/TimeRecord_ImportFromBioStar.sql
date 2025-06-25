@@ -1,11 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
--- [TimeRecord_ImportFromBioStar] '2020-06-30', '2020-07-01'
-
-ALTER PROCEDURE [dbo].[TimeRecord_ImportFromBioStar]
+﻿CREATE OR ALTER PROCEDURE [dbo].[TimeRecord_ImportFromBioStar]
 	@fromDate DATETIME
 	,@toDate DATETIME
 AS
@@ -30,7 +23,7 @@ BEGIN
 		,@StartDateConnectBitoStar VARCHAR(10)
 
 	DECLARE @toDay DATETIME, @Yesterday DATETIME
-	SET @toDay =  GETDATE()
+	SET @toDay =  dbo.fnc_GetClientDateTime()
 	SET @Yesterday = DATEADD(DD, -1, @toDay)
 
 	CREATE TABLE #tempRecord (
@@ -47,15 +40,15 @@ BEGIN
 		,TimeRecord DATETIME
 		)
 
-	SELECT @CurrentMonthTableName = 'T_LG' + LEFT(CONVERT(VARCHAR, GETDATE(), 112), 6)
-		,@LastMonthTableName = 'T_LG' + LEFT(CONVERT(VARCHAR, DATEADD(MM, - 1, GETDATE()), 112), 6)
+	SELECT @CurrentMonthTableName = 'T_LG' + LEFT(CONVERT(VARCHAR, dbo.fnc_GetClientDateTime(), 112), 6)
+		,@LastMonthTableName = 'T_LG' + LEFT(CONVERT(VARCHAR, DATEADD(MM, - 1, dbo.fnc_GetClientDateTime()), 112), 6)
 		,@fromDateString = CONVERT(VARCHAR, @fromDate, 112)
 		,@toDateString = CONVERT(VARCHAR, @toDate, 112)
 		,@StartDateConnectBitoStar = '2022-10-01'
 
 	IF EXISTS (
 			SELECT 1
-			FROM [42.116.7.237].[ACDB].[dbo].[T_LGTBIDX]
+			FROM [ACDB].[dbo].[T_LGTBIDX]
 			WHERE [LGTABLENM] = @LastMonthTableName
 			)
 	BEGIN
@@ -68,9 +61,9 @@ BEGIN
 						  ,b.[DEVID]
 						  ,b.[NM]
 						  ,c.NM
-					FROM [42.116.7.237].[ACDB].[dbo].' + @LastMonthTableName + ' AS a
-					LEFT JOIN [42.116.7.237].[ACDB].[dbo].[T_DEV] AS b ON a.DEVUID = b.[DEVID]
-					LEFT JOIN [42.116.7.237].[ACDB].[dbo].[T_EVTTYP] AS c ON a.EVT = c.EVT
+					FROM [ACDB].[dbo].' + @LastMonthTableName + ' AS a
+					LEFT JOIN [ACDB].[dbo].[T_DEV] AS b ON a.DEVUID = b.[DEVID]
+					LEFT JOIN [ACDB].[dbo].[T_EVTTYP] AS c ON a.EVT = c.EVT
 					WHERE a.USRID <> '''' AND a.EVT < 5400 AND a.USRGRUID <> 2250
 					AND DATEADD(HH, 7, DATEADD(s, a.[DEVDT], ''1970-01-01'')) > ''' + @fromDateString + '''
 					AND DATEADD(HH, 7, DATEADD(s, a.[DEVDT], ''1970-01-01'')) < DATEADD(d, 1, ''' + @toDateString + ''')
@@ -82,7 +75,7 @@ BEGIN
 
 	IF EXISTS (
 			SELECT 1
-			FROM [42.116.7.237].[ACDB].[dbo].[T_LGTBIDX]
+			FROM [ACDB].[dbo].[T_LGTBIDX]
 			WHERE [LGTABLENM] = @CurrentMonthTableName
 			)
 	BEGIN
@@ -95,9 +88,9 @@ BEGIN
 						  ,b.[NM]
 						  ,c.NM
 	  
-					FROM [42.116.7.237].[ACDB].[dbo].' + @CurrentMonthTableName + ' AS a 
-					LEFT JOIN [42.116.7.237].[ACDB].[dbo].[T_DEV] AS b ON a.DEVUID = b.[DEVID]
-					LEFT JOIN [42.116.7.237].[ACDB].[dbo].[T_EVTTYP] AS c ON a.EVT = c.EVT
+					FROM [ACDB].[dbo].' + @CurrentMonthTableName + ' AS a 
+					LEFT JOIN [ACDB].[dbo].[T_DEV] AS b ON a.DEVUID = b.[DEVID]
+					LEFT JOIN [ACDB].[dbo].[T_EVTTYP] AS c ON a.EVT = c.EVT
 					WHERE a.USRID <> '''' AND a.EVT < 5400 AND a.USRGRUID <> 2250
 					AND DATEADD(HH, 7, DATEADD(s, a.[DEVDT], ''1970-01-01'')) > ''' + @fromDateString + '''
 					AND DATEADD(HH, 7, DATEADD(s, a.[DEVDT], ''1970-01-01'')) < DATEADD(d, 1, ''' + @toDateString + ''')
@@ -137,7 +130,7 @@ BEGIN
 			WHEN nTNAEvent = 2 THEN 1
 			ELSE NULL
 			END
-		,GETDATE()
+		,dbo.fnc_GetClientDateTime()
 		,f.ReaderId
 		,f.ReaderName
 		,f.EventName
@@ -153,7 +146,7 @@ BEGIN
 	INSERT INTO dbo.tmpEmployeeAttendance(EmpId, WorkDate, InsertedDate)
 	SELECT t.EmpId
 		,CAST(TimeRecord AS DATE)
-		,GETDATE()
+		,dbo.fnc_GetClientDateTime()
 	FROM #tempTimeRecord t
 	WHERE NOT EXISTS (
 		SELECT 1 
@@ -163,7 +156,7 @@ BEGIN
 	UNION
 	SELECT t.EmpId 
 		,CAST(TimeRecord AS DATE)
-		,GETDATE()
+		,dbo.fnc_GetClientDateTime()
 	FROM #tempTimeRecord t
 	WHERE NOT EXISTS (
 		SELECT 1 

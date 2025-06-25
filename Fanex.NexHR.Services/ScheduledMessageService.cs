@@ -65,7 +65,7 @@
 
         public async Task<CommandResult> SendScheduledMessages()
         {
-            var currentDate = DateTimeOffset.Now.DateTime;
+            var currentDate = DateTimeOffset.Now.DateTime.ToClientTimeZone();
             currentDate = currentDate.AddSeconds(-currentDate.Second).AddMilliseconds(-currentDate.Millisecond);
             var redundantTick = currentDate.Ticks % 10000;
             currentDate = currentDate.AddTicks(-redundantTick);
@@ -83,7 +83,7 @@
                 if (scheduledMessage.CronExpression != null)
                 {
                     CrontabSchedule schedule = CrontabSchedule.Parse(scheduledMessage.CronExpression);
-                    var nextRun = schedule.GetNextOccurrence(DateTimeOffset.Now.DateTime.AddMinutes(-1));
+                    var nextRun = schedule.GetNextOccurrence(DateTimeOffset.Now.DateTime.ToClientTimeZone().AddMinutes(-1));
                     if (nextRun == currentDate)
                     {
                         await nexbotService.SendMessageAsync(scheduledMessage.SkypeConversationId, scheduledMessage.Content);
@@ -154,14 +154,14 @@
             var workingSchedules = await holidayService.GetWorkDateEmployeeCalendar(new GetWorkDateEmployeeCalendarCriteria
             {
                 EmpId = IdEmpCreateVegetarianMessages,
-                Year = DateTimeOffset.Now.Year,
+                Year = DateTimeOffset.Now.DateTime.ToClientTimeZone().Year,
             });
-            var scheduledVegetarianList = GetFirstAndFifteenLunerOfMonths(new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime
+            var scheduledVegetarianList = GetFirstAndFifteenLunerOfMonths(new DateTimeOffset(DateTimeOffset.Now.DateTime.ToClientTimeZone().Year, DateTimeOffset.Now.DateTime.ToClientTimeZone().Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime
                                                 .AddMonths(NumMonthOfScheduleVegetarianMessages).AddDays(-1), workingSchedules);
             foreach (var item in scheduledVegetarianList)
             {
                 var sendDate = GetSendDate(item, workingSchedules);
-                if (sendDate == DateTimeOffset.Now.Date)
+                if (sendDate == DateTimeOffset.Now.DateTime.ToClientTimeZone().Date)
                 {
                     var dateContent = new DateTimeOffset(item.Solar.SolarYear, item.Solar.SolarMonth, item.Solar.SolarDay, 0, 0, 0, TimeSpan.Zero).DateTime;
                     var messageContent = string.Format(Labels.VegetarianMessageContent, ((int)dateContent.DayOfWeek + 1),
@@ -218,7 +218,7 @@
         private static List<SolarLunarViewModel> GetFirstAndFifteenLunerOfMonths(DateTime dateTime, IEnumerable<WorkingSchedule> workingSchedules)
         {
             List<SolarLunarViewModel> solarLunarViewModels = new();
-            DateTime currentDate = DateTimeOffset.Now.DateTime;
+            DateTime currentDate = DateTimeOffset.Now.DateTime.ToClientTimeZone();
             do
             {
                 Lunar lunar = LunarSolarConverter.SolarToLunar(new Solar

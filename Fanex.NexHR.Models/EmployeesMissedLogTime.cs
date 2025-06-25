@@ -9,5 +9,6 @@
         public bool IsLeader { get; set; }
         public int MissedCount { get; set; }
         public string ConversationId { get; set; }
+        public string DomainUsername { get; set; }
     }
 }

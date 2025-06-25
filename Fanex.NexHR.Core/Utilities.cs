@@ -18,7 +18,7 @@ public static class Utilities
     {
         get
         {
-            var date = DateTimeOffset.Now.DateTime;
+            var date = DateTimeOffset.Now.DateTime.ToClientTimeZone();
             var availableFromDate = new DateTimeOffset(date.AddMonths(-12).Year, date.AddMonths(-12).Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
             return availableFromDate;
         }
@@ -28,7 +28,7 @@ public static class Utilities
     {
         get
         {
-            var date = DateTimeOffset.Now.DateTime;
+            var date = DateTimeOffset.Now.DateTime.ToClientTimeZone();
             var availableToDate = new DateTimeOffset(date.AddMonths(4).Year, date.AddMonths(4).Month, 1, 0, 0, 0, TimeSpan.Zero).AddDays(-1).DateTime;
             return availableToDate;
         }

@@ -7,7 +7,7 @@
     ViewBag.Title = Labels.LateInEarlyOut;
     var teams = new SelectList(Model.Teams, "Id", "Name");
     var leaveDeductionViewModel = new LeaveDeductionViewModel {
-        DeductDate = DateTime.Now,
+        DeductDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
         TotalDays = decimal.Parse("0.5"),
         Description = Labels.LeaveDeductionDescription,
         IsAnnual = true
@@ -42,7 +42,7 @@
                                         <label asp-for="@Model.Year">@Labels.Year</label>
                                     </div>
                                     <div class="left select--xs year">
-                                        <select id="Year" name="Year" asp-items="@Extensions.YearPicker(2010, DateTime.Now.Year)"></select>
+                                        <select id="Year" name="Year" asp-items="@Extensions.YearPicker(2010, DateTimeOffset.Now.DateTime.ToClientTimeZone().Year)"></select>
                                     </div>
                                 </div>
                                 <div class="col m-r--l">

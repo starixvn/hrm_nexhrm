@@ -1,12 +1,13 @@
 ﻿namespace Fanex.NexHR.Models.Overtime
 {
     using System;
+    using Fanex.NexHR.Core;
 
     public class OvertimeRecord
     {
         public OvertimeRecord()
         {
-            Date = DateTimeOffset.Now.DateTime;
+            Date = DateTimeOffset.Now.DateTime.ToClientTimeZone();
             Hour = 1;
         }
 
@@ -19,7 +20,7 @@
         public string FullName { get; set; }
 
         public DateTime Date { get; set; }
-        
+
         public float Hour { get; set; }
 
         public float NexHour { get; set; }

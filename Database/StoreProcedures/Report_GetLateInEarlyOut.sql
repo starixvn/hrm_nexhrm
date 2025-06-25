@@ -1,9 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-ALTER PROCEDURE [dbo].[Report_GetLateInEarlyOut] @Year INT
+﻿CREATE OR ALTER PROCEDURE [dbo].[Report_GetLateInEarlyOut] @Year INT
 	,@GroupId INT = NULL
 	,@EmpId INT = NULL
 AS

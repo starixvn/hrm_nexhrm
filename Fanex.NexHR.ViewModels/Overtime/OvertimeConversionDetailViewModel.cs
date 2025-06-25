@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.ViewModels.Overtime
 {
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Models;
     using System;
     using System.Collections.Generic;
@@ -8,8 +9,8 @@
     {
         public OvertimeConversionDetailViewModel()
         {
-            this.FromDate = new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
-            this.ToDate = DateTimeOffset.Now.DateTime;
+            this.FromDate = new DateTimeOffset(DateTimeOffset.Now.DateTime.ToClientTimeZone().Year, DateTimeOffset.Now.DateTime.ToClientTimeZone().Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
+            this.ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone();
         }
         public int EmployeeId { get; set; }
 

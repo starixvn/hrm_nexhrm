@@ -28,7 +28,7 @@
                 </div>
                 <div class="card-body">
                     <form action="/report/totalworkinghour" id="form" method="post" novalidate="novalidate">
-                        <input type="hidden" id="DateTime-Now" name="DateTime-Now" value="@DateTime.Now.ToString("MMMM dd, yyyy")"/>
+                        <input type="hidden" id="DateTime-Now" name="DateTime-Now" value="@DateTimeOffset.Now.DateTime.ToClientTimeZone().ToString("MMMM dd, yyyy")" />
                         <div class="form form-stl-table">
                             <div class="row form-input">
                                 <div class="col m-r--l">
@@ -56,7 +56,7 @@
                                         <date-picker
                                             name="FromDate"
                                             min-date="new DateTime(2010, 01, 01)"
-                                            max-date="DateTime.Now"
+                                            max-date="DateTimeOffset.Now.DateTime.ToClientTimeZone()"
                                             value="Model.FromDate"
                                         >
                                         </date-picker>
@@ -71,7 +71,7 @@
                                         <date-picker
                                             name="ToDate"
                                             min-date="new DateTime(2010, 01, 01)"
-                                            max-date="DateTime.Now"
+                                            max-date="DateTimeOffset.Now.DateTime.ToClientTimeZone()"
                                             value="Model.ToDate"
                                         >
                                         </date-picker>

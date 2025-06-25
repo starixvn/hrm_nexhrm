@@ -1,8 +1,4 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-ALTER PROCEDURE [dbo].[Overtime_DeleteConversion]
+﻿CREATE OR ALTER PROCEDURE [dbo].[Overtime_DeleteConversion]
     @modifiedBy     INT
     ,@id            INT
     ,@errCode       INT             = 0 OUTPUT
@@ -92,7 +88,7 @@ BEGIN
         SET
             [Minutes]       = [Minutes] + @oldMinutes
             ,[ModifiedBy]   = @modifiedBy
-            ,[ModifiedDate] = GETDATE()
+            ,[ModifiedDate] = dbo.fnc_GetClientDateTime()
         WHERE [EmpId] = @empId
             AND [Year] >= @year;
         COMMIT TRANSACTION;

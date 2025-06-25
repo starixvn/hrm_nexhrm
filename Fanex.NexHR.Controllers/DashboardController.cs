@@ -93,8 +93,8 @@
         private async Task<EmployeeAttendanceViewModel> GetEmployeeAttendaneAsync()
             => new EmployeeAttendanceViewModel
             {
-                FromDate = DateTimeOffset.Now.DateTime,
-                ToDate = DateTimeOffset.Now.DateTime,
+                FromDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
+                ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                 GroupId = CurrentUser.TeamId,
                 DateOption = 0,
                 ExcludeUserDelete = true,
@@ -106,7 +106,7 @@
         {
             var criteria = new GetAllLatInEarlyOutNotificationCriteria
             {
-                Date = DateTimeOffset.Now.Date
+                Date = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date
             };
 
             return await lateinearlyoutService.GetAllEmployee(criteria);
@@ -116,7 +116,7 @@
         {
             var criteria = new GetBirthdayAndFirstWorkingdayCriteria
             {
-                OnDate = DateTimeOffset.Now.Date
+                OnDate = DateTimeOffset.Now.DateTime.ToClientTimeZone().Date
             };
 
             var lstEmployee = await employeeService.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
@@ -150,7 +150,7 @@
 
         public IActionResult LogtimeIssue(int issueId, string issueName)
         {
-            var today = DateTimeOffset.Now.DateTime;
+            var today = DateTimeOffset.Now.DateTime.ToClientTimeZone();
             var model = new LogTimeIssue
             {
                 IssueId = issueId,
@@ -173,7 +173,7 @@
                 ModelState.AddModelError("Hours", Labels.LogtimeHoursErrrorMessage);
             }
 
-            if (model.SpentOn.Date > DateTimeOffset.Now.Date)
+            if (model.SpentOn.Date > DateTimeOffset.Now.DateTime.ToClientTimeZone().Date)
             {
                 ModelState.AddModelError("SpentOn", Labels.SpentOnErrorMessage);
             }
@@ -213,7 +213,7 @@
                 Hours = issue.Hours,
                 Comments = issue.Comments,
                 Activity = issue.Activity,
-                CreatedDate = DateTimeOffset.Now.DateTime
+                CreatedDate = DateTimeOffset.Now.DateTime.ToClientTimeZone()
             };
 
             await baseService.ExecuteNonQueryAsync(criteria);
@@ -234,8 +234,8 @@
             {
                 ActorId = CurrentUser.Id,
                 Role = (short)Role.AssistantLeader,
-                FromDate = DateTimeOffset.Now.AddMonths(-3).DateTime,
-                ToDate = DateTimeOffset.Now.DateTime,
+                FromDate = DateTimeOffset.Now.AddMonths(-3).DateTime.ToClientTimeZone(),
+                ToDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
                 GroupId = null,
                 Status = 1,
                 ExcludeEmployeeId = CurrentUser.Id,
@@ -271,17 +271,18 @@
 
         public async Task<IActionResult> GetTeamWorkload()
         {
+            var today = DateTimeOffset.Now.DateTime.ToClientTimeZone();
             var criteria = new GetEmployeeWorkloadCriteria
             {
                 TeamId = CurrentUser.TeamId,
-                FromDate = new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
-                ToDate = DateTimeOffset.Now.Date
+                FromDate = new DateTimeOffset(today.Year, today.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
+                ToDate = today.Date
             };
             IList<Workload> listWorkload = await employeeService.GetWorkloadDefaultByTeam(criteria);
             await GetWorkloadByTeam(
                 listWorkload,
-                new DateTimeOffset(DateTimeOffset.Now.Year, DateTimeOffset.Now.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
-                DateTimeOffset.Now.Date.AddDays(-1));
+                new DateTimeOffset(today.Year, today.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime,
+                today.Date.AddDays(-1));
 
             return PartialView("_ListTeamWorkload", listWorkload);
         }

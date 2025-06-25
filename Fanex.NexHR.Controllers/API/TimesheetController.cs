@@ -7,15 +7,10 @@
     using Microsoft.AspNetCore.Mvc;
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class TimesheetController : ControllerBase
+    public class TimesheetController(
+        ITimeSheetService timeSheetService,
+        IBioWebApiService bioWebApiService) : ControllerBase
     {
-        private readonly ITimeSheetService timeSheetService;
-
-        public TimesheetController(ITimeSheetService timeSheetService)
-        {
-            this.timeSheetService = timeSheetService;
-        }
-
         [HttpGet]
         public async Task<IActionResult> ReminderReachedWorkingTime()
         {
@@ -26,7 +21,7 @@
         [HttpGet]
         public async Task<IActionResult> ImportDataFromBioStar()
         {
-            await timeSheetService.ImportDataFromBioStar();
+            await bioWebApiService.ImportTimeRecordAsync();
             return Ok();
         }
 

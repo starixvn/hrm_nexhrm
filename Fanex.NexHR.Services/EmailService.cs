@@ -7,6 +7,7 @@
     using System.Security.Cryptography.X509Certificates;
     using System.Text;
     using Core;
+    using Fanex.Logging;
     using Fanex.NexHR.Models.Core;
     using Interfaces;
 

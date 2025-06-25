@@ -1,15 +1,16 @@
-ALTER PROCEDURE [dbo].[Employee_GetById] @EmployeeId INT
+﻿CREATE OR ALTER PROCEDURE [dbo].[Employee_GetById] @EmployeeId INT
 AS
 /*
-    Created: 20160205@Quinn.Vo
-    Task: Get employee info by id
-    DB: NexHRM
+Created: 20160205@Quinn.Vo
+Task: Get employee info by id
+DB: NexHRM
+Original: 
 
-    Revisions:  
-	    20191206@Merlin.Le: Add PlaceOfBirth, ContactName, UserRelationship, ContactPhone, ContactAddress to table Employee
-	    20252602@Henry.Dinh: Add Management Grade
-        20250530@Tim: add Salary Group
-    Param's Explanation:
+Revisions:  
+	20191206@Merlin.Le: Add PlaceOfBirth, ContactName, UserRelationship, ContactPhone, ContactAddress to table Employee
+	20252602@Henry.Dinh: Add Management Grade
+Param's Explanation:
+
 */
 BEGIN
     SET NOCOUNT ON;
@@ -20,7 +21,7 @@ BEGIN
         ,@SubGroup VARCHAR(50)
 		,@Approvers VARCHAR(255)
 
-    SET @Today = GETDATE()
+    SET @Today = dbo.fnc_GetClientDateTime()
 
     SELECT @AnnualLeaveBalance = SUM(CreditDays) - SUM(DeductDays)
     FROM dbo.LeaveTrans WITH (NOLOCK)
@@ -72,16 +73,16 @@ BEGIN
         ,@SubGroup AS SubGroups
 		,gra.JobGradeId
 		,gra.Code AS JobGradeCode
-		,gra.[Name] AS JobGradeName
-		,gra.[Description]
+		,gra.Name AS JobGradeName
+		,gra.Description
 		,gra.AffectedDate
 		,gra.Note
         ,mgra.ManagementGradeId
 		,mgra.Code AS ManagementGradeCode
-		,mgra.[Name] AS ManagementGradeName
-		,mgra.[Description] AS ManagementDescription
+		,mgra.Name AS ManagementGradeName
+		,mgra.Description AS ManagementDescription
 		,mgra.AffectedDate AS ManagementAffectedDate
-		,mgra.Note AS ManagementNote        
+		,mgra.Note AS ManagementNote
         ,e.SalaryGroupId
 		,e.SocialInsuranceNo
         ,e.[CreatedDate]
@@ -108,19 +109,19 @@ BEGIN
 		,[ContactPhone]
 		,[ContactAddress]
         ,ISNULL([MonShift], 0) AS MonShiftId
-        ,ISNULL(sh2.[Name], 'Off') AS MonShiftName
+        ,ISNULL(sh2.NAME, 'Off') AS MonShiftName
         ,ISNULL([TueShift], 0) AS TueShiftId
-        ,ISNULL(sh3.[Name], 'Off') AS TueShiftName
+        ,ISNULL(sh3.NAME, 'Off') AS TueShiftName
         ,ISNULL([WedShift], 0) AS WedShiftId
-        ,ISNULL(sh4.[Name], 'Off') AS WedShiftName
+        ,ISNULL(sh4.NAME, 'Off') AS WedShiftName
         ,ISNULL([ThuShift], 0) AS ThuShiftId
-        ,ISNULL(sh5.[Name], 'Off') AS ThuShiftName
+        ,ISNULL(sh5.NAME, 'Off') AS ThuShiftName
         ,ISNULL([FriShift], 0) AS FriShiftId
-        ,ISNULL(sh6.[Name], 'Off') AS FriShiftName
+        ,ISNULL(sh6.NAME, 'Off') AS FriShiftName
         ,ISNULL([SatShift], 0) AS SatShiftId
-        ,ISNULL(sh7.[Name], 'Off') AS SatShiftName
+        ,ISNULL(sh7.NAME, 'Off') AS SatShiftName
         ,ISNULL([SunShift], 0) AS SunShiftId
-        ,ISNULL(sh8.[Name], 'Off') AS SunShiftName
+        ,ISNULL(sh8.NAME, 'Off') AS SunShiftName
         ,LRExamDate
         ,Listening
         ,OldListening
@@ -134,7 +135,7 @@ BEGIN
         ,InputDate
         ,ISNULL(GroupId, 0) AS GroupId
         ,g.Code
-        ,g.[Name]
+        ,g.NAME
         ,ISNULL(e.JobTitleId, 0) AS JobTitleId
         ,jt.[Name]
     FROM dbo.Employee AS e WITH (NOLOCK)
@@ -151,32 +152,33 @@ BEGIN
         LEFT JOIN dbo.[Shift] AS sh8 WITH (NOLOCK) ON es.SunShift = sh8.Id
 		LEFT JOIN (
 			SELECT ejg.EmpId
-			    ,ejg.AffectedDate
-			    ,ejg.Note
-			    ,jg.JobGradeId
-			    ,jg.Code
-			    ,jg.[Name]
-			    ,jg.[Description]
-			FROM HRM.dbo.EmployeeJobGrade as ejg  WITH (NOLOCK)
-			    INNER JOIN HRM.dbo.JobGrade as jg WITH (NOLOCK) on ejg.JobGradeId = jg.JobGradeId
-			WHERE ejg.EmpId = @EmployeeId 
-			    AND ejg.IsCurrentUsed = 1
-			    AND ISNULL(ejg.IsDeleted,0) = 0
+			,ejg.AffectedDate
+			,ejg.Note
+			,jg.JobGradeId
+			,jg.Code
+			,jg.Name
+			,jg.Description
+			  FROM HRM.dbo.EmployeeJobGrade as ejg  WITH (NOLOCK)
+			  INNER JOIN HRM.dbo.JobGrade as jg WITH (NOLOCK) on ejg.JobGradeId = jg.JobGradeId
+			  WHERE ejg.EmpId = @EmployeeId 
+			  AND ejg.IsCurrentUsed = 1
+			  AND ISNULL(ejg.IsDeleted,0) = 0
 		) AS gra ON e.Id = gra.EmpId
 		LEFT JOIN (
 			SELECT emg.EmpId
-			    ,emg.AffectedDate
-			    ,emg.Note
-			    ,mg.ManagementGradeId
-			    ,mg.Code
-			    ,mg.[Name]
-			    ,mg.[Description]
-			FROM HRM.dbo.EmployeeManagementGrade as emg  WITH (NOLOCK)
-			    INNER JOIN HRM.dbo.ManagementGrade as mg WITH (NOLOCK) on emg.ManagementGradeId = mg.ManagementGradeId
-			WHERE emg.EmpId = @EmployeeId 
-			    AND emg.IsCurrentUsed = 1
-			    AND ISNULL(emg.IsDeleted,0) = 0
+			,emg.AffectedDate
+			,emg.Note
+			,mg.ManagementGradeId
+			,mg.Code
+			,mg.Name
+			,mg.Description
+			  FROM HRM.dbo.EmployeeManagementGrade as emg  WITH (NOLOCK)
+			  INNER JOIN HRM.dbo.ManagementGrade as mg WITH (NOLOCK) on emg.ManagementGradeId = mg.ManagementGradeId
+			  WHERE emg.EmpId = @EmployeeId 
+			  AND emg.IsCurrentUsed = 1
+			  AND ISNULL(emg.IsDeleted,0) = 0
 		) AS mgra ON e.Id = mgra.EmpId
 
     WHERE e.Id = @EmployeeId
 END
+GO
