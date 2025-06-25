@@ -1,4 +1,4 @@
-﻿CREATE OR ALTER PROCEDURE [dbo].[EmployeeGroup_Get] 
+﻿CREATE OR ALTER   PROCEDURE [dbo].[EmployeeGroup_Get] 
     @FromDate DATETIME = NULL
 AS
 /*
@@ -23,8 +23,6 @@ BEGIN
     CASE WHEN g.ModifiedDate IS NULL THEN g.CreatedDate ELSE g.ModifiedDate END AS ModifiedDate
     FROM dbo.EmployeeGroup AS g WITH (NOLOCK)
     WHERE (@FromDate IS NULL
-    OR g.ModifiedDate > @FromDate)
+    OR ISNULL(g.ModifiedDate, g.CreatedDate) > @FromDate)
 	AND g.IsSpecialTeam = 0
 END
-
-GO
