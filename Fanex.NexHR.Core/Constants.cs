@@ -63,5 +63,8 @@
         public const int TrainingOrganizationLength = 200;
         public const int TrainingDescriptionLength = 500;
         public const int TrainingConductedByLength = 100;
+
+        public const string Fnb_Client = "FnbClient";
+        public const string Application_Json = "application/json";
     }
 }

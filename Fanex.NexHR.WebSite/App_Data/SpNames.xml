@@ -9,6 +9,7 @@
         </Setting>
         <Setting Key="Employee_GetStaffInfo" SpName="Employee_GetStaffInfo" DbName="nexhr" Plain="0"></Setting>
         <Setting Key="Employee_GetGeoMapEmployee" SpName="Employee_GetGeoMapEmployee" DbName="nexhr" Plain="0"></Setting>
+	    <Setting Key="EmployeeConversation_ByAvailableList_Get" SpName="EmployeeConversation_ByAvailableList_Get" DbName="nexhr" Plain="0"></Setting>
 
         <Setting Key="Employee_GetById" SpName="Employee_GetById" DbName="nexhr" Plain="0">
             <Mapping DataField="DOB" ObjectProperty="DateOfBirth" />

@@ -13,18 +13,21 @@
         private readonly IBotAutoJobService botService;
         private readonly IBotLateInLateOutAutoJobService botLateInLateOut;
         private readonly IBotLogTimeRemindService botLogTime;
+        private readonly IBotMealService botMealService;
 
         public ReminderController(
             IMailBirthdayAndFirstWorkingdayReminderService mailReminderService,
             IBotLateInLateOutAutoJobService botLateInLateOut,
             IBotAutoJobService botService,
-            IBotLogTimeRemindService botLogTime
+            IBotLogTimeRemindService botLogTime,
+            IBotMealService botMealService
         )
         {
             this.mailReminderService = mailReminderService;
             this.botLateInLateOut = botLateInLateOut;
             this.botService = botService;
             this.botLogTime = botLogTime;
+            this.botMealService = botMealService;
         }
 
         [HttpPost]
@@ -54,6 +57,13 @@
         {
             var result = await botLogTime.SendMessageLogTimeRemindAsync().ConfigureAwait(false);
             return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendRemindCancelMeal()
+        {
+            await botMealService.SendCancelMealMessage();
+            return Ok();
         }
     }
 }
