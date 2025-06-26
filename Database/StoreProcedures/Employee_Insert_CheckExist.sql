@@ -1,11 +1,10 @@
-ALTER   PROCEDURE [dbo].[Employee_Insert_CheckExist] @Nickname NVARCHAR(20)
+CREATE OR ALTER PROCEDURE [dbo].[Employee_Insert_CheckExist] @Nickname NVARCHAR(20)
 	,@Code VARCHAR(20)
 AS
 /*
 Created: 20250306@Tim
 Task: check code, nickname available
 DB: HRM
-Original:
 
 Revisions:
     20250306@Tim: initial - [Redmine: #217976]
@@ -14,7 +13,10 @@ BEGIN
 	SET NOCOUNT ON;
 
 	DECLARE @CompanyId INT
-	SELECT @CompanyId = [Value] FROM NexHRM_bk.dbo.SystemSetting WITH (NOLOCK) WHERE [Name] = 'CompanyId'
+
+	SELECT @CompanyId = [Value]
+    FROM NexHRM.dbo.SystemSetting WITH (NOLOCK)
+    WHERE [Name] = 'CompanyId'
 
 	DECLARE @EmpId_exist INT
 		,@Nickname_exist NVARCHAR(20)
@@ -23,8 +25,8 @@ BEGIN
 	SELECT TOP 1 @EmpId_exist = e.EmpId
 		,@FullName_exist = FullName
 		,@Nickname_exist = Nickname
-	FROM bodb_HRM_bk.dbo.Employee AS e WITH (NOLOCK)
-		INNER JOIN bodb_HRM_bk.dbo.CompanyEmployee AS ce WITH (NOLOCK) ON ce.EmpId = e.EmpId 
+	FROM bodb_HRM.dbo.Employee AS e WITH (NOLOCK)
+		INNER JOIN bodb_HRM.dbo.CompanyEmployee AS ce WITH (NOLOCK) ON ce.EmpId = e.EmpId 
 	WHERE Code = @Code
 		AND ce.CompanyId = @CompanyId
 
@@ -39,8 +41,8 @@ BEGIN
 	SELECT TOP 1 @EmpId_exist = e.EmpId
 		,@FullName_exist = FullName
 		,@Nickname_exist = Nickname
-	FROM bodb_HRM_bk.dbo.Employee AS e WITH (NOLOCK)
-		INNER JOIN bodb_HRM_bk.dbo.CompanyEmployee AS ce WITH (NOLOCK) ON ce.EmpId = E.EmpId 
+	FROM bodb_HRM.dbo.Employee AS e WITH (NOLOCK)
+		INNER JOIN bodb_HRM.dbo.CompanyEmployee AS ce WITH (NOLOCK) ON ce.EmpId = E.EmpId 
 	WHERE NickName = @Nickname
 		AND ce.CompanyId = @CompanyId
 		AND (
