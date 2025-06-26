@@ -44,10 +44,10 @@ BEGIN
     INNER JOIN dbo.SystemSetting AS ss WITH (NOLOCK) ON ss.Name = 'MGTHeadCode'
     WHERE e.Code = ss.Value
 
-	SELECT @HRGroupId = MAX(CASE WHEN ss.Name = 'HRTeamCode' THEN gs.GroupId END)
-	FROM bodb_HRM.dbo.GroupSetting as gs WITH (NOLOCK)
-	INNER JOIN dbo.SystemSetting ss WITH (NOLOCK) ON ss.Name = 'HRTeamCode'
-	WHERE gs.OldGroupCode = ss.Value
+	SELECT @HRGroupId = MAX(CASE WHEN ss.Name = 'HRTeamId' THEN g.Id END)
+	FROM dbo.SystemSetting ss WITH (NOLOCK)
+	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
+	WHERE ss.Name = 'HRTeamId'
 
 	SELECT @annualLeaveType = 2
 		,@callInLeaveType = 30

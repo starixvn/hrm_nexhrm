@@ -21,14 +21,14 @@ BEGIN
 	@FinanceId INT,
 	@MGTId INT;
 
-	SELECT @HRTeamId = MAX(CASE WHEN ss.Name = 'HRTeamCode' THEN gs.GroupId END),
-		@ITTeamId = MAX(CASE WHEN ss.Name = 'ITNetWorkCode' THEN gs.GroupId END),
-		@ExpId = MAX(CASE WHEN ss.Name = 'EXPCode' THEN gs.GroupId END),
-		@FinanceId = MAX(CASE WHEN ss.Name = 'FACode' THEN gs.GroupId END),
-		@MGTId = MAX(CASE WHEN ss.Name = 'CoreTeamCode' THEN gs.GroupId END)
-	FROM bodb_HRM.dbo.GroupSetting as gs WITH (NOLOCK)
-	INNER JOIN dbo.SystemSetting ss WITH (NOLOCK) ON ss.Name IN ('HRTeamCode', 'ITNetWorkCode', 'EXPCode', 'FACode', 'CoreTeamCode')
-	WHERE gs.OldGroupCode = ss.Value
+	SELECT @HRTeamId = MAX(CASE WHEN ss.Name = 'HRTeamId' THEN g.Id END),
+		@ITTeamId = MAX(CASE WHEN ss.Name = 'ITNetWorkTeamId' THEN g.Id END),
+		@ExpId = MAX(CASE WHEN ss.Name = 'EXPTeamId' THEN g.Id END),
+		@FinanceId = MAX(CASE WHEN ss.Name = 'FATeamId' THEN g.Id END),
+		@MGTId = MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END)
+	FROM dbo.SystemSetting ss WITH (NOLOCK)
+	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
+	WHERE ss.Name IN ('HRTeamId', 'ITNetWorkTeamId', 'EXPTeamId', 'FATeamId', 'CoreTeamId')
 
 		
 			IF EXISTS (SELECT 1 FROM [dbo].[Employee] WITH (NOLOCK) WHERE Id = @employeeId

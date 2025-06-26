@@ -14,10 +14,10 @@ BEGIN
     SET NOCOUNT ON;
 
 	DECLARE @CoreTeamId INT
-	SELECT @CoreTeamId = GroupId 
-	FROM bodb_HRM.dbo.GroupSetting as gs WITH (NOLOCK)
-	INNER JOIN dbo.SystemSetting ss WITH (NOLOCK) ON ss.Name = 'CoreTeamCode'
-	WHERE gs.OldGroupCode = ss.Value
+	SELECT @CoreTeamId = g.Id
+	FROM dbo.SystemSetting ss WITH (NOLOCK)
+	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
+	WHERE ss.Name = 'CoreTeamId'
 
     SELECT DISTINCT e.Id AS EmpId
         ,e.NickName

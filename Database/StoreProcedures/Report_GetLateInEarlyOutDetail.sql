@@ -21,11 +21,11 @@ BEGIN
 
     DECLARE @CoreTeamId INT;
     DECLARE @ExpId INT;
-    SELECT @ExpId = MAX(CASE WHEN ss.Name = 'EXPCode' THEN gs.GroupId END),
-        @CoreTeamId = MAX(CASE WHEN ss.Name = 'CoreTeamCode' THEN gs.GroupId END)
-    FROM bodb_HRM.dbo.GroupSetting as gs WITH (NOLOCK)
-    INNER JOIN dbo.SystemSetting ss WITH (NOLOCK) ON ss.Name IN ('EXPCode', 'CoreTeamCode')
-    WHERE gs.OldGroupCode = ss.Value
+    SELECT @ExpId = MAX(CASE WHEN ss.Name = 'EXPTeamId' THEN g.Id END),
+        @CoreTeamId = MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END)
+    FROM dbo.SystemSetting ss WITH (NOLOCK)
+    INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
+    WHERE ss.Name IN ('EXPTeamId', 'CoreTeamId')
 
     SELECT 
         la.WorkDate

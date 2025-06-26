@@ -27,10 +27,10 @@ BEGIN
         ,@ApprovedStatus	INT = 2
 		,@CoreTeamId INT;
 
-	SELECT @CoreTeamId = gs.GroupId
-	FROM bodb_HRM.dbo.GroupSetting as gs WITH (NOLOCK)
-	INNER JOIN dbo.SystemSetting ss WITH (NOLOCK) ON ss.Name = 'CoreTeamCode'
-	WHERE gs.OldGroupCode = ss.Value
+	SELECT @CoreTeamId = g.Id
+	FROM dbo.SystemSetting ss WITH (NOLOCK)
+	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
+	WHERE ss.Name = 'CoreTeamId'
 
 	IF (
 		NOT EXISTS (

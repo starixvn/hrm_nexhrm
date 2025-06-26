@@ -12,10 +12,10 @@ AS
 */
 BEGIN
     DECLARE @CoreTeamId INT;
-	SELECT @CoreTeamId = MAX(CASE WHEN ss.Name = 'CoreTeamCode' THEN gs.GroupId END)
-	FROM bodb_HRM.dbo.GroupSetting as gs WITH (NOLOCK)
-	INNER JOIN dbo.SystemSetting ss WITH (NOLOCK) ON ss.Name = 'CoreTeamCode'
-	WHERE gs.OldGroupCode = ss.Value
+	SELECT @CoreTeamId = MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END)
+	FROM dbo.SystemSetting ss WITH (NOLOCK)
+	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
+	WHERE ss.Name = 'CoreTeamId'
 
     SELECT e.ID
         ,e.NickName

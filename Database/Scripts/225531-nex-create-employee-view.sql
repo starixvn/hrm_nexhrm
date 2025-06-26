@@ -43,6 +43,7 @@ AS
 SELECT 
 		g.GroupId as Id
     ,g.OldGroupId as OldId
+    ,g.GroupTeamId
       ,g.Code
       ,g.Name
       ,g.DepartmentId
