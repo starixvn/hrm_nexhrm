@@ -1,7 +1,7 @@
 USE [NexHRM]
 GO
 
-CREATE OR ALTER PROCEDURE [dbo].[EmployeeConversation_ByAvailableList_Get]
+CREATE OR ALTER   PROCEDURE [dbo].[EmployeeConversation_ByAvailableList_Get]
 	@EmployeeJson NVARCHAR(MAX),
 	@OnDate DATETIME
 AS
@@ -16,8 +16,6 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-	DECLARE @CompanyId INT = (SELECT Value from SystemSetting WHERE [Name] = 'CompanyId')
-	
 	DECLARE @TempEmployeeConversation TABLE (
 		EmpId INT,
 		SysId INT,
@@ -43,11 +41,14 @@ BEGIN
 		tec.SysId,
 		tec.NickName,
 		ec.ConversationId,
-		@OnDate AS OnDate
+		@OnDate AS OnDate,
+		tec.CompanyId
 	FROM Employee e
-	INNER JOIN @TempEmployeeConversation tec ON e.OldId = tec.EmpId AND e.CompanyId = tec.CompanyId
+	INNER JOIN @TempEmployeeConversation tec ON e.OldId = tec.EmpId
 	INNER JOIN EmployeeConversation ec ON ec.EmpId = e.Id
-	WHERE e.CompanyId = @CompanyId
+	WHERE e.IsSpecialUser = 0 
+		AND e.isDeleted = 0
+		AND e.[Enabled] = 1
 
 END
 GO
@@ -55,7 +56,7 @@ GO
 USE [LumiHRM]
 GO
 
-CREATE OR ALTER PROCEDURE [dbo].[EmployeeConversation_ByAvailableList_Get]
+CREATE OR ALTER   PROCEDURE [dbo].[EmployeeConversation_ByAvailableList_Get]
 	@EmployeeJson NVARCHAR(MAX),
 	@OnDate DATETIME
 AS
@@ -70,8 +71,6 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-	DECLARE @CompanyId INT = (SELECT Value from SystemSetting WHERE [Name] = 'CompanyId')
-	
 	DECLARE @TempEmployeeConversation TABLE (
 		EmpId INT,
 		SysId INT,
@@ -97,11 +96,14 @@ BEGIN
 		tec.SysId,
 		tec.NickName,
 		ec.ConversationId,
-		@OnDate AS OnDate
+		@OnDate AS OnDate,
+		tec.CompanyId
 	FROM Employee e
-	INNER JOIN @TempEmployeeConversation tec ON e.OldId = tec.EmpId AND e.CompanyId = tec.CompanyId
+	INNER JOIN @TempEmployeeConversation tec ON e.OldId = tec.EmpId
 	INNER JOIN EmployeeConversation ec ON ec.EmpId = e.Id
-	WHERE e.CompanyId = @CompanyId
+	WHERE e.IsSpecialUser = 0 
+		AND e.isDeleted = 0
+		AND e.[Enabled] = 1
 
 END
 GO
