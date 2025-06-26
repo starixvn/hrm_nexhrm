@@ -37,7 +37,6 @@ public class BotMealService(IHolidayService holidayService,
             OnDate = validDate.Value
         };
         var employeeConversations = await baseService.GetDataAsync<EmployeeMealModel>(employeeConversationCriteria);
-        employeeConversations = employeeConversations.Where(e => e.NickName == "Henry" || e.NickName == "Hank" || e.NickName == "George").ToList();
         if (employeeConversations.Any())
         {
             await SendMessagesByBatches(employeeConversations);
