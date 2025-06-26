@@ -21,6 +21,21 @@ BEGIN
 
 	DECLARE @IsNotShow BIT = 0
 
+	DECLARE @HRTeamId INT,
+	@ITTeamId INT,
+	@ExpId INT,
+	@FinanceId INT,
+	@MGTId INT;
+
+	SELECT @HRTeamId = MAX(CASE WHEN ss.Name = 'HRTeamId' THEN g.Id END),
+		@ITTeamId = MAX(CASE WHEN ss.Name = 'ITNetWorkTeamId' THEN g.Id END),
+		@ExpId = MAX(CASE WHEN ss.Name = 'EXPTeamId' THEN g.Id END),
+		@FinanceId = MAX(CASE WHEN ss.Name = 'FATeamId' THEN g.Id END),
+		@MGTId = MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END)
+	FROM dbo.SystemSetting ss WITH (NOLOCK)
+	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
+	WHERE ss.Name IN ('HRTeamId', 'ITNetWorkTeamId', 'EXPTeamId', 'FATeamId', 'CoreTeamId')
+
 	IF(
 		EXISTS (
 			SELECT 1 FROM 
@@ -31,7 +46,7 @@ BEGIN
 					(e.Roles LIKE '%2%'
 						OR e.Roles LIKE '%3%'
 						OR e.Roles LIKE '%4%'
-						OR g.Id IN (select GroupId FROM GroupSetting)
+						OR g.Id IN (@HRTeamId, @ITTeamId, @ExpId, @FinanceId, @MGTId)
 					)
 		)
 	)
