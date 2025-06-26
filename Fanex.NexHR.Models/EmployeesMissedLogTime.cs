@@ -3,6 +3,7 @@
     public class EmployeesMissedLogTime
     {
         public string TeamCode { get; set; }
+        public int GroupTeamId { get; set; }
         public int EmpID { get; set; }
         public string Code { get; set; }
         public string NickName { get; set; }

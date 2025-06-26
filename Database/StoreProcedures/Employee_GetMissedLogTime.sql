@@ -71,6 +71,7 @@ BEGIN
     )
     SELECT DISTINCT
         eg.Code AS TeamCode,
+		eg.GroupTeamId,
         e.Id AS EmpID,
         e.NickName,
 		e.Code,
