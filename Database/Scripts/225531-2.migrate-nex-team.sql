@@ -90,8 +90,8 @@ FROM
         -- LumiHRM Rad
         ('NX5', 'RAID - NX', 'LumiHRM', 'XX55', N'RAID NX', NULL, 0),
         -- Deleted Group
-        ('DL1', 'Deleted Group Nexcel', 'NexHRM', 'NX66', N'NX Deleted Group Nexcel', NULL, 1),
-        ('DL2', 'Deleted Group Lumiplus', 'LumiHRM', 'NX69', N'NX Deleted Group Lumiplus', NULL, 1),
+        ('Other', 'Other', 'NexHRM', 'NX66', N'NX Other', NULL, 0),
+        ('Other', 'Other', 'LumiHRM', 'NX69', N'NX Other', NULL, 0),
     ) AS s (Code, Name, Company, DeptCode, AccountableArea, OldGroupId, IsDeleted)
 JOIN 
     [bodb_HRM].[dbo].[Department] d 

@@ -107,8 +107,8 @@ VALUES
 
 DECLARE @DeletedGroupNexcel INT;
 DECLARE @DeletedGroupLumiplus INT;
-SELECT @DeletedGroupNexcel = GroupId FROM [bodb_HRM].[dbo].[Group] WITH (NOLOCK) WHERE Name = 'Deleted Group Nexcel' AND CompanyId = 1;
-SELECT @DeletedGroupLumiplus = GroupId FROM [bodb_HRM].[dbo].[Group] WITH (NOLOCK) WHERE Name = 'Deleted Group Lumiplus' AND CompanyId = 2;
+SELECT @DeletedGroupNexcel = GroupId FROM [bodb_HRM].[dbo].[Group] WITH (NOLOCK) WHERE Name = 'Other' AND CompanyId = 1;
+SELECT @DeletedGroupLumiplus = GroupId FROM [bodb_HRM].[dbo].[Group] WITH (NOLOCK) WHERE Name = 'Other' AND CompanyId = 2;
 
 -- Insert data from NexHRM (CompanyId = 1)
 INSERT INTO #TempCompanyEmployee
