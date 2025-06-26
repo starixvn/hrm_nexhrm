@@ -12,6 +12,7 @@
         public string IgnoreTeamLogTime { get; set; }
         public string IgnoreJobTitleLogTime { get; set; }
         public string IgnoreEmployeeLogTime { get; set; }
+        public string IgnoreShowLeaveRequest { get; set; }
         public string RedmineBaseUrl { get; set; }
         public string RedmineDisplayUrl { get; set; }
         public string RedmineSecret { get; set; }

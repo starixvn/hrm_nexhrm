@@ -44,7 +44,7 @@ BEGIN
 		@OnDate AS OnDate,
 		tec.CompanyId
 	FROM Employee e
-	INNER JOIN @TempEmployeeConversation tec ON e.OldId = tec.EmpId
+	INNER JOIN @TempEmployeeConversation tec ON e.Id = tec.EmpId
 	INNER JOIN EmployeeConversation ec ON ec.EmpId = e.Id
 	WHERE e.IsSpecialUser = 0 
 		AND e.isDeleted = 0

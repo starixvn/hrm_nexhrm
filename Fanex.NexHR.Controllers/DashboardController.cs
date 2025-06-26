@@ -87,7 +87,9 @@
             {
                 EmpId = CurrentUser.Id
             };
-            return await employeeService.GetMySpace(getMySpaceCriteria);
+            var model = await employeeService.GetMySpace(getMySpaceCriteria);
+            model.IgnoreShowLeaveRequest = appSetting.IgnoreShowLeaveRequest;
+            return model;
         }
 
         private async Task<EmployeeAttendanceViewModel> GetEmployeeAttendaneAsync()
