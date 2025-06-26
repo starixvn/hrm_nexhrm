@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 namespace Fanex.NexHR.Services.AutoJobService;
 
-public class BotMealService(IHolidayService holidayService, 
+public class BotMealService(IHolidayService holidayService,
     IHttpClientFactory httpClientFactory,
     AppSetting setting,
     IBaseService baseService,
@@ -37,7 +37,7 @@ public class BotMealService(IHolidayService holidayService,
             OnDate = validDate.Value
         };
         var employeeConversations = await baseService.GetDataAsync<EmployeeMealModel>(employeeConversationCriteria);
-
+        employeeConversations = employeeConversations.Where(e => e.NickName == "Henry" || e.NickName == "Hank").ToList();
         if (employeeConversations.Any())
         {
             await SendMessagesByBatches(employeeConversations);
