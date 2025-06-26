@@ -17,7 +17,7 @@ public class AvatarController(
     public async Task<IActionResult> Avatar(string id)
     {
         var avatarUrl = await FileHelpers.GetAvatar(id);
-        return Content(avatarUrl, "text/plain");
+        return Redirect(avatarUrl);
     }
 
     [AllowAnonymous]
@@ -27,10 +27,13 @@ public class AvatarController(
         var index = imgNickName.LastIndexOf('.');
         var nickName = imgNickName.EndsWith(".jpg") ? imgNickName[..index] : imgNickName;
         var domainName = $"{appSetting.DomainName}{nickName}";
-        var employee = await employeeService.GetEmployeeByDomainName(new GetEmployeeByDomainNameCriteria
-        { DomainUserName = domainName });
+        var criteria = new GetEmployeeByDomainNameCriteria
+        {
+            DomainUserName = domainName
+        };
+        var employee = await employeeService.GetEmployeeByDomainName(criteria);
 
         var avatarUrl = await FileHelpers.GetAvatar(employee?.Code);
-        return Content(avatarUrl, "text/plain");
+        return Redirect(avatarUrl);
     }
 }
