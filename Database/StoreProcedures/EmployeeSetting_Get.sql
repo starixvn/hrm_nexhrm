@@ -19,20 +19,21 @@ BEGIN
 	@ITTeamId INT,
 	@ExpId INT,
 	@FinanceId INT,
-	@MGTId INT;
+	@MGTId INT,
+	@CEOTeamId INT;
 
-	SELECT @HRTeamId = MAX(CASE WHEN ss.Name = 'HRTeamId' THEN g.Id END),
-		@ITTeamId = MAX(CASE WHEN ss.Name = 'ITNetWorkTeamId' THEN g.Id END),
-		@ExpId = MAX(CASE WHEN ss.Name = 'EXPTeamId' THEN g.Id END),
-		@FinanceId = MAX(CASE WHEN ss.Name = 'FATeamId' THEN g.Id END),
-		@MGTId = MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END)
+	SELECT @HRTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'HRTeamId' THEN g.Id END), 0),
+		@ITTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'ITNetWorkTeamId' THEN g.Id END), 0),
+		@ExpId = ISNULL(MAX(CASE WHEN ss.Name = 'EXPTeamId' THEN g.Id END), 0),
+		@FinanceId = ISNULL(MAX(CASE WHEN ss.Name = 'FATeamId' THEN g.Id END), 0),
+		@MGTId = ISNULL(MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END), 0),
+		@CEOTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CEOTeamId' THEN g.Id END), 0)
 	FROM dbo.SystemSetting ss WITH (NOLOCK)
 	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
 	WHERE ss.Name IN ('HRTeamId', 'ITNetWorkTeamId', 'EXPTeamId', 'FATeamId', 'CoreTeamId')
 
-		
-			IF EXISTS (SELECT 1 FROM [dbo].[Employee] WITH (NOLOCK) WHERE Id = @employeeId
-				AND (GroupId IN (@ExpId, @FinanceId, @HRTeamId, @ITTeamId, @MGTId) OR CompanyId = 2)
+		IF EXISTS (SELECT 1 FROM [dbo].[Employee] WITH (NOLOCK) WHERE Id = @employeeId
+			AND (GroupId IN (@ExpId, @FinanceId, @HRTeamId, @ITTeamId, @MGTId, @CEOTeamId) OR CompanyId = 2)
 			)
 			BEGIN
 				SELECT @employeeId AS [EmpId]

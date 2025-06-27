@@ -30,12 +30,14 @@ BEGIN
     DECLARE @RequestTypeId TABLE (RequestType INT)
 	DECLARE @LeaderOfStandbyTeam INT,
 		@StandByTeam VARCHAR(50)
-		,@CoreTeamId INT;
+		,@CoreTeamId INT = 0,
+        @CEOTeamId INT = 0;
 
-	SELECT @CoreTeamId = MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END)
+	SELECT @CoreTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END), 0),
+        @CEOTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CEOTeamId' THEN g.Id END), 0)
 	FROM dbo.SystemSetting ss WITH (NOLOCK)
 	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
-	WHERE ss.Name = 'CoreTeamId'
+	WHERE ss.Name IN ('CoreTeamId', 'CEOTeamId')
 
 	SELECT @LeaderOfStandbyTeam = e.Id FROM dbo.Employee AS e WITH (NOLOCK)
 	INNER JOIN dbo.SystemSetting AS st WITH (NOLOCK) ON e.Id = st.Value AND st.Name = 'LeaderOfStandbyTeam'
@@ -84,7 +86,7 @@ BEGIN
                 FROM [dbo].[Employee] AS e WITH (NOLOCK)
 				INNER JOIN dbo.EmployeeGroup AS g WITH (NOLOCK) ON e.GroupId = g.Id
                 WHERE e.ID = @excludedEmpID
-                    AND g.Id = @CoreTeamId
+                    AND g.Id IN (@CoreTeamId, @CEOTeamId)
                 )
             )
     BEGIN

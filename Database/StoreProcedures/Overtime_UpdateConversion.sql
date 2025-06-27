@@ -30,10 +30,10 @@ BEGIN
         ,@oldMinutes        INT
 
 
-    DECLARE @HRTeamId INT;
-	DECLARE @CoreTeamId INT;
-	SELECT @HRTeamId = MAX(CASE WHEN ss.Name = 'HRTeamId' THEN g.Id END),
-		@CoreTeamId = MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END)
+    DECLARE @HRTeamId INT = 0;
+	DECLARE @CoreTeamId INT = 0;
+	SELECT @HRTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'HRTeamId' THEN g.Id END), 0),
+		@CoreTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END), 0)
 	FROM dbo.SystemSetting ss WITH (NOLOCK)
 	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
 	WHERE ss.Name IN ('HRTeamId', 'CoreTeamId')

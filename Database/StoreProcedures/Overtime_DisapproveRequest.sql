@@ -25,7 +25,7 @@ BEGIN
     DECLARE
         @PendingStatus     INT = 1
         ,@ApprovedStatus	INT = 2
-		,@CoreTeamId INT;
+		,@CoreTeamId INT = 0;
 
 	SELECT @CoreTeamId = g.Id
 	FROM dbo.SystemSetting ss WITH (NOLOCK)

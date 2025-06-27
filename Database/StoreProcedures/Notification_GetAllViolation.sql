@@ -5,11 +5,13 @@ BEGIN
 
 	DECLARE @CoreTeamId INT;
 	DECLARE @ExpId INT;
-	SELECT @ExpId = MAX(CASE WHEN ss.Name = 'EXPTeamId' THEN g.Id END),
-		@CoreTeamId = MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END)
+	DECLARE @CEOTeamId INT;
+	SELECT @ExpId = ISNULL(MAX(CASE WHEN ss.Name = 'EXPTeamId' THEN g.Id END), 0),
+		@CoreTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END), 0),
+		@CEOTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CEOTeamId' THEN g.Id END), 0)
 	FROM dbo.SystemSetting ss WITH (NOLOCK)
 	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
-	WHERE ss.Name IN ('EXPTeamId', 'CoreTeamId')
+	WHERE ss.Name IN ('EXPTeamId', 'CoreTeamId', 'CEOTeamId')
 
 	IF OBJECT_ID('#LateinEarlyOutViolationInYear') IS NOT NULL
 	BEGIN
@@ -72,7 +74,7 @@ IF OBJECT_ID('#LateInEarlyOutSummary') IS NOT NULL
 		,COUNT(*)
 	FROM dbo.LateInEarlyOutTrans AS tr WITH (NOLOCK)
 		INNER JOIN dbo.Employee AS e WITH (NOLOCK) ON tr.EmpId = e.Id
-		AND e.GroupId NOT IN (@CoreTeamId, @ExpId) -- management, expat
+		AND e.GroupId NOT IN (@CoreTeamId, @ExpId, @CEOTeamId) -- management, expat
 		AND ISNULL(e.isDeleted, 0) = 0
 		AND e.[Enabled] = 1
 	WHERE tr.[Type] IN (1, 2)

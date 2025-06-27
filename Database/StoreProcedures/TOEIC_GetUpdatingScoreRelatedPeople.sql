@@ -11,8 +11,8 @@ AS
     Param's Explanation:
 */
 BEGIN
-    DECLARE @CoreTeamId INT;
-	SELECT @CoreTeamId = MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END)
+    DECLARE @CoreTeamId INT = 0;
+	SELECT @CoreTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END), 0)
 	FROM dbo.SystemSetting ss WITH (NOLOCK)
 	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
 	WHERE ss.Name = 'CoreTeamId'

@@ -13,7 +13,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-	DECLARE @CoreTeamId INT
+	DECLARE @CoreTeamId INT = 0
 	SELECT @CoreTeamId = g.Id
 	FROM dbo.SystemSetting ss WITH (NOLOCK)
 	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value

@@ -19,12 +19,14 @@ BEGIN
 
 	DECLARE @CoreTeamId NVARCHAR(50);
 	DECLARE @ExpId NVARCHAR(50);
+	DECLARE @CEOTeamId NVARCHAR(50);
 
-	SELECT @ExpId = MAX(CASE WHEN ss.Name = 'EXPTeamId' THEN g.Id END),
-		@CoreTeamId = MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END)
+	SELECT @ExpId = ISNULL(MAX(CASE WHEN ss.Name = 'EXPTeamId' THEN g.Id END), 0),
+		@CoreTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END), 0),
+		@CEOTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CEOTeamId' THEN g.Id END), 0)
 	FROM dbo.SystemSetting ss WITH (NOLOCK)
 	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
-	WHERE ss.Name IN ('EXPTeamId', 'CoreTeamId')
+	WHERE ss.Name IN ('EXPTeamId', 'CoreTeamId', 'CEOTeamId')
 
 	IF OBJECT_ID('#LateInEarlyOutSummary') IS NOT NULL
 	BEGIN
@@ -50,7 +52,7 @@ BEGIN
 				END)
 	FROM [dbo].LateInEarlyOutTrans AS tr WITH (NOLOCK)
 		INNER JOIN [dbo].Employee AS e WITH (NOLOCK) ON tr.EmpId = e.Id
-	WHERE e.GroupId NOT IN (@ExpId, @CoreTeamId)
+	WHERE e.GroupId NOT IN (@ExpId, @CoreTeamId, @CEOTeamId)
 	 AND YEAR(WorkDate) = @Year AND Month(WorkDate) = @Month
 	GROUP BY EmpId
 

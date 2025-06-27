@@ -7,11 +7,12 @@ INSERT INTO [dbo].[SystemSetting]
            ,[Value])
      VALUES
            (6, 'HRTeamId', 300000279),
-           (7, 'CoreTeamId', 300000043),
-           (8, 'ITNetWorkTeamId', 300000169),
-           (9, 'EXPTeamId', 300000078),
-           (10, 'FATeamId', 300000050),
-           (11, 'MGTHeadCode', '02197')
+           (7, 'CoreTeamId', 300000137),
+           (8, 'CEOTeamId', 300000043),
+           (9, 'ITNetWorkTeamId', 300000169),
+           (10, 'EXPTeamId', 300000078),
+           (11, 'FATeamId', 300000050),
+           (12, 'MGTHeadCode', '02197')
 GO
 
 

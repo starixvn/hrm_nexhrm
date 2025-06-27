@@ -19,11 +19,11 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    DECLARE @CoreTeamId INT;
-    DECLARE @HRTeamId INT;
+    DECLARE @CoreTeamId INT = 0;
+    DECLARE @HRTeamId INT = 0;
 
-	SELECT @CoreTeamId = MAX(CASE WHEN ss.Name = 'HRTeamId' THEN g.Id END),
-		@HRTeamId = MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END)
+	SELECT @CoreTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'HRTeamId' THEN g.Id END), 0),
+		@HRTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END), 0)
 	FROM dbo.SystemSetting ss WITH (NOLOCK)
 	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
 	WHERE ss.Name IN ('HRTeamId', 'CoreTeamId')

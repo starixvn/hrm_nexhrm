@@ -19,13 +19,15 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    DECLARE @CoreTeamId INT;
-    DECLARE @ExpId INT;
-    SELECT @ExpId = MAX(CASE WHEN ss.Name = 'EXPTeamId' THEN g.Id END),
-        @CoreTeamId = MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END)
+    DECLARE @CoreTeamId INT = 0;
+    DECLARE @ExpId INT = 0;
+    DECLARE @CEOTeamId INT = 0;
+    SELECT @ExpId = ISNULL(MAX(CASE WHEN ss.Name = 'EXPTeamId' THEN g.Id END), 0),
+        @CoreTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END), 0),
+        @CEOTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CEOTeamId' THEN g.Id END), 0)
     FROM dbo.SystemSetting ss WITH (NOLOCK)
     INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
-    WHERE ss.Name IN ('EXPTeamId', 'CoreTeamId')
+    WHERE ss.Name IN ('EXPTeamId', 'CoreTeamId', 'CEOTeamId')
 
     SELECT 
         la.WorkDate
@@ -43,7 +45,7 @@ BEGIN
         INNER JOIN dbo.Employee AS e WITH (NOLOCK) ON la.EmpId = e.Id
         INNER JOIN dbo.EmployeeGroup AS g WITH (NOLOCK) ON e.GroupId = g.Id
     WHERE 
-        e.GroupId NOT IN (@CoreTeamId, @ExpId)
+        e.GroupId NOT IN (@CoreTeamId, @ExpId, @CEOTeamId)
         AND DATEDIFF(D, @FromDate, la.WorkDate) >= 0
         AND DATEDIFF(D, la.WorkDate, @ToDate) >= 0
         AND (@IncludeLeaveDeduction = 1 OR la.[Type] <> 0)
