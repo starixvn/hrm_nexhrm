@@ -491,5 +491,23 @@
                 await SendHttpClientAsync<Task>("/remind/MissedLogTimeMember", HttpMethod.Post, data);
             }
         }
+
+        public async Task SendRemindCancelMeal(EmployeeMealModel model)
+        {
+            if (nexBotSettings.Enable)
+            {
+                var data = new Dictionary<string, string>
+                {
+                    {conversationIdName, model.ConversationId},
+                    {"nickName", model.NickName},
+                    {"sysId", model.SysId.ToString()},
+                    {"mealId", model.MealId.ToString()},
+                    {"onDate", model.OnDate.ToString()},
+                    {"callBackUrl", $"{appSetting.FBUrl}/api" }
+                };
+
+                await SendHttpClientAsync<Task>("/remind/RemindCancelMeal", HttpMethod.Post, data);
+            }
+        }
     }
 }

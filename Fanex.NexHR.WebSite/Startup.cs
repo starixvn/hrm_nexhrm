@@ -1,4 +1,6 @@
-﻿namespace Fanex.NexHR.WebSite
+﻿using Fanex.NexHR.Core;
+
+namespace Fanex.NexHR.WebSite
 {
     using AspNetCore.Unobtrusive.Ajax;
     using Data.SqlServer;
@@ -36,6 +38,7 @@
             services.AddFanexSql(configuration);
 
             services.AddHttpClient();
+            services.AddHttpClient(Constants.Fnb_Client);
             services.RegisterAuthentication(configuration);
             services.RegisterServices(configuration);
             services.InjectConfiguration(configuration);

@@ -51,5 +51,7 @@
         Task SendMissedLogTimeRemindLeader(MissedLogTimeLeaderModel model);
 
         Task SendMissedLogTimeRemindMember(MissedLogTimeMemberModel model);
+
+        Task SendRemindCancelMeal(EmployeeMealModel model);
     }
 }

@@ -61,6 +61,10 @@
 
                 foreach (DashBoardCompanySpace leave in todayLeaves)
                 {
+                    if (IgnoreShowLeaveRequest.Contains(leave.Employee.NickName))
+                    {
+                        continue;
+                    }
                     employees.Append(leave.Employee.NickName);
                     employees.Append(leave.LeaveDay.Equals(numberEqual) ? " (½)" : string.Empty);
                     employees.Append(", ");
@@ -572,5 +576,7 @@
         }
 
         public bool IsHavePrivilegeCreateCheckInOutRecord { get; set; }
+
+        public string IgnoreShowLeaveRequest { get; set; }
     }
 }
