@@ -29,7 +29,7 @@ GO
 CREATE OR ALTER VIEW [dbo].[Employee2]
 AS
 SELECT e.EmpId as Id, e.Code, ec.DomainUsername, e.FullName, (CASE WHEN ec.NickName2 IS NULL THEN e.NickName ELSE ec.NickName2 END) AS NickName, e.DOB, ec.Email, e.JobTitleId, ec.Enabled, e.Phone, e.Gender, ec.GroupId, ec.CompanyDate as JoinedDate, 
-                  ec.ConfirmedDate, ec.ResignedDate, e.Skype, e.Yahoo, e.Marriage, e.CreatedDate, e.CreatedBy, e.ModifiedDate, e.ModifiedBy, ec.IsDeleted, e.EmployeeCard, ec.IsSpecialUser, e.GroupDate, e.PlaceOfBirth, e.EducationBackground, 
+                  ec.ConfirmedDate, ec.ResignedDate, e.Skype, e.Yahoo, e.Marriage, e.CreatedDate, e.CreatedBy, e.ModifiedDate, e.ModifiedBy, ec.IsDeleted, e.EmployeeCard, ec.IsSpecialUser, e.JoinedDate as GroupDate, e.PlaceOfBirth, e.EducationBackground, 
                   e.Telegram
 FROM     bodb_HRM.dbo.Employee AS e WITH (NOLOCK) 
 				INNER JOIN bodb_HRM.dbo.CompanyEmployee AS ec WITH (NOLOCK) ON e.EmpId = ec.EmpId 
