@@ -83,4 +83,7 @@ SELECT
 FROM [HRM_bk].[dbo].[Employee] WITH (NOLOCK)
 GO
 
--- TODO: Update PICEmpId
+UPDATE [NexVisionHRM].[dbo].[SystemSetting] 
+SET Value = 34 
+WHERE Id = 4
+GO

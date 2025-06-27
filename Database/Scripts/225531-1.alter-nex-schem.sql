@@ -9,8 +9,8 @@ ADD
     [ResignedDate] SMALLDATETIME NULL,
     [NickName2] NVARCHAR(20) NULL,
     [IsSpecialUser] BIT NULL,
-    [IsDeleted] BIT NOT NULL DEFAULT ((0)),
-    [Enabled] BIT NOT NULL DEFAULT ((1)),
+    [IsDeleted] BIT NULL,
+    [Enabled] BIT NULL,
     [SalaryGroupId] SMALLINT NULL,
     [Password] NVARCHAR(100) NULL;
 GO

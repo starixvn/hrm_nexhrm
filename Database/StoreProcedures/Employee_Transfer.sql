@@ -59,6 +59,7 @@ BEGIN
 				,a.Roles = b.Roles
 				,a.CompanyDate = @AffectedDate
 				,a.ConfirmedDate = @AffectedDate
+				,a.SalaryGroupId = b.SalaryGroupId
 			FROM bodb_HRM.dbo.CompanyEmployee AS a 
 			INNER JOIN bodb_HRM.dbo.CompanyEmployee AS b ON a.EmpId = b.EmpId AND b.CompanyId = @FromCompanyId
 			WHERE a.EmpId = @employeeId AND a.CompanyId = @ToCompanyId
@@ -76,6 +77,7 @@ BEGIN
 				,Roles
 				,CompanyDate
 				,ConfirmedDate
+				,SalaryGroupId
 			)
 			SELECT 
 				@EmployeeId
@@ -88,6 +90,7 @@ BEGIN
 				,Roles
 				,@AffectedDate
 				,@AffectedDate
+				,SalaryGroupId
 			FROM bodb_HRM.dbo.CompanyEmployee WITH (NOLOCK)
 			WHERE EmpId = @EmployeeId AND CompanyId = @FromCompanyId
 		END
