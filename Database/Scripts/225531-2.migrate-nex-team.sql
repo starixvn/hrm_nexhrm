@@ -107,7 +107,7 @@ FROM
 
          -- Deleted Group
         (NULL, 'Other', 'Other', 'NexHRM', 'NX66', N'NX Other', NULL, 0),
-        (NULL, 'Other', 'Other', 'LumiHRM', 'NX69', N'NX Other', NULL, 0),
+        (NULL, 'Other', 'Other', 'LumiHRM', 'NX69', N'NX Other', NULL, 0)
     ) AS s (GroupTeamId, Code, Name, Company, DeptCode, AccountableArea, OldGroupId, IsDeleted)
 JOIN 
     [bodb_HRM].[dbo].[Department] d 

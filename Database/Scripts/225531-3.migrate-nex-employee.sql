@@ -80,7 +80,7 @@ SELECT
     RefId,
     RefCompanyId,
     OldId              
-FROM [HRM_bk].[dbo].[Employee] WITH (NOLOCK)
+FROM [HRM].[dbo].[Employee] WITH (NOLOCK)
 GO
 
 UPDATE [NexVisionHRM].[dbo].[SystemSetting] 

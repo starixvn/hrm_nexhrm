@@ -605,10 +605,7 @@ GO
 
 UPDATE dbo.Employee
 SET Id = UserId
-GO
-
-UPDATE dbo.Employee
-SET Id = UserId
+WHERE UserId IS NOT NULL
 GO
 
 UPDATE a
