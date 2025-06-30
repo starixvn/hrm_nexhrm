@@ -3,6 +3,7 @@ USE [NexHRM]
 GO
 
 EXEC sp_rename 'Employee', 'Employee_bk';
+EXEC sp_rename 'EmployeeExt', 'EmployeeExt_bk';
 EXEC sp_rename 'EmployeeGroup', 'EmployeeGroup_bk';
 EXEC sp_rename 'Department', 'Department_bk';
 
