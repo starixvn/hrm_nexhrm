@@ -147,7 +147,7 @@ BEGIN
 		FROM dbo.Employee WITH (NOLOCK)
 		WHERE Id = @employeeId
 
-        UPDATE bodb_HRM_bk.dbo.Employee WITH (UPDLOCK, ROWLOCK)
+        UPDATE bodb_HRM.dbo.Employee WITH (UPDLOCK, ROWLOCK)
         SET Code = @code
             ,FullName = @fullName
             ,NickName = @nickName
@@ -176,34 +176,35 @@ BEGIN
 			,UserRelationship = @userRelationship
 			,ContactPhone = @contactPhone
 			,ContactAddress = @contactAddress
+			,JoinedDate = @groupDate
             ,ModifiedDate = GETDATE()
             ,ModifiedBy = @modifiedBy
 			,EducationBackground = @EducationBackground
         WHERE EmpId = @employeeId
 
-		UPDATE bodb_HRM_bk.dbo.CompanyEmployee
+		UPDATE bodb_HRM.dbo.CompanyEmployee
 		SET DomainUsername = @domainUsername
             ,Email = @email
 			,IsSpecialUser = @isSpecialUser
 			,[Enabled] = @enabled
             ,GroupId = @mainGroupID
             ,Roles = @roles
-            ,JoinedDate = @joinedDate
+			,CompanyDate = @joinedDate
             ,ConfirmedDate = @confirmedDate
             ,ResignedDate = @resignedDate
 		WHERE EmpId = @employeeId
 
-		UPDATE dbo.EmployeeExt WITH (UPDLOCK, ROWLOCK)
-        SET DomainUsername = @domainUsername
-            ,Email = @email
-			,IsSpecialUser = @isSpecialUser
-			,Enabled = @enabled
-            ,GroupId = @mainGroupID
-            ,Roles = @roles
-            ,JoinedDate = @joinedDate
-            ,ConfirmedDate = @confirmedDate
-            ,ResignedDate = @resignedDate
-        WHERE Id = @employeeId
+		-- UPDATE dbo.EmployeeExt WITH (UPDLOCK, ROWLOCK)
+        -- SET DomainUsername = @domainUsername
+        --     ,Email = @email
+		-- 	,IsSpecialUser = @isSpecialUser
+		-- 	,Enabled = @enabled
+        --     ,GroupId = @mainGroupID
+        --     ,Roles = @roles
+        --     ,JoinedDate = @joinedDate
+        --     ,ConfirmedDate = @confirmedDate
+        --     ,ResignedDate = @resignedDate
+        -- WHERE Id = @employeeId
 
 		INSERT INTO dbo.[Log](LogActionID, LogDate, Description, TrackingValue, UserID)
 		VALUES(5, GETDATE(), 'Update Employee', @logData, @employeeId)
