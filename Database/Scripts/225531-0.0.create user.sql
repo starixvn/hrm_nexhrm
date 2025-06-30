@@ -571,7 +571,8 @@ VALUES (86, '02198', N'Lê Thị Mộng Tuyền', N'Tuyen', 0),
 (4977, '02211', N'Lữ Thị Hoài Vy', N'Vy', 0),
 (4978, '02369', N'Nguyễn Lê Nhật Nguyên', N'Sunny', 0),
 (4979, '02761', N'Lê Thị Kim Thảo', N'Nancy Le', 0),
-(4980, '00002', N'Trần Thị Test', N'thitest', 0)
+(4980, '02762', N'Thái Khôi Nguyên', N'Kenn', 0),
+(4983, '02764', N'Lin Yu Cheng', N'Yves', 0)
 
 DECLARE @Password VARCHAR(100) = '/IirRX6DR+3J+itTfUQPFeDxmyMAAAAAAAAAAA==' /*123456*/
 DECLARE @rowIndex INT
