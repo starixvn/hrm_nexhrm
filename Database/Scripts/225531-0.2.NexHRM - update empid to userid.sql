@@ -1,4 +1,6 @@
 USE NexHRM;
+--USE LumiHRM;
+--USE NexVisionHRM;
 GO
 
 UPDATE c
