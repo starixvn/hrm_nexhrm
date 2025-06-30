@@ -80,8 +80,8 @@ BEGIN
 		,1
         )
 
-	INSERT INTO bodb_HRM.dbo.CompanyEmployee(CompanyId, EmpId, DomainUsername, [Password], GroupId, [Enabled], IsSpecialUser)
-	VALUES (@CompanyId, @UserId, @DomainUsername, @Password, @GroupId, 0, 0)
+	INSERT INTO bodb_HRM.dbo.CompanyEmployee(CompanyId, EmpId, DomainUsername, [Password], GroupId, [Enabled], IsDeleted, IsSpecialUser)
+	VALUES (@CompanyId, @UserId, @DomainUsername, @Password, @GroupId, 0, 0, 0)
 
     INSERT INTO dbo.EmployeeShift (
         [EmpId]

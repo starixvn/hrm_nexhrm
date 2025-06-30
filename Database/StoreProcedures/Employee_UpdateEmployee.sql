@@ -156,7 +156,6 @@ BEGIN
             ,JobTitleId = @jobTitleId
             ,Phone = @phone
             ,Gender = @gender
-			,GroupDate = @groupDate
             ,Skype = @skype
             ,Yahoo = @yahoo
             ,Marriage = @marriage
@@ -189,7 +188,7 @@ BEGIN
 			,[Enabled] = @enabled
             ,GroupId = @mainGroupID
             ,Roles = @roles
-			,CompanyDate = @joinedDate
+            ,CompanyDate = @joinedDate
             ,ConfirmedDate = @confirmedDate
             ,ResignedDate = @resignedDate
 		WHERE EmpId = @employeeId
@@ -222,3 +221,4 @@ BEGIN
             ,@ErrMsg = N'Update Employee unsuccessfully.'
     END CATCH;
 END
+GO
