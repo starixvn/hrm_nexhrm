@@ -404,27 +404,6 @@ UPDATE [bodb_HRM].[dbo].[CompanyEmployee]
 SET Roles = '4'
 WHERE CompanyId = 1 AND DomainUsername like '%henry.dinh%';
 
--- Map SubCompany
---DECLARE @NexcelCompanyId INT = 1;
---SET IDENTITY_INSERT [bodb_HRM].[dbo].[SubCompany] ON;
---INSERT INTO [bodb_HRM].[dbo].[SubCompany] (SubCompanyId, CompanyId, [Name], CountryCode)
---VALUES
---	(8, @NexcelCompanyId, 'DAR', 'VN'),
---	(9, @NexcelCompanyId, 'SRM', 'VN');
---SET IDENTITY_INSERT [bodb_HRM].[dbo].[SubCompany] OFF;
-
---DECLARE @DARCompanyId INT = 8;
---UPDATE ce
---SET SubCompanyId = @DARCompanyId
---FROM [bodb_HRM].[dbo].[CompanyEmployee] ce WITH (NOLOCK)
---WHERE ce.DomainUsername like '%sean%';
-
---DECLARE @SRMCompanyId INT = 9;
---UPDATE ce
---SET SubCompanyId = @SRMCompanyId
---FROM [bodb_HRM].[dbo].[CompanyEmployee] ce WITH (NOLOCK)
---WHERE ce.DomainUsername like '%yves%';
-
 -- Clean up
 DROP TABLE #TempCompanyEmployee;
 GO
