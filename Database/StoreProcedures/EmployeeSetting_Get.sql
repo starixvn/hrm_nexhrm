@@ -30,7 +30,7 @@ BEGIN
 		@CEOTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CEOTeamId' THEN g.Id END), 0)
 	FROM dbo.SystemSetting ss WITH (NOLOCK)
 	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
-	WHERE ss.Name IN ('HRTeamId', 'ITNetWorkTeamId', 'EXPTeamId', 'FATeamId', 'CoreTeamId')
+	WHERE ss.Name IN ('HRTeamId', 'ITNetWorkTeamId', 'EXPTeamId', 'FATeamId', 'CoreTeamId', 'CEOTeamId')
 
 		IF EXISTS (SELECT 1 FROM [dbo].[Employee] WITH (NOLOCK) WHERE Id = @employeeId
 			AND (GroupId IN (@ExpId, @FinanceId, @HRTeamId, @ITTeamId, @MGTId, @CEOTeamId) OR CompanyId = 2)
