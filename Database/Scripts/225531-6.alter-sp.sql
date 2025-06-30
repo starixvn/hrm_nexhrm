@@ -6711,7 +6711,6 @@ BEGIN
             ,JobTitleId = @jobTitleId
             ,Phone = @phone
             ,Gender = @gender
-			,GroupDate = @groupDate
             ,Skype = @skype
             ,Yahoo = @yahoo
             ,Marriage = @marriage
@@ -6744,7 +6743,7 @@ BEGIN
 			,[Enabled] = @enabled
             ,GroupId = @mainGroupID
             ,Roles = @roles
-            ,JoinedDate = @joinedDate
+            ,CompanyDate = @joinedDate
             ,ConfirmedDate = @confirmedDate
             ,ResignedDate = @resignedDate
 		WHERE EmpId = @employeeId
