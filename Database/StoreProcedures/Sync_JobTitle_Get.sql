@@ -1,4 +1,5 @@
-CREATE OR ALTER   PROCEDURE [dbo].[Sync_JobTitle_Get] @LastModifiedDate DATETIME
+CREATE OR ALTER   PROCEDURE [dbo].[Sync_JobTitle_Get] 
+	@LastModifiedDate DATETIME = NULL
 AS
 /*
 Created: Jay.Do@20250610
@@ -17,5 +18,5 @@ BEGIN
 		[Name],
 		ISNULL(ModifiedDate, CreatedDate) AS ModifiedDate
 	FROM  HRM.dbo.JobTitle WITH (NOLOCK)
-	WHERE ISNULL(ModifiedDate, CreatedDate) > @LastModifiedDate
+	WHERE @LastModifiedDate IS NULL OR ISNULL(ModifiedDate, CreatedDate) > @LastModifiedDate
 END
