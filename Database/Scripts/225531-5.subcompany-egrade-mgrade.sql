@@ -77,6 +77,18 @@ ALTER TABLE [HRM].[dbo].[JobGrade] ADD OldJobGradeId INT NULL, NewJobGradeId INT
 ALTER TABLE [HRM].[dbo].[ManagementGrade] ADD OldManagementGradeId INT NULL, NewManagementGradeId INT NULL;
 GO
 
+
+-- Map OldJobGradeId, OldManagementGradeId
+UPDATE jg
+SET jg.OldJobGradeId = jg.JobGradeId
+FROM [HRM].[dbo].[JobGrade] jg
+GO
+
+UPDATE mg
+SET mg.OldManagementGradeId = mg.ManagementGradeId
+FROM [HRM].[dbo].[ManagementGrade] mg
+GO
+
 -- Map JobLevel → JobGrade
 UPDATE jg
 SET jg.NewJobGradeId = jl.JobLevelId
