@@ -91,13 +91,6 @@ FROM [HRM].[dbo].[ManagementGrade] mg
 INNER JOIN [bodb_HRM].[dbo].[ManagementLevel] ml ON ml.Name = mg.Code
 GO
 
-
-ALTER TABLE [HRM].[dbo].[JobGrade] ALTER COLUMN JobGradeId INT NULL;
-GO
-
-ALTER TABLE [HRM].[dbo].[ManagementGrade] ALTER COLUMN ManagementGradeId INT NULL;
-GO
-
 ALTER TABLE [HRM].[dbo].[JobGrade] DROP CONSTRAINT PK_JobGrade;
 GO
 
