@@ -1253,3 +1253,275 @@ BEGIN
 		ORDER BY EmpId, OwnerId
 END
 GO
+
+
+
+/*<info serverAlias="bodb_HRM" executers="wsv_hrm" isFunction="0"></info>*/
+
+ALTER   PROCEDURE [dbo].[Group_UnitScope_Get]
+	@keyWord varchar(20) = null,
+	@TeamId INT = NULL
+AS
+/*
+Created: Tom.Vo@2013-10-21
+Task: get group
+DB: HRM
+
+Revisions:
+	20250310@Mira: filter by CompanyId [Redmine: #217976]
+    20250403@Tim: remove section [Redmine: #222886]
+	20250515@Jay: add years of service for extra leave [Redmine: #227166]
+	20250701@Tim: Show Nexcel, Lumiplus, NexVision [Redmine: #225531]
+*/
+BEGIN
+	SET NOCOUNT ON;
+
+	CREATE TABLE #tmpGroup (
+		GroupId INT PRIMARY KEY
+		,NoOfMembers INT
+		)
+
+	CREATE TABLE #tmpGroupEmployees (
+		GroupId INT,
+		EmpId INT,
+		PRIMARY KEY (GroupId, EmpId)
+	)
+
+	INSERT INTO #tmpGroupEmployees (GroupId, EmpId)
+	SELECT DISTINCT emp.GroupId, emp.EmpId
+	FROM dbo.Employee AS emp WITH (NOLOCK)
+		INNER JOIN dbo.EmployeeSummary AS esum WITH (NOLOCK) ON esum.EmpId = emp.EmpId
+	WHERE emp.GroupId IS NOT NULL
+		AND emp.isDeleted = 0 
+		AND emp.[Enabled] = 1
+		AND esum.IsLocal IS NOT NULL
+
+	INSERT INTO #tmpGroupEmployees (GroupId, EmpId)
+	SELECT DISTINCT ce.GroupId, ce.EmpId
+	FROM dbo.CompanyEmployee AS ce WITH (NOLOCK)
+	WHERE ce.GroupId IS NOT NULL
+		AND ce.IsDeleted = 0 
+		AND ce.[Enabled] = 1
+		AND ce.IsSpecialUser = 0
+
+	INSERT INTO #tmpGroup (
+		GroupId
+		,NoOfMembers
+		)
+	SELECT g.GroupId
+		,ISNULL(COUNT(DISTINCT tge.EmpId), 0) AS NoOfMembers
+	FROM dbo.[Group] AS g WITH (NOLOCK)
+		LEFT JOIN #tmpGroupEmployees AS tge ON g.GroupId = tge.GroupId
+	WHERE (
+			 @TeamId IS NULL
+			OR g.GroupId =  @TeamId
+			)
+		AND g.isDeleted != 1
+	GROUP BY g.GroupId
+
+	SELECT g.GroupId AS Id
+		,GroupTeamId AS GroupTeamId
+		,g.[Name] AS TeamName
+		,g.Code AS TeamCode
+		,g.[Rank]
+		,tbl.NoOfMembers
+		,g.PICEmpId
+		,e.NickName as TeamPIC
+		,cpic.[CompanyId] AS TeamPICCompanyId
+		,cpic.[Name] AS TeamPICCompany
+		,d.DepartmentId
+        ,d.Code AS DepartmentCode
+        ,d.[Name] AS DepartmentName
+		,d.PICEmpId AS DepartmentPICId
+		,ed.NickName AS DepartmentPIC
+		,u.Code AS UnitCode
+		,g.AccountableArea
+		,g.CompanyId
+		,c.[Name] AS CompanyName
+		,g.MailGroup
+		,g.LocalBasicAnnualLeaveBalance
+		,g.LocalWorkingDays
+		,g.LocalWorkingHours
+		,g.LocalOffDaysbyWeek
+		,g.LocalWorkingHoursByWeek
+		,LocalYearsOfServiceForExtraLeave
+		,g.ExpatBasicAnnualLeaveBalance
+		,g.ExpatWorkingDays
+		,g.ExpatWorkingHours
+		,g.ExpatOffDaysbyWeek
+		,g.ExpatWorkingHoursByWeek
+		,ExpatYearsOfServiceForExtraLeave
+		,g.IsOutsource
+	FROM dbo.[Group] AS g WITH (NOLOCK)
+		INNER JOIN dbo.Department AS d WITH (NOLOCK) ON g.DepartmentId = d.DepartmentId
+		LEFT JOIN dbo.Employee AS e WITH (NOLOCK) ON e.EmpId = g.PICEmpId
+		LEFT JOIN dbo.CompanyEmployee AS gpic WITH (NOLOCK) ON gpic.EmpId = e.EmpId AND ISNULL(gpic.isDeleted, 0) = 0 AND ISNULL(gpic.[Enabled], 1) = 1 AND ISNULL(gpic.IsSpecialUser, 0) = 0
+		INNER JOIN dbo.Unit AS u WITH (NOLOCK) ON u.UnitId = d.UnitId
+		LEFT JOIN dbo.Employee AS ed WITH (NOLOCK) ON ed.EmpId = d.PICEmpId
+		LEFT JOIN dbo.CompanyEmployee AS cepic WITH (NOLOCK) ON cepic.EmpId = g.PICEmpId AND ISNULL(cepic.isDeleted, 0) = 0 AND ISNULL(cepic.[Enabled], 1) = 1 AND ISNULL(cepic.IsSpecialUser, 0) = 0
+		LEFT JOIN dbo.Company AS cpic WITH (NOLOCK) ON cepic.CompanyId = cpic.CompanyId
+		LEFT JOIN #tmpGroup AS tbl ON g.GroupId = tbl.GroupId
+		LEFT JOIN dbo.Company AS c ON g.CompanyId = c.CompanyId
+	WHERE (
+			 @TeamId IS NULL
+			OR g.GroupId =  @TeamId
+			)
+		AND g.isDeleted != 1
+		AND (
+			 @keyWord IS NULL
+			 OR LOWER(g.[Name]) like LOWER('%' + @keyWord + '%') 
+			 OR LOWER(g.Code) like LOWER('%' + @keyWord + '%') 
+			)
+	ORDER BY d.Code
+
+    DROP TABLE #tmpGroup
+    DROP TABLE #tmpGroupEmployees
+END
+
+GO
+
+/*<info serverAlias="bodb_HRM" executers="wsv_hrm" isFunction="0"></info>*/
+
+CREATE OR ALTER PROCEDURE [dbo].[Employee_GroupScope_Get] 
+	@query NVARCHAR(256) = NULL,
+	@teamIds VARCHAR(MAX) = '',
+	@enable BIT = NULL,
+	@isDelete BIT = NULL,
+	@pageNumber INT = 1,
+	@pageSize INT = NULL,
+	@totalRow INT = NULL OUTPUT,
+	@titleId INT = NULL,
+	@companyIds VARCHAR(MAX) = ''
+AS
+/*
+	Created: 20250429@Jay.Do
+	Task: get employees in group space 
+	DB: bodb_HRM
+
+	Revisions:
+        20250507@Jay.Do: remove dynamic sql
+        20250627@Hank.Nguyen: check GroupId in both Employee and CompanyEmployee tables
+*/
+BEGIN
+	SET NOCOUNT ON;
+
+	DECLARE @GroupsList TABLE (GroupId INT)
+
+	INSERT INTO @GroupsList (GroupId)
+	SELECT value
+	FROM STRING_SPLIT(@teamIds, ',')
+
+	DECLARE @CompaniesList TABLE (CompanyId INT)
+
+	INSERT INTO @CompaniesList (CompanyId)
+	SELECT value
+	FROM STRING_SPLIT(@companyIds, ',')
+
+	DECLARE @Result TABLE (
+		CtrId INT,
+		EmpId INT,
+		EmployeeCode NVARCHAR(50),
+		NickName NVARCHAR(100),
+		JobTitleId INT,
+		[Enabled] BIT,
+		JoinedDate DATETIME,
+		ResignedDate DATETIME,
+		isDeleted BIT,
+		FullName NVARCHAR(200),
+		IsLocal BIT,
+		IsSpecial BIT,
+		CompanyDate DATETIME,
+		JobTitle NVARCHAR(100),
+		CompanyId INT,
+		Company NVARCHAR(200),
+		UnitId INT,
+		UnitCode NVARCHAR(50),
+		UnitPIC NVARCHAR(100),
+		TeamId INT,
+		TeamCode NVARCHAR(50),
+		TeamName NVARCHAR(200),
+		TeamPIC NVARCHAR(100),
+		DepartmentId INT,
+		DepartmentCode NVARCHAR(50),
+		DepartmentName NVARCHAR(200),
+		DepartmentPIC NVARCHAR(100),
+		ManagementLevel NVARCHAR(100),
+		JobLevel NVARCHAR(100)
+	)
+
+	INSERT INTO @Result
+	SELECT 
+		e.CtrId,
+		e.EmpId,
+		e.Code AS EmployeeCode,
+		e.NickName,
+		e.JobTitleId,
+		ISNULL(ce.[Enabled], e.[Enabled]) AS [Enabled],
+		e.JoinedDate,
+		CAST(ISNULL(ce.ResignedDate, e.ResignedDate) AS DATETIME) AS ResignedDate,
+		ISNULL(e.isDeleted, ce.isDeleted) AS isDeleted,
+		e.FullName,
+		s.IsLocal,
+		s.IsTopManager AS IsSpecial,
+		ISNULL(ce.CompanyDate, s.CompanyDate) AS CompanyDate,
+		COALESCE(ejt.[Name], jt.[Name]) AS JobTitle,
+		c.CompanyId,
+		c.[Name] AS Company,
+		u.GroupUnitId AS UnitId,
+		u.Code AS UnitCode,
+		eu.NickName AS UnitPIC,
+		g.GroupId AS TeamId,
+		g.Code AS TeamCode,
+		g.[Name] AS TeamName,
+		eg.NickName AS TeamPIC,
+		d.DepartmentId,
+		d.Code AS DepartmentCode,
+		d.[Name] AS DepartmentName,
+		ed.NickName AS DepartmentPIC,
+		COALESCE(mg.[Name], ml.[Name]) AS ManagementLevel,
+		jg.[Name] AS JobLevel
+	FROM dbo.Employee AS e WITH (NOLOCK)
+		LEFT JOIN dbo.CompanyEmployee ce WITH (NOLOCK) ON ce.EmpId = e.EmpId AND (ce.IsSpecialUser IS NULL OR ce.IsSpecialUser = 0)
+		LEFT JOIN dbo.EmployeeSummary AS s WITH (NOLOCK) ON s.EmpId = e.EmpId
+		LEFT JOIN dbo.[Group] AS g WITH (NOLOCK) ON COALESCE(e.GroupID, ce.GroupId) = g.GroupID
+		LEFT JOIN dbo.[Department] AS d WITH (NOLOCK) ON d.DepartmentId = g.DepartmentId
+		LEFT JOIN dbo.[Unit] AS u WITH (NOLOCK) ON d.UnitId = u.UnitId
+		LEFT JOIN dbo.[Lookup] l WITH (NOLOCK) ON l.Code = 'JT'
+		LEFT JOIN dbo.LookupData jt WITH (NOLOCK) ON l.Id = jt.LookupId AND e.JobTitleId = jt.Id
+		LEFT JOIN HRM.dbo.JobTitle ejt WITH (NOLOCK) ON ejt.JobTitleId = e.JobTitleId AND ejt.IsDeleted = 0
+		LEFT JOIN dbo.Company c WITH (NOLOCK) ON c.CompanyId = ce.CompanyId
+		LEFT JOIN Employee eu WITH (NOLOCK) ON eu.EmpId = u.PICEmpId
+		LEFT JOIN Employee ed WITH (NOLOCK) ON ed.EmpId = d.PICEmpId
+		LEFT JOIN Employee eg WITH (NOLOCK) ON eg.EmpId = g.PICEmpId
+		LEFT JOIN HRM.dbo.EmployeeManagementGrade em WITH (NOLOCK) ON em.EmpId = e.EmpId AND em.IsCurrentUsed = 1 AND ISNULL(em.IsDeleted, 0) = 0
+		LEFT JOIN HRM.dbo.ManagementGrade mg WITH (NOLOCK) ON mg.ManagementGradeId = em.ManagementGradeId AND ISNULL(mg.IsDeleted, 0) = 0
+		LEFT JOIN ManagementLevel ml WITH (NOLOCK) ON e.ManagementLevelId = ml.ManagementLevelId
+		LEFT JOIN HRM.dbo.EmployeeJobGrade ejg WITH (NOLOCK) ON ejg.EmpId = e.EmpId AND ejg.IsCurrentUsed = 1 AND ISNULL(ejg.IsDeleted, 0) = 0
+		LEFT JOIN JobLevel jg WITH (NOLOCK) ON COALESCE(e.JobLevelId, ejg.JobGradeId) = jg.JobLevelId 
+	WHERE 
+		(@enable IS NULL OR (ISNULL(ISNULL(ce.isDeleted, e.isDeleted), 0) = 0 AND COALESCE(ce.Enabled, e.Enabled) = @enable))
+		AND (@isDelete IS NULL OR ISNULL(ISNULL(e.isDeleted, ce.isDeleted), 0) = @isDelete)
+		AND (@query IS NULL OR e.NickName LIKE '%' + @query + '%')
+		AND (ISNULL( @teamIds, '') = ''  OR COALESCE(ce.GroupId, e.GroupId) IN (SELECT GroupId FROM @GroupsList))
+		AND (ISNULL( @companyIds, '') = '' OR ce.CompanyId IN (SELECT CompanyId FROM @CompaniesList))
+
+	
+
+	SELECT @totalRow = COUNT(*) FROM @Result
+
+	-- Final result
+	IF @pageSize IS NULL OR @pageSize <= 0
+	BEGIN
+		SELECT * FROM @Result
+		ORDER BY UnitCode DESC, DepartmentCode DESC, TeamCode DESC
+	END
+	ELSE
+	BEGIN
+		SELECT * FROM @Result
+		ORDER BY UnitCode DESC, DepartmentCode DESC, TeamCode DESC
+		OFFSET (@pageNumber - 1) * @pageSize ROWS
+		FETCH NEXT @pageSize ROWS ONLY
+	END
+END
+
+GO
