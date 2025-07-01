@@ -75,25 +75,26 @@ GO
 
 ALTER TABLE [HRM].[dbo].[JobGrade] ADD OldJobGradeId INT NULL, NewJobGradeId INT NULL;
 ALTER TABLE [HRM].[dbo].[ManagementGrade] ADD OldManagementGradeId INT NULL, NewManagementGradeId INT NULL;
+GO
 
 -- Map JobLevel → JobGrade
 UPDATE jg
 SET jg.NewJobGradeId = jl.JobLevelId
 FROM [HRM].[dbo].[JobGrade] jg
 INNER JOIN [bodb_HRM].[dbo].[JobLevel] jl ON jl.Name = jg.Code
+GO
 
 -- Map ManagementLevel → ManagementGrade
 UPDATE mg
 SET mg.NewManagementGradeId = ml.ManagementLevelId
 FROM [HRM].[dbo].[ManagementGrade] mg
 INNER JOIN [bodb_HRM].[dbo].[ManagementLevel] ml ON ml.Name = mg.Code
+GO
 
 
-ALTER TABLE [HRM].[dbo].[JobGrade] DROP CONSTRAINT FK_JobGrade_YourConstraint;
 ALTER TABLE [HRM].[dbo].[JobGrade] ALTER COLUMN JobGradeId INT NULL;
 GO
 
-ALTER TABLE [HRM].[dbo].[ManagementGrade] DROP CONSTRAINT FK_ManagementGrade_YourConstraint;
 ALTER TABLE [HRM].[dbo].[ManagementGrade] ALTER COLUMN ManagementGradeId INT NULL;
 GO
 
@@ -132,22 +133,26 @@ UPDATE ejg
 SET ejg.JobGradeId = jg.JobGradeId
 FROM [HRM].[dbo].[EmployeeJobGrade] ejg
 JOIN [HRM].[dbo].[JobGrade] jg ON ejg.JobGradeId = jg.OldJobGradeId
+GO
 
 UPDATE ejg
 SET ejg.OldJobGradeId = jg.JobGradeId
 FROM [HRM].[dbo].[EmployeeJobGrade] ejg
 JOIN [HRM].[dbo].[JobGrade] jg ON ejg.OldJobGradeId = jg.OldJobGradeId
+GO
 
--- Update ManagementGrade
+-- Update EmployeeManagementGrade
 UPDATE emg
 SET emg.ManagementGradeId = mg.ManagementGradeId
 FROM [HRM].[dbo].[EmployeeManagementGrade] emg
 JOIN [HRM].[dbo].[ManagementGrade] mg ON emg.ManagementGradeId = mg.OldManagementGradeId
+GO
 
 UPDATE emg
 SET emg.OldManagementGradeId = mg.ManagementGradeId
 FROM [HRM].[dbo].[EmployeeManagementGrade] emg
 JOIN [HRM].[dbo].[ManagementGrade] mg ON emg.OldManagementGradeId = mg.OldManagementGradeId
+GO
 
 -- Update HistoryWorkDetail
 -- NexHRM
@@ -155,30 +160,36 @@ UPDATE hwd
 SET hwd.JobGradeId = jg.JobGradeId
 FROM [NexHRM].[dbo].[HistoryWorkDetail] hwd
 JOIN [HRM].[dbo].[JobGrade] jg ON hwd.JobGradeId = jg.OldJobGradeId
+GO
 
 UPDATE hwd
 SET hwd.ManagementGradeId = mg.ManagementGradeId
 FROM [NexHRM].[dbo].[HistoryWorkDetail] hwd
 JOIN [HRM].[dbo].[ManagementGrade] mg ON hwd.ManagementGradeId = mg.OldManagementGradeId
+GO
 
 -- LumiHRM
 UPDATE hwd
 SET hwd.JobGradeId = jg.JobGradeId
 FROM [LumiHRM].[dbo].[HistoryWorkDetail] hwd
 JOIN [HRM].[dbo].[JobGrade] jg ON hwd.JobGradeId = jg.OldJobGradeId
+GO
 
 UPDATE hwd
 SET hwd.ManagementGradeId = mg.ManagementGradeId
 FROM [LumiHRM].[dbo].[HistoryWorkDetail] hwd
 JOIN [HRM].[dbo].[ManagementGrade] mg ON hwd.ManagementGradeId = mg.OldManagementGradeId
+GO
 
 -- NexVisionHRM
 UPDATE hwd
 SET hwd.JobGradeId = jg.JobGradeId
 FROM [NexvisionHRM].[dbo].[HistoryWorkDetail] hwd
 JOIN [HRM].[dbo].[JobGrade] jg ON hwd.JobGradeId = jg.OldJobGradeId
+GO
 
 UPDATE hwd
 SET hwd.ManagementGradeId = mg.ManagementGradeId
 FROM [NexvisionHRM].[dbo].[HistoryWorkDetail] hwd
 JOIN [HRM].[dbo].[ManagementGrade] mg ON hwd.ManagementGradeId = mg.OldManagementGradeId
+GO
