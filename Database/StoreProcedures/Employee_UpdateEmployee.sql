@@ -1,4 +1,4 @@
-﻿ALTER PROCEDURE [dbo].[Employee_UpdateEmployee] @employeeId INT
+﻿CREATE OR ALTER PROCEDURE [dbo].[Employee_UpdateEmployee] @employeeId INT
     ,@code VARCHAR(20) = NULL
     ,@domainUsername VARCHAR(50) = NULL
     ,@fullName NVARCHAR(50) = NULL
