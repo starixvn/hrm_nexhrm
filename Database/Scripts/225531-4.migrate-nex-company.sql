@@ -42,72 +42,72 @@ SELECT @NexVisionCompanyId = CompanyId FROM [bodb_HRM].[dbo].[Company] WITH (NOL
 INSERT INTO #GroupEmployeeMapping (CompanyId, OldGroupId, NewGroupTeamId, NewDeptCode, PICNickName)
 VALUES 
     -- NexHRM Atomix
-    (1, 1063, 300000151, 'NX27', 'Troy'),  -- NexOps
-    (1, 1078, 300000152, 'NX27', 'Larry'),  -- NexPE
+    (1, 1063, 300000500, 'NX27', 'Troy'),  -- NexOps
+    (1, 1078, 300000501, 'NX27', 'Larry'),  -- NexPE
 
     -- NexHRM Expat
-    (1, 40, 300000078, 'IH03', 'Sean'), -- Core Team - IH
-    (1, 99999, 300000043, 'CT88', 'Yves'), -- Core Team - SRM
+    (1, 40, 300000503, 'IH03', 'Sean'), -- Core Team - IH
+    (1, 99999, 300000504, 'CT88', 'Yves'), -- Core Team - SRM
 
     -- NexHRM Core Team
-    (1, 1081, 300000137, 'NX01', 'Thien'),  -- Core Team
+    (1, 1081, 300000502, 'NX01', 'Thien'),  -- Core Team
     -- NexHRM GM Office
-    (1, 1070, 300000140, 'NX66', 'Dan'),  -- Data
-    (1, 1080, 300000163, 'NX66', 'Julien'),  -- NovaStar
-    (1, 1082, 300000147, 'NX66', 'Eric'),  -- OptiGo
+    (1, 1070, 300000506, 'NX66', 'Dan'),  -- Data
+    (1, 1080, 300000507, 'NX66', 'Julien'),  -- NovaStar
+    (1, 1082, 300000508, 'NX66', 'Eric'),  -- OptiGo
     -- NexHRM Omni Flow Network
-    (1, 2, 300000169, 'NX03', 'Jacky'),  -- IT Network
-    (1, 1083, 300000144, 'NX03', 'Dominic'),  -- Pontus
-    (1, 59, 300000164, 'NX03', 'Paladin'), -- SAS
+    (1, 2, 300000510, 'NX03', 'Jacky'),  -- IT Network
+    (1, 1083, 300000511, 'NX03', 'Dominic'),  -- Pontus
+    (1, 59, 300000512, 'NX03', 'Paladin'), -- SAS
     -- NexHRM Pioneers
-    (1, 1089, 300000157, 'NX18', 'Alvin'), -- Forge
-    (1, 1087, 300000156, 'NX18', 'Jerry'), -- Zeal
-    (1, 1099, 300000171, 'NX18', 'Kiwi'), -- Core Team - Pioneers
-    (1, 1090, 300000143, 'NX18', 'Elodie'), -- Pionex
-    (1, 1088, 300000161, 'NX18', 'Ethan'), -- Robustus
+    (1, 1089, 300000513, 'NX18', 'Alvin'), -- Forge
+    (1, 1087, 300000514, 'NX18', 'Jerry'), -- Zeal
+    (1, 1099, 300000517, 'NX18', 'Kiwi'), -- Core Team - Pioneers
+    (1, 1090, 300000515, 'NX18', 'Elodie'), -- Pionex
+    (1, 1088, 300000516, 'NX18', 'Ethan'), -- Robustus
     -- NexHRM Subarashi
-    (1, 1091, 300000136, 'NX06', 'Candy'), -- Americano
-    (1, 1094, 300000167, 'NX06', 'Lena'), -- Cocktail
-    (1, 1100, 300000145, 'NX06', 'Ben'), -- Core Team - Subarashi
-    (1, 1093, 300000159, 'NX06', 'William'), -- Latte
-    (1, 1092, 300000168, 'NX06', 'Candy'), -- Shake
+    (1, 1091, 300000518, 'NX06', 'Candy'), -- Americano
+    (1, 1094, 300000519, 'NX06', 'Lena'), -- Cocktail
+    (1, 1100, 300000520, 'NX06', 'Ben'), -- Core Team - Subarashi
+    (1, 1093, 300000521, 'NX06', 'William'), -- Latte
+    (1, 1092, 300000522, 'NX06', 'Candy'), -- Shake
     -- NexHRM Synergy
-    (1, 1101, 300000166, 'NX99', 'Richard'), -- Core Team - Synergy
-    (1, 1084, 300000165, 'NX99', ''), -- SPO
-    (1, 1086, 300000154, 'NX99', 'Jacob'), -- R-Pulse
-    (1, 1085, 300000148, 'NX99', 'Kaka'), -- T-Pulse
-    (1, 1103, 300000325, 'NX99', 'Helen'), -- V-Pulse
+    (1, 1101, 300000523, 'NX99', 'Richard'), -- Core Team - Synergy
+    (1, 1084, 300000524, 'NX99', ''), -- SPO
+    (1, 1086, 300000525, 'NX99', 'Jacob'), -- R-Pulse
+    (1, 1085, 300000526, 'NX99', 'Kaka'), -- T-Pulse
+    (1, 1103, 300000527, 'NX99', 'Helen'), -- V-Pulse
     -- NexHRM Wabi Sabi
-    (1, 1098, 300000162, 'NX45', 'Ronny'), -- D.A
-    (1, 1102, 300000173, 'NX45', 'Ronny'), -- Core Team - Wabi Sabi
-    (1, 1096, 300000146, 'NX45', 'Long'), -- S.A.I
-    (1, 1097, 300000150, 'NX45', 'Ronny'), -- Sentinels
-    (1, 1095, 300000170, 'NX45', 'Terry'), -- SWAT
+    (1, 1098, 300000529, 'NX45', 'Ronny'), -- D.A
+    (1, 1102, 300000528, 'NX45', 'Ronny'), -- Core Team - Wabi Sabi
+    (1, 1096, 300000530, 'NX45', 'Long'), -- S.A.I
+    (1, 1097, 300000531, 'NX45', 'Ronny'), -- Sentinels
+    (1, 1095, 300000532, 'NX45', 'Terry'), -- SWAT
     -- NexHRM HR&ADM
-    (1, 1104, 300000279, 'SR36', 'Cindy'), -- HRA NEX
+    (1, 1104, 300000509, 'SR36', 'Cindy'), -- HRA NEX
     -- NexHRM Finance
-    (1, 1, 300000050, 'FI01', 'Steven'), -- Finance
+    (1, 1, 300000505, 'FI01', 'Steven'), -- Finance
     -- LumiHRM Pentagon
-    (2, 2018, 300000138, 'NX69', 'Anders'),  -- AscentisTech
-    (2, 1, 300000139, 'NX69', 'Anders'),  -- Core Team - Pentagon
-    (2, 2014, 300000142, 'NX69', 'TonyNg'),  -- Paradigm
-    (2, 2016, 300000155, 'NX69', 'Nancy'),  -- Paragon
-    (2, 2019, 300000395, 'NX69', 'Anders'),  -- Pathfinder
-    (2, 2017, 300000396, 'NX69', 'April'),  -- Pixel
-    (2, 2015, 300000158, 'NX69', 'Liz'),  -- Polaris
-    (2, 2013, 300000172, 'NX69', 'Amy'),  -- Prime
+    (2, 2018, 300000534, 'NX69', 'Anders'),  -- AscentisTech
+    (2, 1, 300000535, 'NX69', 'Anders'),  -- Core Team - Pentagon
+    (2, 2014, 300000536, 'NX69', 'TonyNg'),  -- Paradigm
+    (2, 2016, 300000537, 'NX69', 'Nancy'),  -- Paragon
+    (2, 2019, 300000538, 'NX69', 'Anders'),  -- Pathfinder
+    (2, 2017, 300000539, 'NX69', 'April'),  -- Pixel
+    (2, 2015, 300000540, 'NX69', 'Liz'),  -- Polaris
+    (2, 2013, 300000541, 'NX69', 'Amy'),  -- Prime
     -- LumiHRM Special 
-    (2, 3, 300000279, 'SR36', 'Cindy'), -- HRA NEX
-    (2, 2, 300000137, 'NX01', 'Thien'),  -- Core Team
-    (2, 2021, 300000050, 'FI01', 'Steven'), -- Finance
+    (2, 3, 300000509, 'SR36', 'Cindy'), -- HRA NEX
+    (2, 2, 300000502, 'NX01', 'Thien'),  -- Core Team
+    (2, 2021, 300000505, 'FI01', 'Steven'), -- Finance
     -- NexVisionHRM Marketing
-    (@NexVisionCompanyId, 4, 300000394, 'MW11', 'Dylan'),  -- Momentum
-    (@NexVisionCompanyId, 5, 300000299, 'MW11', 'Paul'),  -- Horizon
-    (@NexVisionCompanyId, 6, 300000300, 'MW11', 'Kat'),  -- Magnetic
+    (@NexVisionCompanyId, 4, 300000544, 'MW11', 'Dylan'),  -- Momentum
+    (@NexVisionCompanyId, 5, 300000542, 'MW11', 'Paul'),  -- Horizon
+    (@NexVisionCompanyId, 6, 300000543, 'MW11', 'Kat'),  -- Magnetic
     -- NexVisionHRM Special 
-    (@NexVisionCompanyId, 1, 300000279, 'SR36', 'Cindy'), -- HRA NEX
-    (@NexVisionCompanyId, 2, 300000137, 'NX01', 'Thien'),  -- Core Team
-    (@NexVisionCompanyId, 3, 300000050, 'FI01', 'Steven'); -- Finance
+    (@NexVisionCompanyId, 1, 300000509, 'SR36', 'Cindy'), -- HRA NEX
+    (@NexVisionCompanyId, 2, 300000502, 'NX01', 'Thien'),  -- Core Team
+    (@NexVisionCompanyId, 3, 300000505, 'FI01', 'Steven'); -- Finance
 
 DECLARE @DeletedGroupNexcel INT;
 DECLARE @DeletedGroupLumiplus INT;
