@@ -15,10 +15,13 @@ FROM dbo.EmployeeAttendance att
     INNER JOIN HRM.dbo.Employee e ON att.EmpId = e.OldId;
 GO
 
-UPDATE att
-SET att.EmpId = e.UserId
-FROM dbo.EmployeeAttendance_bk att
-    INNER JOIN HRM.dbo.Employee e ON att.EmpId = e.OldId;
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'EmployeeAttendance_bk')
+BEGIN
+    UPDATE att
+    SET att.EmpId = e.UserId
+    FROM dbo.EmployeeAttendance_bk att
+        INNER JOIN HRM.dbo.Employee e ON att.EmpId = e.OldId;
+END
 GO
 
 UPDATE empca
@@ -33,16 +36,18 @@ FROM dbo.EmployeeCalendar empca
     INNER JOIN HRM.dbo.Employee e ON empca.ModifiedBy = e.OldId;
 GO
 
-UPDATE empca
-SET empca.EmpId = e.UserId
-FROM dbo.EmployeeCalendar_bk empca
-    INNER JOIN HRM.dbo.Employee e ON empca.EmpId = e.OldId;
-GO
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'EmployeeCalendar_bk')
+BEGIN
+    UPDATE empca
+    SET empca.EmpId = e.UserId
+    FROM dbo.EmployeeCalendar_bk empca
+        INNER JOIN HRM.dbo.Employee e ON empca.EmpId = e.OldId;
 
-UPDATE empca
-SET empca.ModifiedBy = e.UserId
-FROM dbo.EmployeeCalendar_bk empca
-    INNER JOIN HRM.dbo.Employee e ON empca.ModifiedBy = e.OldId;
+    UPDATE empca
+    SET empca.ModifiedBy = e.UserId
+    FROM dbo.EmployeeCalendar_bk empca
+        INNER JOIN HRM.dbo.Employee e ON empca.ModifiedBy = e.OldId;
+END
 GO
 
 UPDATE ec
