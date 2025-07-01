@@ -181,6 +181,8 @@ BEGIN
 			,EducationBackground = @EducationBackground
         WHERE EmpId = @employeeId
 
+		DECLARE @CompanyId int = (SELECT [Value] FROM dbo.SystemSetting WITH (NOLOCK) WHERE [Name] = 'CompanyId')
+
 		UPDATE bodb_HRM.dbo.CompanyEmployee
 		SET DomainUsername = @domainUsername
             ,Email = @email
@@ -192,6 +194,7 @@ BEGIN
             ,ConfirmedDate = @confirmedDate
             ,ResignedDate = @resignedDate
 		WHERE EmpId = @employeeId
+		AND CompanyId = @CompanyId
 
 		-- UPDATE dbo.EmployeeExt WITH (UPDLOCK, ROWLOCK)
         -- SET DomainUsername = @domainUsername
