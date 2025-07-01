@@ -1,4 +1,6 @@
-﻿using System;
+﻿namespace Fanex.NexHR.Controllers;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,12 +11,12 @@ using Core.Helpers;
 using Core.Model;
 using Criteria.Employee;
 using Criteria.History;
-    using Fanex.NexHR.Core.Enums;
-    using Fanex.NexHR.Core.Helpers;
 using Criteria.TrainingAndDevelopment;
 using Fanex.NexHR.Core.Services;
-    using GO.UserControl.Client.Core.Models.User;
-    using HRM.Criteria.Employee;
+using Fanex.NexHR.Criteria.JobGrade;
+using Fanex.NexHR.Criteria.ManagementGrade;
+using GO.UserControl.Client.Core.Models.User;
+using HRM.Criteria.Employee;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,8 +25,9 @@ using Newtonsoft.Json;
 using Services.Interfaces;
 using ViewModels;
 using ViewModels.Employee;
-    using GOModels = GO.UserControl.Client.Core.Models;
-    using GOServices = GO.UserControl.Client.Core.Services;
+using Resources;
+using GOModels = GO.UserControl.Client.Core.Models;
+using GOServices = GO.UserControl.Client.Core.Services;
 
 public class EmployeeController : BaseController
 {
