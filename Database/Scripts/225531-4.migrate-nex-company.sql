@@ -47,6 +47,7 @@ VALUES
 
     -- NexHRM Expat
     (1, 40, 300000078, 'IH03', 'Sean'), -- Core Team - IH
+    (1, 99999, 300000043, 'CT88', 'Yves'), -- Core Team - SRM
 
     -- NexHRM Core Team
     (1, 1081, 300000137, 'NX01', 'Thien'),  -- Core Team

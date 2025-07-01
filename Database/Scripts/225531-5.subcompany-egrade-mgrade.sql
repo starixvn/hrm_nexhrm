@@ -1,3 +1,32 @@
+-- Update PIC Department
+CREATE TABLE #DepartmentTable (
+    GroupDepartmentId INT,
+    PICNickName NVARCHAR(50)
+);
+GO
+
+INSERT INTO #DepartmentTable (GroupDepartmentId, PICNickName)
+VALUES
+    (600058, 'Thien'), -- CORE
+    (600059, 'Thien'), -- GM Office
+    (600060, 'Viet'), -- Ommi Flow
+    (600061, 'Anders'), -- Pentagon
+    (600065, 'Richard'), -- Synergy
+    (600066, 'Kiwi'), -- Pioneers
+    (600067, 'Ben'), -- Subarashi
+    (600068, 'Ronny'), -- Wabisabi
+    (600069, 'Anders') -- Atomix
+
+UPDATE d
+SET d.PICEmpId = ce.EmpId
+FROM [bodb_HRM].[dbo].[Department] d WITH (NOLOCK)
+INNER JOIN #DepartmentTable dt WITH (NOLOCK) ON d.GroupDeptId = dt.GroupDepartmentId
+INNER JOIN [bodb_HRM].[dbo].[Employee] e WITH (NOLOCK) ON e.NickName = dt.PICNickName 
+INNER JOIN [bodb_HRM].[dbo].[CompanyEmployee] ce WITH (NOLOCK) ON e.EmpId = ce.EmpId AND ce.CompanyId IN (1,2)
+
+DROP TABLE #DepartmentTable;
+GO
+
 -- Map SubCompany
 DECLARE @NexcelCompanyId INT = 1;
 SET IDENTITY_INSERT [bodb_HRM].[dbo].[SubCompany] ON;
