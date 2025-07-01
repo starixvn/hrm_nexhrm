@@ -1,4 +1,4 @@
-USE [bodb_HRM_bk1]
+USE [bodb_HRM]
 GO
 
 /*<info serverAlias="bodb_HRM" executers="wsv_hrm" isFunction="0"></info>*/
