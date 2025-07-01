@@ -385,21 +385,21 @@ SET g.PICEmpId = e.Id
 FROM [bodb_HRM].[dbo].[Group] g WITH (NOLOCK)
 INNER JOIN #GroupEmployeeMapping gem WITH (NOLOCK) ON g.GroupTeamId = gem.NewGroupTeamId
 INNER JOIN [NexHRM].[dbo].[Employee] e WITH (NOLOCK) ON e.NickName = gem.PICNickName AND e.IsDeleted = 0 AND e.Enabled = 1
-WHERE gem.CompanyId = 1;
+WHERE gem.CompanyId = 1 AND g.CompanyId IN (1, 2, @NexVisionCompanyId);
 
 UPDATE g
 SET g.PICEmpId = e.Id
 FROM [bodb_HRM].[dbo].[Group] g WITH (NOLOCK)
 INNER JOIN #GroupEmployeeMapping gem WITH (NOLOCK) ON g.GroupTeamId = gem.NewGroupTeamId
 INNER JOIN [LumiHRM].[dbo].[Employee] e WITH (NOLOCK) ON e.NickName = gem.PICNickName AND e.IsDeleted = 0 AND e.Enabled = 1
-WHERE gem.CompanyId = 2;
+WHERE gem.CompanyId = 2 AND g.CompanyId IN (1, 2, @NexVisionCompanyId);
 
 UPDATE g
 SET g.PICEmpId = e.Id
 FROM [bodb_HRM].[dbo].[Group] g WITH (NOLOCK)
 INNER JOIN #GroupEmployeeMapping gem WITH (NOLOCK) ON g.GroupTeamId = gem.NewGroupTeamId
 INNER JOIN [NexVisionHRM].[dbo].[Employee] e WITH (NOLOCK) ON e.NickName = gem.PICNickName AND e.IsDeleted = 0 AND e.Enabled = 1
-WHERE gem.CompanyId = @NexVisionCompanyId;
+WHERE gem.CompanyId = @NexVisionCompanyId AND g.CompanyId IN (1, 2, @NexVisionCompanyId);
 
 UPDATE [bodb_HRM].[dbo].[CompanyEmployee] 
 SET Roles = '4'
