@@ -1,6 +1,22 @@
-USE [NexHRM]
+-- run in bodb_HRM database
 
+INSERT INTO [dbo].[SystemSetting]
+           (
+            [Id]
+           ,[Name]
+           ,[Value])
+     VALUES
+           (6, 'HRTeamId', 300000279),
+           (7, 'CoreTeamId', 300000137),
+           (8, 'CEOTeamId', 300000043),
+           (9, 'ITNetWorkTeamId', 300000169),
+           (10, 'EXPTeamId', 300000078),
+           (11, 'FATeamId', 300000050),
+           (12, 'MGTHeadCode', '02197')
 GO
+
+
+
 
 EXEC sp_rename 'Employee', 'Employee_bk';
 EXEC sp_rename 'EmployeeExt', 'EmployeeExt_bk';
@@ -90,65 +106,3 @@ SELECT DISTINCT d.DepartmentId
   INNER JOIN bodb_HRM.dbo.[Group] g WITH (NOLOCK) ON d.DepartmentId = g.DepartmentId
   INNER JOIN dbo.SystemSetting AS st WITH (NOLOCK) ON g.CompanyId = st.[Value] AND st.Id = 4
 GO
-
-
-
-USE [HRM]
-GO
-
-sp_rename 'Employee', 'Employee_bk';
-GO
-
-CREATE OR ALTER VIEW [dbo].[Employee]
-
-AS
-
-SELECT e.[EmpId] as Id 
-      ,e.[Code]
-      ,e.[FullName]
-      ,e.[NickName]
-      ,e.[DOB]
-      ,e.[JobTitleId]
-      ,e.[Phone]
-      ,e.[Gender]
-      ,e.[Skype]
-      ,e.[Yahoo]
-      ,e.[Telegram]
-      ,e.[Marriage]
-      ,e.[PermanentAddress]
-      ,e.[CurrentAddress]
-      ,e.[IdCardNumber]
-      ,e.[PassportNo]
-      ,e.[PassportExp]
-      ,e.[GeoMapLatitude]
-      ,e.[GeoMapLongtitude]
-      ,e.[DistanceToCompany]
-      ,e.[EmployeeCard]
-      ,e.[DateOfIDCard] as IssuedDate
-      ,e.[PlaceOfIDCard] as IssuedPlace
-      ,e.[PlaceOfBirth]
-      ,e.[ContactName]
-      ,e.[UserRelationship]
-      ,e.[ContactPhone]
-      ,e.[ContactAddress]
-      ,e.[EducationBackground]
-      ,e.[SocialInsuranceNo]
-      ,e.[JoinedDate] as GroupDate
-      ,e.[CreatedDate]
-      ,e.[CreatedBy]
-      ,e.[ModifiedDate]
-      ,e.[ModifiedBy]
-      ,e.[RefId]
-      ,e.[RefCompanyId]
-      ,e.[IsDeleted]
-  FROM bodb_HRM.dbo.Employee e
-  INNER JOIN bodb_HRM.dbo.CompanyEmployee ce WITH(NOLOCK) ON e.EmpId = ce.EmpId AND ce.CompanyId IN (1,2)
-
-GO
-
-
-
-
-
-
-

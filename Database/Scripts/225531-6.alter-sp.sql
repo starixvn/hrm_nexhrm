@@ -6784,3 +6784,28 @@ BEGIN
     END CATCH;
 END
 GO
+
+
+CREATE OR ALTER   PROCEDURE [dbo].[Sync_JobTitle_Get] 
+	@LastModifiedDate DATETIME = NULL
+AS
+/*
+Created: Jay.Do@20250610
+Task: Get job title by last modified date
+DB: NexHR
+Original: 
+
+Revisions:    
+Param's Explanation:
+
+*/
+BEGIN
+    SET NOCOUNT ON
+	
+	SELECT JobTitleId AS Id, 
+		[Name],
+		ISNULL(ModifiedDate, CreatedDate) AS ModifiedDate
+	FROM  HRM.dbo.JobTitle WITH (NOLOCK)
+	WHERE @LastModifiedDate IS NULL OR ISNULL(ModifiedDate, CreatedDate) > @LastModifiedDate
+END
+GO
