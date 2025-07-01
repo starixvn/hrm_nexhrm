@@ -1,4 +1,4 @@
-USE [bodb_HRM]
+USE [bodb_HRM_bk1]
 GO
 
 /*<info serverAlias="bodb_HRM" executers="wsv_hrm" isFunction="0"></info>*/
@@ -710,22 +710,22 @@ BEGIN
 
 	SET @xml = (
 			SELECT Code AS '@Code'
-				,DomainUsername AS '@DomainUsername'
+				,emp.DomainUsername AS '@DomainUsername'
 				,FullName AS '@FullName'
 				,Nickname AS '@Nickname'
 				,DOB AS '@DOB'
-				,Email AS '@Email'
+				,emp.Email AS '@Email'
 				,JobTitleId AS '@JobTitleId'
 				,JobLevelId AS '@JobLevelId'
 				,ManagementLevelId AS'@ManagementLevelId'
-				,[Enabled] AS '@Enabled'
+				,emp.[Enabled] AS '@Enabled'
 				,emp.isDeleted AS '@IsDeleted'
 				,Phone AS '@Phone'
 				,Gender AS '@Gender'
-				,GroupId AS '@TeamId'
+				,emp.GroupId AS '@TeamId'
 				,JoinedDate AS '@JoinedDate'
-				,ConfirmedDate AS '@ConfirmedDate'
-				,ResignedDate AS '@ResignedDate'
+				,emp.ConfirmedDate AS '@ConfirmedDate'
+				,emp.ResignedDate AS '@ResignedDate'
 				,ResignedReason AS '@ResignedReason'
 				,Skype AS '@Skype'
 				,LetsTalk AS '@LetsTalk'
@@ -757,13 +757,13 @@ BEGIN
 				,WorkingHours AS '@WorkingHours'
 				,WorkingHoursByWeek AS '@WorkingHoursByWeek'
 				,IsTopManager AS '@IsTopManager'
-				,CompanyDate AS '@CompanyDate'
+				,empsum.CompanyDate AS '@CompanyDate'
 				,CountryCode AS '@CountryCode'
 				,IsExpatUseHoliday AS '@IsExpatUseHoliday'
 				,OffDaysbyWeek AS '@OffDaysbyWeek'
 				,MilitaryFromDate AS '@MilitaryFromDate'
 				,MilitaryToDate AS '@MilitaryToDate'
-				,SubCompanyId AS '@SubCompanyId'
+				,ce.SubCompanyId AS '@SubCompanyId'
 			FROM dbo.Employee AS emp WITH (NOLOCK)
 				INNER JOIN dbo.EmployeeSummary AS empsum WITH (NOLOCK) ON emp.EmpId = empsum.EmpId
 				INNER JOIN dbo.CompanyEmployee AS ce WITH (NOLOCK) ON emp.EmpId = ce.EmpId
@@ -854,22 +854,22 @@ BEGIN
 
 	SET @xml = (
 			SELECT Code AS '@Code'
-				,DomainUsername AS '@DomainUsername'
+				,emp.DomainUsername AS '@DomainUsername'
 				,FullName AS '@FullName'
 				,Nickname AS '@Nickname'
 				,DOB AS '@DOB'
-				,Email AS '@Email'
+				,emp.Email AS '@Email'
 				,JobTitleId AS '@JobTitleId'
 				,JobLevelId AS '@JobLevelId'
 				,ManagementLevelId AS '@ManagementLevelId'
-				,[Enabled] AS '@Enabled'
+				,emp.[Enabled] AS '@Enabled'
 				,emp.isDeleted AS '@IsDeleted'
 				,Phone AS '@Phone'
 				,Gender AS '@Gender'
-				,GroupId AS '@TeamId'
+				,emp.GroupId AS '@TeamId'
 				,JoinedDate AS '@JoinedDate'
-				,ConfirmedDate AS '@ConfirmedDate'
-				,ResignedDate AS '@ResignedDate'
+				,emp.ConfirmedDate AS '@ConfirmedDate'
+				,emp.ResignedDate AS '@ResignedDate'
 				,ResignedReason AS '@ResignedReason'
 				,Skype AS '@Skype'
 				,LetsTalk AS '@LetsTalk'
@@ -901,13 +901,13 @@ BEGIN
 				,WorkingHours AS '@WorkingHours'
 				,WorkingHoursByWeek AS '@WorkingHoursByWeek'
 				,IsTopManager AS '@IsTopManager'
-				,CompanyDate AS '@CompanyDate'
+				,empsum.CompanyDate AS '@CompanyDate'
 				,CountryCode AS '@CountryCode'
 				,IsExpatUseHoliday AS '@IsExpatUseHoliday'
 				,OffDaysbyWeek AS '@OffDaysbyWeek'
 				,MilitaryFromDate AS '@MilitaryFromDate'
 				,MilitaryToDate AS '@MilitaryToDate'
-				,SubCompanyId AS '@SubCompanyId'
+				,ce.SubCompanyId AS '@SubCompanyId'
 			FROM dbo.Employee AS emp WITH (NOLOCK)
 				INNER JOIN dbo.EmployeeSummary AS empsum WITH (NOLOCK) ON emp.EmpId = empsum.EmpId
 				INNER JOIN dbo.CompanyEmployee AS ce WITH (NOLOCK) ON emp.EmpId = ce.EmpId
