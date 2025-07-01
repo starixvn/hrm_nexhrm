@@ -396,7 +396,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER PROCEDURE [dbo].[Employee_Delete] @employeeId INT
+CREATE OR ALTER   PROCEDURE [dbo].[Employee_Delete] @employeeId INT
     ,@ResignedDate SMALLDATETIME
 	,@ModifiedBy INT = NULL
     ,@ErrCode INT = 0 OUTPUT
@@ -427,11 +427,14 @@ BEGIN
 
     BEGIN TRY
         BEGIN TRANSACTION;
+		
+		DECLARE @CompanyId int = (SELECT [Value] FROM dbo.SystemSetting WITH (NOLOCK) WHERE [Name] = 'CompanyId')
 
         UPDATE bodb_HRM.dbo.CompanyEmployee WITH (UPDLOCK, ROWLOCK)
         SET ResignedDate = @ResignedDate
             ,isDeleted = 1
         WHERE EmpId = @employeeId
+		AND CompanyId = @CompanyId
 
 		UPDATE bodb_HRM.dbo.Employee WITH (UPDLOCK, ROWLOCK)
         SET ModifiedBy = @ModifiedBy
@@ -459,6 +462,7 @@ BEGIN
             ,@ErrMsg = N'Delete Employee unsuccessfully.'
     END CATCH
 END
+GO
 
 GO
 
@@ -6553,7 +6557,7 @@ BEGIN
 END
 GO
 
-ALTER PROCEDURE [dbo].[Employee_UpdateEmployee] @employeeId INT
+CREATE OR ALTER PROCEDURE [dbo].[Employee_UpdateEmployee] @employeeId INT
     ,@code VARCHAR(20) = NULL
     ,@domainUsername VARCHAR(50) = NULL
     ,@fullName NVARCHAR(50) = NULL
@@ -6736,6 +6740,8 @@ BEGIN
 			,EducationBackground = @EducationBackground
         WHERE EmpId = @employeeId
 
+		DECLARE @CompanyId int = (SELECT [Value] FROM dbo.SystemSetting WITH (NOLOCK) WHERE [Name] = 'CompanyId')
+
 		UPDATE bodb_HRM.dbo.CompanyEmployee
 		SET DomainUsername = @domainUsername
             ,Email = @email
@@ -6747,6 +6753,7 @@ BEGIN
             ,ConfirmedDate = @confirmedDate
             ,ResignedDate = @resignedDate
 		WHERE EmpId = @employeeId
+		AND CompanyId = @CompanyId
 
 		-- UPDATE dbo.EmployeeExt WITH (UPDLOCK, ROWLOCK)
         -- SET DomainUsername = @domainUsername
