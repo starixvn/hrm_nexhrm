@@ -387,3 +387,15 @@ SET r.ModifiedBy = e.UserId
 FROM dbo.WorkingTimeRequest_history r
     INNER JOIN HRM.dbo.Employee e ON r.ModifiedBy = e.OldId;
 GO
+
+/*
+MessageCategoryLog
+*/
+UPDATE mcl
+SET mcl.JsonObject = REPLACE(mcl.JsonObject, 
+    CONCAT('"EmpId":', CAST(e.OldId AS VARCHAR(10))), 
+    CONCAT('"EmpId":', CAST(e.UserId AS VARCHAR(10)))
+)
+FROM dbo.MessageCategoryLog mcl
+INNER JOIN HRM.dbo.Employee e ON mcl.JsonObject LIKE CONCAT('%"EmpId":', CAST(e.OldId AS VARCHAR(10)), '%');
+GO
