@@ -1,4 +1,5 @@
--- run in bodb_HRM database
+USE [NexHRM]
+GO
 
 INSERT INTO [dbo].[SystemSetting]
            (
