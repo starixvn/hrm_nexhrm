@@ -25,13 +25,16 @@
         private readonly IEmployeeRepository employeeRepository;
         private readonly IBaseService baseService;
         private readonly ILogServiceProvider logServiceProvider;
+        private readonly AppSetting appSetting;
+
 
         public EmployeeService(IEmployeeRepository employeeRepository, IBaseService baseService,
-            ILogServiceProvider logServiceProvider)
+            ILogServiceProvider logServiceProvider, AppSetting appSetting)
         {
             this.employeeRepository = employeeRepository;
             this.baseService = baseService;
             this.logServiceProvider = logServiceProvider;
+            this.appSetting = appSetting;
         }
 
         public async Task<Employee> GetEmployeeById(GetEmployeeByIdCriteria criteria)
@@ -97,7 +100,7 @@
                 space.DashboardEmployeeSpace = await GetDashBoardPersonalSpace(criteria.EmpId);
                 if (space.DashboardCompanySpace.Any())
                 {
-                    space.CompanyWorkFromHome = getCompanyWorkFromHome(space.DashboardCompanySpace);
+                    space.CompanyWorkFromHome = getCompanyWorkFromHome(space.DashboardCompanySpace, appSetting.IgnoreShowLeaveRequest);
                 }
             }
 
@@ -205,7 +208,7 @@
         }
 
 
-        private static string getCompanyWorkFromHome(IList<DashBoardCompanySpace> dashBoard)
+        private static string getCompanyWorkFromHome(IList<DashBoardCompanySpace> dashBoard, string ignoreEmps)
         {
             const float numberEqual = 0.5f;
             const int numberLength = 2;
@@ -224,6 +227,10 @@
                 .ToList();
             foreach (var request in requests)
             {
+                if (ignoreEmps.Contains(request.Employee.NickName))
+                {
+                    continue;
+                }
                 employees.Append(request.Employee.NickName);
                 employees.Append(", ");
             }
@@ -234,6 +241,10 @@
 
             foreach (var halfDayRequest in halfDayRequests)
             {
+                if (ignoreEmps.Contains(halfDayRequest.Employee.NickName))
+                {
+                    continue;
+                }
                 employees.Append(halfDayRequest.Employee.NickName);
                 employees.Append(" (½)");
                 employees.Append(", ");
