@@ -106,8 +106,8 @@ FROM
         (300000544, 'C89', 'Momentum', 'NexVisionHRM', 'MW11', N'NX Marketing Momentum', 4, 0),
 
          -- Deleted Group
-        (NULL, 'Other', 'Other', 'NexHRM', 'NX66', N'NX Other', NULL, 0),
-        (NULL, 'Other', 'Other', 'LumiHRM', 'NX69', N'NX Other', NULL, 0)
+        (NULL, 'Other', 'Other', 'NexHRM', 'Other', N'NX Other', NULL, 1),
+        (NULL, 'Other', 'Other', 'LumiHRM', 'Other', N'NX Other', NULL, 1)
     ) AS s (GroupTeamId, Code, Name, Company, DeptCode, AccountableArea, OldGroupId, IsDeleted)
 JOIN 
     [bodb_HRM].[dbo].[Department] d 
