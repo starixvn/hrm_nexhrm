@@ -16,7 +16,9 @@ public class AvatarController(
     [Route("Avatars/{id}")]
     public async Task<IActionResult> Avatar(string id)
     {
-        var avatarUrl = await FileHelpers.GetAvatar(id);
+        var index = id.LastIndexOf('.');
+        var newId = id.EndsWith(".jpg") ? id[..index] : id;
+        var avatarUrl = await FileHelpers.GetAvatar(newId);
         return Redirect(avatarUrl);
     }
 
