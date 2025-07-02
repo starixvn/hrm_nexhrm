@@ -215,6 +215,10 @@
                     .ToList();
                 foreach (DashBoardCompanySpace checkInOut in todayAbsents)
                 {
+                    if (IgnoreShowLeaveRequest.Contains(checkInOut.Employee.NickName))
+                    {
+                        continue;
+                    }
                     employees.Append(checkInOut.Employee.NickName);
                     employees.Append(", ");
                 }
@@ -555,6 +559,10 @@
                 {
                     foreach (var item in NotificationLateInEarlyOutToDay)
                     {
+                        if (IgnoreShowLeaveRequest.Contains(item.Nickname))
+                        {
+                            continue;
+                        }
                         string itemString =
                             $"{item.Nickname}<span class=\'txt-normal\'> ({item.Types} {item.Minutes}\')</span>, ";
                         results.Append(itemString);
