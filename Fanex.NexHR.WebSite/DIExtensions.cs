@@ -19,6 +19,7 @@ namespace Fanex.NexHR.WebSite
     using Fanex.NexHR.Services.AutoJobService;
     using Fanex.NexHR.Services.Email;
     using Fanex.NexHR.Services.Interfaces;
+    using GO.UserControl.Client.Core.Session;
     using Microsoft.AspNetCore.DataProtection;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -26,6 +27,7 @@ namespace Fanex.NexHR.WebSite
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
     using StackExchange.Redis;
+    using GOServices = GO.UserControl.Client.Core.Services;
 
     public static class DIExtensions
     {
@@ -108,9 +110,12 @@ namespace Fanex.NexHR.WebSite
         {
             services.AddSingleton<Logging.ILogger, Logging.Logger>();
             services.AddScoped<ISessionService, SessionService>();
-            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
             services.AddSingleton<IBaseService, BaseService>();
+            services.AddSingleton<GOServices.ICryptoService, GOServices.CryptoService>();
+            services.AddSingleton<GOServices.IUserService, GOServices.UserService>();
+            services.AddSingleton<GOServices.IAuthService, GOServices.AuthService>();
+            services.AddSingleton<IUserControlSession, UserControlSession>();
 
             services.AddSingleton<IAuthService, AuthService>();
             services.AddSingleton<ILogServiceProvider, LogServiceProvider>();
@@ -145,7 +150,7 @@ namespace Fanex.NexHR.WebSite
             services.AddSingleton<IHistoryService, HistoryService>();
             services.AddSingleton<IPositionService, PositionService>();
             services.AddSingleton<ISupervisorFlowService, SupervisorFlowService>();
-            services.AddSingleton<ICryptoService, CryptoService>(); 
+            services.AddSingleton<ICryptoService, CryptoService>();
 
             //API Service
             services.AddSingleton<IBotBioTasksService, BioTasksService>();

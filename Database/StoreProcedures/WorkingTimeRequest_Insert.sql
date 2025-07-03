@@ -36,8 +36,18 @@ BEGIN
 		,@BusinessLeave INT
 		,@IsValidLeaveDay BIT
 
-	DECLARE @HRGroupId INT
-	SELECT @HRGroupId = Id FROM dbo.EmployeeGroup WITH (NOLOCK) WHERE Code = 'HR-ADM'
+	DECLARE @HRGroupId INT;
+	DECLARE @HeadId INT;
+
+	SELECT @HeadId = e.Id
+    FROM dbo.Employee AS e WITH (NOLOCK)
+    INNER JOIN dbo.SystemSetting AS ss WITH (NOLOCK) ON ss.Name = 'MGTHeadCode'
+    WHERE e.Code = ss.Value
+
+	SELECT @HRGroupId = MAX(CASE WHEN ss.Name = 'HRTeamId' THEN g.Id END)
+	FROM dbo.SystemSetting ss WITH (NOLOCK)
+	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
+	WHERE ss.Name = 'HRTeamId'
 
 	SELECT @annualLeaveType = 2
 		,@callInLeaveType = 30
@@ -146,7 +156,7 @@ BEGIN
 
 		-- END
 		
-		IF(@EmpId = 88) -- user Thien is auto approve check in/out request.
+		IF(@EmpId = @HeadId) -- user Thien is auto approve check in/out request.
 		BEGIN
 			SELECT @ErrCode = - 1
 		END
@@ -549,7 +559,7 @@ BEGIN
 			,1
 	END
 
-	IF (@LeaveTypeID = @BusinessLeave AND @EmpId = 88)
+	IF (@LeaveTypeID = @BusinessLeave AND @EmpId = @HeadId)
 	BEGIN
 		SELECT @ErrCode = - 1
 	END

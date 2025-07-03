@@ -47,8 +47,8 @@
 
             employees = employees.Where(e =>
                 !Array.Exists(ignoreJobTitles, keyword => e.JobTitle?.Contains(keyword) ?? false) &&
-                Array.IndexOf(ignoreEmployees, e.EmpID.ToString()) < 0 &&
-                Array.IndexOf(ignoreTeams, e.TeamCode ?? string.Empty) < 0 &&
+                Array.IndexOf(ignoreEmployees, e.Code ?? string.Empty) < 0 &&
+                Array.IndexOf(ignoreTeams, e.GroupTeamId.ToString()) < 0 &&
                 !timeEntries.Any(te => te.Login.Equals(e.DomainUsername?.Split('\\').LastOrDefault(), StringComparison.OrdinalIgnoreCase))
             ).ToList();
 

@@ -44,7 +44,7 @@
         public string Approvers { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         public string PlaceOfBirth { get; set; }
 
@@ -118,7 +118,7 @@
 
         public string JobGradeName { get; set; }
 
-        public DateTime AffectedDate { get; set; }
+        public DateTime? AffectedDate { get; set; }
 
         public string Note { get; set; }
 
@@ -128,7 +128,7 @@
 
         public string ManagementGradeName { get; set; }
 
-        public DateTime ManagementAffectedDate { get; set; }
+        public DateTime? ManagementAffectedDate { get; set; }
 
         public string ManagementNote { get; set; }
 

@@ -13,7 +13,7 @@ Param's Explanation:
 BEGIN
     SET NOCOUNT ON
 	
-	SELECT Id AS GroupId, 
+	SELECT ISNULL(Id, OldId) AS GroupId, 
 		[Name], 
 		Code, 
 		ParentId, 

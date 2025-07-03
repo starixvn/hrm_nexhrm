@@ -21,7 +21,7 @@ Param's Explanation:
 BEGIN
     SET NOCOUNT ON;
 	DECLARE @NewId INT;
-
+	DECLARE @GroupName NVARCHAR(255);
 	--DECLARE @CurrentGroupId INT, @CurrentJobTitleId INT, @CurrentJobGradeId INT;
 
 	--SELECT 
@@ -70,15 +70,19 @@ BEGIN
 
 	SET @NewId = SCOPE_IDENTITY();
 
+	SELECT @GroupName = Name FROM dbo.EmployeeGroup WITH (NOLOCK) WHERE Id = @GroupId;
+
 	INSERT INTO dbo.HistoryWorkDetail(
 		HistoryWorkId
 		,GroupId
+		,GroupName
 		,JobTitleId
 		,JobGradeId
         )
     VALUES (
         @NewId
 		,@GroupId
+		,@GroupName
 		,@JobTitleId
 		,@JobGradeId
 		)

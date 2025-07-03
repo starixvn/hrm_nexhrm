@@ -16,6 +16,13 @@ BEGIN
     SET NOCOUNT ON;
 
 	DECLARE @IsSupReadOnly BIT = 0
+	DECLARE @CoreTeamId INT = 0
+	
+	SELECT @CoreTeamId = g.Id
+	FROM dbo.SystemSetting ss WITH (NOLOCK)
+	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
+	WHERE ss.Name = 'CoreTeamId'
+
 	CREATE TABLE #tempSupIds(
 		SupervisorId INT,
 		IsReadOnly BIT
@@ -28,7 +35,7 @@ BEGIN
 		FROM dbo.Employee AS e WITH (NOLOCK)
 		INNER JOIN dbo.EmployeeGroup AS eg ON e.GroupId = eg.Id
 		LEFT JOIN dbo.EmployeeConversation AS con WITH (NOLOCK) ON e.Id = con.EmpId
-		WHERE eg.Code IN ('COR', 'MGT')
+		WHERE e.GroupId = @CoreTeamId
 		AND e.isDeleted = 0
 		SET @IsSupReadOnly = 1
 	END

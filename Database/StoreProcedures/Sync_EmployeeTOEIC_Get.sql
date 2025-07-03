@@ -13,13 +13,14 @@ Param's Explanation:
 BEGIN
     SET NOCOUNT ON
 	
-	SELECT EmpId, 
-		MinimumScore, 
-		CAST(InputDate AS DATE) AS InputDate, 
-		CAST(LRExamDate AS DATE) AS LRExamDate, 
-		Listening, 
-		Reading,
-		ISNULL(ModifiedDate, CreatedDate) AS ModifiedDate
-	FROM  HRM.dbo.TOEIC WITH (NOLOCK)
-	WHERE ISNULL(ModifiedDate, CreatedDate) > @LastModifiedDate
+	SELECT ISNULL(e.OldId, e.Id) AS EmpId, 
+		toeic.MinimumScore, 
+		CAST(toeic.InputDate AS DATE) AS InputDate, 
+		CAST(toeic.LRExamDate AS DATE) AS LRExamDate, 
+		toeic.Listening, 
+		toeic.Reading,
+		ISNULL(toeic.ModifiedDate, toeic.CreatedDate) AS ModifiedDate
+	FROM  HRM.dbo.TOEIC AS toeic WITH (NOLOCK)
+	INNER JOIN dbo.Employee AS e WITH (NOLOCK) ON e.Id = toeic.EmpId
+	WHERE ISNULL(toeic.ModifiedDate, toeic.CreatedDate) > @LastModifiedDate
 END

@@ -12,7 +12,7 @@ namespace Fanex.NexHR.Controllers.API.Sync;
 public class JobTitleController(IJobTitleService jobTitleService) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetJobTitleByLastModifiedDate(DateTime lastModifiedDate)
+    public async Task<IActionResult> GetJobTitleByLastModifiedDate(DateTime? lastModifiedDate)
     {
         var criteria = new GetJobTitleByLastModifiedDateCriteria
         {

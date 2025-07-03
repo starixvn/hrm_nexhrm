@@ -12,6 +12,12 @@ AS
 BEGIN
 	SET NOCOUNT ON; 
 
+	DECLARE @HRTeamId INT
+	SELECT @HRTeamId = g.Id
+	FROM dbo.SystemSetting ss WITH (NOLOCK)
+	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
+	WHERE ss.Name = 'HRTeamId'
+
 	SELECT e.Id 
         ,e.NickName 
 		,ec.ConversationId
@@ -22,7 +28,7 @@ BEGIN
     WHERE  e.IsSpecialUser = 0 
 		AND e.isDeleted = 0
 		AND e.Enabled = 1
-		AND GroupId = 1104
+		AND GroupId = @HRTeamId
 
 END
 

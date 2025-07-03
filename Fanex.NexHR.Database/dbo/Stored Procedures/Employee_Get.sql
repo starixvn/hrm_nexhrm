@@ -1,5 +1,5 @@
 ﻿
-CREATE PROCEDURE [dbo].[Employee_Get] @FromDate DATETIME = NULL
+ALTER PROCEDURE [dbo].[Employee_Get] @FromDate DATETIME = NULL
 AS
 /*
 Created: 20140320@Quinn.Vo
@@ -14,7 +14,7 @@ Param's Explanation:
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT e.Id AS UserId
+    SELECT ISNULL(e.OldId, e.Id) AS EmpId
         ,'' AS [Password]
         ,e.Code
         ,e.NickName

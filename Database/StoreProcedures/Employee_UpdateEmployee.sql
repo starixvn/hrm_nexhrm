@@ -147,7 +147,7 @@ BEGIN
 		FROM dbo.Employee WITH (NOLOCK)
 		WHERE Id = @employeeId
 
-        UPDATE HRM.dbo.Employee WITH (UPDLOCK, ROWLOCK)
+        UPDATE bodb_HRM.dbo.Employee WITH (UPDLOCK, ROWLOCK)
         SET Code = @code
             ,FullName = @fullName
             ,NickName = @nickName
@@ -156,15 +156,14 @@ BEGIN
             ,JobTitleId = @jobTitleId
             ,Phone = @phone
             ,Gender = @gender
-			,GroupDate = @groupDate
             ,Skype = @skype
             ,Yahoo = @yahoo
             ,Marriage = @marriage
             ,PermanentAddress = @address
             ,CurrentAddress = @currAddress
             ,IdCardNumber = @idCardNo
-            ,IssuedDate = @issuedDate
-            ,IssuedPlace = @issuedPlace
+            ,DateOfIDCard = @issuedDate
+            ,PlaceOfIDCard = @issuedPlace
             ,PassportNo = @passportNo
             ,PassportExp = @passportExp
 			,SocialInsuranceNo = @socialInsuranceNo
@@ -176,49 +175,41 @@ BEGIN
 			,UserRelationship = @userRelationship
 			,ContactPhone = @contactPhone
 			,ContactAddress = @contactAddress
-            ,ModifiedDate = dbo.fnc_GetClientDateTime()
+			,JoinedDate = @groupDate
+            ,ModifiedDate = GETDATE()
             ,ModifiedBy = @modifiedBy
 			,EducationBackground = @EducationBackground
-        WHERE Id = @employeeId
+        WHERE EmpId = @employeeId
 
-		UPDATE dbo.EmployeeExt WITH (UPDLOCK, ROWLOCK)
-        SET DomainUsername = @domainUsername
+		DECLARE @CompanyId int = (SELECT [Value] FROM dbo.SystemSetting WITH (NOLOCK) WHERE [Name] = 'CompanyId')
+
+		UPDATE bodb_HRM.dbo.CompanyEmployee
+		SET DomainUsername = @domainUsername
             ,Email = @email
 			,IsSpecialUser = @isSpecialUser
-			,Enabled = @enabled
+			,[Enabled] = @enabled
             ,GroupId = @mainGroupID
             ,Roles = @roles
-            ,JoinedDate = @joinedDate
+            ,CompanyDate = @joinedDate
             ,ConfirmedDate = @confirmedDate
             ,ResignedDate = @resignedDate
-        WHERE Id = @employeeId
+		WHERE EmpId = @employeeId
+		AND CompanyId = @CompanyId
 
-        DELETE dbo.EmployeeGroup_Employee
-        WHERE empid = @employeeId
-
-        INSERT INTO dbo.EmployeeGroup_Employee (
-            GroupId
-            ,EmpID
-            ,isMainGroup
-            )
-        VALUES (
-            @mainGroupID
-            ,@employeeId
-            ,1
-            )
-
-        INSERT INTO dbo.EmployeeGroup_Employee (
-            GroupId
-            ,EmpID
-            ,isMainGroup
-            )
-        SELECT val
-            ,@employeeId
-            ,0
-        FROM dbo.fnc_strSplit(@subGroups, ',')
+		-- UPDATE dbo.EmployeeExt WITH (UPDLOCK, ROWLOCK)
+        -- SET DomainUsername = @domainUsername
+        --     ,Email = @email
+		-- 	,IsSpecialUser = @isSpecialUser
+		-- 	,Enabled = @enabled
+        --     ,GroupId = @mainGroupID
+        --     ,Roles = @roles
+        --     ,JoinedDate = @joinedDate
+        --     ,ConfirmedDate = @confirmedDate
+        --     ,ResignedDate = @resignedDate
+        -- WHERE Id = @employeeId
 
 		INSERT INTO dbo.[Log](LogActionID, LogDate, Description, TrackingValue, UserID)
-		VALUES(5, dbo.fnc_GetClientDateTime(), 'Update Employee', @logData, @employeeId)
+		VALUES(5, GETDATE(), 'Update Employee', @logData, @employeeId)
 
         COMMIT TRANSACTION;
 

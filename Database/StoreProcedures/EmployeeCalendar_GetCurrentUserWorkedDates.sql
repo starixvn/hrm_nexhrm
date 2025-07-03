@@ -12,6 +12,7 @@ AS
 	Revisions:  
 		- 20250327@Henry: Update MGT Code -> MGT/COR code
 		- 20250506@Henry: Add HR-ADM group code
+		- 20250618@Assistant: Fix SystemSetting usage for comma-separated values
 	Param's Explanation:
 
 */
@@ -19,6 +20,23 @@ BEGIN
     SET NOCOUNT ON;
 
 	DECLARE @IsNotShow BIT = 0
+
+	DECLARE @HRTeamId INT,
+	@ITTeamId INT,
+	@ExpId INT,
+	@FinanceId INT,
+	@MGTId INT,
+	@CEOTeamId INT;
+
+	SELECT @HRTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'HRTeamId' THEN g.Id END), 0),
+		@ITTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'ITNetWorkTeamId' THEN g.Id END), 0),
+		@ExpId = ISNULL(MAX(CASE WHEN ss.Name = 'EXPTeamId' THEN g.Id END), 0),
+		@FinanceId = ISNULL(MAX(CASE WHEN ss.Name = 'FATeamId' THEN g.Id END), 0),
+		@MGTId = ISNULL(MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END), 0),
+		@CEOTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CEOTeamId' THEN g.Id END), 0)
+	FROM dbo.SystemSetting ss WITH (NOLOCK)
+	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
+	WHERE ss.Name IN ('HRTeamId', 'ITNetWorkTeamId', 'EXPTeamId', 'FATeamId', 'CoreTeamId', 'CEOTeamId')
 
 	IF(
 		EXISTS (
@@ -30,7 +48,7 @@ BEGIN
 					(e.Roles LIKE '%2%'
 						OR e.Roles LIKE '%3%'
 						OR e.Roles LIKE '%4%'
-						OR g.Code IN ('HR', 'EXP','FA','HR-ADM','PM', 'MGT', 'COR', 'ITNW')
+						OR g.Id IN (@HRTeamId, @ITTeamId, @ExpId, @FinanceId, @MGTId, @CEOTeamId)
 					)
 		)
 	)

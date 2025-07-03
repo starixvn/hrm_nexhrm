@@ -16,16 +16,16 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    IF NOT EXISTS (SELECT 1 FROM dbo.EmployeeExt WHERE Id = @Id)
+    IF NOT EXISTS (SELECT 1 FROM bodb_HRM.dbo.CompanyEmployee WHERE EmpId = @Id)
     BEGIN
         SET @ErrCode = 1
         SET @ErrMsg = 'Employee not found'
         RETURN
     END
 
-    UPDATE dbo.EmployeeExt
+    UPDATE bodb_HRM.dbo.CompanyEmployee
     SET Password = @Password
-    WHERE Id = @Id
+    WHERE EmpId = @Id
 END
 
 SET ANSI_NULLS ON

@@ -19,6 +19,15 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
+    DECLARE @CoreTeamId INT = 0;
+    DECLARE @HRTeamId INT = 0;
+
+	SELECT @CoreTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'HRTeamId' THEN g.Id END), 0),
+		@HRTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END), 0)
+	FROM dbo.SystemSetting ss WITH (NOLOCK)
+	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
+	WHERE ss.Name IN ('HRTeamId', 'CoreTeamId')
+    
     DECLARE
         @empId     INT
         ,@year          INT
@@ -31,9 +40,8 @@ BEGIN
             INNER JOIN [dbo].[EmployeeGroup] eg WITH (NOLOCK) ON e.[GroupId] = eg.[Id]
         WHERE e.[Id] = @modifiedBy
             AND (
-                eg.[Code] = @HRCode
-                OR eg.[Code] = 'COR'
-				OR eg.[Code] = 'MGT'
+                eg.[Id] = @HRTeamId
+                OR eg.[Id] = @CoreTeamId
                 OR e.[Roles] LIKE '%3%'
                 OR e.[Roles] LIKE '%4%'
             )

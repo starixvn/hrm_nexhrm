@@ -4,14 +4,17 @@ namespace Fanex.NexHR.WebSite
 {
     using AspNetCore.Unobtrusive.Ajax;
     using Data.SqlServer;
-    using Middlewares;
-    using Logging;
     using Fanex.Logging.Sentry;
+    using Fanex.NexHR.Models;
+    using GO.UserControl.Client.Core;
+    using GO.UserControl.Client.Core.Session;
+    using Logging;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Middlewares;
     using Sentry;
 
     public class Startup(IConfiguration configuration)
@@ -37,9 +40,12 @@ namespace Fanex.NexHR.WebSite
 
             services.AddFanexSql(configuration);
 
+            services.Configure<UserControlClientOptions>(configuration.GetSection("GO.UserControl.Client"));
+
             services.AddHttpClient();
             services.AddHttpClient(Constants.Fnb_Client);
             services.RegisterAuthentication(configuration);
+            services.AddHttpContextAccessor();
             services.RegisterServices(configuration);
             services.InjectConfiguration(configuration);
             services.AddUnobtrusiveAjax();
@@ -56,6 +62,9 @@ namespace Fanex.NexHR.WebSite
                 app.UseMiddleware<ErrorHandler>();
                 app.UseHsts();
             }
+
+            UserControlClient
+                .UseSession(app.ApplicationServices.GetRequiredService<IUserControlSession>(), configuration);
 
             app.UseCookiePolicy();
             app.UseStaticFiles();

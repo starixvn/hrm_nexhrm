@@ -13,14 +13,15 @@ Param's Explanation:
 BEGIN
     SET NOCOUNT ON
 	
-	SELECT Id,
-		EmpId, 
-		RequestType, 
-		FromDate, 
-		ToDate, 
-		TotalDays, 
-		[Status],
-		ISNULL(ModifiedDate, CreatedDate) AS ModifiedDate
-	FROM dbo.WorkingTimeRequest WITH (NOLOCK)
-	WHERE ISNULL(ModifiedDate, CreatedDate) > @LastModifiedDate
+	SELECT wtr.Id,
+		ISNULL(e.OldId, e.Id) AS EmpId, 
+		wtr.RequestType, 
+		wtr.FromDate, 
+		wtr.ToDate, 
+		wtr.TotalDays, 
+		wtr.[Status],
+		ISNULL(wtr.ModifiedDate, wtr.CreatedDate) AS ModifiedDate
+	FROM dbo.WorkingTimeRequest AS wtr WITH (NOLOCK)
+	INNER JOIN dbo.Employee AS e WITH (NOLOCK) ON e.Id = wtr.EmpId
+	WHERE ISNULL(wtr.ModifiedDate, wtr.CreatedDate) > @LastModifiedDate
 END

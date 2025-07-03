@@ -1,4 +1,4 @@
-﻿CREATE OR ALTER PROCEDURE [dbo].[Employee_Delete] @employeeId INT
+﻿CREATE OR ALTER   PROCEDURE [dbo].[Employee_Delete] @employeeId INT
     ,@ResignedDate SMALLDATETIME
 	,@ModifiedBy INT = NULL
     ,@ErrCode INT = 0 OUTPUT
@@ -29,16 +29,19 @@ BEGIN
 
     BEGIN TRY
         BEGIN TRANSACTION;
+		
+		DECLARE @CompanyId int = (SELECT [Value] FROM dbo.SystemSetting WITH (NOLOCK) WHERE [Name] = 'CompanyId')
 
-        UPDATE dbo.EmployeeExt WITH (UPDLOCK, ROWLOCK)
+        UPDATE bodb_HRM.dbo.CompanyEmployee WITH (UPDLOCK, ROWLOCK)
         SET ResignedDate = @ResignedDate
             ,isDeleted = 1
-        WHERE ID = @employeeId
+        WHERE EmpId = @employeeId
+		AND CompanyId = @CompanyId
 
-		UPDATE HRM.dbo.Employee WITH (UPDLOCK, ROWLOCK)
+		UPDATE bodb_HRM.dbo.Employee WITH (UPDLOCK, ROWLOCK)
         SET ModifiedBy = @ModifiedBy
             ,ModifiedDate = dbo.fnc_GetClientDateTime()
-        WHERE ID = @employeeId
+        WHERE EmpId = @employeeId
 
         DELETE dbo.EmployeeCalendar
         WHERE WorkDate > @ResignedDate
@@ -61,5 +64,4 @@ BEGIN
             ,@ErrMsg = N'Delete Employee unsuccessfully.'
     END CATCH
 END
-
 GO

@@ -11,19 +11,23 @@ using Core.Helpers;
 using Core.Model;
 using Criteria.Employee;
 using Criteria.History;
-using Criteria.JobGrade;
-using Criteria.ManagementGrade;
 using Criteria.TrainingAndDevelopment;
 using Fanex.NexHR.Core.Services;
+using Fanex.NexHR.Criteria.JobGrade;
+using Fanex.NexHR.Criteria.ManagementGrade;
+using GO.UserControl.Client.Core.Models.User;
+using HRM.Criteria.Employee;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Newtonsoft.Json;
-using Resources;
 using Services.Interfaces;
 using ViewModels;
 using ViewModels.Employee;
+using Resources;
+using GOModels = GO.UserControl.Client.Core.Models;
+using GOServices = GO.UserControl.Client.Core.Services;
 
 public class EmployeeController : BaseController
 {
@@ -40,6 +44,8 @@ public class EmployeeController : BaseController
     private readonly AppSetting appSetting;
     private readonly ILookupDataService lookupDataService;
     private readonly IMinIOService minIOService;
+        private readonly GOServices.ICryptoService cryptoService;
+        private readonly GOServices.IUserService userService;
 
 #pragma warning disable S107 // Methods should not have too many parameters
     public EmployeeController(
@@ -56,7 +62,9 @@ public class EmployeeController : BaseController
         IHistoryService historyService,
         IAuthService authService,
         IMinIOService minIOService,
-        ILookupDataService lookupDataService) : base(sessionService)
+            ILookupDataService lookupDataService,
+            GOServices.ICryptoService cryptoService,
+            GOServices.IUserService userService) : base(sessionService)
 #pragma warning restore S107 // Methods should not have too many parameters
     {
         this.employeeService = employeeService;
@@ -72,6 +80,8 @@ public class EmployeeController : BaseController
         this.appSetting = appSetting;
         this.lookupDataService = lookupDataService;
         this.minIOService = minIOService;
+            this.cryptoService = cryptoService;
+            this.userService = userService;
     }
 
     public async Task<IActionResult> Index()
@@ -248,6 +258,25 @@ public class EmployeeController : BaseController
         {
             model.DomainUsername = appSetting.DomainName + model.DomainUsername;
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Code);
+
+                var isExistCriteria = new CheckExistEmployeeCriteria
+                {
+                    Code = model.Code,
+                    Nickname = model.NickName,
+                };
+
+                var commandResult = await employeeService.CheckExistAsync(isExistCriteria);
+                if (!commandResult.IsSuccessful)
+                {
+                    ModelState.AddModelError(string.Empty, commandResult.Message);
+                }
+                var createUserResponse = await CreateUserAsync(model);
+
+                if (!createUserResponse.IsSuccessful)
+                {
+                    ModelState.AddModelError(string.Empty, createUserResponse.Message);
+                }
+
             var criteria = new InsertEmployeeCriteria
             {
                 Code = model.Code,
@@ -263,7 +292,8 @@ public class EmployeeController : BaseController
                 SatShift = model.SatShift,
                 SunShift = model.SunShift,
                 ThuShift = model.ThuShift,
-                WedShift = model.WedShift
+                    WedShift = model.WedShift,
+                    UserId = createUserResponse.ObjectId
             };
 
             var result = await baseService.ExecuteNonQueryAsync(criteria);
@@ -271,7 +301,7 @@ public class EmployeeController : BaseController
             {
                 return RedirectToAction("Edit", new
                 {
-                    id = criteria.EmployeeId,
+                        id = criteria.UserId,
                     phone = model.Phone,
                     DOB = model.DateOfBirth,
                     joinDate = model.JoinDate,
@@ -289,7 +319,28 @@ public class EmployeeController : BaseController
         }
 
         return View(model);
-    }
+        }
+
+        private async Task<GOModels.CommandResult> CreateUserAsync(CreateEmployeeViewModel model)
+        {
+            await authService.AuthorizeGoSystemAsync();
+            var token = cryptoService.GenerateRijndaelKeyIV();
+            var keyIv = token.Split(':');
+            var rijndaelKey = keyIv[0];
+            var rijndaelIv = keyIv[1];
+
+            var param = new CreateUserParam
+            {
+                Code = model.Code,
+                Nickname = model.NickName,
+                FullName = model.FullName,
+                BCryptPassword = cryptoService.Encrypt(model.Code, rijndaelKey, rijndaelIv),
+                Token = token
+            };
+            var commandResult = await userService.CreateAsync(param);
+
+            return commandResult;
+        }
 
     [HrmAuthorize(UserRoles = "HR")]
     public async Task<IActionResult> Edit(
@@ -328,6 +379,23 @@ public class EmployeeController : BaseController
         }
 
         var criteria = FillDataUpdateEmployeeCriteria(model);
+
+            var employee = await GetEmployeeById(criteria.EmployeeId);
+            var updatedGoResponse = await UpdateUserAsync(new UpdateUserInfoParam
+            {
+                RefId = model.Id,
+                UserId = employee.Id,
+                Code = employee.Code,
+                Nickname = employee.NickName,
+                FullName = employee.FullName,
+                Email = employee.Email,
+                IsActive = employee.Enabled
+            });
+
+            if (!updatedGoResponse.IsSuccessful)
+            {
+                ModelState.AddModelError(string.Empty, updatedGoResponse.Message);
+            }
         var result = await baseService.ExecuteNonQueryAsync(criteria);
 
         if (result.IsSuccessful)
@@ -341,7 +409,6 @@ public class EmployeeController : BaseController
 
             Task.Factory.StartNew(async () =>
             {
-                var employee = await GetEmployeeById(criteria.EmployeeId);
                 mailEmployeeService.SendMailUpdateSuccess(employee);
             });
         }
@@ -356,16 +423,42 @@ public class EmployeeController : BaseController
         return View(model);
     }
 
+        private async Task<GOModels.CommandResult> UpdateUserAsync(UpdateUserInfoParam model)
+        {
+            await authService.AuthorizeGoSystemAsync();
+
+            var commandResult = await userService.UpdateInfoAsync(new UpdateUserInfoParam
+            {
+                RefId = model.RefId,
+                UserId = model.UserId,
+                Code = model.Code,
+                Nickname = model.Nickname,
+                FullName = model.FullName,
+                Email = model.Email,
+                IsActive = model.IsActive
+            });
+
+            return commandResult;
+        }
+
     [HrmAuthorize(UserRoles = "HR")]
     [HttpPost]
     public async Task<IActionResult> Delete(int employeeId, DateTime resignedDate)
     {
+            var employee = await GetEmployeeById(employeeId);
         var criteria = new DeleteEmployeeCriteria
         {
             EmployeeId = employeeId,
             ResignedDate = resignedDate,
             ModifiedBy = CurrentUser.Id
         };
+            await authService.AuthorizeGoSystemAsync();
+            var response = await userService.DeleteAsync(employee.UserId);
+
+            if (!response.IsSuccessful)
+            {
+                ModelState.AddModelError(string.Empty, response.Message);
+            }
         var result = await baseService.ExecuteNonQueryAsync(criteria);
 
         return Json(result);

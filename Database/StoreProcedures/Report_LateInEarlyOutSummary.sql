@@ -16,6 +16,16 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
+    DECLARE @CoreTeamId INT = 0;
+	DECLARE @ExpId INT = 0;
+	DECLARE @CEOTeamId INT = 0;
+	SELECT @ExpId = ISNULL(MAX(CASE WHEN ss.Name = 'EXPTeamId' THEN g.Id END), 0),
+		@CoreTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END), 0),
+		@CEOTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CEOTeamId' THEN g.Id END), 0)
+	FROM dbo.SystemSetting ss WITH (NOLOCK)
+	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
+	WHERE ss.Name IN ('EXPTeamId', 'CoreTeamId', 'CEOTeamId')
+
     IF OBJECT_ID('#LateInEarlyOutSummary') IS NOT NULL
     BEGIN
         DROP TABLE #LateInEarlyOutSummary;
@@ -35,7 +45,7 @@ BEGIN
         ,COUNT(*)
     FROM dbo.LateInEarlyOutTrans AS tr WITH (NOLOCK)
         INNER JOIN dbo.Employee AS e WITH (NOLOCK) ON tr.EmpId = e.Id
-        AND e.GroupId NOT IN (1081, 40) -- management, expat
+        AND e.GroupId NOT IN (@CoreTeamId, @ExpId, @CEOTeamId) -- management, expat
         AND ISNULL(e.isDeleted, 0) = 0
         AND e.[Enabled] = 1
     WHERE tr.[Type] IN (1, 2)
@@ -64,7 +74,7 @@ BEGIN
     FROM dbo.Employee AS e WITH (NOLOCK)
         INNER JOIN dbo.EmployeeGroup AS g WITH (NOLOCK) ON e.GroupId = g.Id
         LEFT JOIN #LateInEarlyOutSummary AS tr ON e.Id = tr.EmpId
-    WHERE e.GroupId NOT IN (1081, 40) -- management, expat
+    WHERE e.GroupId NOT IN (@CoreTeamId, @ExpId, @CEOTeamId) -- management, expat
         AND ISNULL(e.isDeleted, 0) = 0
         AND e.[Enabled] = 1
         AND (

@@ -13,14 +13,15 @@ Param's Explanation:
 BEGIN
     SET NOCOUNT ON
 	
-	SELECT Id,
-		EmpId, 
-		WorkDate, 
-		IsOffDay, 
-		IsHoliday,
-		IsLeaveDay, 
-		LeaveDay,
-		ModifiedDate
-	FROM dbo.EmployeeCalendar WITH (NOLOCK)
-	WHERE ModifiedDate > @LastModifiedDate
+	SELECT cl.Id,
+		ISNULL(e.OldId, e.Id) AS EmpId, 
+		cl.WorkDate, 
+		cl.IsOffDay, 
+		cl.IsHoliday,
+		cl.IsLeaveDay, 
+		cl.LeaveDay,
+		cl.ModifiedDate
+	FROM dbo.EmployeeCalendar AS cl WITH (NOLOCK)
+	INNER JOIN dbo.Employee AS e WITH (NOLOCK) ON e.Id = cl.EmpId
+	WHERE cl.ModifiedDate > @LastModifiedDate
 END

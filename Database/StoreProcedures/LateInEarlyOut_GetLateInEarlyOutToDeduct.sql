@@ -11,6 +11,17 @@ Revisions:
 */
 BEGIN
 	SET NOCOUNT ON;
+	DECLARE @CoreTeamId INT;
+	DECLARE @ExpId INT;
+	DECLARE @CEOTeamId INT;
+
+	SELECT @ExpId = ISNULL(MAX(CASE WHEN ss.Name = 'EXPTeamId' THEN g.Id END), 0),
+		@CoreTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END), 0),
+		@CEOTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CEOTeamId' THEN g.Id END), 0)
+	FROM dbo.SystemSetting ss WITH (NOLOCK)
+	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
+	WHERE ss.Name IN ('EXPTeamId', 'CoreTeamId', 'CEOTeamId')
+
 	IF OBJECT_ID('#tblAnnualLeaveBalance') IS NOT NULL
 	BEGIN
 		DROP TABLE #tblAnnualLeaveBalance;
@@ -186,7 +197,7 @@ BEGIN
 		LEFT JOIN #LateInEarlyOutSummary AS dt ON pv.EmpId = dt.EmpId
 		LEFT JOIN #tblAnnualLeaveBalance AS al ON al.EmpId = pv.EmpId
 		LEFT JOIN #PendingAnnualLeaveRequest AS rq ON e.Id = rq.EmpId
-	WHERE eg.Code NOT IN ('MGT', 'COR', 'EXP')
+	WHERE eg.Id NOT IN (@CoreTeamId, @ExpId, @CEOTeamId)
 		AND ISNULL(cu.[Minutes], 0) >= 240
 		AND (leasum.AnnualLeaveBalance - (ISNULL(rq.TotalDays, 0)) > 0)
 		

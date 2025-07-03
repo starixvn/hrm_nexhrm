@@ -11,6 +11,12 @@ AS
     Param's Explanation:
 */
 BEGIN
+    DECLARE @CoreTeamId INT = 0;
+	SELECT @CoreTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END), 0)
+	FROM dbo.SystemSetting ss WITH (NOLOCK)
+	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
+	WHERE ss.Name = 'CoreTeamId'
+
     SELECT e.ID
         ,e.NickName
         ,e.FullName
@@ -27,7 +33,7 @@ BEGIN
         ,e.Email
     FROM [dbo].[Employee] e WITH (NOLOCK)
 	INNER JOIN dbo.EmployeeGroup AS gr WITH (NOLOCK) ON e.GroupId = gr.Id
-    WHERE gr.Code IN ('COR', 'MGT')
+    WHERE gr.Id = @CoreTeamId
 	AND e.isDeleted = 0
     
     UNION
