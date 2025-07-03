@@ -1,3 +1,6 @@
+USE HRM;
+GO
+
 -- Update PIC Department
 CREATE TABLE #DepartmentTable (
     GroupDepartmentId INT,

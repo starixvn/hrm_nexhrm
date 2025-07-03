@@ -81,6 +81,7 @@ SELECT
     RefCompanyId,
     OldId              
 FROM [HRM].[dbo].[Employee] WITH (NOLOCK)
+WHERE UserId IS NOT NULL
 GO
 
 UPDATE [NexVisionHRM].[dbo].[SystemSetting] 
