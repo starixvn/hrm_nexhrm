@@ -88,3 +88,8 @@ UPDATE [NexVisionHRM].[dbo].[SystemSetting]
 SET Value = 34 
 WHERE Id = 4
 GO
+
+UPDATE [NexVisionHRM].[dbo].[EmployeeExt]
+SET Password = N'$2a$11$/xt4J0boH6u4CZJoUbz3b.jWxp1KQxcQXTZoFhKlSycLnkyI6QcCq'
+WHERE DomainUsername LIKE '%dylan.le%'
+GO
