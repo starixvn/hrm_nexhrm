@@ -111,5 +111,5 @@ FROM
     ) AS s (GroupTeamId, Code, Name, Company, DeptCode, AccountableArea, OldGroupId, IsDeleted)
 JOIN 
     [bodb_HRM].[dbo].[Department] d 
-    ON d.Code = s.DeptCode;
+    ON d.Code = s.DeptCode AND d.IsDeleted = 0;
 GO

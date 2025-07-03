@@ -48,7 +48,9 @@ WHERE EmpId = @EmployeeId AND [Year] = YEAR(@AffectedDate)
 IF @LateInEarlyOut IS NOT NULL
 BEGIN
         INSERT INTO NexHRM.dbo.LateInEarlyOutTrans([EmpId], [WorkDate], [Type], [Minutes], [ModifiedDate], [IsManual])
-        VALUES(@EmployeeId, @AffectedDate, 2, @LateInEarlyOut, GETDATE(), 1)
+        SELECT @EmployeeId, [WorkDate], [Type], [Minutes], GETDATE(), [IsManual]
+        FROM LumiHRM.dbo.LateInEarlyOutTrans WITH (NOLOCK)
+        WHERE EmpId = @EmployeeId
 END
 
 UPDATE NexHRM.dbo.LateInEarlyOutYearly
