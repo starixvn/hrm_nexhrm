@@ -5,6 +5,8 @@ DECLARE @EmployeeId INT = 6129
                 
 DECLARE @UsedLeaveBalance NUMERIC(18, 1)
         ,@LateInEarlyOut INT
+        ,@UsedLateInEarlyOut INT
+        
         
 UPDATE bodb_HRM.dbo.CompanyEmployee
 SET 
@@ -36,36 +38,31 @@ WHERE EmpId = @EmployeeId
         AND ISNULL(Deleted, 0) <> 1
 
 INSERT INTO NexHRM.dbo.LeaveTrans (EmpId, Description, FromDate, ToDate, DeductDays, CreditDays, CreatedDate)
-VALUES (@EmployeeId, 'Used in Lumi', @AffectedDate, @ToDate, @UsedLeaveBalance, 0, GETDATE())
+VALUES (@EmployeeId, 'Used in Lumi', @AffectedDate, @AffectedDate, @UsedLeaveBalance, 0, GETDATE())
 
 -- Late In/Early Out
--- SELECT @LateInEarlyOut = [Minutes]
--- FROM LumiHRM.dbo.LateInEarlyOutYearly WITH (NOLOCK)
--- WHERE EmpId = @EmployeeId AND [Year] = YEAR(@AffectedDate)
+SELECT @LateInEarlyOut = [Minutes]
+FROM LumiHRM.dbo.LateInEarlyOutYearly WITH (NOLOCK)
+WHERE EmpId = @EmployeeId AND [Year] = YEAR(@AffectedDate)
 
--- IF @LateInEarlyOut IS NOT NULL
--- BEGIN
---         INSERT INTO NexHRM.dbo.LateInEarlyOutTrans([EmpId], [WorkDate], [Type], [Minutes], [ModifiedDate], [IsManual])
---         VALUES(@EmployeeId, @AffectedDate, 2, @LateInEarlyOut, GETDATE(), 1)
--- END
-                
--- INSERT INTO NexHRM.dbo.LateInEarlyOutYearly([EmpId], [Year], [Minutes], [ModifiedDate])
--- VALUES(@EmployeeId, YEAR(@AffectedDate), ISNULL(@LateInEarlyOut, 0), GETDATE())
+IF @LateInEarlyOut IS NOT NULL
+BEGIN
+        INSERT INTO NexHRM.dbo.LateInEarlyOutTrans([EmpId], [WorkDate], [Type], [Minutes], [ModifiedDate], [IsManual])
+        VALUES(@EmployeeId, @AffectedDate, 2, @LateInEarlyOut, GETDATE(), 1)
+END
 
+UPDATE NexHRM.dbo.LateInEarlyOutYearly
+SET [Minutes] = [Minutes] +ISNULL(@LateInEarlyOut, 0)
+WHERE EmpId = @EmployeeId AND [Year] = YEAR(@AffectedDate)
 
--- SELECT @NexBalance = CASE 
---                 WHEN ISNULL(oty.[Minutes], 0) > ISNULL(la.[Minutes], 0) THEN (ISNULL(oty.[Minutes], 0) - ISNULL(la.[Minutes], 0))
---                 ELSE 0 END
--- FROM LumiHRM.dbo.Employee AS e WITH (NOLOCK)
---         LEFT JOIN LumiHRM.dbo.OvertimeYearly AS oty WITH (NOLOCK) ON e.Id = oty.EmpId AND oty.[Year] = YEAR(@AffectedDate)
---         LEFT JOIN LumiHRM.dbo.LateInEarlyOutYearly AS la WITH (NOLOCK) ON e.Id = la.EmpId AND la.[Year] = YEAR(@AffectedDate)
--- WHERE e.Id = @EmployeeId
+-- Overtime
+SELECT @UsedLateInEarlyOut = ISNULL(la.[Minutes], 0)
+FROM LumiHRM.dbo.Employee AS e WITH (NOLOCK)
+LEFT JOIN LumiHRM.dbo.LateInEarlyOutYearly AS la WITH (NOLOCK) ON e.Id = la.EmpId AND la.[Year] = YEAR(@AffectedDate)
+WHERE e.Id = @EmployeeId
 
--- IF @NexBalance <> 0
--- BEGIN
---         INSERT INTO NexHRM.dbo.OvertimeTrans(EmpId, [Date], [Minutes], [Type], ModifiedDate)
---         VALUES (@EmployeeId, @AffectedDate, @NexBalance, 1, GETDATE())
--- END
-
--- INSERT INTO NexHRM.dbo.OvertimeYearly (EmpId, [Year], [Minutes], [ModifiedDate])
--- VALUES (@EmployeeId, YEAR(@AffectedDate), @NexBalance, GETDATE())
+IF @UsedLateInEarlyOut <> 0
+BEGIN
+        INSERT INTO NexHRM.dbo.OvertimeTrans(EmpId, [Date], [Minutes], [Type], ModifiedDate)
+        VALUES (@EmployeeId, @AffectedDate, @UsedLateInEarlyOut, 1, GETDATE())
+END
