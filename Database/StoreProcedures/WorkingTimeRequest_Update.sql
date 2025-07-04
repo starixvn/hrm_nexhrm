@@ -44,6 +44,8 @@ BEGIN
 
 	DECLARE @HRGroupId INT;
 	DECLARE @HeadId INT;
+	DECLARE @EmpCode NVARCHAR(20);
+	DECLARE @AutoApproveRequest NVARCHAR(1000);
 	
 	SELECT @HRGroupId = MAX(CASE WHEN ss.Name = 'HRTeamId' THEN g.Id END)
 	FROM dbo.SystemSetting ss WITH (NOLOCK)
@@ -54,6 +56,15 @@ BEGIN
 	FROM dbo.Employee AS e WITH (NOLOCK)
 	INNER JOIN dbo.SystemSetting ss WITH (NOLOCK) ON ss.Name = 'MGTHeadCode'
 	WHERE e.Code = ss.Value
+
+	SELECT @EmpCode = e.Code
+	FROM dbo.Employee AS e WITH (NOLOCK)
+	WHERE e.Id = @EmpId
+
+	SELECT @AutoApproveRequest = ss.Value
+    FROM dbo.SystemSetting AS ss WITH (NOLOCK)
+    WHERE ss.Name = 'AutoApproveRequest'
+
 
 	SELECT @annualLeaveType = 2
 		,@callInLeaveType = 30
@@ -503,6 +514,11 @@ BEGIN
     EXEC [WorkingTimeRequest_WriteHistory] @Id
 
 	IF (@LeaveTypeID = @BusinessLeave AND @EmpId = @HeadId)
+	BEGIN
+		SELECT @ErrCode = - 1
+	END
+	
+	IF (EXISTS (SELECT 1 FROM STRING_SPLIT(@AutoApproveRequest, ',') WHERE value = @EmpCode))
 	BEGIN
 		SELECT @ErrCode = - 1
 	END
