@@ -1,4 +1,4 @@
-﻿CREATE OR ALTER PROCEDURE [dbo].[WorkingTimeRequest_GetRequestByDate] @role INT
+﻿CREATE OR ALTER  PROCEDURE [dbo].[WorkingTimeRequest_GetRequestByDate] @role INT
     ,@fromdate DATETIME
     ,@todate DATETIME
     ,@empid INT = NULL
@@ -78,6 +78,8 @@ BEGIN
         ,Remark NVARCHAR(2000)
         ,IsAllowUpdateStatus TINYINT
 		,IsCrossDate BIT
+		,UnitCode VARCHAR(200)
+		,DepartmentName NVARCHAR(200)
         )
 
     IF (
@@ -215,6 +217,8 @@ BEGIN
                     ) END
             ) AS IsAllowUpdateStatus
 			,r.IsCrossDate
+			,u.[Code] AS UnitCode
+			,d.[Name] AS DepartmentName
     FROM dbo.WorkingTimeRequest r WITH (NOLOCK)
         INNER JOIN dbo.Employee e WITH (NOLOCK) ON e.ID = r.empID
         INNER JOIN dbo.EmployeeGroup g WITH (NOLOCK) ON e.GroupID = g.ID
@@ -225,6 +229,8 @@ BEGIN
         LEFT JOIN dbo.Shift s3 WITH (NOLOCK) ON s3.id = c.ShiftID
         LEFT JOIN dbo.LeaveType lv WITH (NOLOCK) ON lv.Id = r.LeaveTypeID
         LEFT JOIN dbo.Employee ap WITH (NOLOCK) ON ap.ID = r.ProcessedBy
+		LEFT JOIN bodb_HRM.dbo.Department d WITH(NOLOCK) ON d.DepartmentId = g.DepartmentId
+		LEFT JOIN bodb_HRM.dbo.Unit u WITH (NOLOCK) ON d.UnitId = u.UnitId
     WHERE EXISTS (
             SELECT 1
             FROM @RequestTypeId
@@ -358,6 +364,8 @@ BEGIN
         ,r.Remark
         ,1 AS IsAllowUpdateStatus
 		,r.IsCrossDate
+		,u.[Code] AS UnitCode
+		,d.[Name] AS DepartmentName
     FROM dbo.WorkingTimeRequest r WITH (NOLOCK)
         INNER JOIN Employee e WITH (NOLOCK) ON e.ID = r.empID
         INNER JOIN EmployeeGroup g WITH (NOLOCK) ON e.GroupID = g.ID
@@ -368,6 +376,8 @@ BEGIN
         LEFT JOIN Shift s3 WITH (NOLOCK) ON s3.id = c.ShiftID
         LEFT JOIN dbo.LeaveType lv WITH (NOLOCK) ON lv.Id = r.LeaveTypeID
         LEFT JOIN Employee ap WITH (NOLOCK) ON ap.ID = r.ProcessedBy
+		LEFT JOIN bodb_HRM.dbo.Department d WITH(NOLOCK) ON d.DepartmentId = g.DepartmentId
+		LEFT JOIN bodb_HRM.dbo.Unit u WITH (NOLOCK) ON d.UnitId = u.UnitId
     WHERE @IsManagement = 1
         AND EXISTS (
             SELECT 1
@@ -506,6 +516,8 @@ BEGIN
         ,r.Remark
         ,1 AS IsAllowUpdateStatus
 		,r.IsCrossDate
+		,u.[Code] AS UnitCode
+		,d.[Name] AS DepartmentName
     FROM dbo.WorkingTimeRequest r WITH (NOLOCK)
         INNER JOIN Employee e WITH (NOLOCK) ON e.ID = r.empID
         INNER JOIN EmployeeGroup g WITH (NOLOCK) ON e.GroupID = g.ID
@@ -516,6 +528,8 @@ BEGIN
         LEFT JOIN Shift s3 WITH (NOLOCK) ON s3.id = c.ShiftID
         LEFT JOIN dbo.LeaveType lv WITH (NOLOCK) ON lv.Id = r.LeaveTypeID
         LEFT JOIN Employee ap WITH (NOLOCK) ON ap.ID = r.ProcessedBy
+		LEFT JOIN bodb_HRM.dbo.Department d WITH(NOLOCK) ON d.DepartmentId = g.DepartmentId
+		LEFT JOIN bodb_HRM.dbo.Unit u WITH (NOLOCK) ON d.UnitId = u.UnitId
     WHERE @IsLeaderOfStandByTeam = 1
         AND EXISTS (
             SELECT 1
