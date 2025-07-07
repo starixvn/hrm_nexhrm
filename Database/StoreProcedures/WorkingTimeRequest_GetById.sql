@@ -8,6 +8,7 @@ DB: NexEPA
 Original: 
 
 Revisions:  
+    - 20250707@Henry.Dinh: Query to bodb_HRM.dbo.Employee.
 Param's Explanation:
 
 */
@@ -48,7 +49,7 @@ BEGIN
         ,@IsAllowUpdateStatus as IsAllowUpdateStatus
 		,r.IsCrossDate
     FROM dbo.WorkingTimeRequest r WITH (NOLOCK)
-        LEFT JOIN Employee ap WITH (NOLOCK) ON ap.ID = r.ProcessedBy
+        LEFT JOIN bodb_HRM.dbo.Employee ap WITH (NOLOCK) ON ap.EmpId = r.ProcessedBy
         JOIN dbo.EmployeeCalendar c WITH (NOLOCK) ON c.empid = r.empid
             AND c.WorkDate = convert(VARCHAR(10), r.FromDate, 111)
         LEFT JOIN dbo.Shift s1 WITH (NOLOCK) ON s1.Id = r.FromShift

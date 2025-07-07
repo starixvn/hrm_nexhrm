@@ -21,6 +21,7 @@ Original:
 
 Revisions:    
 	- 20250327@Henry: Update MGT Code -> MGT/COR code
+    - 20250707@Henry.Dinh: Query to bodb_HRM.dbo.Employee.
 Param's Explanation:
 
 */
@@ -228,7 +229,7 @@ BEGIN
         LEFT JOIN dbo.Shift s2 WITH (NOLOCK) ON s2.Id = r.ToShift
         LEFT JOIN dbo.Shift s3 WITH (NOLOCK) ON s3.id = c.ShiftID
         LEFT JOIN dbo.LeaveType lv WITH (NOLOCK) ON lv.Id = r.LeaveTypeID
-        LEFT JOIN dbo.Employee ap WITH (NOLOCK) ON ap.ID = r.ProcessedBy
+        LEFT JOIN bodb_HRM.dbo.Employee ap WITH (NOLOCK) ON ap.EmpId = r.ProcessedBy
 		LEFT JOIN bodb_HRM.dbo.Department d WITH(NOLOCK) ON d.DepartmentId = g.DepartmentId
 		LEFT JOIN bodb_HRM.dbo.Unit u WITH (NOLOCK) ON d.UnitId = u.UnitId
     WHERE EXISTS (
@@ -375,7 +376,7 @@ BEGIN
         LEFT JOIN dbo.Shift s2 WITH (NOLOCK) ON s2.Id = r.ToShift
         LEFT JOIN Shift s3 WITH (NOLOCK) ON s3.id = c.ShiftID
         LEFT JOIN dbo.LeaveType lv WITH (NOLOCK) ON lv.Id = r.LeaveTypeID
-        LEFT JOIN Employee ap WITH (NOLOCK) ON ap.ID = r.ProcessedBy
+        LEFT JOIN bodb_HRM.dbo.Employee ap WITH (NOLOCK) ON ap.EmpId = r.ProcessedBy
 		LEFT JOIN bodb_HRM.dbo.Department d WITH(NOLOCK) ON d.DepartmentId = g.DepartmentId
 		LEFT JOIN bodb_HRM.dbo.Unit u WITH (NOLOCK) ON d.UnitId = u.UnitId
     WHERE @IsManagement = 1
@@ -527,7 +528,7 @@ BEGIN
         LEFT JOIN dbo.Shift s2 WITH (NOLOCK) ON s2.Id = r.ToShift
         LEFT JOIN Shift s3 WITH (NOLOCK) ON s3.id = c.ShiftID
         LEFT JOIN dbo.LeaveType lv WITH (NOLOCK) ON lv.Id = r.LeaveTypeID
-        LEFT JOIN Employee ap WITH (NOLOCK) ON ap.ID = r.ProcessedBy
+        LEFT JOIN bodb_HRM.dbo.Employee ap WITH (NOLOCK) ON ap.EmpId = r.ProcessedBy
 		LEFT JOIN bodb_HRM.dbo.Department d WITH(NOLOCK) ON d.DepartmentId = g.DepartmentId
 		LEFT JOIN bodb_HRM.dbo.Unit u WITH (NOLOCK) ON d.UnitId = u.UnitId
     WHERE @IsLeaderOfStandByTeam = 1
