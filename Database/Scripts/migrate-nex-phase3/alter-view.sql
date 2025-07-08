@@ -63,7 +63,7 @@ FROM
             es.ApproverId IS NOT NULL
         )
 ) AS esup
-INNER JOIN bodb_HRM.dbo.Employee AS sup WITH (NOLOCK) ON esup.ApproverId = sup.EmpId AND sup.isDeleted = 0
+INNER JOIN bodb_HRM.dbo.Employee AS sup WITH (NOLOCK) ON esup.ApproverId = sup.EmpId AND ISNULL(sup.isDeleted, 0) = 0
 INNER JOIN bodb_HRM.dbo.CompanyEmployee AS ce WITH (NOLOCK) ON ce.EmpId = sup.EmpId AND ISNULL(ce.IsSpecialUser, 0) = 0 AND ISNULL(ce.IsDeleted, 0) = 0 AND ISNULL(ce.Enabled, 1) = 1
 LEFT JOIN bodb_HRM.dbo.Company AS c WITH (NOLOCK) ON c.CompanyId = ce.CompanyId AND c.CompanyId != (SELECT [Value] FROM [dbo].[SystemSetting] WHERE [Name] = 'CompanyId')
 GO
