@@ -2,7 +2,6 @@
 {
     using Criteria.Employee;
     using Criteria.Overtime;
-    using Fanex.MailDeliver.MailClient;
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
