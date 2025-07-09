@@ -2,6 +2,7 @@
 {
     using Criteria.Employee;
     using Criteria.Overtime;
+    using Fanex.MailDeliver.MailClient;
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
@@ -26,6 +27,8 @@
         private readonly ITeamService teamService;
         private readonly IDepartmentService departmentService;
         private readonly ILogServiceProvider logService;
+        private readonly AppSetting appSetting;
+
 
         public OvertimeController(ISessionService sessionService,
             IOvertimeService overtimeService,
@@ -33,7 +36,8 @@
             IBaseService baseService,
             ITeamService teamService,
             IDepartmentService departmentService,
-            ILogServiceProvider logService) : base(sessionService)
+            ILogServiceProvider logService,
+            AppSetting appSetting) : base(sessionService)
         {
             this.overtimeService = overtimeService;
             this.employeeService = employeeService;
@@ -41,6 +45,7 @@
             this.baseService = baseService;
             this.departmentService = departmentService;
             this.logService = logService;
+            this.appSetting = appSetting;
         }
 
         public IActionResult Index(int chosenTab = 0)
@@ -72,7 +77,7 @@
         public IActionResult MemberOvertime()
         {
             var model = new MemberOvertimeViewModel();
-            ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("COR");
+            ViewBag.IsManager = CurrentUser.GroupTeamId.Equals(appSetting.ManagerTeam);
             return PartialView(model);
         }
 
@@ -96,7 +101,7 @@
                     item.Own = CurrentUser.Id == item.CreatedById;
                 }
             }
-            ViewBag.IsManager = CurrentUser.CodeOfTeam.Equals("COR");
+            ViewBag.IsManager = CurrentUser.GroupTeamId.Equals(appSetting.ManagerTeam);
             return PartialView("_ListMemberOvertime", result);
         }
 
