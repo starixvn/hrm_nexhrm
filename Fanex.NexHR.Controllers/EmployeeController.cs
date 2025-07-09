@@ -525,18 +525,19 @@ public class EmployeeController : BaseController
     [AllowAnonymous]
     public async Task<IActionResult> Avatar(string id)
     {
-        var avatarUrl = await FileHelpers.GetAvatar(id);
-        return Redirect(avatarUrl);
+        var stream = await FileHelpers.GetAvatarFileContent(id);
+        return File(stream, "image/jpeg", $"{id}.jpg");
     }
 
     [HrmAuthorize(UserRoles = "HR")]
     [HttpPost]
-    public async Task<JsonResult> UploadAvatar(string code, IFormFile file)
+    public async Task<IActionResult> UploadAvatar(string code, IFormFile file)
     {
         if (file is not { Length: > 0 })
         {
             return Json(null);
         }
+
         var path = $"1/{code}.jpg";
         var uploadStatus = await minIOService.UploadFileAsync(file, StorageInfo.Avatar.Bucket, path);
         if (!uploadStatus)
@@ -544,9 +545,7 @@ public class EmployeeController : BaseController
             return Json(null);
         }
 
-        var avatarUrl = await FileHelpers.GetAvatar(code);
-
-        return Json(avatarUrl);
+        return Ok();
     }
 
     public async Task<IActionResult> Birthday(int month = 0)

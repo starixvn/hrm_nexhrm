@@ -90,6 +90,17 @@ public class MinIOService : IMinIOService, IDisposable
     {
         var isExistFile = await IsFileExistsAsync(bucketName, filePath);
         var fileName = isExistFile ? filePath : defaultFile;
+
+        /*
+        var request = new GetPreSignedUrlRequest
+        {
+            BucketName = bucketName,
+            Key = fileName,
+            Expires = DateTime.UtcNow.AddMinutes(5),
+            Verb = HttpVerb.GET
+        };
+        return await client.GetPreSignedURLAsync(request);
+        */
         return $"{s3Config.ExternalUrl}/{bucketName}/{fileName}";
     }
 
