@@ -1,5 +1,6 @@
 ﻿namespace Fanex.NexHR.Controllers;
 
+using System.IO;
 using System.Threading.Tasks;
 using Core;
 using Core.Helpers;
@@ -18,8 +19,8 @@ public class AvatarController(
     {
         var index = id.LastIndexOf('.');
         var newId = id.EndsWith(".jpg") ? id[..index] : id;
-        var avatarUrl = await FileHelpers.GetAvatar(newId);
-        return Redirect(avatarUrl);
+        var stream = await FileHelpers.GetAvatarFileContent(newId);
+        return File(stream, "image/jpeg", $"{newId}.jpg");
     }
 
     [AllowAnonymous]
@@ -35,7 +36,7 @@ public class AvatarController(
         };
         var employee = await employeeService.GetEmployeeByDomainName(criteria);
 
-        var avatarUrl = await FileHelpers.GetAvatar(employee?.Code);
-        return Redirect(avatarUrl);
+        var stream = await FileHelpers.GetAvatarFileContent(employee?.Code);
+        return File(stream, "image/jpeg", $"{employee?.Code}.jpg");
     }
 }

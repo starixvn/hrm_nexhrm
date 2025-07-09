@@ -1,4 +1,5 @@
-﻿using Fanex.NexHR.Core.Enums;
+﻿using System.IO;
+using Fanex.NexHR.Core.Enums;
 using Fanex.NexHR.Core.Model;
 using Fanex.NexHR.Core.Services;
 using System.Threading.Tasks;
@@ -27,6 +28,17 @@ public static class FileHelpers
         var avatarPath = $"1/{avatarName}";
         var avatarUrl = await minIOService.GetFilePath(StorageInfo.Avatar.Bucket, avatarPath, defaultAvatar);
         return avatarUrl;
+    }
+
+    public static async Task<Stream> GetAvatarFileContent(string userId, string defaultAvatar = "default-avatar.jpg")
+    {
+        var avatarName = string.IsNullOrEmpty(userId) ? "default" : userId + ".jpg";
+        var avatarPath = $"1/{avatarName}";
+
+        var isExistFile = await minIOService.IsFileExistsAsync(StorageInfo.Avatar.Bucket, avatarPath);
+        var fileName = isExistFile ? avatarPath : defaultAvatar;
+
+        return await minIOService.GetFileContentAsync(StorageInfo.Avatar.Bucket, fileName);
     }
 
     public static string GetResumeDir()
