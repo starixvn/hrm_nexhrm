@@ -44,7 +44,7 @@ BEGIN
 	INNER JOIN bodb_HRM.dbo.CompanyEmployee AS ce WITH (NOLOCK) ON ce.EmpId = su.OwnerId AND ISNULL(ce.IsSpecialUser, 0) = 0 AND ISNULL(ce.IsDeleted, 0) = 0 AND ISNULL(ce.Enabled, 1) = 1
 	WHERE su.GroupId = @GroupId
 		AND ISNULL(su.IsDeleted, 0) = 0
-		AND ce.CompanyId = (SELECT [Value] FROM [NexHRM].[dbo].[SystemSetting] WITH (NOLOCK) WHERE [Name] = 'CompanyId')
+		AND ce.CompanyId = (SELECT [Value] FROM [dbo].[SystemSetting] WITH (NOLOCK) WHERE [Name] = 'CompanyId')
 		AND NOT EXISTS (
 			SELECT 1
 			FROM #tblSupervisor AS sp
