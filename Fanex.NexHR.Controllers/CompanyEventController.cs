@@ -34,9 +34,9 @@
 
         public async Task<JsonResult> GetAllEvents()
         {
-            var firstDay = new DateTimeOffset(DateTimeOffset.Now.DateTime.ToClientTimeZone().Year, DateTimeOffset.Now.DateTime.ToClientTimeZone().Month, 1, 0, 0, 0, TimeSpan.Zero).AddMonths(-6).DateTime;
-
-            var lastDay = new DateTimeOffset(DateTimeOffset.Now.DateTime.ToClientTimeZone().Year, DateTimeOffset.Now.DateTime.ToClientTimeZone().Month, 1, 0, 0, 0, TimeSpan.Zero).AddDays(-1).AddMonths(7).DateTime;
+            var currentTime = DateTimeOffset.Now.DateTime.ToClientTimeZone();   
+            var firstDay = new DateTimeOffset(currentTime.Year, currentTime.Month, 1, 0, 0, 0, TimeSpan.Zero).AddMonths(-6).DateTime;
+            var lastDay = new DateTimeOffset(currentTime.Year, currentTime.Month, 1, 0, 0, 0, TimeSpan.Zero).AddDays(-1).AddMonths(7).DateTime;
 
             var criteria = new GetAllEventCriteria
             {

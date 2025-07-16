@@ -1,8 +1,6 @@
 ﻿namespace Fanex.NexHR.Core;
 
 using System;
-using Fanex.NexHR.Core;
-
 public static class DateTimeExtensions
 {
     private static readonly TimeSpan ServerTimeZone = TimeSpan.FromHours(-4);
