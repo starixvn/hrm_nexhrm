@@ -156,7 +156,9 @@
                 EmpId = IdEmpCreateVegetarianMessages,
                 Year = DateTimeOffset.Now.DateTime.ToClientTimeZone().Year,
             });
-            var scheduledVegetarianList = GetFirstAndFifteenLunerOfMonths(new DateTimeOffset(DateTimeOffset.Now.DateTime.ToClientTimeZone().Year, DateTimeOffset.Now.DateTime.ToClientTimeZone().Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime
+
+            var time = DateTimeOffset.Now.DateTime.ToClientTimeZone();
+            var scheduledVegetarianList = GetFirstAndFifteenLunerOfMonths(new DateTimeOffset(time.Year, time.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime
                                                 .AddMonths(NumMonthOfScheduleVegetarianMessages).AddDays(-1), workingSchedules);
             foreach (var item in scheduledVegetarianList)
             {

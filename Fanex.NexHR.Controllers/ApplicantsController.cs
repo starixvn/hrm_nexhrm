@@ -8,6 +8,7 @@ namespace Fanex.NexHR.Controllers
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
     using Criteria.Applicant;
+    using Fanex.MailDeliver.MailClient;
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
@@ -28,7 +29,9 @@ namespace Fanex.NexHR.Controllers
         IPositionService positionService,
         ICryptoService cryptoService1,
         IMinIOService minIOService,
-        IPromotionService promotionService) : BaseController(sessionService)
+        IPromotionService promotionService,
+        AppSetting appSetting
+        ) : BaseController(sessionService)
     {
         private static readonly Storage StorageInfo = Core.Enums.StorageInfo.Resume;
 
@@ -192,7 +195,7 @@ namespace Fanex.NexHR.Controllers
 
         private bool IsCurrentUserManager()
         {
-            return CurrentUser.CodeOfTeam.Equals("COR") || CurrentUser.IsLeaderHR;
+            return CurrentUser.GroupTeamId.Equals(appSetting.ManagerTeam) || CurrentUser.IsLeaderHR;
         }
 
         private string DecryptValue(string encryptedValue)

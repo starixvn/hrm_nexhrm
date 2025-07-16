@@ -6,6 +6,7 @@
         public int LoginType { get; set; } = 1;
         public bool IsShowCloseBalance { get; set; }
         public string ProjectManagerTeams { get; set; }
+        public string ManagerTeam { get; set; }
         public string IgnoreTeams { get; set; }
         public string DomainName { get; set; }
         public string IgnoreTeamWorkload { get; set; }

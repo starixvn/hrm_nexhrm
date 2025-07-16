@@ -6,8 +6,8 @@ Created: 20150730@Quinn.Vo
 Task: Get requests by all types.
 DB: NexHRM
 Original: 
-
 Revisions:  
+    - 20250707@Henry.Dinh: Query to bodb_HRM.dbo.Employee.
 Param's Explanation:
 
 */
@@ -49,10 +49,10 @@ BEGIN
         INNER JOIN Employee e WITH (NOLOCK) ON e.ID = r.empID
         INNER JOIN dbo.EmployeeCalendar C WITH (NOLOCK) ON c.empid=r.empid and c.WorkDate = convert(VARCHAR(10),r.FromDate,111)
         LEFT JOIN Shift s WITH (NOLOCK) ON s.id = c.ShiftID
-        LEFT JOIN Employee ap WITH (NOLOCK) 
+        LEFT JOIN bodb_HRM.dbo.Employee ap WITH (NOLOCK) 
         ON (
-        (ap.ID = r.ProcessedBy AND r.ProcessedBy IS NOT NULL)
-        OR (ap.ID = r.CreatedBy AND r.ProcessedBy IS NULL)
+        (ap.EmpId = r.ProcessedBy AND r.ProcessedBy IS NOT NULL)
+        OR (ap.EmpId = r.CreatedBy AND r.ProcessedBy IS NULL)
         )
         LEFT JOIN dbo.Shift s1 WITH (NOLOCK) ON s1.Id= r.FromShift
         LEFT JOIN dbo.Shift s2 WITH (NOLOCK) ON s2.Id= r.ToShift
