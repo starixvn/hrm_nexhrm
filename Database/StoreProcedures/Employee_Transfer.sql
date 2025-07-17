@@ -19,11 +19,16 @@ Original:
 
 Revisions:
      - 20250620@Henry: migrate to bodb_HRM
+     - 20250717@Henry: Added transaction support for data integrity + clear old data
 Param's Explanation:
 
 */
 BEGIN
     SET NOCOUNT ON;
+    SET XACT_ABORT ON;
+
+    BEGIN TRY
+        BEGIN TRANSACTION;
 
 	DECLARE @FromDomain VARCHAR(20)
 		,@ToDomain VARCHAR(20)
@@ -37,15 +42,34 @@ BEGIN
 	DECLARE @CreditDays NUMERIC(18, 1)
 		,@LateInEarlyOut INT
 
+	DECLARE @NexCompanyId INT = 1
+		,@LumiCompanyId INT = 2
+
 	SELECT @FromDomain = [Value] FROM dbo.SystemSetting WITH (NOLOCK) WHERE [Name] = 'DomainName'
 	SELECT @FromDomainEmail = [Value] FROM dbo.SystemSetting WITH (NOLOCK) WHERE [Name] = 'DomainEmail'
 	SELECT @FromCompanyId = [Value] FROM dbo.SystemSetting WITH (NOLOCK) WHERE [Name] = 'CompanyId'
 
-	IF (@FromCompanyId = 1)
+	IF (@FromCompanyId = @NexCompanyId)
 	BEGIN
-		SET @ToCompanyId = 2
+		SET @ToCompanyId = @LumiCompanyId
 		SELECT @ToDomain = [Value] FROM LumiHRM.dbo.SystemSetting WITH (NOLOCK) WHERE [Name] = 'DomainName'
 		SELECT @ToDomainEmail = [Value] FROM LumiHRM.dbo.SystemSetting WITH (NOLOCK) WHERE [Name] = 'DomainEmail'
+
+		DELETE FROM LumiHRM.dbo.EmployeeGroup_Employee WHERE EmpID = @EmployeeId;
+		DELETE FROM LumiHRM.dbo.EmployeeShift WHERE EmpID = @EmployeeId;
+		DELETE FROM LumiHRM.dbo.LeaveTrans WHERE EmpID = @EmployeeId;
+		DELETE FROM LumiHRM.dbo.LateInEarlyOutTrans WHERE EmpID = @EmployeeId;
+		DELETE FROM LumiHRM.dbo.LateInEarlyOutYearly WHERE EmpID = @EmployeeId;
+		DELETE FROM LumiHRM.dbo.OvertimeTrans WHERE EmpID = @EmployeeId;
+		DELETE FROM LumiHRM.dbo.OvertimeYearly WHERE EmpID = @EmployeeId;
+		DELETE FROM LumiHRM.dbo.EmployeeCalendar WHERE EmpID = @EmployeeId;
+
+		DELETE FROM LumiHRM.dbo.EmployeeAttendance WHERE EmpId = @EmployeeId;
+		DELETE FROM LumiHRM.dbo.WorkingTimeRequest_history WHERE EmpId = @EmployeeId;
+		DELETE FROM LumiHRM.dbo.WorkingTimeRequest WHERE EmpId = @EmployeeId;
+		DELETE FROM LumiHRM.dbo.LeaveConversion WHERE EmpId = @EmployeeId;
+		DELETE FROM LumiHRM.dbo.LogReachedWorkingTime WHERE EmpId = @EmployeeId;
+		DELETE FROM LumiHRM.dbo.TimeRecord WHERE EmpId = @EmployeeId;
 
 		IF EXISTS (SELECT 1 FROM bodb_HRM.dbo.CompanyEmployee WITH (NOLOCK) WHERE EmpId = @EmployeeId AND CompanyId = @ToCompanyId)
 		BEGIN
@@ -78,6 +102,7 @@ BEGIN
 				,CompanyDate
 				,ConfirmedDate
 				,SalaryGroupId
+				,CompanyId
 			)
 			SELECT 
 				@EmployeeId
@@ -91,6 +116,7 @@ BEGIN
 				,@AffectedDate
 				,@AffectedDate
 				,SalaryGroupId
+				,@ToCompanyId
 			FROM bodb_HRM.dbo.CompanyEmployee WITH (NOLOCK)
 			WHERE EmpId = @EmployeeId AND CompanyId = @FromCompanyId
 		END
@@ -191,10 +217,11 @@ BEGIN
 
 		IF (@IsTransferNexBalance = 1)
 		BEGIN
-			SELECT @NexBalance = CASE 
-					WHEN ISNULL(oty.[Minutes], 0) > ISNULL(la.[Minutes], 0) THEN (ISNULL(oty.[Minutes], 0) - ISNULL(la.[Minutes], 0))
-					ELSE 0
-					END
+			-- SELECT @NexBalance = CASE 
+			-- 		WHEN ISNULL(oty.[Minutes], 0) > ISNULL(la.[Minutes], 0) THEN (ISNULL(oty.[Minutes], 0) - ISNULL(la.[Minutes], 0))
+			-- 		ELSE 0
+			-- 		END
+			SELECT @NexBalance = ISNULL(oty.[Minutes], 0)
 			FROM dbo.Employee AS e WITH (NOLOCK)
 				LEFT JOIN dbo.OvertimeYearly AS oty WITH (NOLOCK) ON e.Id = oty.EmpId
 				AND oty.[Year] = YEAR(@AffectedDate)
@@ -236,11 +263,27 @@ BEGIN
 				)
 		END
 	END
-	ELSE IF (@FromCompanyId = 2)
+	ELSE IF (@FromCompanyId = @LumiCompanyId)
 	BEGIN
-		SET @ToCompanyId = 1
+		SET @ToCompanyId = @NexCompanyId
 		SELECT @ToDomain = [Value] FROM NexHRM.dbo.SystemSetting WITH (NOLOCK) WHERE [Name] = 'DomainName'
 		SELECT @ToDomainEmail = [Value] FROM NexHRM.dbo.SystemSetting WITH (NOLOCK) WHERE [Name] = 'DomainEmail'
+
+		DELETE FROM NexHRM.dbo.EmployeeGroup_Employee WHERE EmpID = @EmployeeId;
+		DELETE FROM NexHRM.dbo.EmployeeShift WHERE EmpID = @EmployeeId;
+		DELETE FROM NexHRM.dbo.LeaveTrans WHERE EmpID = @EmployeeId;
+		DELETE FROM NexHRM.dbo.LateInEarlyOutTrans WHERE EmpID = @EmployeeId;
+		DELETE FROM NexHRM.dbo.LateInEarlyOutYearly WHERE EmpID = @EmployeeId;
+		DELETE FROM NexHRM.dbo.OvertimeTrans WHERE EmpID = @EmployeeId;
+		DELETE FROM NexHRM.dbo.OvertimeYearly WHERE EmpID = @EmployeeId;
+		DELETE FROM NexHRM.dbo.EmployeeCalendar WHERE EmpID = @EmployeeId;
+
+		DELETE FROM NexHRM.dbo.EmployeeAttendance WHERE EmpId = @EmployeeId;
+		DELETE FROM NexHRM.dbo.WorkingTimeRequest_history WHERE EmpId = @EmployeeId;
+		DELETE FROM NexHRM.dbo.WorkingTimeRequest WHERE EmpId = @EmployeeId;
+		DELETE FROM NexHRM.dbo.LeaveConversion WHERE EmpId = @EmployeeId;
+		DELETE FROM NexHRM.dbo.LogReachedWorkingTime WHERE EmpId = @EmployeeId;
+		DELETE FROM NexHRM.dbo.TimeRecord WHERE EmpId = @EmployeeId;
 
 		IF EXISTS (SELECT 1 FROM bodb_HRM.dbo.CompanyEmployee WITH (NOLOCK) WHERE EmpId = @EmployeeId AND CompanyId = @ToCompanyId)
 		BEGIN
@@ -271,6 +314,8 @@ BEGIN
 				,Roles
 				,CompanyDate
 				,ConfirmedDate
+				,SalaryGroupId
+				,CompanyId
 			)
 			SELECT 
 				@EmployeeId
@@ -283,6 +328,8 @@ BEGIN
 				,Roles
 				,@AffectedDate
 				,@AffectedDate
+				,SalaryGroupId
+				,@ToCompanyId
 			FROM bodb_HRM.dbo.CompanyEmployee WITH (NOLOCK)
 			WHERE EmpId = @EmployeeId AND CompanyId = @FromCompanyId
 		END
@@ -361,7 +408,7 @@ BEGIN
 			IF (@LateInEarlyOut IS NOT NULL)
 			BEGIN
 				INSERT INTO NexHRM.dbo.LateInEarlyOutTrans(
-					[EmpId]
+				  [EmpId]
 				  ,[WorkDate]
 				  ,[Type]
 				  ,[Minutes]
@@ -383,10 +430,11 @@ BEGIN
 
 		IF (@IsTransferNexBalance = 1)
 		BEGIN
-			SELECT @NexBalance = CASE 
-					WHEN ISNULL(oty.[Minutes], 0) > ISNULL(la.[Minutes], 0) THEN (ISNULL(oty.[Minutes], 0) - ISNULL(la.[Minutes], 0))
-					ELSE 0
-					END
+			-- SELECT @NexBalance = CASE 
+			-- 		WHEN ISNULL(oty.[Minutes], 0) > ISNULL(la.[Minutes], 0) THEN (ISNULL(oty.[Minutes], 0) - ISNULL(la.[Minutes], 0))
+			-- 		ELSE 0
+			-- 		END
+			SELECT @NexBalance = ISNULL(oty.[Minutes], 0)
 			FROM dbo.Employee AS e WITH (NOLOCK)
 				LEFT JOIN dbo.OvertimeYearly AS oty WITH (NOLOCK) ON e.Id = oty.EmpId
 				AND oty.[Year] = YEAR(@AffectedDate)
@@ -432,11 +480,23 @@ BEGIN
 	UPDATE bodb_HRM.dbo.CompanyEmployee WITH (ROWLOCK, UPDLOCK)
 	SET [Enabled] = 0
 		,ResignedDate = @LastWorkingDate
-	WHERE EmpId = @EmployeeId
+	WHERE EmpId = @EmployeeId AND CompanyId = @FromCompanyId
 
 	UPDATE bodb_HRM.dbo.Employee WITH (ROWLOCK, UPDLOCK)
 	SET ModifiedDate = dbo.fnc_GetClientDateTime()
 		,ModifiedBy = @ModifiedBy
 	WHERE EmpId = @EmployeeId
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+        BEGIN
+            ROLLBACK TRANSACTION;
+        END
+
+        SELECT @ErrCode = 1
+            ,@ErrMsg = N'Employee transfer failed: ' + ERROR_MESSAGE();
+    END CATCH
 END
 GO
