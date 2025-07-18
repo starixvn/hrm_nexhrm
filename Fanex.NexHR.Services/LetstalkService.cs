@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Fanex.Logging;
 using Fanex.NexHR.Models.Core;
 using Fanex.NexHR.Models.Letstalk;
 using Fanex.NexHR.Services.Interfaces;
@@ -14,55 +16,73 @@ public class LetstalkService : ILetstalkService
 {
     private readonly HttpClient httpClient;
     private readonly LetstalkSettings letstalkSettings;
+    private readonly ILogger logger;
     private const string AuthPath = "api/authenticate";
     private const string NotifyPath = "api/notify";
 
     public LetstalkService(
         IHttpClientFactory httpClientFactory,
+        ILogger logger,
         LetstalkSettings letstalkSettings)
     {
         httpClient = httpClientFactory.CreateClient();
         this.letstalkSettings = letstalkSettings;
+        this.logger = logger;
     }
 
     public async Task SendNotificationAsync(string letstalkId, string content, ReplyMarkup replyMarkup = null)
     {
-        if (letstalkSettings.Enable && !string.IsNullOrWhiteSpace(letstalkId))
+        try
         {
-            var jwtToken = await GetTokenAsync(letstalkSettings.BaseUrl, letstalkSettings.Username, letstalkSettings.Password);
-            if (jwtToken != null)
+            if (letstalkSettings.Enable && !string.IsNullOrWhiteSpace(letstalkId))
             {
-                var data = new Dictionary<string, object>
+                var jwtToken = await GetTokenAsync(letstalkSettings.BaseUrl, letstalkSettings.Username, letstalkSettings.Password);
+                if (jwtToken != null)
                 {
-                    { "BotId", letstalkSettings.BotId },
-                    { "ConversationId", letstalkId },
-                    { "Message", content },
-                    { "ReplyMarkup", JsonConvert.SerializeObject(replyMarkup) }
-                };
+                    var data = new Dictionary<string, object>
+                    {
+                        { "BotId", letstalkSettings.BotId },
+                        { "ConversationId", letstalkId },
+                        { "Message", content },
+                        { "ReplyMarkup", JsonConvert.SerializeObject(replyMarkup) }
+                    };
 
-                await SendNotificationToLetstalkAsync(letstalkSettings.BaseUrl, jwtToken.Token, data);
+                    await SendNotificationToLetstalkAsync(letstalkSettings.BaseUrl, jwtToken.Token, data);
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            await logger.ErrorAsync(ex.Message);
         }
     }
 
     public void SendNotification(string letstalkId, string content, ReplyMarkup replyMarkup = null)
     {
-        if (letstalkSettings.Enable && !string.IsNullOrWhiteSpace(letstalkId))
+        try
         {
-            var jwtToken = GetToken(letstalkSettings.BaseUrl, letstalkSettings.Username, letstalkSettings.Password);
-            if (jwtToken != null)
+            if (letstalkSettings.Enable && !string.IsNullOrWhiteSpace(letstalkId))
             {
-                var data = new Dictionary<string, object>
+                var jwtToken = GetToken(letstalkSettings.BaseUrl, letstalkSettings.Username, letstalkSettings.Password);
+                if (jwtToken != null)
                 {
-                    { "BotId", letstalkSettings.BotId },
-                    { "ConversationId", letstalkId },
-                    { "Message", content },
-                    { "ReplyMarkup", JsonConvert.SerializeObject(replyMarkup) }
-                };
+                    var data = new Dictionary<string, object>
+                    {
+                        { "BotId", letstalkSettings.BotId },
+                        { "ConversationId", letstalkId },
+                        { "Message", content },
+                        { "ReplyMarkup", JsonConvert.SerializeObject(replyMarkup) }
+                    };
 
-                SendNotificationToLetstalk(letstalkSettings.BaseUrl, jwtToken.Token, data);
+                    SendNotificationToLetstalk(letstalkSettings.BaseUrl, jwtToken.Token, data);
+                }
             }
         }
+        catch (Exception ex)
+        {
+            logger.ErrorAsync(ex.Message);
+        }
+
     }
 
     private JwtToken GetToken(string baseUrl, string userName, string password)
