@@ -75,6 +75,7 @@
                 var data = new Dictionary<string, string>
                 {
                     { conversationIdName, missingCheckInOutEmployee.ConversationId },
+                    { "callbackUrl", appSetting.BaseUrl},
                     { "empId", missingCheckInOutEmployee.EmpId.ToString()},
                     { "nickName", missingCheckInOutEmployee.NickName },
                     { "shift", missingCheckInOutEmployee.ShiftCode },
