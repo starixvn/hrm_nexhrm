@@ -56,7 +56,6 @@ namespace Fanex.NexHR.WebSite
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseMiddleware<ErrorHandler>();
             }
             else
             {

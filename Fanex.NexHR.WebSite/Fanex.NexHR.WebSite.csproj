@@ -8,6 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="LetsTalkTemplate\Leave.Request.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="LetsTalkTemplate\Leave.Request.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="compilerconfig.json" />
   </ItemGroup>
 
