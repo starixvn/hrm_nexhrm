@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.IO;
     using System.Linq;
     using System.Net.Http;
     using System.Threading.Tasks;
@@ -12,16 +13,18 @@
     using Fanex.NexHR.Criteria.ScheduledMessage;
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Models.Conversation;
+    using Fanex.NexHR.Models.Core;
     using Fanex.NexHR.Models.LateInEarlyOut;
+    using Fanex.NexHR.Models.Letstalk;
     using Fanex.NexHR.Models.LogTime;
     using Fanex.NexHR.Models.Staff;
     using Fanex.NexHR.Models.TimeSheet;
     using Fanex.NexHR.Resources;
     using Interfaces;
+    using Microsoft.AspNetCore.Hosting;
     using Models.NexBot;
     using Models.Request;
     using Newtonsoft.Json;
-    using NPOI.SS.Formula.Functions;
     using ViewModels;
     using ViewModels.CheckInOutRequest;
 
@@ -30,21 +33,29 @@
         private readonly HttpClient httpClient;
         private readonly IBaseService baseService;
         private readonly ChatbotConfigs nexBotSettings;
+        private readonly LetstalkSettings letstalkSettings;
         private readonly ILogServiceProvider logService;
+        private readonly ILetstalkService letstalkService;
         private readonly AppSetting appSetting;
+        private readonly IWebHostEnvironment environment;
         private const string conversationIdName = "conversationId";
-
         public NexbotService(IHttpClientFactory httpClientFactory,
             IBaseService baseService,
             AppSetting appSetting,
             ChatbotConfigs nexBotSettings,
-            ILogServiceProvider logService)
+            LetstalkSettings letstalkSettings,
+            ILogServiceProvider logService,
+            ILetstalkService letstalkService,
+            IWebHostEnvironment environment)
         {
             httpClient = httpClientFactory.CreateClient();
             this.nexBotSettings = nexBotSettings;
             this.baseService = baseService;
             this.appSetting = appSetting;
             this.logService = logService;
+            this.letstalkSettings = letstalkSettings;
+            this.letstalkService = letstalkService;
+            this.environment = environment;
         }
 
         public async Task<bool> SendMessageAsync(string conversationId, string message)
@@ -117,6 +128,36 @@
                 var data = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonData);
                 await SendHttpClientAsync<Task>("/request/process", HttpMethod.Post, data);
             }
+            if (letstalkSettings.Enable && !string.IsNullOrWhiteSpace(requestMessage.LetstalkId))
+            {
+                if (requestMessage.RequestType == RequestType.CheckIn.EnumToString())
+                {
+                    return;
+                }
+                var requestDisplayName = $"{requestMessage.Nick} ({requestMessage.FullName})";
+                var callbackUrl = $"{requestMessage.CallBackUrl}/Request/ProcessRequest?nexhrm=1&requestId={requestMessage.RequestId}&processedBy={requestMessage.ProcessedBy}";
+                var message = Utilities.ReadTextFile(GetTemplatePath("LetsTalkTemplate/Leave.Request.txt"));
+                message = string.Format(
+                    message,
+                    requestDisplayName,
+                    requestMessage.Code,
+                    requestDisplayName,
+                    requestMessage.LeaveType,
+                    requestMessage.RequestDate,
+                    requestMessage.PICDisplayName,
+                    requestMessage.Remark,
+                    requestMessage.CreatedDate);
+
+                var replyMarkup = new ReplyMarkup
+                {
+                    Actions =
+                    [
+                        new ReplyAction { ActionType = ReplyActionType.PostBack, Label = "Approve", Data = $"{callbackUrl}&command=Approve" },
+                        new ReplyAction { ActionType = ReplyActionType.PostBack, Label = "Reject", Data = $"{callbackUrl}&command=Reject" }
+                    ]
+                };
+                await letstalkService.SendNotificationAsync(requestMessage.LetstalkId, message, replyMarkup);
+            }
         }
 
         public async Task SendRegistVegetarianMealAsync(string conversationId, int empId, int companyId, DateTime onDate, string message, string messageContent)
@@ -150,6 +191,7 @@
                     {
                         RequestId = request.Id,
                         ConversationId = employeeSupervisor.SupervisorConversationId,
+                        LetstalkId = employeeSupervisor.SupervisorLetstalkId,
                         ProcessedBy = employeeSupervisor.SupervisorId,
                         Message = message,
                         Supervisor = employeeSupervisor.SupervisorNickName,
@@ -163,7 +205,8 @@
                         Remark = request.Remark,
                         IsReadOnly = employeeSupervisor.IsReadOnly,
                         CallBackUrl = $"{appSetting.BaseUrl}/api",
-                        AvatarUrl = await FileHelpers.GetAvatar(employeeSupervisor.Code)
+                        AvatarUrl = await FileHelpers.GetAvatar(employeeSupervisor.Code),
+                        PICDisplayName = employeeSupervisor.PICDisplayName
                     };
 
                     await SendApproveMessageAsync(requestMessage);
@@ -509,6 +552,11 @@
 
                 await SendHttpClientAsync<Task>("/remind/RemindCancelMeal", HttpMethod.Post, data);
             }
+        }
+
+        private string GetTemplatePath(string templatePath)
+        {
+            return Path.Combine(environment.ContentRootPath, templatePath);
         }
     }
 }

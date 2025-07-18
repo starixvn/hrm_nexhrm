@@ -104,6 +104,9 @@ namespace Fanex.NexHR.WebSite
 
             var ldapSettings = configuration.GetSection("LdapSettings").Get<LdapSettings>();
             services.AddSingleton(ldapSettings);
+
+            var letstalkSettings = configuration.GetSection("LetstalkSettings").Get<LetstalkSettings>();
+            services.AddSingleton(letstalkSettings);
         }
 
         private static void InjectServices(IServiceCollection services, IConfiguration configuration)
@@ -163,6 +166,7 @@ namespace Fanex.NexHR.WebSite
             services.AddSingleton<ITimeSheetService, TimeSheetService>();
             services.AddSingleton<IMessageCategoryLogService, MessageCategoryLogService>();
             services.AddSingleton<IBioWebApiService, BioWebApiService>();
+            services.AddSingleton<ILetstalkService, LetstalkService>();
             var s3Config = configuration.GetSection("AmazonStorageConfig").Get<AmazonStorageConfig>();
             services.AddSingleton(s3Config);
             services.AddSingleton<IMinIOService, MinIOService>();
