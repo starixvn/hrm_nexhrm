@@ -1,4 +1,6 @@
-﻿namespace Fanex.NexHR.Controllers.API
+﻿using Fanex.NexHR.Models.Letstalk;
+
+namespace Fanex.NexHR.Controllers.API
 {
     using Fanex.NexHR.Models;
     using Fanex.NexHR.Services.Interfaces;
@@ -11,12 +13,15 @@
     public class TestController : ControllerBase
     {
         private readonly INexbotService botService;
+        private readonly ILetstalkService letstalkService;
 
         public TestController(
-            INexbotService botService
+            INexbotService botService,
+            ILetstalkService letstalkService
         )
         {
             this.botService = botService;
+            this.letstalkService = letstalkService;
         }
 
 
@@ -34,6 +39,34 @@
                 Type = 1
             };
             await botService.SendRemindCheckInCheckOutAsync(request).ConfigureAwait(false);
+            return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SendMessageLetstalk()
+        {
+            var replyMarkup = new ReplyMarkup
+            {
+                Actions =
+                [
+                    new() {
+                        ActionType = ReplyActionType.PostBack,
+                        Label = "Accept",
+                        Data = "callback_accept"
+                    },
+                    new() {
+                        ActionType = ReplyActionType.PostBack,
+                        Label = "Reject",
+                        Data = "callback_reject"
+                    },
+                    new() {
+                        ActionType = ReplyActionType.Uri,
+                        Label = "View details",
+                        Uri = "https://www.google.com"
+                    }
+                ]
+            };
+            await letstalkService.SendNotificationAsync("t870342617", "test", replyMarkup);
             return Ok();
         }
     }
