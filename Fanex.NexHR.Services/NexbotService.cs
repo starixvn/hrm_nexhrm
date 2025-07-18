@@ -122,41 +122,48 @@
 
         private async Task SendApproveMessageAsync(RequestMessage requestMessage)
         {
-            if (nexBotSettings.Enable && !string.IsNullOrEmpty(requestMessage.ConversationId))
+            try
             {
-                var jsonData = JsonConvert.SerializeObject(requestMessage);
-                var data = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonData);
-                await SendHttpClientAsync<Task>("/request/process", HttpMethod.Post, data);
-            }
-            if (letstalkSettings.Enable && !string.IsNullOrWhiteSpace(requestMessage.LetstalkId))
-            {
-                if (requestMessage.RequestType == RequestType.CheckIn.EnumToString())
+                if (nexBotSettings.Enable && !string.IsNullOrEmpty(requestMessage.ConversationId))
                 {
-                    return;
+                    var jsonData = JsonConvert.SerializeObject(requestMessage);
+                    var data = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonData);
+                    await SendHttpClientAsync<Task>("/request/process", HttpMethod.Post, data);
                 }
-                var requestDisplayName = $"{requestMessage.Nick} ({requestMessage.FullName})";
-                var callbackUrl = $"{requestMessage.CallBackUrl}/Request/ProcessRequest?nexhrm=1&requestId={requestMessage.RequestId}&processedBy={requestMessage.ProcessedBy}";
-                var message = Utilities.ReadTextFile(GetTemplatePath("LetsTalkTemplate/Leave.Request.txt"));
-                message = string.Format(
-                    message,
-                    requestDisplayName,
-                    requestMessage.Code,
-                    requestDisplayName,
-                    requestMessage.LeaveType,
-                    requestMessage.RequestDate,
-                    requestMessage.PICDisplayName,
-                    requestMessage.Remark,
-                    requestMessage.CreatedDate);
-
-                var replyMarkup = new ReplyMarkup
+                if (letstalkSettings.Enable && !string.IsNullOrWhiteSpace(requestMessage.LetstalkId))
                 {
-                    Actions =
-                    [
-                        new ReplyAction { ActionType = ReplyActionType.PostBack, Label = "Approve", Data = $"{callbackUrl}&command=Approve" },
+                    if (requestMessage.RequestType == RequestType.CheckIn.EnumToString())
+                    {
+                        return;
+                    }
+                    var requestDisplayName = $"{requestMessage.Nick} ({requestMessage.FullName})";
+                    var callbackUrl = $"{requestMessage.CallBackUrl}/Request/ProcessRequest?nexhrm=1&requestId={requestMessage.RequestId}&processedBy={requestMessage.ProcessedBy}";
+                    var message = Utilities.ReadTextFile(GetTemplatePath("LetsTalkTemplate/Leave.Request.txt"));
+                    message = string.Format(
+                        message,
+                        requestDisplayName,
+                        requestMessage.Code,
+                        requestDisplayName,
+                        requestMessage.LeaveType,
+                        requestMessage.RequestDate,
+                        requestMessage.PICDisplayName,
+                        requestMessage.Remark,
+                        requestMessage.CreatedDate);
+
+                    var replyMarkup = new ReplyMarkup
+                    {
+                        Actions =
+                        [
+                            new ReplyAction { ActionType = ReplyActionType.PostBack, Label = "Approve", Data = $"{callbackUrl}&command=Approve" },
                         new ReplyAction { ActionType = ReplyActionType.PostBack, Label = "Reject", Data = $"{callbackUrl}&command=Reject" }
-                    ]
-                };
-                await letstalkService.SendNotificationAsync(requestMessage.LetstalkId, message, replyMarkup);
+                        ]
+                    };
+                    await letstalkService.SendNotificationAsync(requestMessage.LetstalkId, message, replyMarkup);
+                }
+            }
+            catch (Exception ex)
+            {
+                logService.LogException(ex);
             }
         }
 
