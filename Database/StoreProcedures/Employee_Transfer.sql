@@ -74,8 +74,6 @@ BEGIN
 		IF EXISTS (SELECT 1 FROM bodb_HRM.dbo.CompanyEmployee WITH (NOLOCK) WHERE EmpId = @EmployeeId AND CompanyId = @ToCompanyId)
 		BEGIN
 			UPDATE a WITH (UPDLOCK, ROWLOCK)
-				SET a.DomainUsername = @ToDomain + REPLACE(a.DomainUsername, @FromDomain, '') 
-				,a.Email = REPLACE(a.DomainUsername, @FromDomain, '') + '@' + @ToDomainEmail
 				,a.IsSpecialUser = @IsSpecialUser
 				,a.IsDeleted = 0
 				,a.Enabled = 1
