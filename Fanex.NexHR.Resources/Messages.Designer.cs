@@ -421,18 +421,10 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dear **{0}**,
-        ///&lt;br/&gt;
-        ///&lt;br/&gt;
+        ///   Looks up a localized string similar to Dear *{0}*,
         ///This month, there have been 3 instances of Late In/Early Out recorded for you.
-        /// &lt;br/&gt;
-        ///&lt;br/&gt;
         ///Please be reminded that if you reach 4 times of Late In/Early Out in a month, HR Department will issue a warning email copied to Management.
-        /// &lt;br/&gt;
-        ///&lt;br/&gt;
         ///We kindly request your cooperation in minimizing the frequency of Late In/Early Out instances.
-        ///&lt;br/&gt;
-        ///&lt;br/&gt;
         ///Thank you!.
         /// </summary>
         public static string EmployeeLateInEarlyOutViolateOnMonthOnceMoreTime {
