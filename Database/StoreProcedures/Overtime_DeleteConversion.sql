@@ -22,10 +22,10 @@ BEGIN
     DECLARE @CoreTeamId INT = 0;
     DECLARE @HRTeamId INT = 0;
 
-	SELECT @CoreTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'HRTeamId' THEN g.Id END), 0),
-		@HRTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END), 0)
+	SELECT @CoreTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'HRTeamId' THEN g.GroupId END), 0),
+		@HRTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.GroupId END), 0)
 	FROM dbo.SystemSetting ss WITH (NOLOCK)
-	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
+	INNER JOIN bodb_HRM.dbo.[Group] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
 	WHERE ss.Name IN ('HRTeamId', 'CoreTeamId')
     
     DECLARE
