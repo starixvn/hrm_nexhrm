@@ -54,9 +54,9 @@ BEGIN
     FROM dbo.SystemSetting AS ss WITH (NOLOCK)
     WHERE ss.Name = 'AutoApproveRequest'
 
-	SELECT @HRGroupId = MAX(CASE WHEN ss.Name = 'HRTeamId' THEN g.Id END)
+	SELECT @HRGroupId = MAX(CASE WHEN ss.Name = 'HRTeamId' THEN g.GroupId END)
 	FROM dbo.SystemSetting ss WITH (NOLOCK)
-	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
+	INNER JOIN bodb_HRM.dbo.[Group] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
 	WHERE ss.Name = 'HRTeamId'
 
 	SELECT @annualLeaveType = 2

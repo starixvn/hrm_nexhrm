@@ -22,14 +22,14 @@ BEGIN
 	@MGTId INT,
 	@CEOTeamId INT;
 
-	SELECT @HRTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'HRTeamId' THEN g.Id END), 0),
-		@ITTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'ITNetWorkTeamId' THEN g.Id END), 0),
-		@ExpId = ISNULL(MAX(CASE WHEN ss.Name = 'EXPTeamId' THEN g.Id END), 0),
-		@FinanceId = ISNULL(MAX(CASE WHEN ss.Name = 'FATeamId' THEN g.Id END), 0),
-		@MGTId = ISNULL(MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END), 0),
-		@CEOTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CEOTeamId' THEN g.Id END), 0)
+	SELECT @HRTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'HRTeamId' THEN g.GroupId END), 0),
+		@ITTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'ITNetWorkTeamId' THEN g.GroupId END), 0),
+		@ExpId = ISNULL(MAX(CASE WHEN ss.Name = 'EXPTeamId' THEN g.GroupId END), 0),
+		@FinanceId = ISNULL(MAX(CASE WHEN ss.Name = 'FATeamId' THEN g.GroupId END), 0),
+		@MGTId = ISNULL(MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.GroupId END), 0),
+		@CEOTeamId = ISNULL(MAX(CASE WHEN ss.Name = 'CEOTeamId' THEN g.GroupId END), 0)
 	FROM dbo.SystemSetting ss WITH (NOLOCK)
-	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
+	INNER JOIN bodb_HRM.dbo.[Group] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
 	WHERE ss.Name IN ('HRTeamId', 'ITNetWorkTeamId', 'EXPTeamId', 'FATeamId', 'CoreTeamId', 'CEOTeamId')
 
 		IF EXISTS (SELECT 1 FROM [dbo].[Employee] WITH (NOLOCK) WHERE Id = @employeeId

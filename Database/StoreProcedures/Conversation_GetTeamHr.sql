@@ -12,9 +12,9 @@ BEGIN
 	SET NOCOUNT ON; 
 
 	DECLARE @HRTeamId INT = 0
-	SELECT @HRTeamId = g.Id
+	SELECT @HRTeamId = g.GroupId
 	FROM dbo.SystemSetting ss WITH (NOLOCK) 
-	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
+	INNER JOIN bodb_HRM.dbo.[Group] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
 	WHERE ss.Name = 'HRTeamId'
 
 	SELECT e.Id 

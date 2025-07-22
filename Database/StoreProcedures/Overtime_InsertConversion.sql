@@ -28,10 +28,10 @@ BEGIN
 	DECLARE @HRTeamId INT;
 	DECLARE @CoreTeamId INT;
 
-	SELECT @HRTeamId = MAX(CASE WHEN ss.Name = 'HRTeamId' THEN g.Id END),
-		@CoreTeamId = MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.Id END)
+	SELECT @HRTeamId = MAX(CASE WHEN ss.Name = 'HRTeamId' THEN g.GroupId END),
+		@CoreTeamId = MAX(CASE WHEN ss.Name = 'CoreTeamId' THEN g.GroupId END)
 	FROM dbo.SystemSetting ss WITH (NOLOCK)
-	INNER JOIN dbo.[EmployeeGroup] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
+	INNER JOIN bodb_HRM.dbo.[Group] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
 	WHERE ss.Name IN ('HRTeamId', 'CoreTeamId')
 
 

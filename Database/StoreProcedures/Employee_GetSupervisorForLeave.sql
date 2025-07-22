@@ -17,6 +17,7 @@ BEGIN
 
 	DECLARE @IsSupReadOnly BIT = 0
 	DECLARE @CoreTeamId INT = 0
+	DECLARE @PICDisplayName NVARCHAR(50) = ''
 	
 	SELECT @CoreTeamId = g.Id
 	FROM dbo.SystemSetting ss WITH (NOLOCK)
@@ -36,17 +37,17 @@ BEGIN
 		INNER JOIN dbo.EmployeeGroup AS eg ON e.GroupId = eg.Id
 		LEFT JOIN dbo.EmployeeConversation AS con WITH (NOLOCK) ON e.Id = con.EmpId
 		WHERE e.GroupId = @CoreTeamId
-		AND e.isDeleted = 0
+		AND ISNULL(e.isDeleted, 0) = 0
 		SET @IsSupReadOnly = 1
 	END
 
 	IF EXISTS (SELECT 1 FROM dbo.EmployeeSupervisor WITH (NOLOCK) WHERE EmpId = @employeeId)
 	BEGIN
 		INSERT INTO #tempSupIds(SupervisorId, IsReadOnly)
-		SELECT DISTINCT sup.Id, @IsSupReadOnly
+		SELECT DISTINCT sup.EmpId, @IsSupReadOnly
 		FROM dbo.EmployeeSupervisor AS es WITH (NOLOCK)
-		INNER JOIN dbo.Employee AS sup WITH (NOLOCK) 
-			ON sup.Id = es.ApproverId AND sup.isDeleted = 0 AND sup.Enabled = 1
+		INNER JOIN bodb_HRM.dbo.Employee AS sup WITH (NOLOCK) 
+			ON sup.EmpId = es.ApproverId AND ISNULL(sup.isDeleted, 0) = 0 AND ISNULL(sup.Enabled, 0) = 1
 		WHERE es.EmpId = @employeeId 
 			AND ISNULL(es.IsDeleted, 0) = 0
 			AND es.ApproverId <> @employeeId
@@ -61,10 +62,10 @@ BEGIN
 		FROM dbo.Employee AS e WITH (NOLOCK)
 		INNER JOIN dbo.GroupSupervisor AS gs WITH (NOLOCK) 
 			ON e.GroupId = gs.GroupId
-		INNER JOIN dbo.Employee AS sup WITH (NOLOCK) 
-			ON sup.Id = gs.ApproverId 
-			AND sup.isDeleted = 0 
-			AND sup.Enabled = 1
+		INNER JOIN bodb_HRM.dbo.Employee AS sup WITH (NOLOCK) 
+			ON sup.EmpId = gs.ApproverId 
+			AND ISNULL(sup.isDeleted, 0) = 0 
+			AND ISNULL(sup.Enabled, 0) = 1
 			AND ISNULL(gs.IsDeleted, 0) = 0
 		WHERE e.Id = @employeeId
 			AND gs.ApproverId <> @employeeId
@@ -72,6 +73,18 @@ BEGIN
 					SELECT 1 FROM #tempSupIds WHERE SupervisorId = gs.ApproverId
 			)
 	END
+
+	-- Get PIC Display Name
+	SELECT @PICDisplayName = CASE 
+		WHEN epic.EmpId IS NOT NULL 
+		THEN epic.NickName + ' (' + epic.Code + ')'
+		ELSE '' 
+	END
+	FROM bodb_HRM.dbo.CompanyEmployee AS ce WITH (NOLOCK)
+	INNER JOIN dbo.SystemSetting sc WITH (NOLOCK) ON ce.CompanyId = sc.Value AND sc.[Name] = 'CompanyId'
+	LEFT JOIN bodb_HRM.dbo.[Group] g WITH (NOLOCK) ON ce.GroupId = g.GroupId
+	LEFT JOIN bodb_HRM.dbo.Employee epic WITH (NOLOCK) ON g.PICEmpId = epic.EmpId
+	WHERE ce.EmpId = @employeeId
 
 	SELECT DISTINCT 
 		e.EmpId
@@ -83,26 +96,34 @@ BEGIN
         ,sup.SupervisorFullName
         ,sup.SupervisorEmail
 		,sup.SupervisorConversationId
+		,sup.SupervisorLetstalkId
 		,sup.IsReadOnly
+		,@PICDisplayName AS PICDisplayName
     FROM (
-			SELECT Id AS EmpId
+			SELECT EmpId
 			,NickName
 			,FullName
 			,Code 
-			FROM dbo.Employee WITH (NOLOCK)
-			WHERE Id = @employeeId
+			FROM bodb_HRM.dbo.Employee WITH (NOLOCK)
+			WHERE EmpId = @employeeId
 		) AS e
 		INNER JOIN
 		(
-			SELECT a.Id AS SupervisorId
-				,NickName AS SupervisorNickName
-				,FullName AS SupervisorFullName
-				,Email AS SupervisorEmail 
+			SELECT a.EmpId AS SupervisorId
+				,a.NickName AS SupervisorNickName
+				,a.FullName AS SupervisorFullName
+				,a.Email AS SupervisorEmail 
+				,CASE 
+					WHEN sc.Value = 'true' THEN a.Letstalk 
+					ELSE NULL 
+				END AS SupervisorLetstalkId
 				,con.ConversationId AS SupervisorConversationId
 				,tsup.IsReadOnly
-			FROM dbo.Employee AS a WITH (NOLOCK)
-			INNER JOIN #tempSupIds tsup ON a.Id = tsup.SupervisorId
-			LEFT JOIN dbo.EmployeeConversation AS con WITH (NOLOCK) ON a.Id = con.EmpId
+			FROM bodb_HRM.dbo.Employee AS a WITH (NOLOCK)
+			INNER JOIN #tempSupIds tsup ON a.EmpId = tsup.SupervisorId
+			LEFT JOIN dbo.EmployeeConversation AS con WITH (NOLOCK) ON a.EmpId = con.EmpId
+			LEFT JOIN bodb_HRM.dbo.CompanyEmployee ce WITH (NOLOCK) ON a.EmpId = ce.EmpId
+			LEFT JOIN bodb_HRM.dbo.SystemConfigs sc WITH (NOLOCK) ON ce.CompanyId = sc.CompanyId AND sc.[Key] = 'EnableLetstalk'
 		) AS sup ON 1 = 1
 		WHERE e.EmpId <> sup.SupervisorId
 

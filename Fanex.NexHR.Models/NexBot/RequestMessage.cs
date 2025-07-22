@@ -4,6 +4,8 @@
     {
         public string ConversationId { get; set; }
 
+        public string LetstalkId { get; set; }
+
         public long RequestId { get; set; }
 
         public int ProcessedBy { get; set; }
@@ -37,5 +39,7 @@
         public string AvatarUrl { get; set; }
 
         public bool IsReadOnly { get; set; }
+
+        public string PICDisplayName { get; set; }
     }
 }
