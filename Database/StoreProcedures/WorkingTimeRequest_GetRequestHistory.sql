@@ -38,8 +38,14 @@ BEGIN
         '' AS EmailRequester,
         g.Name AS Team,
         g.Code AS TeamCode,
-        ap.NickName AS ProcessedBy,
-        ap.FullName AS FullNameProcessedBy,
+        CASE
+            WHEN r.ProcessedBy = -1 THEN 'System'
+            ELSE ap.NickName
+        END AS ProcessedBy,
+        CASE
+            WHEN r.ProcessedBy = -1 THEN 'System'
+            ELSE ap.FullName
+        END AS FullNameProcessedBy,
         '' AS EmailProcessedBy,
         ProcessedDate,
         0.0 AS TotalDaysRequestInMonth,

@@ -489,6 +489,9 @@
   <data name="SpecialUser" xml:space="preserve">
     <value>Special User</value>
   </data>
+  <data name="AutoApproveRequest" xml:space="preserve">
+    <value>Auto Approve Request</value>
+  </data>
   <data name="Keyword" xml:space="preserve">
     <value>Keyword</value>
   </data>

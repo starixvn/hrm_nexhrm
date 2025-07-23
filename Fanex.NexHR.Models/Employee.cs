@@ -31,6 +31,8 @@
 
         public bool IsSpecialUser { get; set; }
 
+        public bool AutoApproveRequest { get; set; }
+
         public string Phone { get; set; }
 
         public byte? Gender { get; set; }

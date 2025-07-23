@@ -185,10 +185,13 @@ BEGIN
 		-- Late In/Early Out
 		IF (@IsTransferLateInEarlyOut = 1)
 		BEGIN
-			SELECT @LateInEarlyOut = [Minutes]
-			FROM dbo.LateInEarlyOutYearly WITH (NOLOCK)
-			WHERE EmpId = @EmployeeId
-			AND [Year] = YEAR(@AffectedDate)
+			SELECT @LateInEarlyOut = CASE 
+				WHEN ISNULL(la.[Minutes], 0) > ISNULL(oty.[Minutes], 0) THEN (ISNULL(la.[Minutes], 0) - ISNULL(oty.[Minutes], 0))
+				ELSE 0
+				END
+			FROM dbo.LateInEarlyOutYearly la WITH (NOLOCK)
+			LEFT JOIN dbo.OvertimeYearly oty WITH (NOLOCK) ON la.EmpId = oty.EmpId AND oty.[Year] = YEAR(@AffectedDate)
+			WHERE la.EmpId = @EmployeeId AND la.[Year] = YEAR(@AffectedDate)
 
 			IF (@LateInEarlyOut IS NOT NULL)
 			BEGIN
@@ -215,11 +218,10 @@ BEGIN
 
 		IF (@IsTransferNexBalance = 1)
 		BEGIN
-			-- SELECT @NexBalance = CASE 
-			-- 		WHEN ISNULL(oty.[Minutes], 0) > ISNULL(la.[Minutes], 0) THEN (ISNULL(oty.[Minutes], 0) - ISNULL(la.[Minutes], 0))
-			-- 		ELSE 0
-			-- 		END
-			SELECT @NexBalance = ISNULL(oty.[Minutes], 0)
+			SELECT @NexBalance = CASE 
+				WHEN ISNULL(oty.[Minutes], 0) > ISNULL(la.[Minutes], 0) THEN (ISNULL(oty.[Minutes], 0) - ISNULL(la.[Minutes], 0))
+				ELSE 0
+				END
 			FROM dbo.Employee AS e WITH (NOLOCK)
 				LEFT JOIN dbo.OvertimeYearly AS oty WITH (NOLOCK) ON e.Id = oty.EmpId
 				AND oty.[Year] = YEAR(@AffectedDate)
@@ -398,10 +400,13 @@ BEGIN
 		-- Late In/Early Out
 		IF (@IsTransferLateInEarlyOut = 1)
 		BEGIN
-			SELECT @LateInEarlyOut = [Minutes]
-			FROM dbo.LateInEarlyOutYearly WITH (NOLOCK)
-			WHERE EmpId = @EmployeeId
-			AND [Year] = YEAR(@AffectedDate)
+			SELECT @LateInEarlyOut = CASE 
+				WHEN ISNULL(la.[Minutes], 0) > ISNULL(oty.[Minutes], 0) THEN (ISNULL(la.[Minutes], 0) - ISNULL(oty.[Minutes], 0))
+				ELSE 0
+				END
+			FROM dbo.LateInEarlyOutYearly la WITH (NOLOCK)
+			LEFT JOIN dbo.OvertimeYearly oty WITH (NOLOCK) ON la.EmpId = oty.EmpId AND oty.[Year] = YEAR(@AffectedDate)
+			WHERE la.EmpId = @EmployeeId AND la.[Year] = YEAR(@AffectedDate)
 
 			IF (@LateInEarlyOut IS NOT NULL)
 			BEGIN
@@ -428,11 +433,10 @@ BEGIN
 
 		IF (@IsTransferNexBalance = 1)
 		BEGIN
-			-- SELECT @NexBalance = CASE 
-			-- 		WHEN ISNULL(oty.[Minutes], 0) > ISNULL(la.[Minutes], 0) THEN (ISNULL(oty.[Minutes], 0) - ISNULL(la.[Minutes], 0))
-			-- 		ELSE 0
-			-- 		END
-			SELECT @NexBalance = ISNULL(oty.[Minutes], 0)
+			SELECT @NexBalance = CASE 
+				WHEN ISNULL(oty.[Minutes], 0) > ISNULL(la.[Minutes], 0) THEN (ISNULL(oty.[Minutes], 0) - ISNULL(la.[Minutes], 0))
+				ELSE 0
+				END
 			FROM dbo.Employee AS e WITH (NOLOCK)
 				LEFT JOIN dbo.OvertimeYearly AS oty WITH (NOLOCK) ON e.Id = oty.EmpId
 				AND oty.[Year] = YEAR(@AffectedDate)

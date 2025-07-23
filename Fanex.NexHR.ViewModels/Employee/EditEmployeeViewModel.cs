@@ -92,6 +92,8 @@
 
         public bool IsSpecialUser { get; set; }
 
+        public bool AutoApproveRequest { get; set; }
+
         public Toeic ToeicScore { get; set; }
 
         public string GeoMapLatitude { get; set; }
@@ -202,6 +204,7 @@
                 ResignedDate = employee.ResignedDate;
                 Enabled = employee.Enabled;
                 IsSpecialUser = employee.IsSpecialUser;
+                AutoApproveRequest = employee.AutoApproveRequest;
                 ToeicScore = employee.ToeicScore;
                 GeoMapLatitude = employee.GeoMapLatitude;
                 GeoMapLongtitude = employee.GeoMapLongtitude;
