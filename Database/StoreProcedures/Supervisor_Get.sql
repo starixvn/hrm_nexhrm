@@ -32,7 +32,8 @@ BEGIN
 		e.FullName,
 		d.[Name] AS DepartmentName,
 		g.[Name] AS GroupName,
-		STRING_AGG(CONVERT(NVARCHAR(MAX), sup.ApproverNickName), ', ') AS Approvers
+		STRING_AGG(CONVERT(NVARCHAR(MAX), sup.ApproverNickName), ', ') AS Approvers,
+		e.AutoApproveRequest
 	FROM dbo.Employee AS e WITH (NOLOCK)
 		LEFT JOIN dbo.EmployeeSupDetail AS sup WITH (NOLOCK) ON sup.EmpId = e.Id
 		INNER JOIN dbo.EmployeeGroup AS g ON e.GroupId = g.Id
@@ -63,7 +64,8 @@ BEGIN
 		g.[Rank],
 		g.Code,
 		e.Roles,
-		e.GroupDate
+		e.GroupDate,
+		e.AutoApproveRequest
 	ORDER BY 
 		d.[Name],
 		g.[Rank],
