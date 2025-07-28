@@ -10,7 +10,6 @@ WHERE [Name] = 'AutoApproveRequest'
 DELETE FROM [NexVisionHRM].[dbo].[SystemSetting]
 WHERE [Name] = 'AutoApproveRequest'
 
-EXEC sp_rename 'EmployeeSupervisor', 'EmployeeSupervisor_bk';
 GO
 
 CREATE OR ALTER VIEW [dbo].[Employee]
@@ -401,7 +400,7 @@ BEGIN
 		IF EXISTS (SELECT 1 FROM bodb_HRM.dbo.CompanyEmployee WITH (NOLOCK) WHERE EmpId = @EmployeeId AND CompanyId = @ToCompanyId)
 		BEGIN
 			UPDATE a WITH (UPDLOCK, ROWLOCK)
-				,a.IsSpecialUser = @IsSpecialUser
+				SET a.IsSpecialUser = @IsSpecialUser
 				,a.IsDeleted = 0
 				,a.Enabled = 1
 				,a.GroupId = @ToGroupId
