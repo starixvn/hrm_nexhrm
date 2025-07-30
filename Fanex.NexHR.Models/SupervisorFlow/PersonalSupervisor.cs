@@ -13,5 +13,7 @@
         public string Approvers { get; set; }
 
         public string ApproverIds { get; set; }
+
+        public bool AutoApproveRequest { get; set; }
     }
 }

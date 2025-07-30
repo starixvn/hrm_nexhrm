@@ -43,27 +43,12 @@ BEGIN
 		,@OldTotalDays NUMERIC(5, 1)
 
 	DECLARE @HRGroupId INT;
-	DECLARE @HeadId INT;
-	DECLARE @EmpCode NVARCHAR(20);
-	DECLARE @AutoApproveRequest NVARCHAR(1000);
-	
+	DECLARE @AutoApproveRequest BIT;
+
 	SELECT @HRGroupId = MAX(CASE WHEN ss.Name = 'HRTeamId' THEN g.GroupId END)
 	FROM dbo.SystemSetting ss WITH (NOLOCK)
 	INNER JOIN bodb_HRM.dbo.[Group] g WITH (NOLOCK) ON g.GroupTeamId = ss.Value
 	WHERE ss.Name = 'HRTeamId'
-
-	SELECT @HeadId = e.Id
-	FROM dbo.Employee AS e WITH (NOLOCK)
-	INNER JOIN dbo.SystemSetting ss WITH (NOLOCK) ON ss.Name = 'MGTHeadCode'
-	WHERE e.Code = ss.Value
-
-	SELECT @EmpCode = e.Code
-	FROM dbo.Employee AS e WITH (NOLOCK)
-	WHERE e.Id = @EmpId
-
-	SELECT @AutoApproveRequest = ss.Value
-    FROM dbo.SystemSetting AS ss WITH (NOLOCK)
-    WHERE ss.Name = 'AutoApproveRequest'
 
 
 	SELECT @annualLeaveType = 2
@@ -80,6 +65,10 @@ BEGIN
 		,@OldTotalDays = TotalDays
     FROM dbo.WorkingTimeRequest WITH (NOLOCK)
     WHERE Id = @Id
+
+	SELECT @AutoApproveRequest = e.AutoApproveRequest
+	FROM dbo.Employee AS e WITH (NOLOCK)
+	WHERE e.Id = @EmpId
 
 	IF (@RequestType IN (1, 2))
 	BEGIN
@@ -168,12 +157,6 @@ BEGIN
 			END
 		END
 
-		-- END
-		
-		IF(@EmpId = @HeadId) -- user Thien is auto approve check in/out request.
-		BEGIN
-			SELECT @ErrCode = - 1
-		END
 	END
     ELSE IF (@RequestType = 6)
     BEGIN
@@ -513,16 +496,6 @@ BEGIN
 
     EXEC [WorkingTimeRequest_WriteHistory] @Id
 
-	IF (@LeaveTypeID = @BusinessLeave AND @EmpId = @HeadId)
-	BEGIN
-		SELECT @ErrCode = - 1
-	END
-	
-	IF (EXISTS (SELECT 1 FROM STRING_SPLIT(@AutoApproveRequest, ',') WHERE value = @EmpCode))
-	BEGIN
-		SELECT @ErrCode = - 1
-	END
-
 	IF (
 			NOT EXISTS (
 				SELECT 
@@ -532,23 +505,16 @@ BEGIN
 				LEFT JOIN dbo.EmployeeSupervisor AS es WITH (NOLOCK) ON e.Id = es.EmpId AND es.IsDeleted = 0 AND e.Id <> es.ApproverId
 				WHERE e.Id = @empId
 					AND (gs.ApproverId IS NOT NULL OR es.ApproverId IS NOT NULL))
+			OR @AutoApproveRequest = 1
 			)
 	BEGIN
 		EXEC [dbo].[WorkingTimeRequest_ApproveRequest] @RequestID = @id
-			,@ApprovedBy = @EmpId
+			,@ApprovedBy = -1
 			,@ApprovedDate = @ModifiedDate
 			,@ErrCode = @ErrCode
 			,@ErrMsg = @ErrMsg
 
 		SET @ErrCode = - 1
-	END
-	ELSE IF (@ErrCode = - 1)
-	BEGIN
-		EXEC [dbo].[WorkingTimeRequest_ApproveRequest] @RequestID = @id
-			,@ApprovedBy = @ModifiedBy
-			,@ApprovedDate = @ModifiedDate
-			,@ErrCode = @ErrCode
-			,@ErrMsg = @ErrMsg
 	END
 	ELSE
 	BEGIN

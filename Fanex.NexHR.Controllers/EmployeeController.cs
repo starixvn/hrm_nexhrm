@@ -714,6 +714,7 @@ public class EmployeeController : BaseController
             Email = model.Email,
             Enabled = model.Enabled,
             IsSpecialUser = model.IsSpecialUser,
+            AutoApproveRequest = model.AutoApproveRequest,
             FullName = model.FullName,
             Gender = model.Gender,
             Geomaplatitude = model.GeoMapLatitude,

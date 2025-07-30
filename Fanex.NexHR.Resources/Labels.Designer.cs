@@ -475,6 +475,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auto Approve Request.
+        /// </summary>
+        public static string AutoApproveRequest {
+            get {
+                return ResourceManager.GetString("AutoApproveRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Avatar.
         /// </summary>
         public static string Avatar {

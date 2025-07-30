@@ -1,9 +1,5 @@
-﻿@using Fanex.NexHR.Core
-@using Fanex.NexHR.Core.Enums
-@using Fanex.NexHR.Models
+﻿@using Fanex.NexHR.Models
 @using Fanex.NexHR.Resources
-@using Fanex.NexHR.Services.Interfaces
-@inject ISessionService sessionService;
 @model IEnumerable<DetailSupervisor>
 @{
     var index = 1;
@@ -13,10 +9,11 @@
         <tr>
             <th style="width:5%">@Labels.SymbolCount</th>
             <th style="width:10%">@Labels.EnglishName</th>
-            <th style="width:22%">@Labels.FullName</th>
-            <th style="width:21%">@Labels.Department</th>
-            <th style="width:21%">@Labels.Team</th>
-            <th style="width:21%">@Labels.Supervisor</th>
+            <th style="width:20%">@Labels.FullName</th>
+            <th style="width:15%">@Labels.Department</th>
+            <th style="width:15%">@Labels.Team</th>
+            <th style="width:20%">@Labels.Supervisor</th>
+            <th style="width:15%">@Labels.AutoApproveRequest</th>
         </tr>
     </thead>
     <tbody>
@@ -31,6 +28,7 @@
                     <td class="align-left">@item.DepartmentName</td>
                     <td class="align-left">@item.GroupName</td>
                     <td class="align-left">@item.Approvers</td>
+                    <td class="align-center">@(item.AutoApproveRequest ? @Labels.AutoApproveRequest : "")</td>
                 </tr>
             }
         }

@@ -10,6 +10,7 @@
     ,@jobTitleId INT = NULL
     ,@enabled BIT = NULL
 	,@isSpecialUser BIT = NULL
+	,@autoApproveRequest BIT = NULL
     ,@phone VARCHAR(50) = NULL
     ,@gender TINYINT = NULL
     ,@mainGroupID INT = NULL
@@ -79,6 +80,7 @@ BEGIN
 		'JobTitleId="'+ COALESCE(CAST(JobTitleId AS VARCHAR(11)),SPACE(1)) + '" ' +
 		'Enabled="'+ COALESCE(CAST([Enabled] AS VARCHAR(11)),SPACE(1)) + '" ' +
 		'IsSpecialUser="'+ COALESCE(CAST(IsSpecialUser AS VARCHAR(4)),SPACE(1)) + '" ' +
+		'AutoApproveRequest="'+ COALESCE(CAST(AutoApproveRequest AS VARCHAR(4)),SPACE(1)) + '" ' +
 		'Phone="'+ COALESCE(Phone,SPACE(1)) + '" ' +
 		'Gender="'+ COALESCE(CAST(Gender AS VARCHAR(4)),SPACE(1)) + '" ' +
 		'GroupId="'+ COALESCE(CAST(GroupId AS VARCHAR(50)),SPACE(1)) + '" ' +
@@ -117,6 +119,7 @@ BEGIN
 		'JobTitleId="'+ COALESCE(CAST(@jobTitleId AS VARCHAR(11)),SPACE(1)) + '" ' +
 		'Enabled="'+ COALESCE(CAST(@enabled AS VARCHAR(11)),SPACE(1)) + '" ' +
 		'IsSpecialUser="'+ COALESCE(CAST(@isSpecialUser AS VARCHAR(4)),SPACE(1)) + '" ' +
+		'AutoApproveRequest="'+ COALESCE(CAST(@autoApproveRequest AS VARCHAR(4)),SPACE(1)) + '" ' +
 		'Phone="'+ COALESCE(@phone,SPACE(1)) + '" ' +
 		'Gender="'+ COALESCE(CAST(@gender AS VARCHAR(4)),SPACE(1)) + '" ' +
 		'GroupId="'+ COALESCE(CAST(@mainGroupID AS VARCHAR(50)),SPACE(1)) + '" ' +
@@ -193,6 +196,7 @@ BEGIN
             ,CompanyDate = @joinedDate
             ,ConfirmedDate = @confirmedDate
             ,ResignedDate = @resignedDate
+			,AutoApproveRequest = @autoApproveRequest
 		WHERE EmpId = @employeeId
 		AND CompanyId = @CompanyId
 

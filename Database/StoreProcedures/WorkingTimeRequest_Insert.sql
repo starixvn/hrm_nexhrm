@@ -37,22 +37,11 @@ BEGIN
 		,@IsValidLeaveDay BIT
 
 	DECLARE @HRGroupId INT;
-	DECLARE @HeadId INT;
-	DECLARE @EmpCode NVARCHAR(20);
-	DECLARE @AutoApproveRequest NVARCHAR(1000);
+	DECLARE @AutoApproveRequest BIT;
 
-	SELECT @HeadId = e.Id
-    FROM dbo.Employee AS e WITH (NOLOCK)
-    INNER JOIN dbo.SystemSetting AS ss WITH (NOLOCK) ON ss.Name = 'MGTHeadCode'
-    WHERE e.Code = ss.Value
-
-	SELECT @EmpCode = e.Code
+	SELECT @AutoApproveRequest = e.AutoApproveRequest
 	FROM dbo.Employee AS e WITH (NOLOCK)
 	WHERE e.Id = @EmpId
-
-	SELECT @AutoApproveRequest = ss.Value
-    FROM dbo.SystemSetting AS ss WITH (NOLOCK)
-    WHERE ss.Name = 'AutoApproveRequest'
 
 	SELECT @HRGroupId = MAX(CASE WHEN ss.Name = 'HRTeamId' THEN g.GroupId END)
 	FROM dbo.SystemSetting ss WITH (NOLOCK)
@@ -165,11 +154,6 @@ BEGIN
 		END
 
 		-- END
-		
-		IF(@EmpId = @HeadId) -- user Thien is auto approve check in/out request.
-		BEGIN
-			SELECT @ErrCode = - 1
-		END
 	END
 	ELSE IF (@RequestType = 6)
 	BEGIN
@@ -336,8 +320,6 @@ BEGIN
 				RETURN
 			END
 		END
-
-
 		
 		--IF(@CreatedBy = @EmpId 
 		--	OR NOT EXISTS (
@@ -569,16 +551,6 @@ BEGIN
 			,1
 	END
 
-	IF (@LeaveTypeID = @BusinessLeave AND @EmpId = @HeadId)
-	BEGIN
-		SELECT @ErrCode = - 1
-	END
-
-	IF (EXISTS (SELECT 1 FROM STRING_SPLIT(@AutoApproveRequest, ',') WHERE value = @EmpCode))
-	BEGIN
-		SELECT @ErrCode = - 1
-	END
-
 	IF (
 			NOT EXISTS (
 				SELECT 
@@ -588,23 +560,16 @@ BEGIN
 				LEFT JOIN dbo.EmployeeSupervisor AS es WITH (NOLOCK) ON e.Id = es.EmpId AND es.IsDeleted = 0 AND e.Id <> es.ApproverId
 				WHERE e.Id = @empId
 					AND (gs.ApproverId IS NOT NULL OR es.ApproverId IS NOT NULL))
+			OR @AutoApproveRequest = 1
 			)
 	BEGIN
 		EXEC [dbo].[WorkingTimeRequest_ApproveRequest] @RequestID = @id
-			,@ApprovedBy = @EmpId
+			,@ApprovedBy = -1
 			,@ApprovedDate = @CreatedDate
 			,@ErrCode = @ErrCode
 			,@ErrMsg = @ErrMsg
 
 		SET @ErrCode = - 1
-	END
-	ELSE IF (@ErrCode = - 1)
-	BEGIN
-		EXEC [dbo].[WorkingTimeRequest_ApproveRequest] @RequestID = @id
-			,@ApprovedBy = @CreatedBy
-			,@ApprovedDate = @CreatedDate
-			,@ErrCode = @ErrCode
-			,@ErrMsg = @ErrMsg
 	END
 	ELSE
 	BEGIN

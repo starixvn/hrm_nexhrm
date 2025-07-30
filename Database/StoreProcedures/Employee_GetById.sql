@@ -9,6 +9,7 @@ Original:
 Revisions:  
 	20191206@Merlin.Le: Add PlaceOfBirth, ContactName, UserRelationship, ContactPhone, ContactAddress to table Employee
 	20252602@Henry.Dinh: Add Management Grade
+    20250723@Henry.Dinh: Add AutoApproveRequest
 Param's Explanation:
 
 */
@@ -90,6 +91,7 @@ BEGIN
         ,e.[ModifiedDate]
         ,e.[ModifiedBy]
         ,e.[IsDeleted]
+        ,[AutoApproveRequest]
 		,[IsSpecialUser]
 		,[GroupDate]
         ,[PermanentAddress] AS [Address]
