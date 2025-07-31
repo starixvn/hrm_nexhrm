@@ -124,7 +124,7 @@ BEGIN
         ,Reading
         ,Speaking
         ,Writing
-        ,[GroupId]
+        ,e.[GroupId]
         ,g.Code
         ,g.NAME
         ,g.[Rank]
@@ -145,7 +145,7 @@ BEGIN
             ,[Phone]
             ,[Gender]
             ,[Roles]
-            ,GroupId
+            ,em.GroupId
 			,[GroupDate]
             ,JobTitleId
             ,[JoinedDate]
@@ -158,7 +158,7 @@ BEGIN
             ,em.[CreatedBy]
             ,em.[ModifiedDate]
             ,em.[ModifiedBy]
-            ,[isDeleted]
+            ,em.[isDeleted]
             ,[PermanentAddress]
             ,[CurrentAddress]
             ,[IdCardNumber]
@@ -177,16 +177,16 @@ BEGIN
 			,[ContactAddress]
 			,[SocialInsuranceNo]
         FROM dbo.Employee AS em WITH (NOLOCK)
-		INNER JOIN dbo.EmployeeGroup AS emg WITH (NOLOCK) ON em.GroupId = emg.ID
+		INNER JOIN bodb_HRM.dbo.[Group] AS emg WITH (NOLOCK) ON em.GroupId = emg.GroupId
         WHERE 
             (IsSpecialUser = @isSpecial
 				OR @isSpecial IS NULL)
 			AND (@isDelete = 1
-						AND ISNULL(isDeleted, 0) = 1 
+						AND ISNULL(em.isDeleted, 0) = 1 
 			OR (
 
 						@isDelete = 0
-						AND ISNULL(isDeleted, 0) = 0 
+						AND ISNULL(em.isDeleted, 0) = 0 
 						AND
 						(
 							[Enabled] <> @isDisable
@@ -203,7 +203,7 @@ BEGIN
                 )
             AND (
                 @groupId IS NULL
-                OR GroupId = @groupId
+                OR em.GroupId = @groupId
                 )
             AND (
                 @jobTitleId IS NULL
@@ -214,8 +214,8 @@ BEGIN
                 OR emg.DepartmentId = @departmentId
                 )
         ) AS e
-        INNER JOIN dbo.EmployeeGroup AS g WITH (NOLOCK) ON e.GroupID = g.ID
-        LEFT JOIN dbo.Department AS d WITH (NOLOCK) ON d.DepartmentId = g.DepartmentId
+        INNER JOIN bodb_HRM.dbo.[Group] AS g WITH (NOLOCK) ON e.GroupID = g.GroupId
+        LEFT JOIN bodb_HRM.dbo.Department AS d WITH (NOLOCK) ON d.DepartmentId = g.DepartmentId
         LEFT JOIN HRM.dbo.JobTitle AS jt WITH (NOLOCK) ON e.JobTitleId = jt.JobTitleId
         LEFT JOIN HRM.dbo.TOEIC AS t WITH (NOLOCK) ON e.Id = t.EmpId
 		LEFT JOIN (
