@@ -20,6 +20,7 @@ Revisions:
 	20200505@Merlin.Le: Add isSpecial IN PARAM
 	20250308@Henry.Dinh: Add management grade
     20250514@Henry.Dinh: Add departmentId IN PARAM
+    20250731@Henry.Dinh: Inner join with bodb_HRM.dbo.[Group] + Department
 Param's Explanation:
 
 */
@@ -40,18 +41,13 @@ BEGIN
             OR isDeleted = @isDelete
             )
 		AND (@isDelete = 1
-						AND ISNULL(isDeleted, 0) = 1 
+			AND ISNULL(isDeleted, 0) = 1 
 			OR (
-
-						@isDelete = 0
-						AND ISNULL(isDeleted, 0) = 0 
-						AND
-						(
-							[Enabled] <> @isDisable
-						)
-					
-				)
-				)
+                @isDelete = 0
+                AND ISNULL(isDeleted, 0) = 0 
+                AND [Enabled] <> @isDisable
+                )
+            )
         AND (
             @query IS NULL
             OR NickName LIKE @q
@@ -69,12 +65,12 @@ BEGIN
             )
 
     SELECT e.[Id]
-		,e.[Id] as UserId
+        ,e.[Id] as UserId
         ,e.[Code]
         ,[DomainUsername]
         ,[FullName]
         ,[NickName]
-		,[GroupDate]
+        ,[GroupDate]
         ,[DOB]
         ,[Email]
         ,[Enabled]
@@ -88,16 +84,16 @@ BEGIN
         ,[Yahoo]
         ,[Marriage]
         ,d.DepartmentId
-		,d.[Name] AS DepartmentName
-		,gra.Code AS JobGradeCode
-		,gra.Name AS JobGradeName
-		,gra.AffectedDate
-		,gra.Note
-		,mgra.Code AS ManagementGradeCode
-		,mgra.Name AS ManagementGradeName
-		,mgra.AffectedDate AS ManagementAffectedDate
-		,mgra.Note AS ManagementNote
-		,e.SocialInsuranceNo
+        ,d.[Name] AS DepartmentName
+        ,gra.Code AS JobGradeCode
+        ,gra.Name AS JobGradeName
+        ,gra.AffectedDate
+        ,gra.Note
+        ,mgra.Code AS ManagementGradeCode
+        ,mgra.Name AS ManagementGradeName
+        ,mgra.AffectedDate AS ManagementAffectedDate
+        ,mgra.Note AS ManagementNote
+        ,e.SocialInsuranceNo
         ,e.[CreatedDate]
         ,e.[CreatedBy] CreatorId
         ,e.[ModifiedDate]
@@ -114,26 +110,24 @@ BEGIN
         ,[EmployeeCard]
         ,[IssuedDate]
         ,[IssuedPlace]
-		,[PlaceOfBirth]
-		,[ContactName]
-		,[UserRelationship]
-		,[ContactPhone]
-		,[ContactAddress]
+        ,[PlaceOfBirth]
+        ,[ContactName]
+        ,[UserRelationship]
+        ,[ContactPhone]
+        ,[ContactAddress]
         ,LRExamDate
         ,Listening
         ,Reading
         ,Speaking
         ,Writing
-        ,[GroupId]
+        ,e.[GroupId]
         ,g.Code
         ,g.NAME
         ,g.[Rank]
         ,e.JobTitleId
         ,jt.[Name]
     FROM (
-        SELECT row_number() OVER (
-                ORDER BY NickName ASC
-                ) AS RowNumber
+        SELECT row_number() OVER (ORDER BY NickName ASC) AS RowNumber
             ,em.[Id]
             ,em.[Code]
             ,[DomainUsername]
@@ -145,8 +139,8 @@ BEGIN
             ,[Phone]
             ,[Gender]
             ,[Roles]
-            ,GroupId
-			,[GroupDate]
+            ,em.GroupId
+            ,[GroupDate]
             ,JobTitleId
             ,[JoinedDate]
             ,[ConfirmedDate]
@@ -158,7 +152,7 @@ BEGIN
             ,em.[CreatedBy]
             ,em.[ModifiedDate]
             ,em.[ModifiedBy]
-            ,[isDeleted]
+            ,em.[isDeleted]
             ,[PermanentAddress]
             ,[CurrentAddress]
             ,[IdCardNumber]
@@ -170,30 +164,22 @@ BEGIN
             ,[EmployeeCard]
             ,[IssuedDate]
             ,[IssuedPlace]
-			,[PlaceOfBirth]
-			,[ContactName]
-			,[UserRelationship]
-			,[ContactPhone]
-			,[ContactAddress]
-			,[SocialInsuranceNo]
+            ,[PlaceOfBirth]
+            ,[ContactName]
+            ,[UserRelationship]
+            ,[ContactPhone]
+            ,[ContactAddress]
+            ,[SocialInsuranceNo]
         FROM dbo.Employee AS em WITH (NOLOCK)
-		INNER JOIN dbo.EmployeeGroup AS emg WITH (NOLOCK) ON em.GroupId = emg.ID
+		INNER JOIN bodb_HRM.dbo.[Group] AS emg WITH (NOLOCK) ON em.GroupId = emg.GroupId
         WHERE 
             (IsSpecialUser = @isSpecial
 				OR @isSpecial IS NULL)
 			AND (@isDelete = 1
-						AND ISNULL(isDeleted, 0) = 1 
-			OR (
-
-						@isDelete = 0
-						AND ISNULL(isDeleted, 0) = 0 
-						AND
-						(
-							[Enabled] <> @isDisable
-						)
-					
-				)
-				)
+				AND ISNULL(em.isDeleted, 0) = 1 
+			OR @isDelete = 0
+				AND ISNULL(em.isDeleted, 0) = 0 
+				AND [Enabled] <> @isDisable)
             AND (
                 @query IS NULL
                 OR NickName LIKE @q
@@ -203,7 +189,7 @@ BEGIN
                 )
             AND (
                 @groupId IS NULL
-                OR GroupId = @groupId
+                OR em.GroupId = @groupId
                 )
             AND (
                 @jobTitleId IS NULL
@@ -214,8 +200,8 @@ BEGIN
                 OR emg.DepartmentId = @departmentId
                 )
         ) AS e
-        INNER JOIN dbo.EmployeeGroup AS g WITH (NOLOCK) ON e.GroupID = g.ID
-        LEFT JOIN dbo.Department AS d WITH (NOLOCK) ON d.DepartmentId = g.DepartmentId
+        INNER JOIN bodb_HRM.dbo.[Group] AS g WITH (NOLOCK) ON e.GroupID = g.GroupId
+        LEFT JOIN bodb_HRM.dbo.Department AS d WITH (NOLOCK) ON d.DepartmentId = g.DepartmentId
         LEFT JOIN HRM.dbo.JobTitle AS jt WITH (NOLOCK) ON e.JobTitleId = jt.JobTitleId
         LEFT JOIN HRM.dbo.TOEIC AS t WITH (NOLOCK) ON e.Id = t.EmpId
 		LEFT JOIN (
