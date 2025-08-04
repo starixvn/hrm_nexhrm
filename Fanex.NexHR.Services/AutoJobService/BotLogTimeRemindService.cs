@@ -10,27 +10,13 @@
     using Fanex.NexHR.Models.LogTime;
     using Fanex.NexHR.Services.Interfaces;
 
-    public class BotLogTimeRemindService : IBotLogTimeRemindService
+    public class BotLogTimeRemindService(
+        IBaseService baseService,
+        IEmployeeService employeeService,
+        INexbotService nexbotService,
+        IBioWebApiService bioWebApiService,
+        AppSetting appSetting) : IBotLogTimeRemindService
     {
-        private readonly INexbotService nexbotService;
-        private readonly IBaseService baseService;
-        private readonly IEmployeeService employeeService;
-        private readonly IBioWebApiService bioWebApiService;
-        private readonly AppSetting appSetting;
-
-        public BotLogTimeRemindService(IBaseService baseService,
-            IEmployeeService employeeService,
-            INexbotService nexbotService,
-            IBioWebApiService bioWebApiService,
-            AppSetting appSetting)
-        {
-            this.baseService = baseService;
-            this.nexbotService = nexbotService;
-            this.employeeService = employeeService;
-            this.bioWebApiService = bioWebApiService;
-            this.appSetting = appSetting;
-        }
-
         public async Task<CommandResult> SendMessageLogTimeRemindAsync()
         {
             var yesterday = DateTimeOffset.Now.DateTime.ToClientTimeZone().AddDays(-1);
