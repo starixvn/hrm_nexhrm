@@ -1,10 +1,12 @@
 ﻿namespace Fanex.NexHR.Core;
 
 using System;
+
 public static class DateTimeExtensions
 {
     private static readonly TimeSpan ServerTimeZone = TimeSpan.FromHours(-4);
     private static readonly TimeSpan ClientTimeZone = TimeSpan.FromHours(7);
+
     public static DateTime ToServerTimeZone(this DateTime time)
     {
         var offsetTime = new DateTimeOffset(time, ClientTimeZone);
