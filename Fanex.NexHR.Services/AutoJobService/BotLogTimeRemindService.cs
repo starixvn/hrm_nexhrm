@@ -27,9 +27,9 @@
 
             var timeEntries = await bioWebApiService.GetTimeEntriesAsync(yesterday);
             var employees = await employeeService.GetEmployeesMissedLogTime().ConfigureAwait(false);
-            var ignoreEmployees = GetIgnoreItems(appSetting.IgnoreEmployeeLogTime ?? "");
-            var ignoreJobTitles = GetIgnoreItems(appSetting.IgnoreJobTitleLogTime ?? "");
-            var ignoreTeams = GetIgnoreItems(appSetting.IgnoreTeamLogTime ?? "");
+            var ignoreEmployees = GetIgnoreItems(appSetting.IgnoreEmployeeLogTime);
+            var ignoreJobTitles = GetIgnoreItems(appSetting.IgnoreJobTitleLogTime);
+            var ignoreTeams = GetIgnoreItems(appSetting.IgnoreTeamLogTime);
 
             employees = employees.Where(e =>
                 !Array.Exists(ignoreJobTitles, keyword => e.JobTitle?.Contains(keyword) ?? false) &&
