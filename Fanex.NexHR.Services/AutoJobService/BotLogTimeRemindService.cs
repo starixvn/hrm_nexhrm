@@ -27,9 +27,9 @@
 
             var timeEntries = await bioWebApiService.GetTimeEntriesAsync(yesterday);
             var employees = await employeeService.GetEmployeesMissedLogTime().ConfigureAwait(false);
-            var ignoreEmployees = (appSetting.IgnoreEmployeeLogTime ?? "").Split(',');
-            var ignoreJobTitles = (appSetting.IgnoreJobTitleLogTime ?? "").Split(',');
-            var ignoreTeams = (appSetting.IgnoreTeamLogTime ?? "").Split(',');
+            var ignoreEmployees = GetIgnoreItems(appSetting.IgnoreEmployeeLogTime ?? "");
+            var ignoreJobTitles = GetIgnoreItems(appSetting.IgnoreJobTitleLogTime ?? "");
+            var ignoreTeams = GetIgnoreItems(appSetting.IgnoreTeamLogTime ?? "");
 
             employees = employees.Where(e =>
                 !Array.Exists(ignoreJobTitles, keyword => e.JobTitle?.Contains(keyword) ?? false) &&
@@ -47,7 +47,10 @@
                 EmpIDs = string.Join(",", employeesMissedLogging.Select(e => e.EmpID))
             };
             await baseService.ExecuteNonQueryAsync(criteria);
+
             return new CommandResult { Code = 0 };
+
+            string[] GetIgnoreItems(string text) => (text ?? "").Split(',');
         }
 
         private async Task SendMessageToLeaders(IEnumerable<EmployeesMissedLogTime> employees, DateTime yesterday)
