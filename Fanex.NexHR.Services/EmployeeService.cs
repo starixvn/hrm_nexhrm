@@ -21,23 +21,12 @@
     using Repositories.Interfaces;
     using ViewModels;
 
-    public class EmployeeService : IEmployeeService
+    public class EmployeeService(
+        IEmployeeRepository employeeRepository,
+        IBaseService baseService,
+        ILogServiceProvider logServiceProvider,
+        AppSetting appSetting) : IEmployeeService
     {
-        private readonly IEmployeeRepository employeeRepository;
-        private readonly IBaseService baseService;
-        private readonly ILogServiceProvider logServiceProvider;
-        private readonly AppSetting appSetting;
-
-
-        public EmployeeService(IEmployeeRepository employeeRepository, IBaseService baseService,
-            ILogServiceProvider logServiceProvider, AppSetting appSetting)
-        {
-            this.employeeRepository = employeeRepository;
-            this.baseService = baseService;
-            this.logServiceProvider = logServiceProvider;
-            this.appSetting = appSetting;
-        }
-
         public async Task<Employee> GetEmployeeById(GetEmployeeByIdCriteria criteria)
         {
             Employee employee = null;
@@ -51,23 +40,18 @@
 
         public async Task<UserSession> GetEmployeeByDomainName(GetEmployeeByDomainNameCriteria criteria)
         {
-            var userSession = await baseService.GetDataEntityAsync<UserSession>(criteria);
-            return userSession;
+            return await baseService.GetDataEntityAsync<UserSession>(criteria);
         }
 
         public async Task<IEnumerable<EmployeeInfo>> GetEmployeeByUsername(GetEmployeeByUsernameCriteria criteria)
         {
-            var employees = await baseService.GetDataAsync<EmployeeInfo>(criteria);
-            return employees;
+            return await baseService.GetDataAsync<EmployeeInfo>(criteria);
         }
 
-        public async Task<IEnumerable<EmployeeInfo>> GetByEmployeeModifiedDate(
-            GetEmployeeByModifiedDateCriteria criteria)
+        public async Task<IEnumerable<EmployeeInfo>> GetByEmployeeModifiedDate(GetEmployeeByModifiedDateCriteria criteria)
         {
-            var employeeInfo = await baseService.GetDataAsync<EmployeeInfo>(criteria);
-            return employeeInfo;
+            return await baseService.GetDataAsync<EmployeeInfo>(criteria);
         }
-
 
         public async Task<Employee> GetEmployeeByNickName(GetEmployeeByNickNameCriteria criteria)
         {
@@ -93,7 +77,7 @@
 
         public async Task<MySpaceViewModel> GetMySpace(GetMySpaceCriteria criteria)
         {
-            MySpaceViewModel space = new MySpaceViewModel();
+            var space = new MySpaceViewModel();
             if (criteria != null && criteria.IsValid())
             {
                 space = await baseService.GetDataEntityAsync<MySpaceViewModel>(criteria);
@@ -101,7 +85,7 @@
                 space.DashboardEmployeeSpace = await GetDashBoardPersonalSpace(criteria.EmpId);
                 if (space.DashboardCompanySpace.Any())
                 {
-                    space.CompanyWorkFromHome = getCompanyWorkFromHome(space.DashboardCompanySpace, appSetting.IgnoreShowLeaveRequest);
+                    space.CompanyWorkFromHome = GetCompanyWorkFromHome(space.DashboardCompanySpace, appSetting.IgnoreShowLeaveRequest);
                 }
             }
 
@@ -119,40 +103,30 @@
             return employees ?? new List<Employee>();
         }
 
-        public async Task<SystemReminderModel> GetEmpployeeHasBirthdayAndFirstWorkingday(
-            GetBirthdayAndFirstWorkingdayCriteria criteria)
+        public async Task<SystemReminderModel> GetEmpployeeHasBirthdayAndFirstWorkingday(GetBirthdayAndFirstWorkingdayCriteria criteria)
         {
             SystemReminderModel employees = null;
             if (criteria != null && criteria.IsValid())
             {
-                employees = await employeeRepository.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria)
-                    .ConfigureAwait(false);
+                employees = await employeeRepository.GetEmpployeeHasBirthdayAndFirstWorkingday(criteria);
             }
 
             return employees;
         }
 
-        public async Task<IEnumerable<Employee>> GetUpdatingScoreRelatedPeople(
-            GetUpdatingScoreRelatedPeopleCriteria criteria)
+        public async Task<IEnumerable<Employee>> GetUpdatingScoreRelatedPeople(GetUpdatingScoreRelatedPeopleCriteria criteria)
         {
-            IEnumerable<Employee> employees = await baseService.GetDataAsync<Employee>(criteria);
-            return employees;
+            return await baseService.GetDataAsync<Employee>(criteria);
         }
 
-        public async Task<IEnumerable<MissingCheckInOutModel>> GetMissingCheckInOutByEmpId(
-            GetMissingCheckInOutEmployeesCriteria criteria)
+        public async Task<IEnumerable<MissingCheckInOutModel>> GetMissingCheckInOutByEmpId(GetMissingCheckInOutEmployeesCriteria criteria)
         {
-            IEnumerable<MissingCheckInOutModel> missingCheckInOuts =
-                await baseService.GetDataAsync<MissingCheckInOutModel>(criteria);
-            return missingCheckInOuts;
+            return await baseService.GetDataAsync<MissingCheckInOutModel>(criteria);
         }
 
-        public async Task<IEnumerable<EmployeeLateInEarlyOut>> GetEmployeeLateInEarlyOut(
-            GetEmployeeAttendanceLateInEarlyOutCriteria criteria)
+        public async Task<IEnumerable<EmployeeLateInEarlyOut>> GetEmployeeLateInEarlyOut(GetEmployeeAttendanceLateInEarlyOutCriteria criteria)
         {
-            IEnumerable<EmployeeLateInEarlyOut> employees =
-                await baseService.GetDataAsync<EmployeeLateInEarlyOut>(criteria);
-            return employees;
+            return await baseService.GetDataAsync<EmployeeLateInEarlyOut>(criteria);
         }
 
         private async Task<IList<DashBoardPersonalSpace>> GetDashBoardPersonalSpace(int employeeId)
@@ -165,8 +139,7 @@
             var personal = await employeeRepository.GetDashBoardPersonalSpace(criteria);
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
-            logServiceProvider.LogFile(
-                $"SP name: Report_EmployeeSpaceDashBoard - EmpID: {employeeId} - Execute time: {elapsedMs} ms");
+            logServiceProvider.LogFile($"SP name: Report_EmployeeSpaceDashBoard - EmpID: {employeeId} - Execute time: {elapsedMs} ms");
             return personal;
         }
 
@@ -187,10 +160,7 @@
 
         public async Task<IEnumerable<MissingCheckInOutEmployee>> GetMissingCheckInOutEmployeeAsync()
         {
-            var missingCheckInOuts = await baseService
-                .GetDataAsync<MissingCheckInOutEmployee>(new GetMissingCheckInCheckOutCriteria()).ConfigureAwait(false);
-
-            return missingCheckInOuts;
+            return await baseService.GetDataAsync<MissingCheckInOutEmployee>(new GetMissingCheckInCheckOutCriteria());
         }
 
         public async Task<IEnumerable<LuminetGroup>> GetLuminetGroups()
@@ -208,8 +178,7 @@
             return await baseService.GetDataAsync<EmployeesMissedLogTime>(new GetEmployeeMissedLogTimeCriteria());
         }
 
-
-        private static string getCompanyWorkFromHome(IList<DashBoardCompanySpace> dashBoard, string ignoreEmps)
+        private static string GetCompanyWorkFromHome(IList<DashBoardCompanySpace> dashBoard, string ignoreEmps)
         {
             const float numberEqual = 0.5f;
             const int numberLength = 2;
@@ -224,35 +193,28 @@
                 .OrderBy(t => t.Employee.NickName)
                 .ToList();
 
-            var requests = workFromHomes.Where(x => !leaveDay.Any(leave => leave.Employee.Id == x.Employee.Id))
-                .ToList();
+            var requests = workFromHomes.Where(x => !leaveDay.Any(leave => leave.Employee.Id == x.Employee.Id)
+                && !ignoreEmps.Contains(x.Employee.NickName)).ToList();
             foreach (var request in requests)
             {
-                if (ignoreEmps.Contains(request.Employee.NickName))
-                {
-                    continue;
-                }
                 employees.Append(request.Employee.NickName);
                 employees.Append(", ");
             }
 
             var leaveHalfDay = leaveDay.Where(x => x.LeaveDay.Equals(numberEqual));
-            var halfDayRequests = workFromHomes.Where(x => leaveHalfDay.Any(y => y.Employee.Id == x.Employee.Id))
+            var halfDayRequests = workFromHomes.Where(x => leaveHalfDay.Any(y => y.Employee.Id == x.Employee.Id)
+                && !ignoreEmps.Contains(x.Employee.NickName))
                 .ToList();
 
             foreach (var halfDayRequest in halfDayRequests)
             {
-                if (ignoreEmps.Contains(halfDayRequest.Employee.NickName))
-                {
-                    continue;
-                }
                 employees.Append(halfDayRequest.Employee.NickName);
                 employees.Append(" (½)");
                 employees.Append(", ");
             }
 
             return employees.Length > numberLength
-                ? employees.ToString().Substring(0, employees.Length - numberLength)
+                ? employees.ToString()[..(employees.Length - numberLength)]
                 : string.Empty;
         }
 
@@ -304,37 +266,32 @@
             return roles.ToArray();
         }
 
-        public async Task<IEnumerable<SyncEmployeeModel>> GetEmployeesByLastModifiedDate(
-            GetEmployeesByLastModifiedDateCriteria criteria)
+        public async Task<IEnumerable<SyncEmployeeModel>> GetEmployeesByLastModifiedDate(GetEmployeesByLastModifiedDateCriteria criteria)
         {
             return await baseService.GetDataAsync<SyncEmployeeModel>(criteria);
         }
 
         public async Task<CommandResult> CheckExistAsync(CheckExistEmployeeCriteria criteria)
         {
-           return await baseService.GetDataEntityAsync<CommandResult>(criteria);
+            return await baseService.GetDataEntityAsync<CommandResult>(criteria);
         }
 
-        public async Task<IEnumerable<SyncEmployeeAttendanceModel>> GetEmployeeAttendances(
-            GetEmployeeAttendancesCriteria criteria)
+        public async Task<IEnumerable<SyncEmployeeAttendanceModel>> GetEmployeeAttendances(GetEmployeeAttendancesCriteria criteria)
         {
             return await baseService.GetDataAsync<SyncEmployeeAttendanceModel>(criteria);
         }
 
-        public async Task<IEnumerable<EmployeeCalendarModel>> GetEmployeeCalendarsByLastModifiedDate(
-            GetEmployeeCalendarsByLastModifiedDateCriteria criteria)
+        public async Task<IEnumerable<EmployeeCalendarModel>> GetEmployeeCalendarsByLastModifiedDate(GetEmployeeCalendarsByLastModifiedDateCriteria criteria)
         {
             return await baseService.GetDataAsync<EmployeeCalendarModel>(criteria);
         }
 
-        public async Task<IEnumerable<EmployeeOverTimeModel>> GetEmployeeOvertimesByLastModifiedDate(
-            GetEmployeeOvertimeByLastModifiedDateCriteria criteria)
+        public async Task<IEnumerable<EmployeeOverTimeModel>> GetEmployeeOvertimesByLastModifiedDate(GetEmployeeOvertimeByLastModifiedDateCriteria criteria)
         {
             return await baseService.GetDataAsync<EmployeeOverTimeModel>(criteria);
         }
 
-        public async Task<IEnumerable<EmployeeTOEIC>> GetEmployeeTOEICsByLastModifiedDate(
-            GetEmployeeTOEICByLastModifiedDateCriteria criteria)
+        public async Task<IEnumerable<EmployeeTOEIC>> GetEmployeeTOEICsByLastModifiedDate(GetEmployeeTOEICByLastModifiedDateCriteria criteria)
         {
             return await baseService.GetDataAsync<EmployeeTOEIC>(criteria);
         }

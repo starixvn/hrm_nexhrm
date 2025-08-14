@@ -10,27 +10,13 @@
     using Fanex.NexHR.Models.LogTime;
     using Fanex.NexHR.Services.Interfaces;
 
-    public class BotLogTimeRemindService : IBotLogTimeRemindService
+    public class BotLogTimeRemindService(
+        IBaseService baseService,
+        IEmployeeService employeeService,
+        INexbotService nexbotService,
+        IBioWebApiService bioWebApiService,
+        AppSetting appSetting) : IBotLogTimeRemindService
     {
-        private readonly INexbotService nexbotService;
-        private readonly IBaseService baseService;
-        private readonly IEmployeeService employeeService;
-        private readonly IBioWebApiService bioWebApiService;
-        private readonly AppSetting appSetting;
-
-        public BotLogTimeRemindService(IBaseService baseService,
-            IEmployeeService employeeService,
-            INexbotService nexbotService,
-            IBioWebApiService bioWebApiService,
-            AppSetting appSetting)
-        {
-            this.baseService = baseService;
-            this.nexbotService = nexbotService;
-            this.employeeService = employeeService;
-            this.bioWebApiService = bioWebApiService;
-            this.appSetting = appSetting;
-        }
-
         public async Task<CommandResult> SendMessageLogTimeRemindAsync()
         {
             var yesterday = DateTimeOffset.Now.DateTime.ToClientTimeZone().AddDays(-1);
@@ -41,15 +27,15 @@
 
             var timeEntries = await bioWebApiService.GetTimeEntriesAsync(yesterday);
             var employees = await employeeService.GetEmployeesMissedLogTime().ConfigureAwait(false);
-            var ignoreEmployees = (appSetting.IgnoreEmployeeLogTime ?? "").Split(',');
-            var ignoreJobTitles = (appSetting.IgnoreJobTitleLogTime ?? "").Split(',');
-            var ignoreTeams = (appSetting.IgnoreTeamLogTime ?? "").Split(',');
+            var ignoreEmployees = GetIgnoreItems(appSetting.IgnoreEmployeeLogTime);
+            var ignoreJobTitles = GetIgnoreItems(appSetting.IgnoreJobTitleLogTime);
+            var ignoreTeams = GetIgnoreItems(appSetting.IgnoreTeamLogTime);
 
             employees = employees.Where(e =>
                 !Array.Exists(ignoreJobTitles, keyword => e.JobTitle?.Contains(keyword) ?? false) &&
                 Array.IndexOf(ignoreEmployees, e.Code ?? string.Empty) < 0 &&
                 Array.IndexOf(ignoreTeams, e.GroupTeamId.ToString()) < 0 &&
-                !timeEntries.Any(te => te.Login.Equals(e.DomainUsername?.Split('\\').LastOrDefault(), StringComparison.OrdinalIgnoreCase))
+                !timeEntries.Exists(te => te.Login.Equals(e.DomainUsername?.Split('\\').LastOrDefault(), StringComparison.OrdinalIgnoreCase))
             ).ToList();
 
             var employeesMissedLogging = employees.Where(e => !e.IsLeader).ToList();
@@ -61,7 +47,10 @@
                 EmpIDs = string.Join(",", employeesMissedLogging.Select(e => e.EmpID))
             };
             await baseService.ExecuteNonQueryAsync(criteria);
+
             return new CommandResult { Code = 0 };
+
+            string[] GetIgnoreItems(string text) => (text ?? "").Split(',');
         }
 
         private async Task SendMessageToLeaders(IEnumerable<EmployeesMissedLogTime> employees, DateTime yesterday)

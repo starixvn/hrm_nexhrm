@@ -1,27 +1,20 @@
 ﻿namespace Fanex.NexHR.Controllers
 {
     using System;
-    using Fanex.NexHR.Core;
     using System.Threading.Tasks;
     using Criteria.CompanyEvent;
     using Fanex.NexHR.Controllers.Attributes;
+    using Fanex.NexHR.Core;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.CompanyEvent;
     using Resources;
     using Services.Interfaces;
 
-    public class CompanyEventController : BaseController
+    public class CompanyEventController(
+        ISessionService sessionService,
+        IBaseService baseService) : BaseController(sessionService)
     {
-        private readonly IBaseService baseService;
-
-        public CompanyEventController(
-            ISessionService sessionService,
-            IBaseService baseService) : base(sessionService)
-        {
-            this.baseService = baseService;
-        }
-
         public IActionResult Index()
         {
             return View();
@@ -34,9 +27,10 @@
 
         public async Task<JsonResult> GetAllEvents()
         {
-            var currentTime = DateTimeOffset.Now.DateTime.ToClientTimeZone();   
-            var firstDay = new DateTimeOffset(currentTime.Year, currentTime.Month, 1, 0, 0, 0, TimeSpan.Zero).AddMonths(-6).DateTime;
-            var lastDay = new DateTimeOffset(currentTime.Year, currentTime.Month, 1, 0, 0, 0, TimeSpan.Zero).AddDays(-1).AddMonths(7).DateTime;
+            var currentTime = DateTimeOffset.Now.DateTime.ToClientTimeZone();
+            var firstDayOfMonth = new DateTimeOffset(currentTime.Year, currentTime.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
+            var firstDay = firstDayOfMonth.AddMonths(-6);
+            var lastDay = firstDayOfMonth.AddDays(-1).AddMonths(7);
 
             var criteria = new GetAllEventCriteria
             {
@@ -44,7 +38,7 @@
                 ToDate = lastDay
             };
             var events = await baseService.GetDataAsync<CompanyEvent>(criteria);
-            
+
             return Json(events);
         }
 

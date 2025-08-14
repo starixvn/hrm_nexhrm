@@ -39,7 +39,10 @@
         private readonly AppSetting appSetting;
         private readonly IWebHostEnvironment environment;
         private const string conversationIdName = "conversationId";
-        public NexbotService(IHttpClientFactory httpClientFactory,
+
+#pragma warning disable S107 // Methods should not have too many parameters
+        public NexbotService(
+            IHttpClientFactory httpClientFactory,
             IBaseService baseService,
             AppSetting appSetting,
             ChatbotConfigs nexBotSettings,
@@ -47,6 +50,7 @@
             ILogServiceProvider logService,
             ILetstalkService letstalkService,
             IWebHostEnvironment environment)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             httpClient = httpClientFactory.CreateClient();
             this.nexBotSettings = nexBotSettings;
@@ -318,7 +322,7 @@
         {
             try
             {
-                string requestType = request.CheckInOutType == (short)RequestType.CheckIn
+                var requestType = request.CheckInOutType == (short)RequestType.CheckIn
                             ? RequestType.CheckIn.EnumToString().ToLower(CultureInfo.InvariantCulture)
                             : RequestType.CheckOut.EnumToString().ToLower(CultureInfo.InvariantCulture);
 
@@ -396,11 +400,11 @@
 
         private string GenerateCheckInOutRequestMessage(CheckInOutRequestViewModel request, string leaderName)
         {
-            string type = request.CheckInOutType == (short)RequestType.CheckIn
+            var type = request.CheckInOutType == (short)RequestType.CheckIn
                             ? RequestType.CheckIn.EnumToString().ToLower(CultureInfo.InvariantCulture)
                             : RequestType.CheckOut.EnumToString().ToLower(CultureInfo.InvariantCulture);
-            string time = request.Hour.ToString().PadLeft(2, '0') + ":" + request.Minute.ToString().PadLeft(2, '0');
-            string message = $"Dear {leaderName}, {Constants.NewLine}";
+            var time = request.Hour.ToString().PadLeft(2, '0') + ":" + request.Minute.ToString().PadLeft(2, '0');
+            var message = $"Dear {leaderName}, {Constants.NewLine}";
             message += $"This is to inform you about your member, {request.Employee} had a {type} request (#{request.Id}):{Constants.NewLine}";
             message += $"_- Date: {request.WorkDate.ToDateMonthYearFormatedDate()}_{Constants.NewLine}";
             message += $"_- Shift: {request.Shift}_{Constants.NewLine}";
@@ -553,7 +557,7 @@
                     {"nickName", model.NickName},
                     {"sysId", model.SysId.ToString()},
                     {"mealId", model.MealId.ToString()},
-                    {"onDate", model.OnDate.ToString()},
+                    {"onDate", model.OnDate.ToString("yyyy-MM-dd")},
                     {"callBackUrl", $"{appSetting.FBUrl}/api" }
                 };
 

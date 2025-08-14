@@ -34,7 +34,7 @@
         {
             output.TagMode = TagMode.StartTagAndEndTag;
 
-            string disabledDate = (InvaidDates != null && InvaidDates.Any())
+            var disabledDate = (InvaidDates != null && InvaidDates.Any())
                 ? string.Join(",", InvaidDates.Select(d => d.ToString("dd MMM yyyy")))
                 : string.Empty;
 
@@ -49,7 +49,8 @@
             var dateValue = Date?.ToString(Format) ?? string.Empty;
 
             var stringBuilder = new StringBuilder();
-            stringBuilder.AppendFormat("<input type=\"text\" class=\"datepicker\" id=\"{0}\" name=\"{0}\" minDate=\"{1}\" maxDate=\"{2}\" disabledDate=\"{3}\" value=\"{4}\" yearRange=\"{5}\"></input>",
+            stringBuilder.AppendFormat("<input type=\"text\" class=\"datepicker\" id=\"{0}\" name=\"{0}\" "
+                + "minDate=\"{1}\" maxDate=\"{2}\" disabledDate=\"{3}\" value=\"{4}\" yearRange=\"{5}\"></input>",
                     Name,
                     minDateString,
                     maxDateString,

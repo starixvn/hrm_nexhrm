@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Fanex.NexHR.Criteria.SyncData.SyncNexGoal;
 using Fanex.NexHR.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace Fanex.NexHR.Controllers.API.Sync;
 

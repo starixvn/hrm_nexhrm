@@ -1,17 +1,18 @@
-﻿namespace Fanex.NexHR.Criteria.AnnualLeave
+﻿namespace Fanex.NexHR.Criteria.AnnualLeave;
+
+using Data.Repository;
+
+public class GetAnnualLeaveTransactionByMonthCriteria : CriteriaBase
 {
-    using Data.Repository;
+    private const byte December = 12;
 
-    public class GetAnnualLeaveTransactionByMonthCriteria : CriteriaBase
-    {
-        public int EmpId { get; set; }
+    public int EmpId { get; set; }
 
-        public int Year { get; set; }
+    public int Year { get; set; }
 
-        public int Month { get; set; }
+    public int Month { get; set; }
 
-        public override string GetSettingKey() => "AnnualLeave_GetEmpTransByMonth";
+    public override string GetSettingKey() => "AnnualLeave_GetEmpTransByMonth";
 
-        public override bool IsValid() => EmpId > 0 && Year > 0 && Month > 0 && Month <=12;
-    }
+    public override bool IsValid() => EmpId > 0 && Year > 0 && Month is > 0 and <= December;
 }

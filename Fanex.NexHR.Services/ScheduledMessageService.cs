@@ -17,30 +17,17 @@
     using Fanex.NexHR.Services.Interfaces;
     using NCrontab;
 
-    public class ScheduledMessageService : IScheduledMessageService
+    public class ScheduledMessageService(
+        IHolidayService holidayService,
+        INexbotService nexbotService,
+        IBaseService baseService,
+        AppSetting appSetting) : IScheduledMessageService
     {
-        private readonly INexbotService nexbotService;
-        private readonly IHolidayService holidayService;
-        private readonly IBaseService baseService;
-        private readonly AppSetting appSetting;
         private const string FirstLunar = "01";
         private const int FifteenLunar = 15;
         private const int IdEmpCreateVegetarianMessages = 88;
-        private const int NumMonthOfScheduleVegetarianMessages = 2;
         private const int itemEachBatch = 10;
         private const string CacheKeyIgnoredReminder = "UserIgnoredReminderVegetarianRestration";
-
-        public ScheduledMessageService(
-            IHolidayService holidayService,
-            INexbotService nexbotService,
-            IBaseService baseService,
-            AppSetting appSetting)
-        {
-            this.holidayService = holidayService;
-            this.nexbotService = nexbotService;
-            this.baseService = baseService;
-            this.appSetting = appSetting;
-        }
 
         public async Task<IEnumerable<ScheduledMessage>> GetScheduledMessagesAsync(int year, int createdBy)
         {
@@ -82,7 +69,7 @@
             {
                 if (scheduledMessage.CronExpression != null)
                 {
-                    CrontabSchedule schedule = CrontabSchedule.Parse(scheduledMessage.CronExpression);
+                    var schedule = CrontabSchedule.Parse(scheduledMessage.CronExpression);
                     var nextRun = schedule.GetNextOccurrence(DateTimeOffset.Now.DateTime.ToClientTimeZone().AddMinutes(-1));
                     if (nextRun == currentDate)
                     {
@@ -120,9 +107,7 @@
                 CreatedBy = createdBy
             };
 
-            var result = await baseService.FetchMultipleAsync<Conversation, PermittedEmployee>(criteria);
-            var conversations = result.Item1;
-            var permittedEmployees = result.Item2;
+            var (conversations, permittedEmployees) = await baseService.FetchMultipleAsync<Conversation, PermittedEmployee>(criteria);
             foreach (var conversation in conversations)
             {
                 conversation.PermittedEmployees = permittedEmployees.Where(x => x.ConversationId == conversation.ConversationId);
@@ -137,10 +122,9 @@
             {
                 ConversationId = id
             };
-            var result = await baseService.FetchMultipleAsync<Conversation, PermittedEmployee>(criteria);
+            var (conversations, permittedEmployees) = await baseService.FetchMultipleAsync<Conversation, PermittedEmployee>(criteria);
 
-            var conversation = result.Item1.FirstOrDefault();
-            var permittedEmployees = result.Item2;
+            var conversation = conversations.FirstOrDefault();
             if (conversation != null)
             {
                 conversation.PermittedEmployees = permittedEmployees.Where(x => x.ConversationId == conversation.ConversationId);
@@ -151,15 +135,17 @@
 
         public async Task SendScheduledVegetarianMessages()
         {
-            var workingSchedules = await holidayService.GetWorkDateEmployeeCalendar(new GetWorkDateEmployeeCalendarCriteria
+            var criteria = new GetWorkDateEmployeeCalendarCriteria
             {
                 EmpId = IdEmpCreateVegetarianMessages,
                 Year = DateTimeOffset.Now.DateTime.ToClientTimeZone().Year,
-            });
+            };
+            var workingSchedules = await holidayService.GetWorkDateEmployeeCalendar(criteria);
 
             var time = DateTimeOffset.Now.DateTime.ToClientTimeZone();
-            var scheduledVegetarianList = GetFirstAndFifteenLunerOfMonths(new DateTimeOffset(time.Year, time.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime
-                                                .AddMonths(NumMonthOfScheduleVegetarianMessages).AddDays(-1), workingSchedules);
+            const byte numMonthOfScheduleVegetarianMessages = 2;
+            var firstDayOfMonth = new DateTimeOffset(time.Year, time.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
+            var scheduledVegetarianList = GetFirstAndFifteenLunerOfMonths(firstDayOfMonth.AddMonths(numMonthOfScheduleVegetarianMessages).AddDays(-1), workingSchedules);
             foreach (var item in scheduledVegetarianList)
             {
                 var sendDate = GetSendDate(item, workingSchedules);
@@ -168,7 +154,7 @@
                     var dateContent = new DateTimeOffset(item.Solar.SolarYear, item.Solar.SolarMonth, item.Solar.SolarDay, 0, 0, 0, TimeSpan.Zero).DateTime;
                     var messageContent = string.Format(Labels.VegetarianMessageContent, ((int)dateContent.DayOfWeek + 1),
                                             dateContent.ToDateMonthYearFormatedDate(), item.Lunar.LunarDay == 1 ? FirstLunar : item.Lunar.LunarDay);
-                    string message = string.Format(Labels.VegetarianMessages, messageContent);
+                    var message = string.Format(Labels.VegetarianMessages, messageContent);
                     await SendReminderVegetarianRestrationToAllEmp(message, messageContent, dateContent);
                 }
             }
@@ -179,15 +165,15 @@
             var criteria = new GetEmployeeConversationCriteria();
             var employeeConversations = await baseService.GetDataAsync<Employee>(criteria);
             var ignoredUser = await GetUserIgnoreVegetarianRestration();
-            
+
             employeeConversations = employeeConversations.Where(t => !ignoredUser.Any(x => x.ConversationId == t.ConversationId)).ToList();
-            
+
             if (employeeConversations.Any())
             {
                 var batches = new List<List<Employee>>();
-                
-                int totalBatch = (int)Math.Ceiling((double)employeeConversations.Count() / itemEachBatch);
-                for (int i = 0; i < totalBatch; i++)
+
+                var totalBatch = (int)Math.Ceiling((double)employeeConversations.Count() / itemEachBatch);
+                for (var i = 0; i < totalBatch; i++)
                 {
                     batches.Add(employeeConversations.Skip(i * itemEachBatch).Take(itemEachBatch).ToList());
                 }
@@ -197,7 +183,7 @@
                     var tasks = new List<Task>();
                     foreach (var employeeConversation in batch)
                     {
-                        tasks.Add(nexbotService.SendRegistVegetarianMealAsync(employeeConversation.ConversationId, 
+                        tasks.Add(nexbotService.SendRegistVegetarianMealAsync(employeeConversation.ConversationId,
                             employeeConversation.Id, appSetting.FBCompanyId, onDate, message, messageContent));
                     }
 
@@ -267,6 +253,7 @@
         }
 
         private static bool IsHolidayOrDayOff(IEnumerable<WorkingSchedule> workingSchedules, DateTime dateTime) => workingSchedules.Any(x => dateTime == x.WorkDate);
-        private static bool IsFirstAndFifteenLuner(Lunar lunar) => lunar.LunarDay == 1 || lunar.LunarDay == FifteenLunar;
+
+        private static bool IsFirstAndFifteenLuner(Lunar lunar) => lunar.LunarDay is 1 or FifteenLunar;
     }
 }
