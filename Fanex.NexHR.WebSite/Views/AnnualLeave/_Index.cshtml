@@ -12,11 +12,8 @@
 
     void DisplayNumber(int month, float value, int empId, string nickName)
     {
-        if (value == 0)
-        {
-            <td>-</td>
-        }
-        else
+        const float epsilon = 0.0001f;
+        if (Math.Abs(value) > epsilon)
         {
             if (month == notMonthColumn)
             {
@@ -27,12 +24,15 @@
                 var addMonth = month + 1;
                 <td>
                     <a class="@(value > 0 ? "viewhistorybymonth" : "red-color")" href="javascript:;" data-name="@nickName"
-                        id="/AnnualLeave/ViewHistoryAnnualByMonth?employeeId=@empId&year=@year&month=@addMonth">
+                       id="/AnnualLeave/ViewHistoryAnnualByMonth?employeeId=@empId&year=@year&month=@addMonth">
                         @value.ToString("0.0")
                     </a>
                 </td>
             }
-
+        }
+        else
+        {
+            <td>-</td>
         }
     }
 

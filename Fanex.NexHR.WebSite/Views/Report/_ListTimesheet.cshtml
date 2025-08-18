@@ -23,12 +23,12 @@
             <th>@Labels.Note</th>
         </tr>
     </thead>
-    @if (Model != null && Model.Count > 0)
+    @if (Model is { Count: > 0 })
     {
         int index = 0;
 
         <tbody>
-            @foreach (EmployeeAttendanceModel item in Model)
+            @foreach (var item in Model)
             {
                 index++;
 
@@ -159,18 +159,19 @@
                 @if (item.LateIn > 0)
                 {
                     <td>@{
-                        double s = 60;
-                        var hour = Math.Floor(item.LateIn / s);
+                        const double second = 60;
+                        const double epsilon = 0.0001;
+                        var hour = Math.Floor(item.LateIn / second);
                         var minute = item.LateIn % 60;
                         string display;
 
-                        if (hour == 0)
+                        if (Math.Abs(hour) > epsilon)
                         {
-                            display = minute > 9 ? "00:" + minute : "00:0" + minute;
+                            display = (hour > 9 ? hour.ToString(CultureInfo.InvariantCulture) : "0" + hour) + ":" + (minute > 9 ? minute.ToString(CultureInfo.InvariantCulture) : "0" + minute);
                         }
                         else
                         {
-                            display = (hour > 9 ? hour.ToString(CultureInfo.InvariantCulture) : "0" + hour) + ":" + (minute > 9 ? minute.ToString(CultureInfo.InvariantCulture) : "0" + minute);
+                            display = minute > 9 ? "00:" + minute : "00:0" + minute;
                         }
 
                         <span>@display</span>

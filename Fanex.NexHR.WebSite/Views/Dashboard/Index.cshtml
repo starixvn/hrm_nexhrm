@@ -145,7 +145,7 @@
                         @{
                             var birthdayList = Model.SystemReminder.EmployeeHasBirthday;
                         }
-                        @if (birthdayList != null && birthdayList.Count > 0)
+                        @if (birthdayList is { Count: > 0 })
                         {
                             foreach (var item in birthdayList)
                             {
@@ -162,7 +162,7 @@
                         @{
                             var firstWorkDay = Model.SystemReminder.EmployeeHasFirstWorkingDay;
                         }
-                        @if (firstWorkDay != null && firstWorkDay.Count > 0)
+                        @if (firstWorkDay is { Count: > 0 })
                         {
                             foreach (var item in firstWorkDay)
                             {
@@ -179,7 +179,7 @@
                         @{
                             var eventList = Model.SystemReminder.EventList;
                         }
-                        @if (eventList != null && eventList.Count > 0)
+                        @if (eventList is { Count: > 0 })
                         {
                             foreach (var item in eventList)
                             {
@@ -225,11 +225,11 @@
                                     <span class="bold">
                                         <a href="#" class="blue-grey-text text-darken-3">
                                             @{
-                                                double hour = Model.MinutesLateInEarlyOutCurrentMonth / 60.0;
-                                                int times = Model.TimesLateInEarlyOutCurrentMonth;
-                                                var lateInEarlyOutDisplay = hour != 0 && times != 0
-                                                    ? string.Format("{0}/{1}", hour, times)
-                                                    : "-/-";
+                                                var hour = Model.MinutesLateInEarlyOutCurrentMonth / 60.0;
+                                                var times = Model.TimesLateInEarlyOutCurrentMonth;
+                                                const double epsilon = 0.0001;
+                                                var lateInEarlyOutDisplay = Math.Abs(hour) > epsilon && times != 0
+                                                    ? $"{hour}/{times}" : "-/-";
                                             }
                                             <span>@lateInEarlyOutDisplay</span>
                                         </a>
