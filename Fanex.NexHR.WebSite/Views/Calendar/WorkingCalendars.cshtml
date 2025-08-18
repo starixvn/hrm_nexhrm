@@ -40,13 +40,13 @@
 }
 @{
     //Set max month we can select in MonthPick
-    int Month = 12;
-    int year = DateTimeOffset.Now.DateTime.ToClientTimeZone().GetMaxDate().Year + 1;
+    const byte December = 12;
+    var year = DateTimeOffset.Now.DateTime.ToClientTimeZone().GetMaxDate().Year + 1;
 
     var maxDate = new System.Text.StringBuilder();
-    maxDate.AppendFormat("{0}/{1}/1", year, Month);
-    DateTime currentDate = new DateTime(Model.Year, Model.Month, 1);
-    int daysInMonth = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
+    maxDate.AppendFormat("{0}/{1}/1", year, December);
+    var currentDate = new DateTimeOffset(Model.Year, Model.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
+    var daysInMonth = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
 
     IList<WorkingSchedule> employeeSchedules = Model.WorkingSchedules.GroupBy(t => t.EmpId).Select(grp =>
     grp.First()).ToList();
@@ -214,7 +214,7 @@
                                                 <tbody>
                                                     @{
                                                         <tr>
-                                                            @for (int i = 1; i <= daysInMonth; i++)
+                                                            @for (var i = 1; i <= daysInMonth; i++)
                                                             {
 
                                                                 <td>
@@ -225,12 +225,10 @@
                                                             }
                                                         </tr>
                                                         <tr>
-                                                            @for (int i = 1; i <= daysInMonth; i++)
+                                                            @for (var i = 1; i <= daysInMonth; i++)
                                                             {
-                                                                DateTime dt = new DateTime(currentDate.Year, currentDate.Month,
-                                                                i);
-                                                                <td
-                                                                    class="@((dt.DayOfWeek == DayOfWeek.Saturday || dt.DayOfWeek == DayOfWeek.Sunday) ? "SatSunDay" : string.Empty)">
+                                                                var dt = new DateTimeOffset(currentDate.Year, currentDate.Month, i, 0, 0, 0, TimeSpan.Zero).DateTime;
+                                                                <td class="@(dt.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday ? "SatSunDay" : string.Empty)">
                                                                     <div class="datagrid-cell">
                                                                         @dt.ToString("ddd")
                                                                     </div>

@@ -44,7 +44,7 @@
                                     <div class="datepicker-button input--s left m-r--l">
                                         <date-picker 
                                                 name="FromDate"
-                                                min-date="new DateTime(2010, 1, 1)"
+                                                min-date="new DateTimeOffset(2010, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime"
                                                 value="Model.FromDate"
                                             >
                                         </date-picker>
@@ -60,7 +60,7 @@
                                     <div class="datepicker-button input--s left">
                                         <date-picker 
                                                 name="ToDate"
-                                                min-date="new DateTime(2010, 1, 1)"
+                                                min-date="new DateTimeOffset(2010, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime"
                                                 value="Model.ToDate"
                                             >
                                         </date-picker>
