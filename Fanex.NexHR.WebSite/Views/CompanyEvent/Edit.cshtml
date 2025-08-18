@@ -30,7 +30,7 @@
                         <form action="/CompanyEvent/Edit/@Model.Id" method="post">
                             <div asp-validation-summary="All"></div>
 
-                            @if (ViewBag.Updated == true)
+                            @if ((bool)ViewBag.Updated)
                             {
                                 <div class="row validation-summary-success">
                                     <div class="col success green-text">
@@ -41,7 +41,7 @@
                             }
 
                             <div class="row form-input m-t--s">
-                                <div class='col'>
+                                <div class="col">
                                     <div class="left label--l">
                                         <label asp-for="@Model.Title">@Labels.Title</label>
                                     </div>

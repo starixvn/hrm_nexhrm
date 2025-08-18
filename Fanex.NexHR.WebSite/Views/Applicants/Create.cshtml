@@ -36,13 +36,12 @@
                         <form asp-controller="applicants" asp-action="create" method="post" class="form-create-edit"
                             enctype="multipart/form-data">
                             <div asp-validation-summary="All"></div>
-                            @if (ViewBag.Inserted == true)
+                            @if ((bool)ViewBag.Inserted)
                             {
                                 <input type="hidden" id="successed" value="true" />
                                 <div class="row validation-summary-success">
                                     <div class="col success green-text">
-                                        <i
-                                            class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.ApplicantCreated
+                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.ApplicantCreated
                                     </div>
                                 </div>
                             }

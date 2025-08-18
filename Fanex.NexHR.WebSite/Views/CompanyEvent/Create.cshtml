@@ -30,7 +30,7 @@
                         <form action="/CompanyEvent/Create?from=@Model.FromDate&to=@Model.ToDate" method="post" novalidate="novalidate">
                             <div asp-validation-summary="All"></div>
 
-                            @if (ViewBag.Insert == true)
+                            @if ((bool)ViewBag.Insert)
                             {
                                 <div class="row validation-summary-success">
                                     <div class="col success green-text">
@@ -42,7 +42,7 @@
                             }
 
                             <div class="row form-input m-t--s">
-                                <div class='col'>
+                                <div class="col">
                                     <div class="left label--l">
                                         <label asp-for="@Model.Title">@Labels.Title</label>
                                     </div>

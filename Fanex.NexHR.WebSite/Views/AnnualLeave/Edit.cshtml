@@ -32,7 +32,7 @@
                                 <input type="hidden" asp-for="@Model.EmployeeId"/>
                                 <input type="hidden" asp-for="@Model.AffectedFrom.Year"/>
                                 <div asp-validation-summary="All"></div>
-                                @if (ViewBag.Updated == true)
+                                @if ((bool)ViewBag.Updated)
                                 {
                                     <input type="hidden" id="successed" value="true" />
                                     <div class="row validation-summary-success">

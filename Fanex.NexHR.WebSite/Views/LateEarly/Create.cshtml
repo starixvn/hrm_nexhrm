@@ -31,7 +31,7 @@
                         <form action="/LateEarly/Create" method="post" class="form-create-update">
                             @if (ViewBag.Requested != null)
                             {
-                                if (ViewBag.Requested == true)
+                                if ((bool)ViewBag.Requested)
                                 {
                                     <div class="row validation-summary-success">
                                         <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestCreated

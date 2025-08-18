@@ -29,7 +29,7 @@
                         <div class="form form-stl-table">
                             <form action="/holiday/edit/@Model.Id" method="post" novalidate="novalidate">
                                 <input type="hidden" asp-for="@Model.Id" />
-                                @if (ViewBag.Updated == true)
+                                @if ((bool)ViewBag.Updated)
                                 {
                                     <input type="hidden" id="successed" value="true" />
                                     <div class="row validation-summary-success">
