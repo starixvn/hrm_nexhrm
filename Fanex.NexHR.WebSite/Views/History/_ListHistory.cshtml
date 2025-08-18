@@ -1,9 +1,5 @@
-﻿@using Fanex.NexHR.Core
-@using Fanex.NexHR.Core.Enums
-@using Fanex.NexHR.Resources
+﻿@using Fanex.NexHR.Resources
 @using Fanex.NexHR.Models
-@using Fanex.NexHR.Services.Interfaces
-@inject ISessionService sessionService;
 @model IList<History>
 @{
     var index = 1;
@@ -22,7 +18,7 @@
         </tr>
     </thead>
     <tbody>
-        @if (Model != null && Model.Count > 0)
+        @if (Model is { Count: > 0 })
         {
             foreach (var item in Model)
             {

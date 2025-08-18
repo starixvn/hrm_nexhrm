@@ -41,6 +41,7 @@
         private const string conversationIdName = "conversationId";
 
 #pragma warning disable S107 // Methods should not have too many parameters
+
         public NexbotService(
             IHttpClientFactory httpClientFactory,
             IBaseService baseService,
