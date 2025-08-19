@@ -440,21 +440,20 @@
                                             <div class="left role input--l">
                                                 @{
                                                     var roles = new List<SelectListItem>
-                                        {
-                                        new SelectListItem {Text = "Assistant leader", Value = "1"},
-                                        new SelectListItem {Text = "Leader", Value = "2"},
-                                        new SelectListItem {Text = "Human resource", Value = "3"},
-                                        new SelectListItem {Text = "System admin", Value = "4"}
-                                        };
+                                                    {
+                                                        new () {Text = "Assistant leader", Value = "1"},
+                                                        new () {Text = "Leader", Value = "2"},
+                                                        new () {Text = "Human resource", Value = "3"},
+                                                        new () {Text = "System admin", Value = "4"}
+                                                    };
                                                 }
-                                                <input type="checkbox" class="filled-in" id="Member" name="Member" checked="checked"
-                                               disabled="disabled" value="true" />
+                                                <input type="checkbox" class="filled-in" id="Member" name="Member" checked="checked" disabled="disabled" value="true" />
                                                 <label for="Member">@Labels.Member</label>
                                                 @for (var i = 0; i < roles.Count; i++)
                                                 {
-                                                    var id = "RoleArray" + roles[i].Value.ToString();
-                                                    var isChecked = Array.IndexOf(@Model.RoleArray, roles[i].Value.ToString()) > -1;
-                                                    <input checked="@isChecked" class="filled-in" id="@id" name="RoleArray" type="checkbox" value="@roles[i].Value.ToString()">
+                                                    var id = "RoleArray" + roles[i].Value;
+                                                    var isChecked = Array.IndexOf(@Model.RoleArray, roles[i].Value) > -1;
+                                                    <input checked="@isChecked" class="filled-in" id="@id" name="RoleArray" type="checkbox" value="@roles[i].Value">
                                                     <label for="@id">@roles[i].Text</label>
                                                 }
                                                 <span asp-validation-for="RoleArray"></span>

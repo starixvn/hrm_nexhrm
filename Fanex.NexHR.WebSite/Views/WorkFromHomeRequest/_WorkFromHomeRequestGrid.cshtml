@@ -5,17 +5,8 @@
 @model IList<WorkFromHomeRequest>
 
 @{
-    string alertTable = "";
+    var alertTable = Model.Any() ? "table-success" : "table-fail";
 }
-@if (Model.Any())
-{
-    alertTable = "table-success";
-}
-else
-{
-    alertTable = "table-fail";
-}
-
 
 <table id="data" class="table bordered striped highlight centered table-custom table-leave-request @alertTable">
     <thead>
@@ -34,7 +25,7 @@ else
         @{int index = 1;}
         @if (Model.Any())
         {
-            foreach (WorkFromHomeRequest request in Model)
+            foreach (var request in Model)
             {
                 <tr id="row_@(request.Id)">
                     <td>@(index++)</td>
@@ -62,15 +53,15 @@ else
                     @if (request.StatusId == (int)RequestStatuse.Pending)
                     {
                         <td>
-                            <a requestid="@request.Id" href="javascript:;" class="@request.Status.ToString() c-pending">
-                                @request.Status.ToString()
+                            <a requestid="@request.Id" href="javascript:;" class="@request.Status c-pending">
+                                @request.Status
                             </a>
                         </td>
                     }
                     else
                     {
                         <td class="tooltip" title="@request.Status by @request.ProcessedBy (@request.ProcessedDate.ToShortFormatedDate())">
-                            @request.Status.ToString()
+                            @request.Status
                         </td>
                     }
                 </tr>

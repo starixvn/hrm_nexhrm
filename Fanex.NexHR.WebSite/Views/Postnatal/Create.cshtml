@@ -56,8 +56,7 @@
                                         <label>@Labels.Date</label>
                                     </div>
                                     <div class="datepicker-button input--s left m-r--l">
-                                        <date-picker
-                                            name="FromDate"
+                                        <date-picker name="FromDate"
                                             value="@Model.FromDate"
                                             min-date="new DateTimeOffset(2010, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime"
                                         >
@@ -65,8 +64,7 @@
                                         <i class="mdi-action-event calendar-icon left"></i>
                                     </div>
                                     <div class="datepicker-button input--s left">
-                                        <date-picker
-                                            name="ToDate"
+                                        <date-picker name="ToDate"
                                             value="@Model.ToDate"
                                             min-date="new DateTimeOffset(2010, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime"
                                         >
@@ -83,7 +81,7 @@
                                     <div class="left select--l">
                                         @for (var i = 0; i < Model.TypeList.Count; i++)
                                         {
-                                            var id = "ChosenTypes" + @Model.TypeList[i].Value.ToString();
+                                            var id = "ChosenTypes" + @Model.TypeList[i].Value;
                                             <input checked="@Model.TypeList[i].Selected" class="filled-in" id="@id" name="ChosenTypes" type="checkbox" value="@Model.TypeList[i].Value">
                                             <label for="@id">@Model.TypeList[i].Text</label>
                                         }

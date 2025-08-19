@@ -86,7 +86,7 @@
                                     <div class="left select--m">
                                         @for (var i = 0; i < Model.TypeList.Count; i++)
                                         {
-                                            var id = "ChosenTypes" + @Model.TypeList[i].Value.ToString();
+                                            var id = "ChosenTypes" + @Model.TypeList[i].Value;
                                             <input checked="@Model.TypeList[i].Selected" class="filled-in" id="@id" name="ChosenTypes" type="checkbox" value="@Model.TypeList[i].Value">
                                             <label for="@id">@Model.TypeList[i].Text</label>
                                         }
