@@ -61,7 +61,7 @@
 
                 foreach (var leave in todayLeaves)
                 {
-                    if (IgnoreShowLeaveRequest.Contains(leave.Employee.NickName))
+                    if (IgnoreShowLeaveRequestList.Contains(leave.Employee.NickName))
                     {
                         continue;
                     }
@@ -212,7 +212,7 @@
                 var employees = new StringBuilder();
                 var todayAbsents = DashboardCompanySpace
                     .Where(t => t.TypeId == (int)DashBoardType.Absent && t.IsCurrent
-                        && IgnoreShowLeaveRequest.Contains(t.Employee.NickName))
+                        && IgnoreShowLeaveRequestList.Contains(t.Employee.NickName))
                     .ToList();
                 foreach (var checkInOut in todayAbsents)
                 {
@@ -555,7 +555,7 @@
                 {
                     foreach (var item in NotificationLateInEarlyOutToDay)
                     {
-                        if (IgnoreShowLeaveRequest.Contains(item.Nickname))
+                        if (IgnoreShowLeaveRequestList.Contains(item.Nickname))
                         {
                             continue;
                         }
@@ -581,6 +581,6 @@
 
         public bool IsHavePrivilegeCreateCheckInOutRecord { get; set; }
 
-        public string IgnoreShowLeaveRequest { get; set; }
+        public string[] IgnoreShowLeaveRequestList { get; set; }
     }
 }
