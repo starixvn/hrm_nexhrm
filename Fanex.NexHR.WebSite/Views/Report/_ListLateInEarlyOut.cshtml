@@ -6,7 +6,12 @@
 @model IList<LateInEarlyOutSummary>
 
 @{
-    void DisplayFormatTotalLateInEarlyOut(int minutes, int times, int employeeId, DateTime fromDate, DateTime toDate, bool isHightlight = true)
+    var year = ViewBag.Year;
+
+    DateTime GetFirstDayOfMonth(byte month) => new DateTimeOffset(year, month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
+    DateTime GetLastDayOfMonth(byte month) => new DateTimeOffset(year, month, DateTime.DaysInMonth(year, month), 0, 0, 0, TimeSpan.Zero).DateTime;
+
+    void DisplayFormatTotalLateInEarlyOut(int minutes, int times, int employeeId, DateTime fromDate, DateTime toDate, bool isHighlight = true)
     {
         var url = "LateInEarlyOutDetail?employeeId=" + employeeId + "&fromDate=" + fromDate.ToDateMonthYearFormatedDate()
             + "&toDate=" + toDate.ToDateMonthYearFormatedDate();
@@ -14,7 +19,7 @@
         if (minutes != 0)
         {
             <td>
-                <a class="@((times > 3 && isHightlight) ? "red-color" : string.Empty)" href="@url">@((minutes / 60.0).ToString("0.0")) / @times</a>
+                <a class="@((times > 3 && isHighlight) ? "red-color" : string.Empty)" href="@url">@((minutes / 60.0).ToString("0.0")) / @times</a>
             </td>
         }
         else
@@ -63,41 +68,39 @@
     {
         IList<LateInEarlyOutSummary> lateInEarlyOutByTeams = Model.GroupBy(t => t.TeamId).Select(grp => grp.First()).ToList();
         <tbody>
-            @foreach (LateInEarlyOutSummary lateInEarlyOutByTeam in lateInEarlyOutByTeams)
+            @foreach (var lateInEarlyOutByTeam in lateInEarlyOutByTeams)
             {
                 <tr class="row-divider">
                     <td class="align-left txt-uppercase" colspan="19">
-                        <b>@lateInEarlyOutByTeam.TeamName.ToUpper()</b>
+                        <b>@lateInEarlyOutByTeam.TeamName.ToUpperInvariant()</b>
                     </td>
                 </tr>
 
                 IList<LateInEarlyOutSummary> lateInEarlyOuts = Model.Where(t => t.TeamId == lateInEarlyOutByTeam.TeamId).ToList();
-                foreach (LateInEarlyOutSummary lateInEarlyOut in lateInEarlyOuts)
+                foreach (var lateInEarlyOut in lateInEarlyOuts)
                 {
                     <tr>
                         <td class="tooltip" title="@lateInEarlyOut.FullName"> @lateInEarlyOut.NickName</td>
                         <td>@(lateInEarlyOut.BalanceLastYear != 0 ? (lateInEarlyOut.BalanceLastYear / 60.0).ToString("0.0") : "-")</td>
-                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.Jan, lateInEarlyOut.TimesInJan, lateInEarlyOut.EmpId, new DateTime(ViewBag.Year, 1, 1), new DateTime(ViewBag.Year, 1, 31)); }
-                        @{
-                            DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.Feb, lateInEarlyOut.TimesInFeb, lateInEarlyOut.EmpId, new DateTime(ViewBag.Year, 2, 1), new DateTime(ViewBag.Year, 3, 1).AddDays(-1));
-                        }
-                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.Mar, lateInEarlyOut.TimesInMar, lateInEarlyOut.EmpId, new DateTime(ViewBag.Year, 3, 1), new DateTime(ViewBag.Year, 3, 31)); }
-                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.Apr, lateInEarlyOut.TimesInApr, lateInEarlyOut.EmpId, new DateTime(ViewBag.Year, 4, 1), new DateTime(ViewBag.Year, 4, 30)); }
-                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.May, lateInEarlyOut.TimesInMay, lateInEarlyOut.EmpId, new DateTime(ViewBag.Year, 5, 1), new DateTime(ViewBag.Year, 5, 31)); }
-                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.Jun, lateInEarlyOut.TimesInJun, lateInEarlyOut.EmpId, new DateTime(ViewBag.Year, 6, 1), new DateTime(ViewBag.Year, 6, 30)); }
-                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.Jul, lateInEarlyOut.TimesInJul, lateInEarlyOut.EmpId, new DateTime(ViewBag.Year, 7, 1), new DateTime(ViewBag.Year, 7, 31)); }
-                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.Aug, lateInEarlyOut.TimesInAug, lateInEarlyOut.EmpId, new DateTime(ViewBag.Year, 8, 1), new DateTime(ViewBag.Year, 8, 31)); }
-                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.Sep, lateInEarlyOut.TimesInSep, lateInEarlyOut.EmpId, new DateTime(ViewBag.Year, 9, 1), new DateTime(ViewBag.Year, 9, 30)); }
-                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.Oct, lateInEarlyOut.TimesInOct, lateInEarlyOut.EmpId, new DateTime(ViewBag.Year, 10, 1), new DateTime(ViewBag.Year, 10, 31)); }
-                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.Nov, lateInEarlyOut.TimesInNov, lateInEarlyOut.EmpId, new DateTime(ViewBag.Year, 11, 1), new DateTime(ViewBag.Year, 11, 30)); }
-                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.Dec, lateInEarlyOut.TimesInDec, lateInEarlyOut.EmpId, new DateTime(ViewBag.Year, 12, 1), new DateTime(ViewBag.Year, 12, 31)); }
-                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.TotalCurrentYear, lateInEarlyOut.TotalTimesCurrentYear, lateInEarlyOut.EmpId, new DateTime(ViewBag.Year, 1, 1), new DateTime(ViewBag.Year, 12, 31), false); }
+                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.Jan, lateInEarlyOut.TimesInJan, lateInEarlyOut.EmpId, GetFirstDayOfMonth(1), GetLastDayOfMonth(1)); }
+                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.Feb, lateInEarlyOut.TimesInFeb, lateInEarlyOut.EmpId, GetFirstDayOfMonth(2), GetLastDayOfMonth(2)); }
+                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.Mar, lateInEarlyOut.TimesInMar, lateInEarlyOut.EmpId, GetFirstDayOfMonth(3), GetLastDayOfMonth(3)); }
+                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.Apr, lateInEarlyOut.TimesInApr, lateInEarlyOut.EmpId, GetFirstDayOfMonth(4), GetLastDayOfMonth(4)); }
+                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.May, lateInEarlyOut.TimesInMay, lateInEarlyOut.EmpId, GetFirstDayOfMonth(5), GetLastDayOfMonth(5)); }
+                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.Jun, lateInEarlyOut.TimesInJun, lateInEarlyOut.EmpId, GetFirstDayOfMonth(6), GetLastDayOfMonth(6)); }
+                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.Jul, lateInEarlyOut.TimesInJul, lateInEarlyOut.EmpId, GetFirstDayOfMonth(7), GetLastDayOfMonth(7)); }
+                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.Aug, lateInEarlyOut.TimesInAug, lateInEarlyOut.EmpId, GetFirstDayOfMonth(8), GetLastDayOfMonth(8)); }
+                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.Sep, lateInEarlyOut.TimesInSep, lateInEarlyOut.EmpId, GetFirstDayOfMonth(9), GetLastDayOfMonth(9)); }
+                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.Oct, lateInEarlyOut.TimesInOct, lateInEarlyOut.EmpId, GetFirstDayOfMonth(10), GetLastDayOfMonth(10)); }
+                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.Nov, lateInEarlyOut.TimesInNov, lateInEarlyOut.EmpId, GetFirstDayOfMonth(11), GetLastDayOfMonth(11)); }
+                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.Dec, lateInEarlyOut.TimesInDec, lateInEarlyOut.EmpId, GetFirstDayOfMonth(12), GetLastDayOfMonth(12)); }
+                        @{ DisplayFormatTotalLateInEarlyOut(lateInEarlyOut.TotalCurrentYear, lateInEarlyOut.TotalTimesCurrentYear, lateInEarlyOut.EmpId, GetFirstDayOfMonth(1), GetLastDayOfMonth(12), false); }
 
                         @if (lateInEarlyOut.LeaveDeduction != 0)
                         {
                             var url = "/AnnualLeave/LeaveDeductionDetail?employeeId=" + lateInEarlyOut.EmpId
-                                + "&fromDate=" + new DateTime(ViewBag.Year, 1, 1).ToDateMonthYearFormatedDate()
-                                + "&toDate=" + new DateTime(ViewBag.Year, 12, 31).ToDateMonthYearFormatedDate();
+                                + "&fromDate=" + GetFirstDayOfMonth(1).ToDateMonthYearFormatedDate()
+                                + "&toDate=" + GetLastDayOfMonth(12).ToDateMonthYearFormatedDate();
 
                             <td>
                                 <a href="@url">@((lateInEarlyOut.LeaveDeduction / 60.0).ToString("0.0"))</a>
@@ -116,18 +119,16 @@
                             if(lateInEarlyOut.BalanceCurrentYear >= 240)
                             {
                                 <td>
-
-                                <a href="javascript:;" class="addLeavededuction" data-id="@lateInEarlyOut.EmpId" 
-                                   data-annualbalance="@lateInEarlyOut.AnnualLeaveBalance">
-                                    <i class="mdi mdi-border-color mdi-18px mdi-dark"></i>
-                                </a>
-                            </td>
+                                    <a href="javascript:;" class="addLeavededuction" data-id="@lateInEarlyOut.EmpId" 
+                                       data-annualbalance="@lateInEarlyOut.AnnualLeaveBalance">
+                                        <i class="mdi mdi-border-color mdi-18px mdi-dark"></i>
+                                    </a>
+                                </td>
                             }
                             else
                             {
                                 <td></td>
                             }
-                            
                         }
                     </tr>
                 }
