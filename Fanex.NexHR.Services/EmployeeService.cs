@@ -85,7 +85,7 @@
                 space.DashboardEmployeeSpace = await GetDashBoardPersonalSpace(criteria.EmpId);
                 if (space.DashboardCompanySpace.Any())
                 {
-                    space.CompanyWorkFromHome = GetCompanyWorkFromHome(space.DashboardCompanySpace, appSetting.IgnoreShowLeaveRequest);
+                    space.CompanyWorkFromHome = getCompanyWorkFromHome(space.DashboardCompanySpace, appSetting.IgnoreShowLeaveRequest.Split(","));
                 }
             }
 
@@ -178,7 +178,8 @@
             return await baseService.GetDataAsync<EmployeesMissedLogTime>(new GetEmployeeMissedLogTimeCriteria());
         }
 
-        private static string GetCompanyWorkFromHome(IList<DashBoardCompanySpace> dashBoard, string ignoreEmps)
+
+        private static string getCompanyWorkFromHome(IList<DashBoardCompanySpace> dashBoard, string[] ignoreEmps)
         {
             const float numberEqual = 0.5f;
             const int numberLength = 2;

@@ -88,7 +88,7 @@
                 EmpId = CurrentUser.Id
             };
             var model = await employeeService.GetMySpace(getMySpaceCriteria);
-            model.IgnoreShowLeaveRequest = appSetting.IgnoreShowLeaveRequest;
+            model.IgnoreShowLeaveRequestList = appSetting.IgnoreShowLeaveRequest.Split(",");
             return model;
         }
 
