@@ -5,7 +5,7 @@
 
 @{
     ViewBag.Title = "Dashboard";
-    var displayCheckInTime = @Model.CheckInTime == DateTime.MinValue ? "N/A" : @Model.DisplayCheckInTime;
+    var displayCheckInTime = @Model.CheckInTime == DateTimeOffset.MinValue.DateTime ? "N/A" : @Model.DisplayCheckInTime;
     var displayTotalWorkingHoursToday = @Model.TotalWorkingHoursToday == 0 ? "N/A" : @Model.DisplayTotalWorkingHoursToday;
     var isCheckInOnline = @Model.IsHavePrivilegeCreateCheckInOutRecord;
     var isCheckOutOnline = @Model.IsHavePrivilegeCreateCheckInOutRecord;

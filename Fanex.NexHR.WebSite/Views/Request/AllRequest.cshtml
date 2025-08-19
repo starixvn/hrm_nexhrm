@@ -33,22 +33,15 @@
                 <th>@Labels.History</th>
             </tr>
         </thead>
-        @if (Model != null && Model.Requests != null && Model.Requests.Any())
+        @if (Model is { Requests: not null } && Model.Requests.Any())
         {
             <tbody>
                 @{
                     int index = (Model.CurrentPage - 1) * Model.ItemsPerPage + 1;
                     
                 }
-                @foreach (RequestEntity request in Model.Requests)
+                @foreach (var request in Model.Requests)
                 {
-                    var htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(
-                        new
-                        {
-                            @class = "filled-in chk-request",
-                            data_id = request.Id
-                        });
-
                     <tr id="row@(request.Id)">
                         @if (Model.RequestViewType == RequestViewType.LeaderView && isAnyAllowUpdate)
                         {
