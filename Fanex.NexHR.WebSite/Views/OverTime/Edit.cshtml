@@ -30,7 +30,7 @@
                     <div class="form form-stl-table">
                         <form asp-controller="overtime" asp-action="edit" method="post" id="form" class="form-create-update">
                             <div asp-validation-summary="All"></div>
-                            @if ((bool)ViewBag.Updated)
+                            @if (ViewBag.Updated != null && (bool)ViewBag.Updated)
                             {
                                 <input type="hidden" id="successed" value="true" />
                                 <div class="row validation-summary-success">

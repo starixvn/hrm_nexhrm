@@ -28,7 +28,7 @@
                     <div class="form form-stl-table">
                         <form action="/extensionno/AddNewMember" method="post">
                             <div asp-validation-summary="All"></div>
-                            @if ((bool)ViewBag.Requested)
+                            @if (ViewBag.Requested != null && (bool)ViewBag.Requested)
                             {
                                 <div class="row validation-summary-success">
                                     <div class="col success green-text">

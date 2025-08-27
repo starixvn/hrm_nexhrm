@@ -9,16 +9,16 @@
 <link rel="stylesheet" href="~/minify/css/employeeedit.min.css" asp-append-version="true">
 }
 @section Scripts {
-<environment include="Development">
-    <script src="~/js/Libs/birthdaypicker.js" asp-append-version="true"></script>
-    <script src="~/js/Libs/select2.js" asp-append-version="true"></script>
-    <script src="~/js/Views/Employee/employee.edit.js" asp-append-version="true"></script>
-    <script src="~/js/Views/Employee/employee.profile.js" asp-append-version="true"></script>
-</environment>
-<environment exclude="Development">
-    <script src="~/minify/js/employeeedit.min.js" asp-append-version="true"></script>
-    <script src="~/minify/js/employee.profile.min.js" asp-append-version="true"></script>
-</environment>
+    <environment include="Development">
+        <script src="~/js/Libs/birthdaypicker.js" asp-append-version="true"></script>
+        <script src="~/js/Libs/select2.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Employee/employee.edit.js" asp-append-version="true"></script>
+        <script src="~/js/Views/Employee/employee.profile.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/minify/js/employeeedit.min.js" asp-append-version="true"></script>
+        <script src="~/minify/js/employee.profile.min.js" asp-append-version="true"></script>
+    </environment>
 }
 
 <html>
@@ -53,7 +53,7 @@
                                 <input type="hidden" asp-for="LastUrl" />
                                 <div class="form">
                                     <div asp-validation-summary="All"></div>
-                                    @if ((bool)ViewBag.Updated)
+                                    @if (ViewBag.Updated == true)
                                     {
                                         <input type="hidden" id="successed" value="true" />
 

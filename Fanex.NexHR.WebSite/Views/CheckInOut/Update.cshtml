@@ -32,7 +32,7 @@
                     <div class="form list-item-form form-update style-over">
                         <form asp-controller="checkinout" asp-action="update" method="post" class="form-create-update">
                             <div asp-validation-summary="All"></div>
-                            @if ((bool)ViewBag.Updated)
+                            @if (ViewBag.Updated != null && (bool)ViewBag.Updated)
                             {
                                 <div class="row">
                                     <div class="col success green-text m-b--m">

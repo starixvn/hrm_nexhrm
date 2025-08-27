@@ -30,7 +30,7 @@
                         <form asp-controller="overtime" asp-action="create" method="post" id="form" class="form-create-update">
                             @Html.AntiForgeryToken()
                             <div asp-validation-summary="All"></div>
-                            @if ((bool)ViewBag.Inserted)
+                            @if (ViewBag.Inserted != null && (bool)ViewBag.Inserted)
                             {
                                 <input type="hidden" id="successed" value="true"/>
                                 <div class="row validation-summary-success">

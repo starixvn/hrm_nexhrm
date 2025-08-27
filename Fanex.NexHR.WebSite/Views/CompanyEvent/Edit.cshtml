@@ -30,7 +30,7 @@
                         <form action="/CompanyEvent/Edit/@Model.Id" method="post">
                             <div asp-validation-summary="All"></div>
 
-                            @if ((bool)ViewBag.Updated)
+                            @if (ViewBag.Updated != null && (bool)ViewBag.Updated)
                             {
                                 <div class="row validation-summary-success">
                                     <div class="col success green-text">

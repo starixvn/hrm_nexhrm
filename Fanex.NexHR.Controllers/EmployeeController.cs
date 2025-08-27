@@ -304,7 +304,7 @@ public class EmployeeController : BaseController
             {
                 return RedirectToAction("Edit", new
                 {
-                    id = criteria.UserId,
+                    id = criteria.EmpId,
                     phone = model.Phone,
                     DOB = model.DateOfBirth,
                     joinDate = model.JoinDate,

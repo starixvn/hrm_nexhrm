@@ -27,7 +27,7 @@
                     <div class="form form-stl-table">
                         <form action="/ExtensionNo/EditExtensionNumber?isInternal=@Model.IsInternal&empExtID=@Model.EmpExtId" method="post">
                             <div asp-validation-summary="All"></div>
-                            @if ((bool)ViewBag.Updated)
+                            @if (ViewBag.Updated != null && (bool)ViewBag.Updated)
                             {
                                 <div class="row validation-summary-success">
                                     <div class="col success green-text">

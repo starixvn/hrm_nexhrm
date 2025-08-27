@@ -33,7 +33,7 @@
                                 <input type="hidden" id="ExcludedRequestTrans" name="ExcludedRequestTrans" value="ViewBag.ExcludedRequestTrans" />
 
                                 <div asp-validation-summary="All"></div>
-                                @if ((bool)ViewBag.Inserted)
+                                @if (ViewBag.Inserted != null && (bool)ViewBag.Inserted)
                                 {
                                     <input type="hidden" id="successed" value="true" />
                                     <div class="row validation-summary-success">

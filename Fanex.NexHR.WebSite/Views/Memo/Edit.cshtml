@@ -32,10 +32,10 @@
                         <div class="form form-memo">
                             <div id="error" class="red-text"></div>
                             <div asp-validation-summary="All"></div>
-                            @if ((bool)ViewBag.Updated)
+                            @if (ViewBag.Updated != null && (bool)ViewBag.Updated)
                             {
                                 <div class="row validation-summary-success">
-                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Your memo has edited successfully !
+                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>Your memo has edited successfully!
                                     <input type="hidden" id="successed" value="true" />
                                 </div>
                             }
