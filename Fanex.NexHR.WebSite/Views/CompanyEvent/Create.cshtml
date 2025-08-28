@@ -30,7 +30,7 @@
                         <form action="/CompanyEvent/Create?from=@Model.FromDate&to=@Model.ToDate" method="post" novalidate="novalidate">
                             <div asp-validation-summary="All"></div>
 
-                            @if (ViewBag.Insert == true)
+                            @if (ViewBag.Insert != null && (bool)ViewBag.Insert)
                             {
                                 <div class="row validation-summary-success">
                                     <div class="col success green-text">
@@ -42,7 +42,7 @@
                             }
 
                             <div class="row form-input m-t--s">
-                                <div class='col'>
+                                <div class="col">
                                     <div class="left label--l">
                                         <label asp-for="@Model.Title">@Labels.Title</label>
                                     </div>
@@ -60,7 +60,7 @@
                                         <date-picker
                                             name="FromDate"
                                             value="Model.FromDate"
-                                            min-date="new DateTime(2010, 1, 1)"
+                                            min-date="new DateTimeOffset(2010, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime"
                                             max-date="DateTimeOffset.Now.DateTime.ToClientTimeZone().AddMonths(4)">
                                         </date-picker>
                                         <i class="mdi-action-event calendar-icon left"></i>

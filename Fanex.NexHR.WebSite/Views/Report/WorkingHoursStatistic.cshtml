@@ -61,7 +61,7 @@
                                             <label>@Labels.From</label>
                                         </div>
                                         <div class="left datepicker-button input--s">
-                                            <date-picker name="FromDate" min-date="new DateTime(2010, 01, 01)"
+                                            <date-picker name="FromDate" min-date="new DateTimeOffset(2010, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime"
                                                 max-date="DateTimeOffset.Now.DateTime.ToClientTimeZone()"
                                                 value="Model.FromDate">
                                             </date-picker>
@@ -74,7 +74,7 @@
                                             <label>@Labels.To</label>
                                         </div>
                                         <div class="left datepicker-button input--s">
-                                            <date-picker name="ToDate" min-date="new DateTime(2010, 01, 01)"
+                                            <date-picker name="ToDate" min-date="new DateTimeOffset(2010, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime"
                                                 max-date="DateTimeOffset.Now.DateTime.ToClientTimeZone()"
                                                 value="Model.ToDate">
                                             </date-picker>
@@ -89,7 +89,7 @@
                                             <label>@Labels.FromLastMonth</label>
                                         </div>
                                         <div class="left datepicker-button input--s">
-                                            <date-picker name="FromDateLastMonth" min-date="new DateTime(2010, 01, 01)"
+                                            <date-picker name="FromDateLastMonth" min-date="new DateTimeOffset(2010, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime"
                                                 max-date="DateTimeOffset.Now.DateTime.ToClientTimeZone()"
                                                 value="Model.FromDateLastMonth">
                                             </date-picker>
@@ -101,7 +101,7 @@
                                             <label>@Labels.To</label>
                                         </div>
                                         <div class="left datepicker-button input--s">
-                                            <date-picker name="ToDateLastMonth" min-date="new DateTime(2010, 01, 01)"
+                                            <date-picker name="ToDateLastMonth" min-date="new DateTimeOffset(2010, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime"
                                                 max-date="DateTimeOffset.Now.DateTime.ToClientTimeZone()"
                                                 value="Model.ToDateLastMonth">
                                             </date-picker>

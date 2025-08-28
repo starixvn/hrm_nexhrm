@@ -1,19 +1,18 @@
-﻿@using Fanex.NexHR.Models
-@using Fanex.NexHR.Resources
+﻿@using Fanex.NexHR.Resources
 @using Fanex.NexHR.Core
 @using Fanex.NexHR.Core.Helpers
 @using Fanex.NexHR.ViewModels.TrainingAndDevelopment
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model TrainingAndDevelopmentUpdateViewModel
 @{
-    DateTime currentDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(); 
+    var currentDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(); 
     var types = ViewBag.Types;
     var publishSelectList = new SelectList(
         new List<SelectListItem>
         {
-            new SelectListItem { Selected = (Model.Publish == Constants.Public), Text =  Constants.Public, Value = Constants.Public},
-            new SelectListItem { Selected = (Model.Publish == Constants.Protected), Text = Constants.Protected, Value =Constants.Protected},
-            new SelectListItem { Selected = (Model.Publish == Constants.Private), Text = Constants.Private, Value = Constants.Private},
+            new () { Selected = (Model.Publish == Constants.Public), Text =  Constants.Public, Value = Constants.Public},
+            new () { Selected = (Model.Publish == Constants.Protected), Text = Constants.Protected, Value = Constants.Protected},
+            new () { Selected = (Model.Publish == Constants.Private), Text = Constants.Private, Value = Constants.Private},
         }, "Value", "Text", Model.Publish);
     var dirCertificate = FileHelpers.GetCertificatesDir();
 }
@@ -107,7 +106,7 @@
         <div class="datepicker-button left select">
             <date-picker name="ToDatePopup"
                          min-date="currentDate.AddYears(-100)"
-                         value="@(Model.ToDate.Equals(DateTime.MinValue) ? null : Model.ToDate)">
+                         value="@(Model.ToDate.Equals(DateTimeOffset.MinValue.DateTime) ? null : Model.ToDate)">
             </date-picker>
             <i class="mdi-action-event calendar-icon left"></i>
         </div>

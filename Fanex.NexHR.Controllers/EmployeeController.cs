@@ -22,10 +22,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Newtonsoft.Json;
+using Resources;
 using Services.Interfaces;
 using ViewModels;
 using ViewModels.Employee;
-using Resources;
 using GOModels = GO.UserControl.Client.Core.Models;
 using GOServices = GO.UserControl.Client.Core.Services;
 
@@ -50,6 +50,7 @@ public class EmployeeController : BaseController
     private readonly GOServices.IUserService userService;
 
 #pragma warning disable S107 // Methods should not have too many parameters
+
     public EmployeeController(
         AppSetting appSetting,
         ISessionService sessionService,
@@ -303,7 +304,7 @@ public class EmployeeController : BaseController
             {
                 return RedirectToAction("Edit", new
                 {
-                    id = criteria.UserId,
+                    id = criteria.EmpId,
                     phone = model.Phone,
                     DOB = model.DateOfBirth,
                     joinDate = model.JoinDate,

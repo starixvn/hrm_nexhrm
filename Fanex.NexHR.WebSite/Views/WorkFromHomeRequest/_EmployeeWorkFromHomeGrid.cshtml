@@ -22,13 +22,12 @@
         </tr>
     </thead>
     <tbody>
-        @if (Model != null && Model.Count > 0)
+        @if (Model is { Count: > 0 })
         {
-
-            foreach (WorkFromHomeRequest request in Model)
+            foreach (var request in Model)
             {
                 var disableAction = request.CreatedById != ViewBag.EmployeeId;
-                var styleDisalbe = disableAction ? "pointer-events: none; cursor: default; opacity: .4;" : "";
+                var styleDisable = disableAction ? "pointer-events: none; cursor: default; opacity: .4;" : "";
 
                 var id = request.Id;
                 <tr>
@@ -87,9 +86,9 @@
                                 break;
                             case 2: //Approve
                                 <td>
-                                    <a workFromHomeRequestId="@request.Id" href="javascript:;" class="@request.Status.ToString() tooltip c-approve"
+                                    <a workFromHomeRequestId="@request.Id" href="javascript:;" class="@request.Status tooltip c-approve"
                                        title="@request.Status by @request.ProcessedBy (@request.ProcessedDate.ToShortFormatedDate())">
-                                        @request.Status.ToString()
+                                        @request.Status
                                     </a>
                                 </td>
                                 break;
@@ -97,7 +96,7 @@
                                 <td>
                                     <a workFromHomeRequestId="@request.Id" href="javascript:;" class="tooltip"
                                        title="@request.Status by @request.ProcessedBy (@request.ProcessedDate.ToShortFormatedDate())">
-                                        @request.Status.ToString()
+                                        @request.Status
                                     </a>
                                 </td>
                                 break;
@@ -107,7 +106,7 @@
                         <a href="/WorkFromHomeRequest/HREdit?id=@request.Id">
                             <i class='mdi mdi-border-color mdi-edit mdi-dark' style="top: 5px"></i>
                         </a>
-                        <a style="@styleDisalbe" href="javascript:;" onclick="deleteRequest('@request.Id');">
+                        <a style="@styleDisable" href="javascript:;" onclick="deleteRequest('@request.Id');">
                             <i class='mdi mdi-delete mdi-dark'></i>
                         </a>
                     </td>

@@ -7,16 +7,10 @@
     using Models;
     using Services.Interfaces;
 
-    public class JobTitleController : BaseController
+    public class JobTitleController(
+        ISessionService sessionService,
+        IBaseService baseService) : BaseController(sessionService)
     {
-        private readonly IBaseService baseService;
-
-        public JobTitleController(ISessionService sessionService,
-            IBaseService baseService) : base(sessionService)
-        {
-            this.baseService = baseService;
-        }
-
         [HrmAuthorize(UserRoles = "HR")]
         public IActionResult Index()
         {

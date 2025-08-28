@@ -1,6 +1,4 @@
-﻿@using Fanex.NexHR.Core
-@using Fanex.NexHR.Core.Enums
-@using Fanex.NexHR.Core.Helpers
+﻿@using Fanex.NexHR.Core.Helpers
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.Models
 @using Fanex.NexHR.Services.Interfaces
@@ -37,7 +35,7 @@
         </tr>
     </thead>
     <tbody>
-        @if (Model != null && Model.Count > 0)
+        @if (Model is { Count: > 0 })
         {
             foreach (var item in Model)
             {
@@ -70,7 +68,7 @@
                                     <span>
                                         <span>@titleFromDate</span>
                                         <span class="bold">@fromDate</span>
-                                        @if (!toDate.Equals(DateTime.MinValue.ToString(FormatDate)))
+                                        @if (!toDate.Equals(DateTimeOffset.MinValue.DateTime.ToString(FormatDate)))
                                         {
                                             <span>@titleToDate</span>
                                             <span class="bold">@toDate</span>

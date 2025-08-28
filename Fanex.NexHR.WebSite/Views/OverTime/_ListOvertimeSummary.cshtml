@@ -1,7 +1,6 @@
 @using Fanex.NexHR.Core
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.Models.Overtime
-@using Fanex.NexHR.Core.Enums
 @using Fanex.NexHR.Services.Interfaces
 @inject ISessionService sessionService;
 
@@ -13,7 +12,7 @@
 {
     int index = 1;
     var overtimeSummaryByDepartments = Model.GroupBy(t => t.DepartmentId).Select(grp => grp.First()).ToList();
-    foreach (OvertimeSummary overtimeSummaryByDepartment in overtimeSummaryByDepartments)
+    foreach (var overtimeSummaryByDepartment in overtimeSummaryByDepartments)
     {
         <tr class="row-divider">
             <td colspan="22">
@@ -21,10 +20,10 @@
             </td>
         </tr>
 
-        IList<OvertimeSummary> overtimeSummaries = Model.Where(t => t.DepartmentId ==
-        overtimeSummaryByDepartment.DepartmentId).ToList();
-        foreach (OvertimeSummary overtimeSummary in overtimeSummaries)
+        var overtimeSummaries = Model.Where(t => t.DepartmentId == overtimeSummaryByDepartment.DepartmentId).ToList();
+        foreach (var overtimeSummary in overtimeSummaries)
         {
+            const double epsilon = 0.0001;
             <tr>
                 <td>@(index++)</td>
                 <td class="tooltip" title="@overtimeSummary.FullName">@overtimeSummary.NickName</td>
@@ -43,14 +42,14 @@
                 <td>@OvertimeSummary.DisplayValue(overtimeSummary.Nov)</td>
                 <td>@OvertimeSummary.DisplayValue(overtimeSummary.Dec)</td>
                 <td>@OvertimeSummary.DisplayValue(overtimeSummary.TotalHour)</td>
-                @if (overtimeSummary.LeaveConversion != 0)
+                @if (Math.Abs(overtimeSummary.LeaveConversion) > epsilon)
                 {
                     var url =
-                    "/request/employeeview?DateOption=0&TeamId=-2&IsFilterByEffectedDate=true&RequestType=6&LeaveTypeId=31&StatusId=2&FromDate="
-                    + new DateTime(ViewBag.Year, 1, 1).ToDateMonthYearFormatedDate()
-                    + "&toDate=" + new DateTime(ViewBag.Year, 12, 31).ToDateMonthYearFormatedDate()
-                    + "&EmployeeId=" + overtimeSummary.EmployeeId
-                    + "&Employee=" + overtimeSummary.DisplayName;
+                        "/request/employeeview?DateOption=0&TeamId=-2&IsFilterByEffectedDate=true&RequestType=6&LeaveTypeId=31&StatusId=2&FromDate="
+                        + new DateTimeOffset(ViewBag.Year, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime.ToDateMonthYearFormatedDate()
+                        + "&toDate=" + new DateTimeOffset(ViewBag.Year, 12, 31, 0, 0, 0, TimeSpan.Zero).DateTime.ToDateMonthYearFormatedDate()
+                        + "&EmployeeId=" + overtimeSummary.EmployeeId
+                        + "&Employee=" + overtimeSummary.DisplayName;
 
                     <td>
                         <a href="@url">@(overtimeSummary.LeaveConversion.ToString("0.0"))</a>
@@ -63,8 +62,8 @@
                 @if (overtimeSummary.OvertimeDeduct > 0)
                 {
                     var url = "/overtime/overtimeConversionDetail?employeeId=" + overtimeSummary.EmployeeId
-                    + "&fromDate=" + new DateTime(ViewBag.Year, 1, 1).ToDateMonthYearFormatedDate()
-                    + "&toDate=" + new DateTime(ViewBag.Year, 12, 31).ToDateMonthYearFormatedDate();
+                        + "&fromDate=" + new DateTimeOffset(ViewBag.Year, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime.ToDateMonthYearFormatedDate()
+                        + "&toDate=" + new DateTimeOffset(ViewBag.Year, 12, 31, 0, 0, 0, TimeSpan.Zero).DateTime.ToDateMonthYearFormatedDate();
                     <td>
                         <a href="@url">@(overtimeSummary.OvertimeDeduct.ToString("0.0"))</a>
                     </td>

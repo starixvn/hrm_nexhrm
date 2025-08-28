@@ -75,7 +75,7 @@
             @{
                 var index = (pagerOption.CurrentPage - 1) * pagerOption.ItemsPerPage;
             }
-            @foreach (EmployeeAttendanceModel employeeAttendance in Model)
+            @foreach (var employeeAttendance in Model)
             {
                 index++;
                 var cssClass = string.Empty;
@@ -140,18 +140,19 @@
                     {
                         <td>
                             @{
-                                double s = 60;
-                                var hour = Math.Floor(employeeAttendance.LateIn / s);
+                                const double second = 60;
+                                const double epsilon = 0.0001;
+                                var hour = Math.Floor(employeeAttendance.LateIn / second);
                                 var minute = employeeAttendance.LateIn % 60;
                                 string display;
 
-                                if (hour == 0)
+                                if (Math.Abs(hour) > epsilon)
                                 {
-                                    display = minute > 9 ? "00:" + minute : "00:0" + minute;
+                                    display = (hour > 9 ? hour.ToString(CultureInfo.InvariantCulture) : "0" + hour) + ":" + (minute > 9 ? minute.ToString(CultureInfo.InvariantCulture) : "0" + minute);
                                 }
                                 else
                                 {
-                                    display = (hour > 9 ? hour.ToString(CultureInfo.InvariantCulture) : "0" + hour) + ":" + (minute > 9 ? minute.ToString(CultureInfo.InvariantCulture) : "0" + minute);
+                                    display = minute > 9 ? "00:" + minute : "00:0" + minute;
                                 }
 
                                 <span>@display</span>

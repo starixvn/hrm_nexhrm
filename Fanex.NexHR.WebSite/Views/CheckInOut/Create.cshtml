@@ -61,7 +61,7 @@
                             }
 
                             <div asp-validation-summary="All"></div>
-                            @if (ViewBag.Requested == true)
+                            @if (ViewBag.Requested != null && (bool)ViewBag.Requested)
                             {
                                 <div class="row validation-summary-success">
                                     <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestCreated

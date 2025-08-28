@@ -1,7 +1,5 @@
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.Models
-@using Fanex.NexHR.Services.Interfaces
-@inject ISessionService sessionService;
 @model Employee
 @{
     const string Certificates = "Certificates";
@@ -184,7 +182,7 @@
                                 <p class="accinfo">
                                     <span class="label--xl">@Labels.JobGrade:</span>
                                     <span class="txt-bold tooltip"
-                                          title="@($"{Labels.EffectiveDate}: {Model.AffectedDate.ToString("dd MMM, yyyy")}")">
+                                          title="@($"{Labels.EffectiveDate}: {Model.AffectedDate:dd MMM, yyyy}")">
                                         @if (Model.JobGradeCode != null)
                                         {
                                             @Model.JobGradeCode
@@ -201,7 +199,7 @@
                                 <p class="accinfo">
                                     <span class="label--xl">@Labels.ManagementGrade:</span>
                                     <span class="txt-bold tooltip"
-                                          title="@($"{Labels.EffectiveDate}: {Model.ManagementAffectedDate.ToString("dd MMM, yyyy")}")">
+                                          title="@($"{Labels.EffectiveDate}: {Model.ManagementAffectedDate:dd MMM, yyyy}")">
                                         @if (Model.ManagementGradeCode != null)
                                         {
                                             @Model.ManagementGradeCode
@@ -317,7 +315,7 @@
                                                         <div class="display-flex">
                                                             @Labels.TestDate: <strong>@trainingAndDevelopment.ExamDate.ToString(FormatDate)</strong>
                                                         </div>
-                                                        @if (!trainingAndDevelopment.ExpirationDate.Equals(DateTime.MinValue))
+                                                        @if (!trainingAndDevelopment.ExpirationDate.Equals(DateTimeOffset.MinValue.DateTime))
                                                         {
                                                             <div class="display-flex">
                                                                 @Labels.ExpirationDate: <strong>@trainingAndDevelopment.ExpirationDate.ToString(FormatDate)</strong>

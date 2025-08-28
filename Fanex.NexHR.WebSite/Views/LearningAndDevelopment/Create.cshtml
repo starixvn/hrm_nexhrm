@@ -1,10 +1,9 @@
-﻿@using Fanex.NexHR.Models
-@using Fanex.NexHR.Resources
+﻿@using Fanex.NexHR.Resources
 @using Fanex.NexHR.Core
 @using Fanex.NexHR.ViewModels.TrainingAndDevelopment
 @model TrainingAndDevelopmentCreateViewModel
 @{
-    DateTime currentDate = DateTimeOffset.Now.DateTime.ToClientTimeZone();
+    var currentDate = DateTimeOffset.Now.DateTime.ToClientTimeZone();
     var types = ViewBag.Types;
 }
 <form id="frmAddTrainingAndDevelopment" class="form form-add-training-and-development">

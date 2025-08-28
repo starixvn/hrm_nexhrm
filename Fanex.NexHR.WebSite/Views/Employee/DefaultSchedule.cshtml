@@ -29,7 +29,7 @@
                         <div class="form">
                             <form asp-controller="employee" asp-action="DefaultSchedule" method="post">
                                 <div asp-validation-summary="All"></div>
-                                @if (ViewBag.Updated == true)
+                                @if (ViewBag.Updated != null && (bool)ViewBag.Updated)
                                 {
                                     <div class="row validation-summary-success success flash">
                                         <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.Saved

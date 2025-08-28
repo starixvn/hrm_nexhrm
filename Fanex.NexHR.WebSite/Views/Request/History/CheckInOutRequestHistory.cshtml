@@ -35,7 +35,7 @@
                     <td>@request.Status.ToString()</td>
                     @if (!string.IsNullOrWhiteSpace(request.ModifiedBy.NickName))
                     {
-                        if (request.ModifiedDate > new DateTime(2000, 1, 1))
+                        if (request.ModifiedDate > new DateTimeOffset(2000, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime)
                         {
                             <td id="pb@(request.Id)">
                                 @request.ModifiedBy.NickName, @request.ModifiedDate.ToShortFormatedDate()

@@ -291,7 +291,7 @@
                                     }
                                 </div>
                             </div>
-                            @if (Model.HistoryWork.Count() > 0 && isHRRole)
+                            @if (Model.HistoryWork.Any() && isHRRole)
                             {
                                 <div class="trainingAndDevelopmentsreport">
                                     <div class="info-title">@Labels.HistoryWork
@@ -383,7 +383,7 @@
                                                                 @Labels.TestDate:
                                                                 <strong>@trainingAndDevelopment.ExamDate.ToString(FormatDate)</strong>
                                                             </div>
-                                                            @if (!trainingAndDevelopment.ExpirationDate.Equals(DateTime.MinValue))
+                                                            @if (!trainingAndDevelopment.ExpirationDate.Equals(DateTimeOffset.MinValue.DateTime))
                                                             {
                                                                 <div class="display-flex">
                                                                     @Labels.ExpirationDate:

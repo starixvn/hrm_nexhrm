@@ -26,7 +26,7 @@
                 <div class="card-body">
                     <form action="/Holiday/Create" method="post" novalidate="novalidate">
                         <div class="form form-stl-table" data-valmsg-summary="true">
-                            @if (ViewBag.Inserted == true)
+                            @if (ViewBag.Inserted != null && (bool)ViewBag.Inserted)
                             {
                                 <input type="hidden" id="successed" value="true" />
                                 <div class="row validation-summary-success">

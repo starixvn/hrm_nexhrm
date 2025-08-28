@@ -12,31 +12,18 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Novell.Directory.Ldap;
 
-public class AuthController : Controller
+public class AuthController(
+    IAuthService authService,
+    ISessionService sessionService,
+    AppSetting appSetting,
+    LdapSettings ldapSettings) : Controller
 {
-    private readonly IAuthService authService;
-    private readonly ISessionService sessionService;
-    private readonly AppSetting appSetting;
-    private readonly LdapSettings ldapSettings;
-
-        public AuthController(
-            IAuthService authService,
-        ISessionService sessionService,
-        AppSetting appSetting,
-        LdapSettings ldapSettings)
-    {
-        this.authService = authService;
-        this.sessionService = sessionService;
-        this.appSetting = appSetting;
-        this.ldapSettings = ldapSettings;
-    }
-
     [HttpGet]
     public async Task<IActionResult> Login()
     {
         if (HttpContext.User.Identity.IsAuthenticated)
         {
-            string domainUsername = HttpContext.User.Identity.Name;
+            var domainUsername = HttpContext.User.Identity.Name;
             var employee = await authService.GetEmployeeByDomain(domainUsername);
 
             if (employee.Enabled && !employee.IsDeleted)
@@ -55,9 +42,9 @@ public class AuthController : Controller
         {
             if (await IsLoginSuccess(model))
             {
-                string domainUsername = appSetting.DomainName + model.Username.Trim();
+                var domainUsername = appSetting.DomainName + model.Username.Trim();
                 var employee = await authService.GetEmployeeByDomain(domainUsername);
-                if (employee != null && employee.Enabled && !employee.IsDeleted)
+                if (employee is { Enabled: true, IsDeleted: false })
                 {
                     var employeeSetting = await authService.GetEmployeeSetting(employee.Id);
                     sessionService.CurrentEmployee = employee;
@@ -65,8 +52,8 @@ public class AuthController : Controller
 
                     var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Name, domainUsername),
-                        new Claim(ClaimTypes.NameIdentifier, employee.Id.ToString())
+                        new(ClaimTypes.Name, domainUsername),
+                        new(ClaimTypes.NameIdentifier, employee.Id.ToString())
                     };
                     var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var authProperties = new AuthenticationProperties
@@ -75,8 +62,7 @@ public class AuthController : Controller
                         IsPersistent = model.RememberMe
                     };
 
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(identity), authProperties);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity), authProperties);
 
                     return Url.IsLocalUrl(returnUrl) ? Redirect(returnUrl) : RedirectToAction("Index", "Dashboard");
                 }
@@ -108,18 +94,18 @@ public class AuthController : Controller
 
     private bool IsLoginLdapSuccess(LoginModel model)
     {
-            bool isValid;
-            using var connection = new LdapConnection();
-            try
-            {
-                connection.Connect(ldapSettings.Host, ldapSettings.Port);
-                connection.Bind(string.Format(ldapSettings.UserLoginSchema, model.Username), model.Password);
-                isValid = connection.Bound;
-            }
-            catch
-            {
-                isValid = false;
-            }
+        bool isValid;
+        using var connection = new LdapConnection();
+        try
+        {
+            connection.Connect(ldapSettings.Host, ldapSettings.Port);
+            connection.Bind(string.Format(ldapSettings.UserLoginSchema, model.Username), model.Password);
+            isValid = connection.Bound;
+        }
+        catch
+        {
+            isValid = false;
+        }
 
         return isValid;
     }

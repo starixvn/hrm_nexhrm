@@ -30,7 +30,7 @@
                     <div class="form form-stl-table">
                         <form asp-controller="overtime" asp-action="edit" method="post" id="form" class="form-create-update">
                             <div asp-validation-summary="All"></div>
-                            @if (ViewBag.Updated == true)
+                            @if (ViewBag.Updated != null && (bool)ViewBag.Updated)
                             {
                                 <input type="hidden" id="successed" value="true" />
                                 <div class="row validation-summary-success">
@@ -106,10 +106,9 @@
                                                     var i = 1;
                                                     foreach (var item in Model.TimeSheets)
                                                     {
-                                                        var rowId = "row_" + i.ToString();
-                                                        var row_hour_Id = "row_hour_" + i.ToString();
-                                                        var row_note_Id = "note_" + i.ToString();
-                                                        var empId = item.EmployeeId;
+                                                        var rowId = $"row_{i}";
+                                                        var row_hour_Id = $"row_hour_{i}";
+                                                        var row_note_Id = $"note_{i}";
 
                                                         <tr class="sortedIndex" id="@rowId" data-unique="@i">
                                                             <td>@i</td>
@@ -120,7 +119,7 @@
                                                                 <div class="left select--s datepicker-button-custom">
                                                                     <date-picker 
                                                                         name="Date"
-                                                                        min-date="new DateTime(2010, 1, 1)"
+                                                                        min-date="new DateTimeOffset(2010, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime"
                                                                         value="@item.Date"
                                                                     >
                                                                     </date-picker>

@@ -29,15 +29,12 @@
                     <div class="form form-stl-table">
                         <form asp-controller="postnatal" asp-action="Edit" method="post" class="form-create-update">
                             <div asp-validation-summary="All"></div>
-                            @if (ViewBag.Requested != null)
+                            @if (ViewBag.Requested != null && (bool)ViewBag.Requested)
                             {
-                                if (ViewBag.Requested == true)
-                                {
-                                    <div class="row validation-summary-success">
-                                        <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestCreated
-                                        <input type="hidden" id="successed" value="true" />
-                                    </div>
-                                }
+                                <div class="row validation-summary-success">
+                                    <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.RequestCreated
+                                    <input type="hidden" id="successed" value="true" />
+                                </div>
                             }
                             <div class="row form-input">
                                 <div class="col m-r--m">
@@ -61,7 +58,7 @@
                                         <date-picker
                                             name="FromDate"
                                             value="@Model.FromDate"
-                                            min-date="new DateTime(2010, 1, 1)"
+                                            min-date="new DateTimeOffset(2010, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime"
                                         >
                                         </date-picker>
                                         <i class="mdi-action-event calendar-icon left"></i>
@@ -70,7 +67,7 @@
                                         <date-picker
                                             name="ToDate"
                                             value="@Model.ToDate"
-                                            min-date="new DateTime(2010, 1, 1)"
+                                            min-date="new DateTimeOffset(2010, 1, 1, 0, 0, 0, TimeSpan.Zero).DateTime"
                                         >
                                         </date-picker>
                                         <i class="mdi-action-event calendar-icon left"></i>
@@ -86,7 +83,7 @@
                                     <div class="left select--m">
                                         @for (var i = 0; i < Model.TypeList.Count; i++)
                                         {
-                                            var id = "ChosenTypes" + @Model.TypeList[i].Value.ToString();
+                                            var id = "ChosenTypes" + @Model.TypeList[i].Value;
                                             <input checked="@Model.TypeList[i].Selected" class="filled-in" id="@id" name="ChosenTypes" type="checkbox" value="@Model.TypeList[i].Value">
                                             <label for="@id">@Model.TypeList[i].Text</label>
                                         }

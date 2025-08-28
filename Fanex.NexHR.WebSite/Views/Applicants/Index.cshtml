@@ -1,21 +1,18 @@
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.ViewModels.Applicant
-@using Fanex.NexHR.Core.Enums
-@using Fanex.NexHR.Services.Interfaces
-@inject ISessionService sessionService;
 @model ApplicantViewModel
 
 @{
     ViewBag.Title = Labels.Applicants;
     var PageSizeList = new List<SelectListItem>
     {
-        new SelectListItem { Text = "50", Value = "50" },
-        new SelectListItem { Text = "100", Value = "100" },
-        new SelectListItem { Text = "200", Value = "200" },
-        new SelectListItem { Text = "300", Value = "300" },
-        new SelectListItem { Text = "400", Value = "400" },
-        new SelectListItem { Text = "500", Value = "500" },
-        new SelectListItem { Text = "1000", Value = "1000" }
+        new () { Text = "50", Value = "50" },
+        new () { Text = "100", Value = "100" },
+        new () { Text = "200", Value = "200" },
+        new () { Text = "300", Value = "300" },
+        new () { Text = "400", Value = "400" },
+        new () { Text = "500", Value = "500" },
+        new () { Text = "1000", Value = "1000" }
     };
 }
 

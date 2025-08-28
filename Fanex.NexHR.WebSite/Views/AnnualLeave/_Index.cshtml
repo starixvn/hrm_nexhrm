@@ -1,7 +1,5 @@
-@using System.Text
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.Models.AnnualLeave
-@using Fanex.NexHR.Models
 @using Fanex.NexHR.Core.Enums
 @using Fanex.NexHR.Services.Interfaces
 @inject ISessionService sessionService;
@@ -14,11 +12,8 @@
 
     void DisplayNumber(int month, float value, int empId, string nickName)
     {
-        if (value == 0)
-        {
-            <td>-</td>
-        }
-        else
+        const float epsilon = 0.0001f;
+        if (Math.Abs(value) > epsilon)
         {
             if (month == notMonthColumn)
             {
@@ -29,12 +24,15 @@
                 var addMonth = month + 1;
                 <td>
                     <a class="@(value > 0 ? "viewhistorybymonth" : "red-color")" href="javascript:;" data-name="@nickName"
-                        id="/AnnualLeave/ViewHistoryAnnualByMonth?employeeId=@empId&year=@year&month=@addMonth">
+                       id="/AnnualLeave/ViewHistoryAnnualByMonth?employeeId=@empId&year=@year&month=@addMonth">
                         @value.ToString("0.0")
                     </a>
                 </td>
             }
-
+        }
+        else
+        {
+            <td>-</td>
         }
     }
 
@@ -109,25 +107,19 @@
         int index = 1;
         var leaveSummaryByDepartments = Model.GroupBy(t => t.DepartmentId).Select(grp => grp.First());
         <tbody>
-            @foreach (LeaveSummary leaveSummaryByDepartment in leaveSummaryByDepartments)
+            @foreach (var leaveSummaryByDepartment in leaveSummaryByDepartments)
             {
                 <tr class="row-divider">
                     <td colspan="20">
-                        <b>@leaveSummaryByDepartment.DepartmentName.ToUpper()</b>
+                        <b>@leaveSummaryByDepartment.DepartmentName.ToUpperInvariant()</b>
                     </td>
                 </tr>
 
                 var leaveSummariesByEmp = Model.Where(t => t.DepartmentId == leaveSummaryByDepartment.DepartmentId);
-                foreach (LeaveSummary leaveSummary in leaveSummariesByEmp)
+                foreach (var leaveSummary in leaveSummariesByEmp)
                 {
-                    var htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(
-                    new
-                    {
-                        @class = "aba filled-in",
-                        data_id = leaveSummary.EmpId
-                    });
                     <tr>
-                        @if (@isHRRole)
+                        @if (isHRRole)
                         {
                             <td class="col-checkbox">
                                 <input class="aba filled-in" id="checkbox_@leaveSummary.EmpId" data-id="@leaveSummary.EmpId"
@@ -158,7 +150,7 @@
                             DisplayNumber((int)Months.December, leaveSummary.Dec, leaveSummary.EmpId, leaveSummary.NickName);
                             DisplayNumber(notMonthColumn, leaveSummary.LeaveBalance, leaveSummary.EmpId, leaveSummary.NickName);
                         }
-                        @if (@isHRRole)
+                        @if (isHRRole)
                         {
                             <td class="center">
                                 <a href="~/annualleave/employee?employeeId=@leaveSummary.EmpId&Year=@year">

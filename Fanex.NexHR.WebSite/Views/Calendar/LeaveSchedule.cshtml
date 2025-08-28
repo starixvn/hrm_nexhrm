@@ -22,16 +22,14 @@
 }
 @{
     ViewBag.Title = Labels.LeaveSchedules;
-    var teams = new SelectList(Model.Teams, "Id", "Name");
 }
 @{
-
-    int Month = 12;
-    int year = DateTimeOffset.Now.DateTime.ToClientTimeZone().GetMaxDate().Year + 1;
+    const byte december = 12;
+    var year = DateTimeOffset.Now.DateTime.ToClientTimeZone().GetMaxDate().Year + 1;
 
     var maxDate = new System.Text.StringBuilder();
-    maxDate.AppendFormat("{0}/{1}/1", year, Month);
-    DateTime currentDate = new DateTime(Model.Year, Model.Month, 1);
+    maxDate.AppendFormat("{0}/{1}/1", year, december);
+    var currentDate = new DateTimeOffset(Model.Year, Model.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
 }
 
 <div class="row content">
@@ -78,8 +76,7 @@
                                             <option value="">@Labels.AllTeams</option>
                                             @foreach (var team in Model.Teams)
                                             {
-                                                <option value="@team.Id" data-department-id="@team.DepartmentId">@team.Name
-                                                </option>
+                                                <option value="@team.Id" data-department-id="@team.DepartmentId">@team.Name</option>
                                             }
                                         </select>
                                     </div>

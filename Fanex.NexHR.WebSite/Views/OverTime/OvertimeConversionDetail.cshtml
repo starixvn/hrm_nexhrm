@@ -1,10 +1,9 @@
 @using Fanex.NexHR.Core
 @using Fanex.NexHR.Resources
 @using Fanex.NexHR.ViewModels.Overtime
-@model OvertimeConversionDetailViewModel
-@using Fanex.NexHR.Core.Enums
 @using Fanex.NexHR.Services.Interfaces
 @inject ISessionService sessionService;
+@model OvertimeConversionDetailViewModel
 @{
     ViewBag.Title = Labels.OvertimePaymentDetail;
     var isHRRole = sessionService.CurrentEmployee.HasHRRole;
