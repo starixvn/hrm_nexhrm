@@ -55,11 +55,11 @@
 
         private async Task SendMessageToLeaders(IEnumerable<EmployeesMissedLogTime> employees, DateTime yesterday)
         {
-            var groupedTeams = employees.Where(e => !e.IsLeader).GroupBy(e => e.TeamCode).ToList();
+            var groupedTeams = employees.Where(e => !e.IsLeader).GroupBy(e => e.GroupTeamId).ToList();
 
             foreach (var team in groupedTeams)
             {
-                var leader = employees.FirstOrDefault(e => e.TeamCode == team.Key && e.IsLeader);
+                var leader = employees.FirstOrDefault(e => e.GroupTeamId == team.Key && e.IsLeader);
                 if (leader == null)
                 {
                     continue;
