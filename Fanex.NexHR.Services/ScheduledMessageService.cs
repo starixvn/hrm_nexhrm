@@ -25,7 +25,7 @@
     {
         private const string FirstLunar = "01";
         private const int FifteenLunar = 15;
-        private const int IdEmpCreateVegetarianMessages = 88;
+        private const int IdEmpCreateVegetarianMessages = 6035;
         private const int itemEachBatch = 10;
         private const string CacheKeyIgnoredReminder = "UserIgnoredReminderVegetarianRestration";
 
