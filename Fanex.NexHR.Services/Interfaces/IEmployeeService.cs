@@ -51,15 +51,5 @@
         IList<string> UserRoles(UserSession currentUser);
 
         Task<CommandResult> CheckExistAsync(CheckExistEmployeeCriteria criteria);
-        Task<IEnumerable<SyncEmployeeModel>> GetEmployeesByLastModifiedDate(GetEmployeesByLastModifiedDateCriteria criteria);
-
-        Task<IEnumerable<SyncEmployeeAttendanceModel>> GetEmployeeAttendances(
-            GetEmployeeAttendancesCriteria criteria);
-
-        Task<IEnumerable<EmployeeCalendarModel>> GetEmployeeCalendarsByLastModifiedDate(GetEmployeeCalendarsByLastModifiedDateCriteria criteria);
-
-        Task<IEnumerable<EmployeeOverTimeModel>> GetEmployeeOvertimesByLastModifiedDate(GetEmployeeOvertimeByLastModifiedDateCriteria criteria);
-
-        Task<IEnumerable<EmployeeTOEIC>> GetEmployeeTOEICsByLastModifiedDate(GetEmployeeTOEICByLastModifiedDateCriteria criteria);
     }
 }

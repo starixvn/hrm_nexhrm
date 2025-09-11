@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Fanex.NexHR.Criteria.SyncData.SyncNexGoal;
+using Fanex.NexHR.Models.SyncData.SyncNexGoalModel;
 using Fanex.NexHR.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +9,7 @@ namespace Fanex.NexHR.Controllers.API.Sync;
 
 [ApiController]
 [Route("api/sync/[controller]")]
-public class EmployeeController(IEmployeeService employeeService) : ControllerBase
+public class EmployeeController(IBaseService baseService) : ControllerBase
 {
     [HttpGet]
     public async Task<IActionResult> GetEmployeesByLastModifiedDate(DateTime lastModifiedDate)
@@ -17,10 +18,9 @@ public class EmployeeController(IEmployeeService employeeService) : ControllerBa
         {
             LastModifiedDate = lastModifiedDate
         };
+        var employees = await baseService.GetDataAsync<SyncEmployeeModel>(criteria);
 
-        var result = await employeeService.GetEmployeesByLastModifiedDate(criteria);
-
-        return new JsonResult(result);
+        return Ok(employees);
     }
 
     [HttpGet("attendance")]
@@ -30,8 +30,9 @@ public class EmployeeController(IEmployeeService employeeService) : ControllerBa
         {
             LastModifiedDate = lastModifiedDate
         };
-        var result = await employeeService.GetEmployeeAttendances(criteria);
-        return Ok(result);
+        var attendances = await baseService.GetDataAsync<SyncEmployeeAttendanceModel>(criteria);
+
+        return Ok(attendances);
     }
 
     [HttpGet("calendar")]
@@ -41,10 +42,9 @@ public class EmployeeController(IEmployeeService employeeService) : ControllerBa
         {
             LastModifiedDate = lastModifiedDate
         };
+        var calendars = await baseService.GetDataAsync<EmployeeCalendarModel>(criteria);
 
-        var result = await employeeService.GetEmployeeCalendarsByLastModifiedDate(criteria);
-
-        return Ok(result);
+        return Ok(calendars);
     }
 
     [HttpGet("overtime")]
@@ -54,8 +54,9 @@ public class EmployeeController(IEmployeeService employeeService) : ControllerBa
         {
             LastModifiedDate = lastModifiedDate
         };
-        var result = await employeeService.GetEmployeeOvertimesByLastModifiedDate(criteria);
-        return Ok(result);
+        var overtimes = await baseService.GetDataAsync<EmployeeOverTimeModel>(criteria);
+
+        return Ok(overtimes);
     }
 
     [HttpGet("toeic")]
@@ -65,7 +66,8 @@ public class EmployeeController(IEmployeeService employeeService) : ControllerBa
         {
             LastModifiedDate = lastModifiedDate
         };
-        var result = await employeeService.GetEmployeeTOEICsByLastModifiedDate(criteria);
-        return Ok(result);
+        var employees = await baseService.GetDataAsync<EmployeeTOEIC>(criteria);
+
+        return Ok(employees);
     }
 }

@@ -267,34 +267,9 @@
             return roles.ToArray();
         }
 
-        public async Task<IEnumerable<SyncEmployeeModel>> GetEmployeesByLastModifiedDate(GetEmployeesByLastModifiedDateCriteria criteria)
-        {
-            return await baseService.GetDataAsync<SyncEmployeeModel>(criteria);
-        }
-
         public async Task<CommandResult> CheckExistAsync(CheckExistEmployeeCriteria criteria)
         {
             return await baseService.GetDataEntityAsync<CommandResult>(criteria);
-        }
-
-        public async Task<IEnumerable<SyncEmployeeAttendanceModel>> GetEmployeeAttendances(GetEmployeeAttendancesCriteria criteria)
-        {
-            return await baseService.GetDataAsync<SyncEmployeeAttendanceModel>(criteria);
-        }
-
-        public async Task<IEnumerable<EmployeeCalendarModel>> GetEmployeeCalendarsByLastModifiedDate(GetEmployeeCalendarsByLastModifiedDateCriteria criteria)
-        {
-            return await baseService.GetDataAsync<EmployeeCalendarModel>(criteria);
-        }
-
-        public async Task<IEnumerable<EmployeeOverTimeModel>> GetEmployeeOvertimesByLastModifiedDate(GetEmployeeOvertimeByLastModifiedDateCriteria criteria)
-        {
-            return await baseService.GetDataAsync<EmployeeOverTimeModel>(criteria);
-        }
-
-        public async Task<IEnumerable<EmployeeTOEIC>> GetEmployeeTOEICsByLastModifiedDate(GetEmployeeTOEICByLastModifiedDateCriteria criteria)
-        {
-            return await baseService.GetDataAsync<EmployeeTOEIC>(criteria);
         }
     }
 }

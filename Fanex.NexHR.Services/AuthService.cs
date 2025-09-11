@@ -41,29 +41,26 @@
 
         public async Task<UserSession> GetEmployeeByDomain(string domainUserName)
         {
-            var getUserCriteria = new GetEmployeeByDomainNameCriteria { DomainUserName = domainUserName };
-            var userSession = await employeeService.GetEmployeeByDomainName(getUserCriteria);
-            return userSession;
+            var criteria = new GetEmployeeByDomainNameCriteria { DomainUserName = domainUserName };
+            return await employeeService.GetEmployeeByDomainName(criteria);
         }
 
         public async Task<EmployeeSetting> GetEmployeeSetting(int employeeId)
         {
-            var employeeSettingCriteria = new GetCurrentUserSettingCriteria
+            var criteria = new GetCurrentUserSettingCriteria
             {
                 EmployeeId = employeeId
             };
-            var employeeSetting = await baseService.GetDataEntityAsync<EmployeeSetting>(employeeSettingCriteria);
-            return employeeSetting;
+            return await baseService.GetDataEntityAsync<EmployeeSetting>(criteria);
         }
 
         public async Task<LoginEmployee> GetLoginEmployee(string domainUsername)
         {
             var criteria = new GetLoginEmployeeCriteria
             {
-                DomainUsername = domainUsername,
+                DomainUsername = domainUsername
             };
-            var loginEmployee = await baseService.GetDataEntityAsync<LoginEmployee>(criteria);
-            return loginEmployee;
+            return await baseService.GetDataEntityAsync<LoginEmployee>(criteria);
         }
 
         public async Task<CommandResult> ChangePassword(int id, string password)
@@ -73,8 +70,7 @@
                 Id = id,
                 Password = password
             };
-            var commandResult = await baseService.ExecuteNonQueryAsync(criteria);
-            return commandResult;
+            return await baseService.ExecuteNonQueryAsync(criteria);
         }
 
         public async Task AuthorizeGoSystemAsync()
