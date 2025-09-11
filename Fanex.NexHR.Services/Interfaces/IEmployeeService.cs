@@ -5,9 +5,7 @@
     using Criteria;
     using Criteria.Employee;
     using Criteria.Workload;
-    using Fanex.NexHR.Criteria.SyncData.SyncNexGoal;
     using HRM.Criteria.Employee;
-    using Fanex.NexHR.Models.SyncData.SyncNexGoalModel;
     using Models;
     using Models.Report;
     using Models.Workload;
@@ -20,6 +18,7 @@
         Task<UserSession> GetEmployeeByDomainName(GetEmployeeByDomainNameCriteria criteria);
 
         Task<IEnumerable<EmployeeInfo>> GetEmployeeByUsername(GetEmployeeByUsernameCriteria criteria);
+
         Task<IEnumerable<EmployeeInfo>> GetByEmployeeModifiedDate(GetEmployeeByModifiedDateCriteria criteria);
 
         Task<Employee> GetEmployeeByNickName(GetEmployeeByNickNameCriteria criteria);

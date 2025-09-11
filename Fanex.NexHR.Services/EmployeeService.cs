@@ -11,9 +11,7 @@
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.EmployeeTransfer;
-    using Fanex.NexHR.Criteria.SyncData.SyncNexGoal;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.SyncData.SyncNexGoalModel;
     using HRM.Criteria.Employee;
     using Interfaces;
     using Models.Report;
@@ -177,7 +175,6 @@
         {
             return await baseService.GetDataAsync<EmployeesMissedLogTime>(new GetEmployeeMissedLogTimeCriteria());
         }
-
 
         private static string getCompanyWorkFromHome(IList<DashBoardCompanySpace> dashBoard, string[] ignoreEmps)
         {
