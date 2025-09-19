@@ -24,6 +24,8 @@
 
         public int? DepartmentId { get; set; }
 
+        public int? PayrollCompanyId { get; set; }
+
         public override string GetSettingKey()
         {
             return "Report_WorkingHoursStatistic";

@@ -32,5 +32,9 @@
         public float PreMonthUnpaidLeave { get; set; }
 
         public int PreMonthTotalWorkingDay { get; set; }
+
+        public int PayrollCompanyId { get; set; }
+
+        public string PayrollCompanyName { get; set; }
     }
 }

@@ -182,7 +182,8 @@
                 ToDateLastMonth = model.ToDateLastMonth,
                 EmployeeId = (model.EmployeeId != -1 && model.EmployeeId != 0) ? new int?(model.EmployeeId) : null,
                 DepartmentId = model.DepartmentId,
-                GroupId = model.TeamId
+                GroupId = model.TeamId,
+                PayrollCompanyId = model.PayrollCompanyId
             };
 
             string fileName = "WorkingHoursStatistic_" + now.Day + now.Month + now.Year + ".xlsx";

@@ -286,6 +286,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All companies.
+        /// </summary>
+        public static string AllCompanies {
+            get {
+                return ResourceManager.GetString("AllCompanies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All departments.
         /// </summary>
         public static string AllDepartments {
@@ -4166,6 +4175,15 @@ namespace Fanex.NexHR.Resources {
         public static string PayDate {
             get {
                 return ResourceManager.GetString("PayDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payroll Company.
+        /// </summary>
+        public static string PayrollCompany {
+            get {
+                return ResourceManager.GetString("PayrollCompany", resourceCulture);
             }
         }
         

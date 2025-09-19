@@ -38,9 +38,13 @@
 
         public int? DepartmentId { get; set; }
 
+        public int? PayrollCompanyId { get; set; }
+
         public IList<Team> Teams { get; set; }
 
         public IEnumerable<Department> Departments { get; set; }
+
+        public List<CompanyModel> Companies { get; set; }
 
         public string Sort { get; set; }
     }

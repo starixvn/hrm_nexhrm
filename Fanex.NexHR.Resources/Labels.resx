@@ -2022,4 +2022,10 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   <data name="PasswordChangedSuccessfully" xml:space="preserve">
     <value>Password changed successfully</value>
   </data>
+  <data name="PayrollCompany" xml:space="preserve">
+    <value>Payroll Company</value>
+  </data>
+  <data name="AllCompanies" xml:space="preserve">
+    <value>All companies</value>
+  </data>
 </root>
