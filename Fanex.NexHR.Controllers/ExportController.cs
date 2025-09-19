@@ -280,7 +280,8 @@
 
             string fileName = $"LateInEarlyOutReport_{year}.xlsx";
             string templatePath = Path.Combine(environment.ContentRootPath, LateInEarlyOutReportTemplatePath);
-            var bytes = ExportService.ExportLateInEarlyOutReport(lateInEarlyOuts, year, templatePath);
+            var isHRRole = CurrentUser.HasHRRole;
+            var bytes = ExportService.ExportLateInEarlyOutReport(lateInEarlyOuts, year, templatePath, isHRRole);
 
             return File(bytes, ContentTyleFile, fileName);
         }

@@ -74,9 +74,10 @@
         public static byte[] ExportLateInEarlyOutReport(
             IEnumerable<LateInEarlyOutSummary> lateInEarlyOutSummaries,
             int year,
-            string templatePath)
+            string templatePath,
+            bool isHRRole = false)
         {
-            var excelLateInEarlyOut = new LateInEarlyOutReportExcel(templatePath, lateInEarlyOutSummaries, year);
+            var excelLateInEarlyOut = new LateInEarlyOutReportExcel(templatePath, lateInEarlyOutSummaries, year, isHRRole);
             return excelLateInEarlyOut.Export();
         }
     }

@@ -7,30 +7,34 @@ namespace Fanex.NexHR.Services.ExportExcel
     using System.Drawing;
     using System.Linq;
 
-    public class LateInEarlyOutReportExcel(
-        string templatePath,
-        IEnumerable<LateInEarlyOutSummary> lateInEarlyOutSummaries,
-        int year)
-        : ExcelBase(templatePath, 0, "LateInEarlyOutReport")
+    public class LateInEarlyOutReportExcel : ExcelBase
     {
         private const byte RowStartHeader = 3;
         private const byte RowStartBody = 5;
-        private const byte TotalCols = 19;
-        private int rowIndex = RowStartBody;
-        private int rowNumber = 1;
+        private int rowIndex;
+        private readonly IEnumerable<LateInEarlyOutSummary> lateInEarlyOutSummaries;
+        private readonly int year;
+        private readonly bool isHRRole;
+
+        private int TotalCols => isHRRole ? 20 : 19;
+
+        public LateInEarlyOutReportExcel(string templatePath, IEnumerable<LateInEarlyOutSummary> lateInEarlyOutSummaries, int year, bool isHRRole = false) : base(templatePath, 0, "LateInEarlyOutReport")
+        {
+            this.lateInEarlyOutSummaries = lateInEarlyOutSummaries;
+            this.year = year;
+            this.isHRRole = isHRRole;
+            rowIndex = RowStartBody;
+        }
 
         protected internal override void RenderTitle(ExcelWorksheet templateWorksheet, ExcelWorksheet worksheet)
         {
-            // Set title
             worksheet.Cells[1, 1].Value = $"LATE IN/EARLY OUT REPORT - {year}";
             worksheet.Cells[1, 1].Style.Font.Size = 16;
             worksheet.Cells[1, 1].Style.Font.Bold = true;
             worksheet.Cells[1, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
-            // Merge title cells
             worksheet.Cells[1, 1, 1, TotalCols].Merge = true;
 
-            // Add explanatory notes
             worksheet.Cells[2, 1].Value = "Deduction Taken (Hours): The grand total hour(s) of Late In/Early Out, resulted in a deduction taken from Leave Balance.";
             worksheet.Cells[2, 1].Style.Font.Size = 10;
             worksheet.Cells[2, 1].Style.Font.Italic = true;
@@ -39,24 +43,60 @@ namespace Fanex.NexHR.Services.ExportExcel
 
         protected internal override void RenderHeader(ExcelWorksheet templateWorksheet, ExcelWorksheet worksheet)
         {
-            // Main header row
             worksheet.Cells[RowStartHeader, 1].Value = "English Name";
-            worksheet.Cells[RowStartHeader, 2].Value = $"{year - 1} (Hours)";
-            worksheet.Cells[RowStartHeader, 3].Value = $"{year} (Hours / Times)";
-            worksheet.Cells[RowStartHeader, 16].Value = "Total(s)";
-            worksheet.Cells[RowStartHeader, 17].Value = "Deduction Taken";
-            worksheet.Cells[RowStartHeader, 18].Value = "Used NEX";
-            worksheet.Cells[RowStartHeader, 19].Value = "Balance";
 
-            // Merge the year column header across month columns
-            worksheet.Cells[RowStartHeader, 3, RowStartHeader, 15].Merge = true;
+            int currentCol = 2;
+            if (isHRRole)
+            {
+                worksheet.Cells[RowStartHeader, currentCol].Value = "Payroll Company";
+                currentCol++;
+            }
+
+            worksheet.Cells[RowStartHeader, currentCol].Value = $"{year - 1} (Hours)";
+            currentCol++;
+            worksheet.Cells[RowStartHeader, currentCol].Value = $"{year} (Hours / Times)";
+
+            // Calculate the end column for the year merge
+            int yearEndCol = currentCol + 12; // 12 months + Total
+            worksheet.Cells[RowStartHeader, currentCol, RowStartHeader, yearEndCol].Merge = true;
+
+            // Set the remaining headers
+            int remainingCol = yearEndCol + 1;
+            worksheet.Cells[RowStartHeader, remainingCol].Value = "Deduction Taken";
+            remainingCol++;
+            worksheet.Cells[RowStartHeader, remainingCol].Value = "Used NEX";
+            remainingCol++;
+            worksheet.Cells[RowStartHeader, remainingCol].Value = "Balance";
+            remainingCol++;
+            worksheet.Cells[RowStartHeader, remainingCol].Value = "Balance";
 
             // Month headers - place them in the second row
-            string[] months = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+            string[] months = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Total(s)" };
             for (int i = 0; i < months.Length; i++)
             {
-                worksheet.Cells[RowStartHeader + 1, 3 + i].Value = months[i];
+                worksheet.Cells[RowStartHeader + 1, currentCol + i].Value = months[i];
             }
+
+            // Merge the non-month columns in the first row to span both header rows
+            // English Name column
+            worksheet.Cells[RowStartHeader, 1, RowStartHeader + 1, 1].Merge = true;
+
+            // Payroll Company column (if HR role)
+            if (isHRRole)
+            {
+                worksheet.Cells[RowStartHeader, 2, RowStartHeader + 1, 2].Merge = true;
+            }
+
+            // Last year column
+            int lastYearCol = isHRRole ? 3 : 2;
+            worksheet.Cells[RowStartHeader, lastYearCol, RowStartHeader + 1, lastYearCol].Merge = true;
+
+            // Deduction Taken, Used NEX, and Balance columns
+            int deductionCol = yearEndCol + 1;
+            worksheet.Cells[RowStartHeader, deductionCol, RowStartHeader + 1, deductionCol].Merge = true;
+            worksheet.Cells[RowStartHeader, deductionCol + 1, RowStartHeader + 1, deductionCol + 1].Merge = true;
+            worksheet.Cells[RowStartHeader, deductionCol + 2, RowStartHeader + 1, deductionCol + 2].Merge = true;
+            worksheet.Cells[RowStartHeader, deductionCol + 3, RowStartHeader + 1, deductionCol + 3].Merge = true;
 
             // Style headers
             var headerRange = worksheet.Cells[RowStartHeader, 1, RowStartHeader + 1, TotalCols];
@@ -98,7 +138,6 @@ namespace Fanex.NexHR.Services.ExportExcel
                 {
                     RenderRow(lateInEarlyOut, worksheet);
                     rowIndex++;
-                    rowNumber++;
                 }
             }
         }
@@ -109,6 +148,12 @@ namespace Fanex.NexHR.Services.ExportExcel
 
             // English Name
             worksheet.Cells[rowIndex, colIndex++].Value = lateInEarlyOut.NickName;
+
+            // Payroll Company (only for HR role)
+            if (isHRRole)
+            {
+                worksheet.Cells[rowIndex, colIndex++].Value = lateInEarlyOut.PayrollCompanyName;
+            }
 
             // Last year balance
             worksheet.Cells[rowIndex, colIndex++].Value = lateInEarlyOut.BalanceLastYear != 0 ? (lateInEarlyOut.BalanceLastYear / 60.0).ToString("0.0") : "-";
@@ -145,7 +190,9 @@ namespace Fanex.NexHR.Services.ExportExcel
         private string FormatMonthlyData(int minutes, int times)
         {
             if (minutes == 0)
+            {
                 return "-";
+            }
 
             return $"{minutes / 60.0:F1}/{times}";
         }
@@ -166,14 +213,17 @@ namespace Fanex.NexHR.Services.ExportExcel
 
         protected internal virtual void SetStyle(ExcelWorksheet worksheet)
         {
-            // Center align data columns (not team headers)
-            int[] colWithCenter = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 };
+            int[] colWithCenter = new int[TotalCols];
+            for (int i = 0; i < TotalCols; i++)
+            {
+                colWithCenter[i] = i + 1;
+            }
+
             foreach (int index in colWithCenter)
             {
                 worksheet.Column(index).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             }
 
-            // Draw borders for all data rows
             for (var index = 0; index < lateInEarlyOutSummaries.Count() + lateInEarlyOutSummaries.GroupBy(t => t.TeamId).Count(); index++)
             {
                 DrawBorderCell(worksheet.Cells[RowStartBody + index, 1, RowStartBody + index, TotalCols]);
@@ -186,7 +236,16 @@ namespace Fanex.NexHR.Services.ExportExcel
             worksheet.Row(1).Height = RowHeightTitle;
             worksheet.Row(2).Height = 15;
 
-            int[] widthCol = { 20, 15, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 15, 15, 15 };
+            int[] widthCol;
+            if (isHRRole)
+            {
+                widthCol = new int[] { 18, 18, 12, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 14, 20, 15, 15, 15 };
+            }
+            else
+            {
+                widthCol = new int[] { 18, 12, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 14, 20, 15, 15, 15 };
+            }
+
             for (int i = 0; i < widthCol.Length; i++)
             {
                 worksheet.Column(i + 1).Width = widthCol[i];
