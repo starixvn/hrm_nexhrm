@@ -33,6 +33,7 @@
         private const string DayOffScheduleTemplatePath = "ExcelTemplates/DayOffSchedule.xlsx";
         private const string HeadCountReportTemplatePath = "ExcelTemplates/HeadCountReport.xlsx";
         private const string ApplicantsTemplatePath = "ExcelTemplates/ApplicantsReport.xlsx";
+        private const string LateInEarlyOutReportTemplatePath = "ExcelTemplates/LateInEarlyOutReport.xlsx";
         private const string ContentTyleFile = "application/xlsx";
 
         private readonly IEmployeeService employeeService;
@@ -260,6 +261,25 @@
             string fileName = string.Format("{0}{1}{2}", "HeadCount", report.StartDate.Year, ".xlsx");
             string templatePath = Path.Combine(environment.ContentRootPath, HeadCountReportTemplatePath);
             var bytes = ExportService.ExportHeadCountReport(report, templatePath);
+
+            return File(bytes, ContentTyleFile, fileName);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> LateInEarlyOutReport(int year, int? teamId = null, int? employeeId = null)
+        {
+            var criteria = new GetLateInEarlyOutReportCriteria
+            {
+                EmployeeId = employeeId > 0 ? new int?(employeeId.Value) : null,
+                GroupId = teamId,
+                Year = year
+            };
+
+            var lateInEarlyOuts = await reportService.GetLateInEarlyOut(criteria);
+
+            string fileName = $"LateInEarlyOutReport_{year}.xlsx";
+            string templatePath = Path.Combine(environment.ContentRootPath, LateInEarlyOutReportTemplatePath);
+            var bytes = ExportService.ExportLateInEarlyOutReport(lateInEarlyOuts, year, templatePath);
 
             return File(bytes, ContentTyleFile, fileName);
         }

@@ -6,7 +6,8 @@
 @{
     ViewBag.Title = Labels.LateInEarlyOut;
     var teams = new SelectList(Model.Teams, "Id", "Name");
-    var leaveDeductionViewModel = new LeaveDeductionViewModel {
+    var leaveDeductionViewModel = new LeaveDeductionViewModel
+    {
         DeductDate = DateTimeOffset.Now.DateTime.ToClientTimeZone(),
         TotalDays = decimal.Parse("0.5"),
         Description = Labels.LeaveDeductionDescription,
@@ -66,6 +67,7 @@
                                 </div>
                                 <div class="col">
                                     <input type="button" value="@Labels.Submit" id="submit" class="btn-submit waves-effect waves-light" />
+                                    <input type="button" value="Export Excel" id="exportExcel" class="btn-request waves-effect waves-light m-l--s" />
                                 </div>
                             </div>
                             <div class="row">

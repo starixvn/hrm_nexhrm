@@ -70,5 +70,14 @@
             var excelApplicants = new ApplicantsReportExcel(templatePath, listApplicants, fromDate, toDate, pageNumber, pageSize);
             return excelApplicants.Export();
         }
+
+        public static byte[] ExportLateInEarlyOutReport(
+            IEnumerable<LateInEarlyOutSummary> lateInEarlyOutSummaries,
+            int year,
+            string templatePath)
+        {
+            var excelLateInEarlyOut = new LateInEarlyOutReportExcel(templatePath, lateInEarlyOutSummaries, year);
+            return excelLateInEarlyOut.Export();
+        }
     }
 }
