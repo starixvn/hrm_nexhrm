@@ -32,6 +32,8 @@
 
         public float OvertimeDeduct { get; set; }
 
+        public string PayrollCompanyName { get; set; }
+
         public static string DisplayValue(float value)
         {
             return value.Equals(0) ? "-" : value.ToString("0.0");

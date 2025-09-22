@@ -12,15 +12,19 @@
         private readonly IList<EmployeeAttendanceModel> employeeAttendanceModel;
         private const byte RowStartHeader = 3;
         private const byte RowStartBody = 4;
-        private const byte TotalCols = 15;
+        private readonly int TotalCols;
         private const byte Five = 5;
         private int rowIndex = RowStartBody;
         private int stt = 1;
+        private readonly bool _isHR;
+        private readonly int PayrollColumnPosition = 8;
 
-        public AttendancesReportExcel(string templatePath, IList<EmployeeAttendanceModel> EmployeeAttendanceModel)
+        public AttendancesReportExcel(string templatePath, IList<EmployeeAttendanceModel> EmployeeAttendanceModel, bool isHR = false)
             : base(templatePath, 0, "EmployeeAttendance")
         {
             employeeAttendanceModel = EmployeeAttendanceModel;
+            _isHR = isHR;
+            TotalCols = isHR ? 16 : 15;
         }
 
         protected internal override void RenderBody(ExcelWorksheet templateWorksheet, ExcelWorksheet worksheet)
@@ -33,7 +37,7 @@
             }
         }
 
-        protected internal virtual void SetValueRow(EmployeeAttendanceModel report, ExcelWorksheet worksheet)
+        protected internal virtual async void SetValueRow(EmployeeAttendanceModel report, ExcelWorksheet worksheet)
         {
             int colIndex = 1;
             worksheet.Cells[rowIndex, colIndex++].Value = stt;
@@ -43,6 +47,10 @@
             worksheet.Cells[rowIndex, colIndex++].Value = report.FullName;
             worksheet.Cells[rowIndex, colIndex++].Value = report.DepartmentName;
             worksheet.Cells[rowIndex, colIndex++].Value = report.TeamCode;
+            if (_isHR)
+            {
+                worksheet.Cells[rowIndex, colIndex++].Value = report.PayrollCompanyName;
+            }
             worksheet.Cells[rowIndex, colIndex++].Value = report.ShiftCode;
             worksheet.Cells[rowIndex, colIndex++].Value = report.InFixed?.ToString("hh:mm");
             worksheet.Cells[rowIndex, colIndex++].Value = report.OutFixed?.ToString("hh:mm");
@@ -79,6 +87,19 @@
         {
             templateWorksheet.Cells[RowStartHeader, 1, RowStartHeader, TotalCols]
                 .Copy(worksheet.Cells[RowStartHeader, 1, RowStartHeader, TotalCols]);
+
+            if (_isHR)
+            {
+                worksheet.InsertColumn(PayrollColumnPosition, 1);
+                var headerCell = worksheet.Cells[RowStartHeader, PayrollColumnPosition];
+                headerCell.Value = "Payroll Company";
+                headerCell.Style.Font.Name = "Arial";
+                headerCell.Style.Font.Bold = true;
+                headerCell.Style.Font.Color.SetColor(Color.White);
+                headerCell.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                headerCell.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(51, 51, 51));
+                headerCell.Style.Border.BorderAround(ExcelBorderStyle.Thin, Color.Black);
+            }
         }
 
         protected internal override void RenderTitle(ExcelWorksheet templateWorksheet, ExcelWorksheet worksheet)
@@ -110,13 +131,7 @@
 
         protected internal virtual void SetWidthColumn(ExcelWorksheet worksheet)
         {
-            const int RowHeightTitle = 25;
-            worksheet.Row(1).Height = RowHeightTitle;
-            int[] widthCol = new[] { 5, 15, 10, 13, 30, 15, 13, 8, 12, 12, 12, 12, 12, 25, 30 };
-            for (int i = 0; i < widthCol.Length; i++)
-            {
-                worksheet.Column(i + 1).Width = widthCol[i];
-            }
+            worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
         }
     }
 }

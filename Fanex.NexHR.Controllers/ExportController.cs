@@ -7,8 +7,10 @@
     using Criteria.Report;
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Criteria.Applicant;
+    using Fanex.NexHR.Criteria.Overtime;
     using Fanex.NexHR.Models.Applicant;
     using Fanex.NexHR.Models.Export;
+    using Fanex.NexHR.Models.Overtime;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using Models;
@@ -34,6 +36,7 @@
         private const string HeadCountReportTemplatePath = "ExcelTemplates/HeadCountReport.xlsx";
         private const string ApplicantsTemplatePath = "ExcelTemplates/ApplicantsReport.xlsx";
         private const string LateInEarlyOutReportTemplatePath = "ExcelTemplates/LateInEarlyOutReport.xlsx";
+        private const string NexSummaryReportTemplatePath = "ExcelTemplates/NexSummary.xlsx";
         private const string ContentTyleFile = "application/xlsx";
 
         private readonly IEmployeeService employeeService;
@@ -41,19 +44,22 @@
         private readonly ICalendarService calendarService;
         private readonly IWebHostEnvironment environment;
         private readonly IApplicantService applicantService;
+        private readonly IBaseService baseService;
 
         public ExportController(ISessionService sessionService,
             IApplicantService applicantService,
             IEmployeeService employeeService,
             IReportService reportService,
             ICalendarService calendarService,
-            IWebHostEnvironment environment) : base(sessionService)
+            IWebHostEnvironment environment,
+            IBaseService baseService) : base(sessionService)
         {
             this.applicantService = applicantService;
             this.employeeService = employeeService;
             this.reportService = reportService;
             this.calendarService = calendarService;
             this.environment = environment;
+            this.baseService = baseService;
         }
 
         public async Task<IActionResult> TotalWorkingHours(TotalWorkingHoursViewModel model)
@@ -165,7 +171,29 @@
             }
 
             string templatePath = Path.Combine(environment.ContentRootPath, EmployeeAttendaceTemplatePath);
-            var bytes = ExportService.ExportEmployeeAttendances(employeeAttendances, templatePath);
+            var isHR = CurrentUser.HasHRRole;
+            var bytes = ExportService.ExportEmployeeAttendances(employeeAttendances, templatePath, isHR);
+
+            return File(bytes, ContentTyleFile, fileName);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> OvertimeSummary(int? empId, int? teamId, int? departmentId, int year)
+        {
+            const string fileName = "NexSummary.xlsx";
+
+            var criteria = new OvertimeSummaryCriteria
+            {
+                EmployeeId = empId,
+                TeamId = teamId,
+                DepartmentId = departmentId,
+                Year = year
+            };
+            var listSummary = await baseService.GetDataAsync<OvertimeSummary>(criteria);
+
+            string templatePath = Path.Combine(environment.ContentRootPath, NexSummaryReportTemplatePath);
+            var isHR = CurrentUser.HasHRRole;
+            var bytes = ExportService.ExportOvertimeSummary(listSummary, year, templatePath, isHR);
 
             return File(bytes, ContentTyleFile, fileName);
         }

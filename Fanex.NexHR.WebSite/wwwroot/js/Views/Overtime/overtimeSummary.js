@@ -184,7 +184,19 @@ var overtimeSummary = (function ($) {
   //    $('#cancel').on("click", function () {
   //        $(domElement.insertformLeaveConversion).dialog('close');
   //    });
-  //}
+    //}
+
+function eventExportExcel() {
+
+    $('#exportExcel').on('click', function (evt) {
+        evt.preventDefault();
+        const data = 'empId=' + $('#EmployeeId').val() + '&teamid=' + $('#TeamId').val() + '&year=' + $('#Year').val() + '&departmentId=' + $('#DepartmentId').val();
+
+        window.location.href =
+            _global.root +
+            'Export/OvertimeSummary?query=' + data;
+    });
+}
 
   function registerSubmitEvent() {
     $('#submit').on('click', function () {
@@ -196,7 +208,8 @@ var overtimeSummary = (function ($) {
     registerSubmitEvent();
     //initAddLeaveConversion();
     initModalCreateConversionEvent();
-    initDepartmentChange();
+      initDepartmentChange();
+      eventExportExcel();
   }
 
   return {
