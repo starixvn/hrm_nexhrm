@@ -14,7 +14,7 @@ namespace Fanex.NexHR.Services.ExportExcel
         private readonly DateTime toDate;
         private const byte RowStartHeader = 3;
         private const byte RowStartBody = 5;
-        private const byte TotalCols = 21;
+        private const byte TotalCols = 22;
         private int rowIndex = RowStartBody;
         private const byte FontSizeTitle = 16;
         private int rowNumber = 1;
