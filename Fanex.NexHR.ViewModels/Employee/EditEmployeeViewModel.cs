@@ -140,6 +140,10 @@
 
         public IEnumerable<JobTitle> JobTitles { get; set; }
 
+        public short SalaryGroupId { get; set; }
+
+        public short PayrollCompanyId { get; set; }
+
         public string[] RoleArray
         {
             get
@@ -227,6 +231,8 @@
                 ManagementAffectedDate = employee.ManagementAffectedDate;
                 ManagementNote = employee.ManagementNote;
                 SocialInsuranceNo = employee.SocialInsuranceNo;
+                SalaryGroupId = employee.SalaryGroupId;
+                PayrollCompanyId = employee.PayrollCompanyId;
             }
         }
     }

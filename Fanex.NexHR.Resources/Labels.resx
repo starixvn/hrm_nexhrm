@@ -1834,6 +1834,12 @@ Nếu bạn không muốn nhận loại thông báo này trong tương lai vui l
   <data name="EmployeeJobGrade" xml:space="preserve">
     <value>Employee Job Grade</value>
   </data>
+  <data name="SDGroup" xml:space="preserve">
+    <value>SD Group</value>
+  </data>
+  <data name="PayrollCompany" xml:space="preserve">
+    <value>Payroll Company</value>
+  </data>
   <data name="Promotion" xml:space="preserve">
     <value>Promotion</value>
   </data>

@@ -4773,6 +4773,15 @@ namespace Fanex.NexHR.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SD Group.
+        /// </summary>
+        public static string SDGroup {
+            get {
+                return ResourceManager.GetString("SDGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string Search {

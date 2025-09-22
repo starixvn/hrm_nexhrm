@@ -10,5 +10,7 @@
         Task<IEnumerable<LookupData>> GetAll(GetAllLookupDataCriteria criteria);
 
         IEnumerable<SalaryGroup> GetSalaryGroups();
+
+        IEnumerable<PayrollCompany> GetNexCompanies();
     }
 }

@@ -289,5 +289,7 @@
         }
 
         public short SalaryGroupId { get; set; }
+
+        public short PayrollCompanyId { get; set; }
     }
 }

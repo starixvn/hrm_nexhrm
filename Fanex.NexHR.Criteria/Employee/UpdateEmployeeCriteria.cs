@@ -49,6 +49,8 @@
         public string ContactPhone { get; set; }
         public string ContactAddress { get; set; }
         public DateTime GroupDate { get; set; }
+        public short SalaryGroupId { get; set; }
+        public short PayrollCompanyId { get; set; }
         public override bool IsValid() => IsEmployeeIdAndTeamIdValid()
                    && !string.IsNullOrWhiteSpace(Code)
                    && !string.IsNullOrWhiteSpace(NickName)
