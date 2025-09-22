@@ -5,9 +5,7 @@
     using Criteria;
     using Criteria.Employee;
     using Criteria.Workload;
-    using Fanex.NexHR.Criteria.SyncData.SyncNexGoal;
     using HRM.Criteria.Employee;
-    using Fanex.NexHR.Models.SyncData.SyncNexGoalModel;
     using Models;
     using Models.Report;
     using Models.Workload;
@@ -20,6 +18,7 @@
         Task<UserSession> GetEmployeeByDomainName(GetEmployeeByDomainNameCriteria criteria);
 
         Task<IEnumerable<EmployeeInfo>> GetEmployeeByUsername(GetEmployeeByUsernameCriteria criteria);
+
         Task<IEnumerable<EmployeeInfo>> GetByEmployeeModifiedDate(GetEmployeeByModifiedDateCriteria criteria);
 
         Task<Employee> GetEmployeeByNickName(GetEmployeeByNickNameCriteria criteria);
@@ -51,15 +50,5 @@
         IList<string> UserRoles(UserSession currentUser);
 
         Task<CommandResult> CheckExistAsync(CheckExistEmployeeCriteria criteria);
-        Task<IEnumerable<SyncEmployeeModel>> GetEmployeesByLastModifiedDate(GetEmployeesByLastModifiedDateCriteria criteria);
-
-        Task<IEnumerable<SyncEmployeeAttendanceModel>> GetEmployeeAttendances(
-            GetEmployeeAttendancesCriteria criteria);
-
-        Task<IEnumerable<EmployeeCalendarModel>> GetEmployeeCalendarsByLastModifiedDate(GetEmployeeCalendarsByLastModifiedDateCriteria criteria);
-
-        Task<IEnumerable<EmployeeOverTimeModel>> GetEmployeeOvertimesByLastModifiedDate(GetEmployeeOvertimeByLastModifiedDateCriteria criteria);
-
-        Task<IEnumerable<EmployeeTOEIC>> GetEmployeeTOEICsByLastModifiedDate(GetEmployeeTOEICByLastModifiedDateCriteria criteria);
     }
 }

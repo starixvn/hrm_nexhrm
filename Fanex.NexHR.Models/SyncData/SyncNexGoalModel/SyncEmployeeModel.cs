@@ -18,4 +18,5 @@ public class SyncEmployeeModel
     public string Email { get; set; }
     public string ConversationId { get; set; }
     public DateTime? ModifiedDate { get; set; }
+    public string Password { get; set; }
 }

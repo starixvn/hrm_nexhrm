@@ -11,9 +11,7 @@
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Core.Enums;
     using Fanex.NexHR.Criteria.EmployeeTransfer;
-    using Fanex.NexHR.Criteria.SyncData.SyncNexGoal;
     using Fanex.NexHR.Models;
-    using Fanex.NexHR.Models.SyncData.SyncNexGoalModel;
     using HRM.Criteria.Employee;
     using Interfaces;
     using Models.Report;
@@ -178,7 +176,6 @@
             return await baseService.GetDataAsync<EmployeesMissedLogTime>(new GetEmployeeMissedLogTimeCriteria());
         }
 
-
         private static string getCompanyWorkFromHome(IList<DashBoardCompanySpace> dashBoard, string[] ignoreEmps)
         {
             const float numberEqual = 0.5f;
@@ -267,34 +264,9 @@
             return roles.ToArray();
         }
 
-        public async Task<IEnumerable<SyncEmployeeModel>> GetEmployeesByLastModifiedDate(GetEmployeesByLastModifiedDateCriteria criteria)
-        {
-            return await baseService.GetDataAsync<SyncEmployeeModel>(criteria);
-        }
-
         public async Task<CommandResult> CheckExistAsync(CheckExistEmployeeCriteria criteria)
         {
             return await baseService.GetDataEntityAsync<CommandResult>(criteria);
-        }
-
-        public async Task<IEnumerable<SyncEmployeeAttendanceModel>> GetEmployeeAttendances(GetEmployeeAttendancesCriteria criteria)
-        {
-            return await baseService.GetDataAsync<SyncEmployeeAttendanceModel>(criteria);
-        }
-
-        public async Task<IEnumerable<EmployeeCalendarModel>> GetEmployeeCalendarsByLastModifiedDate(GetEmployeeCalendarsByLastModifiedDateCriteria criteria)
-        {
-            return await baseService.GetDataAsync<EmployeeCalendarModel>(criteria);
-        }
-
-        public async Task<IEnumerable<EmployeeOverTimeModel>> GetEmployeeOvertimesByLastModifiedDate(GetEmployeeOvertimeByLastModifiedDateCriteria criteria)
-        {
-            return await baseService.GetDataAsync<EmployeeOverTimeModel>(criteria);
-        }
-
-        public async Task<IEnumerable<EmployeeTOEIC>> GetEmployeeTOEICsByLastModifiedDate(GetEmployeeTOEICByLastModifiedDateCriteria criteria)
-        {
-            return await baseService.GetDataAsync<EmployeeTOEIC>(criteria);
         }
     }
 }
