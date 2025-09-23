@@ -10,11 +10,13 @@
     using Fanex.NexHR.Core;
     using Resources;
     using Services.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using ViewModels.AnnualLeave;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using ViewModels.AnnualLeave;
+using Fanex.NexHR.Services.ExportExcel;
 
     public class AnnualLeaveController : BaseController
     {
@@ -451,7 +453,7 @@
         [HttpPost]
         public async Task<IActionResult> Index(LeaveSummaryViewModel model)
         {
-            IEnumerable<LeaveSummary> leaveSummary = new List<LeaveSummary>();
+            var leaveSummary = new List<LeaveSummary>();
             if (model != null)
             {
                 var criteria = new GetAnnualLeaveSummaryCriteria
@@ -462,12 +464,37 @@
                     Year = model.Year,
                     MinAnnualBalance = model.MinAnnualBalance
                 };
-                leaveSummary = await baseService.GetDataAsync<LeaveSummary>(criteria);
+                leaveSummary = (await baseService.GetDataAsync<LeaveSummary>(criteria)).ToList();
 
                 ViewBag.Year = model.Year;
             }
 
             return PartialView("_Index", leaveSummary);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ExportExcel(LeaveSummaryViewModel model)
+        {
+            var leaveSummary = new List<LeaveSummary>();
+            if (model != null)
+            {
+                var criteria = new GetAnnualLeaveSummaryCriteria
+                {
+                    EmployeeId = model.EmployeeId != -1 ? new int?(model.EmployeeId) : null,
+                    GroupId = model.TeamId,
+                    DepartmentId = model.DepartmentId,
+                    Year = model.Year,
+                    MinAnnualBalance = model.MinAnnualBalance
+                };
+                leaveSummary = (await baseService.GetDataAsync<LeaveSummary>(criteria)).ToList();
+            }
+
+            var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "ExcelTemplates", "NexSummary.xlsx");
+            var excel = new LeaveSummaryExcel(templatePath, leaveSummary, model.Year, CurrentUser.HasHRRole);
+            var fileBytes = excel.Export();
+
+            var fileName = $"AnnualLeaveSummary_{model.Year}_{DateTimeOffset.Now.DateTime.ToClientTimeZone():yyyyMMdd}.xlsx";
+            return File(fileBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
 
         [HttpPost]

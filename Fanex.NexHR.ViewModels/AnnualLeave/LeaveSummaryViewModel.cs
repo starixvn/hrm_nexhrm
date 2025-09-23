@@ -7,7 +7,7 @@
 
     public class LeaveSummaryViewModel
     {
-        public int Year { get; set; }
+        public int Year { get; set; } = 0;
 
         public int? TeamId { get; set; }
 

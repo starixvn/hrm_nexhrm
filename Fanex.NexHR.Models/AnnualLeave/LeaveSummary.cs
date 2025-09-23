@@ -18,6 +18,8 @@
 
         public string TeamName { get; set; }
 
+        public string PayrollCompanyName { get; set; }
+
         public float AnnualLeaveLastYear { get; set; }
 
         public float AnnualLeaveCurrentYear { get; set; }
