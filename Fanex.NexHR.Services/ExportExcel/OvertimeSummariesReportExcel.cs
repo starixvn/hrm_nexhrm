@@ -132,8 +132,6 @@
 
         protected internal virtual void SetWidthColumn(ExcelWorksheet worksheet)
         {
-            worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
-
             if (_isHR)
             {
                 worksheet.Column(PayrollColumnPosition).Width = 25;

@@ -131,7 +131,6 @@
 
         protected internal virtual void SetWidthColumn(ExcelWorksheet worksheet)
         {
-            worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
         }
     }
 }
