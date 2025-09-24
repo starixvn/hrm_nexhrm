@@ -1,7 +1,5 @@
 ﻿namespace Fanex.NexHR.Criteria.Auth
 {
-    using System;
-
     public class ChangePasswordCommand : BaseCommand
     {
         public int Id { get; set; }

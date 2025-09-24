@@ -76,7 +76,7 @@
                 new()
                 {
                     PayrollCompanyId = 2,
-                    Name = "Lumi"
+                    Name = "Lumiplus"
                 },
                 new()
                 {

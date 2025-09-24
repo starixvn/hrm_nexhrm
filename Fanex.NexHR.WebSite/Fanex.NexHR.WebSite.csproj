@@ -8,10 +8,37 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ExcelTemplates\EmployeeAttendace.xlsx" />
+    <None Remove="ExcelTemplates\EmployeeProfile.xlsx" />
+    <None Remove="ExcelTemplates\LateInEarlyOutReport.xlsx" />
+    <None Remove="ExcelTemplates\LeaveSummaryReport.xlsx" />
+    <None Remove="ExcelTemplates\NexSummary.xlsx" />
+    <None Remove="ExcelTemplates\WorkingHoursStatistic.xlsx" />
     <None Remove="LetsTalkTemplate\Leave.Request.txt" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="ExcelTemplates\EmployeeAttendace.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExcelTemplates\EmployeeProfile.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExcelTemplates\LateInEarlyOutReport.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ExcelTemplates\LeaveSummaryReport.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExcelTemplates\NexSummary.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExcelTemplates\WorkingHoursStatistic.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="LetsTalkTemplate\Leave.Request.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -93,19 +120,10 @@
     <None Update="ExcelTemplates\DayOffSchedule.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="ExcelTemplates\EmployeeAttendace.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="ExcelTemplates\EmployeeProfile.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="ExcelTemplates\HeadCountReport.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="ExcelTemplates\TotalWorkingHours.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="ExcelTemplates\WorkingHoursStatistic.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

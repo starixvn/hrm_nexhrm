@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using Fanex.NexHR.Models;
 using Fanex.NexHR.Services.Interfaces;
 

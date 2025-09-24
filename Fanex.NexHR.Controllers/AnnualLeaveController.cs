@@ -489,7 +489,7 @@ using Fanex.NexHR.Services.ExportExcel;
                 leaveSummary = (await baseService.GetDataAsync<LeaveSummary>(criteria)).ToList();
             }
 
-            var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "ExcelTemplates", "NexSummary.xlsx");
+            var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "ExcelTemplates", "LeaveSummaryReport.xlsx");
             var excel = new LeaveSummaryExcel(templatePath, leaveSummary, model.Year, CurrentUser.HasHRRole);
             var fileBytes = excel.Export();
 
