@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Fanex.NexHR.Models.Applicant;
+    using Fanex.NexHR.Models.Overtime;
     using Fanex.NexHR.Services.ExportExcel;
     using Models;
     using Models.Calendar;
@@ -22,9 +23,20 @@
 
         public static byte[] ExportEmployeeAttendances(
             IList<EmployeeAttendanceModel> employeeAttendances,
-            string templatePath)
+            string templatePath,
+            bool isHR)
         {
-            var excel = new AttendancesReportExcel(templatePath, employeeAttendances);
+            var excel = new AttendancesReportExcel(templatePath, employeeAttendances, isHR);
+            return excel.Export();
+        }
+
+        public static byte[] ExportOvertimeSummary(
+            IEnumerable<OvertimeSummary> overtimeSummaries,
+            int year,
+            string templatePath,
+            bool isHR)
+        {
+            var excel = new OvertimeSummariesReportExcel(templatePath, overtimeSummaries, year, isHR);
             return excel.Export();
         }
 
@@ -69,6 +81,16 @@
         {
             var excelApplicants = new ApplicantsReportExcel(templatePath, listApplicants, fromDate, toDate, pageNumber, pageSize);
             return excelApplicants.Export();
+        }
+
+        public static byte[] ExportLateInEarlyOutReport(
+            IEnumerable<LateInEarlyOutSummary> lateInEarlyOutSummaries,
+            int year,
+            string templatePath,
+            bool isHRRole = false)
+        {
+            var excelLateInEarlyOut = new LateInEarlyOutReportExcel(templatePath, lateInEarlyOutSummaries, year, isHRRole);
+            return excelLateInEarlyOut.Export();
         }
     }
 }

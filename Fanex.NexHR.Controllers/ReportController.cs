@@ -30,6 +30,7 @@
 
         private readonly IDepartmentService departmentService;
         private readonly IBaseService baseService;
+        private readonly ICompanyService companyService;
 
         private readonly bool isEditableSettingCheckInOut;
 
@@ -39,13 +40,15 @@
             ITeamService teamService,
             IBaseService baseService,
             IDepartmentService departmentService,
-            IConfiguration configuration) : base(sessionService)
+            IConfiguration configuration,
+            ICompanyService companyService) : base(sessionService)
         {
             this.employeeService = employeeService;
             this.reportService = reportService;
             this.teamService = teamService;
             this.baseService = baseService;
             this.departmentService = departmentService;
+            this.companyService = companyService;
             isEditableSettingCheckInOut = configuration.GetValue<bool>("IsEditableSettingCheckInOut");
         }
 
@@ -681,7 +684,8 @@
                 ToDateLastMonth = model.ToDateLastMonth,
                 EmployeeId = (model.EmployeeId > 0) ? new int?(model.EmployeeId) : null,
                 GroupId = model.TeamId,
-                DepartmentId = model.DepartmentId
+                DepartmentId = model.DepartmentId,
+                PayrollCompanyId = model.PayrollCompanyId
             };
 
             IList<WorkingHoursStatistic> totalWorkingHours = await reportService.GetWorkingHoursStatistic(getWorkingHoursCriteria);
@@ -694,6 +698,7 @@
         {
             var teams = await teamService.GetTeam();
             var departments = await departmentService.GetAll();
+            var companies = companyService.GetAllCompaniesInNexSystem();
             var today = DateTimeOffset.Now.DateTime.ToClientTimeZone();
             DateTime date = new DateTimeOffset(today.Year, today.Month, 1, 0, 0, 0, TimeSpan.Zero).DateTime;
             var model = new WorkingHoursStatisticViewModel
@@ -707,7 +712,8 @@
                 Teams = teams,
                 Departments = departments,
                 Month = date.Month,
-                Year = date.Year
+                Year = date.Year,
+                Companies = companies
             };
             return View(model);
         }

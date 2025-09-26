@@ -3,7 +3,6 @@
     using Fanex.NexHR.Controllers.Attributes;
     using Fanex.NexHR.Services.Interfaces;
     using Microsoft.AspNetCore.Authentication.Cookies;
-    using Microsoft.AspNetCore.Mvc;
     using Models;
 
     [HrmAuthorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]

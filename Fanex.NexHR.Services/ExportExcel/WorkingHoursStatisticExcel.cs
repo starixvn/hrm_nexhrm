@@ -14,7 +14,7 @@ namespace Fanex.NexHR.Services.ExportExcel
         private readonly DateTime toDate;
         private const byte RowStartHeader = 3;
         private const byte RowStartBody = 5;
-        private const byte TotalCols = 21;
+        private const byte TotalCols = 22;
         private int rowIndex = RowStartBody;
         private const byte FontSizeTitle = 16;
         private int rowNumber = 1;
@@ -59,11 +59,12 @@ namespace Fanex.NexHR.Services.ExportExcel
         {
             int colIndex = 1;
             worksheet.Cells[rowIndex, colIndex++].Value = rowNumber;
-            worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.Employee.Code.Trim();
+            worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.Employee.Code?.Trim();
             worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.Employee.FullName;
             worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.Employee.NickName;
             worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.Employee.DepartmentName;
             worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.Employee.Team.Code;
+            worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.PayrollCompanyName;
             worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.ActualWorkingDay;
             worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.AnnualLeave;
             worksheet.Cells[rowIndex, colIndex++].Value = workingHoursStatistic.PaidLeave;

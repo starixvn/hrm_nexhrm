@@ -154,6 +154,7 @@ namespace Fanex.NexHR.WebSite
             services.AddSingleton<IPositionService, PositionService>();
             services.AddSingleton<ISupervisorFlowService, SupervisorFlowService>();
             services.AddSingleton<ICryptoService, CryptoService>();
+            services.AddSingleton<ICompanyService, CompanyService>();
 
             //API Service
             services.AddSingleton<IBotBioTasksService, BioTasksService>();

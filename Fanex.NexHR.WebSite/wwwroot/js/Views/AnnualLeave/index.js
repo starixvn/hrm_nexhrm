@@ -233,5 +233,30 @@ $(document).ready(function () {
     query(false);
   });
 
+  $('#exportExcel').on('click', function () {
+    var data = $('.card-container-base .form form').serialize();
+    var url = _global.root + 'annualleave/exportexcel?' + data;
+    
+    // Create a form and submit it to trigger file download
+    var form = $('<form>', {
+      'method': 'POST',
+      'action': url
+    });
+    
+    // Add all form data as hidden inputs
+    var formData = $('.card-container-base .form form').serializeArray();
+    $.each(formData, function(i, field) {
+      form.append($('<input>', {
+        'type': 'hidden',
+        'name': field.name,
+        'value': field.value
+      }));
+    });
+    
+    $('body').append(form);
+    form.submit();
+    form.remove();
+  });
+
   query(true);
 });

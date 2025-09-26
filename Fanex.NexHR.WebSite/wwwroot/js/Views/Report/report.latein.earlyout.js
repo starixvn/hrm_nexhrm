@@ -73,6 +73,12 @@ $(document).ready(function () {
         query(false);
     });
 
+    $('#exportExcel').on('click', function () {
+        var data = $('.card-container-base .form-filter').serialize();
+        var exportUrl = _global.root + 'Export/LateInEarlyOutReport?' + data;
+        window.open(exportUrl, '_blank');
+    });
+
     $('#insertform').dialog({
         modal: true,
         autoOpen: false,

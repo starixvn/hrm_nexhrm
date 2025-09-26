@@ -368,6 +368,8 @@ public class EmployeeController : BaseController
             LastUrl = employee.IsSpecialUser ? "Employee/SpecialUserManagement" : "Employee/Usermanagement"
         };
 
+        ViewBag.SalaryGroups = lookupDataService.GetSalaryGroups();
+        ViewBag.PayrollCompanies = lookupDataService.GetNexCompanies();
         return View(model);
     }
 
@@ -422,6 +424,8 @@ public class EmployeeController : BaseController
 
         model.Teams = await teamService.GetAll();
         model.JobTitles = await jobTitleService.GetAll();
+        ViewBag.SalaryGroups = lookupDataService.GetSalaryGroups();
+        ViewBag.PayrollCompanies = lookupDataService.GetNexCompanies();
 
         return View(model);
     }
@@ -748,7 +752,9 @@ public class EmployeeController : BaseController
             ContactPhone = model.ContactPhone,
             ContactAddress = model.ContactAddress,
             GroupDate = model.GroupDate,
-            EducationBackground = model.EducationBackground
+            EducationBackground = model.EducationBackground,
+            SalaryGroupId = model.SalaryGroupId,
+            PayrollCompanyId = model.PayrollCompanyId
         };
 
         return criteria;

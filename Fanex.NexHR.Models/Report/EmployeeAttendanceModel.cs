@@ -62,5 +62,7 @@ public class EmployeeAttendanceModel
 
     public int IsNotWork { get; set; }
 
+    public string PayrollCompanyName { get; set; }
+
     public IList<RequestEntity> Requests { get; set; }
 }

@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace Fanex.NexHR.Website.Middlewares;
+﻿namespace Fanex.NexHR.Website.Middlewares;
 
 public interface IApiKeyValidator
 {

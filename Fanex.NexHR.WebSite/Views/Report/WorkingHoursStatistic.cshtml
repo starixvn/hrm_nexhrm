@@ -112,6 +112,17 @@
 
                                 <div class="row">
                                     <div class="col m-l--l m-r--s">
+                                        <div class="left label--l">
+                                            <label>@Labels.PayrollCompany</label>
+                                        </div>
+                                        <div class="left select-team">
+                                            <select asp-for="PayrollCompanyId"
+                                                    asp-items="@(new SelectList(Model.Companies, "Id", "Name"))">
+                                                <option value="">@Labels.AllCompanies</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col m-l--l m-r--s">
                                         <div class="left label--m">
                                             <label>@Labels.Department</label>
                                         </div>
@@ -160,6 +171,7 @@
                                     <th rowspan="2">@Labels.EnglishName</th>
                                     <th rowspan="2">@Labels.Department</th>
                                     <th rowspan="2">@Labels.Team</th>
+                                    <th rowspan="2">@Labels.PayrollCompany</th>
                                     <th rowspan="2">@Labels.ActualWorkingDay</th>
                                     <th colspan="2">@Labels.PaidLeave</th>
                                     <th colspan="2">@Labels.InsuranceLeave</th>
@@ -198,6 +210,7 @@
         <td title="{{:Employee.FullName}}" class="tooltip">{{:Employee.NickName}}</td>
         <td class="align-left">{{:Employee.DepartmentName}}</td>
         <td class="tooltip" title="{{:Employee.Team.Name}}">{{:Employee.Team.Code}}</td>
+        <td class="align-left">{{:PayrollCompanyName}}</td>
         <td>{{:ActualWorkingDay}}</td>
         <td>{{:AnnualLeave.toFixed(1)}}</td>
         <td>{{:PaidLeave.toFixed(1)}}</td>

@@ -14,6 +14,8 @@
 
         public string TeamName { get; set; }
 
+        public string PayrollCompanyName { get; set; }
+
         public int BalanceLastYear { get; set; }
 
         public int BalanceCurrentYear { get; set; }

@@ -4,6 +4,7 @@
 @model EditEmployeeViewModel
 @{
     ViewBag.Title = Labels.Edit;
+
 }
 @section Styles {
 <link rel="stylesheet" href="~/minify/css/employeeedit.min.css" asp-append-version="true">
@@ -232,6 +233,18 @@
                                     <div class="row form-input m-t--m">
                                         <div class="col m-r--m">
                                             <div class="left label--mxxl">
+                                                <label for="SalaryGroupId">@Labels.SDGroup</label>
+                                            </div>
+                                            <div class="left select--l">
+                                                <select asp-for="SalaryGroupId" asp-items="@(new SelectList(ViewBag.SalaryGroups, "SalaryGroupId", "Name"))">
+                                                </select>
+                                                <span asp-validation-for="SalaryGroupId"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row form-input m-t--m">
+                                        <div class="col m-r--m">
+                                            <div class="left label--mxxl">
                                                 <label for="Phone">@Labels.Phone</label>
                                             </div>
                                             <div class="left input--l">
@@ -429,6 +442,18 @@
                                                     <input checked="@isChecked" class="filled-in SubGroupArray" id="@id" name="SubGroupArray" type="checkbox" value="@Model.Teams[i].Id">
                                                     <label for="@id">@Model.Teams[i].Name</label>
                                                 }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row form-input m-t--m">
+                                        <div class="col m-r--m">
+                                            <div class="left label--mxxl">
+                                                <label for="PayrollCompanyId">@Labels.PayrollCompany</label>
+                                            </div>
+                                            <div class="left select--l">
+                                                <select asp-for="PayrollCompanyId" asp-items="@(new SelectList(ViewBag.PayrollCompanies, "PayrollCompanyId", "Name"))">
+                                                </select>
+                                                <span asp-validation-for="PayrollCompanyId"></span>
                                             </div>
                                         </div>
                                     </div>

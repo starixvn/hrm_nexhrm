@@ -1,6 +1,5 @@
 ﻿namespace Fanex.NexHR.Controllers;
 
-using System.IO;
 using System.Threading.Tasks;
 using Core;
 using Core.Helpers;

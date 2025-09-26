@@ -11,7 +11,7 @@ namespace Fanex.NexHR.Services.ExportExcel
         private readonly IList<Employee> employee;
         private const byte RowStartHeader = 3;
         private const byte RowStartBody = 4;
-        private const byte TotalCols = 34;
+        private const byte TotalCols = 35;
         private int rowIndex = RowStartBody;
         private const string fomatDate = "dd/MM/yyyy";
         private int rowNumber = 1;
@@ -59,6 +59,7 @@ namespace Fanex.NexHR.Services.ExportExcel
             worksheet.Cells[rowIndex, colIndex++].Value = JobTitle(employee);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.DepartmentName);
             worksheet.Cells[rowIndex, colIndex++].Value = FormatString(employee.Team.Name);
+            worksheet.Cells[rowIndex, colIndex++].Value = employee.PayrollCompanyName;
             worksheet.Cells[rowIndex, colIndex++].Value = employee.GroupDate.ToString(fomatDate);
             worksheet.Cells[rowIndex, colIndex++].Value = employee.JoinedDate?.ToString(fomatDate);
             worksheet.Cells[rowIndex, colIndex++].Value = employee.ConfirmedDate?.ToString(fomatDate);

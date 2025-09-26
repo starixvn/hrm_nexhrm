@@ -63,5 +63,27 @@
                 }
             };
         }
+
+        public IEnumerable<PayrollCompany> GetNexCompanies()
+        {
+            return new List<PayrollCompany>
+            {
+                new()
+                {
+                    PayrollCompanyId = 1,
+                    Name = "Nexcel"
+                },
+                new()
+                {
+                    PayrollCompanyId = 2,
+                    Name = "Lumiplus"
+                },
+                new()
+                {
+                    PayrollCompanyId = 34,
+                    Name = "NexVision"
+                }
+            };
+        }
     }
 }

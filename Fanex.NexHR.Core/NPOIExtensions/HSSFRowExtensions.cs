@@ -1,7 +1,6 @@
 ﻿namespace Fanex.NexHR.Core.NPOIExtensions
 {
     using NPOI.SS.UserModel;
-    using System;
 
     public static class HSSFRowExtensions
     {

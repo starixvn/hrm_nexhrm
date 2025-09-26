@@ -144,6 +144,8 @@
         public string ManagementGradeName { get; set; }
 
         public DateTime ManagementAffectedDate { get; set; }
+        
+        public string PayrollCompanyName { get; set; }
 
         public string ManagementNote { get; set; }
 
@@ -289,5 +291,7 @@
         }
 
         public short SalaryGroupId { get; set; }
+
+        public short PayrollCompanyId { get; set; }
     }
 }
