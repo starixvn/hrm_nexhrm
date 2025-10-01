@@ -212,7 +212,7 @@
                 var employees = new StringBuilder();
                 var todayAbsents = DashboardCompanySpace
                     .Where(t => t.TypeId == (int)DashBoardType.Absent && t.IsCurrent
-                        && IgnoreShowLeaveRequestList.Contains(t.Employee.NickName))
+                        && !IgnoreShowLeaveRequestList.Contains(t.Employee.NickName))
                     .ToList();
                 foreach (var checkInOut in todayAbsents)
                 {
