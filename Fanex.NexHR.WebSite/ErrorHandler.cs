@@ -2,29 +2,25 @@
 {
     using System;
     using System.Threading.Tasks;
-    using Fanex.NexHR.Services.Interfaces;
-    using Microsoft.AspNetCore.Http;
+    using Fanex.Logging.Extensions;
+    using Fanex.Logging.Extensions.Database;
 
-    public class ErrorHandler
+    public class ErrorHandler(RequestDelegate next, Logging.ILogger logger)
     {
-        private readonly RequestDelegate next;
-        private readonly ILogServiceProvider logService;
-
-        public ErrorHandler(RequestDelegate next, ILogServiceProvider logService)
-        {
-            this.next = next;
-            this.logService = logService;
-        }
-
         public async Task InvokeAsync(HttpContext context)
         {
             try
             {
                 await next(context);
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                logService.LogException(ex);
+                var logMessage = new LogMessage(exception.Message)
+                    .AddSection("Database Info", DatabaseInfoGetters.GetDbExceptionInfo(exception))
+                    .AddSection("Server Info", CommonInfoGetters.GetServerInfo())
+                    .AddSection("Exception Info", CommonInfoGetters.GetExceptionInfo(exception))
+                    .ToString();
+                await logger.ErrorAsync(logMessage);
             }
         }
     }

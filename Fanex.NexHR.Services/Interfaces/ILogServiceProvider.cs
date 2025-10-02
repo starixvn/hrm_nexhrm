@@ -1,11 +1,12 @@
 ﻿namespace Fanex.NexHR.Services.Interfaces
 {
     using System;
+    using System.Threading.Tasks;
 
     public interface ILogServiceProvider
     {
         void LogFile(string message);
 
-        void LogException(Exception exception);
+        Task ErrorAsync(Exception exception);
     }
 }

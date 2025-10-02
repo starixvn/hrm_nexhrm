@@ -28,7 +28,7 @@
 
         Task<DateRange> GetDateRange(GetDateRangeEmployeeCalendarCriteria criteria);
 
-        void SendMailForCheckInOut(CheckInOutRequestViewModel model, IEnumerable<EmployeeSupervisor> employeeSupervisors);
+        Task SendMailForCheckInOutAsync(CheckInOutRequestViewModel model, IEnumerable<EmployeeSupervisor> employeeSupervisors);
 
         Task<IEnumerable<EmployeeSupervisor>> GetLeaderForCheckInOut(int employeeId, bool isStandbyAtWeekend);
 

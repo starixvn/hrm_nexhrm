@@ -128,13 +128,13 @@
                     var leaders = await requestService.GetLeaderForCheckInOut(model.EmployeeId, model.IsStandbyAtWeekend);
                     if (leaders != null && leaders.Any())
                     {
-                        requestService.SendMailForCheckInOut(model, leaders);
+                        await requestService.SendMailForCheckInOutAsync(model, leaders);
                         await nexbotService.SendMessageForCheckInOutRequest(model, leaders);
                     }
                 }
                 catch (Exception ex)
                 {
-                    logService.LogException(ex);
+                    await logService.ErrorAsync(ex);
                 }
             });
         }

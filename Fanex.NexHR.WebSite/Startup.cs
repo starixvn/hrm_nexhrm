@@ -1,21 +1,18 @@
-﻿using Fanex.NexHR.Core;
-
-namespace Fanex.NexHR.WebSite
+﻿namespace Fanex.NexHR.WebSite
 {
     using AspNetCore.Unobtrusive.Ajax;
-    using Data.SqlServer;
-    using Fanex.Logging.Sentry;
+    using Fanex.Data.SqlServer;
+    using Fanex.Logging.Sentry.RavenClient;
+    using Fanex.NexHR.Core;
     using Fanex.NexHR.Models;
     using GO.UserControl.Client.Core;
     using GO.UserControl.Client.Core.Session;
-    using Logging;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Middlewares;
-    using Sentry;
 
     public class Startup(IConfiguration configuration)
     {
@@ -27,17 +24,7 @@ namespace Fanex.NexHR.WebSite
             });
             services.AddControllersWithViews();
 
-            LogManager
-                .SetDefaultLogCategory(configuration.GetSection("LogCategory").Value)
-                .Use(new List<ILogEngine>
-                {
-                    new SentryLogging(new SentryEngineOptions
-                    {
-                        Dsn = new Dsn(configuration.GetSection("SentryEngineOptions:Dsn").Value),
-                        FrontEndDsn = new Dsn(configuration.GetSection("SentryEngineOptions:FrontEndDsn").Value)
-                    })
-                });
-
+            services.AddFanexLogSentry(configuration);
             services.AddFanexSql(configuration);
 
             services.Configure<UserControlClientOptions>(configuration.GetSection("GO.UserControl.Client"));

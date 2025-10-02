@@ -12,10 +12,6 @@
     <ProjectReference Include="..\Fanex.NexHR.Resources\Fanex.NexHR.Resources.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.41.0.50478">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

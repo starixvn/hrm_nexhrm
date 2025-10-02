@@ -4,10 +4,7 @@
     using Fanex.Data.Repository;
     using Fanex.Data.SqlServer;
     using Fanex.Logging;
-    using Fanex.Logging.Extensions;
-    using Fanex.Logging.Extensions.AspNetCore;
-    using Fanex.Logging.Extensions.Database;
-    using Fanex.Logging.Sentry;
+    using Fanex.Logging.Sentry.RavenClient;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -17,34 +14,17 @@
     using NexHRM.AutoJobs.Models;
     using NexHRM.AutoJobs.Services;
     using NexHRM.AutoJobs.Workers;
-    using Sentry;
 
     public class Startup(IConfiguration configuration)
     {
-        public IConfiguration Configuration { get; } = configuration;
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddFanexSql(Configuration);
+            services.AddFanexSql(configuration);
 
-            LogManager
-                .SetDefaultLogCategory(Configuration.GetSection("SentrySettings:LogCategory").Value)
-                .Use(new List<ILogEngine>
-                {
-                    new SentryLogging(new SentryEngineOptions
-                    {
-                        Dsn = new Dsn(Configuration.GetSection("SentrySettings:Dsn").Value)
-                    })
-                });
+            services.AddFanexLogSentry(configuration);
 
-            ExceptionHandler
-                .UseConfig(new LoggingConfiguration())
-                .GetHttpHeaderInfo()
-                .GetHttpSessionInfo()
-                .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
-
-            services.AddSingleton(Configuration);
+            services.AddSingleton(configuration);
 
             services.AddHttpClient();
             AddDI(services);
@@ -78,10 +58,10 @@
 
         private void AddDI(IServiceCollection services)
         {
-            var jobSettings = Configuration.GetSection("JobSettings").Get<List<JobSetting>>();
+            var jobSettings = configuration.GetSection("JobSettings").Get<List<JobSetting>>();
             services.AddSingleton(jobSettings);
 
-            var userControlSettings = Configuration.GetSection("UserControlSettings").Get<UserControlSettings>();
+            var userControlSettings = configuration.GetSection("UserControlSettings").Get<UserControlSettings>();
             services.AddSingleton(userControlSettings);
 
             services.AddSingleton<ILogger, Logger>();

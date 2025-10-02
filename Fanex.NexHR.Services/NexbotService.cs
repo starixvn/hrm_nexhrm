@@ -168,7 +168,7 @@
             }
             catch (Exception ex)
             {
-                logService.LogException(ex);
+                await logService.ErrorAsync(ex);
             }
         }
 
@@ -354,7 +354,7 @@
             }
             catch (Exception ex)
             {
-                logService.LogException(ex);
+                await logService.ErrorAsync(ex);
             }
         }
 
@@ -367,13 +367,13 @@
                 var conversations = await baseService.GetDataAsync<Employee>(criteria);
                 if (conversations.Any())
                 {
-                    string message = string.Format(Messages.MessageAutoDeductLateInEarlyOut, lateInEarlyOutModel.NickName);
+                    var message = string.Format(Messages.MessageAutoDeductLateInEarlyOut, lateInEarlyOutModel.NickName);
                     result = await SendMessageDeductToConversation(conversations.Select(m => m.ConversationId), message);
                 }
             }
             catch (Exception ex)
             {
-                logService.LogException(ex);
+                await logService.ErrorAsync(ex);
             }
             return result;
         }
@@ -394,7 +394,7 @@
             }
             catch (Exception ex)
             {
-                logService.LogException(ex);
+                await logService.ErrorAsync(ex);
             }
             return new CommandResult { Code = result ? 0 : 1 };
         }

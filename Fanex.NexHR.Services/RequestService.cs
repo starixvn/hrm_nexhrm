@@ -349,7 +349,7 @@
                 body);
         }
 
-        public void SendMailForCheckInOut(CheckInOutRequestViewModel model, IEnumerable<EmployeeSupervisor> employeeSupervisors)
+        public async Task SendMailForCheckInOutAsync(CheckInOutRequestViewModel model, IEnumerable<EmployeeSupervisor> employeeSupervisors)
         {
             try
             {
@@ -386,7 +386,7 @@
             }
             catch (Exception ex)
             {
-                logService.LogException(ex);
+                await logService.ErrorAsync(ex);
             }
         }
 

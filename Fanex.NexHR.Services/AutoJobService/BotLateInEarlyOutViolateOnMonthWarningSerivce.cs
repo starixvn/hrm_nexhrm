@@ -153,7 +153,7 @@
                     }
                     catch (Exception ex)
                     {
-                        logService.LogException(ex);
+                        await logService.ErrorAsync(ex);
                     }
                 }
             }
