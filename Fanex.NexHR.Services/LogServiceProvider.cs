@@ -1,6 +1,7 @@
 ﻿namespace Fanex.NexHR.Services
 {
     using System;
+    using System.Threading.Tasks;
     using Fanex.NexHR.Core;
     using Fanex.NexHR.Services.Interfaces;
     using NLog;
@@ -17,10 +18,9 @@
             nlog = NLogBuilder.ConfigureNLog(settings.NLogConfigFilePath).GetCurrentClassLogger();
         }
 
-        public void LogException(Exception exception)
+        public async Task ErrorAsync(Exception exception)
         {
-            nlog.Error(exception);
-            logger.Error(exception.ToString());
+            await logger.ErrorAsync(exception.Message, exception);
         }
 
         public void LogFile(string message)
