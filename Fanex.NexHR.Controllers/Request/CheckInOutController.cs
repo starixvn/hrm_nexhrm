@@ -20,24 +20,15 @@
         private readonly IRequestService requestService;
         private readonly IShiftService shiftService;
         private readonly IBaseService baseService;
-        private readonly INexbotService nexbotService;
-        private readonly IWebHostEnvironment environment;
-        private readonly ILogServiceProvider logService;
 
         public CheckInOutController(ISessionService sessionService,
             IRequestService requestService,
             IShiftService shiftService,
-            IBaseService baseService,
-            INexbotService nexbotService,
-            IWebHostEnvironment environment,
-            ILogServiceProvider logService) : base(sessionService)
+            IBaseService baseService) : base(sessionService)
         {
             this.requestService = requestService;
             this.shiftService = shiftService;
             this.baseService = baseService;
-            this.nexbotService = nexbotService;
-            this.environment = environment;
-            this.logService = logService;
         }
 
         public IActionResult EmployeeView()

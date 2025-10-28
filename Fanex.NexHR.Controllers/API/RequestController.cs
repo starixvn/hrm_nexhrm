@@ -24,20 +24,14 @@
         private readonly IRequestService requestService;
         private readonly INexbotService nexbotService;
         private readonly IBaseService baseService;
-        private readonly IWebHostEnvironment environment;
-        private readonly ILogServiceProvider logService;
 
         public RequestController(IRequestService requestService,
             INexbotService nexbotService,
-            IBaseService baseService,
-            IWebHostEnvironment environment,
-            ILogServiceProvider logService)
+            IBaseService baseService)
         {
             this.requestService = requestService;
             this.nexbotService = nexbotService;
             this.baseService = baseService;
-            this.environment = environment;
-            this.logService = logService;
         }
 
         [HttpPost]
