@@ -12,7 +12,6 @@
     using Fanex.NexHR.ViewModels.CheckInOutRequest;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Newtonsoft.Json;

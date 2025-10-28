@@ -7,7 +7,6 @@
     using Criteria.Request;
     using Criteria.Shift;
     using Fanex.NexHR.Core;
-    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.Request;
