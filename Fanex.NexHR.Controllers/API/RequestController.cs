@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
     using Fanex.NexHR.Core;
@@ -112,31 +111,10 @@
             if (result.IsSuccessful)
             {
                 model.Id = criteria.Id;
-                SendEmailAndChatBot(model);
+                requestService.SendEmailAndChatBotForCheckInOut(model);
             }
 
             return Ok(result);
-        }
-
-        private void SendEmailAndChatBot(CheckInOutRequestViewModel model)
-        {
-            model.EmailTemplatePath = Path.Combine(environment.ContentRootPath, Constants.EmailTemplatePathForCheckInOut);
-            Task.Factory.StartNew(async () =>
-            {
-                try
-                {
-                    var leaders = await requestService.GetLeaderForCheckInOut(model.EmployeeId, model.IsStandbyAtWeekend);
-                    if (leaders != null && leaders.Any())
-                    {
-                        await requestService.SendMailForCheckInOutAsync(model, leaders);
-                        await nexbotService.SendMessageForCheckInOutRequest(model, leaders);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    await logService.ErrorAsync(ex);
-                }
-            });
         }
     }
 }

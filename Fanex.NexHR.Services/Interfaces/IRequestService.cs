@@ -32,6 +32,8 @@
 
         Task<IEnumerable<EmployeeSupervisor>> GetLeaderForCheckInOut(int employeeId, bool isStandbyAtWeekend);
 
+        void SendEmailAndChatBotForCheckInOut(CheckInOutRequestViewModel model);
+
         Task<IEnumerable<EmployeeSupervisor>> GetLeaderForLeave(int employeeId, bool isManagementApprove);
 
         void SendMailForLeave(LeaveRequestViewModel model, IEnumerable<EmployeeSupervisor> employeeSupervisors);
