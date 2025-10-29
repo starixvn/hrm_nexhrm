@@ -41,5 +41,8 @@
         public bool IsReadOnly { get; set; }
 
         public string PICDisplayName { get; set; }
+
+        public bool IsDepartmentView { get; set; }
+
     }
 }

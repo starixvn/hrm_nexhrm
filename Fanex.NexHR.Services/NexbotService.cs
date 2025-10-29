@@ -195,6 +195,7 @@
         {
             if (employeeSupervisors != null && employeeSupervisors.Any())
             {
+                var departmentNotified = false;
                 foreach (var employeeSupervisor in employeeSupervisors)
                 {
                     var message = GenerateMessageForLeaveRequest(request, employeeSupervisor.SupervisorNickName);
@@ -222,8 +223,25 @@
                     };
 
                     await SendApproveMessageAsync(requestMessage);
+
+                    if (!departmentNotified)
+                    {
+                        departmentNotified = await TrySendDepartmentNotificationAsync(requestMessage, employeeSupervisor.DepartmentId);
+                    }
                 }
             }
+        }
+
+        private async Task<bool> TrySendDepartmentNotificationAsync(RequestMessage requestMessage, int departmentId)
+        {
+            if (departmentId == nexBotSettings.DepartmentNotificationId)
+            {
+                requestMessage.ConversationId = nexBotSettings.DepartmentConversationId;
+                requestMessage.IsDepartmentView = true;
+                await SendApproveMessageAsync(requestMessage);
+                return true;
+            }
+            return false;
         }
 
         private string GenerateMessageForLeaveRequest(LeaveRequestViewModel request, string leaderName)
@@ -327,6 +345,7 @@
                             ? RequestType.CheckIn.EnumToString().ToLower(CultureInfo.InvariantCulture)
                             : RequestType.CheckOut.EnumToString().ToLower(CultureInfo.InvariantCulture);
 
+                var departmentNotified = false;
                 foreach (var employeeSupervisor in employeeSupervisors)
                 {
                     var message = GenerateCheckInOutRequestMessage(request, employeeSupervisor.SupervisorNickName);
@@ -350,6 +369,11 @@
                     };
 
                     await SendApproveMessageAsync(requestMessage);
+
+                    if (!departmentNotified)
+                    {
+                        departmentNotified = await TrySendDepartmentNotificationAsync(requestMessage, employeeSupervisor.DepartmentId);
+                    }
                 }
             }
             catch (Exception ex)
