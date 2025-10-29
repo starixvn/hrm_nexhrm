@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
     using Fanex.NexHR.Core;
@@ -13,7 +12,6 @@
     using Fanex.NexHR.ViewModels.CheckInOutRequest;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Newtonsoft.Json;
@@ -25,20 +23,14 @@
         private readonly IRequestService requestService;
         private readonly INexbotService nexbotService;
         private readonly IBaseService baseService;
-        private readonly IWebHostEnvironment environment;
-        private readonly ILogServiceProvider logService;
 
         public RequestController(IRequestService requestService,
             INexbotService nexbotService,
-            IBaseService baseService,
-            IWebHostEnvironment environment,
-            ILogServiceProvider logService)
+            IBaseService baseService)
         {
             this.requestService = requestService;
             this.nexbotService = nexbotService;
             this.baseService = baseService;
-            this.environment = environment;
-            this.logService = logService;
         }
 
         [HttpPost]
@@ -112,31 +104,10 @@
             if (result.IsSuccessful)
             {
                 model.Id = criteria.Id;
-                SendEmailAndChatBot(model);
+                requestService.SendEmailAndChatBotForCheckInOut(model);
             }
 
             return Ok(result);
-        }
-
-        private void SendEmailAndChatBot(CheckInOutRequestViewModel model)
-        {
-            model.EmailTemplatePath = Path.Combine(environment.ContentRootPath, Constants.EmailTemplatePathForCheckInOut);
-            Task.Factory.StartNew(async () =>
-            {
-                try
-                {
-                    var leaders = await requestService.GetLeaderForCheckInOut(model.EmployeeId, model.IsStandbyAtWeekend);
-                    if (leaders != null && leaders.Any())
-                    {
-                        await requestService.SendMailForCheckInOutAsync(model, leaders);
-                        await nexbotService.SendMessageForCheckInOutRequest(model, leaders);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    await logService.ErrorAsync(ex);
-                }
-            });
         }
     }
 }

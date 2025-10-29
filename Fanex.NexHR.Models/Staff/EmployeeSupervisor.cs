@@ -10,6 +10,8 @@
 
         public string Code { get; set; }
 
+        public int DepartmentId { get; set; }
+
         public int SupervisorId { get; set; }
 
         public string SupervisorNickName { get; set; }

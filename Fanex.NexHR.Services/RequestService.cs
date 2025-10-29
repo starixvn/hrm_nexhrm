@@ -402,6 +402,27 @@
             return leaders;
         }
 
+        public void SendEmailAndChatBotForCheckInOut(CheckInOutRequestViewModel model)
+        {
+            model.EmailTemplatePath = Path.Combine(environment.ContentRootPath, Constants.EmailTemplatePathForCheckInOut);
+            Task.Factory.StartNew(async () =>
+            {
+                try
+                {
+                    var leaders = await GetLeaderForCheckInOut(model.EmployeeId, model.IsStandbyAtWeekend);
+                    if (leaders != null && leaders.Any())
+                    {
+                        await SendMailForCheckInOutAsync(model, leaders);
+                        await nexbotService.SendMessageForCheckInOutRequest(model, leaders);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await logService.ErrorAsync(ex);
+                }
+            });
+        }
+
         public async Task<IEnumerable<EmployeeSupervisor>> GetLeaderForLeave(int employeeId, bool isManagementApprove)
         {
             var criteria = new GetSupervisorForLeaveRequestCriteria
@@ -508,7 +529,7 @@
                 ? " from " + request.FromDate.ToDateMonthYearFormatedDate() + " to " +
                   request.ToDate.ToDateMonthYearFormatedDate()
                 : " on " + request.FromDate.ToDateMonthYearFormatedDate();
-          
+
             var body = Utilities.ReadTextFile(templateEmailToRequesterPath);
 
             var action = Labels.Disapproved;
