@@ -327,7 +327,8 @@
         [NonAction]
         private bool IsLoadTeamWorkload()
         {
-            return Array.IndexOf(appSetting.IgnoreTeamWorkload.Split(','), CurrentUser.GroupTeamId) < 0 && CurrentUserSetting.DisplayTeamWorkload;
+            return false;
+            ////return Array.IndexOf(appSetting.IgnoreTeamWorkload.Split(','), CurrentUser.GroupTeamId) < 0 && CurrentUserSetting.DisplayTeamWorkload;
         }
 
         private async Task<bool> IsPrivilegeCreateCheckInOut()
