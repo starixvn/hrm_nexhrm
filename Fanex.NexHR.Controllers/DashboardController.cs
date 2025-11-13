@@ -75,7 +75,7 @@
             model.SystemReminder = await systemReminder;
             model.EmployeeAttendanceModel = await attendance;
             model.NotificationLateInEarlyOutToDay = await notificationLateInEarlyOut;
-            //model.IsLoadTeamWorkload = IsLoadTeamWorkload();
+            ////model.IsLoadTeamWorkload = IsLoadTeamWorkload();
             model.IsLoadTeamWorkload =false;
             model.IsHavePrivilegeCreateCheckInOutRecord = await isPrivilegeCreateCheckInOut;
 
