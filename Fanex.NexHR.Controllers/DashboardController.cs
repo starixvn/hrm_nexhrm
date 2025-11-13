@@ -75,7 +75,8 @@
             model.SystemReminder = await systemReminder;
             model.EmployeeAttendanceModel = await attendance;
             model.NotificationLateInEarlyOutToDay = await notificationLateInEarlyOut;
-            model.IsLoadTeamWorkload = IsLoadTeamWorkload();
+            //model.IsLoadTeamWorkload = IsLoadTeamWorkload();
+            model.IsLoadTeamWorkload =false;
             model.IsHavePrivilegeCreateCheckInOutRecord = await isPrivilegeCreateCheckInOut;
 
             return View(model);
@@ -327,8 +328,7 @@
         [NonAction]
         private bool IsLoadTeamWorkload()
         {
-            return false;
-            ////return Array.IndexOf(appSetting.IgnoreTeamWorkload.Split(','), CurrentUser.GroupTeamId) < 0 && CurrentUserSetting.DisplayTeamWorkload;
+            return Array.IndexOf(appSetting.IgnoreTeamWorkload.Split(','), CurrentUser.GroupTeamId) < 0 && CurrentUserSetting.DisplayTeamWorkload;
         }
 
         private async Task<bool> IsPrivilegeCreateCheckInOut()
