@@ -346,7 +346,7 @@ $(document).ready(function () {
     });
 
     initTodoList();
-    initTeamWorkload();
+    //initTeamWorkload();
     workingHours = parseFloat($('#workinghour').val());
 
     setInterval(caculateWorkingHours, 60000);
