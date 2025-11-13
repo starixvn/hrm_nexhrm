@@ -19,6 +19,7 @@
         public bool Enabled { get; set; }
         public bool IsSpecialUser { get; set; }
         public bool AutoApproveRequest { get; set; }
+        public bool IsLocal { get; set; }
         public string Phone { get; set; }
         public byte? Gender { get; set; }
         [SpParam(SqlParamName = "MainGroupId")]
@@ -55,7 +56,7 @@
                    && !string.IsNullOrWhiteSpace(Code)
                    && !string.IsNullOrWhiteSpace(NickName)
                    && !string.IsNullOrWhiteSpace(FullName);
-        
+
 
         private bool IsEmployeeIdAndTeamIdValid() => EmployeeId > 0 && TeamId > 0;
 

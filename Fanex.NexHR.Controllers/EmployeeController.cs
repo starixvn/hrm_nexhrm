@@ -722,6 +722,7 @@ public class EmployeeController : BaseController
             Enabled = model.Enabled,
             IsSpecialUser = model.IsSpecialUser,
             AutoApproveRequest = model.AutoApproveRequest,
+            IsLocal = model.IsLocal,
             FullName = model.FullName,
             Gender = model.Gender,
             Geomaplatitude = model.GeoMapLatitude,

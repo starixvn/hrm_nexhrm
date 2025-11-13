@@ -33,6 +33,8 @@
 
         public bool AutoApproveRequest { get; set; }
 
+        public bool IsLocal { get; set; }
+
         public string Phone { get; set; }
 
         public byte? Gender { get; set; }
@@ -144,7 +146,7 @@
         public string ManagementGradeName { get; set; }
 
         public DateTime ManagementAffectedDate { get; set; }
-        
+
         public string PayrollCompanyName { get; set; }
 
         public string ManagementNote { get; set; }

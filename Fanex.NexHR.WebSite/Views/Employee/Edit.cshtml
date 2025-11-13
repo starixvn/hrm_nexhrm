@@ -7,7 +7,7 @@
 
 }
 @section Styles {
-<link rel="stylesheet" href="~/minify/css/employeeedit.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/minify/css/employeeedit.min.css" asp-append-version="true">
 }
 @section Scripts {
     <environment include="Development">
@@ -23,6 +23,7 @@
 }
 
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
@@ -33,6 +34,7 @@
     <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
     <script>window.ENV_VARIABLE = 'developer.here.com'</script>
 </head>
+
 <body>
     <div class="row content">
         <input type="hidden" asp-for="@Model.Id" />
@@ -50,7 +52,8 @@
                         {
                             using (Html.BeginForm())
                             {
-                                <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADr32LIjcxE7pM5BzdZO_t8AFDyTv9LsE&libraries=places&sensor=false"></script>
+                                <script type="text/javascript"
+                                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADr32LIjcxE7pM5BzdZO_t8AFDyTv9LsE&libraries=places&sensor=false"></script>
                                 <input type="hidden" asp-for="LastUrl" />
                                 <div class="form">
                                     <div asp-validation-summary="All"></div>
@@ -59,7 +62,8 @@
                                         <input type="hidden" id="successed" value="true" />
 
                                         <div class="success row validation-summary-success">
-                                            <i class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.UpdatedSuccessfully
+                                            <i
+                                                class="mdi mdi-checkbox-marked-circle-outline m-r--s"></i>@Messages.UpdatedSuccessfully
                                         </div>
                                     }
                                     <div class="row form-input">
@@ -68,11 +72,13 @@
                                                 <label>@Labels.Avatar</label>
                                             </div>
                                             <div class="left m-b--m">
-                                                <img id="avatar" class="img-employee" src="~/employee/avatar/@(Model.Code)?f=@(Utilities.RandomString(4))" /><br />
+                                                <img id="avatar" class="img-employee"
+                                                    src="~/employee/avatar/@(Model.Code)?f=@(Utilities.RandomString(4))" /><br />
                                                 <span class="fileUpload">
                                                     <input class="chooseFile" type="file" id="file" />
                                                 </span>
-                                                <input class="btn-request waves-effect waves-light m-r--s right" type="button" id="upload" value="Upload" />
+                                                <input class="btn-request waves-effect waves-light m-r--s right" type="button"
+                                                    id="upload" value="Upload" />
                                             </div>
                                         </div>
                                     </div>
@@ -138,8 +144,7 @@
                                             </div>
                                             <div class="left">
                                                 <div class="datepicker-button select--s">
-                                                    <date-picker name="DateOfBirth"
-                                                         value="@Model.DateOfBirth">
+                                                    <date-picker name="DateOfBirth" value="@Model.DateOfBirth">
                                                     </date-picker>
                                                     <i class="mdi-action-event calendar-icon left"></i>
                                                 </div>
@@ -181,16 +186,17 @@
                                         </div>
                                     </div>
                                     <div class="row form-input">
-	                                    <div class="col m-r--m">
-		                                    <div class="left label--mxxl">
-			                                    <label for="JobTitleId">@Labels.JobTitle</label>
-		                                    </div>
-		                                    <div class="left select--l">
-			                                    <select asp-for="JobTitleId" asp-items="@(new SelectList(Model.JobTitles, "Id", "Name"))">
-			                                    </select>
-			                                    <span asp-validation-for="JobTitleId"></span>
-		                                    </div>
-	                                    </div>
+                                        <div class="col m-r--m">
+                                            <div class="left label--mxxl">
+                                                <label for="JobTitleId">@Labels.JobTitle</label>
+                                            </div>
+                                            <div class="left select--l">
+                                                <select asp-for="JobTitleId"
+                                                    asp-items="@(new SelectList(Model.JobTitles, "Id", "Name"))">
+                                                </select>
+                                                <span asp-validation-for="JobTitleId"></span>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row form-input">
                                         <div class="col">
@@ -199,72 +205,80 @@
                                             </div>
                                             <div class="left input--l">
                                                 <span id="JobGradeCode" class="txt-bold tooltip"
-	                                                  title="@(Model.JobGradeCode != null ? $"{Labels.EffectiveDate}: {Model.AffectedDate.ToDateMonthYearFormatedDate()}" : "")">
-		                                            @(Model.JobGradeCode ?? "")
-	                                            </span>
-                                                <a class="viewhistoryjobgrade" id="viewhistoryjobgrade" href="javascript:;" style="margin-left:5px; margin-right:10px;" @(Model.JobGradeCode == null ? "hidden" : "")>
-		                                            <i class="mdi mdi-information-outline mdi-dark tooltip" title="View history"></i>
-	                                            </a>
-	                                            <a class="btn-ok waves-effect waves-light" id="jobGrade" href="javascript:;">
-		                                            @Labels.Update
-	                                            </a>
-                                            </div>
-                                        </div>
+                                                    title="@(Model.JobGradeCode != null ? $"{Labels.EffectiveDate}: {Model.AffectedDate.ToDateMonthYearFormatedDate()}" : "")">
+                                                    @(Model.JobGradeCode ?? "")
+                                                </span>
+                                                <a class="viewhistoryjobgrade" id="viewhistoryjobgrade" href="javascript:;"
+                                                    style="margin-left:5px; margin-right:10px;" @(Model.JobGradeCode == null ?
+                                                    "hidden" : "")>
+                                            <i class="mdi mdi-information-outline mdi-dark tooltip"
+                                                title="View history"></i>
+                                        </a>
+                                        <a class="btn-ok waves-effect waves-light" id="jobGrade" href="javascript:;">
+                                            @Labels.Update
+                                        </a>
                                     </div>
-                                    <div class="row form-input m-t--m">
-	                                    <div class="col">
-		                                    <div class="left label--mxxl">
-			                                    <label>@Labels.ManagementGrade</label>
-		                                    </div>
-		                                    <div class="left input--l">
-                                                <span id="ManagementGradeCode" class="txt-bold tooltip"
-			                                          title="@(Model.ManagementGradeCode != null ? $"{Labels.EffectiveDate}: {Model.AffectedDate.ToDateMonthYearFormatedDate()}" : "")">
-				                                    @(Model.ManagementGradeCode ?? "")
-			                                    </span>
-                                                <a class="viewhistoryjobgrade" id="viewhistorymanagementgrade" href="javascript:;" style="margin-left:5px; margin-right:10px;" @(Model.ManagementGradeCode == null ? "hidden" : "")>
-				                                    <i class="mdi mdi-information-outline mdi-dark tooltip" title="View history"></i>
-			                                    </a>
-			                                    <a class="btn-ok waves-effect waves-light" id="managementGrade" href="javascript:;">
-				                                    @Labels.Update
-			                                    </a>
-		                                    </div>
-	                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input m-t--m">
+                                <div class="col">
+                                    <div class="left label--mxxl">
+                                        <label>@Labels.ManagementGrade</label>
                                     </div>
-                                    <div class="row form-input m-t--m">
-                                        <div class="col m-r--m">
-                                            <div class="left label--mxxl">
-                                                <label for="SalaryGroupId">@Labels.SDGroup</label>
-                                            </div>
-                                            <div class="left select--l">
-                                                <select asp-for="SalaryGroupId" asp-items="@(new SelectList(ViewBag.SalaryGroups, "SalaryGroupId", "Name"))">
-                                                </select>
-                                                <span asp-validation-for="SalaryGroupId"></span>
-                                            </div>
-                                        </div>
+                                    <div class="left input--l">
+                                        <span id="ManagementGradeCode" class="txt-bold tooltip"
+                                            title="@(Model.ManagementGradeCode != null ? $"{Labels.EffectiveDate}: {Model.AffectedDate.ToDateMonthYearFormatedDate()}" : "")">
+                                            @(Model.ManagementGradeCode ?? "")
+                                        </span>
+                                        <a class="viewhistoryjobgrade" id="viewhistorymanagementgrade"
+                                            href="javascript:;" style="margin-left:5px; margin-right:10px;"
+                                            @(Model.ManagementGradeCode == null ? "hidden" : "")>
+                                            <i class="mdi mdi-information-outline mdi-dark tooltip"
+                                                title="View history"></i>
+                                        </a>
+                                        <a class="btn-ok waves-effect waves-light" id="managementGrade"
+                                            href="javascript:;">
+                                            @Labels.Update
+                                        </a>
                                     </div>
-                                    <div class="row form-input m-t--m">
-                                        <div class="col m-r--m">
-                                            <div class="left label--mxxl">
-                                                <label for="Phone">@Labels.Phone</label>
-                                            </div>
-                                            <div class="left input--l">
-                                                <input asp-for="Phone" />
-                                                <span asp-validation-for="Phone"></span>
-                                            </div>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="row form-input m-t--m">
+                                <div class="col m-r--m">
+                                    <div class="left label--mxxl">
+                                        <label for="SalaryGroupId">@Labels.SDGroup</label>
                                     </div>
-                                    <div class="row form-input">
-                                        <div class="col m-r--m">
-                                            <div class="left label--mxxl">
-                                                <label for="Gender">@Labels.Gender</label>
-                                            </div>
-                                            <div class="left select--l">
-                                                @{
+                                    <div class="left select--l">
+                                        <select asp-for="SalaryGroupId"
+                                            asp-items="@(new SelectList(ViewBag.SalaryGroups, "SalaryGroupId", "Name"))">
+                                        </select>
+                                        <span asp-validation-for="SalaryGroupId"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input m-t--m">
+                                <div class="col m-r--m">
+                                    <div class="left label--mxxl">
+                                        <label for="Phone">@Labels.Phone</label>
+                                    </div>
+                                    <div class="left input--l">
+                                        <input asp-for="Phone" />
+                                        <span asp-validation-for="Phone"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col m-r--m">
+                                    <div class="left label--mxxl">
+                                        <label for="Gender">@Labels.Gender</label>
+                                    </div>
+                                    <div class="left select--l">
+                                        @{
                                                     var gender = new List<SelectListItem>
-                                        {
-                                        new SelectListItem {Text = "Female", Value = "0"},
-                                        new SelectListItem {Text = "Male", Value = "1"}
-                                        };
+                                                                                {
+                                                                                new SelectListItem {Text = "Female", Value = "0"},
+                                                                                new SelectListItem {Text = "Male", Value = "1"}
+                                                                                };
                                                 }
                                                 <select asp-for="Gender" asp-items="@gender">
                                                 </select>
@@ -288,9 +302,8 @@
                                                 <label for="IssuedDate">@Labels.IssuedDate</label>
                                             </div>
                                             <div class="left datepicker-button select--s">
-                                                <date-picker name="IssuedDate"
-                                                     value="@Model.IssuedDate"
-                                                     max-date="@DateTimeOffset.Now.DateTime.ToClientTimeZone()">
+                                                <date-picker name="IssuedDate" value="@Model.IssuedDate"
+                                                    max-date="@DateTimeOffset.Now.DateTime.ToClientTimeZone()">
                                                 </date-picker>
                                                 <i class="mdi-action-event calendar-icon left"></i>
                                             </div>
@@ -385,7 +398,8 @@
                                                 <input type="text" id="geoMapAddress" />
                                             </div>
                                             <div class='left'>
-                                                <input class="btn-submit waves-effect waves-light" type="button" value="Search" id="searchmap" />
+                                                <input class="btn-submit waves-effect waves-light" type="button" value="Search"
+                                                    id="searchmap" />
                                             </div>
                                         </div>
                                         <div class='geolocationMap'>
@@ -423,7 +437,8 @@
                                                 <label for="TeamId">@Labels.Team</label>
                                             </div>
                                             <div class="left select--l">
-                                                <select asp-for="TeamId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
+                                                <select asp-for="TeamId"
+                                                    asp-items="@(new SelectList(Model.Teams, "Id", "Name"))">
                                                 </select>
                                                 <span asp-validation-for="TeamId"></span>
                                             </div>
@@ -438,8 +453,10 @@
                                                 @for (var i = 0; i < Model.Teams.Count; i++)
                                                 {
                                                     var id = "SubGroupArray" + @Model.Teams[i].Id.ToString();
-                                                    var isChecked = Array.IndexOf(@Model.SubGroupArray, @Model.Teams[i].Id.ToString()) > -1;
-                                                    <input checked="@isChecked" class="filled-in SubGroupArray" id="@id" name="SubGroupArray" type="checkbox" value="@Model.Teams[i].Id">
+                                                    var isChecked = Array.IndexOf(@Model.SubGroupArray,
+                                                    @Model.Teams[i].Id.ToString()) > -1;
+                                                    <input checked="@isChecked" class="filled-in SubGroupArray" id="@id"
+                                                        name="SubGroupArray" type="checkbox" value="@Model.Teams[i].Id">
                                                     <label for="@id">@Model.Teams[i].Name</label>
                                                 }
                                             </div>
@@ -451,7 +468,8 @@
                                                 <label for="PayrollCompanyId">@Labels.PayrollCompany</label>
                                             </div>
                                             <div class="left select--l">
-                                                <select asp-for="PayrollCompanyId" asp-items="@(new SelectList(ViewBag.PayrollCompanies, "PayrollCompanyId", "Name"))">
+                                                <select asp-for="PayrollCompanyId"
+                                                    asp-items="@(new SelectList(ViewBag.PayrollCompanies, "PayrollCompanyId", "Name"))">
                                                 </select>
                                                 <span asp-validation-for="PayrollCompanyId"></span>
                                             </div>
@@ -465,20 +483,22 @@
                                             <div class="left role input--l">
                                                 @{
                                                     var roles = new List<SelectListItem>
-                                                    {
-                                                        new () {Text = "Assistant leader", Value = "1"},
-                                                        new () {Text = "Leader", Value = "2"},
-                                                        new () {Text = "Human resource", Value = "3"},
-                                                        new () {Text = "System admin", Value = "4"}
-                                                    };
+                                                                                {
+                                                                                new () {Text = "Assistant leader", Value = "1"},
+                                                                                new () {Text = "Leader", Value = "2"},
+                                                                                new () {Text = "Human resource", Value = "3"},
+                                                                                new () {Text = "System admin", Value = "4"}
+                                                                                };
                                                 }
-                                                <input type="checkbox" class="filled-in" id="Member" name="Member" checked="checked" disabled="disabled" value="true" />
+                                                <input type="checkbox" class="filled-in" id="Member" name="Member"
+                                                    checked="checked" disabled="disabled" value="true" />
                                                 <label for="Member">@Labels.Member</label>
                                                 @for (var i = 0; i < roles.Count; i++)
                                                 {
                                                     var id = "RoleArray" + roles[i].Value;
                                                     var isChecked = Array.IndexOf(@Model.RoleArray, roles[i].Value) > -1;
-                                                    <input checked="@isChecked" class="filled-in" id="@id" name="RoleArray" type="checkbox" value="@roles[i].Value">
+                                                    <input checked="@isChecked" class="filled-in" id="@id" name="RoleArray"
+                                                        type="checkbox" value="@roles[i].Value">
                                                     <label for="@id">@roles[i].Text</label>
                                                 }
                                                 <span asp-validation-for="RoleArray"></span>
@@ -492,8 +512,7 @@
                                             </div>
                                             <div class="left">
                                                 <div class="datepicker-button select--s">
-                                                    <date-picker name="GroupDate"
-                                                         value="@Model.GroupDate">
+                                                    <date-picker name="GroupDate" value="@Model.GroupDate">
                                                     </date-picker>
                                                     <i class="mdi-action-event calendar-icon left"></i>
                                                 </div>
@@ -507,8 +526,7 @@
                                             </div>
                                             <div class="left">
                                                 <div class="datepicker-button select--s">
-                                                    <date-picker name="JoinedDate"
-                                                         value="@Model.JoinedDate">
+                                                    <date-picker name="JoinedDate" value="@Model.JoinedDate">
                                                     </date-picker>
                                                     <i class="mdi-action-event calendar-icon left"></i>
                                                 </div>
@@ -523,8 +541,7 @@
                                             </div>
                                             <div class="left">
                                                 <div class="datepicker-button select--s">
-                                                    <date-picker name="ConfirmedDate"
-                                                         value="@Model.ConfirmedDate">
+                                                    <date-picker name="ConfirmedDate" value="@Model.ConfirmedDate">
                                                     </date-picker>
                                                     <i class="mdi-action-event calendar-icon left"></i>
                                                 </div>
@@ -539,8 +556,7 @@
                                             </div>
                                             <div class="left">
                                                 <div class="datepicker-button select--s">
-                                                    <date-picker name="ResignedDate"
-                                                         value="@Model.ResignedDate">
+                                                    <date-picker name="ResignedDate" value="@Model.ResignedDate">
                                                     </date-picker>
                                                     <i class="mdi-action-event calendar-icon left"></i>
                                                 </div>
@@ -600,8 +616,7 @@
                                             <label for="PassportExp">@Labels.PassportExp</label>
                                         </div>
                                         <div class="left datepicker-button select--s">
-                                            <date-picker name="PassportExp"
-                                                 value="@Model.PassportExp">
+                                            <date-picker name="PassportExp" value="@Model.PassportExp">
                                             </date-picker>
                                             <i class="mdi-action-event calendar-icon left"></i>
                                         </div>
@@ -623,7 +638,8 @@
                                             <label>@Labels.LeaveBalance</label>
                                         </div>
                                         <div class="left input--l">
-                                            <a class="btn-ok waves-effect waves-light" href="~/annualleave/employee?employeeId=@Model.Id&Year=@DateTimeOffset.Now.DateTime.ToClientTimeZone().Year">@Labels.Update</a>
+                                            <a class="btn-ok waves-effect waves-light"
+                                                href="~/annualleave/employee?employeeId=@Model.Id&Year=@DateTimeOffset.Now.DateTime.ToClientTimeZone().Year">@Labels.Update</a>
                                         </div>
                                     </div>
                                 </div>
@@ -633,7 +649,8 @@
                                             <label>@Labels.WorkingCalendar</label>
                                         </div>
                                         <div class="left">
-                                            <a class="btn-ok waves-effect waves-light" href="~/employee/defaultschedule/@Model.Id">@Labels.Update</a>
+                                            <a class="btn-ok waves-effect waves-light"
+                                                href="~/employee/defaultschedule/@Model.Id">@Labels.Update</a>
                                         </div>
                                     </div>
                                 </div>
@@ -669,30 +686,36 @@
                                                                 <tbody>
                                                                     <tr>
                                                                         <td>
-                                                                            @(Model.ToeicScore.Listening.HasValue ? Model.ToeicScore.Listening.Value.ToString() : "-")
+                                                                            @(Model.ToeicScore.Listening.HasValue ?
+                                                                                                                                            Model.ToeicScore.Listening.Value.ToString() : "-")
                                                                         </td>
                                                                         <td>
-                                                                            @(Model.ToeicScore.Reading.HasValue ? Model.ToeicScore.Reading.Value.ToString() : "-")
+                                                                            @(Model.ToeicScore.Reading.HasValue ?
+                                                                                                                                            Model.ToeicScore.Reading.Value.ToString() : "-")
                                                                         </td>
                                                                         <td>
-                                                                            @(Model.ToeicScore.Speaking.HasValue ? Model.ToeicScore.Speaking.Value.ToString() : "-")
+                                                                            @(Model.ToeicScore.Speaking.HasValue ?
+                                                                                                                                            Model.ToeicScore.Speaking.Value.ToString() : "-")
                                                                         </td>
                                                                         <td>
-                                                                            @(Model.ToeicScore.Writing.HasValue ? Model.ToeicScore.Writing.Value.ToString() : "-")
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn-ok waves-effect waves-light m-l--s" id="toeic" href="javascript:;">@Labels.Update</a>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            }
+                                                                            @(Model.ToeicScore.Writing.HasValue ?
+                                                                                                                                            Model.ToeicScore.Writing.Value.ToString() : "-")
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn-ok waves-effect waves-light m-l--s" id="toeic"
+                                                            href="javascript:;">@Labels.Update</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                                                        }
                                             else
                                             {
-                                                <a class="btn-ok waves-effect waves-light" id="toeic" href="javascript:;">@Labels.Update</a>
+                                                <a class="btn-ok waves-effect waves-light" id="toeic"
+                                                    href="javascript:;">@Labels.Update</a>
                                             }
                                         </div>
                                     </div>
@@ -727,18 +750,37 @@
                                     </div>
                                 </div>
                                 <div class="row form-input m-t--m">
-	                                <div class="col m-r--m">
-		                                <div class="left label--mxxl">
-			                                <label for="AutoApproveRequest">@Labels.AutoApproveRequest</label>
-		                                </div>
-		                                <div class="left input">
+                                    <div class="col m-r--m">
+                                        <div class="left label--mxxl">
+                                            <label for="AutoApproveRequest">@Labels.AutoApproveRequest</label>
+                                        </div>
+                                        <div class="left input">
                                             <input class="filled-in" asp-for="AutoApproveRequest" type="checkbox">
                                             <label for="AutoApproveRequest"></label>
                                             <span asp-validation-for="AutoApproveRequest"></span>
-		                                </div>
-	                                </div>
-	                                <div class="col">
-	                                </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                    </div>
+                                </div>
+                                <div class="row form-input m-t--m">
+                                    <div class="col m-r--m">
+                                        <div class="left label--mxxl">
+                                            <label for="IsLocal">Category</label>
+                                        </div>
+                                        <div class="left select--l">
+                                            @{
+                                                var categories = new List<SelectListItem>
+                                                                        {
+                                                                        new SelectListItem {Text = "Local", Value = "true", Selected = Model.IsLocal},
+                                                                        new SelectListItem {Text = "Expat", Value = "false", Selected = !Model.IsLocal}
+                                                                        };
+                                            }
+                                            <select asp-for="IsLocal" asp-items="@categories">
+                                            </select>
+                                            <span asp-validation-for="IsLocal"></span>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row form-input m-t--m">
                                     <div class="col m-r--m">
@@ -746,8 +788,10 @@
                                         <div class="left">
                                             @Html.AntiForgeryToken()
                                             <input type="hidden" asp-for="Id" />
-                                            <input class="btn-delete waves-effect waves-light m-r--m" type="button" id="delete" value="@Labels.Delete?" />
-                                            <input class="btn-submit waves-effect waves-light" type="submit" value="@Labels.Save" />
+                                            <input class="btn-delete waves-effect waves-light m-r--m" type="button" id="delete"
+                                                value="@Labels.Delete?" />
+                                            <input class="btn-submit waves-effect waves-light" type="submit"
+                                                value="@Labels.Save" />
                                         </div>
                                     </div>
                                 </div>
@@ -771,4 +815,5 @@
         </div>
     </div>
 </body>
+
 </html>
