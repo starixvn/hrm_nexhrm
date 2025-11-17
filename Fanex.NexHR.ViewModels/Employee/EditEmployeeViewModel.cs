@@ -94,6 +94,8 @@
 
         public bool AutoApproveRequest { get; set; }
 
+        public bool IsLocal { get; set; }
+
         public Toeic ToeicScore { get; set; }
 
         public string GeoMapLatitude { get; set; }
@@ -209,6 +211,7 @@
                 Enabled = employee.Enabled;
                 IsSpecialUser = employee.IsSpecialUser;
                 AutoApproveRequest = employee.AutoApproveRequest;
+                IsLocal = employee.IsLocal;
                 ToeicScore = employee.ToeicScore;
                 GeoMapLatitude = employee.GeoMapLatitude;
                 GeoMapLongtitude = employee.GeoMapLongtitude;
@@ -221,7 +224,7 @@
                 ContactAddress = employee.ContactAddress;
                 EducationBackground = employee.EducationBackground;
                 JobGradeId = employee.JobGradeId;
-                JobGradeCode  = employee.JobGradeCode;
+                JobGradeCode = employee.JobGradeCode;
                 JobGradeName = employee.JobGradeName;
                 AffectedDate = employee.AffectedDate;
                 Note = employee.Note;
