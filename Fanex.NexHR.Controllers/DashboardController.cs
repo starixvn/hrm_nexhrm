@@ -134,18 +134,18 @@
             {
                 model.MissingCheckInOutList = await GetMissingCheckInOut(employeeId);
                 model.PendingRequestsList = await GetPendingRequest();
-                model.IsAllowInputSpendTime = CurrentUserSetting.DisplayRedmineInputSpendTime;
                 model.EmployeeLatetInEarlyOuts = await GetEmployeeLateInEarlyOut();
 
-                if (CurrentUserSetting.DisplayRedmineTask)
-                {
-                    model.InProgressTasks = await redmineService.GetInProgressIssues(HttpContext.User.Identity.Name);
-                }
+                ////model.IsAllowInputSpendTime = CurrentUserSetting.DisplayRedmineInputSpendTime;
+                ////if (CurrentUserSetting.DisplayRedmineTask)
+                ////{
+                ////    model.InProgressTasks = await redmineService.GetInProgressIssues(HttpContext.User.Identity.Name);
+                ////}
 
-                if (CurrentUserSetting.DisplayRemindLogtime)
-                {
-                    model.ForgotLogtimeDates = await redmineService.GetHaveNotLogTimeDates(HttpContext.User.Identity.Name, CurrentUser.Id);
-                }
+                ////if (CurrentUserSetting.DisplayRemindLogtime)
+                ////{
+                ////    model.ForgotLogtimeDates = await redmineService.GetHaveNotLogTimeDates(HttpContext.User.Identity.Name, CurrentUser.Id);
+                ////}
             }
 
             return PartialView("ToDoList", model);
