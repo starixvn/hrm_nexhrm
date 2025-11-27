@@ -450,13 +450,12 @@ public class EmployeeController : BaseController
 
     [HrmAuthorize(UserRoles = "HR")]
     [HttpPost]
-    public async Task<IActionResult> Delete(int employeeId, DateTime resignedDate)
+    public async Task<IActionResult> Delete(int empId, DateTime resignedDate)
     {
-        var employee = await GetEmployeeById(employeeId);
+        var employee = await GetEmployeeById(empId);
         var criteria = new DeleteEmployeeCriteria
         {
-            EmployeeId = employeeId,
-            ResignedDate = resignedDate,
+            EmpId = empId,
             ModifiedBy = CurrentUser.Id
         };
         await authService.AuthorizeGoSystemAsync();
