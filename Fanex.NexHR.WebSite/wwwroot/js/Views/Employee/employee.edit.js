@@ -628,15 +628,9 @@ function calculateOldToeicScore() {
 function initEventForDelete() {
     $("#delete").on("click", function () {
         confirm(_messages.confirmDelete, function () {
-            var resignedDate = $("#ResignedDate").val();
-            if (resignedDate.length === 0) {
-                alert(_messages.requireResignedDate);
-                return;
-            }
-
             $.post(
                 _global.root + "employee/Delete",
-                { employeeId: $("#Id").val(), resignedDate: resignedDate },
+                { empId: $("#Id").val() },
                 function (response) {
                     if (response.IsSuccessful) {
                         document.location =
