@@ -35,11 +35,30 @@ $(document).ready(function () {
     });
 
     $("#FromDate, #ToDate").change(function () {
-        var fromDate = Date.parse($("#FromDate").val()),
-            toDate = Date.parse($("#ToDate").val()),
-            dayDiff = (toDate - fromDate) / 1000 / 60 / 60 / 24;
+        var fromDateVal = $("#FromDate").val(),
+            toDateVal = $("#ToDate").val();
 
-        if (dayDiff === 0) {
+        // Check if both dates are provided
+        if (!fromDateVal || !toDateVal) {
+            $("#numDay").val(0);
+            return;
+        }
+
+        var fromDate = new Date(fromDateVal),
+            toDate = new Date(toDateVal);
+
+        // Check if dates are valid
+        if (isNaN(fromDate.getTime()) || isNaN(toDate.getTime())) {
+            $("#numDay").val(dayDiff);
+            return;
+        }
+
+        // Calculate difference in days (inclusive)
+        var timeDiff = toDate.getTime() - fromDate.getTime();
+        var dayDiff = Math.round(timeDiff / (1000 * 60 * 60 * 24)) + 1;
+
+        // Ensure minimum of 1 day
+        if (dayDiff < 1) {
             dayDiff = 1;
         }
 
@@ -51,7 +70,7 @@ $(document).ready(function () {
         $.ajax({
             url: _global.root + 'holiday/Create',
             data: $('.card-body form').serialize(),
-            type: 'POST',            
+            type: 'POST',
             beforeSend: function () {
                 $('.loading-process').fadeIn(300);
             },
@@ -95,9 +114,9 @@ $(document).ready(function () {
     var successed = $('#successed').val();
     if (successed === 'true') {
         confirm('<i class="icon-success mdi mdi-checkbox-marked-circle-outline"></i><p>Successfull!</p><p>Press OK to continue</p>',
-                function () {
-                    document.location = _global.root + 'Holiday/Index';
-                }
-            );
+            function () {
+                document.location = _global.root + 'Holiday/Index';
+            }
+        );
     }
 });
